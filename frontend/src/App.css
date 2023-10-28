@@ -1,38 +1,110 @@
-.App {
+body {
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 1px;
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.form {
+  border-radius: 7px;
+  background: #ffffff;
+  box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.05);
+  color: #000;
+  border-color: transparent;
+  width: 500px;
+  min-height: 20vh;
+  border-style: solid;
+  border-width: 1px;
+  padding: 20px 10px;
+  margin: 100px auto 0;
+}
+
+.form-title {
   text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: lighter;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.input-wrap {
+  width: 480px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.google-wrap {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.btn-wrap {
+  width: 480px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.form-label {
+  display: block;
+  margin-bottom: 10px;
+  text-align: left;
+  font-size: 15px;
+  color: #000;
+}
+
+.form-control {
+  padding: 10px 5px;
+  width: 100%;
+  border: 2px solid #f8f9fa;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.form-control:focus {
+  outline: none;
+}
+
+.form-control-error {
+  padding: 10px 5px;
+  width: 100%;
+  border: 1px solid #f23637;
+  margin-bottom: 20px;
+}
+
+.form-control-error:focus {
+  outline: #f23637;
+}
+
+.error {
+  color: #f23637;
+  font-size: 12px;
+  margin-bottom: 5px;
+  display: block;
+  font-weight: lighter;
+  letter-spacing: 2px;
+}
+
+.form-btn {
+  background: #75c15b;
+  border: none;
+  margin: 0 auto;
+  padding: 10px 20px;
+  color: #fff;
+  cursor: pointer;
+  width: 100%;
+  transition: all .2s;
+}
+
+.form-btn:hover,
+.form-btn:focus {
+  color: #fff;
+  background-color:#ffa133;
 }
