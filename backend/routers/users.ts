@@ -49,7 +49,12 @@ usersRouter.post("/sessions", async (req, res, next) => {
         user.generateToken();
         await user.save();
 
-        res.send(user);
+      const answer = {
+        user,
+        message: "You are authenticated!",
+      };
+
+      return res.send(answer);
     } catch (e) {
       if (e instanceof mongoose.Error.ValidationError) {
           return res.status(400).send(e);
