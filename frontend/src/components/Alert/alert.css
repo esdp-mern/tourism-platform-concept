@@ -1,0 +1,42 @@
+.alert {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  width: 250px;
+  min-height: 50px;
+  border-radius: 6px;
+  padding: 15px;
+  color: white;
+  font-size: 14px;
+  line-height: 20px;
+  transition: 0.5s;
+  z-index: 2;
+}
+
+.alert-info {
+  background: #52bfef;
+}
+
+.alert-info:hover {
+  background: #3f9fcb;
+}
+
+.alert-warning {
+  background: #ffa133;
+}
+
+.alert-warning:hover {
+  background: #de9337;
+}
+
+.alert-error {
+  background: #e14545;
+}
+
+.alert-error:hover {
+  background: #c22d2d;
+}
+
+.alert-disabled {
+  transform: translateX(-150%);
+}

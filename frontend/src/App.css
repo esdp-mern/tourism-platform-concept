@@ -16,6 +16,14 @@ body {
   margin: 0 auto;
 }
 
+main {
+  position: relative;
+}
+
+.form-block {
+  padding-top: 100px;
+}
+
 .form {
   border-radius: 7px;
   background: #ffffff;
@@ -27,7 +35,7 @@ body {
   border-style: solid;
   border-width: 1px;
   padding: 20px 10px;
-  margin: 100px auto 0;
+  margin: 0 auto;
 }
 
 .form-title {
