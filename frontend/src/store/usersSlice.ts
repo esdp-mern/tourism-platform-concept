@@ -1,22 +1,22 @@
 import {User, ValidationError} from "../type";
 import {createSlice} from "@reduxjs/toolkit";
-import {register, signUp} from "./usersThunk";
+import {register, signIn} from "./usersThunk";
 import {RootState} from "../app/store";
 
 interface UsersState {
   user: User | null;
   registerLoading: boolean;
   registerError: ValidationError | null;
-  signUpLoading: boolean;
-  signUpError: ValidationError | null;
+  signInLoading: boolean;
+  signInError: ValidationError | null;
 }
 
 const initialState: UsersState = {
   user: null,
   registerLoading: false,
   registerError: null,
-  signUpLoading: false,
-  signUpError: null,
+  signInLoading: false,
+  signInError: null,
 };
 
 export const usersSlice = createSlice({
@@ -37,17 +37,17 @@ export const usersSlice = createSlice({
       state.registerError = error || null;
     });
 
-    builder.addCase(signUp.pending, (state) => {
-      state.signUpLoading = true;
-      state.signUpError = null;
+    builder.addCase(signIn.pending, (state) => {
+      state.signInLoading = true;
+      state.signInError = null;
     });
-    builder.addCase(signUp.fulfilled, (state, {payload: userResponse}) => {
-      state.signUpLoading = false;
+    builder.addCase(signIn.fulfilled, (state, {payload: userResponse}) => {
+      state.signInLoading = false;
       state.user = userResponse.user;
     });
-    builder.addCase(signUp.rejected, (state, {payload: error}) => {
-      state.signUpLoading = false;
-      state.signUpError = error || null;
+    builder.addCase(signIn.rejected, (state, {payload: error}) => {
+      state.signInLoading = false;
+      state.signInError = error || null;
     });
   },
 });
@@ -58,7 +58,7 @@ export const selectRegisterLoading = (state: RootState) =>
   state.users.registerLoading;
 export const selectRegisterError = (state: RootState) =>
   state.users.registerError;
-export const selectSignUpLoading = (state: RootState) =>
-  state.users.signUpLoading;
-export const selectSignUpError = (state: RootState) =>
-  state.users.signUpError;
+export const selectSignInLoading = (state: RootState) =>
+  state.users.signInLoading;
+export const selectSignInError = (state: RootState) =>
+  state.users.signInError;

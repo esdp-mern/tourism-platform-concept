@@ -1,4 +1,4 @@
-export interface signUpMutation {
+export interface signInMutation {
   username: string;
   password: string;
 }
