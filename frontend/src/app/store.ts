@@ -12,7 +12,7 @@ import {
 import {usersReducer} from "../store/usersSlice";
 
 const usersPersistConfig = {
-    key: "store:users",
+    key: "tourism-platform-concept:users",
     storage,
     whitelist: ["user"],
 };

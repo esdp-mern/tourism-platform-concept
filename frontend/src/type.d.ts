@@ -1,3 +1,8 @@
+export interface signUpMutation {
+  username: string;
+  password: string;
+}
+
 export interface RegisterMutation {
     username: string;
     password: string;
