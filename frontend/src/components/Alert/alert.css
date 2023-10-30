@@ -1,0 +1,29 @@
+.alert {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  width: 250px;
+  min-height: 50px;
+  border-radius: 6px;
+  padding: 15px;
+  color: white;
+  font-size: 14px;
+  line-height: 20px;
+  transition: 0.5s;
+}
+
+.alert-info {
+  background: #52bfef;
+}
+
+.alert-warning {
+  background: #ffa133;
+}
+
+.alert-error {
+  background: #ea5050;
+}
+
+.alert-disabled {
+  transform: translateX(-150%);
+}

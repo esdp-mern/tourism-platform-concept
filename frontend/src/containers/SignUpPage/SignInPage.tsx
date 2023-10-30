@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 import SignInForm from "../../components/SignUpForm/SignInForm";
-import {Fade} from "react-awesome-reveal";
+import { Fade } from "react-awesome-reveal";
 
 const SignInPage = () => {
   return (
     <div className="container">
       <Fade>
-        <SignInForm/>
+        <SignInForm />
       </Fade>
     </div>
   );

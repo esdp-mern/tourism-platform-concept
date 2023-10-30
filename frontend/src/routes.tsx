@@ -8,9 +8,9 @@ const useRoutes = (isAuthenticated: boolean) => (
     {/* Route for everything */}
     {!isAuthenticated ? (
       <>
-        <Route path="/signup" element={<RegisterPage />} />
-        <Route path="/login" element={<SignInPage />} />
-        <Route path="*" element={<Navigate to="/login" />} />
+        <Route path="/sign-up" element={<RegisterPage />} />
+        <Route path="/sign-in" element={<SignInPage />} />
+        <Route path="*" element={<Navigate to="/sign-in" />} />
       </>
     ) : (
       <>{/* Route for authorized users only */}</>
