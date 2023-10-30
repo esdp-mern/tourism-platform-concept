@@ -1,11 +1,11 @@
 export interface IUser {
-    _id: string;
-    username: string;
-    password: string;
-    token: string;
-    role: string;
-    displayName: string;
-    email: string;
-    appleID?: string;
-    googleID?: string;
+  _id: string;
+  username: string;
+  password: string;
+  token: string;
+  role: string;
+  displayName: string;
+  email: string;
+  appleID?: string;
+  googleID?: string;
 }
