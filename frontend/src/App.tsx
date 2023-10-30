@@ -1,16 +1,13 @@
-import React from 'react';
-import {Route, Routes} from "react-router-dom";
-import RegisterPage from "./containers/RegisterPage/RegisterPage";
-import SignInPage from "./containers/SignUpPage/SignInPage";
-import './App.css';
+import React from "react";
+import { useAppSelector } from "./app/hook";
+import useRoutes from "./routes";
+import Layout from "./components/Layout/Layout";
 
-function App() {
-  return (
-    <Routes>
-      <Route path="/register" element={<RegisterPage/>}/>
-      <Route path="/sign-in" element={<SignInPage/>}/>
-    </Routes>
-  );
-}
+const App = () => {
+  const { user } = useAppSelector((state) => state.users);
+  const routes = useRoutes(!!user);
+
+  return <Layout>{routes}</Layout>;
+};
 
 export default App;
