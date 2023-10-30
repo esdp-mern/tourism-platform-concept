@@ -3,6 +3,7 @@ import { useAppDispatch } from "../../app/hook";
 import { useNavigate } from "react-router-dom";
 import { signInMutation } from "../../type";
 import { signIn } from "../../store/usersThunk";
+import { setAlertData } from "../../store/usersSlice";
 
 const SignInForm = () => {
   const dispatch = useAppDispatch();
@@ -24,9 +25,10 @@ const SignInForm = () => {
     event.preventDefault();
     try {
       await dispatch(signIn(state)).unwrap();
+      dispatch(setAlertData({ message: "You have signed in!", type: "info" }));
       navigate("/");
     } catch (e) {
-      // nothing
+      dispatch(setAlertData({ message: "Something is wrong!", type: "error" }));
     }
   };
 
