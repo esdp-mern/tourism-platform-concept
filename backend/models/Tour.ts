@@ -36,6 +36,14 @@ const TourSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  image: {
+    type: String,
+    required: true
+  },
+  price: {
+    type: Number,
+    required: true
+  }
 });
 
 const Tour = mongoose.model("Tour", TourSchema);

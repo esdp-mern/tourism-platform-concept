@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import config from "./config";
 import usersRouter from "./routers/users";
+import toursRouter from "./routers/tours";
 
 const app = express();
 const port = 8000;
@@ -10,6 +11,7 @@ const port = 8000;
 app.use(cors());
 app.use(express.json());
 app.use("/users", usersRouter);
+app.use("/tours", toursRouter);
 
 app.get("*", (_, res) => res.sendStatus(404));
 
