@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useAppSelector } from "../../../app/hook";
 import { selectUser } from "../../../store/usersSlice";
-import AnonymousMenu from "./AnonymousMenu";
-import UserMenu from "./UserMenu";
+import AnonymousMenu from "./components/AnonymousMenu";
+import UserMenu from "./components/UserMenu";
 import "./AppToolBar.css";
 
 const AppToolBar = () => {
@@ -37,13 +37,10 @@ const AppToolBar = () => {
           <NavLink to="/partners" className="nav-link">
             Our partners
           </NavLink>
-          {user && (
-            <NavLink to="/profile" className="nav-link">
-              My profile
-            </NavLink>
-          )}
+          {user ? <UserMenu user={user} /> : <AnonymousMenu />}
         </nav>
         <div className="user-menu">
+          {user && <button className="logout">Logout</button>}
           <button
             className={`menu-btn ${menuShow ? "open" : ""}`}
             onClick={() => setMenuShow(!menuShow)}
@@ -55,7 +52,10 @@ const AppToolBar = () => {
           </button>
         </div>
         <div className={`tool-bar-menu ${menuShow ? "menu-active" : ""}`}>
-          {user ? <UserMenu user={user} /> : <AnonymousMenu />}
+          <button className="close-btn" onClick={() => setMenuShow(!menuShow)}>
+            <span></span>
+            <span></span>
+          </button>
         </div>
       </div>
     </div>
