@@ -46,7 +46,7 @@ const AppToolBar = () => {
           <NavLink to="/" className="nav-link">
             Home
           </NavLink>
-          <NavLink to="/tours" className="nav-link">
+          <NavLink to="/tours/all" className="nav-link">
             Tours
           </NavLink>
           <NavLink to="/partners" className="nav-link">

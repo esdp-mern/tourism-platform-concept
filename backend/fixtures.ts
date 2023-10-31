@@ -3,7 +3,7 @@ import crypto from "crypto";
 import config from "./config";
 import User from "./models/User";
 import Tour from "./models/Tour";
-import Guid from "./models/Guid";
+import Guide from "./models/Guide";
 
 const run = async () => {
   await mongoose.connect(config.db);
@@ -67,7 +67,7 @@ const run = async () => {
     },
   );
 
-  const [Artem, Andrey, Askar] = await Guid.create(
+  const [Artem, Andrey, Askar] = await Guide.create(
     {
       user: user._id,
       languages: ["kyrgyz", "russian", "english"],

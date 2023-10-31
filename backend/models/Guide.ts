@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import User from "./User";
 
-const GuidSchema = new mongoose.Schema({
+const GuideSchema = new mongoose.Schema({
   user: {
     type: mongoose.Types.ObjectId,
     ref: "User",
@@ -25,5 +25,5 @@ const GuidSchema = new mongoose.Schema({
   },
 });
 
-const Guid = mongoose.model("Guid", GuidSchema);
-export default Guid;
+const Guide = mongoose.model("Guide", GuideSchema);
+export default Guide;
