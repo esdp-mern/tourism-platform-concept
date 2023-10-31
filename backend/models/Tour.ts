@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Guid from "./Guid";
+import Guide from "./Guide";
 
 const TourSchema = new mongoose.Schema({
   guid: {
@@ -8,8 +8,8 @@ const TourSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: async (value: mongoose.Types.ObjectId) =>
-        await Guid.findById(value),
-      message: "Guid does not exist!",
+        await Guide.findById(value),
+      message: "Guide does not exist!",
     },
   },
   category: {
@@ -38,12 +38,12 @@ const TourSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    required: true
+    required: true,
   },
   price: {
     type: Number,
-    required: true
-  }
+    required: true,
+  },
 });
 
 const Tour = mongoose.model("Tour", TourSchema);
