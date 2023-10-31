@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useAppSelector } from "../../../app/hook";
 import { selectUser } from "../../../store/usersSlice";
 import AnonymousMenu from "./AnonymousMenu";
+import UserMenu from "./UserMenu";
 import "./AppToolBar.css";
 
 const AppToolBar = () => {
@@ -33,11 +34,16 @@ const AppToolBar = () => {
             Tours
           </NavLink>
           <NavLink to="/" className="nav-link">
-            Blog
+            Our partners
           </NavLink>
+          {user && (
+            <NavLink to="/" className="nav-link">
+              My profile
+            </NavLink>
+          )}
         </nav>
         <div className="user-menu">
-          <AnonymousMenu />
+          {user ? <UserMenu user={user} /> : <AnonymousMenu />}
         </div>
       </div>
     </div>
