@@ -7,7 +7,10 @@ interface IProps {
 
 const UserMenu: React.FC<IProps> = ({ user }) => {
   return (
-    <div>Hello, {user.displayName ? user.displayName : user.username}</div>
+    <div className="user-menu">
+      <p>Hello, {user.displayName ? user.displayName : user.username}</p>
+      <button className="logout-btn">logout</button>
+    </div>
   );
 };
 

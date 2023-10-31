@@ -9,6 +9,7 @@ import "./AppToolBar.css";
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);
   const [navShow, setNavShow] = useState(false);
+  const [menuShow, setMenuShow] = useState(false);
 
   return (
     <div className="container">
@@ -30,19 +31,30 @@ const AppToolBar = () => {
           <NavLink to="/" className="nav-link">
             Home
           </NavLink>
-          <NavLink to="/" className="nav-link">
+          <NavLink to="/tours" className="nav-link">
             Tours
           </NavLink>
-          <NavLink to="/" className="nav-link">
+          <NavLink to="/partners" className="nav-link">
             Our partners
           </NavLink>
           {user && (
-            <NavLink to="/" className="nav-link">
+            <NavLink to="/profile" className="nav-link">
               My profile
             </NavLink>
           )}
         </nav>
         <div className="user-menu">
+          <button
+            className={`menu-btn ${menuShow ? "open" : ""}`}
+            onClick={() => setMenuShow(!menuShow)}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+            <span>menu</span>
+          </button>
+        </div>
+        <div className={`tool-bar-menu ${menuShow ? "menu-active" : ""}`}>
           {user ? <UserMenu user={user} /> : <AnonymousMenu />}
         </div>
       </div>
