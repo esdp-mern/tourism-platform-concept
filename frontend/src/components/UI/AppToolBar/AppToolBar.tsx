@@ -1,18 +1,30 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { selectUser } from "../../../store/usersSlice";
-import { useAppSelector } from "../../../app/hook";
+import { selectUser, setAlertData, unsetUser } from "../../../store/usersSlice";
+import { useAppDispatch, useAppSelector } from "../../../app/hook";
 import AnonymousMenu from "./components/AnonymousMenu";
 import UserMenu from "./components/UserMenu";
 import ToolBarMenu from "./components/ToolBarMenu";
 import "./AppToolBar.css";
+import { logout } from "../../../store/usersThunk";
 
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
   const [navShow, setNavShow] = useState(false);
   const [menuShow, setMenuShow] = useState(false);
 
   const showMenu = () => setMenuShow(!menuShow);
+
+  const userLogout = () => {
+    try {
+      dispatch(unsetUser());
+      dispatch(logout());
+      dispatch(setAlertData({ message: "You have logged out!", type: "info" }));
+    } catch (e) {
+      dispatch(setAlertData({ message: "Something is wrong!", type: "error" }));
+    }
+  };
 
   return (
     <div className="container">
@@ -43,7 +55,11 @@ const AppToolBar = () => {
           {user ? <UserMenu user={user} /> : <AnonymousMenu />}
         </nav>
         <div className="user-menu">
-          {user && <button className="logout">Logout</button>}
+          {user && (
+            <button className="logout" onClick={userLogout}>
+              Logout
+            </button>
+          )}
           <button
             className={`menu-btn ${menuShow ? "open" : ""}`}
             onClick={() => setMenuShow(!menuShow)}
