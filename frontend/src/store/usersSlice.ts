@@ -31,6 +31,9 @@ export const usersSlice = createSlice({
     setAlertData: (state, action) => {
       state.alertData = action.payload;
     },
+    unsetUser: (state) => {
+      state.user = null;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(register.pending, (state) => {
@@ -72,3 +75,4 @@ export const selectSignInLoading = (state: RootState) =>
   state.users.signInLoading;
 export const selectSignInError = (state: RootState) => state.users.signInError;
 export const selectAlertData = (state: RootState) => state.users.alertData;
+export const { unsetUser } = usersSlice.actions;
