@@ -9,3 +9,12 @@ export interface IUser {
   appleID?: string;
   googleID?: string;
 }
+
+export interface IEquipment {
+  name: string;
+  description: string;
+  price: number;
+  quantity: number;
+  date: string;
+  image: string;
+}
