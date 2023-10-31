@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { useAppSelector } from "../../../app/hook";
 import { selectUser } from "../../../store/usersSlice";
+import { useAppSelector } from "../../../app/hook";
 import AnonymousMenu from "./components/AnonymousMenu";
 import UserMenu from "./components/UserMenu";
-import "./AppToolBar.css";
 import ToolBarMenu from "./components/ToolBarMenu";
+import "./AppToolBar.css";
 
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);
