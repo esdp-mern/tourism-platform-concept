@@ -5,11 +5,14 @@ import { selectUser } from "../../../store/usersSlice";
 import AnonymousMenu from "./components/AnonymousMenu";
 import UserMenu from "./components/UserMenu";
 import "./AppToolBar.css";
+import ToolBarMenu from "./components/ToolBarMenu";
 
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);
   const [navShow, setNavShow] = useState(false);
   const [menuShow, setMenuShow] = useState(false);
+
+  const showMenu = () => setMenuShow(!menuShow);
 
   return (
     <div className="container">
@@ -51,12 +54,7 @@ const AppToolBar = () => {
             <span>menu</span>
           </button>
         </div>
-        <div className={`tool-bar-menu ${menuShow ? "menu-active" : ""}`}>
-          <button className="close-btn" onClick={() => setMenuShow(!menuShow)}>
-            <span></span>
-            <span></span>
-          </button>
-        </div>
+        <ToolBarMenu show={menuShow} onClick={showMenu} />
       </div>
     </div>
   );
