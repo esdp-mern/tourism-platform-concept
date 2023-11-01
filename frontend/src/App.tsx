@@ -5,6 +5,7 @@ import Layout from "./components/Layout/Layout";
 import Alert from "./components/Alert/Alert";
 import { selectAlertData } from "./store/usersSlice";
 import "./App.css";
+import PageLoader from "./components/Loaders/PageLoader";
 
 const App = () => {
   const { user } = useAppSelector((state) => state.users);
@@ -17,6 +18,7 @@ const App = () => {
         message={alertData ? alertData.message : ""}
         type={alertData ? alertData.type : ""}
       />
+      <PageLoader />
       {routes}
     </Layout>
   );

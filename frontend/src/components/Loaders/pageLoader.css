@@ -1,0 +1,138 @@
+.page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+  background: white;
+}
+
+.enabled {
+  display: flex;
+}
+
+.page-loader-inner {
+  display: flex;
+  flex-direction: column;
+  height: 345px;
+  width: 250px;
+}
+
+.page-loader-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 188px;
+}
+
+.page-loader-bottom {
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 3;
+  background: white;
+}
+
+.page-loader-bottom span {
+  background: #ffa133;
+  height: 5px;
+  border-radius: 5px;
+  margin: 5px auto;
+}
+
+.page-loader-bottom span:nth-child(1) {
+  width: 100%;
+}
+
+.page-loader-bottom span:nth-child(2) {
+  width: 188px;
+}
+
+.page-loader-bottom span:nth-child(3) {
+  width: 125px;
+}
+
+.page-loader-bottom span:nth-child(4) {
+  width: 62px;
+}
+
+.loader-sun {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  border: 5px solid #ffa133;
+  animation: spin 3s infinite;
+  z-index: 2;
+}
+
+.loader-sun span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 18px;
+  height: 5px;
+  border-radius: 5px;
+  background: #ffa133;
+}
+
+.loader-sun span:nth-child(1) {
+  top: -25px;
+  transform: rotate(90deg) translateY(-30px);
+}
+
+.loader-sun span:nth-child(2) {
+  top: -13px;
+  transform: rotate(135deg) translate(-49px, -56px);
+}
+
+.loader-sun span:nth-child(3) {
+  top: -13px;
+  transform: rotate(180deg) translate(-92px, -50px);
+}
+
+.loader-sun span:nth-child(4) {
+  top: -13px;
+  transform: rotate(225deg) translate(-121px, -15px);
+}
+
+.loader-sun span:nth-child(5) {
+  top: -25px;
+  transform: rotate(90deg) translate(123px, -30px);
+}
+
+.loader-sun span:nth-child(6) {
+  top: -13px;
+  transform: rotate(135deg) translate(80px, -56px);
+}
+
+.loader-sun span:nth-child(7) {
+  top: -13px;
+  transform: rotate(180deg) translate(33px, -50px);
+}
+
+.loader-sun span:nth-child(8) {
+  top: -13px;
+  transform: rotate(225deg) translate(7px, -15px);
+}
+
+@keyframes spin {
+  0% {
+    transform: translateY(200%) rotate(0deg);
+  }
+  25% {
+    transform: translateY(0) rotate(0deg);
+    transition-timing-function: ease-out;
+  }
+  100% {
+    transform: translateY(200%) rotate(-180deg);
+    transition-timing-function: ease-in;
+  }
+}

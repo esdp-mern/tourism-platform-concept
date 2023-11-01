@@ -38,15 +38,15 @@ export interface ValidationError {
   _message: string;
 }
 
-export interface Tour{
-  _id: string,
-  guid: string,
-  category: [],
-  name: string,
-  description: string,
-  startDate: string
-  endDate: string,
-  country: string,
-  image: string,
-  price: Number
+export interface Tour {
+  _id: string;
+  guid: string;
+  category: [];
+  name: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  country: string;
+  image: string;
+  price: number;
 }
