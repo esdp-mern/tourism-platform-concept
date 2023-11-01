@@ -4,6 +4,7 @@ import config from "./config";
 import User from "./models/User";
 import Tour from "./models/Tour";
 import Guide from "./models/Guide";
+import Review from "./models/Review";
 
 const run = async () => {
   await mongoose.connect(config.db);
@@ -12,6 +13,8 @@ const run = async () => {
   try {
     await db.dropCollection("users");
     await db.dropCollection("tours");
+    await db.dropCollection("guides");
+    await db.dropCollection("reviews");
   } catch (e) {
     console.log("Collections were not present, skipping drop...");
   }
@@ -176,6 +179,58 @@ const run = async () => {
       },
     );
 
+  const [review1, review2, review3, review5, review6] = await Review.create(
+    {
+      user: user._id,
+      tour: Burana._id,
+      guide: Artem._id,
+      commentTour: "Nice tour!",
+      ratingTour: 5,
+      commentGuide: "Good guide!",
+      ratingGuide: 5,
+      date: "2023-11-01T17:11:22.353Z",
+    },
+    {
+      user: user._id,
+      tour: AlaKul._id,
+      guide: Andrey._id,
+      commentTour: "Not bad tour! Pretty nice guide!",
+      ratingTour: 4,
+      commentGuide: "Good guide!",
+      ratingGuide: 5,
+      date: "2023-11-01T17:11:22.353Z",
+    },
+    {
+      user: user._id,
+      tour: Canyon._id,
+      guide: Askar._id,
+      commentTour: "Good one! I love it!",
+      ratingTour: 5,
+      commentGuide: "Good guide!",
+      ratingGuide: 5,
+      date: "2024-05-17T17:11:22.353Z",
+    },
+    {
+      user: user._id,
+      tour: IssykKul._id,
+      guide: Artem._id,
+      commentTour: "Very beautiful place",
+      ratingTour: 5,
+      commentGuide: "Good guide!",
+      ratingGuide: 5,
+      date: "2024-07-09T17:11:22.353Z",
+    },
+    {
+      user: user._id,
+      tour: SaryChelek._id,
+      guide: Askar._id,
+      commentTour: "Amazing place, but it was cold!",
+      ratingTour: 4,
+      commentGuide: "Good guide!",
+      ratingGuide: 5,
+      date: "2024-08-05T17:11:22.353Z",
+    },
+  );
   await db.close();
 };
 
