@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { selectUser, setAlertData, unsetUser } from "../../../store/usersSlice";
-import { useAppDispatch, useAppSelector } from "../../../app/hook";
-import AnonymousMenu from "./components/AnonymousMenu";
-import UserMenu from "./components/UserMenu";
-import ToolBarMenu from "./components/ToolBarMenu";
-import "./AppToolBar.css";
-import { logout } from "../../../store/usersThunk";
+import React, { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { selectUser, setAlertData, unsetUser } from '../../../store/usersSlice';
+import { useAppDispatch, useAppSelector } from '../../../app/hook';
+import AnonymousMenu from './components/AnonymousMenu';
+import UserMenu from './components/UserMenu';
+import ToolBarMenu from './components/ToolBarMenu';
+import './AppToolBar.css';
+import { logout } from '../../../store/usersThunk';
 
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);
@@ -20,9 +20,9 @@ const AppToolBar = () => {
     try {
       dispatch(unsetUser());
       dispatch(logout());
-      dispatch(setAlertData({ message: "You have logged out!", type: "info" }));
+      dispatch(setAlertData({ message: 'You have logged out!', type: 'info' }));
     } catch (e) {
-      dispatch(setAlertData({ message: "Something is wrong!", type: "error" }));
+      dispatch(setAlertData({ message: 'Something is wrong!', type: 'error' }));
     }
   };
 
@@ -31,7 +31,7 @@ const AppToolBar = () => {
       <div className="tool-bar">
         <div className="logo-wrap">
           <button
-            className={`nav-btn ${navShow ? "open" : ""}`}
+            className={`nav-btn ${navShow ? 'open' : ''}`}
             onClick={() => setNavShow(!navShow)}
           >
             <span></span>
@@ -42,7 +42,7 @@ const AppToolBar = () => {
             Tourism Concept
           </Link>
         </div>
-        <nav className={`nav ${navShow ? "nav-active" : ""}`}>
+        <nav className={`nav ${navShow ? 'nav-active' : ''}`}>
           <NavLink to="/" className="nav-link">
             Home
           </NavLink>
@@ -61,7 +61,7 @@ const AppToolBar = () => {
             </button>
           )}
           <button
-            className={`menu-btn ${menuShow ? "open" : ""}`}
+            className={`menu-btn ${menuShow ? 'open' : ''}`}
             onClick={() => setMenuShow(!menuShow)}
           >
             <span></span>

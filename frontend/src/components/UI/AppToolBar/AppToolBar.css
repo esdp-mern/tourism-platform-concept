@@ -43,7 +43,7 @@
     width: 25px;
     background-color: #000;
     left: 5px;
-    transition: transform .5s , opacity .5s;
+    transition: transform .5s, opacity .5s;
 }
 
 .menu-btn span:last-child {
@@ -80,7 +80,7 @@
     transform: translateY(0) rotate(45deg);
 }
 
-.logo{
+.logo {
     font-size: 22px;
     text-decoration: none;
     text-transform: uppercase;
@@ -110,7 +110,7 @@
     color: #000;
 }
 
-.nav-link:nth-child(n + 2){
+.nav-link:nth-child(n + 2) {
     margin-left: 20px;
 }
 
@@ -230,7 +230,7 @@
         transform: translateX(100%);
     }
 
-    .nav-link:nth-child(n + 2){
+    .nav-link:nth-child(n + 2) {
         margin-left: 0;
     }
 

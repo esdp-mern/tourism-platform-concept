@@ -1,16 +1,16 @@
-import React from "react";
-import { Tour } from "../../type";
-import { apiUrl } from "../../constants";
-import { Link } from "react-router-dom";
-import { Fade } from "react-awesome-reveal";
-import "./TourItem.css";
+import React from 'react';
+import { Tour } from '../../type';
+import { apiUrl } from '../../constants';
+import { Link } from 'react-router-dom';
+import { Fade } from 'react-awesome-reveal';
+import './TourItem.css';
 
 interface Props {
   tour: Tour;
 }
 
 const TourItem: React.FC<Props> = ({ tour }) => {
-  const imgLink = apiUrl + "/" + tour.image;
+  const imgLink = apiUrl + '/' + tour.image;
   const startDate = new Date(tour.startDate);
   const endDate = new Date(tour.endDate);
 

@@ -1,25 +1,25 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   RegisterMutation,
   RegisterResponse,
   signInMutation,
   ValidationError,
-} from "../type";
-import axiosApi from "../axiosApi";
-import { isAxiosError } from "axios";
-import { RootState } from "../app/store";
-import { unsetUser } from "./usersSlice";
+} from '../type';
+import axiosApi from '../axiosApi';
+import { isAxiosError } from 'axios';
+import { RootState } from '../app/store';
+import { unsetUser } from './usersSlice';
 
 export const register = createAsyncThunk<
   RegisterResponse,
   RegisterMutation,
   { rejectValue: ValidationError }
 >(
-  "users/register",
+  'users/register',
   async (registerMutation: RegisterMutation, { rejectWithValue }) => {
     try {
       const response = await axiosApi.post<RegisterResponse>(
-        "/users",
+        '/users',
         registerMutation,
       );
       return response.data;
@@ -38,11 +38,11 @@ export const signIn = createAsyncThunk<
   signInMutation,
   { rejectValue: ValidationError }
 >(
-  "users/signIn",
+  'users/signIn',
   async (signUpMutation: signInMutation, { rejectWithValue }) => {
     try {
       const response = await axiosApi.post<RegisterResponse>(
-        "/users/sessions",
+        '/users/sessions',
         signUpMutation,
       );
       return response.data;
@@ -57,10 +57,10 @@ export const signIn = createAsyncThunk<
 );
 
 export const logout = createAsyncThunk<void, void, { state: RootState }>(
-  "users/logout",
+  'users/logout',
   async (_, { getState, dispatch }) => {
     const token = getState().users.user?.token;
-    await axiosApi.delete("users/sessions", {
+    await axiosApi.delete('users/sessions', {
       headers: { Authorization: token },
     });
     dispatch(unsetUser());

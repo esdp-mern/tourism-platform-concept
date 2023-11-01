@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hook";
-import { selectAllTours, selectFetchAllLoading } from "../../store/toursSlice";
-import { fetchTours } from "../../store/toursThunk";
-import TourItem from "../../components/TourItem/TourItem";
-import "./ToursPage.css";
-import { Link } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../app/hook';
+import { selectAllTours, selectFetchAllLoading } from '../../store/toursSlice';
+import { fetchTours } from '../../store/toursThunk';
+import TourItem from '../../components/TourItem/TourItem';
+import './ToursPage.css';
+import { Link } from 'react-router-dom';
 
 const ToursPage = () => {
   const dispatch = useAppDispatch();
