@@ -39,7 +39,7 @@ const ReviewSchema = new mongoose.Schema({
     required: true,
   },
   ratingTour: {
-    type: [Number],
+    type: Number,
     required: true,
     min: [1, "Too low rating"],
     max: [5, "Too high rating"],
