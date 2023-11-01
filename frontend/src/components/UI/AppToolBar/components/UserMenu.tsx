@@ -6,7 +6,7 @@ interface IProps {
   user: User;
 }
 
-const UserMenu: React.FC<IProps> = ({ user }) => {
+const UserMenu: React.FC<IProps> = () => {
   return (
     <>
       <NavLink to="/profile" className="nav-link profile-link">
