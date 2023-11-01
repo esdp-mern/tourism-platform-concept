@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface IProps {
   show: boolean;
@@ -7,7 +7,7 @@ interface IProps {
 
 const ToolBarMenu: React.FC<IProps> = ({ show, onClick }) => {
   return (
-    <div className={`tool-bar-menu ${show ? "menu-active" : ""}`}>
+    <div className={`tool-bar-menu ${show ? 'menu-active' : ''}`}>
       <button className="close-btn" onClick={onClick}>
         <span></span>
         <span></span>

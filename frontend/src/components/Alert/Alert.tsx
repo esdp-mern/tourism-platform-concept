@@ -1,7 +1,7 @@
-import React from "react";
-import "./alert.css";
-import { useAppDispatch, useAppSelector } from "../../app/hook";
-import { selectAlertData, setAlertData } from "../../store/usersSlice";
+import React from 'react';
+import './alert.css';
+import { useAppDispatch, useAppSelector } from '../../app/hook';
+import { selectAlertData, setAlertData } from '../../store/usersSlice';
 
 interface IProps {
   message: string;
@@ -14,7 +14,7 @@ const Alert: React.FC<IProps> = ({ message, type }) => {
 
   return (
     <div
-      className={`alert alert-${type} ${!alertData && "alert-disabled"}`}
+      className={`alert alert-${type} ${!alertData && 'alert-disabled'}`}
       onClick={() => dispatch(setAlertData(null))}
     >
       {message}

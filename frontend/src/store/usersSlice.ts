@@ -1,7 +1,7 @@
-import { User, ValidationError } from "../type";
-import { createSlice } from "@reduxjs/toolkit";
-import { register, signIn } from "./usersThunk";
-import { RootState } from "../app/store";
+import { User, ValidationError } from '../type';
+import { createSlice } from '@reduxjs/toolkit';
+import { register, signIn } from './usersThunk';
+import { RootState } from '../app/store';
 
 interface UsersState {
   user: User | null;
@@ -25,7 +25,7 @@ const initialState: UsersState = {
 };
 
 export const usersSlice = createSlice({
-  name: "users",
+  name: 'users',
   initialState,
   reducers: {
     setAlertData: (state, action) => {
