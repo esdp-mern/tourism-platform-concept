@@ -34,12 +34,20 @@ const ReviewSchema = new mongoose.Schema({
       message: "Guide does not exist!",
     },
   },
-  comment: {
+  commentTour: {
     type: String,
     required: true,
   },
-  rating: {
+  ratingTour: {
     type: [Number],
+    required: true,
+  },
+  commentGuide: {
+    type: String,
+    required: true,
+  },
+  ratingGuide: {
+    type: Number,
     required: true,
   },
   date: {
