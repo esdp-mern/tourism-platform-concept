@@ -41,6 +41,8 @@ const ReviewSchema = new mongoose.Schema({
   ratingTour: {
     type: [Number],
     required: true,
+    min: [1, "Too low rating"],
+    max: [5, "Too high rating"],
   },
   commentGuide: {
     type: String,
@@ -49,6 +51,8 @@ const ReviewSchema = new mongoose.Schema({
   ratingGuide: {
     type: Number,
     required: true,
+    min: [1, "Too low rating"],
+    max: [5, "Too high rating"],
   },
   date: {
     type: Date,
