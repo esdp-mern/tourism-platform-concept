@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { useAppDispatch } from '../../app/hook';
+import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { useNavigate } from 'react-router-dom';
 import { signInMutation } from '../../type';
 import { signIn } from '../../store/usersThunk';
-import { setAlertData } from '../../store/usersSlice';
+import { selectSignInLoading, setAlertData } from '../../store/usersSlice';
+import ButtonLoader from '../Loaders/ButtonLoader';
 
 const SignInForm = () => {
   const dispatch = useAppDispatch();
@@ -12,6 +13,7 @@ const SignInForm = () => {
     username: '',
     password: '',
   });
+  const signInLoading = useAppSelector(selectSignInLoading);
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -28,7 +30,9 @@ const SignInForm = () => {
       dispatch(setAlertData({ message: 'You have signed in!', type: 'info' }));
       navigate('/');
     } catch (e) {
-      dispatch(setAlertData({ message: 'Something is wrong!', type: 'error' }));
+      dispatch(
+        setAlertData({ message: 'Something went wrong!', type: 'error' }),
+      );
     }
   };
 
@@ -64,8 +68,8 @@ const SignInForm = () => {
             required
           />
         </div>
-        <button type="submit" className="form-btn">
-          Sign in
+        <button className="form-btn" type="submit" disabled={signInLoading}>
+          {signInLoading ? <ButtonLoader size={18} /> : 'Sign in'}
         </button>
       </form>
     </div>

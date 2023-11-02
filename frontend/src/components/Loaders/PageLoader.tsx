@@ -7,7 +7,7 @@ const PageLoader = () => {
   const pageLoading = useAppSelector(selectFetchAllLoading);
 
   return (
-    <div className={`page-loader ${pageLoading && 'page-loader-enabled'}`}>
+    <div className={`page-loader ${pageLoading ? 'page-loader-enabled' : ''}`}>
       <div className="page-loader-inner" />
     </div>
   );

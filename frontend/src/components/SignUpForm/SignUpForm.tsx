@@ -4,7 +4,7 @@ import { useAppDispatch } from '../../app/hook';
 import { useSelector } from 'react-redux';
 import { selectRegisterError, setAlertData } from '../../store/usersSlice';
 import { useNavigate } from 'react-router-dom';
-import { register } from '../../store/usersThunk';
+import { signUp } from '../../store/usersThunk';
 import '../../App.css';
 
 const SignUpForm = () => {
@@ -36,7 +36,7 @@ const SignUpForm = () => {
   const submitFormHandler = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      await dispatch(register(state)).unwrap();
+      await dispatch(signUp(state)).unwrap();
       dispatch(
         setAlertData({
           message: 'Congrats, you are registered!',

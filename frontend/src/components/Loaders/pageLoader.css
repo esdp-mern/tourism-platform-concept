@@ -10,7 +10,7 @@
   z-index: 1;
   padding-bottom: 60px;
   background-color: white;
-  background-image: url("../../assets/images/placeholder-bg.png");
+  background-image: url('../../assets/images/placeholder-bg.png');
   background-size: 180px;
   animation: backgroundMove 2.5s ease infinite;
 }
@@ -30,7 +30,7 @@
 }
 
 .page-loader-inner:before {
-  content: "";
+  content: '';
   position: absolute;
   left: 50%;
   top: 50%;
@@ -41,26 +41,26 @@
 }
 
 .page-loader-inner:after {
-  content: "";
+  content: '';
   position: absolute;
   left: 50%;
   top: 50%;
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #FFF;
+  background: #fff;
   transform: translate(-50%, -50%);
 }
 
 @keyframes rotate {
   0% {
-    transform: rotate(60deg)
+    transform: rotate(60deg);
   }
   50% {
-    transform: rotate(340deg)
+    transform: rotate(340deg);
   }
   100% {
-    transform: rotate(60deg)
+    transform: rotate(60deg);
   }
 }
 

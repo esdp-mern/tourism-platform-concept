@@ -1,3 +1,9 @@
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -10,6 +16,14 @@ body {
 
 * {
   box-sizing: border-box;
+}
+
+button {
+  position: relative;
+}
+
+button:disabled {
+  background-color: #bbbbbb;
 }
 
 .container {

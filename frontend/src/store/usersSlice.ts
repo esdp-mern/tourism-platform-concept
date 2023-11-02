@@ -1,27 +1,29 @@
 import { User, ValidationError } from '../type';
 import { createSlice } from '@reduxjs/toolkit';
-import { register, signIn } from './usersThunk';
+import { logout, signUp, signIn } from './usersThunk';
 import { RootState } from '../app/store';
 
 interface UsersState {
   user: User | null;
   registerLoading: boolean;
-  registerError: ValidationError | null;
+  signUpError: ValidationError | null;
   signInLoading: boolean;
-  signInError: ValidationError | null;
+  signInError: { error: string } | null;
   alertData: {
     message: string;
     type: string;
   } | null;
+  logoutLoading: boolean;
 }
 
 const initialState: UsersState = {
   user: null,
   registerLoading: false,
-  registerError: null,
+  signUpError: null,
   signInLoading: false,
   signInError: null,
   alertData: null,
+  logoutLoading: false,
 };
 
 export const usersSlice = createSlice({
@@ -31,22 +33,19 @@ export const usersSlice = createSlice({
     setAlertData: (state, action) => {
       state.alertData = action.payload;
     },
-    unsetUser: (state) => {
-      state.user = null;
-    },
   },
   extraReducers: (builder) => {
-    builder.addCase(register.pending, (state) => {
+    builder.addCase(signUp.pending, (state) => {
       state.registerLoading = true;
-      state.registerError = null;
+      state.signUpError = null;
     });
-    builder.addCase(register.fulfilled, (state, { payload: userResponse }) => {
+    builder.addCase(signUp.fulfilled, (state, { payload: userResponse }) => {
       state.registerLoading = false;
       state.user = userResponse.user;
     });
-    builder.addCase(register.rejected, (state, { payload: error }) => {
+    builder.addCase(signUp.rejected, (state, { payload: error }) => {
       state.registerLoading = false;
-      state.registerError = error || null;
+      state.signUpError = error || null;
     });
 
     builder.addCase(signIn.pending, (state) => {
@@ -61,6 +60,17 @@ export const usersSlice = createSlice({
       state.signInLoading = false;
       state.signInError = error || null;
     });
+
+    builder.addCase(logout.pending, (state) => {
+      state.logoutLoading = true;
+    });
+    builder.addCase(logout.fulfilled, (state) => {
+      state.logoutLoading = false;
+      state.user = null;
+    });
+    builder.addCase(logout.rejected, (state) => {
+      state.logoutLoading = false;
+    });
   },
 });
 
@@ -70,9 +80,10 @@ export const selectUser = (state: RootState) => state.users.user;
 export const selectRegisterLoading = (state: RootState) =>
   state.users.registerLoading;
 export const selectRegisterError = (state: RootState) =>
-  state.users.registerError;
+  state.users.signUpError;
 export const selectSignInLoading = (state: RootState) =>
   state.users.signInLoading;
 export const selectSignInError = (state: RootState) => state.users.signInError;
 export const selectAlertData = (state: RootState) => state.users.alertData;
-export const { unsetUser } = usersSlice.actions;
+export const selectLogoutLoading = (state: RootState) =>
+  state.users.logoutLoading;
