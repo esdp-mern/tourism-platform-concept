@@ -1,18 +1,22 @@
-import React from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
-import RegisterPage from "./containers/RegisterPage/RegisterPage";
-import SignInPage from "./containers/SignUpPage/SignInPage";
-import ToursPage from "./containers/ToursPage/ToursPage";
-import AllToursPage from "./containers/ToursPage/AllToursPage";
+import React from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import SignUpPage from './containers/SignUpPage/SignUpPage';
+import SignInPage from './containers/SignInPage/SignInPage';
+import ToursPage from './containers/ToursPage/ToursPage';
+import AllToursPage from './containers/ToursPage/AllToursPage';
+import OneTourPage from './containers/OneTourPage/OneTourPage';
 
 const useRoutes = (isAuthenticated: boolean) => (
   <Routes>
     <Route path="/tours/all" element={<AllToursPage />} />
     <Route path="/" element={<ToursPage />} />
+    <Route path="/tours/:id" element={<OneTourPage />} />
     {/* Route for everything */}
     {!isAuthenticated ? (
       <>
-        <Route path="/sign-up" element={<RegisterPage />} />
+        <Route path="/tours/all" element={<AllToursPage />} />
+        <Route path="/" element={<ToursPage />} />
+        <Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="*" element={<Navigate to="/sign-in" />} />
       </>

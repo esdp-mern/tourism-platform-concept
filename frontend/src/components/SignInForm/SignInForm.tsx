@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { useAppDispatch } from "../../app/hook";
-import { useNavigate } from "react-router-dom";
-import { signInMutation } from "../../type";
-import { signIn } from "../../store/usersThunk";
-import { setAlertData } from "../../store/usersSlice";
+import React, { useState } from 'react';
+import { useAppDispatch } from '../../app/hook';
+import { useNavigate } from 'react-router-dom';
+import { signInMutation } from '../../type';
+import { signIn } from '../../store/usersThunk';
+import { setAlertData } from '../../store/usersSlice';
 
 const SignInForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [state, setState] = useState<signInMutation>({
-    username: "",
-    password: "",
+    username: '',
+    password: '',
   });
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,10 +25,10 @@ const SignInForm = () => {
     event.preventDefault();
     try {
       await dispatch(signIn(state)).unwrap();
-      dispatch(setAlertData({ message: "You have signed in!", type: "info" }));
-      navigate("/");
+      dispatch(setAlertData({ message: 'You have signed in!', type: 'info' }));
+      navigate('/');
     } catch (e) {
-      dispatch(setAlertData({ message: "Something is wrong!", type: "error" }));
+      dispatch(setAlertData({ message: 'Something is wrong!', type: 'error' }));
     }
   };
 

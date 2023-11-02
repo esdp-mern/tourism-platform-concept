@@ -1,15 +1,15 @@
-import mongoose from "mongoose";
-import User from "./User";
+import mongoose from 'mongoose';
+import User from './User';
 
 const GuideSchema = new mongoose.Schema({
   user: {
     type: mongoose.Types.ObjectId,
-    ref: "User",
+    ref: 'User',
     required: true,
     validate: {
       validator: async (value: mongoose.Types.ObjectId) =>
         await User.findById(value),
-      message: "User does not exist!",
+      message: 'User does not exist!',
     },
   },
   languages: {
@@ -25,5 +25,5 @@ const GuideSchema = new mongoose.Schema({
   },
 });
 
-const Guide = mongoose.model("Guide", GuideSchema);
+const Guide = mongoose.model('Guide', GuideSchema);
 export default Guide;

@@ -15,8 +15,8 @@ const App = () => {
   return (
     <Layout>
       <Alert
-        message={alertData ? alertData.message : ""}
-        type={alertData ? alertData.type : ""}
+        message={alertData ? alertData.message : ''}
+        type={alertData ? alertData.type : ''}
       />
       <PageLoader />
       {routes}

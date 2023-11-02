@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import { RegisterMutation } from "../../type";
-import { useAppDispatch } from "../../app/hook";
-import { useSelector } from "react-redux";
-import { selectRegisterError, setAlertData } from "../../store/usersSlice";
-import { useNavigate } from "react-router-dom";
-import { register } from "../../store/usersThunk";
-import "../../App.css";
+import React, { useState } from 'react';
+import { RegisterMutation } from '../../type';
+import { useAppDispatch } from '../../app/hook';
+import { useSelector } from 'react-redux';
+import { selectRegisterError, setAlertData } from '../../store/usersSlice';
+import { useNavigate } from 'react-router-dom';
+import { register } from '../../store/usersThunk';
+import '../../App.css';
 
-const RegisterForm = () => {
+const SignUpForm = () => {
   const [state, setState] = useState<RegisterMutation>({
-    username: "",
-    password: "",
-    displayName: "",
-    email: "",
+    username: '',
+    password: '',
+    displayName: '',
+    email: '',
   });
   const dispatch = useAppDispatch();
   const error = useSelector(selectRegisterError);
@@ -39,19 +39,19 @@ const RegisterForm = () => {
       await dispatch(register(state)).unwrap();
       dispatch(
         setAlertData({
-          message: "Congrats, you are registered!",
-          type: "info",
+          message: 'Congrats, you are registered!',
+          type: 'info',
         }),
       );
-      navigate("/");
+      navigate('/');
     } catch (e) {
-      dispatch(setAlertData({ message: "Something is wrong!", type: "error" }));
+      dispatch(setAlertData({ message: 'Something is wrong!', type: 'error' }));
     } finally {
       setState(() => ({
-        username: "",
-        password: "",
-        displayName: "",
-        email: "",
+        username: '',
+        password: '',
+        displayName: '',
+        email: '',
       }));
     }
   };
@@ -64,13 +64,13 @@ const RegisterForm = () => {
           <label htmlFor="username" className="form-label">
             Username
           </label>
-          {Boolean(getFieldError("username")) && (
-            <span className="error">{getFieldError("username")}</span>
+          {Boolean(getFieldError('username')) && (
+            <span className="error">{getFieldError('username')}</span>
           )}
           <input
             type="text"
             className={
-              getFieldError("username") ? "form-control-error" : "form-control"
+              getFieldError('username') ? 'form-control-error' : 'form-control'
             }
             name="username"
             id="username"
@@ -83,13 +83,13 @@ const RegisterForm = () => {
           <label htmlFor="password" className="form-label">
             Password
           </label>
-          {Boolean(getFieldError("password")) && (
-            <span className="error">{getFieldError("password")}</span>
+          {Boolean(getFieldError('password')) && (
+            <span className="error">{getFieldError('password')}</span>
           )}
           <input
             type="password"
             className={
-              getFieldError("password") ? "form-control-error" : "form-control"
+              getFieldError('password') ? 'form-control-error' : 'form-control'
             }
             name="password"
             id="password"
@@ -134,4 +134,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default SignUpForm;

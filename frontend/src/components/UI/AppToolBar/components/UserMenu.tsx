@@ -1,12 +1,12 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import { User } from "../../../../type";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { User } from '../../../../type';
 
 interface IProps {
   user: User;
 }
 
-const UserMenu: React.FC<IProps> = ({ user }) => {
+const UserMenu: React.FC<IProps> = () => {
   return (
     <>
       <NavLink to="/profile" className="nav-link profile-link">

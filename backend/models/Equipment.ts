@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { IEquipment } from "../type";
+import mongoose from 'mongoose';
+import { IEquipment } from '../type';
 
 const EquipmentSchema = new mongoose.Schema<IEquipment>({
   name: {
@@ -28,5 +28,5 @@ const EquipmentSchema = new mongoose.Schema<IEquipment>({
   },
 });
 
-const Equipment = mongoose.model("Equipment", EquipmentSchema);
+const Equipment = mongoose.model('Equipment', EquipmentSchema);
 export default Equipment;

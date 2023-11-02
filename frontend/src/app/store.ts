@@ -1,6 +1,6 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { persistReducer, persistStore } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import {
   FLUSH,
   PAUSE,
@@ -8,14 +8,14 @@ import {
   PURGE,
   REGISTER,
   REHYDRATE,
-} from "redux-persist";
-import { usersReducer } from "../store/usersSlice";
-import { toursReducer } from "../store/toursSlice";
+} from 'redux-persist';
+import { usersReducer } from '../store/usersSlice';
+import { toursReducer } from '../store/toursSlice';
 
 const usersPersistConfig = {
-  key: "tourism-platform-concept:users",
+  key: 'tourism-platform-concept:users',
   storage,
-  whitelist: ["user"],
+  whitelist: ['user'],
 };
 
 const rootReducer = combineReducers({

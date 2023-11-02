@@ -1,15 +1,15 @@
-import mongoose from "mongoose";
-import Guide from "./Guide";
+import mongoose from 'mongoose';
+import Guide from './Guide';
 
 const TourSchema = new mongoose.Schema({
   guid: {
     type: mongoose.Types.ObjectId,
-    ref: "Guid",
+    ref: 'Guid',
     required: true,
     validate: {
       validator: async (value: mongoose.Types.ObjectId) =>
         await Guide.findById(value),
-      message: "Guide does not exist!",
+      message: 'Guide does not exist!',
     },
   },
   category: {
@@ -46,5 +46,5 @@ const TourSchema = new mongoose.Schema({
   },
 });
 
-const Tour = mongoose.model("Tour", TourSchema);
+const Tour = mongoose.model('Tour', TourSchema);
 export default Tour;

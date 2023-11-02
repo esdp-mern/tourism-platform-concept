@@ -1,7 +1,7 @@
-import { Tour } from "../type";
-import { createSlice } from "@reduxjs/toolkit";
-import { fetchTour, fetchTours } from "./toursThunk";
-import { RootState } from "../app/store";
+import { Tour } from '../type';
+import { createSlice } from '@reduxjs/toolkit';
+import { fetchTour, fetchTours } from './toursThunk';
+import { RootState } from '../app/store';
 
 interface ToursState {
   tours: Tour[];
@@ -18,7 +18,7 @@ const initialState: ToursState = {
 };
 
 export const toursSlice = createSlice({
-  name: "tours",
+  name: 'tours',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
