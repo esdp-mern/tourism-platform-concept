@@ -23,3 +23,5 @@ guidesRouter.get("/:id" , async (req, res) => {
        return res.status(500).send("Error");
    }
 });
+
+export default guidesRouter;

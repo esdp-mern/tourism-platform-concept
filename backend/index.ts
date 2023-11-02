@@ -4,6 +4,7 @@ import cors from 'cors';
 import config from './config';
 import usersRouter from './routers/users';
 import toursRouter from './routers/tours';
+import guidesRouter from "./routers/guides";
 
 const app = express();
 const port = 8000;
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use('/users', usersRouter);
 app.use('/tours', toursRouter);
+app.use('/guides', guidesRouter);
 
 app.get('*', (_, res) => res.sendStatus(404));
 
