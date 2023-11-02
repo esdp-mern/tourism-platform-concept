@@ -29,10 +29,12 @@ const SignInForm = () => {
       await dispatch(signIn(state)).unwrap();
       dispatch(setAlertData({ message: 'You have signed in!', type: 'info' }));
       navigate('/');
-    } catch (e) {
-      dispatch(
-        setAlertData({ message: 'Something went wrong!', type: 'error' }),
-      );
+    } catch (e: any) {
+      if (e && !e['error']) {
+        dispatch(
+          setAlertData({ message: 'Something went wrong', type: 'error' }),
+        );
+      }
     }
   };
 
