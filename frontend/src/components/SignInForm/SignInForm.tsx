@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { useNavigate } from 'react-router-dom';
 import { signInMutation } from '../../type';
-import { googleLogin, signIn } from '../../store/usersThunk';
-import { selectSignInLoading, setAlertData } from '../../store/usersSlice';
+import { signIn } from '../../store/usersThunk';
+import { addAlert, selectSignInLoading } from '../../store/usersSlice';
 import ButtonLoader from '../Loaders/ButtonLoader';
 import { GoogleLogin } from '@react-oauth/google';
 
@@ -32,13 +32,11 @@ const SignInForm = () => {
     event.preventDefault();
     try {
       await dispatch(signIn(state)).unwrap();
-      dispatch(setAlertData({ message: 'You have signed in!', type: 'info' }));
+      dispatch(addAlert({ message: 'You have signed in!', type: 'info' }));
       navigate('/');
     } catch (e: any) {
       if (e && !e['error']) {
-        dispatch(
-          setAlertData({ message: 'Something went wrong', type: 'error' }),
-        );
+        dispatch(addAlert({ message: 'Something went wrong', type: 'error' }));
       }
     }
   };

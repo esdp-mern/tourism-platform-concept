@@ -2,17 +2,21 @@ import { GlobalError, User, ValidationError } from '../type';
 import { createSlice } from '@reduxjs/toolkit';
 import { logout, signUp, signIn, googleLogin } from './usersThunk';
 import { RootState } from '../app/store';
+import { nanoid } from 'nanoid';
 
 interface UsersState {
   user: User | null;
   registerLoading: boolean;
   signUpError: ValidationError | null;
   signInLoading: boolean;
-  signInError: GlobalError | null;
-  alertData: {
+  signInError: { error: string } | null;
+  alerts: {
     message: string;
     type: string;
-  } | null;
+    id: string;
+    visible: boolean;
+    className: string;
+  }[];
   logoutLoading: boolean;
 }
 
@@ -22,7 +26,7 @@ const initialState: UsersState = {
   signUpError: null,
   signInLoading: false,
   signInError: null,
-  alertData: null,
+  alerts: [],
   logoutLoading: false,
 };
 
@@ -30,8 +34,23 @@ export const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    setAlertData: (state, action) => {
-      state.alertData = action.payload;
+    addAlert: (state, action) => {
+      state.alerts.push({
+        message: action.payload.message,
+        type: action.payload.type,
+        id: nanoid(),
+        visible: true,
+        className: '',
+      });
+    },
+    disableAlert: (state, action) => {
+      const alertIndex = state.alerts.findIndex(
+        (alert) => alert.id === action.payload,
+      );
+      state.alerts[alertIndex].className = 'disabled';
+    },
+    resetSignInError: (state) => {
+      state.signInError = null;
     },
   },
   extraReducers: (builder) => {
@@ -92,7 +111,7 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { setAlertData } = usersSlice.actions;
+export const { addAlert, disableAlert, resetSignInError } = usersSlice.actions;
 export const usersReducer = usersSlice.reducer;
 export const selectUser = (state: RootState) => state.users.user;
 export const selectRegisterLoading = (state: RootState) =>
@@ -102,6 +121,6 @@ export const selectRegisterError = (state: RootState) =>
 export const selectSignInLoading = (state: RootState) =>
   state.users.signInLoading;
 export const selectSignInError = (state: RootState) => state.users.signInError;
-export const selectAlertData = (state: RootState) => state.users.alertData;
+export const selectAlerts = (state: RootState) => state.users.alerts;
 export const selectLogoutLoading = (state: RootState) =>
   state.users.logoutLoading;
