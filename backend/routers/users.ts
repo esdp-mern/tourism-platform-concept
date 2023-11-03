@@ -3,8 +3,12 @@ import User from '../models/User';
 import mongoose from 'mongoose';
 import { randomUUID } from 'crypto';
 import auth, { RequestWithUser } from '../middleware/auth';
+import crypto from 'crypto';
+import { OAuth2Client } from 'google-auth-library';
+import config from '../config';
 
 const usersRouter = express.Router();
+const client = new OAuth2Client(config.google.clientId);
 
 usersRouter.post('/', async (req, res, next) => {
   try {
@@ -71,6 +75,51 @@ usersRouter.delete('/sessions', auth, async (req, res) => {
     res.send({ message: 'Logout successful, token has been refreshed' });
   } catch (e) {
     res.status(500).send({ error: 'Internal Server Error' });
+  }
+});
+
+usersRouter.post('/google', async (req, res, next) => {
+  try {
+    const ticket = await client.verifyIdToken({
+      idToken: req.body.credential,
+      audience: config.google.clientId,
+    });
+
+    const payload = ticket.getPayload();
+
+    if (!payload) {
+      return res.status(400).send({ error: 'Google login error!' });
+    }
+
+    const email = payload['email'];
+    const id = payload['sub'];
+    const displayName = payload['name'];
+
+    if (!email) {
+      return res
+        .status(400)
+        .send({ error: 'Not enough user data to continue' });
+    }
+
+    let user = await User.findOne({ googleID: id });
+
+    if (!user) {
+      user = new User({
+        email: email,
+        password: crypto.randomUUID(),
+        googleID: id,
+        displayName,
+        username: email,
+      });
+    }
+
+    user.generateToken();
+
+    await user.save();
+
+    return res.send({ message: 'Login with Google was successful!', user });
+  } catch (e) {
+    return next(e);
   }
 });
 

@@ -5,6 +5,7 @@ import { signInMutation } from '../../type';
 import { signIn } from '../../store/usersThunk';
 import { addAlert, selectSignInLoading } from '../../store/usersSlice';
 import ButtonLoader from '../Loaders/ButtonLoader';
+import { GoogleLogin } from '@react-oauth/google';
 
 const SignInForm = () => {
   const dispatch = useAppDispatch();
@@ -21,6 +22,10 @@ const SignInForm = () => {
     setState((prevState) => {
       return { ...prevState, [name]: value };
     });
+  };
+
+  const googleLoginHandler = async (credential: string) => {
+    await dispatch(googleLogin(credential)).unwrap();
   };
 
   const submitFormHandler = async (event: React.FormEvent) => {
@@ -40,6 +45,20 @@ const SignInForm = () => {
     <div className="form-block">
       <form className="form" onSubmit={submitFormHandler}>
         <h2 className="form-title">Sign in</h2>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              console.log(credentialResponse);
+              if (credentialResponse.credential) {
+                void googleLoginHandler(credentialResponse.credential);
+              }
+            }}
+            onError={() => {
+              console.log('Login Failed');
+            }}
+          />
+        </div>
+
         <div className="input-wrap">
           <label htmlFor="username" className="form-label">
             Username

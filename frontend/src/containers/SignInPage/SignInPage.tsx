@@ -21,6 +21,7 @@ const SignInPage = () => {
 
   return (
     <div className="container">
+      <PageLoader />
       <Fade>
         <SignInForm />
       </Fade>

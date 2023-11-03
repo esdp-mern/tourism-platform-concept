@@ -10,12 +10,7 @@ interface Props {
 }
 
 const TourItem: React.FC<Props> = ({ tour }) => {
-  const imgLink = apiUrl + '/' + tour.image;
-  const startDate = new Date(tour.startDate);
-  const endDate = new Date(tour.endDate);
-
-  const timeDifference = Number(endDate) - Number(startDate);
-  const duration = timeDifference / (1000 * 60 * 60 * 24);
+  const imgLink = apiUrl + '/' + tour.mainImage;
 
   return (
     <Fade>
@@ -32,7 +27,7 @@ const TourItem: React.FC<Props> = ({ tour }) => {
           </Link>
           <div className="tour-item-country">{tour.country}</div>
           <div className="tour-item-info">
-            <div className="tour-item-duration">{duration} days</div>
+            <div className="tour-item-duration">{tour.duration} days</div>
           </div>
         </div>
       </div>
