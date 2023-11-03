@@ -3,6 +3,7 @@ import SignInForm from '../../components/SignInForm/SignInForm';
 import { Fade } from 'react-awesome-reveal';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { selectSignInError, setAlertData } from '../../store/usersSlice';
+import PageLoader from '../../components/Loaders/PageLoader';
 
 const SignInPage = () => {
   const dispatch = useAppDispatch();
@@ -16,6 +17,7 @@ const SignInPage = () => {
 
   return (
     <div className="container">
+      <PageLoader />
       <Fade>
         <SignInForm />
       </Fade>
