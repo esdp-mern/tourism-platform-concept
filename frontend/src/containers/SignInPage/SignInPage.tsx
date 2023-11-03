@@ -2,7 +2,11 @@ import React, { useEffect } from 'react';
 import SignInForm from '../../components/SignInForm/SignInForm';
 import { Fade } from 'react-awesome-reveal';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
-import { addAlert, selectSignInError } from '../../store/usersSlice';
+import {
+  addAlert,
+  resetSignInError,
+  selectSignInError,
+} from '../../store/usersSlice';
 
 const SignInPage = () => {
   const dispatch = useAppDispatch();
@@ -11,6 +15,7 @@ const SignInPage = () => {
   useEffect(() => {
     if (error) {
       dispatch(addAlert({ message: error.error, type: 'error' }));
+      dispatch(resetSignInError());
     }
   }, [error, dispatch]);
 

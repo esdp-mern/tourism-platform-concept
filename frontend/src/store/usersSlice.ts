@@ -49,6 +49,9 @@ export const usersSlice = createSlice({
       );
       state.alerts[alertIndex].className = 'disabled';
     },
+    resetSignInError: (state) => {
+      state.signInError = null;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(signUp.pending, (state) => {
@@ -90,7 +93,7 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { addAlert, disableAlert } = usersSlice.actions;
+export const { addAlert, disableAlert, resetSignInError } = usersSlice.actions;
 export const usersReducer = usersSlice.reducer;
 export const selectUser = (state: RootState) => state.users.user;
 export const selectRegisterLoading = (state: RootState) =>
