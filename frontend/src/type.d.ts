@@ -26,6 +26,7 @@ export interface RegisterResponse {
   user: User;
   message: string;
 }
+
 export interface ValidationError {
   errors: {
     [key: string]: {
@@ -36,6 +37,10 @@ export interface ValidationError {
   message: string;
   name: string;
   _message: string;
+}
+
+export interface GlobalError {
+  error: string;
 }
 
 export interface Tour {
