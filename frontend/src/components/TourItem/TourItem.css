@@ -63,7 +63,7 @@
   margin-left: auto;
   color: #808080;
   padding-left: 25px;
-  background-image: url("../../assets/images/calendar-icon.svg");
+  background-image: url('../../assets/images/calendar-icon.svg');
   background-repeat: no-repeat;
   background-position: left center;
   background-size: contain;

@@ -12,6 +12,12 @@ const Alert: React.FC<IProps> = ({ message, type }) => {
   const alertData = useAppSelector(selectAlertData);
   const dispatch = useAppDispatch();
 
+  if (alertData) {
+    setTimeout(() => {
+      dispatch(setAlertData(null));
+    }, 6000);
+  }
+
   return (
     <div
       className={`alert alert-${type} ${!alertData && 'alert-disabled'}`}

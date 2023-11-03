@@ -1,25 +1,30 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { selectUser, setAlertData, unsetUser } from '../../../store/usersSlice';
+import {
+  selectLogoutLoading,
+  selectUser,
+  setAlertData,
+} from '../../../store/usersSlice';
 import { useAppDispatch, useAppSelector } from '../../../app/hook';
 import AnonymousMenu from './components/AnonymousMenu';
 import UserMenu from './components/UserMenu';
 import ToolBarMenu from './components/ToolBarMenu';
 import './AppToolBar.css';
 import { logout } from '../../../store/usersThunk';
+import ButtonLoader from '../../Loaders/ButtonLoader';
 
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const [navShow, setNavShow] = useState(false);
   const [menuShow, setMenuShow] = useState(false);
+  const logoutLoading = useAppSelector(selectLogoutLoading);
 
   const showMenu = () => setMenuShow(!menuShow);
 
-  const userLogout = () => {
+  const userLogout = async () => {
     try {
-      dispatch(unsetUser());
-      dispatch(logout());
+      await dispatch(logout());
       dispatch(setAlertData({ message: 'You have logged out!', type: 'info' }));
     } catch (e) {
       dispatch(setAlertData({ message: 'Something is wrong!', type: 'error' }));
@@ -56,8 +61,12 @@ const AppToolBar = () => {
         </nav>
         <div className="user-menu">
           {user && (
-            <button className="logout" onClick={userLogout}>
-              Logout
+            <button
+              className="logout"
+              onClick={userLogout}
+              disabled={logoutLoading}
+            >
+              {logoutLoading ? <ButtonLoader size={16} /> : 'Logout'}
             </button>
           )}
           <button

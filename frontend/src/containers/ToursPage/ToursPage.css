@@ -32,7 +32,7 @@
   width: 180px;
 }
 .tours-page-link-tours:after {
-  content: "";
+  content: '';
   position: absolute;
   left: 50%;
   transform: translate3d(-50%, 0, 0);
@@ -46,7 +46,7 @@
   color: #75c15b;
 }
 .tours-page-link-tours:hover:after {
-  content: "";
+  content: '';
   background: #75c15b;
   position: absolute;
   left: 50%;

@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(
 
 addInterceptors(store);
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   root.render(
     <Provider store={store}>
       <PersistGate persistor={persistor}>
