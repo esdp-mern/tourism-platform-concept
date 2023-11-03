@@ -4,7 +4,7 @@ import Guide from './Guide';
 const TourSchema = new mongoose.Schema({
   guide: {
     type: mongoose.Types.ObjectId,
-    ref: 'Guid',
+    ref: 'Guide',
     required: true,
     validate: {
       validator: async (value: mongoose.Types.ObjectId) =>

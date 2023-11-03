@@ -26,6 +26,7 @@ export interface RegisterResponse {
   user: User;
   message: string;
 }
+
 export interface ValidationError {
   errors: {
     [key: string]: {
@@ -40,13 +41,19 @@ export interface ValidationError {
 
 export interface Tour {
   _id: string;
-  guid: string;
+  guide: [string];
   category: [];
   name: string;
   description: string;
-  startDate: string;
-  endDate: string;
+  duration: number;
+  plan: [{ title: string; planDescription: string }];
   country: string;
-  image: string;
+  destination: string;
+  arrival: string;
+  departure: string;
+  dressCode: string;
+  included: [];
+  galleryTour: [];
+  mainImage: string;
   price: number;
 }
