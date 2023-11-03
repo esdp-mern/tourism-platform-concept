@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import Guide from './Guide';
 
 const TourSchema = new mongoose.Schema({
-  guid: {
+  guide: {
     type: mongoose.Types.ObjectId,
     ref: 'Guid',
     required: true,
@@ -12,11 +12,11 @@ const TourSchema = new mongoose.Schema({
       message: 'Guide does not exist!',
     },
   },
-  category: {
-    type: [String],
+  name: {
+    type: String,
     required: true,
   },
-  name: {
+  mainImage: {
     type: String,
     required: true,
   },
@@ -24,24 +24,48 @@ const TourSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  startDate: {
-    type: Date,
-    required: true,
-  },
-  endDate: {
-    type: Date,
-    required: true,
-  },
-  country: {
-    type: String,
-    required: true,
-  },
-  image: {
-    type: String,
+  category: {
+    type: [String],
     required: true,
   },
   price: {
     type: Number,
+    required: true,
+  },
+  duration: {
+    type: Number,
+    required: true,
+  },
+  plan: {
+    type: [{ title: String, planDescription: String }],
+    required: true,
+  },
+  destination: {
+    type: String,
+    required: true,
+  },
+  arrival: {
+    type: String,
+    required: true,
+  },
+  departure: {
+    type: String,
+    required: true,
+  },
+  dressCode: {
+    type: String,
+    required: true,
+  },
+  included: {
+    type: [String],
+    required: true,
+  },
+  galleryTour: {
+    type: [String],
+    required: true,
+  },
+  country: {
+    type: String,
     required: true,
   },
 });
