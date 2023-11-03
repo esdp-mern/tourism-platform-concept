@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { RegisterMutation } from '../../type';
 import { useAppDispatch } from '../../app/hook';
 import { useSelector } from 'react-redux';
-import { selectRegisterError, setAlertData } from '../../store/usersSlice';
+import { addAlert, selectRegisterError } from '../../store/usersSlice';
 import { useNavigate } from 'react-router-dom';
 import { signUp } from '../../store/usersThunk';
 import '../../App.css';
@@ -37,15 +37,10 @@ const SignUpForm = () => {
     event.preventDefault();
     try {
       await dispatch(signUp(state)).unwrap();
-      dispatch(
-        setAlertData({
-          message: 'Congrats, you are registered!',
-          type: 'info',
-        }),
-      );
+      dispatch(addAlert({ message: 'You have signed in!', type: 'info' }));
       navigate('/');
     } catch (e) {
-      dispatch(setAlertData({ message: 'Something is wrong!', type: 'error' }));
+      dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
     } finally {
       setState(() => ({
         username: '',

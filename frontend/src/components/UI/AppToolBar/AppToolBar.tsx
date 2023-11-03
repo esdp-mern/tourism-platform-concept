@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import {
   selectLogoutLoading,
   selectUser,
-  setAlertData,
+  addAlert,
 } from '../../../store/usersSlice';
 import { useAppDispatch, useAppSelector } from '../../../app/hook';
 import AnonymousMenu from './components/AnonymousMenu';
@@ -25,9 +25,9 @@ const AppToolBar = () => {
   const userLogout = async () => {
     try {
       await dispatch(logout());
-      dispatch(setAlertData({ message: 'You have logged out!', type: 'info' }));
+      dispatch(addAlert({ message: 'You have logged out!', type: 'info' }));
     } catch (e) {
-      dispatch(setAlertData({ message: 'Something is wrong!', type: 'error' }));
+      dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
     }
   };
 
