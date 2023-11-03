@@ -7,6 +7,7 @@ import {
   resetSignInError,
   selectSignInError,
 } from '../../store/usersSlice';
+import PageLoader from '../../components/Loaders/PageLoader';
 
 const SignInPage = () => {
   const dispatch = useAppDispatch();

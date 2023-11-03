@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { useNavigate } from 'react-router-dom';
 import { signInMutation } from '../../type';
-import { signIn } from '../../store/usersThunk';
+import { googleLogin, signIn } from '../../store/usersThunk';
 import { addAlert, selectSignInLoading } from '../../store/usersSlice';
 import ButtonLoader from '../Loaders/ButtonLoader';
 import { GoogleLogin } from '@react-oauth/google';
