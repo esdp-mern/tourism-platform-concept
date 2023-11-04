@@ -12,6 +12,10 @@ const GuideSchema = new mongoose.Schema({
       message: 'User does not exist!',
     },
   },
+  description: {
+    type: String,
+    required: true,
+  },
   languages: {
     type: Array,
     required: true,
@@ -21,7 +25,11 @@ const GuideSchema = new mongoose.Schema({
     required: true,
   },
   rating: {
-    type: Array,
+    type: Number,
+    default: 0,
+  },
+  image: {
+    type: String,
   },
 });
 
