@@ -29,7 +29,11 @@ const OneTourPlan = () => {
       <div className="one-tour-plan">
         <div className="one-tour-plan-list">
           {tourPlan?.map((planDay) => (
-            <div className="plan-day" key={planDay._id}>
+            <div
+              className="plan-day"
+              key={planDay._id}
+              onClick={() => onDayClick(planDay._id)}
+            >
               <div className="plan-day-checkbox">
                 <div
                   className={`plan-day-checkbox-inner ${
@@ -41,12 +45,7 @@ const OneTourPlan = () => {
                 {tourPlan[tourPlan?.length - 1]._id !== planDay._id && (
                   <div className="plan-day-body-arrow" />
                 )}
-                <span
-                  className="plan-day-title"
-                  onClick={() => onDayClick(planDay._id)}
-                >
-                  {planDay.title}
-                </span>
+                <span className="plan-day-title">{planDay.title}</span>
                 <span
                   className={`plan-day-description ${
                     selectedDay === planDay._id

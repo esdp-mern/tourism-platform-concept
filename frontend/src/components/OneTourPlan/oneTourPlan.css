@@ -10,6 +10,7 @@
 
 .plan-day {
   position: relative;
+  cursor: pointer;
 }
 
 .plan-day-body {
@@ -37,8 +38,8 @@
   color: #808080;
   overflow: hidden;
   padding-top: 25px;
-  height: 43px;
-  transition: 0.22s;
+  max-height: 500px;
+  transition: 0.5s;
 }
 
 .plan-day-checkbox {
@@ -71,5 +72,6 @@
 }
 
 .plan-day-description-hidden {
-  height: 0;
+  max-height: 0;
+  padding-top: 0;
 }
