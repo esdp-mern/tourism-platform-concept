@@ -50,7 +50,7 @@ export interface Tour {
   name: string;
   description: string;
   duration: number;
-  plan: [{ title: string; planDescription: string }];
+  plan: [{ title: string; planDescription: string; _id: string }];
   country: string;
   destination: string;
   arrival: string;
