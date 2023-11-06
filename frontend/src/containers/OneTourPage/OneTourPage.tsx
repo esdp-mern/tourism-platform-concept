@@ -6,6 +6,7 @@ import { selectOneTour } from '../../store/toursSlice';
 import './OneTourPage.css';
 import { apiUrl } from '../../constants';
 import { Fade } from 'react-awesome-reveal';
+import OneTourPlan from '../../components/OneTourPlan/OneTourPlan';
 
 const OneTourPage = () => {
   const { id } = useParams() as { id: string };
@@ -192,7 +193,7 @@ const OneTourPage = () => {
                 </div>
               </Fade>
             ) : null}
-            {btnPlan ? <div>Tour plan</div> : null}
+            {btnPlan && <OneTourPlan />}
             {btnLocation ? <div>Tour location</div> : null}
             {btnReview ? <div>Tour review</div> : null}
             {btnGallery ? <div>Tour gallery</div> : null}
