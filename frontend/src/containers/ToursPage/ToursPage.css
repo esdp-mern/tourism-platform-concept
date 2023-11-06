@@ -56,3 +56,37 @@
   height: 1px;
   transition: 0.22s;
 }
+.tours-page-paginate{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pagination{
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+}
+.page-item{
+  min-width: 42px;
+  height: 42px;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0 solid transparent;
+  color: #808080;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.page-link{
+  text-decoration: none;
+  color: inherit;
+}
+.page-link-active{
+  text-align: center;
+  background-color: #75c15b;
+  border: 1px solid #75c15b;
+  border-radius: 50%;
+  color: #fff;
+}
