@@ -17,6 +17,7 @@ const SignUpForm = () => {
   const dispatch = useAppDispatch();
   const error = useSelector(selectRegisterError);
   const navigate = useNavigate();
+
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 

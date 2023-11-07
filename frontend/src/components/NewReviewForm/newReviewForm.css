@@ -1,0 +1,102 @@
+.review-form-title {
+  font-weight: 400;
+  margin: 45px 0 0;
+  font-size: 30px;
+}
+
+.review-form {
+  padding: 33px 42px 40px;
+  margin-top: 45px;
+  border-radius: 6px;
+  background: white;
+  max-width: 720px;
+}
+
+.tour-rating-range,
+.tour-rating-stars {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.tour-rating-stars {
+  line-height: 16px;
+  font-size: 14px;
+  margin-left: 5px;
+  color: #c4c4c4;
+  cursor: pointer;
+}
+
+.rated-star {
+  color: #ffa133;
+}
+
+.review-form-inputs {
+  display: flex;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.review-form input,
+.review-form textarea {
+  cursor: pointer;
+}
+
+.reviewer-name,
+.reviewer-email {
+  min-height: 40px;
+  padding: 11px 20px 11px 40px;
+  border-bottom: 1px solid #c4c4c4;
+  background-repeat: no-repeat;
+  background-size: 18px;
+  flex-grow: 1;
+}
+
+.reviewer-name {
+  background-image: url('../../assets/images/input-user.svg');
+  background-position: 12px 14px;
+}
+
+.reviewer-email {
+  background-image: url('../../assets/images/input-email.svg');
+  background-position: 12px 15px;
+}
+
+.review-form-input {
+  display: inline-block;
+  border: 0;
+  outline: none;
+  font-size: 18px;
+}
+
+.review-form textarea {
+  margin-top: 30px;
+  padding: 11px 20px 11px 50px;
+  width: 100%;
+  background-image: url('../../assets/images/input-chat-message.svg');
+  background-repeat: no-repeat;
+  background-size: 18px;
+  background-position: 12px 15px;
+  min-height: 100px;
+}
+
+.review-form-textarea {
+  border-bottom: 1px solid #c4c4c4;
+}
+
+.review-form button {
+  width: 160px;
+  padding: 17px 30px;
+  margin-top: 55px;
+  background: #75c15b;
+  text-transform: uppercase;
+  color: white;
+  border: 0;
+  border-radius: 6px;
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.review-form button:hover {
+  background: #ffa133;
+}
