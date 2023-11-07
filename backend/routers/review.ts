@@ -13,7 +13,7 @@ reviewRouter.get('/' , async (req , res) => {
        }
 
        if (req.query.guideID) {
-           const reviews = await Review.find({tour: req.query.guideID});
+           const reviews = await Review.find({guide: req.query.guideID});
            return res.send(reviews);
        }
 
