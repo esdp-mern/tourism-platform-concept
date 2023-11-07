@@ -1,11 +1,10 @@
-import mongoose from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
 import User from './User';
-import Tour from './Tour';
-import Guide from './Guide';
+import { IReview } from '../type';
 
-const ReviewSchema = new mongoose.Schema({
+const ReviewSchema = new mongoose.Schema<IReview>({
   user: {
-    type: mongoose.Types.ObjectId,
+    type: String,
     ref: 'User',
     required: true,
     validate: {
@@ -17,45 +16,42 @@ const ReviewSchema = new mongoose.Schema({
   tour: {
     type: mongoose.Types.ObjectId,
     ref: 'Tour',
-    required: true,
     validate: {
-      validator: async (value: mongoose.Types.ObjectId) =>
-        await Tour.findById(value),
-      message: 'Tour does not exist!',
+      validator: function (
+        this: HydratedDocument<IReview>,
+        tour: mongoose.Types.ObjectId,
+      ) {
+        return !!(this.guide || tour);
+      },
+      message: 'Tour or guide is required',
     },
   },
   guide: {
     type: mongoose.Types.ObjectId,
     ref: 'Guide',
-    required: true,
     validate: {
-      validator: async (value: mongoose.Types.ObjectId) =>
-        await Guide.findById(value),
-      message: 'Guide does not exist!',
+      validator: function (
+        this: HydratedDocument<IReview>,
+        guide: mongoose.Types.ObjectId,
+      ) {
+        return !!(this.tour || guide);
+      },
+      message: 'Tour or guide is required',
     },
   },
-  commentTour: {
+  comment: {
     type: String,
     required: true,
   },
-  ratingTour: {
+  rating: {
     type: Number,
     required: true,
-    min: [1, 'Too low rating'],
-    max: [5, 'Too high rating'],
-  },
-  commentGuide: {
-    type: String,
-    required: true,
-  },
-  ratingGuide: {
-    type: Number,
-    required: true,
-    min: [1, 'Too low rating'],
-    max: [5, 'Too high rating'],
+    min: 1,
+    max: 5,
   },
   date: {
-    type: Date,
+    type: String,
+    default: () => new Date().toISOString(),
   },
 });
 
