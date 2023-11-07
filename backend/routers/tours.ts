@@ -31,8 +31,9 @@ toursRouter.get('/:id', async (req, res) => {
 
     const reviews = await Review.find({ tour: tour._id });
 
-    if (reviews.length > 0){
-      rating = reviews.reduce((acc , value) => acc + value.rating , 0) / reviews.length;
+    if (reviews.length > 0) {
+      rating =
+        reviews.reduce((acc, value) => acc + value.rating, 0) / reviews.length;
     }
 
     const tourReviews = {

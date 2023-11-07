@@ -1,6 +1,6 @@
 import express from 'express';
 import Guide from '../models/Guide';
-import Review from "../models/Review";
+import Review from '../models/Review';
 
 const guidesRouter = express.Router();
 
@@ -11,15 +11,17 @@ guidesRouter.get('/', async (req, res) => {
       select: 'username , displayName',
     });
 
-    const guidesWithRating = guides.map( async (guide) => {
-        let rating = 0;
-        const guideReviews = await Review.find({guide: guide._id});
+    const guidesWithRating = guides.map(async (guide) => {
+      let rating = 0;
+      const guideReviews = await Review.find({ guide: guide._id });
 
-        if (guideReviews.length > 0){
-          rating = guideReviews.reduce((acc , value) => acc + value.rating , 0) / guideReviews.length;
-        }
+      if (guideReviews.length > 0) {
+        rating =
+          guideReviews.reduce((acc, value) => acc + value.rating, 0) /
+          guideReviews.length;
+      }
 
-        return { ...guide.toObject() , rating }
+      return { ...guide.toObject(), rating };
     });
 
     const guidesAll = await Promise.all(guidesWithRating);
@@ -38,17 +40,19 @@ guidesRouter.get('/:id', async (req, res) => {
     });
 
     if (!guide) {
-      return res.status(404).send("Not found");
+      return res.status(404).send('Not found');
     }
 
     let rating = 0;
-    const guideReviews = await Review.find({guide: guide._id});
+    const guideReviews = await Review.find({ guide: guide._id });
 
     if (guideReviews.length > 0) {
-      rating = guideReviews.reduce((acc , value) => acc + value.rating , 0) / guideReviews.length;
+      rating =
+        guideReviews.reduce((acc, value) => acc + value.rating, 0) /
+        guideReviews.length;
     }
 
-    const guideWithRating = {...guide.toObject(), rating};
+    const guideWithRating = { ...guide.toObject(), rating };
 
     return res.send(guideWithRating);
   } catch (e) {
