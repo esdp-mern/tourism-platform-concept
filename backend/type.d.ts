@@ -1,3 +1,5 @@
+import { ObjectId } from "mongoose";
+
 export interface IUser {
   _id: string;
   username: string;
@@ -17,4 +19,13 @@ export interface IEquipment {
   quantity: number;
   date: string;
   image: string;
+}
+
+export interface IReview {
+  user: ObjectId;
+  tour: ObjectId;
+  guide: ObjectId;
+  comment: string;
+  rating: number;
+  date: string;
 }
