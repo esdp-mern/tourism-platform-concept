@@ -9,7 +9,9 @@ interface UsersState {
   registerLoading: boolean;
   signUpError: ValidationError | null;
   signInLoading: boolean;
-  signInError: { error: string } | null;
+  signInError: {
+    error: string;
+  } | null;
   alerts: {
     message: string;
     type: string;
@@ -114,10 +116,9 @@ export const usersSlice = createSlice({
 export const { addAlert, disableAlert, resetSignInError } = usersSlice.actions;
 export const usersReducer = usersSlice.reducer;
 export const selectUser = (state: RootState) => state.users.user;
-export const selectRegisterLoading = (state: RootState) =>
+export const selectSignUpLoading = (state: RootState) =>
   state.users.registerLoading;
-export const selectRegisterError = (state: RootState) =>
-  state.users.signUpError;
+export const selectSignUpError = (state: RootState) => state.users.signUpError;
 export const selectSignInLoading = (state: RootState) =>
   state.users.signInLoading;
 export const selectSignInError = (state: RootState) => state.users.signInError;
