@@ -12,15 +12,6 @@ export interface IUser {
   googleID?: string;
 }
 
-export interface IEquipment {
-  name: string;
-  description: string;
-  price: number;
-  quantity: number;
-  date: string;
-  image: string;
-}
-
 export interface IReview {
   user: ObjectId;
   tour: ObjectId;

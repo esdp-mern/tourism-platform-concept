@@ -93,7 +93,7 @@ const run = async () => {
     },
   );
 
-  const [Burana, Canyon, IssykKul, Osh /* SaryChelek, Naryn, AlaKul */] =
+  const [Burana, Canyon, IssykKul, Osh, Naryn /* SaryChelek, AlaKul */] =
     await Tour.create(
       {
         guide: Artem._id,
