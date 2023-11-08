@@ -43,9 +43,18 @@ export interface GlobalError {
   error: string;
 }
 
+export interface IGuide {
+  _id: string;
+  user: User;
+  languages: string;
+  country: string
+  image: string;
+  description: string;
+}
+
 export interface Tour {
   _id: string;
-  guide: [string];
+  guide: IGuide[];
   category: [];
   name: string;
   description: string;
