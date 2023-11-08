@@ -1,6 +1,6 @@
-import { GlobalError, User, ValidationError } from '../type';
+import { User, ValidationError } from '../type';
 import { createSlice } from '@reduxjs/toolkit';
-import { logout, signUp, signIn, googleLogin } from './usersThunk';
+import { googleLogin, logout, signIn, signUp } from './usersThunk';
 import { RootState } from '../app/store';
 import { nanoid } from 'nanoid';
 
