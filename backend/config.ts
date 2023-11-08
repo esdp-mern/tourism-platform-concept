@@ -1,5 +1,4 @@
 import path from 'path';
-import * as dotenv from 'dotenv';
 
 const rootPath = __dirname;
 
