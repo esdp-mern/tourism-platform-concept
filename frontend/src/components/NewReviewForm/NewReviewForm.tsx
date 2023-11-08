@@ -48,6 +48,13 @@ const NewReviewForm = () => {
         }),
       ).unwrap();
       dispatch(addAlert({ message: 'Your review is sent!', type: 'info' }));
+      setState({
+        user: '',
+        tour: '',
+        guide: null,
+        comment: '',
+        rating: 5,
+      });
     } catch {
       // nothing
     }

@@ -11,6 +11,8 @@ import OneTourInformation from './components/OneTourInformation/OneTourInformati
 import OneTourPlan from './components/OneTourPlan/OneTourPlan';
 import { apiUrl } from '../../constants';
 import './OneTourPage.css';
+import { addAlert } from '../../store/usersSlice';
+import NewReviewForm from '../../components/NewReviewForm/NewReviewForm';
 
 interface ITab {
   title: string;
@@ -26,7 +28,9 @@ const TABS: ITab[] = [
 ];
 
 const OneTourPage = () => {
-  const { id } = useParams() as { id: string };
+  const { id } = useParams() as {
+    id: string;
+  };
 
   const dispatch = useAppDispatch();
   const tour = useAppSelector(selectOneTour);
@@ -45,17 +49,7 @@ const OneTourPage = () => {
   }, [id, dispatch, postReviewError]);
   const imgLink = apiUrl + '/' + tour?.mainImage;
 
-  const onBtnInfoClick = () => {
-    setBtnInfo(true);
-    setBtnPlan(false);
-    setBtnReview(false);
-    setBtnLocation(false);
-    setBtnGallery(false);
-  };
-
   if (!tour) return <div>No such tour!</div>;
-
-  const imgLink = apiUrl + '/' + tour.mainImage;
 
   const toggleTab = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { name } = e.currentTarget;
@@ -93,7 +87,7 @@ const OneTourPage = () => {
         {currentTab === 'plan' && <OneTourPlan />}
         {currentTab === 'location' && <h1>Tour location</h1>}
         {currentTab === 'gallery' && <h1>Tour gallery</h1>}
-        {currentTab === 'reviews' && <h1>Tour reviews</h1>}
+        {currentTab === 'reviews' && <NewReviewForm />}
       </div>
     </div>
   );
