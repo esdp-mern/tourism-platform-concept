@@ -8,6 +8,7 @@ import {
   selectSignInError,
 } from '../../store/usersSlice';
 import PageLoader from '../../components/Loaders/PageLoader';
+import './SignInPage.css';
 
 const SignInPage = () => {
   const dispatch = useAppDispatch();
@@ -21,7 +22,7 @@ const SignInPage = () => {
   }, [error, dispatch]);
 
   return (
-    <div className="container">
+    <div className="container sign-in-page">
       <PageLoader />
       <Fade>
         <SignInForm />

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import './oneTourPlan.css';
+import './OneTourPlan.css';
 import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../app/hook';
-import { fetchTour } from '../../store/toursThunk';
+import { useAppDispatch, useAppSelector } from '../../../../app/hook';
+import { fetchTour } from '../../../../store/toursThunk';
 import { Fade } from 'react-awesome-reveal';
 
 const OneTourPlan = () => {
