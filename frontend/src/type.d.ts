@@ -8,6 +8,7 @@ export interface RegisterMutation {
   password: string;
   displayName: string;
   email: string;
+  avatar: File | null;
 }
 
 export interface User {
@@ -20,6 +21,7 @@ export interface User {
   googleID: string;
   appleID: string;
   email: string;
+  avatar: string | null;
 }
 
 export interface RegisterResponse {
