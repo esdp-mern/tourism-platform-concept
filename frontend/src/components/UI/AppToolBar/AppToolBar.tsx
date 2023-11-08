@@ -54,8 +54,8 @@ const AppToolBar = () => {
           <NavLink to="/tours/all" className="nav-link">
             Tours
           </NavLink>
-          <NavLink to="/partners" className="nav-link">
-            Our partners
+          <NavLink to="/about" className="nav-link">
+            About Us
           </NavLink>
           {user ? <UserMenu user={user} /> : <AnonymousMenu />}
         </nav>
