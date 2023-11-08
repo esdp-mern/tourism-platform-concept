@@ -48,7 +48,6 @@ const SignInForm = () => {
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <GoogleLogin
             onSuccess={(credentialResponse) => {
-              console.log(credentialResponse);
               if (credentialResponse.credential) {
                 void googleLoginHandler(credentialResponse.credential);
               }
