@@ -6,6 +6,7 @@ import usersRouter from './routers/users';
 import toursRouter from './routers/tours';
 import guidesRouter from './routers/guides';
 import reviewRouter from "./routers/review";
+import ordersRouter from './routers/orders';
 
 const app = express();
 const port = 8000;
@@ -17,6 +18,8 @@ app.use('/users', usersRouter);
 app.use('/tours', toursRouter);
 app.use('/guides', guidesRouter);
 app.use('/reviews', reviewRouter);
+app.use('/orders', ordersRouter);
+
 app.get('*', (_, res) => res.sendStatus(404));
 
 const run = async () => {

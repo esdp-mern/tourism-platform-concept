@@ -5,6 +5,7 @@ import User from './models/User';
 import Tour from './models/Tour';
 import Guide from './models/Guide';
 import Review from './models/Review';
+import Order from './models/Order';
 
 const run = async () => {
   await mongoose.connect(config.db);
@@ -15,6 +16,7 @@ const run = async () => {
     await db.dropCollection('tours');
     await db.dropCollection('guides');
     await db.dropCollection('reviews');
+    await db.dropCollection('orders');
   } catch (e) {
     console.log('Collections were not present, skipping drop...');
   }
@@ -354,6 +356,23 @@ const run = async () => {
       comment: 'Amazing place, but it was cold!',
       rating: 4,
       date: '2024-08-05T17:11:22.353Z',
+    },
+  );
+
+  await Order.create(
+    {
+      user: user1._id,
+      guide: Andrey._id,
+      tour: Naryn._id,
+      price: Naryn.price,
+      date: '2023-11-08T11:22:03.760Z',
+    },
+    {
+      user: user2._id,
+      guide: Artem._id,
+      tour: Osh._id,
+      price: Osh.price,
+      date: '2023-11-08T15:14:05.760Z',
     },
   );
   await db.close();
