@@ -116,6 +116,7 @@ const run = async () => {
         included: ['Museum Tickets', 'Group Guide', 'Transport'],
         galleryTour: ['fixtures/burana.jpeg', 'fixtures/burana2.jpeg'],
         country: 'Kyrgyzstan',
+        isPublished: true,
       },
       {
         guide: Askar._id,
@@ -141,6 +142,7 @@ const run = async () => {
         included: ['Lunch', 'Group Guide', 'Transport'],
         galleryTour: ['fixtures/canyon-skazka.jpeg'],
         country: 'Kyrgyzstan',
+        isPublished: true,
       },
       {
         guide: Artem._id,
@@ -175,6 +177,7 @@ const run = async () => {
         included: ['Museum Tickets', 'Group Guide', 'Transport'],
         galleryTour: ['fixtures/issyk-kul.jpeg'],
         country: 'Kyrgyzstan',
+        isPublished: true,
       },
       {
         guide: Andrey._id,
@@ -209,6 +212,7 @@ const run = async () => {
         included: ['Group Guide', 'Transport', 'Guesthouse', 'Food'],
         galleryTour: ['fixtures/osh.jpeg'],
         country: 'Kyrgyzstan',
+        isPublished: true,
       },
       {
         guide: Askar._id,
@@ -243,6 +247,7 @@ const run = async () => {
         included: ['Group Guide', 'Transport', 'Guesthouse', 'Food'],
         galleryTour: ['fixtures/sary-chelek.jpeg'],
         country: 'Kyrgyzstan',
+        isPublished: true,
       },
       {
         guide: Andrey._id,
@@ -272,6 +277,7 @@ const run = async () => {
         included: ['Group Guide', 'Transport', 'Guesthouse', 'Food'],
         galleryTour: ['fixtures/naryn.jpeg'],
         country: 'Kyrgyzstan',
+        isPublished: true,
       },
       {
         guide: Andrey._id,
@@ -302,6 +308,7 @@ const run = async () => {
         included: ['Museum Tickets', 'Group Guide', 'Transport', 'Tents'],
         galleryTour: ['fixtures/ala-kul.jpeg'],
         country: 'Kyrgyzstan',
+        isPublished: true,
       },
     );
 
