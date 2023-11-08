@@ -93,7 +93,7 @@ const run = async () => {
     },
   );
 
-  const [Burana, AlaKul, Canyon, IssykKul, SaryChelek, Osh, Naryn] =
+  const [Burana, Canyon, IssykKul, Osh /* SaryChelek, Naryn, AlaKul */] =
     await Tour.create(
       {
         guide: Artem._id,
@@ -118,36 +118,7 @@ const run = async () => {
         included: ['Museum Tickets', 'Group Guide', 'Transport'],
         galleryTour: ['fixtures/burana.jpeg', 'fixtures/burana2.jpeg'],
         country: 'Kyrgyzstan',
-      },
-      {
-        guide: Andrey._id,
-        name: 'Fascinating Ala-Kul Tour',
-        mainImage: 'fixtures/ala-kul.jpeg',
-        description:
-          'Ala Kul lake is located at an altitude of 3500 m, 20 kilometers south of the city of Karakol. The best time to visit Ala Kul lake is between early July and the end of September.  The trail to Ala Kul is well-marked, and you will find other hikers along during the hiking season, so you can hike to Ala Kul alone too.',
-        category: ['history'],
-        price: 3500,
-        duration: 2,
-        plan: [
-          {
-            title: 'From Bishkek to Karakol',
-            planDescription:
-              'In the morning you’ll be picked up from destination and go to Karakol. The trek starts from Karakol town. First, you need to get to the entrance of Karakol National Park. Then you need to walk along the old road toward the Sirota bridge for about 3 hours or 10 km. Here the difficult part of the trail begins. You need to walk through the forest up towards Ala Kul. The trail is clearly visible, you just need to follow the trail. After climbing for about + 500 m, you will arrive at the Sirota Camp. There is usually a tent camp in Sirota. You can overnight at the campsite if you don’t have a tent. ',
-          },
-          {
-            title:
-              'From Altyn Arashan to AkSuu - Karakol Town - back to Bishkek',
-            planDescription:
-              'On the second day you will goo to Aksuu, relax there, go to Karakol and back to Bishkek.',
-          },
-        ],
-        destination: 'Karakol, Ala-Kul',
-        arrival: 'Akhunbaev st. 75',
-        departure: '11 PM',
-        dressCode: 'Casual. Comfortable athletic clothing, hiking shoes.',
-        included: ['Museum Tickets', 'Group Guide', 'Transport', 'Tents'],
-        galleryTour: ['fixtures/ala-kul.jpeg'],
-        country: 'Kyrgyzstan',
+        isPublished: true,
       },
       {
         guide: Askar._id,
@@ -173,6 +144,7 @@ const run = async () => {
         included: ['Lunch', 'Group Guide', 'Transport'],
         galleryTour: ['fixtures/canyon-skazka.jpeg'],
         country: 'Kyrgyzstan',
+        isPublished: true,
       },
       {
         guide: Artem._id,
@@ -207,40 +179,7 @@ const run = async () => {
         included: ['Museum Tickets', 'Group Guide', 'Transport'],
         galleryTour: ['fixtures/issyk-kul.jpeg'],
         country: 'Kyrgyzstan',
-      },
-      {
-        guide: Askar._id,
-        name: 'Amazing Tour to the Sary-Chelek',
-        mainImage: 'fixtures/sary-chelek.jpeg',
-        description:
-          'Sary Chelek is located in the Jalal-Abad region in the west of Kyrgyzstan, tucked into the Western Tien Shan Mountains at the foot of the Chatkal Mountain Range. This alpine lake is the highlight of a larger area called Sary Chelek Nature Reserve which has been declared as a UNESCO Biosphere Reserve in 1978. The reserve has seven alpine lakes with Sary Chelek Lake being the largest one. Located at an altitude of 1887 meters and created by a landslide, the lake covers almost 500 hectares. The depth varies across the lake, with its deepest point at 245 meters.',
-        category: ['history'],
-        price: 8700,
-        duration: 3,
-        plan: [
-          {
-            title: 'From Bishkek to Jalal-Abad',
-            planDescription:
-              'At 8.00, meet your guide and driver. Start driving to Sary Chelek (from Bishkek - 685 km 10-12 hours). Arrival in Sary Chelek (Arkyt village) in the afternoon. Dinner and overnight in a home stay.',
-          },
-          {
-            title: 'Free day in Sary-Chelek',
-            planDescription:
-              'Free day in Sary Chelek. After breakfast transfer from Arkyt village to Sary Chelek lake (15 km, 30 minutes). Picnic for lunch. Transfer back to Arkyt village. Dinner and overnight in a home stay.',
-          },
-          {
-            title: 'From Jalal-Abad back to Bishkek',
-            planDescription:
-              'After breakfast transfer back to Bishkek. End of the tour.',
-          },
-        ],
-        destination: 'Jalal-Abad, Sary-Chelek',
-        arrival: 'Akhunbaev st. 75',
-        departure: '11 PM',
-        dressCode: 'Casual. Comfortable athletic clothing, hiking shoes.',
-        included: ['Group Guide', 'Transport', 'Guesthouse', 'Food'],
-        galleryTour: ['fixtures/sary-chelek.jpeg'],
-        country: 'Kyrgyzstan',
+        isPublished: true,
       },
       {
         guide: Andrey._id,
@@ -275,6 +214,42 @@ const run = async () => {
         included: ['Group Guide', 'Transport', 'Guesthouse', 'Food'],
         galleryTour: ['fixtures/osh.jpeg'],
         country: 'Kyrgyzstan',
+        isPublished: true,
+      },
+      {
+        guide: Askar._id,
+        name: 'Amazing Tour to the Sary-Chelek',
+        mainImage: 'fixtures/sary-chelek.jpeg',
+        description:
+          'Sary Chelek is located in the Jalal-Abad region in the west of Kyrgyzstan, tucked into the Western Tien Shan Mountains at the foot of the Chatkal Mountain Range. This alpine lake is the highlight of a larger area called Sary Chelek Nature Reserve which has been declared as a UNESCO Biosphere Reserve in 1978. The reserve has seven alpine lakes with Sary Chelek Lake being the largest one. Located at an altitude of 1887 meters and created by a landslide, the lake covers almost 500 hectares. The depth varies across the lake, with its deepest point at 245 meters.',
+        category: ['history'],
+        price: 8700,
+        duration: 3,
+        plan: [
+          {
+            title: 'From Bishkek to Jalal-Abad',
+            planDescription:
+              'At 8.00, meet your guide and driver. Start driving to Sary Chelek (from Bishkek - 685 km 10-12 hours). Arrival in Sary Chelek (Arkyt village) in the afternoon. Dinner and overnight in a home stay.',
+          },
+          {
+            title: 'Free day in Sary-Chelek',
+            planDescription:
+              'Free day in Sary Chelek. After breakfast transfer from Arkyt village to Sary Chelek lake (15 km, 30 minutes). Picnic for lunch. Transfer back to Arkyt village. Dinner and overnight in a home stay.',
+          },
+          {
+            title: 'From Jalal-Abad back to Bishkek',
+            planDescription:
+              'After breakfast transfer back to Bishkek. End of the tour.',
+          },
+        ],
+        destination: 'Jalal-Abad, Sary-Chelek',
+        arrival: 'Akhunbaev st. 75',
+        departure: '11 PM',
+        dressCode: 'Casual. Comfortable athletic clothing, hiking shoes.',
+        included: ['Group Guide', 'Transport', 'Guesthouse', 'Food'],
+        galleryTour: ['fixtures/sary-chelek.jpeg'],
+        country: 'Kyrgyzstan',
+        isPublished: true,
       },
       {
         guide: Andrey._id,
@@ -304,6 +279,38 @@ const run = async () => {
         included: ['Group Guide', 'Transport', 'Guesthouse', 'Food'],
         galleryTour: ['fixtures/naryn.jpeg'],
         country: 'Kyrgyzstan',
+        isPublished: true,
+      },
+      {
+        guide: Andrey._id,
+        name: 'Fascinating Ala-Kul Tour',
+        mainImage: 'fixtures/ala-kul.jpeg',
+        description:
+          'Ala Kul lake is located at an altitude of 3500 m, 20 kilometers south of the city of Karakol. The best time to visit Ala Kul lake is between early July and the end of September.  The trail to Ala Kul is well-marked, and you will find other hikers along during the hiking season, so you can hike to Ala Kul alone too.',
+        category: ['history'],
+        price: 3500,
+        duration: 2,
+        plan: [
+          {
+            title: 'From Bishkek to Karakol',
+            planDescription:
+              'In the morning you’ll be picked up from destination and go to Karakol. The trek starts from Karakol town. First, you need to get to the entrance of Karakol National Park. Then you need to walk along the old road toward the Sirota bridge for about 3 hours or 10 km. Here the difficult part of the trail begins. You need to walk through the forest up towards Ala Kul. The trail is clearly visible, you just need to follow the trail. After climbing for about + 500 m, you will arrive at the Sirota Camp. There is usually a tent camp in Sirota. You can overnight at the campsite if you don’t have a tent. ',
+          },
+          {
+            title:
+              'From Altyn Arashan to AkSuu - Karakol Town - back to Bishkek',
+            planDescription:
+              'On the second day you will goo to Aksuu, relax there, go to Karakol and back to Bishkek.',
+          },
+        ],
+        destination: 'Karakol, Ala-Kul',
+        arrival: 'Akhunbaev st. 75',
+        departure: '11 PM',
+        dressCode: 'Casual. Comfortable athletic clothing, hiking shoes.',
+        included: ['Museum Tickets', 'Group Guide', 'Transport', 'Tents'],
+        galleryTour: ['fixtures/ala-kul.jpeg'],
+        country: 'Kyrgyzstan',
+        isPublished: true,
       },
     );
 

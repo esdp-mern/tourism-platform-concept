@@ -60,4 +60,5 @@ export interface Tour {
   galleryTour: [];
   mainImage: string;
   price: number;
+  isPublished: boolean;
 }
