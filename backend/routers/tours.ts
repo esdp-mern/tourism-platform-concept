@@ -5,7 +5,7 @@ import auth from "../middleware/auth";
 import permit from "../middleware/permit";
 import mongoose from "mongoose";
 import Guide from "../models/Guide";
-import {upload} from "../multer";
+import {imagesUpload} from "../multer";
 
 const toursRouter = express.Router();
 
@@ -93,7 +93,7 @@ toursRouter.get('/:id', async (req, res) => {
   }
 });
 
-toursRouter.post('/', auth, permit('admin'), upload.fields([{ name: 'mainImage', maxCount: 1 }, { name: 'galleryTour', maxCount: 10 }]), async (req, res, next) => {
+toursRouter.post('/', auth, permit('admin'), imagesUpload.fields([{ name: 'mainImage', maxCount: 1 }, { name: 'galleryTour', maxCount: 10 }]), async (req, res, next) => {
   try {
     let existGuide;
 
@@ -145,7 +145,7 @@ toursRouter.post('/', auth, permit('admin'), upload.fields([{ name: 'mainImage',
   }
 });
 
-toursRouter.put('/:id', auth, permit('admin'), upload.fields([{ name: 'mainImage', maxCount: 1 }, { name: 'galleryTour', maxCount: 10 }]), async (req, res, next) => {
+toursRouter.put('/:id', auth, permit('admin'), imagesUpload.fields([{ name: 'mainImage', maxCount: 1 }, { name: 'galleryTour', maxCount: 10 }]), async (req, res, next) => {
   try {
     const tourId = req.params.id;
 
