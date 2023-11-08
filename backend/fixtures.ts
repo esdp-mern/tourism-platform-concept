@@ -91,7 +91,7 @@ const run = async () => {
     },
   );
 
-  const [Burana, AlaKul, Canyon, IssykKul, SaryChelek, Osh, Naryn] =
+  const [Burana, Canyon, IssykKul, Osh /* SaryChelek, Naryn, AlaKul */] =
     await Tour.create(
       {
         guide: Artem._id,
@@ -115,36 +115,6 @@ const run = async () => {
         dressCode: 'Casual. Comfortable athletic clothing, hiking shoes.',
         included: ['Museum Tickets', 'Group Guide', 'Transport'],
         galleryTour: ['fixtures/burana.jpeg', 'fixtures/burana2.jpeg'],
-        country: 'Kyrgyzstan',
-      },
-      {
-        guide: Andrey._id,
-        name: 'Fascinating Ala-Kul Tour',
-        mainImage: 'fixtures/ala-kul.jpeg',
-        description:
-          'Ala Kul lake is located at an altitude of 3500 m, 20 kilometers south of the city of Karakol. The best time to visit Ala Kul lake is between early July and the end of September.  The trail to Ala Kul is well-marked, and you will find other hikers along during the hiking season, so you can hike to Ala Kul alone too.',
-        category: ['history'],
-        price: 3500,
-        duration: 2,
-        plan: [
-          {
-            title: 'From Bishkek to Karakol',
-            planDescription:
-              'In the morning you’ll be picked up from destination and go to Karakol. The trek starts from Karakol town. First, you need to get to the entrance of Karakol National Park. Then you need to walk along the old road toward the Sirota bridge for about 3 hours or 10 km. Here the difficult part of the trail begins. You need to walk through the forest up towards Ala Kul. The trail is clearly visible, you just need to follow the trail. After climbing for about + 500 m, you will arrive at the Sirota Camp. There is usually a tent camp in Sirota. You can overnight at the campsite if you don’t have a tent. ',
-          },
-          {
-            title:
-              'From Altyn Arashan to AkSuu - Karakol Town - back to Bishkek',
-            planDescription:
-              'On the second day you will goo to Aksuu, relax there, go to Karakol and back to Bishkek.',
-          },
-        ],
-        destination: 'Karakol, Ala-Kul',
-        arrival: 'Akhunbaev st. 75',
-        departure: '11 PM',
-        dressCode: 'Casual. Comfortable athletic clothing, hiking shoes.',
-        included: ['Museum Tickets', 'Group Guide', 'Transport', 'Tents'],
-        galleryTour: ['fixtures/ala-kul.jpeg'],
         country: 'Kyrgyzstan',
       },
       {
@@ -207,6 +177,40 @@ const run = async () => {
         country: 'Kyrgyzstan',
       },
       {
+        guide: Andrey._id,
+        name: 'Tour around the Osh city',
+        mainImage: 'fixtures/osh.jpeg',
+        description:
+          'Osh tour will introduce you one of the most ancient cities of Central Asia and the second largest city in Kyrgyzstan. The main sight of Osh is the mountain "Solomon\'s Throne" that had been the second Mecca for local Muslims. Legends have endowed the mountain with the might able to heal any disease. There is a museum-reserve inside the mountain consisting of artificial and natural caves. Another sight worth a visit is Shaid Tepa, the largest mosque in Kyrgyzstan.',
+        category: ['history'],
+        price: 6900,
+        duration: 3,
+        plan: [
+          {
+            title: 'From Bishkek to Osh',
+            planDescription:
+              'In the morning transfer to the airport in Bishkek to take a plane to Osh. Arrive in Osh and start the city tour. As legends say, Osh was founded by King Solomon ages ago and had an important position on trading routes of the Great Silk Road. Today you will visit Suleiman-Too (Solomon’s Mountain), museum, Osh bazaar – this market locates at the same place as in the times of Great Silk Road. Overnight in the guest house.',
+          },
+          {
+            title: 'Exploring Osh',
+            planDescription:
+              'Whole day exploring Osh with our guide! Vizit best places, eat most tasty dishes etc.',
+          },
+          {
+            title: 'From Osh back to Bishkek',
+            planDescription:
+              'Transfer to the airport (30 km). End of the tour.',
+          },
+        ],
+        destination: 'Osh city',
+        arrival: 'Akhunbaev st. 75',
+        departure: '11 PM',
+        dressCode: 'Casual. Comfortable athletic clothing, hiking shoes.',
+        included: ['Group Guide', 'Transport', 'Guesthouse', 'Food'],
+        galleryTour: ['fixtures/osh.jpeg'],
+        country: 'Kyrgyzstan',
+      },
+      {
         guide: Askar._id,
         name: 'Amazing Tour to the Sary-Chelek',
         mainImage: 'fixtures/sary-chelek.jpeg',
@@ -242,40 +246,6 @@ const run = async () => {
       },
       {
         guide: Andrey._id,
-        name: 'Tour around the Osh city',
-        mainImage: 'fixtures/osh.jpeg',
-        description:
-          'Osh tour will introduce you one of the most ancient cities of Central Asia and the second largest city in Kyrgyzstan. The main sight of Osh is the mountain "Solomon\'s Throne" that had been the second Mecca for local Muslims. Legends have endowed the mountain with the might able to heal any disease. There is a museum-reserve inside the mountain consisting of artificial and natural caves. Another sight worth a visit is Shaid Tepa, the largest mosque in Kyrgyzstan.',
-        category: ['history'],
-        price: 6900,
-        duration: 3,
-        plan: [
-          {
-            title: 'From Bishkek to Osh',
-            planDescription:
-              'In the morning transfer to the airport in Bishkek to take a plane to Osh. Arrive in Osh and start the city tour. As legends say, Osh was founded by King Solomon ages ago and had an important position on trading routes of the Great Silk Road. Today you will visit Suleiman-Too (Solomon’s Mountain), museum, Osh bazaar – this market locates at the same place as in the times of Great Silk Road. Overnight in the guest house.',
-          },
-          {
-            title: 'Exploring Osh',
-            planDescription:
-              'Whole day exploring Osh with our guide! Vizit best places, eat most tasty dishes etc.',
-          },
-          {
-            title: 'From Osh back to Bishkek',
-            planDescription:
-              'Transfer to the airport (30 km). End of the tour.',
-          },
-        ],
-        destination: 'Osh city',
-        arrival: 'Akhunbaev st. 75',
-        departure: '11 PM',
-        dressCode: 'Casual. Comfortable athletic clothing, hiking shoes.',
-        included: ['Group Guide', 'Transport', 'Guesthouse', 'Food'],
-        galleryTour: ['fixtures/osh.jpeg'],
-        country: 'Kyrgyzstan',
-      },
-      {
-        guide: Andrey._id,
         name: 'Ancient Naryn town Tour',
         mainImage: 'fixtures/naryn.jpeg',
         description:
@@ -301,6 +271,36 @@ const run = async () => {
         dressCode: 'Casual. Comfortable athletic clothing, hiking shoes.',
         included: ['Group Guide', 'Transport', 'Guesthouse', 'Food'],
         galleryTour: ['fixtures/naryn.jpeg'],
+        country: 'Kyrgyzstan',
+      },
+      {
+        guide: Andrey._id,
+        name: 'Fascinating Ala-Kul Tour',
+        mainImage: 'fixtures/ala-kul.jpeg',
+        description:
+          'Ala Kul lake is located at an altitude of 3500 m, 20 kilometers south of the city of Karakol. The best time to visit Ala Kul lake is between early July and the end of September.  The trail to Ala Kul is well-marked, and you will find other hikers along during the hiking season, so you can hike to Ala Kul alone too.',
+        category: ['history'],
+        price: 3500,
+        duration: 2,
+        plan: [
+          {
+            title: 'From Bishkek to Karakol',
+            planDescription:
+              'In the morning you’ll be picked up from destination and go to Karakol. The trek starts from Karakol town. First, you need to get to the entrance of Karakol National Park. Then you need to walk along the old road toward the Sirota bridge for about 3 hours or 10 km. Here the difficult part of the trail begins. You need to walk through the forest up towards Ala Kul. The trail is clearly visible, you just need to follow the trail. After climbing for about + 500 m, you will arrive at the Sirota Camp. There is usually a tent camp in Sirota. You can overnight at the campsite if you don’t have a tent. ',
+          },
+          {
+            title:
+              'From Altyn Arashan to AkSuu - Karakol Town - back to Bishkek',
+            planDescription:
+              'On the second day you will goo to Aksuu, relax there, go to Karakol and back to Bishkek.',
+          },
+        ],
+        destination: 'Karakol, Ala-Kul',
+        arrival: 'Akhunbaev st. 75',
+        departure: '11 PM',
+        dressCode: 'Casual. Comfortable athletic clothing, hiking shoes.',
+        included: ['Museum Tickets', 'Group Guide', 'Transport', 'Tents'],
+        galleryTour: ['fixtures/ala-kul.jpeg'],
         country: 'Kyrgyzstan',
       },
     );
