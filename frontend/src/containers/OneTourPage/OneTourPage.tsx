@@ -2,17 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { fetchTour } from '../../store/toursThunk';
-import { selectOneTour } from '../../store/toursSlice';
+import {
+  resetPostReviewError,
+  selectOneTour,
+  selectPostReviewError,
+} from '../../store/toursSlice';
 import './OneTourPage.css';
 import { apiUrl } from '../../constants';
 import { Fade } from 'react-awesome-reveal';
 import OneTourPlan from '../../components/OneTourPlan/OneTourPlan';
 import NewReviewForm from '../../components/NewReviewForm/NewReviewForm';
+import { addAlert, selectUser } from '../../store/usersSlice';
 
 const OneTourPage = () => {
-  const { id } = useParams() as { id: string };
+  const { id } = useParams() as {
+    id: string;
+  };
   const dispatch = useAppDispatch();
   const tour = useAppSelector(selectOneTour);
+  const user = useAppSelector(selectUser);
+  const postReviewError = useAppSelector(selectPostReviewError);
   const [btnInfo, setBtnInfo] = useState(true);
   const [btnPlan, setBtnPlan] = useState(false);
   const [btnLocation, setBtnLocation] = useState(false);
@@ -23,7 +32,11 @@ const OneTourPage = () => {
     if (id) {
       dispatch(fetchTour(id));
     }
-  }, [id, dispatch]);
+    if (postReviewError) {
+      dispatch(addAlert({ message: postReviewError.message, type: 'error' }));
+      dispatch(resetPostReviewError());
+    }
+  }, [id, dispatch, postReviewError]);
   const imgLink = apiUrl + '/' + tour?.mainImage;
 
   const onBtnInfoClick = () => {
@@ -196,7 +209,7 @@ const OneTourPage = () => {
             ) : null}
             {btnPlan && <OneTourPlan />}
             {btnLocation ? <div>Tour location</div> : null}
-            {btnReview && <NewReviewForm />}
+            {btnReview && user && <NewReviewForm />}
             {btnGallery ? <div>Tour gallery</div> : null}
           </div>
         </div>

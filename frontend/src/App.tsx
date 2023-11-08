@@ -4,7 +4,7 @@ import useRoutes from './routes';
 import Layout from './components/Layout/Layout';
 import './App.css';
 import PageLoader from './components/Loaders/PageLoader';
-import Alerts from './components/Alert/Alerts';
+import Alerts from './components/Alerts/Alerts';
 
 const App = () => {
   const { user } = useAppSelector((state) => state.users);

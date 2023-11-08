@@ -1,6 +1,6 @@
-import { Tour } from '../type';
+import { Tour, ValidationError } from '../type';
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchTour, fetchTours } from './toursThunk';
+import { fetchTour, fetchTours, postReview } from './toursThunk';
 import { RootState } from '../app/store';
 
 interface ToursState {
@@ -8,6 +8,9 @@ interface ToursState {
   tour: Tour | null;
   fetchAllLoading: boolean;
   fetchOneLoading: boolean;
+  tourReviews: [];
+  postReviewError: ValidationError | null;
+  postReviewLoading: boolean;
 }
 
 const initialState: ToursState = {
@@ -15,12 +18,19 @@ const initialState: ToursState = {
   tour: null,
   fetchAllLoading: false,
   fetchOneLoading: false,
+  tourReviews: [],
+  postReviewError: null,
+  postReviewLoading: false,
 };
 
 export const toursSlice = createSlice({
   name: 'tours',
   initialState,
-  reducers: {},
+  reducers: {
+    resetPostReviewError: (state) => {
+      state.postReviewError = null;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchTours.pending, (state) => {
       state.fetchAllLoading = true;
@@ -32,6 +42,7 @@ export const toursSlice = createSlice({
     builder.addCase(fetchTours.rejected, (state) => {
       state.fetchAllLoading = false;
     });
+
     builder.addCase(fetchTour.pending, (state) => {
       state.fetchOneLoading = true;
     });
@@ -42,9 +53,22 @@ export const toursSlice = createSlice({
     builder.addCase(fetchTour.rejected, (state) => {
       state.fetchOneLoading = false;
     });
+
+    builder.addCase(postReview.pending, (state) => {
+      state.postReviewLoading = true;
+      state.postReviewError = null;
+    });
+    builder.addCase(postReview.fulfilled, (state) => {
+      state.postReviewLoading = false;
+    });
+    builder.addCase(postReview.rejected, (state, { payload: error }) => {
+      state.postReviewLoading = false;
+      state.postReviewError = error || null;
+    });
   },
 });
 
+export const { resetPostReviewError } = toursSlice.actions;
 export const toursReducer = toursSlice.reducer;
 export const selectAllTours = (state: RootState) => state.tours.tours;
 export const selectOneTour = (state: RootState) => state.tours.tour;
@@ -52,3 +76,8 @@ export const selectFetchAllLoading = (state: RootState) =>
   state.tours.fetchAllLoading;
 export const selectFetchOneLoading = (state: RootState) =>
   state.tours.fetchOneLoading;
+export const selectPostReviewError = (state: RootState) =>
+  state.tours.postReviewError;
+export const selectPostReviewLoading = (state: RootState) =>
+  state.tours.postReviewLoading;
+export const selectTourReviews = (state: RootState) => state.tours.tourReviews;

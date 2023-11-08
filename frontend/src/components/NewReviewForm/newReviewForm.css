@@ -31,53 +31,19 @@
   color: #ffa133;
 }
 
-.review-form-inputs {
-  display: flex;
-  gap: 30px;
-  margin-top: 30px;
-}
-
-.review-form input,
-.review-form textarea {
-  cursor: pointer;
-}
-
-.reviewer-name,
-.reviewer-email {
-  min-height: 40px;
-  padding: 11px 20px 11px 40px;
-  border-bottom: 1px solid #c4c4c4;
-  background-repeat: no-repeat;
-  background-size: 18px;
-  flex-grow: 1;
-}
-
-.reviewer-name {
-  background-image: url('../../assets/images/input-user.svg');
-  background-position: 12px 14px;
-}
-
-.reviewer-email {
-  background-image: url('../../assets/images/input-email.svg');
-  background-position: 12px 15px;
-}
-
-.review-form-input {
-  display: inline-block;
-  border: 0;
-  outline: none;
-  font-size: 18px;
-}
-
 .review-form textarea {
   margin-top: 30px;
-  padding: 11px 20px 11px 50px;
+  padding: 11px 20px 11px 38px;
   width: 100%;
   background-image: url('../../assets/images/input-chat-message.svg');
   background-repeat: no-repeat;
   background-size: 18px;
-  background-position: 12px 15px;
+  background-position: 8px 13px;
   min-height: 100px;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  line-height: 22px;
 }
 
 .review-form-textarea {

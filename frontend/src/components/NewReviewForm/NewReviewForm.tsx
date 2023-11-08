@@ -1,16 +1,25 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import './newReviewForm.css';
 import { Fade } from 'react-awesome-reveal';
+import { useAppDispatch, useAppSelector } from '../../app/hook';
+import { addAlert, selectUser } from '../../store/usersSlice';
+import { useParams } from 'react-router-dom';
+import { IPostReview } from '../../type';
+import { postReview } from '../../store/toursThunk';
 
 const NewReviewForm = () => {
-  const [state, setState] = useState({
+  const { id } = useParams() as {
+    id: string;
+  };
+  const [state, setState] = useState<IPostReview>({
     user: '',
     tour: '',
-    guide: '',
+    guide: null,
     comment: '',
     rating: 5,
-    date: '',
   });
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
 
   const onRatingClick = (number: number) => {
     setState((prevState) => ({
@@ -29,6 +38,19 @@ const NewReviewForm = () => {
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    try {
+      if (!user) return;
+      await dispatch(
+        postReview({
+          ...state,
+          user: user._id,
+          tour: id,
+        }),
+      ).unwrap();
+      dispatch(addAlert({ message: 'Your review is sent!', type: 'info' }));
+    } catch {
+      // nothing
+    }
   };
 
   return (
@@ -70,28 +92,6 @@ const NewReviewForm = () => {
             </span>
           </div>
         </div>
-        <div className="review-form-inputs">
-          <div className="reviewer-name">
-            <input
-              type="text"
-              className="review-form-input"
-              placeholder="name"
-              onChange={onChange}
-              value={state.comment}
-              name="comment"
-            />
-          </div>
-          <div className="reviewer-email">
-            <input
-              type="email"
-              className="review-form-input"
-              placeholder="email"
-              onChange={onChange}
-              value={state.comment}
-              name="comment"
-            />
-          </div>
-        </div>
         <div className="review-form-textarea">
           <textarea
             className="review-form-input"
@@ -99,6 +99,7 @@ const NewReviewForm = () => {
             onChange={onChange}
             value={state.comment}
             name="comment"
+            required
           />
         </div>
         <button type="submit">send</button>

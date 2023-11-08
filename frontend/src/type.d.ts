@@ -61,3 +61,16 @@ export interface Tour {
   mainImage: string;
   price: number;
 }
+
+export interface IPostReview {
+  user: string;
+  tour: string | null;
+  guide: string | null;
+  comment: string;
+  rating: number;
+}
+
+export interface IReview extends IPostReview {
+  _id: string;
+  date: string;
+}
