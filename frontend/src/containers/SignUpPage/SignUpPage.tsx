@@ -4,6 +4,7 @@ import { Fade } from 'react-awesome-reveal';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../store/usersSlice';
 import { useNavigate } from 'react-router-dom';
+import './SignUpPage.css';
 
 const SignUpPage = () => {
   const user = useSelector(selectUser);
@@ -16,7 +17,7 @@ const SignUpPage = () => {
   }, [user, navigate]);
 
   return (
-    <div className="container">
+    <div className="container sign-up-page">
       <Fade>
         <SignUpForm />
       </Fade>
