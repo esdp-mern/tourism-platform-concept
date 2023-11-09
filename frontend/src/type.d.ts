@@ -17,7 +17,6 @@ export interface User {
   token: string;
   role: string;
   displayName: string;
-  avatar: string;
   googleID: string;
   appleID: string;
   email: string;
@@ -84,5 +83,17 @@ export interface IPostReview {
 
 export interface IReview extends IPostReview {
   _id: string;
+  date: string;
+}
+
+export interface Review {
+  _id: string;
+  user: {
+    _id: string;
+    displayName: string;
+  };
+  tour: string;
+  comment: string;
+  rating: number;
   date: string;
 }

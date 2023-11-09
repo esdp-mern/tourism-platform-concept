@@ -13,7 +13,7 @@ import { apiUrl } from '../../constants';
 import './OneTourPage.css';
 import PageLoader from '../../components/Loaders/PageLoader';
 import { addAlert } from '../../store/usersSlice';
-import NewReviewForm from '../../components/NewReviewForm/NewReviewForm';
+import OneTourReview from './components/OneTourReview/OneTourReview';
 
 interface ITab {
   title: string;
@@ -89,7 +89,7 @@ const OneTourPage = () => {
         {currentTab === 'plan' && <OneTourPlan />}
         {currentTab === 'location' && <h1>Tour location</h1>}
         {currentTab === 'gallery' && <h1>Tour gallery</h1>}
-        {currentTab === 'reviews' && <NewReviewForm />}
+        {currentTab === 'reviews' && <OneTourReview id={id} />}
       </div>
     </div>
   );

@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { signUp } from '../../store/usersThunk';
 import '../../App.css';
 import FileInput from '../UI/FileInput/FileInput';
+import ButtonLoader from '../Loaders/ButtonLoader';
 
 const initialState: RegisterMutation = {
   username: '',

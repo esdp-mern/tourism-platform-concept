@@ -17,7 +17,18 @@
 
 .file-input-btn {
   cursor: pointer;
-  textTransform: none;
+  text-transform: none;
+  color: #fff;
   width: 100px;
   overflow: hidden;
+  background: #75c15b;
+  margin-bottom: 20px;
+  border: none;
+  transition: all 0.2s;
+  padding: 5px 0;
+}
+.file-input-btn:hover,
+.file-input-btn:focus {
+  color: #fff;
+  background-color: #ffa133;
 }
