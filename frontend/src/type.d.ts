@@ -48,7 +48,7 @@ export interface IGuide {
   _id: string;
   user: User;
   languages: string;
-  country: string
+  country: string;
   image: string;
   description: string;
 }
