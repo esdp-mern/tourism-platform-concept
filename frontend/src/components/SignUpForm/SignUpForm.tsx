@@ -56,8 +56,6 @@ const SignUpForm = () => {
       navigate('/');
     } catch (e) {
       dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
-    } finally {
-      // setState(initialState);
     }
   };
 
