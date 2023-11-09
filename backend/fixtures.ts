@@ -21,7 +21,7 @@ const run = async () => {
     console.log('Collections were not present, skipping drop...');
   }
 
-  const [user, user1, user2] = await User.create(
+  const [user, user1, user2, user3] = await User.create(
     {
       username: 'guide',
       email: 'guide@gmail.com',
@@ -52,7 +52,7 @@ const run = async () => {
     {
       username: 'user',
       email: 'user@gmail.com',
-      displayName: 'User',
+      displayName: 'Chris',
       password: 'qwerty1234',
       role: 'user',
       avatar: 'fixtures/midjourney.webp',
@@ -99,7 +99,7 @@ const run = async () => {
     },
   );
 
-  const [Burana, Canyon, IssykKul, Osh /* SaryChelek, Naryn, AlaKul */] =
+  const [Burana, Canyon, IssykKul, Osh, SaryChelek, Naryn, AlaKul] =
     await Tour.create(
       {
         guide: Artem._id,
@@ -322,52 +322,66 @@ const run = async () => {
 
   await Review.create(
     {
-      user: user._id,
+      user: user3._id,
       tour: Burana._id,
       comment: 'Nice tour!',
       rating: 5,
       date: '2023-11-01T17:11:22.353Z',
     },
     {
-      user: user._id,
+      user: user3._id,
       guide: Andrey._id,
       comment: 'Not bad tour! Pretty nice guide!',
       rating: 4,
       date: '2023-11-01T17:11:22.353Z',
     },
     {
-      user: user._id,
+      user: user3._id,
       tour: Canyon._id,
       comment: 'Good one! I love it!',
       rating: 5,
       date: '2024-05-17T17:11:22.353Z',
     },
     {
-      user: user._id,
+      user: user3._id,
       tour: IssykKul._id,
       comment: 'Very beautiful place',
       rating: 5,
       date: '2024-07-09T17:11:22.353Z',
     },
     {
-      user: user._id,
+      user: user3._id,
       guide: Askar._id,
       comment: 'Good guide!',
       rating: 5,
       date: '2024-08-05T17:11:22.353Z',
     },
     {
-      user: user._id,
+      user: user3._id,
       guide: Askar._id,
       comment: 'Good guide!',
       rating: 5,
       date: '2024-08-05T17:11:22.353Z',
     },
     {
-      user: user._id,
+      user: user3._id,
       tour: Osh._id,
       comment: 'Amazing place, but it was cold!',
       rating: 4,
+      date: '2024-08-05T17:11:22.353Z',
+    },
+    {
+      user: user3._id,
+      tour: AlaKul._id,
+      comment: 'Amazing place, love it',
+      rating: 4,
+      date: '2024-08-05T17:11:22.353Z',
+    },
+    {
+      user: user3._id,
+      tour: SaryChelek._id,
+      comment: 'Very beautiful lake!!!',
+      rating: 5,
       date: '2024-08-05T17:11:22.353Z',
     },
   );

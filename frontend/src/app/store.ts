@@ -11,6 +11,7 @@ import {
 } from 'redux-persist';
 import { usersReducer } from '../store/usersSlice';
 import { toursReducer } from '../store/toursSlice';
+import { toursReviewReducer } from '../store/reviewSlice';
 
 const usersPersistConfig = {
   key: 'tourism-platform-concept:users',
@@ -21,6 +22,7 @@ const usersPersistConfig = {
 const rootReducer = combineReducers({
   users: persistReducer(usersPersistConfig, usersReducer),
   tours: toursReducer,
+  reviews: toursReviewReducer,
 });
 export const store = configureStore({
   reducer: rootReducer,

@@ -77,3 +77,15 @@ export interface IReview extends IPostReview {
   _id: string;
   date: string;
 }
+
+export interface Review {
+  _id: string;
+  user: {
+    _id: string;
+    displayName: string;
+  };
+  tour: string;
+  comment: string;
+  rating: number;
+  date: string;
+}
