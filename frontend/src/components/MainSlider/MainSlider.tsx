@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import './mainSlider.css';
 
 interface ICountry {
@@ -7,6 +7,7 @@ interface ICountry {
 }
 
 const MainSlider = () => {
+  const mainSliderRef = useRef<HTMLDivElement | null>(null);
   const [currentSlide, setCurrentSlide] = useState<ICountry | null>(null);
   const [currentDot, setCurrentDot] = useState<ICountry | null>(null);
   const [sliderChanging, setSliderChanging] = useState(false);
@@ -33,6 +34,18 @@ const MainSlider = () => {
     setCurrentDot(sliderPages[0]);
   }, [sliderPages]);
 
+  const scrollToBottom = () => {
+    if (mainSliderRef.current) {
+      const mainSliderBottom =
+        mainSliderRef.current.getBoundingClientRect().bottom;
+
+      window.scrollTo({
+        top: mainSliderBottom,
+        behavior: 'smooth',
+      });
+    }
+  };
+
   const onCountryClick = (country: ICountry) => {
     if (currentSlide?.country === country.country) return;
     setSliderChanging(true);
@@ -44,7 +57,7 @@ const MainSlider = () => {
   };
 
   return (
-    <div className="main-slider">
+    <div className="main-slider" ref={mainSliderRef}>
       <div className="link-group">
         <a href="tel:#" className="link-group-element link-group-phone">
           <span className="link-group-element-desc">Phone</span>
@@ -65,7 +78,15 @@ const MainSlider = () => {
           style={{
             backgroundColor: sliderChanging ? '#fafafa' : 'transparent',
           }}
-        ></div>
+        >
+          <a href="#" className="sliderTitle">
+            {currentSlide?.country}
+          </a>
+          <span className="sliderCaption">
+            {currentSlide?.toursAmount} tours
+          </span>
+          <span className="scrollDown" onClick={scrollToBottom} />
+        </div>
       </div>
       <div className="country-dots">
         {sliderPages.map((sliderPage) => (

@@ -135,6 +135,10 @@
 }
 
 .country-slider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   position: absolute;
   top: 0;
   left: 0;
@@ -145,8 +149,26 @@
   background-repeat: no-repeat;
   background-position: center;
   transition: 0.7s;
-
   z-index: 1;
+}
+
+.sliderTitle {
+  font-size: 90px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #ffffff;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+}
+
+.sliderTitle:hover {
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+.sliderCaption {
+  font-size: 24px;
+  color: #ffffff;
+  margin-top: 30px;
 }
 
 .kyrgyzstan {
@@ -159,6 +181,23 @@
 
 .kazakhstan {
   background-image: url('../../assets/images/kz.jpeg');
+}
+
+.scrollDown {
+  margin-top: 30px;
+  width: 50px;
+  height: 50px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  background-image: url('../../assets/images/arrow-down.svg');
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: 0.3s;
+}
+
+.scrollDown:hover {
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.8);
 }
 
 @keyframes showDesc {
