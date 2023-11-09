@@ -77,3 +77,11 @@ export interface IReview extends IPostReview {
   _id: string;
   date: string;
 }
+
+export interface IOrder {
+  fullName: string;
+  date: string;
+  people: string;
+  email?: string;
+  phone?: string;
+}

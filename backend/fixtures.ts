@@ -99,7 +99,7 @@ const run = async () => {
     },
   );
 
-  const [Burana, Canyon, IssykKul, Osh /* SaryChelek, Naryn, AlaKul */] =
+  const [Burana, Canyon, IssykKul, Osh, Naryn /* SaryChelek, AlaKul */] =
     await Tour.create(
       {
         guide: Artem._id,
@@ -223,6 +223,36 @@ const run = async () => {
         isPublished: true,
       },
       {
+        guide: Andrey._id,
+        name: 'Ancient Naryn town Tour',
+        mainImage: 'fixtures/naryn.jpeg',
+        description:
+          'Naryn town is the administrative center of the Naryn Region. The town is situated on the banks of the Naryn River (the main headwaters of the Syr Darya). Naryn is the main path of the Great Silk Road, today it connects China, via Torugart Pass. The population of the Naryn Region is 99% Kyrgyz',
+        category: ['history'],
+        price: 4500,
+        duration: 2,
+        plan: [
+          {
+            title: 'From Bishkek to Naryn',
+            planDescription:
+              'In the morning transfer to the Naryn city. Stay in the guesthouse, dinner.',
+          },
+          {
+            title: 'Exploring Naryn',
+            planDescription:
+              'Whole morning exploring Naryn with our guide! After lunch, transfer back to Bishkek.',
+          },
+        ],
+        destination: 'Naryn',
+        arrival: 'Akhunbaev st. 75',
+        departure: '11 PM',
+        dressCode: 'Casual. Comfortable athletic clothing, hiking shoes.',
+        included: ['Group Guide', 'Transport', 'Guesthouse', 'Food'],
+        galleryTour: ['fixtures/naryn.jpeg'],
+        country: 'Kyrgyzstan',
+        isPublished: true,
+      },
+      {
         guide: Askar._id,
         name: 'Amazing Tour to the Sary-Chelek',
         mainImage: 'fixtures/sary-chelek.jpeg',
@@ -254,36 +284,6 @@ const run = async () => {
         dressCode: 'Casual. Comfortable athletic clothing, hiking shoes.',
         included: ['Group Guide', 'Transport', 'Guesthouse', 'Food'],
         galleryTour: ['fixtures/sary-chelek.jpeg'],
-        country: 'Kyrgyzstan',
-        isPublished: true,
-      },
-      {
-        guide: Andrey._id,
-        name: 'Ancient Naryn town Tour',
-        mainImage: 'fixtures/naryn.jpeg',
-        description:
-          'Naryn town is the administrative center of the Naryn Region. The town is situated on the banks of the Naryn River (the main headwaters of the Syr Darya). Naryn is the main path of the Great Silk Road, today it connects China, via Torugart Pass. The population of the Naryn Region is 99% Kyrgyz',
-        category: ['history'],
-        price: 4500,
-        duration: 2,
-        plan: [
-          {
-            title: 'From Bishkek to Naryn',
-            planDescription:
-              'In the morning transfer to the Naryn city. Stay in the guesthouse, dinner.',
-          },
-          {
-            title: 'Exploring Naryn',
-            planDescription:
-              'Whole morning exploring Naryn with our guide! After lunch, transfer back to Bishkek.',
-          },
-        ],
-        destination: 'Naryn',
-        arrival: 'Akhunbaev st. 75',
-        departure: '11 PM',
-        dressCode: 'Casual. Comfortable athletic clothing, hiking shoes.',
-        included: ['Group Guide', 'Transport', 'Guesthouse', 'Food'],
-        galleryTour: ['fixtures/naryn.jpeg'],
         country: 'Kyrgyzstan',
         isPublished: true,
       },

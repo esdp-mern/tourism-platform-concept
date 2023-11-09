@@ -1,0 +1,55 @@
+.text-field {
+  position: relative;
+  font-family: "Montserrat Regular";
+}
+
+.text-field-label {
+  position: absolute;
+  top: 50%;
+  left: 40px;
+  transform: translateY(-50%);
+  font-size: 18px;
+  pointer-events: none;
+  transition: all .25s linear;
+  will-change: transform;
+}
+
+.text-field-label-hidden {
+  opacity: 0;
+}
+
+.text-field-input {
+  padding: 11px 19px 11px 40px;
+  font-family: "Montserrat Regular";
+  font-size: 18px;
+  border: 0;
+  border-bottom: 1px solid #c4c4c4;
+  transition: all .3s ease-in-out;
+  background-color: transparent;
+  outline: 0;
+  min-height: 60px;
+}
+
+.text-field-input-error {
+  border-bottom: 1px solid #f5543f;
+}
+
+.text-field-img {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  left: 0;
+  top: 17px;
+}
+
+.text-field-span {
+  position: absolute;
+  right: 0;
+  bottom: -13px;
+  font-size: 9px;
+  font-family: "Montserrat Regular";
+  letter-spacing: 0;
+  line-height: 12px;
+  transition: all .3s linear;
+  color: #f5543f;
+}
