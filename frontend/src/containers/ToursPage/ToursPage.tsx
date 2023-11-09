@@ -5,6 +5,7 @@ import { fetchTours } from '../../store/toursThunk';
 import TourItem from '../../components/TourItem/TourItem';
 import './ToursPage.css';
 import { Link } from 'react-router-dom';
+import PageLoader from '../../components/Loaders/PageLoader';
 
 const ToursPage = () => {
   const dispatch = useAppDispatch();
@@ -21,6 +22,7 @@ const ToursPage = () => {
 
   return (
     <div className="container">
+      <PageLoader />
       <h2 className="tours-page-title">Featured Tours</h2>
       <div className="tours-page">
         {tours.slice(0, 6).map((tour) => (
