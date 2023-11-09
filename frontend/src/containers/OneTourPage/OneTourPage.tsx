@@ -11,6 +11,7 @@ import OneTourInformation from './components/OneTourInformation/OneTourInformati
 import OneTourPlan from './components/OneTourPlan/OneTourPlan';
 import { apiUrl } from '../../constants';
 import './OneTourPage.css';
+import PageLoader from '../../components/Loaders/PageLoader';
 import { addAlert } from '../../store/usersSlice';
 import NewReviewForm from '../../components/NewReviewForm/NewReviewForm';
 
@@ -59,6 +60,7 @@ const OneTourPage = () => {
 
   return (
     <div className="one-tour">
+      <PageLoader />
       <div className="one-tour-top">
         <img src={imgLink} className="one-tour-img" alt={tour.name} />
         <div className="one-tour-top-info">

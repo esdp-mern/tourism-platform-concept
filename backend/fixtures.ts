@@ -28,6 +28,7 @@ const run = async () => {
       displayName: 'Guide',
       password: 'qwerty1234',
       role: 'guid',
+      avatar: 'fixtures/mordecai.png',
       token: crypto.randomUUID(),
     },
     {
@@ -36,6 +37,7 @@ const run = async () => {
       displayName: 'Guide2',
       password: 'qwerty1234',
       role: 'guid',
+      avatar: 'fixtures/gumball.jpg',
       token: crypto.randomUUID(),
     },
     {
@@ -44,6 +46,7 @@ const run = async () => {
       displayName: 'Guide3',
       password: 'qwerty1234',
       role: 'guid',
+      avatar: 'fixtures/kuroro.jpeg',
       token: crypto.randomUUID(),
     },
     {
@@ -52,6 +55,7 @@ const run = async () => {
       displayName: 'User',
       password: 'qwerty1234',
       role: 'user',
+      avatar: 'fixtures/midjourney.webp',
       token: crypto.randomUUID(),
     },
     {
@@ -60,6 +64,7 @@ const run = async () => {
       displayName: 'Admin',
       password: 'qwerty1234',
       role: 'admin',
+      avatar: 'fixtures/admin.png',
       token: crypto.randomUUID(),
     },
     {
@@ -68,6 +73,7 @@ const run = async () => {
       displayName: 'Moderator',
       password: 'qwerty1234',
       role: 'moderator',
+      avatar: 'fixtures/moderator.jpg',
       token: crypto.randomUUID(),
     },
   );
