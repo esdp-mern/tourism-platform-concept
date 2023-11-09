@@ -3,7 +3,7 @@ import { useAppSelector } from './app/hook';
 import useRoutes from './routes';
 import Layout from './components/Layout/Layout';
 import PageLoader from './components/Loaders/PageLoader';
-import Alerts from './components/Alert/Alerts';
+import Alerts from './components/Alerts/Alerts';
 import './App.css';
 
 const App = () => {

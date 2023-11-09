@@ -6,6 +6,7 @@ import { googleLogin, signIn } from '../../store/usersThunk';
 import { addAlert, selectSignInLoading } from '../../store/usersSlice';
 import ButtonLoader from '../Loaders/ButtonLoader';
 import { GoogleLogin } from '@react-oauth/google';
+import { AxiosError } from 'axios';
 
 const SignInForm = () => {
   const dispatch = useAppDispatch();
@@ -34,9 +35,9 @@ const SignInForm = () => {
       await dispatch(signIn(state)).unwrap();
       dispatch(addAlert({ message: 'You have signed in!', type: 'info' }));
       navigate('/');
-    } catch (e: any) {
-      if (e && !e['error']) {
-        dispatch(addAlert({ message: 'Something went wrong', type: 'error' }));
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
       }
     }
   };

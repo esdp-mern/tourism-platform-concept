@@ -1,7 +1,7 @@
 import React from 'react';
-import './alert.css';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { disableAlert, selectAlerts } from '../../store/usersSlice';
+import './alert.css';
 
 const Alerts = () => {
   const alerts = useAppSelector(selectAlerts);
