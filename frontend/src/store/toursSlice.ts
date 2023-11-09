@@ -1,6 +1,6 @@
 import { Tour, ValidationError } from '../type';
 import { createSlice } from '@reduxjs/toolkit';
-import {fetchTour, fetchTours, postReview, postTour} from './toursThunk';
+import { fetchTour, fetchTours, postReview, postTour } from './toursThunk';
 import { RootState } from '../app/store';
 
 interface ToursState {
@@ -9,7 +9,7 @@ interface ToursState {
   fetchAllLoading: boolean;
   fetchOneLoading: boolean;
   postTourLoading: boolean;
-  postTourError: ValidationError | null,
+  postTourError: ValidationError | null;
   tourReviews: [];
   postReviewError: ValidationError | null;
   postReviewLoading: boolean;
@@ -98,6 +98,6 @@ export const selectPostReviewLoading = (state: RootState) =>
   state.tours.postReviewLoading;
 export const selectTourReviews = (state: RootState) => state.tours.tourReviews;
 export const selectPostTourLoading = (state: RootState) =>
-    state.tours.postTourLoading;
+  state.tours.postTourLoading;
 export const selectPostTourError = (state: RootState) =>
-    state.tours.postTourError;
+  state.tours.postTourError;

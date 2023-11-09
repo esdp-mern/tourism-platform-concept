@@ -48,7 +48,7 @@ export interface IGuide {
   _id: string;
   user: User;
   languages: string;
-  country: string
+  country: string;
   image: string;
   description: string;
 }
@@ -73,22 +73,27 @@ export interface Tour {
   isPublished: boolean;
 }
 
+export interface IPlan {
+  title: string;
+  planDescription: string;
+}
+
 export interface ITourMutation {
-  guide: IGuide[];
-  category: [string];
+  guide: string[];
+  category: string[];
   name: string;
   description: string;
-  duration: number;
-  plan: [{ title: string; planDescription: string; _id: string }];
+  duration: string;
+  plan: IPlan[];
   country: string;
   destination: string;
   arrival: string;
   departure: string;
   dressCode: string;
-  included: [];
+  included: string[];
   galleryTour: File[] | null;
-  mainImage: string;
-  price: number;
+  mainImage: File | null;
+  price: string;
 }
 
 export interface IPostReview {
