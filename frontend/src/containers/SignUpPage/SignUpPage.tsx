@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { selectUser } from '../../store/usersSlice';
 import { useNavigate } from 'react-router-dom';
 import './SignUpPage.css';
+import PageLoader from '../../components/Loaders/PageLoader';
 
 const SignUpPage = () => {
   const user = useSelector(selectUser);
@@ -18,6 +19,7 @@ const SignUpPage = () => {
 
   return (
     <div className="container sign-up-page">
+      <PageLoader />
       <Fade>
         <SignUpForm />
       </Fade>

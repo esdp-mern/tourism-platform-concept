@@ -4,6 +4,7 @@ import { selectAllTours, selectFetchAllLoading } from '../../store/toursSlice';
 import { fetchTours } from '../../store/toursThunk';
 import TourItem from '../../components/TourItem/TourItem';
 import Pagination from '../../components/Pagination/Pagination';
+import PageLoader from '../../components/Loaders/PageLoader';
 
 const AllToursPage = () => {
   const dispatch = useAppDispatch();
@@ -27,6 +28,7 @@ const AllToursPage = () => {
 
   return (
     <div className="container">
+      <PageLoader />
       <div>
         <div>
           <div className="tours-page">
