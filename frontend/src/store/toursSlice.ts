@@ -1,6 +1,6 @@
 import { Tour, ValidationError } from '../type';
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchTour, fetchTours, postReview } from './toursThunk';
+import {fetchTour, fetchTours, postReview, postTour} from './toursThunk';
 import { RootState } from '../app/store';
 
 interface ToursState {
@@ -8,6 +8,8 @@ interface ToursState {
   tour: Tour | null;
   fetchAllLoading: boolean;
   fetchOneLoading: boolean;
+  postTourLoading: boolean;
+  postTourError: ValidationError | null,
   tourReviews: [];
   postReviewError: ValidationError | null;
   postReviewLoading: boolean;
@@ -18,6 +20,8 @@ const initialState: ToursState = {
   tour: null,
   fetchAllLoading: false,
   fetchOneLoading: false,
+  postTourLoading: false,
+  postTourError: null,
   tourReviews: [],
   postReviewError: null,
   postReviewLoading: false,
@@ -65,6 +69,18 @@ export const toursSlice = createSlice({
       state.postReviewLoading = false;
       state.postReviewError = error || null;
     });
+
+    builder.addCase(postTour.pending, (state) => {
+      state.postTourLoading = true;
+      state.postTourError = null;
+    });
+    builder.addCase(postTour.fulfilled, (state) => {
+      state.postTourLoading = false;
+    });
+    builder.addCase(postTour.rejected, (state, { payload: error }) => {
+      state.postTourLoading = false;
+      state.postTourError = error || null;
+    });
   },
 });
 
@@ -81,3 +97,7 @@ export const selectPostReviewError = (state: RootState) =>
 export const selectPostReviewLoading = (state: RootState) =>
   state.tours.postReviewLoading;
 export const selectTourReviews = (state: RootState) => state.tours.tourReviews;
+export const selectPostTourLoading = (state: RootState) =>
+    state.tours.postTourLoading;
+export const selectPostTourError = (state: RootState) =>
+    state.tours.postTourError;

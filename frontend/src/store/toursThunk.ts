@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IPostReview, IReview, Tour, ValidationError } from '../type';
+import {IPostReview, IReview, ITourMutation, Tour, ValidationError} from '../type';
 import axiosApi from '../axiosApi';
 import { isAxiosError } from 'axios';
 
@@ -41,3 +41,34 @@ export const postReview = createAsyncThunk<
     throw e;
   }
 });
+
+export const postTour = createAsyncThunk<void, ITourMutation, { rejectValue: ValidationError }>(
+    'tours/create',
+    async (tourMutation, { rejectWithValue }) => {
+        try {
+            const formData = new FormData();
+            const keys = Object.keys(tourMutation) as (keyof ITourMutation)[];
+            keys.forEach((key) => {
+                const value = tourMutation[key];
+
+                if (value !== null) {
+                    if (Array.isArray(value)) {
+                        formData.append(key, JSON.stringify(value));
+                    } else if (typeof value === 'number') {
+                        formData.append(key, value.toString());
+                    } else {
+                        formData.append(key, value);
+                    }
+                }
+            });
+
+            await axiosApi.post('/tours', formData);
+        } catch (e) {
+            if (isAxiosError(e) && e.response && e.response.status === 400) {
+                return rejectWithValue(e.response.data);
+            }
+
+            throw e;
+        }
+    }
+);

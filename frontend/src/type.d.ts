@@ -73,6 +73,24 @@ export interface Tour {
   isPublished: boolean;
 }
 
+export interface ITourMutation {
+  guide: IGuide[];
+  category: [string];
+  name: string;
+  description: string;
+  duration: number;
+  plan: [{ title: string; planDescription: string; _id: string }];
+  country: string;
+  destination: string;
+  arrival: string;
+  departure: string;
+  dressCode: string;
+  included: [];
+  galleryTour: File[] | null;
+  mainImage: string;
+  price: number;
+}
+
 export interface IPostReview {
   user: string;
   tour: string | null;
