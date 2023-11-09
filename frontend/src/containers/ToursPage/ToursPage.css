@@ -1,3 +1,8 @@
+.featured-tours {
+  background: #f6f6f6;
+  padding-top: 40px;
+}
+
 .tours-page {
   display: flex;
   flex-wrap: wrap;
@@ -15,7 +20,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 50px;
+  padding-bottom: 50px;
 }
 .tours-page-link-tours {
   position: relative;
