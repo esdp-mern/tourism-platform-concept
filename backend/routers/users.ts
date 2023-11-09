@@ -1,12 +1,12 @@
 import express from 'express';
-import User from '../models/User';
-import mongoose from 'mongoose';
+import User, { IUserMethods } from '../models/User';
+import mongoose, { HydratedDocument } from 'mongoose';
 import { randomUUID } from 'crypto';
 import auth, { RequestWithUser } from '../middleware/auth';
-import crypto from 'crypto';
 import { OAuth2Client } from 'google-auth-library';
 import config from '../config';
 import { imagesUpload } from '../multer';
+import write_https_image from '../features/write_https_image';
 
 const usersRouter = express.Router();
 const client = new OAuth2Client(config.google.clientId);
@@ -96,6 +96,7 @@ usersRouter.post('/google', async (req, res, next) => {
     const email = payload['email'];
     const id = payload['sub'];
     const displayName = payload['name'];
+    const avatar = payload['picture'];
 
     if (!email) {
       return res
@@ -103,23 +104,34 @@ usersRouter.post('/google', async (req, res, next) => {
         .send({ error: 'Not enough user data to continue' });
     }
 
-    let user = await User.findOne({ googleID: id });
+    const avatarFileName = `images/${randomUUID()}.png`;
 
-    if (!user) {
-      user = new User({
-        email: email,
-        password: crypto.randomUUID(),
-        googleID: id,
-        displayName,
-        username: email,
+    const avatarPath = `${config.publicPath}/${avatarFileName}`;
+
+    let user = (await User.findOne({
+      googleID: id,
+    })) as HydratedDocument<IUserMethods>;
+
+    if (!user && avatar) {
+      write_https_image(avatar, avatarPath, async () => {
+        user = new User({
+          username: email,
+          email: email,
+          password: randomUUID(),
+          displayName,
+          googleID: id,
+          avatar: avatarFileName,
+        });
+
+        user.generateToken();
+        await user.save();
+        return res.send({ message: 'Login with Google was successful!', user });
       });
+    } else {
+      user.generateToken();
+      await user.save();
+      return res.send({ message: 'Login with Google was successful!', user });
     }
-
-    user.generateToken();
-
-    await user.save();
-
-    return res.send({ message: 'Login with Google was successful!', user });
   } catch (e) {
     return next(e);
   }

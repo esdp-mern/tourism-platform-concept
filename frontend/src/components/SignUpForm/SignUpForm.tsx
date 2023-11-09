@@ -61,11 +61,7 @@ const SignUpForm = () => {
       dispatch(addAlert({ message: 'You have signed in!', type: 'info' }));
       navigate('/');
     } catch (e) {
-      if (e instanceof AxiosError) {
-        dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
-      }
-    } finally {
-      // setState(initialState);
+      dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
     }
   };
 
