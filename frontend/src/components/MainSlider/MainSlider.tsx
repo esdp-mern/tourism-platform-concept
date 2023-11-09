@@ -46,9 +46,16 @@ const MainSlider = () => {
   return (
     <div className="main-slider">
       <div className="link-group">
-        <span className="link-group-phone" />
-        <span className="link-group-email" />
-        <span className="link-group-lang" />
+        <a href="tel:#" className="link-group-element link-group-phone">
+          <span className="link-group-element-desc">Phone</span>
+        </a>
+        <a href="mailto:#" className="link-group-element link-group-email">
+          <span className="link-group-element-desc">Email</span>
+        </a>
+        <a href="#" className="link-group-element link-group-lang">
+          <span>En</span>
+          <span className="link-group-element-desc">English</span>
+        </a>
       </div>
       <div
         className={`countries-slider ${currentSlide?.country.toLowerCase()}`}

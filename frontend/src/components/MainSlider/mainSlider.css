@@ -15,16 +15,77 @@
   gap: 22px;
 }
 
-.country-dots {
-  gap: 25px;
+.link-group {
+  position: relative;
+  width: 47px;
+  height: 185px;
 }
 
-.link-group span {
+.link-group-element {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 0;
   width: 47px;
   height: 47px;
-  border-radius: 50%;
+  border-radius: 23px;
   border: 1px solid #c4c4c4;
   cursor: pointer;
+  z-index: 3;
+  transition: 0.2s;
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: 13px 13px;
+  color: #000000;
+  text-decoration: none;
+}
+
+.link-group-element-desc {
+  opacity: 0;
+  width: 85px;
+  text-align: center;
+  margin-left: auto;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.link-group-element:hover .link-group-element-desc {
+  animation: showDesc 0.2s linear;
+  opacity: 1;
+}
+
+.link-group-phone {
+  top: 0;
+  background-image: url('../../assets/images/phone-black.svg');
+}
+
+.link-group-email {
+  top: 50%;
+  background-image: url('../../assets/images/email-black.svg');
+  transform: translateY(-50%);
+}
+
+.link-group-lang {
+  bottom: 0;
+  font-size: 19px;
+  font-weight: 600;
+  padding: 11px 10px;
+}
+
+.link-group-element:hover {
+  width: 130px;
+  background-color: #ffffff;
+  border: 1px solid transparent;
+  color: #75c15b;
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.15);
+}
+
+.link-group-phone:hover {
+  background-image: url('../../assets/images/phone-green.svg');
+}
+
+.link-group-email:hover {
+  background-image: url('../../assets/images/email-green.svg');
 }
 
 .country-dot {
@@ -98,4 +159,19 @@
 
 .kazakhstan {
   background-image: url('../../assets/images/kz.jpeg');
+}
+
+@keyframes showDesc {
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
 }

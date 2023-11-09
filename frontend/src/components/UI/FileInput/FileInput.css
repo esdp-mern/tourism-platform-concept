@@ -17,7 +17,7 @@
 
 .file-input-btn {
   cursor: pointer;
-  texttransform: none;
+  text-transform: none;
   width: 100px;
   overflow: hidden;
 }
