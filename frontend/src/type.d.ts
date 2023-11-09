@@ -17,7 +17,6 @@ export interface User {
   token: string;
   role: string;
   displayName: string;
-  avatar: string;
   googleID: string;
   appleID: string;
   email: string;

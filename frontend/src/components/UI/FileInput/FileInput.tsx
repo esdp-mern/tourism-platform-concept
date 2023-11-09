@@ -36,21 +36,22 @@ const FileInput: React.FC<Props> = ({ onChange, name, image, className }) => {
   };
 
   return (
-    <div className={'file-input ' + className}>
-      <input
-        style={{ display: 'none' }}
-        type="file"
-        name={name}
-        onChange={onFileChange}
-        ref={inputRef}
-      />
+    <>
+      <div className={'file-input ' + className}>
+        <input
+          style={{ display: 'none' }}
+          type="file"
+          name={name}
+          onChange={onFileChange}
+          ref={inputRef}
+        />
 
-      <h6 className="file-input-label">{filename}</h6>
-
+        <h6 className="file-input-label">{filename}</h6>
+      </div>
       <button type="button" onClick={activateInput} className="file-input-btn">
         Browse
       </button>
-    </div>
+    </>
   );
 };
 
