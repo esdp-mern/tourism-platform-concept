@@ -147,12 +147,42 @@
   pointer-events: auto;
 }
 
+.profile-preview {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.profile-preview * {
+  margin: 0;
+  padding: 0;
+}
+
+.profile-preview h5 {
+  letter-spacing: 0;
+}
+
+.profile-preview h6 {
+  font-weight: 400;
+  color: #222;
+}
+
+.profile-preview-avatar {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid #222;
+}
+
 .close-btn {
   display: block;
-  margin-left: auto;
-  margin-top: 10px;
-  margin-right: 10px;
-  position: relative;
+  position: absolute;
+  top: 10px;
+  right: 10px;
   border: none;
   background-color: transparent;
   cursor: pointer;

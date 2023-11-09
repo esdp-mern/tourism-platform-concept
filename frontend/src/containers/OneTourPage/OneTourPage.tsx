@@ -2,12 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { fetchTour } from '../../store/toursThunk';
-import { selectOneTour } from '../../store/toursSlice';
+import {
+  selectOneTour,
+  selectPostReviewError,
+  resetPostReviewError,
+} from '../../store/toursSlice';
 import OneTourInformation from './components/OneTourInformation/OneTourInformation';
 import OneTourPlan from './components/OneTourPlan/OneTourPlan';
 import { apiUrl } from '../../constants';
 import './OneTourPage.css';
 import PageLoader from '../../components/Loaders/PageLoader';
+import { addAlert } from '../../store/usersSlice';
+import NewReviewForm from '../../components/NewReviewForm/NewReviewForm';
 
 interface ITab {
   title: string;
@@ -23,10 +29,13 @@ const TABS: ITab[] = [
 ];
 
 const OneTourPage = () => {
-  const { id } = useParams() as { id: string };
+  const { id } = useParams() as {
+    id: string;
+  };
 
   const dispatch = useAppDispatch();
   const tour = useAppSelector(selectOneTour);
+  const postReviewError = useAppSelector(selectPostReviewError);
 
   const [currentTab, setCurrentTab] = useState<string>('information');
 
@@ -34,11 +43,14 @@ const OneTourPage = () => {
     if (id) {
       dispatch(fetchTour(id));
     }
-  }, [id, dispatch]);
+    if (postReviewError) {
+      dispatch(addAlert({ message: postReviewError.message, type: 'error' }));
+      dispatch(resetPostReviewError());
+    }
+  }, [id, dispatch, postReviewError]);
+  const imgLink = apiUrl + '/' + tour?.mainImage;
 
   if (!tour) return <div>No such tour!</div>;
-
-  const imgLink = apiUrl + '/' + tour.mainImage;
 
   const toggleTab = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { name } = e.currentTarget;
@@ -77,7 +89,7 @@ const OneTourPage = () => {
         {currentTab === 'plan' && <OneTourPlan />}
         {currentTab === 'location' && <h1>Tour location</h1>}
         {currentTab === 'gallery' && <h1>Tour gallery</h1>}
-        {currentTab === 'reviews' && <h1>Tour reviews</h1>}
+        {currentTab === 'reviews' && <NewReviewForm />}
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import User from './models/User';
 import Tour from './models/Tour';
 import Guide from './models/Guide';
 import Review from './models/Review';
+import Order from './models/Order';
 
 const run = async () => {
   await mongoose.connect(config.db);
@@ -15,6 +16,7 @@ const run = async () => {
     await db.dropCollection('tours');
     await db.dropCollection('guides');
     await db.dropCollection('reviews');
+    await db.dropCollection('orders');
   } catch (e) {
     console.log('Collections were not present, skipping drop...');
   }
@@ -26,6 +28,7 @@ const run = async () => {
       displayName: 'Guide',
       password: 'qwerty1234',
       role: 'guid',
+      avatar: 'fixtures/mordecai.png',
       token: crypto.randomUUID(),
     },
     {
@@ -34,6 +37,7 @@ const run = async () => {
       displayName: 'Guide2',
       password: 'qwerty1234',
       role: 'guid',
+      avatar: 'fixtures/gumball.jpg',
       token: crypto.randomUUID(),
     },
     {
@@ -42,6 +46,7 @@ const run = async () => {
       displayName: 'Guide3',
       password: 'qwerty1234',
       role: 'guid',
+      avatar: 'fixtures/kuroro.jpeg',
       token: crypto.randomUUID(),
     },
     {
@@ -50,6 +55,7 @@ const run = async () => {
       displayName: 'User',
       password: 'qwerty1234',
       role: 'user',
+      avatar: 'fixtures/midjourney.webp',
       token: crypto.randomUUID(),
     },
     {
@@ -58,6 +64,7 @@ const run = async () => {
       displayName: 'Admin',
       password: 'qwerty1234',
       role: 'admin',
+      avatar: 'fixtures/admin.png',
       token: crypto.randomUUID(),
     },
     {
@@ -66,6 +73,7 @@ const run = async () => {
       displayName: 'Moderator',
       password: 'qwerty1234',
       role: 'moderator',
+      avatar: 'fixtures/moderator.jpg',
       token: crypto.randomUUID(),
     },
   );
@@ -116,6 +124,7 @@ const run = async () => {
         included: ['Museum Tickets', 'Group Guide', 'Transport'],
         galleryTour: ['fixtures/burana.jpeg', 'fixtures/burana2.jpeg'],
         country: 'Kyrgyzstan',
+        isPublished: true,
       },
       {
         guide: Askar._id,
@@ -141,6 +150,7 @@ const run = async () => {
         included: ['Lunch', 'Group Guide', 'Transport'],
         galleryTour: ['fixtures/canyon-skazka.jpeg'],
         country: 'Kyrgyzstan',
+        isPublished: true,
       },
       {
         guide: Artem._id,
@@ -175,6 +185,7 @@ const run = async () => {
         included: ['Museum Tickets', 'Group Guide', 'Transport'],
         galleryTour: ['fixtures/issyk-kul.jpeg'],
         country: 'Kyrgyzstan',
+        isPublished: true,
       },
       {
         guide: Andrey._id,
@@ -209,6 +220,7 @@ const run = async () => {
         included: ['Group Guide', 'Transport', 'Guesthouse', 'Food'],
         galleryTour: ['fixtures/osh.jpeg'],
         country: 'Kyrgyzstan',
+        isPublished: true,
       },
       {
         guide: Askar._id,
@@ -243,6 +255,7 @@ const run = async () => {
         included: ['Group Guide', 'Transport', 'Guesthouse', 'Food'],
         galleryTour: ['fixtures/sary-chelek.jpeg'],
         country: 'Kyrgyzstan',
+        isPublished: true,
       },
       {
         guide: Andrey._id,
@@ -272,6 +285,7 @@ const run = async () => {
         included: ['Group Guide', 'Transport', 'Guesthouse', 'Food'],
         galleryTour: ['fixtures/naryn.jpeg'],
         country: 'Kyrgyzstan',
+        isPublished: true,
       },
       {
         guide: Andrey._id,
@@ -302,6 +316,7 @@ const run = async () => {
         included: ['Museum Tickets', 'Group Guide', 'Transport', 'Tents'],
         galleryTour: ['fixtures/ala-kul.jpeg'],
         country: 'Kyrgyzstan',
+        isPublished: true,
       },
     );
 
@@ -354,6 +369,23 @@ const run = async () => {
       comment: 'Amazing place, but it was cold!',
       rating: 4,
       date: '2024-08-05T17:11:22.353Z',
+    },
+  );
+
+  await Order.create(
+    {
+      user: user1._id,
+      guide: Andrey._id,
+      tour: Naryn._id,
+      price: Naryn.price,
+      date: '2023-11-08T11:22:03.760Z',
+    },
+    {
+      user: user2._id,
+      guide: Artem._id,
+      tour: Osh._id,
+      price: Osh.price,
+      date: '2023-11-08T15:14:05.760Z',
     },
   );
   await db.close();

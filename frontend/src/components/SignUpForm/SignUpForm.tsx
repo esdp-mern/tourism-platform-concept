@@ -1,28 +1,49 @@
 import React, { useState } from 'react';
 import { RegisterMutation } from '../../type';
-import { useAppDispatch } from '../../app/hook';
+import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { useSelector } from 'react-redux';
-import { addAlert, selectRegisterError } from '../../store/usersSlice';
+import {
+  addAlert,
+  selectSignUpError,
+  selectSignUpLoading,
+} from '../../store/usersSlice';
 import { useNavigate } from 'react-router-dom';
 import { signUp } from '../../store/usersThunk';
 import '../../App.css';
+import FileInput from '../UI/FileInput/FileInput';
+
+const initialState: RegisterMutation = {
+  username: '',
+  password: '',
+  displayName: '',
+  email: '',
+  avatar: null,
+};
 
 const SignUpForm = () => {
-  const [state, setState] = useState<RegisterMutation>({
-    username: '',
-    password: '',
-    displayName: '',
-    email: '',
-  });
+  const [state, setState] = useState<RegisterMutation>(initialState);
   const dispatch = useAppDispatch();
-  const error = useSelector(selectRegisterError);
+  const error = useSelector(selectSignUpError);
+  const signUpLoading = useAppSelector(selectSignUpLoading);
   const navigate = useNavigate();
+
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
     setState((prevState) => {
       return { ...prevState, [name]: value };
     });
+  };
+
+  const changeFileValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, files } = e.target;
+
+    if (files) {
+      setState((prevState) => ({
+        ...prevState,
+        [name]: files[0],
+      }));
+    }
   };
 
   const getFieldError = (fieldName: string) => {
@@ -40,14 +61,11 @@ const SignUpForm = () => {
       dispatch(addAlert({ message: 'You have signed in!', type: 'info' }));
       navigate('/');
     } catch (e) {
-      dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+      if (e instanceof AxiosError) {
+        dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+      }
     } finally {
-      setState(() => ({
-        username: '',
-        password: '',
-        displayName: '',
-        email: '',
-      }));
+      // setState(initialState);
     }
   };
 
@@ -121,8 +139,17 @@ const SignUpForm = () => {
             required
           />
         </div>
+        <div className="input-wrap">
+          <label className="form-label">Avatar</label>
+          <FileInput
+            onChange={changeFileValue}
+            name="avatar"
+            image={state.avatar}
+            className="form-control"
+          />
+        </div>
         <button type="submit" className="form-btn">
-          Sign up
+          {signUpLoading ? <ButtonLoader size={18} /> : 'Sign up'}
         </button>
       </form>
     </div>

@@ -68,6 +68,11 @@ const TourSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  isPublished: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
 });
 
 const Tour = mongoose.model('Tour', TourSchema);

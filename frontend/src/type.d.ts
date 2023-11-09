@@ -8,6 +8,7 @@ export interface RegisterMutation {
   password: string;
   displayName: string;
   email: string;
+  avatar: File | null;
 }
 
 export interface User {
@@ -20,6 +21,7 @@ export interface User {
   googleID: string;
   appleID: string;
   email: string;
+  avatar: string | null;
 }
 
 export interface RegisterResponse {
@@ -60,4 +62,18 @@ export interface Tour {
   galleryTour: [];
   mainImage: string;
   price: number;
+  isPublished: boolean;
+}
+
+export interface IPostReview {
+  user: string;
+  tour: string | null;
+  guide: string | null;
+  comment: string;
+  rating: number;
+}
+
+export interface IReview extends IPostReview {
+  _id: string;
+  date: string;
 }

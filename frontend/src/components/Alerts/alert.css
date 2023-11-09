@@ -1,11 +1,11 @@
 .alerts {
-  position: absolute;
-  top: 15px;
+  position: fixed;
+  top: 60px;
   right: 30px;
   display: flex;
   flex-direction: column;
   width: 260px;
-  z-index: 2;
+  z-index: 3;
   transition: 0.5s;
 }
 
@@ -16,7 +16,7 @@
   font-size: 14px;
   line-height: 20px;
   transition: 0.5s;
-  height: 0 !important;
+  max-height: 0;
   padding: 0 15px;
   overflow: hidden;
   animation: showAlert 7s ease running;
@@ -56,45 +56,48 @@
 
 @keyframes showAlert {
   0% {
-    min-height: 50px;
-    padding: 0 15px;
+    max-height: 150px;
+    padding: 15px;
     margin-bottom: 10px;
     transform: translateX(150%);
   }
   5% {
-    min-height: 50px;
-    padding: 0 15px;
+    max-height: 150px;
+    padding: 15px;
     margin-bottom: 10px;
     transform: translateX(0%);
   }
   90% {
-    min-height: 50px;
-    padding: 0 15px;
+    max-height: 150px;
+    padding: 15px;
     margin-bottom: 10px;
-    transform: translateX(0%);
     opacity: 1;
   }
-  95% {
+  94% {
+    max-height: 150px;
+    padding: 15px;
+    margin-bottom: 10px;
     opacity: 0;
   }
   100% {
-    min-height: 0;
-    height: 0;
+    max-height: 0;
+    padding: 0 15px;
+    margin-bottom: 0;
     opacity: 0;
   }
 }
 
 @keyframes hideAlert {
   0% {
-    min-height: 50px;
-    padding: 0 15px;
+    max-height: 150px;
+    padding: 15px;
     margin-bottom: 10px;
     transform: translateX(0%);
     opacity: 1;
   }
   100% {
-    min-height: 0;
-    height: 0;
+    max-height: 0;
     opacity: 0;
+    padding: 0 15px;
   }
 }
