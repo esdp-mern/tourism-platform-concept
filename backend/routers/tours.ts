@@ -21,7 +21,16 @@ toursRouter.get('/', async (req, res) => {
 
     const formattedTours = await Promise.all(
         tours.map(async (tour) => {
+          let rating = 0;
+
           const reviews = await Review.find({ tour: tour._id });
+
+          if (reviews.length > 0) {
+            rating =
+                reviews.reduce((acc, value) => acc + value.rating, 0) / reviews.length;
+          }
+
+
           return {
             _id: tour._id,
             guide: tour.guide,
@@ -40,7 +49,7 @@ toursRouter.get('/', async (req, res) => {
             country: tour.country,
             galleryTour: tour.galleryTour,
             isPublished: tour.isPublished,
-            reviews: reviews,
+            rating: rating,
           };
         })
     );
@@ -57,15 +66,20 @@ toursRouter.get('/:id', async (req, res) => {
       path: 'guide',
       populate: {
         path: 'user',
-        select: 'username displayName',
+        select: 'username displayName avatar',
       },
     });
 
     if (!tour) {
       return res.status(404).send('Not found!');
     }
-
+    let rating = 0;
     const reviews = await Review.find({ tour: tour._id });
+
+    if (reviews.length > 0) {
+      rating =
+          reviews.reduce((acc, value) => acc + value.rating, 0) / reviews.length;
+    }
 
     const tourReviews = {
       _id: tour._id,
@@ -85,7 +99,7 @@ toursRouter.get('/:id', async (req, res) => {
       country: tour.country,
       galleryTour: tour.galleryTour,
       isPublished: tour.isPublished,
-      reviews: reviews,
+      rating: rating,
     };
     return res.send(tourReviews);
   } catch (e) {
