@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import Guide from './Guide';
 
 const TourSchema = new mongoose.Schema({
-  guide: {
+  guide: [{
     type: mongoose.Types.ObjectId,
     ref: 'Guide',
     required: true,
@@ -11,7 +11,7 @@ const TourSchema = new mongoose.Schema({
         await Guide.findById(value),
       message: 'Guide does not exist!',
     },
-  },
+  }],
   name: {
     type: String,
     required: true,
