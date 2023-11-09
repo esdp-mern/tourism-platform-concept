@@ -9,8 +9,10 @@ import {
 } from '../../store/usersSlice';
 import { useNavigate } from 'react-router-dom';
 import { signUp } from '../../store/usersThunk';
-import '../../App.css';
 import FileInput from '../UI/FileInput/FileInput';
+import { AxiosError } from 'axios';
+import ButtonLoader from '../Loaders/ButtonLoader';
+import '../../App.css';
 
 const initialState: RegisterMutation = {
   username: '',

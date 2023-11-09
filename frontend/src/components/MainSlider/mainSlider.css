@@ -1,0 +1,101 @@
+.main-slider {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  padding: 20px 30px 100px;
+  width: 100%;
+}
+
+.link-group,
+.country-dots {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.country-dots {
+  gap: 25px;
+}
+
+.link-group span {
+  width: 47px;
+  height: 47px;
+  border-radius: 50%;
+  border: 1px solid #c4c4c4;
+  cursor: pointer;
+}
+
+.country-dot {
+  position: relative;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #00000033;
+  padding: 10px 0 10px 25px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.country-dot:hover {
+  color: #000000;
+}
+
+.country-dot:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate3d(0, -50%, 0);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.country-dot-selected {
+  color: #000000;
+}
+
+.country-dot-selected:before {
+  background: #75c15b;
+}
+
+.countries-slider {
+  position: relative;
+  align-self: stretch;
+  width: 1050px;
+  height: 760px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 2;
+}
+
+.country-slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../assets/images/main-slider-img-cover.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: 0.7s;
+
+  z-index: 1;
+}
+
+.kyrgyzstan {
+  background-image: url('../../assets/images/kg.jpeg');
+}
+
+.uzbekistan {
+  background-image: url('../../assets/images/uz.jpeg');
+}
+
+.kazakhstan {
+  background-image: url('../../assets/images/kz.jpeg');
+}
