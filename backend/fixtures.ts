@@ -254,7 +254,7 @@ const run = async () => {
         departure: '11 PM',
         dressCode: 'Casual. Comfortable athletic clothing, hiking shoes.',
         included: ['Group Guide', 'Transport', 'Guesthouse', 'Food'],
-        galleryTour: ['fixtures/sary-chelek.jpeg'],
+        galleryTour: ['fixtures/sary-chelek.jpeg', 'fixtures/naryn.jpeg'],
         country: 'Kyrgyzstan',
         isPublished: true,
       },

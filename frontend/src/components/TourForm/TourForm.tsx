@@ -52,6 +52,7 @@ const TourForm = () => {
       state.guide = guide;
       state.included = included;
       state.galleryTour = galleryTour;
+      console.log(state);
       await dispatch(postTour(state)).unwrap();
       navigate('/');
     } catch (e) {
@@ -285,7 +286,7 @@ const TourForm = () => {
             <span className="error-tour">{getFieldError('price')}</span>
           )}
           <input
-            type="text"
+            type="number"
             className={
               getFieldError('price')
                 ? 'form-tour-control-error'

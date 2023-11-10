@@ -16,7 +16,7 @@ toursRouter.get('/', async (req, res) => {
     if (req.query.guide) {
       tours = await Tour.find({ guid: req.query.guide, isPublished: true });
     } else {
-      tours = await Tour.find({ isPublished: true });
+      tours = await Tour.find();
     }
 
     const formattedTours = await Promise.all(
@@ -125,11 +125,17 @@ toursRouter.post('/', auth, permit('admin'), imagesUpload.fields([{ name: 'mainI
       );
     }
 
-    const mainImage = req.files && 'mainImage' in req.files ? req.files['mainImage'][0].filename : null;
-    const gallery = req.files && 'galleryTour' in req.files ? req.files['galleryTour'].map((file: Express.Multer.File) => file.filename) : [];
-    const plan = JSON.parse(req.body.plan);
-    const category = JSON.parse(req.body.category);
-    const included = JSON.parse(req.body.included);
+    const mainImage = req.files && 'mainImage' in req.files
+        ? 'images/' + (req.files as { [fieldname: string]: Express.Multer.File[] })['mainImage'][0].filename
+        : null;
+
+    const gallery = req.files && ('galleryTour' in req.files)
+        ? (req.files as { [fieldname: string]: Express.Multer.File[] })['galleryTour'].map((file) => 'images/' + file.filename)
+        : [];
+
+    const plan = req.body.plan ? JSON.parse(req.body.plan) : [];
+    const category = req.body.category ? JSON.parse(req.body.category) : [];
+    const included = req.body.included ? JSON.parse(req.body.included) : [];
 
     const tour = new Tour({
       guide: existGuide,
@@ -185,11 +191,17 @@ toursRouter.put('/:id', auth, permit('admin'), imagesUpload.fields([{ name: 'mai
       );
     }
 
-    const mainImage = req.files && 'mainImage' in req.files ? req.files['mainImage'][0].filename : existingTour.mainImage;
-    const gallery = req.files && 'galleryTour' in req.files ? req.files['galleryTour'].map((file: Express.Multer.File) => file.filename) : existingTour.galleryTour;
     const plan = req.body.plan ? JSON.parse(req.body.plan) : existingTour.plan;
     const category = req.body.category ? JSON.parse(req.body.category) : existingTour.category;
     const included = req.body.included ? JSON.parse(req.body.included) : existingTour.included;
+
+    const mainImage = req.files && 'mainImage' in req.files
+        ? 'images/' + req.files['mainImage'][0].filename
+        : existingTour.mainImage;
+
+    const gallery = req.files && 'galleryTour' in req.files
+        ? req.files['galleryTour'].map((file: Express.Multer.File) => 'images/' + file.filename)
+        : existingTour.galleryTour;
 
     existingTour.guide = existGuide || existingTour.guide;
     existingTour.name = req.body.name || existingTour.name;
