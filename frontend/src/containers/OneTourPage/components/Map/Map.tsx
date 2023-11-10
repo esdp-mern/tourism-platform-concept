@@ -19,7 +19,6 @@ interface Props {
 
 const Map: React.FC<Props> = ({ country }) => {
   const geographicMapRef = useRef<IgrGeographicMap>(null);
-  const tour = useAppSelector(selectOneTour);
 
   useEffect(() => {
     if (geographicMapRef.current) {

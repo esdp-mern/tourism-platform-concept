@@ -13,7 +13,7 @@ const Gallery = () => {
       <div className="one-tour-photos">
         {tour?.galleryTour.map((t, index) => (
           <div key={index.toString()}>
-            <img src={apiUrl + '/' + t} />
+            <img src={apiUrl + '/' + t} alt={t} />
           </div>
         ))}
       </div>
