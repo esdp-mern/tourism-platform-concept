@@ -133,9 +133,12 @@ toursRouter.post('/', auth, permit('admin'), imagesUpload.fields([{ name: 'mainI
         ? (req.files as { [fieldname: string]: Express.Multer.File[] })['galleryTour'].map((file) => 'images/' + file.filename)
         : [];
 
-    const plan = req.body.plan ? JSON.parse(req.body.plan) : [];
-    const category = req.body.category ? JSON.parse(req.body.category) : [];
-    const included = req.body.included ? JSON.parse(req.body.included) : [];
+
+    const stringPlan = req.body.plan.map(JSON.parse);
+    const plan = stringPlan.length ? stringPlan : [];
+
+    const category = req.body.category ? req.body.category : [];
+    const included = req.body.included ? req.body.included : [];
 
     const tour = new Tour({
       guide: existGuide,
