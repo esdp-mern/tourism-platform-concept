@@ -6,8 +6,6 @@ import {
 import { IgrGeographicMap } from 'igniteui-react-maps';
 import { IgrDataChartInteractivityModule } from 'igniteui-react-charts';
 import './Map.css';
-import { useAppSelector } from '../../../../app/hook';
-import { selectOneTour } from '../../../../store/toursSlice';
 
 IgrGeographicSymbolSeriesModule.register();
 IgrGeographicMapModule.register();
