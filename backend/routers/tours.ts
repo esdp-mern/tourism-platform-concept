@@ -21,7 +21,13 @@ toursRouter.get('/', async (req, res) => {
 
 toursRouter.get('/:id', async (req, res) => {
   try {
-    const tour = await Tour.findById(req.params.id);
+    const tour = await Tour.findById(req.params.id).populate({
+      path: 'guides',
+      populate: {
+        path: 'user',
+        select: 'username displayName role avatar email',
+      },
+    });
 
     if (!tour) {
       return res.status(404).send('Not found!');
@@ -38,7 +44,7 @@ toursRouter.get('/:id', async (req, res) => {
 
     const tourReviews = {
       _id: tour._id,
-      guide: tour.guide,
+      guides: tour.guides,
       name: tour.name,
       mainImage: tour.mainImage,
       description: tour.description,

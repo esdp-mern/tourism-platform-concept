@@ -4,16 +4,18 @@ import TextField from '../../../../components/UI/TextField/TextField';
 import { IOrder } from '../../../../type';
 import { useAppSelector } from '../../../../app/hook';
 import { selectUser } from '../../../../store/usersSlice';
-import penIcon from '../../../../assets/images/pen-icon.svg';
+import guideIcon from '../../../../assets/images/guide-icon.svg';
 import calendarIcon from '../../../../assets/images/calendar-order-icon.svg';
-import peopleIcon from '../../../../assets/images/people-icon.svg';
 import emailIcon from '../../../../assets/images/email-icon.svg';
 import phoneIcon from '../../../../assets/images/phone-icon.svg';
 
+export interface IChangeEvent {
+  target: { name: string; value: string };
+}
+
 const initialState: IOrder = {
-  fullName: '',
+  guide: '',
   date: '',
-  people: '',
 };
 
 const OneTourOrderForm = () => {
@@ -23,12 +25,12 @@ const OneTourOrderForm = () => {
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
   useEffect(() => {
-    if (user) {
+    if (!user) {
       setState((prevState) => ({ ...prevState, email: '', phone: '' }));
     }
   }, [user]);
 
-  const changeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const changeValue = (e: IChangeEvent) => {
     const { name, value } = e.target;
 
     setState((prevState) => ({ ...prevState, [name]: value }));
@@ -38,6 +40,12 @@ const OneTourOrderForm = () => {
     e.preventDefault();
 
     setIsSubmit(true);
+
+    const keys = Object.keys(state) as (keyof IOrder)[];
+
+    const isValid = keys.find((key: keyof IOrder) => state[key]?.length === 0);
+
+    if (isValid) return;
   };
 
   return (
@@ -46,19 +54,19 @@ const OneTourOrderForm = () => {
 
       <div className="one-tour-order-form-inputs">
         <TextField
-          name="fullName"
-          type="text"
-          value={state.fullName}
+          name="guide"
+          type="select"
+          value={state.guide}
           onChange={changeValue}
-          icon={penIcon}
-          label="Full Name"
+          icon={guideIcon}
+          label="Select guide"
           required
           isSubmit={isSubmit}
         />
 
         <TextField
           name="date"
-          type="text"
+          type="date"
           value={state.date}
           onChange={changeValue}
           icon={calendarIcon}
@@ -67,18 +75,7 @@ const OneTourOrderForm = () => {
           isSubmit={isSubmit}
         />
 
-        <TextField
-          name="people"
-          type="text"
-          value={state.people}
-          onChange={changeValue}
-          icon={peopleIcon}
-          label="People"
-          required
-          isSubmit={isSubmit}
-        />
-
-        {!!user && state.email !== undefined && state.phone !== undefined && (
+        {!user && state.email !== undefined && state.phone !== undefined && (
           <>
             <TextField
               name="email"

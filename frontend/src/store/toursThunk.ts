@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IPostReview, IReview, Tour, ValidationError } from '../type';
+import { IPostReview, IReview, Tour, TourFull, ValidationError } from '../type';
 import axiosApi from '../axiosApi';
 import { isAxiosError } from 'axios';
 
@@ -15,10 +15,10 @@ export const fetchTours = createAsyncThunk<Tour[], void | string>(
   },
 );
 
-export const fetchTour = createAsyncThunk<Tour, string>(
+export const fetchTour = createAsyncThunk<TourFull, string>(
   'tours/fetchOne',
   async (id) => {
-    const response = await axiosApi.get<Tour>(`/tours/${id}`);
+    const response = await axiosApi.get<TourFull>(`/tours/${id}`);
     return response.data;
   },
 );

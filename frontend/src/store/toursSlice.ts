@@ -1,11 +1,11 @@
-import { Tour, ValidationError } from '../type';
+import { Tour, TourFull, ValidationError } from '../type';
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchTour, fetchTours, postReview } from './toursThunk';
 import { RootState } from '../app/store';
 
 interface ToursState {
   tours: Tour[];
-  tour: Tour | null;
+  tour: TourFull | null;
   fetchAllLoading: boolean;
   fetchOneLoading: boolean;
   tourReviews: [];

@@ -145,7 +145,7 @@ const SignUpForm = () => {
           />
         </div>
         <button type="submit" className="form-btn">
-          {/*{signUpLoading ? <ButtonLoader size={18} /> : 'Sign up'}*/}
+          {signUpLoading ? 'Loading...' : 'Sign up'}
         </button>
       </form>
     </div>

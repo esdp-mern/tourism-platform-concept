@@ -1,20 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './TextField.css';
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
+import { format } from 'date-fns';
+import { IChangeEvent } from '../../../containers/OneTourPage/components/OneTourOrderForm/OneTourOrderForm';
+import TextFieldSelect from './components/TextFieldSelect/TextFieldSelect';
 
 interface Props {
   name: string;
-  type: React.HTMLInputTypeAttribute;
+  type: React.HTMLInputTypeAttribute | 'select';
   label?: string;
   required?: boolean;
   isSubmit?: boolean;
   value: string;
-  onChange: React.ChangeEventHandler;
+  onChange: (e: IChangeEvent) => void;
   icon: string;
 }
 
 const TextField: React.FC<Props> = (props) => {
   const [isFocus, setIsFocus] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
+  const [prevSelectedDate, setPrevSelectedDate] = useState<Date>();
+  const [selectedDate, setSelectedDate] = useState<Date>();
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     if (props.isSubmit !== undefined) {
@@ -22,29 +30,82 @@ const TextField: React.FC<Props> = (props) => {
     }
   }, [props.required, props.isSubmit, props.value]);
 
+  useEffect(() => {
+    if (inputRef.current && prevSelectedDate !== selectedDate) {
+      props.onChange({
+        target: {
+          name: inputRef.current.name,
+          value: inputRef.current.value,
+        },
+      });
+      setPrevSelectedDate(selectedDate);
+    }
+  }, [inputRef, props, prevSelectedDate, selectedDate]);
+
+  const isDatePicker = props.type === 'date';
+  const isSelect = props.type === 'select';
+
+  const getFormat = (date: Date) => format(date, 'dd/MM/yyyy');
+
   return (
     <div className="text-field">
       <label
         className={`text-field-label ${
-          isFocus ? 'text-field-label-hidden' : ''
+          isFocus || (isDatePicker && selectedDate) || props.value
+            ? 'text-field-label-hidden'
+            : ''
         }`}
       >
         {props.label}
       </label>
-      <input
-        className={`text-field-input ${
-          isError ? 'text-field-input-error' : ''
-        }`}
-        type={props.type}
-        name={props.name}
-        value={props.value}
-        onChange={props.onChange}
-        onFocus={() => setIsFocus(true)}
-        onBlur={() => !props.value && setIsFocus(false)}
-      />
+      {isSelect ? (
+        <TextFieldSelect
+          name={props.name}
+          label={props.label}
+          value={props.value}
+          onSelect={props.onChange}
+          className="text-field-input"
+        />
+      ) : (
+        <input
+          className={`text-field-input ${
+            isError ? 'text-field-input-error' : ''
+          }`}
+          type={isDatePicker ? 'text' : props.type}
+          name={props.name}
+          value={
+            isDatePicker
+              ? !selectedDate
+                ? ''
+                : getFormat(selectedDate)
+              : props.value
+          }
+          onChange={props.onChange}
+          ref={inputRef}
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
+          autoComplete="off"
+        />
+      )}
       <img className="text-field-img" src={props.icon} alt="img" />
       {isError && (
         <span className="text-field-span">The text field is required.</span>
+      )}
+
+      {isDatePicker && (
+        <div className={`day-picker ${isFocus ? '' : 'day-picker-hide'}`}>
+          <DayPicker
+            mode="single"
+            showOutsideDays
+            selected={selectedDate}
+            onSelect={setSelectedDate}
+            modifiersClassNames={{
+              disabled: 'my-disabled',
+              selected: 'my-selected',
+              today: 'my-today',
+            }}
+          />
+        </div>
       )}
     </div>
   );

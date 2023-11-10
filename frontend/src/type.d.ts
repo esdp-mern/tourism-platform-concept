@@ -17,12 +17,13 @@ export interface User {
   token: string;
   role: string;
   displayName: string;
-  avatar: string;
   googleID: string;
   appleID: string;
   email: string;
   avatar: string | null;
 }
+
+export type TConfidentialUser = Omit<User, 'token'>;
 
 export interface RegisterResponse {
   user: User;
@@ -45,9 +46,22 @@ export interface GlobalError {
   error: string;
 }
 
+export interface IGuide {
+  _id: string;
+  user: string;
+  description: string;
+  languages: string[];
+  country: string;
+  image: string;
+}
+
+export interface IGuideFull extends IGuide {
+  user: TConfidentialUser;
+}
+
 export interface Tour {
   _id: string;
-  guide: [string];
+  guides: string[];
   category: [];
   name: string;
   description: string;
@@ -65,6 +79,12 @@ export interface Tour {
   isPublished: boolean;
 }
 
+export interface TourFull extends Tour {
+  guides: IGuideFull[];
+  ratingTour: number;
+  commentTour: IReview[];
+}
+
 export interface IPostReview {
   user: string;
   tour: string | null;
@@ -79,9 +99,8 @@ export interface IReview extends IPostReview {
 }
 
 export interface IOrder {
-  fullName: string;
+  guide: string;
   date: string;
-  people: string;
   email?: string;
   phone?: string;
 }

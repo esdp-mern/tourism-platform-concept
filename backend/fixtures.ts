@@ -102,7 +102,7 @@ const run = async () => {
   const [Burana, Canyon, IssykKul, Osh, Naryn /* SaryChelek, AlaKul */] =
     await Tour.create(
       {
-        guide: Artem._id,
+        guides: [Artem._id, Andrey._id],
         name: 'Explore Burana Tower',
         mainImage: 'fixtures/burana.jpeg',
         description:
@@ -127,7 +127,7 @@ const run = async () => {
         isPublished: true,
       },
       {
-        guide: Askar._id,
+        guides: [Askar._id, Andrey._id],
         name: 'Fairytale Canyon Skazka Tour',
         mainImage: 'fixtures/canyon-skazka.jpeg',
         description:
@@ -153,7 +153,7 @@ const run = async () => {
         isPublished: true,
       },
       {
-        guide: Artem._id,
+        guides: [Andrey._id],
         name: 'Isskyl-Lake - the pearl of Kyrgyzstan',
         mainImage: 'fixtures/issyk-kul.jpeg',
         description:
@@ -188,7 +188,7 @@ const run = async () => {
         isPublished: true,
       },
       {
-        guide: Andrey._id,
+        guides: [Andrey._id, Askar._id],
         name: 'Tour around the Osh city',
         mainImage: 'fixtures/osh.jpeg',
         description:
@@ -223,7 +223,7 @@ const run = async () => {
         isPublished: true,
       },
       {
-        guide: Andrey._id,
+        guides: [Andrey._id, Artem._id],
         name: 'Ancient Naryn town Tour',
         mainImage: 'fixtures/naryn.jpeg',
         description:
@@ -253,7 +253,7 @@ const run = async () => {
         isPublished: true,
       },
       {
-        guide: Askar._id,
+        guides: [Andrey._id, Artem._id],
         name: 'Amazing Tour to the Sary-Chelek',
         mainImage: 'fixtures/sary-chelek.jpeg',
         description:
@@ -288,7 +288,7 @@ const run = async () => {
         isPublished: true,
       },
       {
-        guide: Andrey._id,
+        guides: [Andrey._id, Artem._id],
         name: 'Fascinating Ala-Kul Tour',
         mainImage: 'fixtures/ala-kul.jpeg',
         description:
