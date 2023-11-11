@@ -14,6 +14,8 @@ import './OneTourPage.css';
 import PageLoader from '../../components/Loaders/PageLoader';
 import { addAlert } from '../../store/usersSlice';
 import OneTourReview from './components/OneTourReview/OneTourReview';
+import Map from './components/Map/Map';
+import Gallery from './components/Gallery/Gallery';
 
 interface ITab {
   title: string;
@@ -87,8 +89,8 @@ const OneTourPage = () => {
       <div className="container">
         {currentTab === 'information' && <OneTourInformation />}
         {currentTab === 'plan' && <OneTourPlan />}
-        {currentTab === 'location' && <h1>Tour location</h1>}
-        {currentTab === 'gallery' && <h1>Tour gallery</h1>}
+        {currentTab === 'location' && <Map country={tour.country} />}
+        {currentTab === 'gallery' && <Gallery />}
         {currentTab === 'reviews' && <OneTourReview id={id} />}
       </div>
     </div>
