@@ -5,6 +5,7 @@ import {
   IReview,
   Tour,
   TourFull,
+  ITourMutation,
   ValidationError,
 } from '../type';
 import axiosApi from '../axiosApi';
@@ -49,9 +50,50 @@ export const postReview = createAsyncThunk<
   }
 });
 
+
 export const createOrder = createAsyncThunk<void, IOrder>(
   'orders/createOne',
   async (order) => {
     await axiosApi.post('/orders', order);
   },
 );
+
+export const postTour = createAsyncThunk<
+  void,
+  ITourMutation,
+  { rejectValue: ValidationError }
+>('tours/create', async (tourMutation, { rejectWithValue }) => {
+  try {
+    const formData = new FormData();
+    const keys = Object.keys(tourMutation) as (keyof ITourMutation)[];
+    keys.forEach((key) => {
+      const value = tourMutation[key];
+
+      if (value !== null) {
+        if (Array.isArray(value)) {
+          value.forEach((item) => {
+            if (typeof item === 'string') {
+              formData.append(key, item);
+            } else if (item instanceof File) {
+              formData.append(key, item, item.name);
+            } else {
+              formData.append(key, JSON.stringify(item));
+            }
+          });
+        } else if (value instanceof File) {
+          formData.append(key, value, value.name);
+        } else {
+          formData.append(key, value as string);
+        }
+      }
+    });
+    await axiosApi.post('/tours', formData);
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 400) {
+      return rejectWithValue(e.response.data);
+    }
+
+    throw e;
+  }
+});
+

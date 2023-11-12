@@ -7,7 +7,10 @@ const reviewRouter = express.Router();
 reviewRouter.get('/', async (req, res) => {
   try {
     if (req.query.tourID) {
-      const reviews = await Review.find({ tour: req.query.tourID });
+      const reviews = await Review.find({ tour: req.query.tourID }).populate(
+        'user',
+        'displayName',
+      );
       return res.send(reviews);
     }
 

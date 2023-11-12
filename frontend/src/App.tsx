@@ -8,7 +8,7 @@ import './App.css';
 
 const App = () => {
   const { user } = useAppSelector((state) => state.users);
-  const routes = useRoutes(!!user);
+  const routes = useRoutes(!!user, user);
 
   return (
     <Layout>
