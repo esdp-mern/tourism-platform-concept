@@ -59,6 +59,10 @@ const OneTourInformation = () => {
                 <td>{tour.dressCode}</td>
               </tr>
               <tr>
+                <td>Guides</td>
+                <td>{tour.guides.join(', ')}</td>
+              </tr>
+              <tr>
                 <td>Category</td>
                 {tour.category.map((cat, id) => (
                   <td key={id}>{cat}</td>

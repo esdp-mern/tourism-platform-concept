@@ -1,11 +1,11 @@
-import { Tour, ValidationError } from '../type';
+import { Tour, TourFull, ValidationError } from '../type';
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchTour, fetchTours, postReview, postTour } from './toursThunk';
+import { createOrder, fetchTour, fetchTours, postReview, postTour } from './toursThunk';
 import { RootState } from '../app/store';
 
 interface ToursState {
   tours: Tour[];
-  tour: Tour | null;
+  tour: TourFull | null;
   fetchAllLoading: boolean;
   fetchOneLoading: boolean;
   postTourLoading: boolean;
@@ -13,6 +13,7 @@ interface ToursState {
   tourReviews: [];
   postReviewError: ValidationError | null;
   postReviewLoading: boolean;
+  orderButtonLoading: boolean;
 }
 
 const initialState: ToursState = {
@@ -25,6 +26,7 @@ const initialState: ToursState = {
   tourReviews: [],
   postReviewError: null,
   postReviewLoading: false,
+  orderButtonLoading: false,
 };
 
 export const toursSlice = createSlice({
@@ -69,6 +71,16 @@ export const toursSlice = createSlice({
       state.postReviewLoading = false;
       state.postReviewError = error || null;
     });
+
+
+    builder.addCase(createOrder.pending, (state) => {
+      state.orderButtonLoading = true;
+    });
+    builder.addCase(createOrder.fulfilled, (state) => {
+      state.orderButtonLoading = false;
+    });
+    builder.addCase(createOrder.rejected, (state) => {
+      state.orderButtonLoading = false;
 
     builder.addCase(postTour.pending, (state) => {
       state.postTourLoading = true;

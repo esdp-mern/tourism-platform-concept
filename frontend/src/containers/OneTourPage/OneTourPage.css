@@ -155,3 +155,8 @@
   background-size: 10%;
   background-position: 21% center;
 }
+
+.one-tour-tab {
+  display: flex;
+  justify-content: space-between;
+}

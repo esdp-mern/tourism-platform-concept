@@ -8,6 +8,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter } from 'react-router-dom';
 import { addInterceptors } from './axiosApi';
 import { GOOGLE_CLIENT_ID } from './constants';
+import './fonts.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

@@ -13,6 +13,8 @@ import { apiUrl } from '../../constants';
 import './OneTourPage.css';
 import PageLoader from '../../components/Loaders/PageLoader';
 import { addAlert } from '../../store/usersSlice';
+import NewReviewForm from '../../components/NewReviewForm/NewReviewForm';
+import OneTourOrderForm from './components/OneTourOrderForm/OneTourOrderForm';
 import OneTourReview from './components/OneTourReview/OneTourReview';
 import Map from './components/Map/Map';
 import Gallery from './components/Gallery/Gallery';
@@ -86,12 +88,13 @@ const OneTourPage = () => {
           ))}
         </div>
       </div>
-      <div className="container">
+      <div className="container one-tour-tab">
         {currentTab === 'information' && <OneTourInformation />}
         {currentTab === 'plan' && <OneTourPlan />}
         {currentTab === 'location' && <Map country={tour.country} />}
         {currentTab === 'gallery' && <Gallery />}
         {currentTab === 'reviews' && <OneTourReview id={id} />}
+        <OneTourOrderForm />
       </div>
     </div>
   );

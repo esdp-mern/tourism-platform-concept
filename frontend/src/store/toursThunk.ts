@@ -1,9 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
+  IOrder,
   IPostReview,
   IReview,
-  ITourMutation,
   Tour,
+  TourFull,
+  ITourMutation,
   ValidationError,
 } from '../type';
 import axiosApi from '../axiosApi';
@@ -21,10 +23,10 @@ export const fetchTours = createAsyncThunk<Tour[], void | string>(
   },
 );
 
-export const fetchTour = createAsyncThunk<Tour, string>(
+export const fetchTour = createAsyncThunk<TourFull, string>(
   'tours/fetchOne',
   async (id) => {
-    const response = await axiosApi.get<Tour>(`/tours/${id}`);
+    const response = await axiosApi.get<TourFull>(`/tours/${id}`);
     return response.data;
   },
 );
@@ -47,6 +49,14 @@ export const postReview = createAsyncThunk<
     throw e;
   }
 });
+
+
+export const createOrder = createAsyncThunk<void, IOrder>(
+  'orders/createOne',
+  async (order) => {
+    await axiosApi.post('/orders', order);
+  },
+);
 
 export const postTour = createAsyncThunk<
   void,
@@ -86,3 +96,4 @@ export const postTour = createAsyncThunk<
     throw e;
   }
 });
+

@@ -63,10 +63,10 @@ toursRouter.get('/', async (req, res) => {
 toursRouter.get('/:id', async (req, res) => {
   try {
     const tour = await Tour.findById(req.params.id).populate({
-      path: 'guide',
+      path: 'guides',
       populate: {
         path: 'user',
-        select: 'username displayName avatar',
+        select: 'username displayName role avatar email',
       },
     });
 
@@ -83,7 +83,7 @@ toursRouter.get('/:id', async (req, res) => {
 
     const tourReviews = {
       _id: tour._id,
-      guide: tour.guide,
+      guides: tour.guides,
       name: tour.name,
       mainImage: tour.mainImage,
       description: tour.description,

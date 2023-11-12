@@ -7,10 +7,9 @@ const OrderSchema = new mongoose.Schema({
   user: {
     type: mongoose.Types.ObjectId,
     ref: 'User',
-    required: true,
     validate: {
       validator: async (value: mongoose.Types.ObjectId) =>
-        await User.findById(value),
+        value === null ? true : await User.findById(value),
       message: 'User does not exist!',
     },
   },
@@ -42,6 +41,8 @@ const OrderSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  email: String,
+  phone: String,
 });
 
 const Order = mongoose.model('Order', OrderSchema);
