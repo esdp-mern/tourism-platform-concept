@@ -31,11 +31,11 @@ const TextField: React.FC<Props> = (props) => {
   }, [props.required, props.isSubmit, props.value]);
 
   useEffect(() => {
-    if (inputRef.current && prevSelectedDate !== selectedDate) {
+    if (inputRef.current && selectedDate && prevSelectedDate !== selectedDate) {
       props.onChange({
         target: {
           name: inputRef.current.name,
-          value: inputRef.current.value,
+          value: selectedDate.toISOString(),
         },
       });
       setPrevSelectedDate(selectedDate);
@@ -46,6 +46,10 @@ const TextField: React.FC<Props> = (props) => {
   const isSelect = props.type === 'select';
 
   const getFormat = (date: Date) => format(date, 'dd/MM/yyyy');
+
+  const inputClassNames = `text-field-input ${
+    isError ? 'text-field-input-error' : ''
+  }`;
 
   return (
     <div className="text-field">
@@ -64,23 +68,32 @@ const TextField: React.FC<Props> = (props) => {
           label={props.label}
           value={props.value}
           onSelect={props.onChange}
-          className="text-field-input"
+          className={inputClassNames}
         />
       ) : (
         <input
-          className={`text-field-input ${
-            isError ? 'text-field-input-error' : ''
-          }`}
+          className={inputClassNames}
           type={isDatePicker ? 'text' : props.type}
           name={props.name}
           value={
             isDatePicker
-              ? !selectedDate
-                ? ''
-                : getFormat(selectedDate)
+              ? selectedDate
+                ? getFormat(selectedDate)
+                : ''
               : props.value
           }
-          onChange={props.onChange}
+          onChange={(e) =>
+            props.onChange(
+              isDatePicker
+                ? {
+                    target: {
+                      name: 'date',
+                      value: selectedDate ? selectedDate.toISOString() : '',
+                    },
+                  }
+                : e,
+            )
+          }
           ref={inputRef}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}

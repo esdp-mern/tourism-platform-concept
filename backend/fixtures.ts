@@ -374,14 +374,12 @@ const run = async () => {
 
   await Order.create(
     {
-      user: user1._id,
       guide: Andrey._id,
       tour: Naryn._id,
       price: Naryn.price,
       date: '2023-11-08T11:22:03.760Z',
     },
     {
-      user: user2._id,
       guide: Artem._id,
       tour: Osh._id,
       price: Osh.price,

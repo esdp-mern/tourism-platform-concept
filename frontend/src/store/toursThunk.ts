@@ -1,5 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IPostReview, IReview, Tour, TourFull, ValidationError } from '../type';
+import {
+  IOrder,
+  IPostReview,
+  IReview,
+  Tour,
+  TourFull,
+  ValidationError,
+} from '../type';
 import axiosApi from '../axiosApi';
 import { isAxiosError } from 'axios';
 
@@ -41,3 +48,10 @@ export const postReview = createAsyncThunk<
     throw e;
   }
 });
+
+export const createOrder = createAsyncThunk<void, IOrder>(
+  'orders/createOne',
+  async (order) => {
+    await axiosApi.post('/orders', order);
+  },
+);

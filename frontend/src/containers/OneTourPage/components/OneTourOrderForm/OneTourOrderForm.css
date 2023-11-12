@@ -45,3 +45,9 @@
 .one-tour-order-form-btn:active {
   background-color: #ffa133;
 }
+
+.one-tour-order-form-btn:disabled {
+  pointer-events: auto;
+  cursor: not-allowed;
+  background-color: #bbb;
+}

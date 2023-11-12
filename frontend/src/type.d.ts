@@ -100,6 +100,16 @@ export interface IReview extends IPostReview {
 
 export interface IOrder {
   guide: string;
+  tour: string;
+  price: number;
+  date: string;
+  user?: string;
+  email?: string;
+  phone?: string;
+}
+
+export interface IOrderForm {
+  guide: string;
   date: string;
   email?: string;
   phone?: string;

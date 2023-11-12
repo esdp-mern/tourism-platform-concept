@@ -1,27 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import './OneTourOrderForm.css';
 import TextField from '../../../../components/UI/TextField/TextField';
-import { IOrder } from '../../../../type';
-import { useAppSelector } from '../../../../app/hook';
+import { IOrder, IOrderForm } from '../../../../type';
+import { useAppDispatch, useAppSelector } from '../../../../app/hook';
 import { selectUser } from '../../../../store/usersSlice';
 import guideIcon from '../../../../assets/images/guide-icon.svg';
 import calendarIcon from '../../../../assets/images/calendar-order-icon.svg';
 import emailIcon from '../../../../assets/images/email-icon.svg';
 import phoneIcon from '../../../../assets/images/phone-icon.svg';
+import { createOrder } from '../../../../store/toursThunk';
+import { selectOneTour } from '../../../../store/toursSlice';
 
 export interface IChangeEvent {
   target: { name: string; value: string };
 }
 
-const initialState: IOrder = {
+const initialState: IOrderForm = {
   guide: '',
   date: '',
 };
 
 const OneTourOrderForm = () => {
+  const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
+  const tour = useAppSelector(selectOneTour);
+  const { orderButtonLoading } = useAppSelector((state) => state.tours);
 
-  const [state, setState] = useState<IOrder>(initialState);
+  const [state, setState] = useState<IOrderForm>(initialState);
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
   useEffect(() => {
@@ -36,16 +41,34 @@ const OneTourOrderForm = () => {
     setState((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const sendData = (e: React.FormEvent) => {
+  const sendData = async (e: React.FormEvent) => {
     e.preventDefault();
 
     setIsSubmit(true);
 
-    const keys = Object.keys(state) as (keyof IOrder)[];
+    const keys = Object.keys(state) as (keyof IOrderForm)[];
 
-    const isValid = keys.find((key: keyof IOrder) => state[key]?.length === 0);
+    const isNotValid = keys.find(
+      (key: keyof IOrderForm) => state[key]?.length === 0,
+    );
 
-    if (isValid) return;
+    if (isNotValid || !tour) return;
+
+    try {
+      const order: IOrder = {
+        ...state,
+        tour: tour._id,
+        price: tour.price,
+      };
+
+      if (user) {
+        order.user = user._id;
+      }
+
+      await dispatch(createOrder(order));
+    } catch (e) {
+      // nothing
+    }
   };
 
   return (
@@ -102,8 +125,12 @@ const OneTourOrderForm = () => {
         )}
       </div>
 
-      <button type="submit" className="one-tour-order-form-btn">
-        Book this tour
+      <button
+        type="submit"
+        className={`one-tour-order-form-btn`}
+        disabled={orderButtonLoading}
+      >
+        {orderButtonLoading ? 'Booking...' : 'Book this tour'}
       </button>
     </form>
   );
