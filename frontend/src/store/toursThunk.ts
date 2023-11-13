@@ -50,7 +50,6 @@ export const postReview = createAsyncThunk<
   }
 });
 
-
 export const createOrder = createAsyncThunk<void, IOrder>(
   'orders/createOne',
   async (order) => {
@@ -96,4 +95,3 @@ export const postTour = createAsyncThunk<
     throw e;
   }
 });
-

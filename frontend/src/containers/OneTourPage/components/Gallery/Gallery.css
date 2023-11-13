@@ -1,20 +1,19 @@
 .one-tour-gallery {
-    padding: 100px 0;
+  padding: 100px 0;
 }
 
 .one-tour-gallery h2 {
-    font-size: 30px;
-    line-height: 1.33333;
-    font-weight: 400;
+  font-size: 30px;
+  line-height: 1.33333;
+  font-weight: 400;
 }
 
 .one-tour-photos {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .one-tour-photos img {
-    width: 250px;
-    height: 250px;
-
+  width: 250px;
+  height: 250px;
 }
