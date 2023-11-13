@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { fetchTour } from '../../store/toursThunk';
 import {
+  resetPostReviewError,
   selectOneTour,
   selectPostReviewError,
-  resetPostReviewError,
 } from '../../store/toursSlice';
 import OneTourInformation from './components/OneTourInformation/OneTourInformation';
 import OneTourPlan from './components/OneTourPlan/OneTourPlan';
@@ -13,7 +13,6 @@ import { apiUrl } from '../../constants';
 import './OneTourPage.css';
 import PageLoader from '../../components/Loaders/PageLoader';
 import { addAlert } from '../../store/usersSlice';
-import NewReviewForm from '../../components/NewReviewForm/NewReviewForm';
 import OneTourOrderForm from './components/OneTourOrderForm/OneTourOrderForm';
 import OneTourReview from './components/OneTourReview/OneTourReview';
 import Map from './components/Map/Map';

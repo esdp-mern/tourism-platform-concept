@@ -10,7 +10,6 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { signUp } from '../../store/usersThunk';
 import FileInput from '../UI/FileInput/FileInput';
-import ButtonLoader from '../Loaders/ButtonLoader';
 import '../../App.css';
 
 const initialState: RegisterMutation = {

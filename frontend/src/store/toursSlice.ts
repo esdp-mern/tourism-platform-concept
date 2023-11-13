@@ -1,6 +1,12 @@
 import { Tour, TourFull, ValidationError } from '../type';
 import { createSlice } from '@reduxjs/toolkit';
-import { createOrder, fetchTour, fetchTours, postReview, postTour } from './toursThunk';
+import {
+  createOrder,
+  fetchTour,
+  fetchTours,
+  postReview,
+  postTour,
+} from './toursThunk';
 import { RootState } from '../app/store';
 
 interface ToursState {
@@ -72,7 +78,6 @@ export const toursSlice = createSlice({
       state.postReviewError = error || null;
     });
 
-
     builder.addCase(createOrder.pending, (state) => {
       state.orderButtonLoading = true;
     });
@@ -81,7 +86,7 @@ export const toursSlice = createSlice({
     });
     builder.addCase(createOrder.rejected, (state) => {
       state.orderButtonLoading = false;
-
+    });
     builder.addCase(postTour.pending, (state) => {
       state.postTourLoading = true;
       state.postTourError = null;

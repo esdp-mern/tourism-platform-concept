@@ -1,11 +1,11 @@
 import express from 'express';
-import User, {IUserMethods} from '../models/User';
-import mongoose, {HydratedDocument} from 'mongoose';
-import {randomUUID} from 'crypto';
-import auth, {RequestWithUser} from '../middleware/auth';
-import {OAuth2Client} from 'google-auth-library';
+import User, { IUserMethods } from '../models/User';
+import mongoose, { HydratedDocument } from 'mongoose';
+import { randomUUID } from 'crypto';
+import auth, { RequestWithUser } from '../middleware/auth';
+import { OAuth2Client } from 'google-auth-library';
 import config from '../config';
-import {imagesUpload} from '../multer';
+import { imagesUpload } from '../multer';
 import write_https_image from '../features/write_https_image';
 
 const usersRouter = express.Router();

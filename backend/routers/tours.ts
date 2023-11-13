@@ -33,7 +33,7 @@ toursRouter.get('/', async (req, res) => {
 
         return {
           _id: tour._id,
-          guide: tour.guide,
+          guide: tour.guides,
           name: tour.name,
           mainImage: tour.mainImage,
           description: tour.description,
@@ -241,7 +241,7 @@ toursRouter.put(
             )
           : existingTour.galleryTour;
 
-      existingTour.guide = existGuide || existingTour.guide;
+      existingTour.guides = existGuide || existingTour.guides;
       existingTour.name = req.body.name || existingTour.name;
       existingTour.mainImage = mainImage;
       existingTour.description =

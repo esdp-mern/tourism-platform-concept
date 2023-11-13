@@ -79,7 +79,6 @@ export interface Tour {
   isPublished: boolean;
 }
 
-
 export interface TourFull extends Tour {
   guides: IGuideFull[];
   ratingTour: number;

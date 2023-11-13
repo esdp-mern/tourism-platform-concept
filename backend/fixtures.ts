@@ -100,10 +100,9 @@ const run = async () => {
   );
 
   const [Burana, Canyon, IssykKul, Osh, SaryChelek, Naryn, AlaKul] =
-
     await Tour.create(
       {
-        guide: [Artem._id, Andrey._id],
+        guides: [Artem._id, Andrey._id],
         name: 'Explore Burana Tower',
         mainImage: 'fixtures/burana.jpeg',
         description:
@@ -154,7 +153,7 @@ const run = async () => {
         isPublished: true,
       },
       {
-        guide: [Artem._id, Askar._id],
+        guides: [Artem._id, Askar._id],
         name: 'Isskyl-Lake - the pearl of Kyrgyzstan',
         mainImage: 'fixtures/issyk-kul.jpeg',
         description:
@@ -329,13 +328,13 @@ const run = async () => {
       rating: 5,
       date: '2023-11-01T17:11:22.353Z',
     },
-      {
-        user: user._id,
-        tour: Burana._id,
-        comment: 'Love this tour!',
-        rating: 3,
-        date: '2023-11-01T17:11:22.353Z',
-      },
+    {
+      user: user._id,
+      tour: Burana._id,
+      comment: 'Love this tour!',
+      rating: 3,
+      date: '2023-11-01T17:11:22.353Z',
+    },
     {
       user: user3._id,
       guide: Andrey._id,
