@@ -4,10 +4,10 @@ import NavLink from 'next/link';
 const AnonymousMenu = () => {
   return (
     <>
-      <NavLink href="/sign-up" className="nav-link">
+      <NavLink href="/register" className="nav-link">
         Sign up
       </NavLink>
-      <NavLink href="/sign-in" className="nav-link">
+      <NavLink href="/login" className="nav-link">
         Sign in
       </NavLink>
     </>
