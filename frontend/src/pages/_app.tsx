@@ -5,6 +5,8 @@ import '@/styles/globals.css';
 import '@/styles/ToursPage.css';
 import '@/styles/TourItem.css';
 import '@/styles/MainSlider.css';
+import '@/styles/Footer.css';
+import Footer from '@/components/Footer/Footer';
 
 export default function App({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
@@ -17,6 +19,9 @@ export default function App({ Component, ...rest }: AppProps) {
         <main>
           <Component {...props.pageProps} />
         </main>
+        <footer>
+          <Footer />
+        </footer>
       </Provider>
     </>
   );
