@@ -3,7 +3,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
-    padding: 20px 0;
+    padding: 60px 0 118px;
     background-color: #f6f6f6;
 }
 
@@ -19,6 +19,7 @@
     letter-spacing: 0.1em;
     font-size: 18px;
     line-height: 1.44444;
+    margin-bottom: 31px;
 }
 
 .footer-inner-top-links {
@@ -45,18 +46,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 208px;
 }
 
 .footer-links {
     border: 1px solid #fff;
     margin-bottom: 10px;
-    width: 47px;
-    height: 47px;
+    width: 42px;
+    height: 42px;
     font-size: 22px;
     line-height: 45px;
     border-radius: 50%;
     transition: all 0.3s ease-in-out;
-    margin-left: 15px;
     transform: translate(0, 0);
     background-color: transparent;
     background-position: center;
