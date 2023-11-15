@@ -5,18 +5,20 @@ import UserMenu from './components/UserMenu';
 import ToolBarMenu from './components/ToolBarMenu';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { selectLogoutLoading, selectUser } from '@/containers/users/usersSlice';
+import { logout } from '@/containers/users/usersThunk';
 
 const AppToolBar = () => {
-  // const user = useAppSelector(selectUser);
-  // const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
   const [navShow, setNavShow] = useState(false);
   const [menuShow, setMenuShow] = useState(false);
-  // const logoutLoading = useAppSelector(selectLogoutLoading);
+  const logoutLoading = useAppSelector(selectLogoutLoading);
 
   const showMenu = () => setMenuShow(!menuShow);
 
   const userLogout = async () => {
-    // await dispatch(logout());
+    await dispatch(logout());
   };
 
   return (
@@ -45,18 +47,18 @@ const AppToolBar = () => {
           <NavLink href="/about" className="nav-link">
             About Us
           </NavLink>
-          {/*{user ? <UserMenu user={user} /> : <AnonymousMenu />}*/}
+          {user ? <UserMenu user={user} /> : <AnonymousMenu />}
         </nav>
         <div className="user-menu">
-          {/*{user && (*/}
-          {/*  <button*/}
-          {/*    className="logout"*/}
-          {/*    onClick={userLogout}*/}
-          {/*    disabled={logoutLoading}*/}
-          {/*  >*/}
-          {/*    {logoutLoading ? <ButtonLoader size={16} /> : 'Logout'}*/}
-          {/*  </button>*/}
-          {/*)}*/}
+          {user && (
+            <button
+              className="logout"
+              onClick={userLogout}
+              disabled={logoutLoading}
+            >
+              {logoutLoading ? <ButtonLoader size={16} /> : 'Logout'}
+            </button>
+          )}
           <button
             className={`menu-btn ${menuShow ? 'open' : ''}`}
             onClick={() => setMenuShow(!menuShow)}

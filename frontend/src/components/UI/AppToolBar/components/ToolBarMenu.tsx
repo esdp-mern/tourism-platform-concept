@@ -1,5 +1,7 @@
 import React from 'react';
 import { apiUrl } from '@/constants';
+import { useAppSelector } from '@/store/hooks';
+import { selectUser } from '@/containers/users/usersSlice';
 
 interface IProps {
   show: boolean;
@@ -7,23 +9,23 @@ interface IProps {
 }
 
 const ToolBarMenu: React.FC<IProps> = ({ show, onClick }) => {
-  // const user = useAppSelector(selectUser);
+  const user = useAppSelector(selectUser);
 
   return (
     <div className={`tool-bar-menu ${show ? 'menu-active' : ''}`}>
-      {/*{user && (*/}
-      {/*  <div className="profile-preview">*/}
-      {/*    <img*/}
-      {/*      src={`${apiUrl}/${user.avatar}`}*/}
-      {/*      className="profile-preview-avatar"*/}
-      {/*      alt="profile-img"*/}
-      {/*    />*/}
-      {/*    <div>*/}
-      {/*      <h5>{user.displayName}</h5>*/}
-      {/*      <h6>{user.role}</h6>*/}
-      {/*    </div>*/}
-      {/*  </div>*/}
-      {/*)}*/}
+      {user && (
+        <div className="profile-preview">
+          <img
+            src={`${apiUrl}/${user.avatar}`}
+            className="profile-preview-avatar"
+            alt="profile-img"
+          />
+          <div>
+            <h5>{user.displayName}</h5>
+            <h6>{user.role}</h6>
+          </div>
+        </div>
+      )}
       <button className="close-btn" onClick={onClick}>
         <span></span>
         <span></span>
