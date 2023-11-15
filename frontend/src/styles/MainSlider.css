@@ -1,3 +1,7 @@
+.slider-container {
+    padding: 20px 30px 100px;
+}
+
 .main-slider {
     display: flex;
     flex-direction: row;
