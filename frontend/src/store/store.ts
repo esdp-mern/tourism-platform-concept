@@ -10,6 +10,7 @@ import {
   REHYDRATE,
 } from 'redux-persist';
 import { toursSlice } from '@/containers/tours/toursSlice';
+import { store } from 'next/dist/build/output/store';
 
 const makeStore = () => {
   const isServer = typeof window === 'undefined';
@@ -42,5 +43,5 @@ const makeStore = () => {
 
 export type RootStore = ReturnType<typeof makeStore>;
 export type RootState = ReturnType<RootStore['getState']>;
-export type AppDispatch = ReturnType<RootStore['dispatch']>;
+export type AppDispatch = typeof store.dispatch;
 export const wrapper = createWrapper<RootStore>(makeStore);

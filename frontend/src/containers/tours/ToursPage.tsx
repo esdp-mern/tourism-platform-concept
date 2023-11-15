@@ -9,7 +9,6 @@ const ToursPage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // @ts-ignore
     dispatch(fetchTours());
   }, [dispatch]);
 

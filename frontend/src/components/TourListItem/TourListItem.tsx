@@ -3,7 +3,6 @@ import { Tour } from '@/type';
 import Link from 'next/link';
 import { Fade } from 'react-awesome-reveal';
 import { apiUrl } from '@/constants';
-import Image from 'next/image';
 
 interface Props {
   tour: Tour;
