@@ -4,6 +4,7 @@ import { wrapper } from '@/store/store';
 import '@/styles/globals.css';
 import '@/styles/ToursPage.css';
 import '@/styles/TourItem.css';
+import '@/styles/MainSlider.css';
 
 export default function App({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
