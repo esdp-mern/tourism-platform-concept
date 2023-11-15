@@ -3,6 +3,7 @@ import { Tour } from '@/type';
 import Link from 'next/link';
 import { Fade } from 'react-awesome-reveal';
 import { apiUrl } from '@/constants';
+import Image from 'next/image';
 
 interface Props {
   tour: Tour;
@@ -13,13 +14,11 @@ const TourItem: React.FC<Props> = ({ tour }) => {
 
   return (
     <Fade>
-      <div className="tour-item">
-        <Link href={`/tours/${tour._id}`} className="tour-item-links">
-          <div className="tour-item-top">
-            <img src={imgLink} alt={tour.name} className="tour-item-img" />
-            <div className="tour-item-price">{tour.price.toString()} KGS</div>
-          </div>
-        </Link>
+      <Link href={`/tour${tour._id}`} className="tour-item">
+        <div className="tour-item-top">
+          <img src={imgLink} alt={tour.name} className="tour-item-img" />
+          <div className="tour-item-price">{tour.price.toString()} KGS</div>
+        </div>
         <div className="tour-item-bottom">
           <Link href={`/tours/${tour._id}`} className="tour-item-links">
             <h2 className="tour-item-title">{tour.name}</h2>
@@ -29,7 +28,7 @@ const TourItem: React.FC<Props> = ({ tour }) => {
             <div className="tour-item-duration">{tour.duration} days</div>
           </div>
         </div>
-      </div>
+      </Link>
     </Fade>
   );
 };
