@@ -29,9 +29,9 @@ export default function App({ Component, ...rest }: AppProps) {
           <main>
             <Component {...props.pageProps} />
           </main>
-         <footer>
-          <Footer />
-        </footer>
+          <footer>
+            <Footer />
+          </footer>
         </Provider>
       </GoogleOAuthProvider>
     </>

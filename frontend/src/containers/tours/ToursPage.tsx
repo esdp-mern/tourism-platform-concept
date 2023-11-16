@@ -4,6 +4,7 @@ import { selectAllTours } from '@/containers/tours/toursSlice';
 import TourListItem from '@/components/TourListItem/TourListItem';
 import { fetchTours } from '@/containers/tours/toursThunk';
 import MainSlider from '@/components/MainSlider/MainSlider';
+import Link from 'next/link';
 
 const ToursPage = () => {
   const tours = useAppSelector(selectAllTours);
@@ -20,9 +21,15 @@ const ToursPage = () => {
         <div className="container">
           <h2 className="tours-page-title">Featured Tours</h2>
           <div className="tours-page">
-            {tours.map((tour) => (
+            {tours.slice(0, 6).map((tour) => (
               <TourListItem tour={tour} key={tour._id} />
             ))}
+          </div>
+          <div className="tours-page-link">
+            {/* eslint-disable-next-line react/jsx-no-undef */}
+            <Link href="/tours/all" className="tours-page-link-tours">
+              See all tours
+            </Link>
           </div>
         </div>
       </div>
