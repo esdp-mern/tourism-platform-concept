@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import NavLink from 'next/link';
 import AnonymousMenu from './components/AnonymousMenu';
 import UserMenu from './components/UserMenu';
-import ToolBarMenu from './components/ToolBarMenu';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { selectLogoutLoading, selectUser } from '@/containers/users/usersSlice';
 import { logout } from '@/containers/users/usersThunk';
+import ToolBarMenu from '@/components/UI/AppToolBar/components/ToolBarMenu';
 
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);
