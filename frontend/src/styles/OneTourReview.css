@@ -1,0 +1,97 @@
+.one-tour-reviews-inner {
+    width: 750px;
+}
+
+.one-tour-reviews {
+    margin-top: 100px;
+}
+
+.one-tour-average-wrap {
+    display: flex;
+    padding-bottom: 90px;
+    overflow: hidden;
+}
+
+.one-tour-average-num {
+    width: 208px;
+    height: 180px;
+    border-radius: 4px 4px 0 0;
+    background: #ffffff;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    font-size: 25px;
+    line-height: 1.75;
+    color: #000;
+}
+
+.one-tour-average-num p {
+    font-size: 45px;
+    line-height: 1;
+    font-weight: 600;
+    color: #75c15b;
+    margin-bottom: 15px;
+}
+
+.one-tour-average-num h5 {
+    margin: 0;
+    font-weight: 500;
+}
+
+.one-tour-average-progress {
+    position: absolute;
+    top: 40%;
+    left: 42%;
+    transform: translateX(-50%);
+    height: 30px;
+    width: 400px;
+    border: 1px solid #808080;
+    background-color: #fff;
+    flex-grow: 1;
+}
+
+.one-tour-average-filler {
+    position: absolute;
+    height: 100%;
+    border-radius: inherit;
+    transition: width 0.2s ease-in;
+    background: #75c15b;
+    color: #fff;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding-right: 10px;
+}
+
+.one-tour-review-wrap {
+    margin-bottom: 90px;
+}
+
+.one-tour-review-wrap:last-child {
+    border-bottom: 1px solid rgba(196, 196, 196, 0.5);
+    padding-bottom: 20px;
+}
+
+.one-tour-review {
+    border-top: 1px solid rgba(196, 196, 196, 0.5);
+    text-align: right;
+    padding: 0 40px;
+}
+
+.one-tour-review h3 {
+    font-size: 28px;
+    line-height: 1.44444;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.one-tour-review-date {
+    font-size: 20px;
+    line-height: 1.44444;
+    color: #808080;
+    margin-bottom: 20px;
+}
+
+.one-tour-review-comment {
+    font-size: 20px;
+    color: #808080;
+}

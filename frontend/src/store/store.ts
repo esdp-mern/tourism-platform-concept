@@ -14,6 +14,7 @@ import { store } from 'next/dist/build/output/store';
 import { persistReducer } from 'redux-persist';
 import { usersSlice } from '@/containers/users/usersSlice';
 import storage from 'redux-persist/lib/storage';
+import { toursReviewSlice } from '@/containers/reviews/reviewSlice';
 
 const usersPersistConfig = {
   key: 'tourism-platform-concept:users',
@@ -26,6 +27,7 @@ const makeStore = () => {
 
   const reducers = {
     [toursSlice.name]: toursSlice.reducer,
+    reviews: toursReviewSlice.reducer,
     [usersSlice.name]: isServer
       ? usersSlice.reducer
       : (persistReducer(usersPersistConfig, usersSlice.reducer) as Reducer),

@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const Footer = () => {
   return (
-    <div>
+    <div style={{ marginTop: '20px' }}>
       <div className="footer-inner">
         <div className="footer-inner-top container">
           <div>

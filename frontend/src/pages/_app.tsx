@@ -14,6 +14,18 @@ import '@/styles/SignInForm.css';
 import '@/styles/SignUpForm.css';
 import '@/styles/MainSlider.css';
 import '@/styles/Footer.css';
+import '@/styles/Gallery.css';
+import '@/styles/Map.css';
+import '@/styles/OneTourInformation.css';
+import '@/styles/OneTourOrderForm.css';
+import '@/styles/OneTourPage.css';
+import '@/styles/OneTourPlan.css';
+import '@/styles/OneTourReview.css';
+import '@/styles/newReviewForm.css';
+import '@/styles/OneTourOrderForm.css';
+import '@/styles/TextField.css';
+import '@/styles/TextFieldSelect.css';
+
 import Footer from '@/components/Footer/Footer';
 
 export default function App({ Component, ...rest }: AppProps) {
@@ -29,9 +41,9 @@ export default function App({ Component, ...rest }: AppProps) {
           <main>
             <Component {...props.pageProps} />
           </main>
-         <footer>
-          <Footer />
-        </footer>
+          <footer>
+            <Footer />
+          </footer>
         </Provider>
       </GoogleOAuthProvider>
     </>
