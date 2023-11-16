@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { googleLogin, logout, signIn, signUp } from './usersThunk';
 import { RootState } from '@/store/store';
 import { User, ValidationError } from '@/type';
+import { apiUrl } from '@/constants';
 
 interface UsersState {
   user: User | null;
@@ -36,7 +37,11 @@ export const usersSlice = createSlice({
     });
     builder.addCase(signUp.fulfilled, (state, { payload: userResponse }) => {
       state.registerLoading = false;
-      state.user = userResponse.user;
+      const userData = userResponse.user;
+      state.user = {
+        ...userData,
+        avatar: `${apiUrl}/images/${userData.avatar}`,
+      };
     });
     builder.addCase(signUp.rejected, (state, { payload: error }) => {
       state.registerLoading = false;
@@ -49,7 +54,11 @@ export const usersSlice = createSlice({
     });
     builder.addCase(signIn.fulfilled, (state, { payload: userResponse }) => {
       state.signInLoading = false;
-      state.user = userResponse.user;
+      const userData = userResponse.user;
+      state.user = {
+        ...userData,
+        avatar: `${apiUrl}/images/${userData.avatar}`,
+      };
     });
     builder.addCase(signIn.rejected, (state, { payload: error }) => {
       state.signInLoading = false;
@@ -64,7 +73,10 @@ export const usersSlice = createSlice({
       googleLogin.fulfilled,
       (state, { payload: userResponse }) => {
         state.signInLoading = false;
-        state.user = userResponse;
+        state.user = {
+          ...userResponse,
+          avatar: `${apiUrl}/${userResponse.avatar}`,
+        };
       },
     );
 

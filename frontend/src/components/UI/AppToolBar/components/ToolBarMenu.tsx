@@ -1,5 +1,4 @@
 import React from 'react';
-import { apiUrl } from '@/constants';
 import { useAppSelector } from '@/store/hooks';
 import { selectUser } from '@/containers/users/usersSlice';
 
@@ -16,7 +15,7 @@ const ToolBarMenu: React.FC<IProps> = ({ show, onClick }) => {
       {user && (
         <div className="profile-preview">
           <img
-            src={`${apiUrl}/images/${user.avatar}`}
+            src={user.avatar}
             className="profile-preview-avatar"
             alt="profile-img"
           />
