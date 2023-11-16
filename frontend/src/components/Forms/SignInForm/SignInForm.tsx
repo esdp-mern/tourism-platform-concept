@@ -27,6 +27,7 @@ const SignInForm = () => {
 
   const googleLoginHandler = async (credential: string) => {
     await dispatch(googleLogin(credential)).unwrap();
+    await router.push('/');
   };
 
   const submitFormHandler = async (event: React.FormEvent) => {
