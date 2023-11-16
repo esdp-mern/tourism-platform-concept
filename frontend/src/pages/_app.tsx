@@ -14,6 +14,7 @@ import '@/styles/SignInForm.css';
 import '@/styles/SignUpForm.css';
 import '@/styles/MainSlider.css';
 import '@/styles/Footer.css';
+import '@/styles/pageLoader.css';
 import Footer from '@/components/Footer/Footer';
 
 export default function App({ Component, ...rest }: AppProps) {

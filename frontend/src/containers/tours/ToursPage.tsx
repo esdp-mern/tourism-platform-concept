@@ -5,6 +5,7 @@ import TourListItem from '@/components/TourListItem/TourListItem';
 import { fetchTours } from '@/containers/tours/toursThunk';
 import MainSlider from '@/components/MainSlider/MainSlider';
 import Link from 'next/link';
+import PageLoader from '@/components/PageLoader/PageLoader';
 
 const ToursPage = () => {
   const tours = useAppSelector(selectAllTours);
@@ -17,6 +18,7 @@ const ToursPage = () => {
   return (
     <>
       <MainSlider />
+      <PageLoader />
       <div className="featured-tours">
         <div className="container">
           <h2 className="tours-page-title">Featured Tours</h2>
