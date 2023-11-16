@@ -5,7 +5,7 @@ import { signInMutation } from '@/type';
 import { GoogleLogin } from '@react-oauth/google';
 import { AxiosError } from 'axios';
 import { googleLogin, signIn } from '@/containers/users/usersThunk';
-import { selectSignInLoading } from '@/containers/users/usersSlice';
+import { addAlert, selectSignInLoading } from '@/containers/users/usersSlice';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import PageLoader from '@/components/PageLoader/PageLoader';
 
@@ -27,8 +27,15 @@ const SignInForm = () => {
   };
 
   const googleLoginHandler = async (credential: string) => {
-    await dispatch(googleLogin(credential)).unwrap();
-    await router.push('/');
+    try {
+      await dispatch(googleLogin(credential)).unwrap();
+      await router.push('/');
+      dispatch(addAlert({ message: 'You have signed in!', type: 'info' }));
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+      }
+    }
   };
 
   const submitFormHandler = async (event: React.FormEvent) => {
@@ -36,10 +43,10 @@ const SignInForm = () => {
     try {
       await dispatch(signIn(state)).unwrap();
       await router.push('/');
-      // dispatch(addAlert({ message: 'You have signed in!', type: 'info' }));
+      dispatch(addAlert({ message: 'You have signed in!', type: 'info' }));
     } catch (e) {
       if (e instanceof AxiosError) {
-        // dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+        dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
       }
     }
   };

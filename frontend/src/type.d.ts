@@ -149,3 +149,11 @@ export interface Review {
   rating: number;
   date: string;
 }
+
+export interface IAlert {
+  message: string;
+  type: string;
+  id: string;
+  visible: boolean;
+  className: string;
+}

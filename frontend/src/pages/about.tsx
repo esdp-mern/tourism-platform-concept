@@ -1,10 +1,12 @@
 import React from 'react';
 import { Fade } from 'react-awesome-reveal';
 import horseImg from '@/assets/images/horses.png';
+import PageLoader from '@/components/PageLoader/PageLoader';
 
 const about = () => {
   return (
     <div className="about-page">
+      <PageLoader />
       <div className="about-page-top">
         <img
           alt="mountains"

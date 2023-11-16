@@ -4,6 +4,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { wrapper } from '@/store/store';
 import { GOOGLE_CLIENT_ID } from '@/constants';
 import AppToolBar from '@/components/UI/AppToolBar/AppToolBar';
+import Footer from '@/components/Footer/Footer';
 import '@/styles/globals.css';
 import '@/styles/ToursPage.css';
 import '@/styles/TourItem.css';
@@ -16,7 +17,8 @@ import '@/styles/MainSlider.css';
 import '@/styles/Footer.css';
 import '@/styles/about.css';
 import '@/styles/pageLoader.css';
-import Footer from '@/components/Footer/Footer';
+import '@/styles/alert.css';
+import Alerts from '@/components/Alert/Alerts';
 
 export default function App({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
@@ -29,6 +31,7 @@ export default function App({ Component, ...rest }: AppProps) {
             <AppToolBar />
           </header>
           <main>
+            <Alerts />
             <Component {...props.pageProps} />
           </main>
           <footer>

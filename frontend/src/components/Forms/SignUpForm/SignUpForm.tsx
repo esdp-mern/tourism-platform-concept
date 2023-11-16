@@ -3,6 +3,7 @@ import { RegisterMutation } from '@/type';
 import { useSelector } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
+  addAlert,
   selectSignUpError,
   selectSignUpLoading,
 } from '@/containers/users/usersSlice';
@@ -58,9 +59,9 @@ const SignUpForm = () => {
     try {
       await dispatch(signUp(state)).unwrap();
       await router.push('/');
-      // dispatch(addAlert({ message: 'You have signed in!', type: 'info' }));
+      dispatch(addAlert({ message: 'You have signed in!', type: 'info' }));
     } catch (e) {
-      // dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+      dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
     }
   };
 
