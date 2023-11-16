@@ -27,8 +27,15 @@ const SignInForm = () => {
   };
 
   const googleLoginHandler = async (credential: string) => {
-    await dispatch(googleLogin(credential)).unwrap();
-    await router.push('/');
+    try {
+      await dispatch(googleLogin(credential)).unwrap();
+      await router.push('/');
+      dispatch(addAlert({ message: 'You have signed in!', type: 'info' }));
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+      }
+    }
   };
 
   const submitFormHandler = async (event: React.FormEvent) => {
