@@ -12,6 +12,9 @@ import '@/styles/ButtonLoader.css';
 import '@/styles/FileInput.css';
 import '@/styles/SignInForm.css';
 import '@/styles/SignUpForm.css';
+import '@/styles/MainSlider.css';
+import '@/styles/Footer.css';
+import Footer from '@/components/Footer/Footer';
 
 export default function App({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
@@ -23,10 +26,12 @@ export default function App({ Component, ...rest }: AppProps) {
           <header>
             <AppToolBar />
           </header>
-
           <main>
             <Component {...props.pageProps} />
           </main>
+         <footer>
+          <Footer />
+        </footer>
         </Provider>
       </GoogleOAuthProvider>
     </>

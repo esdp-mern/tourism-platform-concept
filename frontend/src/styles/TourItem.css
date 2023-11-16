@@ -16,7 +16,7 @@
 .tour-item-img {
   width: 350px;
   height: 230px;
-  transition: .2s;
+  transition: 0.2s;
 }
 .tour-item:hover .tour-item-img {
   filter: brightness(80%);
@@ -49,7 +49,7 @@
   line-height: 1.25;
   margin: 0;
   font-weight: 500;
-  transition: .2s;
+  transition: 0.2s;
 }
 .tour-item:hover .tour-item-title {
   color: #75c15b;
