@@ -28,7 +28,6 @@ const ToursPage = () => {
             ))}
           </div>
           <div className="tours-page-link">
-            {/* eslint-disable-next-line react/jsx-no-undef */}
             <Link href="/tours/all" className="tours-page-link-tours">
               See all tours
             </Link>
