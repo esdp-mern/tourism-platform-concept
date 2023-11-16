@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { googleLogin, logout, signIn, signUp } from './usersThunk';
 import { RootState } from '@/store/store';
-import { nanoid } from 'nanoid';
 import { User, ValidationError } from '@/type';
 
 interface UsersState {

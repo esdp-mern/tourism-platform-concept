@@ -1,5 +1,5 @@
 import { createWrapper } from 'next-redux-wrapper';
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit';
 import {
   FLUSH,
   PAUSE,
@@ -28,7 +28,7 @@ const makeStore = () => {
     [toursSlice.name]: toursSlice.reducer,
     [usersSlice.name]: isServer
       ? usersSlice.reducer
-      : persistReducer(usersPersistConfig, usersSlice.reducer),
+      : (persistReducer(usersPersistConfig, usersSlice.reducer) as Reducer),
   };
 
   const reducer = combineReducers(reducers);

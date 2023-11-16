@@ -16,7 +16,7 @@ const ToolBarMenu: React.FC<IProps> = ({ show, onClick }) => {
       {user && (
         <div className="profile-preview">
           <img
-            src={`${apiUrl}/${user.avatar}`}
+            src={`${apiUrl}/images/${user.avatar}`}
             className="profile-preview-avatar"
             alt="profile-img"
           />
