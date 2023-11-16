@@ -21,18 +21,13 @@ const Pagination: React.FC<Props> = ({
       <ul className="pagination">
         {pageNumbers.map((pgNumber) => (
           <li
+            onClick={() => setCurrentPage(pgNumber)}
             key={pgNumber}
             className={`page-item ${
               currentPage == pgNumber ? 'page-link-active' : ''
             } `}
           >
-            <a
-              onClick={() => setCurrentPage(pgNumber)}
-              className="page-link"
-              href="#"
-            >
-              {pgNumber}
-            </a>
+            <a className="page-link">{pgNumber}</a>
           </li>
         ))}
       </ul>
