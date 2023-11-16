@@ -48,7 +48,7 @@ export interface GlobalError {
 
 export interface IGuide {
   _id: string;
-  user: string;
+  user: IUser;
   description: string;
   languages: string[];
   country: string;

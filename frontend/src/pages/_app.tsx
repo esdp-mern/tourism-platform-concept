@@ -15,10 +15,16 @@ import '@/styles/SignUpForm.css';
 import '@/styles/MainSlider.css';
 import '@/styles/Footer.css';
 import '@/styles/pageLoader.css';
+import '@/styles/TourForm.css';
+import '@/styles/TextFieldSelect.css';
+import '@/styles/TextField.css';
 import Footer from '@/components/Footer/Footer';
+import { addInterceptors } from '@/axiosApi';
 
 export default function App({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
+
+  addInterceptors(store);
 
   return (
     <>
