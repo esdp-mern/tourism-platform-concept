@@ -7,6 +7,7 @@ import { AxiosError } from 'axios';
 import { googleLogin, signIn } from '@/containers/users/usersThunk';
 import { selectSignInLoading } from '@/containers/users/usersSlice';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
+import PageLoader from '@/components/PageLoader/PageLoader';
 
 const SignInForm = () => {
   const dispatch = useAppDispatch();
@@ -45,6 +46,7 @@ const SignInForm = () => {
 
   return (
     <div className="form-block">
+      <PageLoader />
       <form className="form" onSubmit={submitFormHandler}>
         <h2 className="form-title">Sign in</h2>
         <div style={{ display: 'flex', justifyContent: 'center' }}>

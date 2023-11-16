@@ -9,6 +9,7 @@ import {
 import { signUp } from '@/containers/users/usersThunk';
 import { useRouter } from 'next/router';
 import FileInput from '@/components/UI/FileInput/FileInput';
+import PageLoader from '@/components/PageLoader/PageLoader';
 
 const initialState: RegisterMutation = {
   username: '',
@@ -65,6 +66,7 @@ const SignUpForm = () => {
 
   return (
     <div className="form-block">
+      <PageLoader />
       <form className="form" onSubmit={submitFormHandler}>
         <h2 className="form-title">Registration</h2>
         <div className="input-wrap">

@@ -19,9 +19,9 @@ const TourItem: React.FC<Props> = ({ tour }) => {
           <div className="tour-item-price">{tour.price.toString()} KGS</div>
         </div>
         <div className="tour-item-bottom">
-          <Link href={`/tours/${tour._id}`} className="tour-item-links">
+          <span className="tour-item-links">
             <h2 className="tour-item-title">{tour.name}</h2>
-          </Link>
+          </span>
           <div className="tour-item-country">{tour.country}</div>
           <div className="tour-item-info">
             <div className="tour-item-duration">{tour.duration} days</div>
