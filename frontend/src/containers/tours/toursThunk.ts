@@ -95,3 +95,64 @@ export const postTour = createAsyncThunk<
     throw e;
   }
 });
+
+interface updateTourParams {
+  id: string;
+  tourMutation: ITourMutation;
+}
+
+export const editTour = createAsyncThunk<
+  void,
+  updateTourParams,
+  { rejectValue: ValidationError }
+>('tours/edit', async (updateTourParams, { rejectWithValue }) => {
+  try {
+    const tourMutation = updateTourParams.tourMutation;
+    const formData = new FormData();
+    const keys = Object.keys(tourMutation) as (keyof ITourMutation)[];
+    keys.forEach((key) => {
+      const value = tourMutation[key];
+
+      if (value !== null) {
+        if (Array.isArray(value)) {
+          value.forEach((item) => {
+            if (typeof item === 'string') {
+              formData.append(key, item);
+            } else if (item instanceof File) {
+              formData.append(key, item, item.name);
+            } else {
+              formData.append(key, JSON.stringify(item));
+            }
+          });
+        } else if (value instanceof File) {
+          formData.append(key, value, value.name);
+        } else {
+          formData.append(key, value as string);
+        }
+      }
+    });
+    await axiosApi.put(`/tours/${updateTourParams.id}`, formData);
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 400) {
+      return rejectWithValue(e.response.data);
+    }
+
+    throw e;
+  }
+});
+
+export const deleteTour = createAsyncThunk<
+  void,
+  string,
+  { rejectValue: ValidationError }
+>('tours/delete', async (id, { rejectWithValue }) => {
+  try {
+    await axiosApi.delete(`/tours/${id}`);
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 400) {
+      return rejectWithValue(e.response.data);
+    }
+
+    throw e;
+  }
+});

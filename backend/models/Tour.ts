@@ -1,17 +1,13 @@
 import mongoose from 'mongoose';
-import Guide from './Guide';
 
 const TourSchema = new mongoose.Schema({
-  guides: {
-    type: [mongoose.Types.ObjectId],
-    ref: 'Guide',
-    required: true,
-    validate: {
-      validator: async (value: [mongoose.Types.ObjectId]) =>
-        await Guide.findById(value[value.length - 1]),
-      message: 'Guide does not exist!',
+  guides: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: 'Guide',
+      required: true,
     },
-  },
+  ],
   name: {
     type: String,
     required: true,

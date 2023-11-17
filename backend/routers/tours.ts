@@ -119,15 +119,19 @@ toursRouter.post(
     try {
       let existGuide;
 
-      if (req.body.guide) {
-        const guide = JSON.parse(req.body.guide);
+      if (req.body.guides) {
+        const guideInput = req.body.guides;
+
+        existGuide = Array.isArray(guideInput) ? guideInput : [guideInput];
 
         existGuide = await Promise.all(
-          guide.map(async (guide: string) => {
-            const guides = await Guide.findById(guide);
+          existGuide.map(async (guideId: string) => {
+            const guides = await Guide.findById(guideId);
 
             if (guides) {
               return guides._id;
+            } else {
+              throw new Error(`Guide with ID ${guideId} not found.`);
             }
           }),
         );
@@ -157,7 +161,7 @@ toursRouter.post(
       const included = req.body.included ? req.body.included : [];
 
       const tour = new Tour({
-        guide: existGuide,
+        guides: existGuide,
         name: req.body.name,
         mainImage: mainImage,
         description: req.body.description,
@@ -183,92 +187,93 @@ toursRouter.post(
       return next(e);
     }
   },
-);
 
-toursRouter.put(
-  '/:id',
-  auth,
-  permit('admin'),
-  imagesUpload.fields([
-    { name: 'mainImage', maxCount: 1 },
-    { name: 'galleryTour', maxCount: 10 },
-  ]),
-  async (req, res, next) => {
-    try {
-      const tourId = req.params.id;
+  toursRouter.put(
+    '/:id',
+    auth,
+    permit('admin'),
+    imagesUpload.fields([
+      { name: 'mainImage', maxCount: 1 },
+      { name: 'galleryTour', maxCount: 10 },
+    ]),
+    async (req, res, next) => {
+      try {
+        const tourId = req.params.id;
 
-      const existingTour = await Tour.findById(tourId);
+        const existingTour = await Tour.findById(tourId);
 
-      if (!existingTour) {
-        return res.status(404).send('Tour not found');
+        if (!existingTour) {
+          return res.status(404).send('Tour not found');
+        }
+
+        let existGuide;
+
+        if (req.body.guide) {
+          const guide = JSON.parse(req.body.guide);
+
+          existGuide = await Promise.all(
+            guide.map(async (guideId: string) => {
+              const guides = await Guide.findById(guideId);
+
+              if (guides) {
+                return guides._id;
+              }
+            }),
+          );
+        }
+        const plan =
+          req.body.plan && Array.isArray(req.body.plan)
+            ? req.body.plan.map(JSON.parse)
+            : existingTour.plan;
+
+        const category = req.body.category
+          ? req.body.category
+          : existingTour.category;
+        const included = req.body.included
+          ? req.body.included
+          : existingTour.included;
+
+        const mainImage =
+          req.files && 'mainImage' in req.files
+            ? 'images/' + req.files['mainImage'][0].filename
+            : existingTour.mainImage;
+
+        const gallery =
+          req.files && 'galleryTour' in req.files
+            ? req.files['galleryTour'].map(
+                (file: Express.Multer.File) => 'images/' + file.filename,
+              )
+            : existingTour.galleryTour;
+
+        existingTour.guides = existGuide || existingTour.guides;
+        existingTour.name = req.body.name || existingTour.name;
+        existingTour.mainImage = mainImage;
+        existingTour.description =
+          req.body.description || existingTour.description;
+        existingTour.category = category;
+        existingTour.price = req.body.price || existingTour.price;
+        existingTour.duration = req.body.duration || existingTour.duration;
+        existingTour.plan = plan;
+        existingTour.destination =
+          req.body.destination || existingTour.destination;
+        existingTour.arrival = req.body.arrival || existingTour.arrival;
+        existingTour.departure = req.body.departure || existingTour.departure;
+        existingTour.dressCode = req.body.dressCode || existingTour.dressCode;
+        existingTour.included = included;
+        existingTour.galleryTour = gallery;
+        existingTour.country = req.body.country || existingTour.country;
+
+        await existingTour.save();
+
+        return res.send(existingTour);
+      } catch (e) {
+        if (e instanceof mongoose.Error.ValidationError) {
+          return res.status(400).send(e);
+        }
+        return next(e);
       }
-
-      let existGuide;
-
-      if (req.body.guide) {
-        const guide = JSON.parse(req.body.guide);
-
-        existGuide = await Promise.all(
-          guide.map(async (guideId: string) => {
-            const guides = await Guide.findById(guideId);
-
-            if (guides) {
-              return guides._id;
-            }
-          }),
-        );
-      }
-
-      const plan = req.body.plan
-        ? JSON.parse(req.body.plan)
-        : existingTour.plan;
-      const category = req.body.category
-        ? JSON.parse(req.body.category)
-        : existingTour.category;
-      const included = req.body.included
-        ? JSON.parse(req.body.included)
-        : existingTour.included;
-
-      const mainImage =
-        req.files && 'mainImage' in req.files
-          ? 'images/' + req.files['mainImage'][0].filename
-          : existingTour.mainImage;
-
-      const gallery =
-        req.files && 'galleryTour' in req.files
-          ? req.files['galleryTour'].map(
-              (file: Express.Multer.File) => 'images/' + file.filename,
-            )
-          : existingTour.galleryTour;
-
-      existingTour.guides = existGuide || existingTour.guides;
-      existingTour.name = req.body.name || existingTour.name;
-      existingTour.mainImage = mainImage;
-      existingTour.description =
-        req.body.description || existingTour.description;
-      existingTour.category = category;
-      existingTour.price = req.body.price || existingTour.price;
-      existingTour.duration = req.body.duration || existingTour.duration;
-      existingTour.plan = plan;
-      existingTour.destination =
-        req.body.destination || existingTour.destination;
-      existingTour.arrival = req.body.arrival || existingTour.arrival;
-      existingTour.departure = req.body.departure || existingTour.departure;
-      existingTour.dressCode = req.body.dressCode || existingTour.dressCode;
-      existingTour.included = included;
-      existingTour.galleryTour = gallery;
-      existingTour.country = req.body.country || existingTour.country;
-
-      await existingTour.save();
-
-      return res.send(existingTour);
-    } catch (e) {
-      if (e instanceof mongoose.Error.ValidationError) {
-        return res.status(400).send(e);
-      }
-      return next(e);
-    }
-  },
+    },
+  ),
 );
 
 toursRouter.delete('/:id', auth, permit('admin'), async (req, res, next) => {

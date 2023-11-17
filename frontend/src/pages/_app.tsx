@@ -30,10 +30,17 @@ import '@/styles/TextFieldSelect.css';
 import '@/styles/fonts.css';
 import '@/styles/about.css';
 import '@/styles/pageLoader.css';
+import '@/styles/TourForm.css';
+import '@/styles/TextFieldSelect.css';
+import '@/styles/TextField.css';
+import Footer from '@/components/Footer/Footer';
+import { addInterceptors } from '@/axiosApi';
 import '@/styles/alert.css';
 
 export default function App({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
+
+  addInterceptors(store);
 
   return (
     <>

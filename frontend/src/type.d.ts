@@ -48,7 +48,7 @@ export interface GlobalError {
 
 export interface IGuide {
   _id: string;
-  user: string;
+  user: IUser;
   description: string;
   languages: string[];
   country: string;
@@ -61,7 +61,7 @@ export interface IGuideFull extends IGuide {
 
 export interface Tour {
   _id: string;
-  guides: string[];
+  guides: IGuide[];
   category: [];
   name: string;
   description: string;
@@ -91,7 +91,7 @@ export interface IPlan {
 }
 
 export interface ITourMutation {
-  guide: string[];
+  guides: string[];
   category: string[];
   name: string;
   description: string;

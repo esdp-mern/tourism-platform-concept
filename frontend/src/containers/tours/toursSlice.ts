@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   createOrder,
+  deleteTour,
+  editTour,
   fetchTour,
   fetchTours,
   postReview,
@@ -21,6 +23,8 @@ interface ToursState {
   postReviewError: ValidationError | null;
   postReviewLoading: boolean;
   orderButtonLoading: boolean;
+  editLoading: boolean;
+  deleteLoading: boolean | string;
 }
 
 const initialState: ToursState = {
@@ -34,6 +38,8 @@ const initialState: ToursState = {
   postReviewError: null,
   postReviewLoading: false,
   orderButtonLoading: false,
+  editLoading: false,
+  deleteLoading: false,
 };
 
 export const toursSlice = createSlice({
@@ -106,6 +112,26 @@ export const toursSlice = createSlice({
       state.postTourLoading = false;
       state.postTourError = error || null;
     });
+
+    builder.addCase(editTour.pending, (state) => {
+      state.editLoading = true;
+    });
+    builder.addCase(editTour.fulfilled, (state) => {
+      state.editLoading = false;
+    });
+    builder.addCase(editTour.rejected, (state) => {
+      state.editLoading = false;
+    });
+
+    builder.addCase(deleteTour.pending, (state, action) => {
+      state.deleteLoading = action.meta.arg;
+    });
+    builder.addCase(deleteTour.fulfilled, (state) => {
+      state.deleteLoading = false;
+    });
+    builder.addCase(deleteTour.rejected, (state) => {
+      state.deleteLoading = false;
+    });
   },
 });
 
@@ -126,3 +152,8 @@ export const selectPostTourLoading = (state: RootState) =>
   state.tours.postTourLoading;
 export const selectPostTourError = (state: RootState) =>
   state.tours.postTourError;
+
+export const selectEditTourLoading = (state: RootState) =>
+  state.tours.editLoading;
+export const selectDeleteTourLoading = (state: RootState) =>
+  state.tours.deleteLoading;
