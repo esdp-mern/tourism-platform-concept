@@ -10,7 +10,7 @@ const Home = () => {
   );
 };
 
-Home.getInitialPageProps = wrapper.getInitialPageProps((store) => async () => {
+Home.getInitialProps = wrapper.getInitialPageProps((store) => async () => {
   await store.dispatch(fetchTours());
   return { props: { name: 'tours' } };
 });

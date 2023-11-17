@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { googleLogin, logout, signIn, signUp } from './usersThunk';
 import { RootState } from '@/store/store';
-import { User, ValidationError } from '@/type';
+import { IAlert, User, ValidationError } from '@/type';
 import { apiUrl } from '@/constants';
+import { nanoid } from 'nanoid';
 
 interface UsersState {
   user: User | null;
@@ -11,6 +12,7 @@ interface UsersState {
   signInLoading: boolean;
   signInError: { error: string } | null;
   logoutLoading: boolean;
+  alerts: IAlert[];
 }
 
 const initialState: UsersState = {
@@ -20,12 +22,28 @@ const initialState: UsersState = {
   signInLoading: false,
   signInError: null,
   logoutLoading: false,
+  alerts: [],
 };
 
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
+    addAlert: (state, action) => {
+      state.alerts.push({
+        message: action.payload.message,
+        type: action.payload.type,
+        id: nanoid(),
+        visible: true,
+        className: '',
+      });
+    },
+    disableAlert: (state, action) => {
+      const alertIndex = state.alerts.findIndex(
+        (alert) => alert.id === action.payload,
+      );
+      state.alerts[alertIndex].className = 'disabled';
+    },
     resetSignInError: (state) => {
       state.signInError = null;
     },
@@ -98,7 +116,7 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { resetSignInError } = usersSlice.actions;
+export const { addAlert, disableAlert, resetSignInError } = usersSlice.actions;
 export const usersReducer = usersSlice.reducer;
 export const selectUser = (state: RootState) => state.users.user;
 export const selectSignUpLoading = (state: RootState) =>
@@ -109,3 +127,4 @@ export const selectSignInLoading = (state: RootState) =>
 export const selectSignInError = (state: RootState) => state.users.signInError;
 export const selectLogoutLoading = (state: RootState) =>
   state.users.logoutLoading;
+export const selectAlerts = (state: RootState) => state.users.alerts;

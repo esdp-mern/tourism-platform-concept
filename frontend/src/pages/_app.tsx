@@ -4,6 +4,8 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { wrapper } from '@/store/store';
 import { GOOGLE_CLIENT_ID } from '@/constants';
 import AppToolBar from '@/components/UI/AppToolBar/AppToolBar';
+import Alerts from '@/components/Alert/Alerts';
+import Footer from '@/components/Footer/Footer';
 import '@/styles/globals.css';
 import '@/styles/ToursPage.css';
 import '@/styles/TourItem.css';
@@ -26,8 +28,9 @@ import '@/styles/OneTourOrderForm.css';
 import '@/styles/TextField.css';
 import '@/styles/TextFieldSelect.css';
 import '@/styles/fonts.css';
-
-import Footer from '@/components/Footer/Footer';
+import '@/styles/about.css';
+import '@/styles/pageLoader.css';
+import '@/styles/alert.css';
 
 export default function App({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
@@ -40,6 +43,7 @@ export default function App({ Component, ...rest }: AppProps) {
             <AppToolBar />
           </header>
           <main>
+            <Alerts />
             <Component {...props.pageProps} />
           </main>
           <footer>

@@ -35,11 +35,8 @@ const MainSlider = () => {
 
   const scrollToBottom = () => {
     if (mainSliderRef.current) {
-      const mainSliderBottom =
-        mainSliderRef.current.getBoundingClientRect().bottom;
-
       window.scrollTo({
-        top: mainSliderBottom,
+        top: mainSliderRef.current.scrollHeight * 1.3,
         behavior: 'smooth',
       });
     }
@@ -76,7 +73,7 @@ const MainSlider = () => {
           <div
             className="country-slider"
             style={{
-              backgroundColor: sliderChanging ? '#fafafa' : 'transparent',
+              backgroundColor: sliderChanging ? '#ffffff' : 'transparent',
             }}
           >
             <a href="#" className="sliderTitle">
