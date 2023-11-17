@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RegisterMutation } from '@/type';
 import { useSelector } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -6,6 +6,7 @@ import {
   addAlert,
   selectSignUpError,
   selectSignUpLoading,
+  selectUser,
 } from '@/containers/users/usersSlice';
 import { signUp } from '@/containers/users/usersThunk';
 import { useRouter } from 'next/router';
@@ -26,6 +27,13 @@ const SignUpForm = () => {
   const dispatch = useAppDispatch();
   const error = useSelector(selectSignUpError);
   const signUpLoading = useAppSelector(selectSignUpLoading);
+  const user = useAppSelector(selectUser);
+
+  useEffect(() => {
+    if (user) {
+      void router.push('/');
+    }
+  }, [user, router]);
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;

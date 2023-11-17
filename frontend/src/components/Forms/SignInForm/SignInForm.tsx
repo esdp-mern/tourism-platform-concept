@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { signInMutation } from '@/type';
 import { GoogleLogin } from '@react-oauth/google';
 import { AxiosError } from 'axios';
 import { googleLogin, signIn } from '@/containers/users/usersThunk';
-import { addAlert, selectSignInLoading } from '@/containers/users/usersSlice';
+import {
+  addAlert,
+  selectSignInLoading,
+  selectUser,
+} from '@/containers/users/usersSlice';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import PageLoader from '@/components/PageLoader/PageLoader';
 
@@ -16,7 +20,14 @@ const SignInForm = () => {
     username: '',
     password: '',
   });
+  const user = useAppSelector(selectUser);
   const signInLoading = useAppSelector(selectSignInLoading);
+
+  useEffect(() => {
+    if (user) {
+      void router.push('/');
+    }
+  }, [user, router]);
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;

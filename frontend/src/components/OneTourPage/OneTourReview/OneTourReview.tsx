@@ -1,25 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Fade } from 'react-awesome-reveal';
 import dayjs from 'dayjs';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { useAppSelector } from '@/store/hooks';
 import { selectToursReviews } from '@/containers/reviews/reviewSlice';
-import { fetchToursReviews } from '@/containers/reviews/reviewThunk';
 import NewReviewForm from '@/components/NewReviewForm/NewReviewForm';
+import { selectUser } from '@/containers/users/usersSlice';
 
-interface Props {
-  id: string;
-}
-
-const OneTourReview: React.FC<Props> = ({ id }) => {
+const OneTourReview = () => {
   const toursReviews = useAppSelector(selectToursReviews);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (id) {
-      dispatch(fetchToursReviews(id));
-    }
-  }, [id, dispatch]);
-
+  const user = useAppSelector(selectUser);
   let reviewTotal = '';
 
   const calculateAverageRating = () => {
@@ -33,12 +22,14 @@ const OneTourReview: React.FC<Props> = ({ id }) => {
     );
     if (sum / toursReviews.length === 5) {
       reviewTotal = 'Super';
-    } else if (sum / toursReviews.length === 4) {
+    } else if (sum / toursReviews.length >= 4) {
       reviewTotal = 'Good';
-    } else if (sum / toursReviews.length === 3) {
+    } else if (sum / toursReviews.length >= 3) {
       reviewTotal = 'Normal';
-    } else if (sum / toursReviews.length === 2) {
+    } else if (sum / toursReviews.length >= 2) {
       reviewTotal = 'Bad';
+    } else if (sum / toursReviews.length >= 1) {
+      reviewTotal = 'Very bad';
     } else {
       reviewTotal = 'Not rated';
     }
@@ -88,9 +79,7 @@ const OneTourReview: React.FC<Props> = ({ id }) => {
             ))}
           </div>
         </Fade>
-        <div>
-          <NewReviewForm />
-        </div>
+        <div>{user && <NewReviewForm />}</div>
       </div>
     </div>
   );

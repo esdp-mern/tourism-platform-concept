@@ -27,9 +27,6 @@ const TextField: React.FC<Props> = (props) => {
     if (props.isSubmit !== undefined) {
       setIsError(!!(props.required && props.isSubmit && !props.value));
     }
-  }, [props.required, props.isSubmit, props.value]);
-
-  useEffect(() => {
     if (inputRef.current && selectedDate && prevSelectedDate !== selectedDate) {
       props.onChange({
         target: {

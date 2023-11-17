@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { wrapper } from '@/store/store';
 import { GOOGLE_CLIENT_ID } from '@/constants';
+import { addInterceptors } from '@/axiosApi';
 import AppToolBar from '@/components/UI/AppToolBar/AppToolBar';
 import Alerts from '@/components/Alert/Alerts';
 import Footer from '@/components/Footer/Footer';
@@ -33,8 +34,6 @@ import '@/styles/pageLoader.css';
 import '@/styles/TourForm.css';
 import '@/styles/TextFieldSelect.css';
 import '@/styles/TextField.css';
-import Footer from '@/components/Footer/Footer';
-import { addInterceptors } from '@/axiosApi';
 import '@/styles/alert.css';
 
 export default function App({ Component, ...rest }: AppProps) {

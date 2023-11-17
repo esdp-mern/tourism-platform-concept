@@ -76,7 +76,6 @@ const OneTourOrderForm = () => {
   return (
     <form className="one-tour-order-form" onSubmit={sendData}>
       <h4 className="one-tour-order-form-title">Book Now</h4>
-
       <div className="one-tour-order-form-inputs">
         <TextField
           name="guide"
@@ -88,7 +87,6 @@ const OneTourOrderForm = () => {
           required
           isSubmit={isSubmit}
         />
-
         <TextField
           name="date"
           type="date"
@@ -99,7 +97,6 @@ const OneTourOrderForm = () => {
           required
           isSubmit={isSubmit}
         />
-
         {!user && state.email !== undefined && state.phone !== undefined && (
           <>
             <TextField
@@ -112,7 +109,6 @@ const OneTourOrderForm = () => {
               isSubmit={isSubmit}
               required
             />
-
             <TextField
               name="phone"
               type="text"

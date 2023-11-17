@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const Footer = () => {
   return (
-    <div style={{ marginTop: '20px' }}>
+    <div>
       <div className="footer-inner">
         <div className="footer-inner-top container">
           <div>
@@ -46,7 +46,7 @@ const Footer = () => {
             <div>
               <ul className="footer-list-links">
                 <li>
-                  <Link href="/all-tours" className="footer-list-link">
+                  <Link href="/tours/all" className="footer-list-link">
                     Tours
                   </Link>
                 </li>
@@ -56,12 +56,12 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/all-tours" className="footer-list-link">
+                  <Link href="/tours/all" className="footer-list-link">
                     Travel Insurance
                   </Link>
                 </li>
                 <li>
-                  <Link href="/all-tours" className="footer-list-link">
+                  <Link href="/tours/all" className="footer-list-link">
                     Help
                   </Link>
                 </li>
