@@ -4,7 +4,11 @@ import AnonymousMenu from './components/AnonymousMenu';
 import UserMenu from './components/UserMenu';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { selectLogoutLoading, selectUser } from '@/containers/users/usersSlice';
+import {
+  addAlert,
+  selectLogoutLoading,
+  selectUser,
+} from '@/containers/users/usersSlice';
 import { logout } from '@/containers/users/usersThunk';
 import ToolBarMenu from '@/components/UI/AppToolBar/components/ToolBarMenu';
 
@@ -18,7 +22,12 @@ const AppToolBar = () => {
   const showMenu = () => setMenuShow(!menuShow);
 
   const userLogout = async () => {
-    await dispatch(logout());
+    try {
+      await dispatch(logout());
+      dispatch(addAlert({ message: 'You have logged out!', type: 'info' }));
+    } catch (e) {
+      dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+    }
   };
 
   return (

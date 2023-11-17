@@ -38,13 +38,12 @@
 
 .menu-btn span:not(:last-child),
 .nav-btn span {
-  position: absolute;
-  height: 2px;
-  width: 25px;
-  background-color: #000;
-  left: 5px;
-  transition:
-    transform 0.5s,
+    position: absolute;
+    height: 2px;
+    width: 25px;
+    background-color: #000;
+    left: 5px;
+    transition: transform 0.5s,
     opacity 0.5s;
 }
 
