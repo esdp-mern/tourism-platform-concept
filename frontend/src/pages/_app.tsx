@@ -25,6 +25,7 @@ import '@/styles/newReviewForm.css';
 import '@/styles/OneTourOrderForm.css';
 import '@/styles/TextField.css';
 import '@/styles/TextFieldSelect.css';
+import '@/styles/fonts.css';
 
 import Footer from '@/components/Footer/Footer';
 

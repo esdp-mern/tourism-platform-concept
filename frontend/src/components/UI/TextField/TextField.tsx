@@ -3,6 +3,7 @@ import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
 import TextFieldSelect from '@/components/UI/TextField/components/TextFieldSelect/TextFieldSelect';
 import { format } from 'date-fns';
 import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
 
 interface Props {
   name: string;

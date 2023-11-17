@@ -6,9 +6,10 @@ import { selectUser } from '@/containers/users/usersSlice';
 import { createOrder } from '@/containers/tours/toursThunk';
 import TextField from '@/components/UI/TextField/TextField';
 import guideIcon from '../../assets/images/guide-icon.svg';
-import calendarIcon from '../../assets/images/calendar-icon.svg';
+import calendarIcon from '../../assets/images/calendar-order-icon.svg';
 import emailIcon from '../../assets/images/email-icon.svg';
 import phoneIcon from '../../assets/images/phone-icon.svg';
+import NavLink from 'next/link';
 
 export interface IChangeEvent {
   target: { name: string; value: string };
@@ -31,6 +32,8 @@ const OneTourOrderForm = () => {
   useEffect(() => {
     if (!user) {
       setState((prevState) => ({ ...prevState, email: '', phone: '' }));
+    } else {
+      setState(initialState);
     }
   }, [user]);
 
@@ -129,7 +132,9 @@ const OneTourOrderForm = () => {
         className={`one-tour-order-form-btn`}
         disabled={orderButtonLoading}
       >
-        {orderButtonLoading ? 'Booking...' : 'Book this tour'}
+        <NavLink href="/" className="one-tour-order-form-nav-link">
+          {orderButtonLoading ? 'Booking...' : 'Book this tour'}
+        </NavLink>
       </button>
     </form>
   );

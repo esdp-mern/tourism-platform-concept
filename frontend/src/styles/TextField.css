@@ -19,7 +19,6 @@
 }
 
 .text-field-input {
-    max-width: 277px;
     padding: 11px 19px 11px 40px;
     font-family: 'Montserrat Regular';
     font-size: 18px;
@@ -28,7 +27,7 @@
     transition: all 0.3s ease-in-out;
     background-color: transparent;
     outline: 0;
-    min-height: 60px;
+    min-height: 38px;
 }
 
 .text-field-input-error {
