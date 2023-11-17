@@ -8,13 +8,41 @@ import {
   selectPostTourError,
   selectPostTourLoading,
 } from '@/containers/tours/toursSlice';
-import { postTour } from '@/containers/tours/toursThunk';
+import { editTour, postTour } from '@/containers/tours/toursThunk';
 import { selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
 import { useRouter } from 'next/router';
 import TextFieldGuide from '@/components/UI/TextField/components/TextFieldGuide';
 
-const TourForm = () => {
+interface Props {
+  existingTour?: ITourMutation;
+  isEdit?: boolean;
+  idTour?: string;
+}
+
+const initialState = {
+  name: '',
+  country: '',
+  mainImage: null,
+  duration: '',
+  price: '',
+  description: '',
+  destination: '',
+  arrival: '',
+  departure: '',
+  included: [],
+  dressCode: '',
+  category: [],
+  galleryTour: null,
+  plan: [],
+  guides: [],
+};
+
+const TourForm: React.FC<Props> = ({
+  isEdit,
+  existingTour = initialState,
+  idTour,
+}) => {
   const dispatch = useAppDispatch();
   const error = useSelector(selectPostTourError);
   const loading = useAppSelector(selectPostTourLoading);
@@ -27,29 +55,19 @@ const TourForm = () => {
     }
   }, [routers, user]);
 
-  const [state, setState] = useState<ITourMutation>({
-    name: '',
-    country: '',
-    mainImage: null,
-    duration: '',
-    price: '',
-    description: '',
-    destination: '',
-    arrival: '',
-    departure: '',
-    included: [],
-    dressCode: '',
-    category: [],
-    galleryTour: null,
-    plan: [],
-    guide: [],
-  });
+  const [state, setState] = useState<ITourMutation>(existingTour);
 
-  const [plan, setPlan] = useState<IPlan[]>([]);
-  const [category, setCategory] = useState<string[]>([]);
-  const [guide, setGuide] = useState<string[]>([]);
-  const [included, setIncluded] = useState<string[]>([]);
-  const [galleryTour, setGalleryTour] = useState<File[]>([]);
+  const [plan, setPlan] = useState<IPlan[]>(existingTour.plan || []);
+  const [category, setCategory] = useState<string[]>(
+    existingTour.category || [],
+  );
+  const [guide, setGuide] = useState<string[]>(existingTour.guides || []);
+  const [included, setIncluded] = useState<string[]>(
+    existingTour.included || [],
+  );
+  const [galleryTour, setGalleryTour] = useState<File[]>(
+    existingTour.galleryTour || [],
+  );
 
   const submitFormHandler = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,10 +75,19 @@ const TourForm = () => {
     try {
       state.plan = plan;
       state.category = category;
-      state.guide = guide;
+      state.guides = guide;
       state.included = included;
       state.galleryTour = galleryTour;
-      await dispatch(postTour(state)).unwrap();
+      if (isEdit && idTour) {
+        await dispatch(
+          editTour({
+            id: idTour,
+            tourMutation: state,
+          }),
+        ).unwrap();
+      } else {
+        await dispatch(postTour(state)).unwrap();
+      }
       routers.push('/').then((r) => r);
     } catch (e) {
       alert('Invalid field');
@@ -218,7 +245,9 @@ const TourForm = () => {
   return (
     <div className="form-block">
       <form className="form-tour" onSubmit={submitFormHandler}>
-        <h2 className="form-tour-title">Create Tour</h2>
+        <h2 className="form-tour-title">
+          {isEdit ? 'Save Tour' : 'Create Tour'}
+        </h2>
 
         <div className="input-tour-wrap">
           <label htmlFor="name" className="form-tour-label">
@@ -595,7 +624,13 @@ const TourForm = () => {
         </div>
 
         <button type="submit" className="form-tour-btn">
-          {loading ? <ButtonLoader size={18} /> : 'Create'}
+          {loading ? (
+            <ButtonLoader size={18} />
+          ) : isEdit ? (
+            'Save Tour'
+          ) : (
+            'Create Tour'
+          )}
         </button>
       </form>
     </div>

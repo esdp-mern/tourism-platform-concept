@@ -119,8 +119,8 @@ toursRouter.post(
     try {
       let existGuide;
 
-      if (req.body.guide) {
-        const guideInput = req.body.guide;
+      if (req.body.guides) {
+        const guideInput = req.body.guides;
 
         existGuide = Array.isArray(guideInput) ? guideInput : [guideInput];
 
@@ -209,8 +209,8 @@ toursRouter.post(
         let existGuide;
 
         if (req.body.guide) {
-          console.log(req.body.guide);
-          const guide = req.body.guide;
+          const guide = JSON.parse(req.body.guide);
+
           existGuide = await Promise.all(
             guide.map(async (guideId: string) => {
               const guides = await Guide.findById(guideId);
@@ -221,15 +221,16 @@ toursRouter.post(
             }),
           );
         }
+        const plan =
+          req.body.plan && Array.isArray(req.body.plan)
+            ? req.body.plan.map(JSON.parse)
+            : existingTour.plan;
 
-        const plan = req.body.plan
-          ? JSON.parse(req.body.plan)
-          : existingTour.plan;
         const category = req.body.category
-          ? JSON.parse(req.body.category)
+          ? req.body.category
           : existingTour.category;
         const included = req.body.included
-          ? JSON.parse(req.body.included)
+          ? req.body.included
           : existingTour.included;
 
         const mainImage =

@@ -75,3 +75,52 @@
 .tour-item-links {
   text-decoration: none;
 }
+
+.buttons-tour {
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-tour-edit {
+  background: #297a0d;
+  border: 1px solid transparent;
+  margin: 0 auto;
+  padding: 10px 20px;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.btn-delete-tour {
+  background: #8c0404;
+  margin: 0 auto;
+  padding: 10px 20px;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 8px;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+.btn-tour-edit:hover {
+  background: #fff;
+  color: #297a0d;
+  border: 1px solid #297a0d;
+}
+
+.btn-delete-tour:hover {
+  background: #fff;
+  color: #8c0404;
+  border: 1px solid #8c0404;
+}
+
+.btn-tour-edit:active {
+  box-shadow: 1px 1px 5px #297a0d;
+}
+
+.btn-delete-tour:active {
+  box-shadow: 1px 1px 5px #8c0404;
+}
+
