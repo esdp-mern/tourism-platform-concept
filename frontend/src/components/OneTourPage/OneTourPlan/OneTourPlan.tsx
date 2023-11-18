@@ -1,20 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Fade } from 'react-awesome-reveal';
-import { useParams } from 'next/navigation';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { fetchTour } from '@/containers/tours/toursThunk';
+import { useAppSelector } from '@/store/hooks';
 
 const OneTourPlan = () => {
-  const { id } = useParams() as { id: string };
-  const dispatch = useAppDispatch();
   const tourPlan = useAppSelector((state) => state.tours.tour?.plan);
   const [selectedDay, setSelectedDay] = useState('');
-
-  useEffect(() => {
-    if (id) {
-      dispatch(fetchTour(id));
-    }
-  }, [id, dispatch]);
 
   const onDayClick = (id: string) => {
     if (selectedDay === id) {

@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Select, { MultiValue } from 'react-select';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { selectGuides } from '@/containers/guides/guidesSlice';
@@ -29,7 +29,6 @@ const TextFieldSelect: React.FC<Props> = (props) => {
 
   useEffect(() => {
     if (guides && !options.length) {
-      console.log(guides);
       setOptions(
         guides.map((guide) => ({
           value: guide._id,

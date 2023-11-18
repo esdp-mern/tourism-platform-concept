@@ -10,12 +10,13 @@ import {
 import { fetchTour } from '@/containers/tours/toursThunk';
 import { useParams } from 'next/navigation';
 import { apiUrl } from '@/constants';
-import OneTourInformation from '@/containers/OneTourPage/components/OneTourInformation/OneTourInformation';
-import OneTourPlan from '@/containers/OneTourPage/components/OneTourPlan/OneTourPlan';
-import Map from '@/containers/OneTourPage/components/Map/Map';
-import Gallery from '@/containers/OneTourPage/components/Gallery/Gallery';
-import OneTourReview from '@/containers/OneTourPage/components/OneTourReview/OneTourReview';
+import OneTourInformation from '@/components/OneTourPage/OneTourInformation/OneTourInformation';
+import OneTourPlan from '@/components/OneTourPage/OneTourPlan/OneTourPlan';
+import Gallery from '@/components/OneTourPage/Gallery/Gallery';
+import OneTourReview from '@/components/OneTourPage/OneTourReview/OneTourReview';
 import OneTourOrderForm from '@/components/OneTourOrderForm/OneTourOrderForm';
+import PageLoader from '@/components/PageLoader/PageLoader';
+import { fetchToursReviews } from '@/containers/reviews/reviewThunk';
 
 interface ITab {
   title: string;
@@ -36,7 +37,6 @@ const TourPage: NextPage<
   const { id } = useParams() as {
     id: string;
   };
-
   const dispatch = useAppDispatch();
   const tour = useAppSelector(selectOneTour);
   const postReviewError = useAppSelector(selectPostReviewError);
@@ -45,10 +45,11 @@ const TourPage: NextPage<
 
   useEffect(() => {
     if (postReviewError) {
-      // dispatch(addAlert({ message: postReviewError.message, type: 'error' }));
       dispatch(resetPostReviewError());
     }
-  }, [dispatch, postReviewError]);
+    dispatch(fetchTour(id));
+    dispatch(fetchToursReviews(id));
+  }, [dispatch, postReviewError, id]);
 
   const imgLink = apiUrl + '/' + tour?.mainImage;
 
@@ -62,7 +63,7 @@ const TourPage: NextPage<
 
   return (
     <div className="one-tour">
-      {/*<PageLoader />*/}
+      <PageLoader />
       <div className="one-tour-top">
         <img src={imgLink} className="one-tour-img" alt={tour.name} />
         <div className="one-tour-top-info">
@@ -90,9 +91,8 @@ const TourPage: NextPage<
         <div>
           {currentTab === 'information' && <OneTourInformation />}
           {currentTab === 'plan' && <OneTourPlan />}
-          {/*{currentTab === 'location' && <Map country={tour.country} />}*/}
           {currentTab === 'gallery' && <Gallery />}
-          {currentTab === 'reviews' && <OneTourReview id={id} />}
+          {currentTab === 'reviews' && <OneTourReview />}
         </div>
         <OneTourOrderForm />
       </div>

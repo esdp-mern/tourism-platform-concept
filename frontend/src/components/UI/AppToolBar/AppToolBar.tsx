@@ -50,7 +50,7 @@ const AppToolBar = () => {
           <NavLink href="/" className="nav-link">
             Home
           </NavLink>
-          <NavLink href="/tours/all" className="nav-link">
+          <NavLink href="/tours/all/1" className="nav-link">
             Tours
           </NavLink>
           <NavLink href="/about" className="nav-link">

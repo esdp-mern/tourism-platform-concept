@@ -1,5 +1,9 @@
 .slider-container {
+  position: relative;
+  z-index: 0;
   padding: 20px 30px 100px;
+  max-width: 1600px;
+  margin: 0 auto;
 }
 
 .main-slider {

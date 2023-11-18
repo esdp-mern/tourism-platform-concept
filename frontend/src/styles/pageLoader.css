@@ -3,7 +3,7 @@
   display: flex;
   top: 0;
   left: 0;
-  z-index: 3;
+  z-index: 20;
   height: 0;
   background: #f6f6f6;
   overflow: hidden;

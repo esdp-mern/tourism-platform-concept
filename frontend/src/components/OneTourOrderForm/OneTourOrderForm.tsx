@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { IOrder, IOrderForm } from '@/type';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { selectOneTour } from '@/containers/tours/toursSlice';
@@ -18,6 +18,8 @@ export interface IChangeEvent {
 const initialState: IOrderForm = {
   guide: '',
   date: '',
+  email: '',
+  phone: '',
 };
 
 const OneTourOrderForm = () => {
@@ -28,14 +30,6 @@ const OneTourOrderForm = () => {
 
   const [state, setState] = useState<IOrderForm>(initialState);
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (!user) {
-      setState((prevState) => ({ ...prevState, email: '', phone: '' }));
-    } else {
-      setState(initialState);
-    }
-  }, [user]);
 
   const changeValue = (e: IChangeEvent) => {
     const { name, value } = e.target;
@@ -76,7 +70,6 @@ const OneTourOrderForm = () => {
   return (
     <form className="one-tour-order-form" onSubmit={sendData}>
       <h4 className="one-tour-order-form-title">Book Now</h4>
-
       <div className="one-tour-order-form-inputs">
         <TextField
           name="guide"
@@ -88,7 +81,6 @@ const OneTourOrderForm = () => {
           required
           isSubmit={isSubmit}
         />
-
         <TextField
           name="date"
           type="date"
@@ -99,7 +91,6 @@ const OneTourOrderForm = () => {
           required
           isSubmit={isSubmit}
         />
-
         {!user && state.email !== undefined && state.phone !== undefined && (
           <>
             <TextField
@@ -112,7 +103,6 @@ const OneTourOrderForm = () => {
               isSubmit={isSubmit}
               required
             />
-
             <TextField
               name="phone"
               type="text"
