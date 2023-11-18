@@ -46,7 +46,10 @@ const Footer = () => {
             <div>
               <ul className="footer-list-links">
                 <li>
-                  <Link href="/tours/all" className="footer-list-link">
+                  <Link
+                    href="/tours/all/[pageNum]"
+                    className="footer-list-link"
+                  >
                     Tours
                   </Link>
                 </li>
@@ -56,12 +59,18 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/tours/all" className="footer-list-link">
+                  <Link
+                    href="/tours/all/[pageNum]"
+                    className="footer-list-link"
+                  >
                     Travel Insurance
                   </Link>
                 </li>
                 <li>
-                  <Link href="/tours/all" className="footer-list-link">
+                  <Link
+                    href="/tours/all/[pageNum]"
+                    className="footer-list-link"
+                  >
                     Help
                   </Link>
                 </li>

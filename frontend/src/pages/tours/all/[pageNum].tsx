@@ -21,6 +21,10 @@ const AllToursPage = () => {
     dispatch(fetchTours());
   }, [dispatch]);
 
+  const onSetCurrentPage = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="all-tours">
       <PageLoader />
@@ -36,7 +40,7 @@ const AllToursPage = () => {
               <Pagination
                 nPages={nPages}
                 currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
+                onSetCurrentPage={onSetCurrentPage}
               />
             </div>
           </div>

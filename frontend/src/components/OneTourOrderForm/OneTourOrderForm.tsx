@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { IOrder, IOrderForm } from '@/type';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { selectOneTour } from '@/containers/tours/toursSlice';
@@ -18,6 +18,8 @@ export interface IChangeEvent {
 const initialState: IOrderForm = {
   guide: '',
   date: '',
+  email: '',
+  phone: '',
 };
 
 const OneTourOrderForm = () => {
@@ -28,14 +30,6 @@ const OneTourOrderForm = () => {
 
   const [state, setState] = useState<IOrderForm>(initialState);
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (!user) {
-      setState((prevState) => ({ ...prevState, email: '', phone: '' }));
-    } else {
-      setState(initialState);
-    }
-  }, [user]);
 
   const changeValue = (e: IChangeEvent) => {
     const { name, value } = e.target;
