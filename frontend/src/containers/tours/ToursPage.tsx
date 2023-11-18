@@ -28,7 +28,7 @@ const ToursPage = () => {
             ))}
           </div>
           <div className="tours-page-link">
-            <Link href="/tours/all/[pageNum]" className="tours-page-link-tours">
+            <Link href={`/tours/all/${1}`} className="tours-page-link-tours">
               See all tours
             </Link>
           </div>
