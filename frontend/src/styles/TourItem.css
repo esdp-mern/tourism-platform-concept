@@ -20,7 +20,7 @@
   transition: 0.2s;
 }
 
-.tour-item:hover .tour-item-img {
+.tour-item-img:hover {
   filter: brightness(80%);
 }
 
@@ -55,7 +55,7 @@
   transition: 0.2s;
 }
 
-.tour-item:hover .tour-item-title {
+.tour-item-title:hover {
   color: #75c15b;
 }
 
@@ -96,6 +96,7 @@
   cursor: pointer;
   border-radius: 8px;
   text-decoration: none;
+  transition: 0.2s;
 }
 
 .btn-delete-tour {
@@ -107,6 +108,7 @@
   border-radius: 8px;
   text-decoration: none;
   border: 1px solid transparent;
+  transition: 0.2s;
 }
 
 .btn-tour-edit:hover {

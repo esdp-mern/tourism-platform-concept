@@ -25,6 +25,10 @@
   margin: 0 auto;
 }
 
+.input-tour-wrap textarea {
+  min-height: 120px;
+}
+
 .btn-tour-wrap {
   width: 100%;
   max-width: 480px;
