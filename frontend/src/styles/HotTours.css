@@ -1,0 +1,57 @@
+.hot-tours-wrapper {
+  width: 100%;
+  background-image: url('@/assets/images/hot-tours-bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  padding: 70px 0 85px;
+}
+
+.hot-tours-wrapper-inner {
+  display: flex;
+  gap: 50px;
+}
+
+.hot-tours-item {
+  width: 415px;
+  border-radius: 8px;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.hot-tours-item img {
+  width: 100%;
+}
+
+.hot-tours-info {
+  font-family: 'Montserrat Regular';
+  color: #fff;
+  padding: 0 15px;
+  max-width: 480px;
+}
+
+.hot-tours-info div {
+  display: flex;
+  align-items: end;
+  gap: 30px;
+  margin-right: 400px;
+}
+
+.hot-tours-info div h2 {
+  font-size: 45px;
+  line-height: 1.24444;
+}
+
+.hot-tours-info div p {
+  font-family: 'Baloo Bold';
+  font-size: 90px;
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+
+.hot-tours-info h4 {
+  font-size: 24px;
+  font-weight: 500;
+  lint-height: 1.7;
+  margin-top: 40px;
+}
