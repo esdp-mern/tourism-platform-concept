@@ -56,6 +56,7 @@ export const usersSlice = createSlice({
     builder.addCase(signUp.fulfilled, (state, { payload: userResponse }) => {
       state.registerLoading = false;
       const userData = userResponse.user;
+
       state.user = {
         ...userData,
         avatar: `${apiUrl}/images/${userData.avatar}`,
@@ -91,9 +92,10 @@ export const usersSlice = createSlice({
       googleLogin.fulfilled,
       (state, { payload: userResponse }) => {
         state.signInLoading = false;
+
         state.user = {
           ...userResponse,
-          avatar: `${apiUrl}/${userResponse.avatar}`,
+          avatar: userResponse.avatar,
         };
       },
     );
