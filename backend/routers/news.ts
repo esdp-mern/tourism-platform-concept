@@ -44,7 +44,7 @@ newsRouter.post(
       const images =
         req.files && 'images' in req.files
           ? (req.files as { [fieldname: string]: Express.Multer.File[] })[
-              'galleryTour'
+              'images'
             ].map((file) => 'images/' + file.filename)
           : [];
 
@@ -91,7 +91,7 @@ newsRouter.put(
 
       const images =
         req.files && 'images' in req.files
-          ? req.files['galleryTour'].map(
+          ? req.files['images'].map(
               (file: Express.Multer.File) => 'images/' + file.filename,
             )
           : news.images;
