@@ -4,10 +4,12 @@ import config from './config';
 import User from './models/User';
 import Tour from './models/Tour';
 import Guide from './models/Guide';
-import Review from './models/Review';
+import TourReview from './models/TourReview';
 import Order from './models/Order';
 import News from './models/News';
 import Employee from './models/Employee';
+import GuideReview from './models/GuideReview';
+import PlatformReview from './models/PlatformReview';
 
 const run = async () => {
   await mongoose.connect(config.db);
@@ -17,10 +19,12 @@ const run = async () => {
     await db.dropCollection('users');
     await db.dropCollection('tours');
     await db.dropCollection('guides');
-    await db.dropCollection('reviews');
     await db.dropCollection('orders');
     await db.dropCollection('news');
     await db.dropCollection('employee');
+    await db.dropCollection('guideReviews');
+    await db.dropCollection('platformReviews');
+    await db.dropCollection('tourReviews');
   } catch (e) {
     console.log('Collections were not present, skipping drop...');
   }
@@ -324,75 +328,47 @@ const run = async () => {
       },
     );
 
-  await Review.create(
+  await TourReview.create(
     {
       user: user3._id,
       tour: Burana._id,
       comment: 'Nice tour!',
-      rating: 5,
-      date: '2023-11-01T17:11:22.353Z',
-    },
-    {
-      user: user._id,
-      tour: Burana._id,
-      comment: 'Love this tour!',
-      rating: 3,
       date: '2023-11-01T17:11:22.353Z',
     },
     {
       user: user3._id,
-      guide: Andrey._id,
-      comment: 'Not bad tour! Pretty nice guide!',
-      rating: 4,
+      tour: Burana._id,
+      comment: 'Love this tour!',
       date: '2023-11-01T17:11:22.353Z',
     },
     {
       user: user3._id,
       tour: Canyon._id,
       comment: 'Good one! I love it!',
-      rating: 5,
       date: '2024-05-17T17:11:22.353Z',
     },
     {
       user: user3._id,
       tour: IssykKul._id,
       comment: 'Very beautiful place',
-      rating: 5,
       date: '2024-07-09T17:11:22.353Z',
-    },
-    {
-      user: user3._id,
-      guide: Askar._id,
-      comment: 'Good guide!',
-      rating: 5,
-      date: '2024-08-05T17:11:22.353Z',
-    },
-    {
-      user: user3._id,
-      guide: Askar._id,
-      comment: 'Good guide!',
-      rating: 5,
-      date: '2024-08-05T17:11:22.353Z',
     },
     {
       user: user3._id,
       tour: Osh._id,
       comment: 'Amazing place, but it was cold!',
-      rating: 4,
       date: '2024-08-05T17:11:22.353Z',
     },
     {
       user: user3._id,
       tour: AlaKul._id,
       comment: 'Amazing place, love it',
-      rating: 4,
       date: '2024-08-05T17:11:22.353Z',
     },
     {
       user: user3._id,
       tour: SaryChelek._id,
       comment: 'Very beautiful lake!!!',
-      rating: 5,
       date: '2024-08-05T17:11:22.353Z',
     },
   );
@@ -494,6 +470,45 @@ const run = async () => {
       number: '996 708 67 76 55',
       role: 'moderator',
       image: 'fixtures/employee-3.jpeg',
+    },
+  );
+
+  await GuideReview.create(
+    {
+      user: user3._id,
+      guide: Askar._id,
+      comment: 'Good guide!',
+      date: '2024-08-05T17:11:22.353Z',
+    },
+    {
+      user: user3._id,
+      guide: Andrey._id,
+      comment: 'Pretty nice guide!',
+      date: '2023-11-01T17:11:22.353Z',
+    },
+    {
+      user: user3._id,
+      guide: Artem._id,
+      comment: 'Nice guide!',
+      date: '2023-11-01T17:11:22.353Z',
+    },
+  );
+
+  await PlatformReview.create(
+    {
+      user: user3._id,
+      comment: 'Good!',
+      date: '2024-08-05T17:11:22.353Z',
+    },
+    {
+      user: user3._id,
+      comment: 'Pretty nice!',
+      date: '2023-11-01T17:11:22.353Z',
+    },
+    {
+      user: user3._id,
+      comment: 'Nice!',
+      date: '2023-11-01T17:11:22.353Z',
     },
   );
   await db.close();

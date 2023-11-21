@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   IOrder,
-  IPostReview,
-  IReview,
   ITourMutation,
+  ITourReview,
+  ITourReview2,
   Tour,
   TourFull,
   ValidationError,
@@ -31,15 +31,15 @@ export const fetchTour = createAsyncThunk<TourFull, string>(
   },
 );
 
-export const postReview = createAsyncThunk<
-  IReview,
-  IPostReview,
+export const tourReview = createAsyncThunk<
+  ITourReview,
+  ITourReview2,
   {
     rejectValue: ValidationError;
   }
->('reviews/postOne', async (formData: IPostReview, { rejectWithValue }) => {
+>('reviews/postOne', async (formData: ITourReview, { rejectWithValue }) => {
   try {
-    const response = await axiosApi.post<IReview>('/reviews', formData);
+    const response = await axiosApi.post<ITourReview>('/tourReviews', formData);
     return response.data;
   } catch (e) {
     if (isAxiosError(e) && e.response && e.response.status === 400) {

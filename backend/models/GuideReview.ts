@@ -1,8 +1,8 @@
 import mongoose, { HydratedDocument } from 'mongoose';
 import User from './User';
-import { IReview } from '../type';
+import { IGuideReview } from '../type';
 
-const ReviewSchema = new mongoose.Schema<IReview>({
+const GuideReviewSchema = new mongoose.Schema<IGuideReview>({
   user: {
     type: String,
     ref: 'User',
@@ -13,28 +13,15 @@ const ReviewSchema = new mongoose.Schema<IReview>({
       message: 'User does not exist!',
     },
   },
-  tour: {
-    type: mongoose.Types.ObjectId,
-    ref: 'Tour',
-    validate: {
-      validator: function (
-        this: HydratedDocument<IReview>,
-        tour: mongoose.Types.ObjectId,
-      ) {
-        return !!(this.guide || tour);
-      },
-      message: 'Tour or guide is required',
-    },
-  },
   guide: {
     type: mongoose.Types.ObjectId,
     ref: 'Guide',
     validate: {
       validator: function (
-        this: HydratedDocument<IReview>,
+        this: HydratedDocument<IGuideReview>,
         guide: mongoose.Types.ObjectId,
       ) {
-        return !!(this.tour || guide);
+        return !!guide;
       },
       message: 'Tour or guide is required',
     },
@@ -43,17 +30,11 @@ const ReviewSchema = new mongoose.Schema<IReview>({
     type: String,
     required: true,
   },
-  rating: {
-    type: Number,
-    required: true,
-    min: 1,
-    max: 5,
-  },
   date: {
     type: String,
     default: () => new Date().toISOString(),
   },
 });
 
-const Review = mongoose.model('Review', ReviewSchema);
-export default Review;
+const GuideReview = mongoose.model('GuideReview', GuideReviewSchema);
+export default GuideReview;
