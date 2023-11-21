@@ -21,12 +21,12 @@ app.use(express.static('public'));
 app.use('/users', usersRouter);
 app.use('/tours', toursRouter);
 app.use('/guides', guidesRouter);
-app.use('/tourReviews', tourReviewRouter);
 app.use('/orders', ordersRouter);
 app.use('/news', newsRouter);
-app.use('/employee', employeeRouter);
+app.use('/employees', employeeRouter);
 app.use('/guideReviews', guideReviewRouter);
 app.use('/platformReviews', platformReviewRouter);
+app.use('/tourReviews', tourReviewRouter);
 
 app.get('*', (_, res) => res.sendStatus(404));
 

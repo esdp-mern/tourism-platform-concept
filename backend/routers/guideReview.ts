@@ -8,7 +8,7 @@ guideReviewRouter.get('/', async (req, res) => {
   try {
     const reviews = await GuideReview.find({
       guide: req.query.guideID,
-    }).populate('user', 'displayName');
+    }).populate('user guide');
     return res.send(reviews);
   } catch (e) {
     return res.status(500).send(e);

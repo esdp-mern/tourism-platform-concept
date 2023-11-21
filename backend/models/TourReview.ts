@@ -36,5 +36,5 @@ const TourReviewSchema = new mongoose.Schema<ITourReview>({
   },
 });
 
-const TourReview = mongoose.model('TourReviews', TourReviewSchema);
+const TourReview = mongoose.model('TourReview', TourReviewSchema);
 export default TourReview;

@@ -9,7 +9,7 @@ tourReviewRouter.get('/', async (req, res) => {
     if (req.query.tourID) {
       const reviews = await TourReview.find({
         tour: req.query.tourID,
-      }).populate('user', 'displayName');
+      }).populate('user tour');
       return res.send(reviews);
     }
   } catch (e) {

@@ -21,10 +21,10 @@ const run = async () => {
     await db.dropCollection('guides');
     await db.dropCollection('orders');
     await db.dropCollection('news');
-    await db.dropCollection('employee');
-    await db.dropCollection('guideReviews');
-    await db.dropCollection('platformReviews');
-    await db.dropCollection('tourReviews');
+    await db.dropCollection('employees');
+    await db.dropCollection('guidereviews');
+    await db.dropCollection('platformreviews');
+    await db.dropCollection('tourreviews');
   } catch (e) {
     console.log('Collections were not present, skipping drop...');
   }
