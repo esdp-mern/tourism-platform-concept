@@ -6,7 +6,7 @@ const EmployeeSchema = new mongoose.Schema({
     required: true,
   },
   number: {
-    type: Number,
+    type: String,
     required: true,
   },
   role: {

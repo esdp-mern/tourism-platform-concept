@@ -479,19 +479,19 @@ const run = async () => {
   await Employee.create(
     {
       name: 'Sarah',
-      number: 996708677655,
+      number: '+996 708 67 76 55',
       role: 'moderator',
       image: 'fixtures/employee-1.jpeg',
     },
     {
       name: 'Pamela',
-      number: 996708677655,
+      number: '+996 708 67 76 55',
       role: 'moderator',
       image: 'fixtures/employee-2.jpeg',
     },
     {
       name: 'Jessica',
-      number: 996708677655,
+      number: '996 708 67 76 55',
       role: 'moderator',
       image: 'fixtures/employee-3.jpeg',
     },
