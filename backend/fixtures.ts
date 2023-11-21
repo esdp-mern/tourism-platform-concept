@@ -7,6 +7,7 @@ import Guide from './models/Guide';
 import Review from './models/Review';
 import Order from './models/Order';
 import News from './models/News';
+import Employee from './models/Employee';
 
 const run = async () => {
   await mongoose.connect(config.db);
@@ -19,6 +20,7 @@ const run = async () => {
     await db.dropCollection('reviews');
     await db.dropCollection('orders');
     await db.dropCollection('news');
+    await db.dropCollection('employee');
   } catch (e) {
     console.log('Collections were not present, skipping drop...');
   }
@@ -471,6 +473,27 @@ const run = async () => {
       date: '2023-11-08T11:22:03.760Z',
       category: ['places'],
       images: ['fixtures/reasons.jpeg'],
+    },
+  );
+
+  await Employee.create(
+    {
+      name: 'Sarah',
+      number: 996708677655,
+      role: 'moderator',
+      image: 'fixtures/employee-1.jpeg',
+    },
+    {
+      name: 'Pamela',
+      number: 996708677655,
+      role: 'moderator',
+      image: 'fixtures/employee-2.jpeg',
+    },
+    {
+      name: 'Jessica',
+      number: 996708677655,
+      role: 'moderator',
+      image: 'fixtures/employee-3.jpeg',
     },
   );
   await db.close();
