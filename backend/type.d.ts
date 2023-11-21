@@ -13,11 +13,16 @@ export interface IUser {
   googleID?: string;
 }
 
-export interface IReview {
+export interface ITourReview {
   user: ObjectId;
   tour: ObjectId;
+  comment: string;
+  date: string;
+}
+
+export interface IGuideReview {
+  user: ObjectId;
   guide: ObjectId;
   comment: string;
-  rating: number;
   date: string;
 }
