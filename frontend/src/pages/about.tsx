@@ -2,6 +2,7 @@ import React from 'react';
 import { Fade } from 'react-awesome-reveal';
 import horseImg from '@/assets/images/horses.png';
 import PageLoader from '@/components/PageLoader/PageLoader';
+import EmployeeItem from '@/components/EmployeeItem/EmployeeItem';
 
 const about = () => {
   return (
@@ -178,48 +179,7 @@ const about = () => {
       </div>
       <div className="container">
         <Fade>
-          <div className="about-page-team">
-            <h3 className="about-page-team-title">Meet Our Team</h3>
-            <p className="about-page-team-txt">
-              Duis aute irure dolor in reprehenderit in voluptate velit
-            </p>
-            <div className="about-page-team-cards">
-              <div className="about-page-team-card">
-                <img
-                  src="https://livedemo00.template-help.com/wt_prod-19282/images/our-team-1-272x197.jpg"
-                  alt="Pamela"
-                  className="about-page-team-card-img"
-                />
-                <div className="about-page-team-card-position">
-                  Travel Agent
-                </div>
-                <h6 className="about-page-team-card-title">Pamela Reed</h6>
-                <div className="about-page-team-card-phone">1-800-36-677</div>
-              </div>
-              <div className="about-page-team-card">
-                <img
-                  src="https://livedemo00.template-help.com/wt_prod-19282/images/our-team-2-272x197.jpg"
-                  alt="Pamela"
-                  className="about-page-team-card-img"
-                />
-                <div className="about-page-team-card-position">
-                  Tour Consultant
-                </div>
-                <h6 className="about-page-team-card-title">Kate Jones</h6>
-                <div className="about-page-team-card-phone">1-800-36-677</div>
-              </div>
-              <div className="about-page-team-card">
-                <img
-                  src="https://livedemo00.template-help.com/wt_prod-19282/images/our-team-3-272x197.jpg"
-                  alt="Pamela"
-                  className="about-page-team-card-img"
-                />
-                <div className="about-page-team-card-position">PR Manager</div>
-                <h6 className="about-page-team-card-title">Elizabeth Smith</h6>
-                <div className="about-page-team-card-phone">1-800-36-677</div>
-              </div>
-            </div>
-          </div>
+          <EmployeeItem />
         </Fade>
       </div>
       <div className="about-page-partners">

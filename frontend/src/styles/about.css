@@ -307,7 +307,7 @@
   transition: 150ms all ease-in-out;
   background-image: url('./../assets/images/call-icon.svg');
   background-repeat: no-repeat;
-  background-position: left 22% center;
+  background-position: left 15% center;
   background-size: 15px;
 }
 .about-page-team-card-phone:hover {
