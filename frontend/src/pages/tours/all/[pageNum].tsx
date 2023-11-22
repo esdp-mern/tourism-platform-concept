@@ -38,6 +38,7 @@ const AllToursPage = () => {
             </div>
             <div className="tours-page-paginate">
               <Pagination
+                pathname={'/tours/all/'}
                 nPages={nPages}
                 currentPage={currentPage}
                 onSetCurrentPage={onSetCurrentPage}

@@ -155,6 +155,15 @@ export interface IAlert {
   className: string;
 }
 
+export interface INews {
+  _id: string;
+  title: string;
+  date: string;
+  description: string;
+  images: [string];
+  category: [string];
+}
+
 export interface IEmployee {
   _id: string;
   name: string;
