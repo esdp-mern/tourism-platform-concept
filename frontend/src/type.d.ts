@@ -154,3 +154,12 @@ export interface IAlert {
   visible: boolean;
   className: string;
 }
+
+export interface INews {
+  _id: string;
+  title: string;
+  date: string;
+  description: string;
+  images: [string];
+  category: [string];
+}

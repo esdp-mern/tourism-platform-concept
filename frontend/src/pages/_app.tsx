@@ -35,6 +35,7 @@ import '@/styles/TourForm.css';
 import '@/styles/TextFieldSelect.css';
 import '@/styles/TextField.css';
 import '@/styles/alert.css';
+import '@/styles/NewsPage.css';
 
 export default function App({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
