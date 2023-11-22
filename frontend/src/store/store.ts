@@ -17,6 +17,7 @@ import storage from 'redux-persist/lib/storage';
 import { guidesSlice } from '@/containers/guides/guidesSlice';
 import { toursReviewSlice } from '@/containers/reviews/reviewSlice';
 import { newsSlice } from '@/containers/news/newsSlice';
+import { aboutSlice } from '@/containers/about/aboutSlice';
 
 const usersPersistConfig = {
   key: 'tourism-platform-concept:users',
@@ -29,6 +30,7 @@ const makeStore = () => {
 
   const reducers = {
     [newsSlice.name]: newsSlice.reducer,
+    about: aboutSlice.reducer,
     [toursSlice.name]: toursSlice.reducer,
     [guidesSlice.name]: guidesSlice.reducer,
     reviews: toursReviewSlice.reducer,

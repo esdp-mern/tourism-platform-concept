@@ -163,3 +163,11 @@ export interface INews {
   images: [string];
   category: [string];
 }
+
+export interface IEmployee {
+  _id: string;
+  name: string;
+  number: string;
+  role: string;
+  image: string;
+}
