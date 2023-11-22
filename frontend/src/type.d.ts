@@ -154,3 +154,11 @@ export interface IAlert {
   visible: boolean;
   className: string;
 }
+
+export interface IEmployee {
+  _id: string;
+  name: string;
+  number: string;
+  role: string;
+  image: string;
+}
