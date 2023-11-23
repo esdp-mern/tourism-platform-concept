@@ -171,3 +171,25 @@ export interface IEmployee {
   role: string;
   image: string;
 }
+
+export interface IOrder2 {
+  _id: string;
+  guide: {
+    _id: string;
+    user: {
+      displayName: string;
+    };
+  };
+  tour: {
+    _id: string;
+    name: string;
+  };
+  price: number;
+  date: string;
+  user?: {
+    displayName: string;
+  };
+  email?: string;
+  phone?: string;
+  datetime: string;
+}
