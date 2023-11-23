@@ -1,21 +1,20 @@
 import express from 'express';
 import Order from '../models/Order';
 import mongoose from 'mongoose';
+import auth from '../middleware/auth';
+import permit from '../middleware/permit';
 
 const ordersRouter = express.Router();
 
 ordersRouter.get('/', async (req, res) => {
   try {
-    if (req.query.datetime) {
-      const datetime = new Date(String(req.query.datetime));
-      const orders = await Order.find();
+    const orders = await Order.find().populate('user tour guide');
+    if (req.query.datetime && req.query.datetime.length) {
+      const datetime = req.query.datetime as string;
 
-      const filteredData = orders.filter(
-        (item) => new Date(item.datetime) > datetime,
-      );
+      const filteredData = orders.filter((item) => item.datetime > datetime);
       return res.send(filteredData);
     }
-    const orders = await Order.find();
     return res.send(orders);
   } catch (e) {
     return res.status(500).send('Error');
@@ -43,5 +42,27 @@ ordersRouter.post('/', async (req, res, next) => {
     return next(e);
   }
 });
+
+ordersRouter.delete(
+  '/:id',
+  auth,
+  permit('moderator'),
+  async (req, res, next) => {
+    try {
+      const id = req.params.id;
+      const order = await Order.findById(id);
+
+      if (!order) {
+        return res.status(404).send('Order not found');
+      }
+
+      await order.deleteOne();
+
+      return res.send('Order deleted successfully');
+    } catch (e) {
+      return next(e);
+    }
+  },
+);
 
 export default ordersRouter;

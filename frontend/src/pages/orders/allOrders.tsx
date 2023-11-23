@@ -1,73 +1,99 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { selectAllOrders, setMessages } from '@/containers/orders/ordersSlice';
-import { fetchOrders } from '@/containers/orders/ordersThunk';
-import { apiUrl } from '@/constants';
+import { deleteOrder, fetchOrders } from '@/containers/orders/ordersThunk';
 import { IOrder2 } from '@/type';
-import { wrapper } from '@/store/store';
 import PageLoader from '@/components/PageLoader/PageLoader';
+import axiosApi from '@/axiosApi';
+import dayjs from 'dayjs';
+import { selectUser } from '@/containers/users/usersSlice';
+import { userRoles } from '@/constants';
+import { useRouter } from 'next/router';
 
 const AllOrders = () => {
   const dispatch = useAppDispatch();
   const orders = useAppSelector(selectAllOrders);
+  const user = useAppSelector(selectUser);
+  const router = useRouter();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const posts = await dispatch(fetchOrders()).unwrap();
-        if (posts.length > 0) {
-          dispatch(setMessages(posts));
-          const lastMessage = posts[posts.length - 1];
-          let date = lastMessage.datetime;
+    let datetime = new Date().toISOString();
+    if (!user || user.role !== userRoles.moderator) {
+      void router.push('/');
+    }
+    dispatch(fetchOrders());
 
-          setInterval(async () => {
-            try {
-              const response = await fetch(
-                apiUrl + '/orders' + '?datetime=' + date,
-              );
-              if (response.ok) {
-                const newPosts = await response.json();
-                if (newPosts.length > 0) {
-                  const newLastMessage = newPosts[newPosts.length - 1];
-                  date = newLastMessage.datetime;
-                  dispatch(
-                    setMessages((prevState: IOrder2[]) => [
-                      ...prevState,
-                      ...newPosts,
-                    ]),
-                  );
-                }
-              }
-            } catch (error) {
-              console.log(error);
-            }
-          }, 10000);
+    if (orders.length) {
+      datetime = orders[orders.length - 1].datetime;
+    }
+    const interval = setInterval(async () => {
+      await axiosApi<IOrder2[]>(`orders/?datetime=${datetime}`).then((res) => {
+        if (res.data.length) {
+          dispatch(setMessages(res.data));
+          datetime = res.data[res.data.length - 1].datetime;
         }
-      } catch (error) {
-        console.log(error);
-      }
-    };
+      });
+    }, 3000);
 
-    void fetchData();
-  }, [dispatch]);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [dispatch, user, router, orders]);
+
+  const onDelete = async (id: string) => {
+    if (window.confirm('Do you want to delete this order?')) {
+      await dispatch(deleteOrder(id));
+      dispatch(fetchOrders());
+    }
+  };
+
   return (
     <div className="container">
       <PageLoader />
       <div className="orders-page">
         <div>
           <h2 className="orders-title">Orders</h2>
-          {orders.map((ord) => (
-            <div key={ord._id} className="order-list">
-              <div className="order-item">{ord.price}</div>
-            </div>
-          ))}
+          <div className="order-table-titles">
+            <div className="order-table-titles-tour">Tour</div>
+            <div className="order-table-titles-guide">Guide</div>
+            <div className="order-table-titles-date">Date</div>
+            <div className="order-table-titles-price">Price</div>
+            <div className="order-table-titles-user">User</div>
+            <div className="order-table-titles-email">Email</div>
+            <div className="order-table-titles-phone">Phone</div>
+            <div className="order-table-titles-delete"></div>
+          </div>
+          <div className="order-table">
+            {orders.map((ord) => (
+              <div key={ord._id} className="order-list">
+                <div className="order-item">
+                  <div className="order-tour">{ord.tour.name}</div>
+                  <div className="order-guide">{ord.guide._id}</div>
+                  <div className="order-date">
+                    {dayjs(ord.date).format('DD.MM.YYYY')}
+                  </div>
+                  <div className="order-price">{ord.price} KGS</div>
+                  <div className="order-user">{ord.user ? ord.user : '-'}</div>
+                  <div className="order-email">
+                    {ord.email ? ord.email : '-'}
+                  </div>
+                  <div className="order-phone">
+                    {ord.phone ? ord.phone : '-'}
+                  </div>
+                  <div
+                    className="order-delete"
+                    onClick={() => onDelete(ord._id)}
+                  >
+                    X
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-// export const getStaticProps = wrapper.getStaticProps(async ({ store }) => {
-//   await store.dispatch(fetchOrders());
-// });
 export default AllOrders;

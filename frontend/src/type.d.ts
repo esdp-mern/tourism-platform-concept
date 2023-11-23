@@ -174,8 +174,13 @@ export interface IEmployee {
 
 export interface IOrder2 {
   _id: string;
-  guide: string;
-  tour: string;
+  guide: {
+    _id: string;
+  };
+  tour: {
+    _id: string;
+    name: string;
+  };
   price: number;
   date: string;
   user?: string;
