@@ -3,9 +3,11 @@ import {
   createOrder,
   deleteTour,
   editTour,
+  fetchAdminTours,
   fetchTour,
   fetchTours,
   postTour,
+  publishTour,
   tourReview,
 } from './toursThunk';
 import { HYDRATE } from 'next-redux-wrapper';
@@ -16,6 +18,7 @@ interface ToursState {
   tours: Tour[];
   tour: TourFull | null;
   fetchAllLoading: boolean;
+  fetchAdminTourLoading: boolean;
   fetchOneLoading: boolean;
   postTourLoading: boolean;
   postTourError: ValidationError | null;
@@ -25,12 +28,14 @@ interface ToursState {
   orderButtonLoading: boolean;
   editLoading: boolean;
   deleteLoading: boolean | string;
+  publishLoading: boolean | string;
 }
 
 const initialState: ToursState = {
   tours: [],
   tour: null,
   fetchAllLoading: false,
+  fetchAdminTourLoading: false,
   fetchOneLoading: false,
   postTourLoading: false,
   postTourError: null,
@@ -40,6 +45,7 @@ const initialState: ToursState = {
   orderButtonLoading: false,
   editLoading: false,
   deleteLoading: false,
+  publishLoading: false,
 };
 
 export const toursSlice = createSlice({
@@ -67,6 +73,17 @@ export const toursSlice = createSlice({
     });
     builder.addCase(fetchTours.rejected, (state) => {
       state.fetchAllLoading = false;
+    });
+
+    builder.addCase(fetchAdminTours.pending, (state) => {
+      state.fetchAdminTourLoading = true;
+    });
+    builder.addCase(fetchAdminTours.fulfilled, (state, { payload: tours }) => {
+      state.tours = tours;
+      state.fetchAdminTourLoading = false;
+    });
+    builder.addCase(fetchAdminTours.rejected, (state) => {
+      state.fetchAdminTourLoading = false;
     });
 
     builder.addCase(fetchTour.pending, (state) => {
@@ -132,6 +149,16 @@ export const toursSlice = createSlice({
     builder.addCase(deleteTour.rejected, (state) => {
       state.deleteLoading = false;
     });
+
+    builder.addCase(publishTour.pending, (state, action) => {
+      state.publishLoading = action.meta.arg;
+    });
+    builder.addCase(publishTour.fulfilled, (state) => {
+      state.publishLoading = false;
+    });
+    builder.addCase(publishTour.rejected, (state) => {
+      state.publishLoading = false;
+    });
   },
 });
 
@@ -157,3 +184,7 @@ export const selectEditTourLoading = (state: RootState) =>
   state.tours.editLoading;
 export const selectDeleteTourLoading = (state: RootState) =>
   state.tours.deleteLoading;
+export const selectTourPublishLoading = (state: RootState) =>
+  state.tours.publishLoading;
+export const selectAdminTourLoading = (state: RootState) =>
+  state.tours.fetchAdminTourLoading;

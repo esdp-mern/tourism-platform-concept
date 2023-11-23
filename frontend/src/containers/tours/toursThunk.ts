@@ -23,11 +23,30 @@ export const fetchTours = createAsyncThunk<Tour[], void | string>(
   },
 );
 
+export const fetchAdminTours = createAsyncThunk<Tour[], void | boolean>(
+  'tours/fetchAdminAll',
+  async (all) => {
+    if (all) {
+      const response = await axiosApi.get<Tour[]>('/tours/all?true=all');
+      return response.data;
+    }
+    const response = await axiosApi.get<Tour[]>('/tours/all');
+    return response.data;
+  },
+);
+
 export const fetchTour = createAsyncThunk<TourFull, string>(
   'tours/fetchOne',
   async (id) => {
     const response = await axiosApi.get<TourFull>(`/tours/${id}`);
     return response.data;
+  },
+);
+
+export const publishTour = createAsyncThunk<void, string>(
+  'tours/publish',
+  async (tourID: string) => {
+    await axiosApi.patch(`/tours/${tourID}/togglePublished`);
   },
 );
 
