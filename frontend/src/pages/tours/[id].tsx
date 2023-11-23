@@ -17,6 +17,7 @@ import OneTourReview from '@/components/OneTourPage/OneTourReview/OneTourReview'
 import OneTourOrderForm from '@/components/OneTourOrderForm/OneTourOrderForm';
 import PageLoader from '@/components/PageLoader/PageLoader';
 import { fetchToursReviews } from '@/containers/reviews/reviewThunk';
+import Custom404 from '@/pages/404';
 
 interface ITab {
   title: string;
@@ -53,7 +54,7 @@ const TourPage: NextPage<
 
   const imgLink = apiUrl + '/' + tour?.mainImage;
 
-  if (!tour) return <div>No such tour!</div>;
+  if (!tour) return <Custom404 errorType="tour" />;
 
   const toggleTab = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { name } = e.currentTarget;
