@@ -1,5 +1,5 @@
 import React from 'react';
-import PageLoader from '@/components/PageLoader/PageLoader';
+import PageLoader from '@/components/Loaders/PageLoader';
 import TourForm from '@/components/Forms/TourForm/TourForm';
 
 const NewTour = () => {
