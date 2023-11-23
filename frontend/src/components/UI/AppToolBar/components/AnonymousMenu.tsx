@@ -3,12 +3,17 @@ import NavLink from 'next/link';
 
 interface IProps {
   onClick: () => void;
+  pathname: string;
 }
 
-const AnonymousMenu: React.FC<IProps> = ({ onClick }) => {
+const AnonymousMenu: React.FC<IProps> = ({ onClick, pathname }) => {
   return (
     <>
-      <NavLink href="/login" className="nav-link" onClick={onClick}>
+      <NavLink
+        href="/login"
+        className={`nav-link ${pathname === '/login' ? 'active' : ''}`}
+        onClick={onClick}
+      >
         Sign in
       </NavLink>
     </>

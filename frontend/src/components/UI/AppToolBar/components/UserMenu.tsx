@@ -6,14 +6,17 @@ import { userRoles } from '@/constants';
 interface IProps {
   user: User;
   onClick: () => void;
+  pathname: string;
 }
 
-const UserMenu: React.FC<IProps> = ({ user, onClick }) => {
+const UserMenu: React.FC<IProps> = ({ user, onClick, pathname }) => {
   return (
     <>
       <NavLink
         href="/profile"
-        className="nav-link profile-link"
+        className={`nav-link profile-link ${
+          pathname === '/profile' ? 'active' : ''
+        }`}
         onClick={onClick}
       >
         My profile
@@ -21,7 +24,9 @@ const UserMenu: React.FC<IProps> = ({ user, onClick }) => {
       {user && user.role === userRoles.admin && (
         <NavLink
           href="/tours/create"
-          className="nav-link profile-link"
+          className={`nav-link profile-link ${
+            pathname === '/tours/create' ? 'active' : ''
+          }`}
           onClick={onClick}
         >
           Create Tour
