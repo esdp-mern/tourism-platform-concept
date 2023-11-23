@@ -14,7 +14,6 @@ import '@/styles/AppToolBar.css';
 import '@/styles/ButtonLoader.css';
 import '@/styles/FileInput.css';
 import '@/styles/SignInForm.css';
-import '@/styles/SignUpForm.css';
 import '@/styles/MainSlider.css';
 import '@/styles/Footer.css';
 import '@/styles/Gallery.css';

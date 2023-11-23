@@ -11,6 +11,7 @@ import {
 } from '@/containers/users/usersSlice';
 import { logout } from '@/containers/users/usersThunk';
 import ToolBarMenu from '@/components/UI/AppToolBar/components/ToolBarMenu';
+import { usePathname } from 'next/navigation';
 
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);
@@ -18,8 +19,11 @@ const AppToolBar = () => {
   const [navShow, setNavShow] = useState(false);
   const [menuShow, setMenuShow] = useState(false);
   const logoutLoading = useAppSelector(selectLogoutLoading);
+  const pathname = usePathname();
 
   const showMenu = () => setMenuShow(!menuShow);
+
+  const closeNavMenu = () => setNavShow(false);
 
   const userLogout = async () => {
     try {
@@ -47,19 +51,37 @@ const AppToolBar = () => {
           </NavLink>
         </div>
         <nav className={`nav ${navShow ? 'nav-active' : ''}`}>
-          <NavLink href="/" className="nav-link">
+          <NavLink
+            href="/"
+            className={`nav-link ${pathname === '/' ? 'active' : ''}`}
+            onClick={closeNavMenu}
+          >
             Home
           </NavLink>
-          <NavLink href="/tours/all/1" className="nav-link">
+          <NavLink
+            href="/tours/all/1"
+            className={`nav-link ${
+              pathname === '/tours/all/1' ? 'active' : ''
+            }`}
+            onClick={closeNavMenu}
+          >
             Tours
           </NavLink>
-          <NavLink href="/about" className="nav-link">
+          <NavLink
+            href="/about"
+            className={`nav-link ${pathname === '/about' ? 'active' : ''}`}
+            onClick={closeNavMenu}
+          >
             About Us
           </NavLink>
+          {user ? (
+            <UserMenu user={user} onClick={closeNavMenu} pathname={pathname} />
+          ) : (
+            <AnonymousMenu onClick={closeNavMenu} pathname={pathname} />
+          )}
           <NavLink href="/news/all/1" className="nav-link">
             News
           </NavLink>
-          {user ? <UserMenu user={user} /> : <AnonymousMenu />}
         </nav>
         <div className="user-menu">
           {user && (

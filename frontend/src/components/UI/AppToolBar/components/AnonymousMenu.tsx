@@ -1,13 +1,19 @@
 import React from 'react';
 import NavLink from 'next/link';
 
-const AnonymousMenu = () => {
+interface IProps {
+  onClick: () => void;
+  pathname: string;
+}
+
+const AnonymousMenu: React.FC<IProps> = ({ onClick, pathname }) => {
   return (
     <>
-      <NavLink href="/register" className="nav-link">
-        Sign up
-      </NavLink>
-      <NavLink href="/login" className="nav-link">
+      <NavLink
+        href="/login"
+        className={`nav-link ${pathname === '/login' ? 'active' : ''}`}
+        onClick={onClick}
+      >
         Sign in
       </NavLink>
     </>

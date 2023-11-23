@@ -11,6 +11,7 @@ import {
   selectUser,
 } from '@/containers/users/usersSlice';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
+import Link from 'next/link';
 import PageLoader from '@/components/Loaders/PageLoader';
 
 const SignInForm = () => {
@@ -66,8 +67,8 @@ const SignInForm = () => {
     <div className="form-block">
       <PageLoader />
       <form className="form" onSubmit={submitFormHandler}>
-        <h2 className="form-title">Sign in</h2>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <h2 className="form-title">Login Form</h2>
+        <div className="form-wrap-google">
           <GoogleLogin
             onSuccess={(credentialResponse) => {
               if (credentialResponse.credential) {
@@ -79,38 +80,44 @@ const SignInForm = () => {
             }}
           />
         </div>
-
         <div className="input-wrap">
-          <label htmlFor="username" className="form-label">
-            Username
-          </label>
           <input
+            autoComplete="off"
             type="text"
-            className="form-control"
+            className="form-control username"
             name="username"
             id="username"
             value={state.username}
             onChange={inputChangeHandler}
             required
           />
+          <label htmlFor="username" className="form-label">
+            Username
+          </label>
         </div>
         <div className="input-wrap">
-          <label htmlFor="password" className="form-label">
-            Password
-          </label>
           <input
+            autoComplete="off"
             type="password"
-            className="form-control"
+            className="form-control password"
             name="password"
             id="password"
             value={state.password}
             onChange={inputChangeHandler}
             required
           />
+          <label htmlFor="password" className="form-label">
+            Password
+          </label>
         </div>
-        <button className="form-btn" type="submit" disabled={signInLoading}>
-          {signInLoading ? <ButtonLoader size={18} /> : 'Sign in'}
-        </button>
+        <div className="form-wrap-btn">
+          <button className="form-btn" type="submit" disabled={signInLoading}>
+            {signInLoading ? <ButtonLoader size={18} /> : 'Login'}
+          </button>
+          <Link className="link-btn" href="/register">
+            Create account
+          </Link>
+        </div>
       </form>
     </div>
   );
