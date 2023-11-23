@@ -11,6 +11,8 @@ import employeeRouter from './routers/employee';
 import guideReviewRouter from './routers/guideReview';
 import tourReviewRouter from './routers/tourReview';
 import platformReviewRouter from './routers/platformReview';
+import guideRatingRouter from './routers/guideRating';
+import tourRatingRouter from './routers/tourRating';
 
 const app = express();
 const port = 8000;
@@ -27,6 +29,8 @@ app.use('/employees', employeeRouter);
 app.use('/guideReviews', guideReviewRouter);
 app.use('/platformReviews', platformReviewRouter);
 app.use('/tourReviews', tourReviewRouter);
+app.use('/guideRatings', guideRatingRouter);
+app.use('/tourRatings', tourRatingRouter);
 
 app.get('*', (_, res) => res.sendStatus(404));
 
