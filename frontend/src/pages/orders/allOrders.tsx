@@ -6,7 +6,7 @@ import { IOrder2 } from '@/type';
 import PageLoader from '@/components/PageLoader/PageLoader';
 import axiosApi from '@/axiosApi';
 import dayjs from 'dayjs';
-import { selectUser } from '@/containers/users/usersSlice';
+import { addAlert, selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
 import { useRouter } from 'next/router';
 
@@ -17,10 +17,11 @@ const AllOrders = () => {
   const router = useRouter();
 
   useEffect(() => {
-    let datetime = new Date().toISOString();
     if (!user || user.role !== userRoles.moderator) {
       void router.push('/');
     }
+
+    let datetime = new Date().toISOString();
     dispatch(fetchOrders());
 
     if (orders.length) {
@@ -33,16 +34,18 @@ const AllOrders = () => {
           datetime = res.data[res.data.length - 1].datetime;
         }
       });
-    }, 3000);
+    }, 12000);
 
     return () => {
       clearInterval(interval);
     };
-  }, [dispatch, user, router, orders]);
+    // Do NOT add "orders" as dependency, otherwise code recursion starts!
+  }, [dispatch, user, router]);
 
   const onDelete = async (id: string) => {
     if (window.confirm('Do you want to delete this order?')) {
       await dispatch(deleteOrder(id));
+      dispatch(addAlert({ message: 'Order is removed', type: 'info' }));
       dispatch(fetchOrders());
     }
   };
@@ -68,12 +71,16 @@ const AllOrders = () => {
               <div key={ord._id} className="order-list">
                 <div className="order-item">
                   <div className="order-tour">{ord.tour.name}</div>
-                  <div className="order-guide">{ord.guide._id}</div>
+                  <div className="order-guide">
+                    {ord.guide.user.displayName}
+                  </div>
                   <div className="order-date">
                     {dayjs(ord.date).format('DD.MM.YYYY')}
                   </div>
                   <div className="order-price">{ord.price} KGS</div>
-                  <div className="order-user">{ord.user ? ord.user : '-'}</div>
+                  <div className="order-user">
+                    {ord.user ? ord.user.displayName : '-'}
+                  </div>
                   <div className="order-email">
                     {ord.email ? ord.email : '-'}
                   </div>

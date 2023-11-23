@@ -8,7 +8,13 @@ const ordersRouter = express.Router();
 
 ordersRouter.get('/', async (req, res) => {
   try {
-    const orders = await Order.find().populate('user tour guide');
+    const orders = await Order.find()
+      .populate({
+        path: 'guide',
+        populate: { path: 'user', model: 'User', select: 'displayName' },
+      })
+      .populate({ path: 'tour', select: 'name' })
+      .populate({ path: 'user', select: 'displayName' });
     if (req.query.datetime && req.query.datetime.length) {
       const datetime = req.query.datetime as string;
 

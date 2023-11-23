@@ -1,74 +1,93 @@
-.orders-page{
-    margin-top: 100px;
-    margin-bottom: 100px;
-}
-.orders-title{
-    text-align: center;
-    margin-bottom: 30px;
-}
-.order-table-titles {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    background: #75c15b;
-    color: #fff;
-    border: 1px solid #75c15b;
-    font-size: 22px;
+.orders-page {
+  margin-top: 100px;
+  margin-bottom: 100px;
 }
 
-.order-list{
-    display: flex;
-    flex-direction: column;
+.orders-title {
+  text-align: center;
+  margin-bottom: 30px;
 }
-.order-item{
-    border-left: 1px solid #808080;
-    border-right: 1px solid #808080;
-    border-top: 1px solid #808080;
-    padding: 10px;
-    font-size: 15px;
-    display: flex;
-    justify-content: space-between;
+
+.order-table {
+  overflow-x: auto;
 }
-.order-list:last-child{
-    border-bottom: 1px solid #808080;
+
+.order-table-titles {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: #75c15b;
+  color: #fff;
+  border: 1px solid #75c15b;
+  font-size: 22px;
 }
+
+.order-list {
+  display: flex;
+  flex-direction: column;
+  min-width: 1200px;
+}
+
+.order-item {
+  border-left: 1px solid #808080;
+  border-right: 1px solid #808080;
+  border-top: 1px solid #808080;
+  padding: 10px;
+  font-size: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.order-list:last-child {
+  border-bottom: 1px solid #808080;
+}
+
 .order-table-titles-tour,
-.order-tour{
-    width: 150px;
+.order-tour {
+  width: 150px;
 }
+
 .order-table-titles-guide,
-.order-guide{
-    width: 100px;
-    overflow: hidden;
+.order-guide {
+  width: 100px;
+  overflow: hidden;
 }
+
 .order-table-titles-date,
-.order-date{
-    width: 80px;
+.order-date {
+  width: 80px;
 }
+
 .order-table-titles-price,
-.order-price{
-    width: 80px;
+.order-price {
+  width: 80px;
 }
+
 .order-table-titles-user,
-.order-user{
-    width: 100px;
+.order-user {
+  width: 100px;
 }
+
 .order-table-titles-email,
-.order-email{
-    width: 100px;
+.order-email {
+  width: 100px;
 }
+
 .order-table-titles-phone,
-.order-phone{
-    width: 120px;
+.order-phone {
+  width: 120px;
 }
+
 .order-table-titles-delete,
-.order-delete{
-    width: 25px;
+.order-delete {
+  width: 25px;
 }
-.order-delete{
-    cursor: pointer;
-    font-weight: bolder;
+
+.order-delete {
+  cursor: pointer;
+  font-weight: bolder;
 }
-.order-delete:hover{
-    color: #f23637;
+
+.order-delete:hover {
+  color: #f23637;
 }
