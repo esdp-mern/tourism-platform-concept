@@ -5,8 +5,14 @@ import config from './config';
 import usersRouter from './routers/users';
 import toursRouter from './routers/tours';
 import guidesRouter from './routers/guides';
-import reviewRouter from './routers/review';
 import ordersRouter from './routers/orders';
+import newsRouter from './routers/news';
+import employeeRouter from './routers/employee';
+import guideReviewRouter from './routers/guideReview';
+import tourReviewRouter from './routers/tourReview';
+import platformReviewRouter from './routers/platformReview';
+import guideRatingRouter from './routers/guideRating';
+import tourRatingRouter from './routers/tourRating';
 
 const app = express();
 const port = 8000;
@@ -17,8 +23,14 @@ app.use(express.static('public'));
 app.use('/users', usersRouter);
 app.use('/tours', toursRouter);
 app.use('/guides', guidesRouter);
-app.use('/reviews', reviewRouter);
 app.use('/orders', ordersRouter);
+app.use('/news', newsRouter);
+app.use('/employees', employeeRouter);
+app.use('/guideReviews', guideReviewRouter);
+app.use('/platformReviews', platformReviewRouter);
+app.use('/tourReviews', tourReviewRouter);
+app.use('/guideRatings', guideRatingRouter);
+app.use('/tourRatings', tourRatingRouter);
 
 app.get('*', (_, res) => res.sendStatus(404));
 

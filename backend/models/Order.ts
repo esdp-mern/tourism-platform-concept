@@ -43,6 +43,10 @@ const OrderSchema = new mongoose.Schema({
   },
   email: String,
   phone: String,
+  datetime: {
+    type: String,
+    default: () => new Date().toISOString(),
+  },
 });
 
 const Order = mongoose.model('Order', OrderSchema);

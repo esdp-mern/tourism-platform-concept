@@ -32,6 +32,11 @@ const UserMenu: React.FC<IProps> = ({ user, onClick, pathname }) => {
           Create Tour
         </NavLink>
       )}
+      {user && user.role === userRoles.moderator && (
+        <NavLink href="/orders/allOrders" className="nav-link profile-link">
+          Orders
+        </NavLink>
+      )}
     </>
   );
 };

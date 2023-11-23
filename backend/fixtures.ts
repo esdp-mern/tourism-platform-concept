@@ -4,8 +4,14 @@ import config from './config';
 import User from './models/User';
 import Tour from './models/Tour';
 import Guide from './models/Guide';
-import Review from './models/Review';
+import TourReview from './models/TourReview';
 import Order from './models/Order';
+import News from './models/News';
+import Employee from './models/Employee';
+import GuideReview from './models/GuideReview';
+import PlatformReview from './models/PlatformReview';
+import TourRating from './models/TourRating';
+import GuideRating from './models/GuideRating';
 
 const run = async () => {
   await mongoose.connect(config.db);
@@ -15,8 +21,14 @@ const run = async () => {
     await db.dropCollection('users');
     await db.dropCollection('tours');
     await db.dropCollection('guides');
-    await db.dropCollection('reviews');
     await db.dropCollection('orders');
+    await db.dropCollection('news');
+    await db.dropCollection('employees');
+    await db.dropCollection('guidereviews');
+    await db.dropCollection('platformreviews');
+    await db.dropCollection('tourreviews');
+    await db.dropCollection('tourratings');
+    await db.dropCollection('guideratings');
   } catch (e) {
     console.log('Collections were not present, skipping drop...');
   }
@@ -320,75 +332,47 @@ const run = async () => {
       },
     );
 
-  await Review.create(
+  await TourReview.create(
     {
       user: user3._id,
       tour: Burana._id,
       comment: 'Nice tour!',
-      rating: 5,
-      date: '2023-11-01T17:11:22.353Z',
-    },
-    {
-      user: user._id,
-      tour: Burana._id,
-      comment: 'Love this tour!',
-      rating: 3,
       date: '2023-11-01T17:11:22.353Z',
     },
     {
       user: user3._id,
-      guide: Andrey._id,
-      comment: 'Not bad tour! Pretty nice guide!',
-      rating: 4,
+      tour: Burana._id,
+      comment: 'Love this tour!',
       date: '2023-11-01T17:11:22.353Z',
     },
     {
       user: user3._id,
       tour: Canyon._id,
       comment: 'Good one! I love it!',
-      rating: 5,
       date: '2024-05-17T17:11:22.353Z',
     },
     {
       user: user3._id,
       tour: IssykKul._id,
       comment: 'Very beautiful place',
-      rating: 5,
       date: '2024-07-09T17:11:22.353Z',
-    },
-    {
-      user: user3._id,
-      guide: Askar._id,
-      comment: 'Good guide!',
-      rating: 5,
-      date: '2024-08-05T17:11:22.353Z',
-    },
-    {
-      user: user3._id,
-      guide: Askar._id,
-      comment: 'Good guide!',
-      rating: 5,
-      date: '2024-08-05T17:11:22.353Z',
     },
     {
       user: user3._id,
       tour: Osh._id,
       comment: 'Amazing place, but it was cold!',
-      rating: 4,
       date: '2024-08-05T17:11:22.353Z',
     },
     {
       user: user3._id,
       tour: AlaKul._id,
       comment: 'Amazing place, love it',
-      rating: 4,
       date: '2024-08-05T17:11:22.353Z',
     },
     {
       user: user3._id,
       tour: SaryChelek._id,
       comment: 'Very beautiful lake!!!',
-      rating: 5,
       date: '2024-08-05T17:11:22.353Z',
     },
   );
@@ -399,12 +383,192 @@ const run = async () => {
       tour: Naryn._id,
       price: Naryn.price,
       date: '2023-11-08T11:22:03.760Z',
+      datetime: '2023-11-22T08:20:12.051Z',
     },
     {
       guide: Artem._id,
       tour: Osh._id,
       price: Osh.price,
       date: '2023-11-08T15:14:05.760Z',
+      datetime: '2023-11-22T08:20:12.051Z',
+    },
+  );
+
+  await News.create(
+    {
+      title: '5 Amazing places in Issyk-Kul',
+      description:
+        'Located in the northeast of the country, Issyk-Kul borders with Kazakhstan on the northeast, with China on the southeast, with the Naryn region on the southwest, and with the Chuy region on the northwest. Within the borders of the Chui region, there is the famous Issyk-Kul lake that is one of the largest mountain lakes in the world which does not freeze even in the most severe winters. Issyk-Kul region is the most visited region of Kyrgyzstan where the main attraction of the region is Issyk-Kul Lake that is again one of the deepest and largest lakes in the world, located in the middle of the picturesque Tien Shan Mountains. Also in the Issyk-Kul region are the highest mountains of the country: the famous peak of Khan-Tengri and the highest point of Kyrgyzstan – the Pobeda Peak. That’s why Issyk-Kul is a pearl of Central Asia. But now it is time to find out some of the amazing places to visit in Issyk Kul. So, let get started. Here are the 5 Best Places to Visit in Issyk Kul: 1. Jeti Oguz Gorge, 2. Ak-Suu Gorge, 3. Tuz-Kol, 4. Ala-Kul Lake, 5. Sarychat-Eеrtash State Reserve',
+      date: '2023-11-08T11:22:03.760Z',
+      category: ['places'],
+      images: ['fixtures/issyk-kul.jpeg'],
+    },
+    {
+      title: 'Riding Horses in Ala-Archa: Personal Experience',
+      description:
+        'The horse is a national symbol of Kyrgyzstan and the animal is intrinsic to the country’s heritage. For thousands of years, the horse has bolstered life for Kyrgyz people and continues to do so. A known saying of the country is “every Kyrgyz man’s wings are his horse” and it’s said that Central Asians hunter-gatherers were the first to ride horses. These calm creatures have played a pivotal role in Kyrgyz agriculture, economy, defense and traditions. Even fermented horse milk is cherished – Westerners, make sure your stomach is as strong as steel before you dazzle your tastebuds… Kyrgyz people are expert horsemen and their national games champion their equestrian skills, such as Dead Goat Polo. Kyrgyzstan has a myriad of peaks, streams and prairie plains. Each region has its own throng of striking landscapes for you to delve into. Whenever I close my eyes and think of Kyrgyzstan, I’m transported to the image of a shepherd galloping across the plains with such care-free and vivacious spirit.',
+      date: '2023-11-08T11:22:03.760Z',
+      category: ['animals'],
+      images: ['fixtures/ala-archa.jpeg'],
+    },
+    {
+      title:
+        'How to get from Almaty to Bishkek by public transport in 2023: best way to cross the Kazakhstan – Kyrgyzstan border',
+      description:
+        'To take the bus from Almaty to Bishkek, you’ll have to go to the Sayran Bus Station in Almaty. This bus station is located 7km west of the city center so you’ll first have to take a city bus or a taxi to get there. There are daily 5 buses from Almaty to Bishkek, at 8:00, 10:00, 12:00, 14:00, and 18:00. One ticket costs 2500 KZT during weekdays and 2700 KZT on weekends. Once you arrive at the bus station, go inside the building and ask for the bus to Bishkek. People will show you the little office where you can purchase your ticket. Once you’ve got your ticket, go through the first door near the office and turn right. The bus to Bishkek is on platform 1, the very last one on your right-hand side. The ride to the border takes about 4 hours. The driver always takes a 10-minute break halfway through the journey at “Cafe Eurasia” where you can go to the toilet (50KZT or 5 KGS) and buy some snacks. There are several borders between Kazakhstan and Kyrgyzstan. When you take the bus from Almaty to Bishkek, you’ll cross at the Korday border, which is located about 21 km from the city center of Bishkek. Once you arrive at the border, you’ll have to get off the bus and take all your luggage with you. Take note of the license plate number so you can easily find your bus back on the Kyrgyz side of the border. The time it will take you to go through the border depends on how many people there are. If there are a lot of people, you’ll see long and disorganized queues and you might experience a lot of pushing and shoving.',
+      date: '2023-11-08T11:22:03.760Z',
+      category: ['borders'],
+      images: ['fixtures/korday.jpeg'],
+    },
+    {
+      title: '3 beautiful lakes in Kyrgyzstan',
+      description:
+        'Over 1900 alpine lakes rest within Kyrgyzstan’s stunning mountain peaks, like hidden gemstones scattered throughout the country. The diverse Kyrgyzstan landscape makes every lake unique, with varying elevation, size, surrounding terrain and weather.It would be difficult to write about each and every one as some are so tiny that they wouldn’t even show on a map. So here is selected 3 of the most beautiful and best lakes in Kyrgyzstan that will help give you detailed info about each, facts and Kygyz myths and legends connected to these Kyrgyzstan lakes. 3 stunning lakes in Kyrgyzstan: Kel-Suu (Kel Suu, also known as Kol Tetiri, translates to ‘coming water’ in Kyrgyz and relates to the fact that sometimes the water in the lake comes and goes, leaking into connected caves. This fascinating feature creates a somewhat magical and mysterious atmosphere and helps make this one of the most beautiful Kyrgyzstan lakes.),  Song-Kol lak (Lake Son-Kul or Song-Köl’s name translates to ‘‘following lake’. Situated in the northern Naryn Province, this is Kyrgyzstan’s second-largest alpine lake and the country’s largest freshwater lake.), Kol-Ukok lake (The caravans of the Silk Road once passed here whilst traveling through the Torugart pass to Chinese Kashgar. Kol-Ukok in Kyrgyz translates to ‘lake in a chest’ and is located in the Naryn region in the North-Eastern Terskey Ala-Too mountain range.).',
+      date: '2023-11-08T11:22:03.760Z',
+      category: ['places'],
+      images: [
+        'fixtures/kel-suu.jpeg',
+        'fixtures/son-kul.jpeg',
+        'fixtures/kol-ukok.jpeg',
+      ],
+    },
+    {
+      title: 'The best things to do in Kyrgyzstan',
+      description:
+        'Kyrgyzstan is wonderful place! Here are some best things to do in Kyrgyzstan. Staying in a yurt camp is one of the best and most unique things to do in Kyrgyzstan when you want to learn more about the Central Asian nomadic culture. Kyrgyzstan has the most accessible nomadic culture in Central Asia. Nowadays many Kyrgyz people live a semi-nomadic way of life. During the period between early June and late September, you’ll find many yurt camps all around the country. The art of felt-making has always played an important role in the lives of the Kyrgyz people. The secrets of this handicraft were handed down from generation to generation. The felt, made from lamb wool, was primarily used to cover and decorate the yurts but this material was also used to make carpets, bags, toys, and clothes.',
+      date: '2023-11-08T11:22:03.760Z',
+      category: ['places'],
+      images: ['fixtures/yurt.jpeg'],
+    },
+    {
+      title: 'What to wear hiking in Kyrgyzstan?',
+      description:
+        'Here’s the complete packing list for Kyrgyzstan (which can also be applied when traveling to Tajikistan and Kazakhstan. I also included some very important tips and advice that you need to take into consideration before you go trekking in the Central Asian mountains. When you go hiking for a few days in the remote Central Asian mountains, it’s crucial that you have the right trekking gear with you and that you pack wisely. To make sure you’re prepared and you don’t forget anything, I created a list of everything you need to pack and do when you’re planning on trekking in Central Asia. When it comes to packing for a trek, keep it as light as possible. Remember that you have to carry everything yourself and if you have ever done a 20 km hike that included climbing and ascending steep hills, you’ll know that there’s a big difference between carrying 10kg and hiking with 15kg on your back! The list: GPS, FISRT-AID KIT, SUNSCREEN, TENT, SLEEPING BAG, SPORT SHOES!',
+      date: '2023-11-08T11:22:03.760Z',
+      category: ['clothes'],
+      images: ['fixtures/hiking.jpeg'],
+    },
+    {
+      title: 'Reasons why you should visit Kyrgyzstan?',
+      description:
+        'Kyrgyzstan is a country that captured our imagination from the very first time we entered its border from Kazakhstan. It has beautiful unspoiled mountains, crystal-clear mountain lakes,  a fascinating culture, and interesting traditions. We were amazed to see so many horses everywhere and that nomads are still living in yurts during the summer to follow the grazing of their cattle. Life in the countryside of Kyrgyzstan seemed so simple and quiet and this is something that immediately charmed us. When we first arrived in Kyrgyzstan, we still had the plan to hitchhike and sail around the whole world and we didn’t have the intention to stay in the country for very long. We had traveled all the way there on an overland journey from Europe and our goal was to reach South-East Asia as quickly as possible. After only three days in Kyrgyzstan, we decided we would be staying there for a while. What was just supposed to be a few months at first eventually became a whole year in this Central-Asian country. Now looking back, I’m so glad we took the decision to live and travel there for a longer time. There is an endless amount of things to do and plenty of beautiful places to discover in Kyrgyzstan. It’s a country where you can learn how to build yurts, walk around a fairy tale canyon and witness the perfect skills of eagle hunters. It’s also a very cheap destination and you can easily cross the border into Kazakhstan to renew your Kyrgyz visa. The nature of Kyrgyzstan has a wild untouched beauty that is rarely found anywhere else around the world. Reminiscing now this country where Cynthia and I lived and traveled for a year, it’s hard not to feel a certain nostalgia. I decided to write down the top reasons that made Kyrgyzstan so special to us and hopefully, this list will inspire you to visit the country one day as well.',
+      date: '2023-11-08T11:22:03.760Z',
+      category: ['places'],
+      images: ['fixtures/reasons.jpeg'],
+    },
+  );
+
+  await Employee.create(
+    {
+      name: 'Sarah',
+      number: '+996 708 67 76 55',
+      role: 'moderator',
+      image: 'fixtures/employee-1.jpeg',
+    },
+    {
+      name: 'Pamela',
+      number: '+996 708 67 76 55',
+      role: 'moderator',
+      image: 'fixtures/employee-2.jpeg',
+    },
+    {
+      name: 'Jessica',
+      number: '996 708 67 76 55',
+      role: 'moderator',
+      image: 'fixtures/employee-3.jpeg',
+    },
+  );
+
+  await GuideReview.create(
+    {
+      user: user3._id,
+      guide: Askar._id,
+      comment: 'Good guide!',
+      date: '2024-08-05T17:11:22.353Z',
+    },
+    {
+      user: user3._id,
+      guide: Andrey._id,
+      comment: 'Pretty nice guide!',
+      date: '2023-11-01T17:11:22.353Z',
+    },
+    {
+      user: user3._id,
+      guide: Artem._id,
+      comment: 'Nice guide!',
+      date: '2023-11-01T17:11:22.353Z',
+    },
+  );
+
+  await PlatformReview.create(
+    {
+      user: user3._id,
+      comment: 'Good!',
+      date: '2024-08-05T17:11:22.353Z',
+    },
+    {
+      user: user3._id,
+      comment: 'Pretty nice!',
+      date: '2023-11-01T17:11:22.353Z',
+    },
+    {
+      user: user3._id,
+      comment: 'Nice!',
+      date: '2023-11-01T17:11:22.353Z',
+    },
+  );
+
+  await TourRating.create(
+    {
+      user: user3._id,
+      tour: Burana._id,
+      rating: 5,
+      date: '2023-11-01T17:11:22.353Z',
+    },
+    {
+      user: user3._id,
+      tour: Burana._id,
+      rating: 4,
+      date: '2023-11-01T17:11:22.353Z',
+    },
+    {
+      user: user3._id,
+      tour: Canyon._id,
+      rating: 4,
+      date: '2023-11-01T17:11:22.353Z',
+    },
+    {
+      user: user3._id,
+      tour: Osh._id,
+      rating: 4,
+      date: '2023-11-01T17:11:22.353Z',
+    },
+    {
+      user: user3._id,
+      tour: Osh._id,
+      rating: 3,
+      date: '2023-11-01T17:11:22.353Z',
+    },
+  );
+
+  await GuideRating.create(
+    {
+      user: user3._id,
+      guide: Askar._id,
+      rating: 5,
+      date: '2024-08-05T17:11:22.353Z',
+    },
+    {
+      user: user3._id,
+      guide: Andrey._id,
+      rating: 5,
+      date: '2024-08-05T17:11:22.353Z',
+    },
+    {
+      user: user3._id,
+      guide: Artem._id,
+      rating: 4,
+      date: '2024-08-05T17:11:22.353Z',
     },
   );
   await db.close();

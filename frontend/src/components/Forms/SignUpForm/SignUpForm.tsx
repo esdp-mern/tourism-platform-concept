@@ -11,8 +11,8 @@ import {
 import { signUp } from '@/containers/users/usersThunk';
 import { useRouter } from 'next/router';
 import FileInput from '@/components/UI/FileInput/FileInput';
-import PageLoader from '@/components/PageLoader/PageLoader';
 import Link from 'next/link';
+import PageLoader from '@/components/Loaders/PageLoader';
 
 const initialState: RegisterMutation = {
   username: '',

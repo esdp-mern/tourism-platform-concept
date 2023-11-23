@@ -79,6 +79,10 @@ const AppToolBar = () => {
           ) : (
             <AnonymousMenu onClick={closeNavMenu} pathname={pathname} />
           )}
+          <NavLink href="/news/all/1" className="nav-link">
+            News
+          </NavLink>
+          {user ? <UserMenu user={user} /> : <AnonymousMenu />}
         </nav>
         <div className="user-menu">
           {user && (

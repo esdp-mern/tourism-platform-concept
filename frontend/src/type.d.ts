@@ -108,15 +108,13 @@ export interface ITourMutation {
   price: string;
 }
 
-export interface IPostReview {
+export interface ITourReview {
   user: string;
   tour: string | null;
-  guide: string | null;
   comment: string;
-  rating: number;
 }
 
-export interface IReview extends IPostReview {
+export interface ITourReview2 extends ITourReview {
   _id: string;
   date: string;
 }
@@ -138,7 +136,7 @@ export interface IOrderForm {
   phone?: string;
 }
 
-export interface Review {
+export interface ReviewOfTour {
   _id: string;
   user: {
     _id: string;
@@ -146,7 +144,6 @@ export interface Review {
   };
   tour: string;
   comment: string;
-  rating: number;
   date: string;
 }
 
@@ -156,4 +153,43 @@ export interface IAlert {
   id: string;
   visible: boolean;
   className: string;
+}
+
+export interface INews {
+  _id: string;
+  title: string;
+  date: string;
+  description: string;
+  images: [string];
+  category: [string];
+}
+
+export interface IEmployee {
+  _id: string;
+  name: string;
+  number: string;
+  role: string;
+  image: string;
+}
+
+export interface IOrder2 {
+  _id: string;
+  guide: {
+    _id: string;
+    user: {
+      displayName: string;
+    };
+  };
+  tour: {
+    _id: string;
+    name: string;
+  };
+  price: number;
+  date: string;
+  user?: {
+    displayName: string;
+  };
+  email?: string;
+  phone?: string;
+  datetime: string;
 }

@@ -6,7 +6,6 @@ import auth, { RequestWithUser } from '../middleware/auth';
 import { OAuth2Client } from 'google-auth-library';
 import config from '../config';
 import { imagesUpload } from '../multer';
-import write_https_image from '../features/write_https_image';
 
 const usersRouter = express.Router();
 const client = new OAuth2Client(config.google.clientId);
@@ -104,34 +103,24 @@ usersRouter.post('/google', async (req, res, next) => {
         .send({ error: 'Not enough user data to continue' });
     }
 
-    const avatarFileName = `images/${randomUUID()}.png`;
-
-    const avatarPath = `${config.publicPath}/${avatarFileName}`;
-
     let user = (await User.findOne({
       googleID: id,
     })) as HydratedDocument<IUserMethods>;
 
-    if (!user && avatar) {
-      write_https_image(avatar, avatarPath, async () => {
-        user = new User({
-          username: email,
-          email: email,
-          password: randomUUID(),
-          displayName,
-          googleID: id,
-          avatar: avatarFileName,
-        });
-
-        user.generateToken();
-        await user.save();
-        return res.send({ message: 'Login with Google was successful!', user });
+    if (!user) {
+      user = new User({
+        username: email,
+        email: email,
+        password: randomUUID(),
+        displayName,
+        googleID: id,
+        avatar,
       });
-    } else {
-      user.generateToken();
-      await user.save();
-      return res.send({ message: 'Login with Google was successful!', user });
     }
+
+    user.generateToken();
+    await user.save();
+    return res.send({ message: 'Login with Google was successful!', user });
   } catch (e) {
     return next(e);
   }
