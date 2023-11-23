@@ -10,6 +10,8 @@ import News from './models/News';
 import Employee from './models/Employee';
 import GuideReview from './models/GuideReview';
 import PlatformReview from './models/PlatformReview';
+import TourRating from './models/TourRating';
+import GuideRating from './models/GuideRating';
 
 const run = async () => {
   await mongoose.connect(config.db);
@@ -25,6 +27,8 @@ const run = async () => {
     await db.dropCollection('guidereviews');
     await db.dropCollection('platformreviews');
     await db.dropCollection('tourreviews');
+    await db.dropCollection('tourratings');
+    await db.dropCollection('guideratings');
   } catch (e) {
     console.log('Collections were not present, skipping drop...');
   }
@@ -511,6 +515,60 @@ const run = async () => {
       user: user3._id,
       comment: 'Nice!',
       date: '2023-11-01T17:11:22.353Z',
+    },
+  );
+
+  await TourRating.create(
+    {
+      user: user3._id,
+      tour: Burana._id,
+      rating: 5,
+      date: '2023-11-01T17:11:22.353Z',
+    },
+    {
+      user: user3._id,
+      tour: Burana._id,
+      rating: 4,
+      date: '2023-11-01T17:11:22.353Z',
+    },
+    {
+      user: user3._id,
+      tour: Canyon._id,
+      rating: 4,
+      date: '2023-11-01T17:11:22.353Z',
+    },
+    {
+      user: user3._id,
+      tour: Osh._id,
+      rating: 4,
+      date: '2023-11-01T17:11:22.353Z',
+    },
+    {
+      user: user3._id,
+      tour: Osh._id,
+      rating: 3,
+      date: '2023-11-01T17:11:22.353Z',
+    },
+  );
+
+  await GuideRating.create(
+    {
+      user: user3._id,
+      guide: Askar._id,
+      rating: 5,
+      date: '2024-08-05T17:11:22.353Z',
+    },
+    {
+      user: user3._id,
+      guide: Andrey._id,
+      rating: 5,
+      date: '2024-08-05T17:11:22.353Z',
+    },
+    {
+      user: user3._id,
+      guide: Artem._id,
+      rating: 4,
+      date: '2024-08-05T17:11:22.353Z',
     },
   );
   await db.close();
