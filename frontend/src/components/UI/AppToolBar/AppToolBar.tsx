@@ -65,7 +65,7 @@ const AppToolBar = () => {
           {user ? (
             <UserMenu user={user} onClick={closeNavMenu} />
           ) : (
-            <AnonymousMenu />
+            <AnonymousMenu onClick={closeNavMenu} />
           )}
         </nav>
         <div className="user-menu">
