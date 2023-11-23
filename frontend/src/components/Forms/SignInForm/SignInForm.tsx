@@ -11,7 +11,7 @@ import {
   selectUser,
 } from '@/containers/users/usersSlice';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
-import PageLoader from '@/components/PageLoader/PageLoader';
+import PageLoader from '@/components/Loaders/PageLoader';
 
 const SignInForm = () => {
   const dispatch = useAppDispatch();

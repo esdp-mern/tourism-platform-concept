@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { selectAllNews } from '@/containers/news/newsSlice';
 import { fetchNews } from '@/containers/news/newsThunk';
-import PageLoader from '@/components/PageLoader/PageLoader';
+import PageLoader from '@/components/Loaders/PageLoader';
 import Pagination from '@/components/Pagination/Pagination';
 import NewsItem from '@/components/NewsItem/NewsItem';
 

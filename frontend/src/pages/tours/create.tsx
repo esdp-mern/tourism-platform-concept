@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import PageLoader from '@/components/PageLoader/PageLoader';
+import PageLoader from '@/components/Loaders/PageLoader';
 import TourForm from '@/components/Forms/TourForm/TourForm';
 import { useAppSelector } from '@/store/hooks';
 import { selectUser } from '@/containers/users/usersSlice';
