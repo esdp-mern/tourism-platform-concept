@@ -21,6 +21,8 @@ const AppToolBar = () => {
 
   const showMenu = () => setMenuShow(!menuShow);
 
+  const closeNavMenu = () => setNavShow(false);
+
   const userLogout = async () => {
     try {
       await dispatch(logout());
@@ -47,16 +49,24 @@ const AppToolBar = () => {
           </NavLink>
         </div>
         <nav className={`nav ${navShow ? 'nav-active' : ''}`}>
-          <NavLink href="/" className="nav-link">
+          <NavLink href="/" className="nav-link" onClick={closeNavMenu}>
             Home
           </NavLink>
-          <NavLink href="/tours/all/1" className="nav-link">
+          <NavLink
+            href="/tours/all/1"
+            className="nav-link"
+            onClick={closeNavMenu}
+          >
             Tours
           </NavLink>
-          <NavLink href="/about" className="nav-link">
+          <NavLink href="/about" className="nav-link" onClick={closeNavMenu}>
             About Us
           </NavLink>
-          {user ? <UserMenu user={user} /> : <AnonymousMenu />}
+          {user ? (
+            <UserMenu user={user} onClick={closeNavMenu} />
+          ) : (
+            <AnonymousMenu />
+          )}
         </nav>
         <div className="user-menu">
           {user && (
