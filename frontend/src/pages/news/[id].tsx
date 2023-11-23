@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { selectAllNews, selectOneNews } from '@/containers/news/newsSlice';
 import { fetchNews, fetchOneNews } from '@/containers/news/newsThunk';
-import PageLoader from '@/components/PageLoader/PageLoader';
+import PageLoader from '@/components/Loaders/PageLoader';
 import { apiUrl } from '@/constants';
 import dayjs from 'dayjs';
 import { wrapper } from '@/store/store';

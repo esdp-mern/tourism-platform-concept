@@ -15,7 +15,7 @@ import OneTourPlan from '@/components/OneTourPage/OneTourPlan/OneTourPlan';
 import Gallery from '@/components/OneTourPage/Gallery/Gallery';
 import OneTourReview from '@/components/OneTourPage/OneTourReview/OneTourReview';
 import OneTourOrderForm from '@/components/OneTourOrderForm/OneTourOrderForm';
-import PageLoader from '@/components/PageLoader/PageLoader';
+import PageLoader from '@/components/Loaders/PageLoader';
 import { fetchToursReviews } from '@/containers/reviews/reviewThunk';
 import Custom404 from '@/pages/404';
 

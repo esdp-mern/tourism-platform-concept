@@ -1,7 +1,7 @@
 import React from 'react';
 import image404 from '@/assets/images/404.jpg';
 import Image from 'next/image';
-import PageLoader from '@/components/PageLoader/PageLoader';
+import PageLoader from '@/components/Loaders/PageLoader';
 import Link from 'next/link';
 export default function Custom404({
   errorType,

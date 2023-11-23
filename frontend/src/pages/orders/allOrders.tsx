@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { selectAllOrders, setMessages } from '@/containers/orders/ordersSlice';
 import { deleteOrder, fetchOrders } from '@/containers/orders/ordersThunk';
 import { IOrder2 } from '@/type';
-import PageLoader from '@/components/PageLoader/PageLoader';
+import PageLoader from '@/components/Loaders/PageLoader';
 import axiosApi from '@/axiosApi';
 import dayjs from 'dayjs';
 import { addAlert, selectUser } from '@/containers/users/usersSlice';
