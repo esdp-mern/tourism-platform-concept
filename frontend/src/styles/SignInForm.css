@@ -190,3 +190,12 @@
   padding-left: 30px;
 }
 
+@media (max-width: 520px) {
+  .form-wrap-btn {
+    flex-direction: column;
+  }
+
+  .link-btn {
+    margin: 10px 0;
+  }
+}

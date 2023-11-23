@@ -162,12 +162,14 @@ const SignUpForm = () => {
             className="form-control"
           />
         </div>
-        <button type="submit" className="form-btn">
-          {signUpLoading ? 'Loading...' : 'Sign up'}
-        </button>
-        <Link className="link-btn" href="/login">
-          Sign in
-        </Link>
+        <div className="form-wrap-btn">
+          <button type="submit" className="form-btn">
+            {signUpLoading ? 'Loading...' : 'Sign up'}
+          </button>
+          <Link className="link-btn" href="/login">
+            Sign in
+          </Link>
+        </div>
       </form>
     </div>
   );
