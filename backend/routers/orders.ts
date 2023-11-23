@@ -5,8 +5,21 @@ import mongoose from 'mongoose';
 const ordersRouter = express.Router();
 
 ordersRouter.get('/', async (req, res) => {
-  const orders = await Order.find();
-  return res.send(orders);
+  try {
+    if (req.query.datetime) {
+      const datetime = new Date(String(req.query.datetime));
+      const orders = await Order.find();
+
+      const filteredData = orders.filter(
+        (item) => new Date(item.datetime) > datetime,
+      );
+      return res.send(filteredData);
+    }
+    const orders = await Order.find();
+    return res.send(orders);
+  } catch (e) {
+    return res.status(500).send('Error');
+  }
 });
 
 ordersRouter.post('/', async (req, res, next) => {

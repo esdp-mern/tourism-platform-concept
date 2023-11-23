@@ -379,12 +379,14 @@ const run = async () => {
       tour: Naryn._id,
       price: Naryn.price,
       date: '2023-11-08T11:22:03.760Z',
+      datetime: '2023-11-23T08:20:12.051Z',
     },
     {
       guide: Artem._id,
       tour: Osh._id,
       price: Osh.price,
       date: '2023-11-08T15:14:05.760Z',
+      datetime: '2023-11-23T08:20:12.051Z',
     },
   );
 
