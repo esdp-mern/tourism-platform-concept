@@ -14,9 +14,14 @@ const UserMenu: React.FC<IProps> = ({ user }) => {
         My profile
       </NavLink>
       {user && user.role === userRoles.admin && (
-        <NavLink href="/tours/create" className="nav-link profile-link">
-          Create Tour
-        </NavLink>
+        <>
+          <NavLink href="/tours/create" className="nav-link profile-link">
+            Create Tour
+          </NavLink>
+          <NavLink href="/admin/" className="nav-link profile-link">
+            Admin Page
+          </NavLink>
+        </>
       )}
     </>
   );
