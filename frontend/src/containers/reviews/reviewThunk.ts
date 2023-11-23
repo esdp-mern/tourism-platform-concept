@@ -1,11 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Review } from '@/type';
+import { ReviewOfTour } from '@/type';
 import axiosApi from '@/axiosApi';
 
-export const fetchToursReviews = createAsyncThunk<Review[], void | string>(
-  'toursReview/fetchAll',
-  async (id) => {
-    const response = await axiosApi.get<Review[]>(`/reviews?tourID=${id}`);
-    return response.data;
-  },
-);
+export const fetchToursReviews = createAsyncThunk<
+  ReviewOfTour[],
+  void | string
+>('toursReview/fetchAll', async (id) => {
+  const response = await axiosApi.get<ReviewOfTour[]>(
+    `/tourReviews?tourID=${id}`,
+  );
+  return response.data;
+});

@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchToursReviews } from './reviewThunk';
-import { Review } from '@/type';
+import { ReviewOfTour } from '@/type';
 import { RootState } from '@/store/store';
 
 interface ToursReviewState {
-  toursReview: Review[];
+  toursReview: ReviewOfTour[];
   fetchAllLoading: boolean;
 }
 

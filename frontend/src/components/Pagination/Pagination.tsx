@@ -6,12 +6,14 @@ interface Props {
   onSetCurrentPage: (num: number) => void;
   nPages: number;
   currentPage: number;
+  pathname: string;
 }
 
 const Pagination: React.FC<Props> = ({
   onSetCurrentPage,
   nPages,
   currentPage,
+  pathname,
 }) => {
   const params = useParams() as { pageNum: string };
   const router = useRouter();
@@ -25,13 +27,13 @@ const Pagination: React.FC<Props> = ({
       onSetCurrentPage(parseInt(params.pageNum));
     }
     if (
-      router.pathname === '/tours/all/pageNum]' &&
+      router.pathname === `${pathname}/pageNum]` &&
       params &&
       !pageNumbers.includes(parseInt(params.pageNum))
     ) {
-      void router.push('/tours/all/1');
+      void router.push(`${pathname}1`);
     }
-  }, [params, onSetCurrentPage, pageNumbers, router]);
+  }, [params, onSetCurrentPage, pageNumbers, router, pathname]);
 
   return (
     <>
@@ -40,7 +42,7 @@ const Pagination: React.FC<Props> = ({
           {pageNumbers.map((pgNumber) => (
             <li
               onClick={() => {
-                void router.push(`/tours/all/${pgNumber}`);
+                void router.push(`${pathname}${pgNumber}`);
                 onSetCurrentPage(pgNumber);
               }}
               key={pgNumber}

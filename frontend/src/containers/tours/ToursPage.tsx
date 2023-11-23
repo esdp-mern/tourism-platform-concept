@@ -6,7 +6,6 @@ import { fetchTours } from '@/containers/tours/toursThunk';
 import MainSlider from '@/components/MainSlider/MainSlider';
 import Link from 'next/link';
 import PageLoader from '@/components/PageLoader/PageLoader';
-import { selectUser } from '@/containers/users/usersSlice';
 import HotTours from '@/components/HotTours/HotTours';
 
 const ToursPage = () => {

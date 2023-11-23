@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchTours } from '@/containers/tours/toursThunk';
 import { selectAllTours } from '@/containers/tours/toursSlice';
 import TourItem from '@/components/TourListItem/TourListItem';
-import PageLoader from '@/components/PageLoader/PageLoader';
+import PageLoader from '@/components/Loaders/PageLoader';
 
 const AllToursPage = () => {
   const dispatch = useAppDispatch();
@@ -38,6 +38,7 @@ const AllToursPage = () => {
             </div>
             <div className="tours-page-paginate">
               <Pagination
+                pathname={'/tours/all/'}
                 nPages={nPages}
                 currentPage={currentPage}
                 onSetCurrentPage={onSetCurrentPage}

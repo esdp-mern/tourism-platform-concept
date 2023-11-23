@@ -11,7 +11,8 @@ import {
 import { signUp } from '@/containers/users/usersThunk';
 import { useRouter } from 'next/router';
 import FileInput from '@/components/UI/FileInput/FileInput';
-import PageLoader from '@/components/PageLoader/PageLoader';
+import Link from 'next/link';
+import PageLoader from '@/components/Loaders/PageLoader';
 
 const initialState: RegisterMutation = {
   username: '',
@@ -77,18 +78,18 @@ const SignUpForm = () => {
     <div className="form-block">
       <PageLoader />
       <form className="form" onSubmit={submitFormHandler}>
-        <h2 className="form-title">Registration</h2>
+        <h2 className="form-title">Register Form</h2>
         <div className="input-wrap">
-          <label htmlFor="username" className="form-label">
-            Username
-          </label>
           {Boolean(getFieldError('username')) && (
             <span className="error">{getFieldError('username')}</span>
           )}
           <input
+            autoComplete="off"
             type="text"
             className={
-              getFieldError('username') ? 'form-control-error' : 'form-control'
+              getFieldError('username')
+                ? 'form-control-error username'
+                : 'form-control username'
             }
             name="username"
             id="username"
@@ -96,18 +97,21 @@ const SignUpForm = () => {
             onChange={inputChangeHandler}
             required
           />
+          <label htmlFor="username" className="form-label">
+            Username
+          </label>
         </div>
         <div className="input-wrap">
-          <label htmlFor="password" className="form-label">
-            Password
-          </label>
           {Boolean(getFieldError('password')) && (
             <span className="error">{getFieldError('password')}</span>
           )}
           <input
+            autoComplete="off"
             type="password"
             className={
-              getFieldError('password') ? 'form-control-error' : 'form-control'
+              getFieldError('password')
+                ? 'form-control-error password'
+                : 'form-control password'
             }
             name="password"
             id="password"
@@ -115,37 +119,42 @@ const SignUpForm = () => {
             onChange={inputChangeHandler}
             required
           />
+          <label htmlFor="password" className="form-label">
+            Password
+          </label>
         </div>
         <div className="input-wrap">
-          <label htmlFor="displayName" className="form-label">
-            Name
-          </label>
           <input
+            autoComplete="off"
             type="text"
-            className="form-control"
+            className="form-control name"
             name="displayName"
             id="displayName"
             value={state.displayName}
             onChange={inputChangeHandler}
             required
           />
+          <label htmlFor="displayName" className="form-label">
+            Name
+          </label>
         </div>
         <div className="input-wrap">
-          <label htmlFor="email" className="form-label">
-            Email
-          </label>
           <input
-            type="email"
-            className="form-control"
+            autoComplete="off"
+            type="text"
+            className="form-control email"
             name="email"
             id="email"
             value={state.email}
             onChange={inputChangeHandler}
             required
           />
+          <label htmlFor="email" className="form-label">
+            Email
+          </label>
         </div>
         <div className="input-wrap">
-          <label className="form-label">Avatar</label>
+          <label className="form-label-avatar avatar">Avatar</label>
           <FileInput
             onChange={changeFileValue}
             name="avatar"
@@ -153,9 +162,14 @@ const SignUpForm = () => {
             className="form-control"
           />
         </div>
-        <button type="submit" className="form-btn">
-          {signUpLoading ? 'Loading...' : 'Sign up'}
-        </button>
+        <div className="form-wrap-btn">
+          <button type="submit" className="form-btn">
+            {signUpLoading ? 'Loading...' : 'Sign up'}
+          </button>
+          <Link className="link-btn" href="/login">
+            Sign in
+          </Link>
+        </div>
       </form>
     </div>
   );

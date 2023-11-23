@@ -110,6 +110,7 @@
   text-transform: uppercase;
   font-size: 14px;
   color: #000;
+  font-weight: 500;
 }
 
 .nav-link:nth-child(n + 2) {
@@ -119,6 +120,11 @@
 .register-link:hover,
 .login-link:hover,
 .nav-link:hover {
+  text-decoration: underline 2px #75c15b;
+  text-underline-offset: 8px;
+}
+
+.nav-link.active {
   text-decoration: underline 2px #75c15b;
   text-underline-offset: 8px;
 }
@@ -258,6 +264,7 @@
     background-color: #fff;
     box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.25);
     transition: transform 0.5s linear;
+    overflow: hidden;
   }
 
   .nav-active {
@@ -270,12 +277,18 @@
 
   .nav-link {
     width: 100%;
-    margin: 4px 0;
-    padding: 9px 56px 9px 18px;
+    margin: 2px 0;
+    padding: 9px 0 9px 20px;
     transition: all 0.3s ease-in-out;
   }
 
   .nav-link:hover {
+    text-decoration: none;
+    color: #ffffff;
+    background: #75c15b;
+  }
+
+  .nav-link.active {
     text-decoration: none;
     color: #ffffff;
     background: #75c15b;

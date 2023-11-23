@@ -14,7 +14,6 @@ import '@/styles/AppToolBar.css';
 import '@/styles/ButtonLoader.css';
 import '@/styles/FileInput.css';
 import '@/styles/SignInForm.css';
-import '@/styles/SignUpForm.css';
 import '@/styles/MainSlider.css';
 import '@/styles/Footer.css';
 import '@/styles/Gallery.css';
@@ -36,6 +35,9 @@ import '@/styles/TextFieldSelect.css';
 import '@/styles/TextField.css';
 import '@/styles/alert.css';
 import '@/styles/HotTours.css';
+import '@/styles/NewsPage.css';
+import '@/styles/allOrders.css';
+import '@/styles/error404.css';
 
 export default function App({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);

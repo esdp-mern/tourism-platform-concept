@@ -5,8 +5,8 @@ import {
   editTour,
   fetchTour,
   fetchTours,
-  postReview,
   postTour,
+  tourReview,
 } from './toursThunk';
 import { HYDRATE } from 'next-redux-wrapper';
 import { RootState } from '@/store/store';
@@ -80,14 +80,14 @@ export const toursSlice = createSlice({
       state.fetchOneLoading = false;
     });
 
-    builder.addCase(postReview.pending, (state) => {
+    builder.addCase(tourReview.pending, (state) => {
       state.postReviewLoading = true;
       state.postReviewError = null;
     });
-    builder.addCase(postReview.fulfilled, (state) => {
+    builder.addCase(tourReview.fulfilled, (state) => {
       state.postReviewLoading = false;
     });
-    builder.addCase(postReview.rejected, (state, { payload: error }) => {
+    builder.addCase(tourReview.rejected, (state, { payload: error }) => {
       state.postReviewLoading = false;
       state.postReviewError = error || null;
     });

@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import { fetchTour } from '@/containers/tours/toursThunk';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { selectOneTour } from '@/containers/tours/toursSlice';
-import PageLoader from '@/components/PageLoader/PageLoader';
+import PageLoader from '@/components/Loaders/PageLoader';
 import TourForm from '@/components/Forms/TourForm/TourForm';
 
 const EditTour: NextPage<
