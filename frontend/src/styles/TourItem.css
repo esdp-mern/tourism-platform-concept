@@ -20,6 +20,23 @@
   transition: 0.2s;
 }
 
+.tour-info-publish {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 5px;
+  color: #ffffff;
+  border-radius: 20px;
+}
+
+.published-tour {
+  background: #0083ff;
+}
+
+.unpublished-tour {
+  background: #75c15b;
+}
+
 .tour-item-img:hover {
   filter: brightness(80%);
 }
@@ -101,7 +118,7 @@
 
 .btn-delete-tour {
   background: #8c0404;
-  margin: 0 5px;
+  margin: 0;
   padding: 10px 20px;
   color: #fff;
   cursor: pointer;
@@ -109,6 +126,24 @@
   text-decoration: none;
   border: 1px solid transparent;
   transition: 0.2s;
+}
+
+.btn-publish-tour {
+  background: #0083ff;
+  margin: 0 2px;
+  padding: 10px 20px;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 8px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: 0.2s;
+}
+
+.btn-publish-tour:hover {
+  background: #fff;
+  color: #0083ff;
+  border: 1px solid #0083ff;
 }
 
 .btn-tour-edit:hover {
@@ -129,4 +164,8 @@
 
 .btn-delete-tour:active {
   box-shadow: 1px 1px 5px #8c0404;
+}
+
+.btn-publish-tour:active {
+  box-shadow: 1px 1px 5px #0083ff;
 }

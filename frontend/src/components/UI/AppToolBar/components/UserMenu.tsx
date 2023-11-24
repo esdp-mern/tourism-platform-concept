@@ -22,14 +22,29 @@ const UserMenu: React.FC<IProps> = ({ user, onClick, pathname }) => {
         My profile
       </NavLink>
       {user && user.role === userRoles.admin && (
-        <NavLink
-          href="/tours/create"
-          className={`nav-link profile-link ${
-            pathname === '/tours/create' ? 'active' : ''
-          }`}
-          onClick={onClick}
-        >
-          Create Tour
+        <>
+          <NavLink
+            href="/tours/create"
+            className={`nav-link profile-link ${
+              pathname === '/tours/create' ? 'active' : ''
+            }`}
+            onClick={onClick}
+          >
+            Create Tour
+          </NavLink>
+          <NavLink
+            href="/admin/"
+            className={`nav-link profile-link ${
+              pathname === '/tours/create' ? 'active' : ''
+            }`}
+          >
+            Admin Page
+          </NavLink>
+        </>
+      )}
+      {user && user.role === userRoles.moderator && (
+        <NavLink href="/orders/allOrders" className="nav-link profile-link">
+          Orders
         </NavLink>
       )}
       {user && user.role === userRoles.moderator && (

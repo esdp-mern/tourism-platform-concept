@@ -16,7 +16,23 @@ toursRouter.get('/', async (req, res) => {
       tours = await Tour.find({ guid: req.query.guide, isPublished: true });
       return res.send(tours);
     }
-    tours = await Tour.find();
+    tours = await Tour.find({ isPublished: true });
+    return res.send(tours);
+  } catch (e) {
+    return res.status(500).send('Error');
+  }
+});
+
+toursRouter.get('/all', async (req, res) => {
+  try {
+    let tours;
+
+    if (req.query.true) {
+      tours = await Tour.find();
+      return res.send(tours);
+    }
+
+    tours = await Tour.find({ isPublished: false });
     return res.send(tours);
   } catch (e) {
     return res.status(500).send('Error');
