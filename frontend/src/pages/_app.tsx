@@ -34,6 +34,7 @@ import '@/styles/TourForm.css';
 import '@/styles/TextFieldSelect.css';
 import '@/styles/TextField.css';
 import '@/styles/alert.css';
+import '@/styles/HotTours.css';
 import '@/styles/NewsPage.css';
 import '@/styles/allOrders.css';
 import '@/styles/error404.css';
