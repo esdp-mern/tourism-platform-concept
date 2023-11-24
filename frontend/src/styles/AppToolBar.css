@@ -105,6 +105,7 @@
 
 .register-link,
 .login-link,
+.form-link,
 .nav-link {
   text-decoration: none;
   text-transform: uppercase;
@@ -113,17 +114,23 @@
   font-weight: 500;
 }
 
+.form-link {
+  margin: 10px;
+}
+
 .nav-link:nth-child(n + 2) {
   margin-left: 20px;
 }
 
 .register-link:hover,
 .login-link:hover,
+.form-link:hover,
 .nav-link:hover {
   text-decoration: underline 2px #75c15b;
   text-underline-offset: 8px;
 }
 
+.form-link.active,
 .nav-link.active {
   text-decoration: underline 2px #75c15b;
   text-underline-offset: 8px;
@@ -275,6 +282,7 @@
     margin-left: 0;
   }
 
+  .form-link,
   .nav-link {
     width: 100%;
     margin: 2px 0;

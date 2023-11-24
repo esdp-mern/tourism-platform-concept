@@ -11,10 +11,17 @@ const AnonymousMenu: React.FC<IProps> = ({ onClick, pathname }) => {
     <>
       <NavLink
         href="/login"
-        className={`nav-link ${pathname === '/login' ? 'active' : ''}`}
+        className={`form-link ${pathname === '/login' ? 'active' : ''}`}
         onClick={onClick}
       >
         Sign in
+      </NavLink>
+      <NavLink
+        href="/register"
+        className={`form-link ${pathname === '/register' ? 'active' : ''}`}
+        onClick={onClick}
+      >
+        Sign up
       </NavLink>
     </>
   );
