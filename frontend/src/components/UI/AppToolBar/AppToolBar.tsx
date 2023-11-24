@@ -77,7 +77,7 @@ const AppToolBar = () => {
           {user ? (
             <UserMenu user={user} onClick={closeNavMenu} pathname={pathname} />
           ) : (
-            <AnonymousMenu onClick={closeNavMenu} pathname={pathname} />
+            <div></div>
           )}
           <NavLink href="/news/all/1" className="nav-link">
             News
