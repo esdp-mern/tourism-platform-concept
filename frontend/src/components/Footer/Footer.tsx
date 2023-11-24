@@ -21,7 +21,7 @@ const Footer = () => {
                 <Link href="/contacts" className="footer-inner-top-link">
                   Contacts
                 </Link>
-                <Link href="/blog" className="footer-inner-top-link">
+                <Link href="/news/all/1" className="footer-inner-top-link">
                   Blog
                 </Link>
               </div>

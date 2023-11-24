@@ -6,6 +6,7 @@ import { fetchTours } from '@/containers/tours/toursThunk';
 import MainSlider from '@/components/MainSlider/MainSlider';
 import Link from 'next/link';
 import PageLoader from '@/components/Loaders/PageLoader';
+import HotTours from '@/components/HotTours/HotTours';
 
 const ToursPage = () => {
   const tours = useAppSelector(selectAllTours);
@@ -33,6 +34,7 @@ const ToursPage = () => {
             </Link>
           </div>
         </div>
+        <HotTours />
       </div>
     </>
   );
