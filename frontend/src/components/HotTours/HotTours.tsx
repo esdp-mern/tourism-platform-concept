@@ -20,10 +20,12 @@ const HotTours = () => {
 
       const ms = 250;
 
-      carouselRef.current!.style.cssText = `
-          transition: all ${ms}ms ease 0s;
-          transform: translateX(${isNext ? '-' : ''}${x}px);
-        `;
+      if (carouselRef.current) {
+        carouselRef.current.style.cssText = `
+      transition: none;
+      transform: translateX(0);
+    `;
+      }
 
       setTimeout(() => {
         carouselRef.current!.style.cssText = `
