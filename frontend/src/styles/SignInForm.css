@@ -51,7 +51,7 @@
   line-height: 27px;
   color: #000;
   text-align: left;
-  transition: .25s;
+  transition: 0.25s;
   transform: translateY(-40%);
   cursor: text;
 }
@@ -65,39 +65,41 @@
   border-bottom: 1px solid #c4c4c4;
   font-size: 16px;
   margin-bottom: 20px;
-  transition: visibility 0s, opacity 0.5s ease-in;
+  transition:
+    visibility 0s,
+    opacity 0.5s ease-in;
   opacity: 1;
   border-radius: 0;
 }
 
 .username {
-  background: url("../assets/images/people-icon.svg") no-repeat center left;
+  background: url('../assets/images/people-icon.svg') no-repeat center left;
   background-size: 20px;
-  padding-left:30px;
+  padding-left: 30px;
 }
 
 .password {
-  background: url("../assets/images/key.png") no-repeat center left;
+  background: url('../assets/images/key.png') no-repeat center left;
   background-size: 20px;
-  padding-left:30px;
+  padding-left: 30px;
 }
 
-.email{
-  background: url("../assets/images/email-icon.svg") no-repeat center left;
+.email {
+  background: url('../assets/images/email-icon.svg') no-repeat center left;
   background-size: 18px;
-  padding-left:30px;
+  padding-left: 30px;
 }
 
 .avatar {
-  background: url("../assets/images/photo-icon.svg") no-repeat;
+  background: url('../assets/images/photo-icon.svg') no-repeat;
   background-size: 18px;
-  padding-left:30px;
+  padding-left: 30px;
 }
 
 .name {
-  background: url("../assets/images/pen-icon.svg") no-repeat center left;
+  background: url('../assets/images/pen-icon.svg') no-repeat center left;
   background-size: 18px;
-  padding-left:30px;
+  padding-left: 30px;
 }
 
 .form-control:focus {
@@ -106,7 +108,7 @@
 }
 
 .form-control:focus ~ .form-label,
-.form-control:valid ~ .form-label{
+.form-control:valid ~ .form-label {
   visibility: hidden;
   opacity: 0;
 }

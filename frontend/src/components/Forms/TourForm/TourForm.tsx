@@ -50,7 +50,7 @@ const TourForm: React.FC<Props> = ({
   const routers = useRouter();
 
   useEffect(() => {
-    if (user && user.role !== userRoles.admin) {
+    if (!user || (user && user.role !== userRoles.admin)) {
       routers.push('/').then((r) => r);
     }
   }, [routers, user]);
