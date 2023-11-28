@@ -97,23 +97,25 @@
   display: flex;
   flex-wrap: wrap;
 }
-.btn-active{
+
+.btn-active {
   color: #000000;
   background-color: #f6f6f6;
   border: 0;
   margin-top: 30px;
   flex-grow: 1;
   cursor: pointer;
-  padding: 28px 30px;
+  padding: 28px 0;
   font-size: 18px;
   transition: 0.33s all ease;
   text-transform: uppercase;
 }
+
 .one-tour-slider-btns-btn {
   margin-top: 30px;
   flex-grow: 1;
   cursor: pointer;
-  padding: 28px 30px;
+  padding: 28px 0;
   font-size: 18px;
   transition: 0.33s all ease;
   color: #808080;
@@ -133,42 +135,44 @@
   border: 0;
 }
 
-.one-tour-slider-information {
+.one-tour-slider-btns span {
+  position: relative;
+  padding-left: 10px;
+}
+
+.one-tour-slider-btns span:before {
+  content: '';
+  position: absolute;
+  left: -15px;
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.one-tour-slider-information span:before {
   background-image: url('../assets/images/info-icon.svg');
-  background-repeat: no-repeat;
-  background-size: 10%;
-  background-position: 17% center;
 }
 
-.one-tour-slider-plan {
+.one-tour-slider-plan span:before {
   background-image: url('../assets/images/map-icon.svg');
-  background-repeat: no-repeat;
-  background-size: 10%;
-  background-position: 20% center;
 }
 
-.one-tour-slider-location {
+.one-tour-slider-location span:before {
   background-image: url('../assets/images/location-icon.svg');
-  background-repeat: no-repeat;
-  background-size: 10%;
-  background-position: 23% center;
 }
 
-.one-tour-slider-gallery {
+.one-tour-slider-gallery span:before {
   background-image: url('../assets/images/photo-icon.svg');
-  background-repeat: no-repeat;
-  background-size: 10%;
-  background-position: 23% center;
 }
 
-.one-tour-slider-reviews {
+.one-tour-slider-reviews span:before {
   background-image: url('../assets/images/review-icon.svg');
-  background-repeat: no-repeat;
-  background-size: 10%;
-  background-position: 21% center;
 }
 
 .one-tour-tab {
   display: flex;
   justify-content: space-between;
+  padding: 0 50px;
 }

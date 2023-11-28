@@ -1,6 +1,16 @@
 .one-tour-inner {
   padding-top: 100px;
-  width: 750px;
+  padding-right: 40px;
+  box-sizing: border-box;
+}
+
+.one-tour-inner div {
+  box-sizing: border-box;
+}
+
+.one-tour-inner h3,
+.one-tour-inner div {
+  width: 100%;
 }
 
 .one-tour-inner-title {
@@ -119,10 +129,10 @@
 
 .one-tour-inner-gallery2 {
   display: flex;
+  gap: 50px;
 }
 
 .one-tour-inner-photo {
-  margin-right: 50px;
   width: 250px;
   height: 250px;
 }

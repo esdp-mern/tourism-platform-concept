@@ -44,7 +44,6 @@ const TourPage: NextPage<
   const postReviewError = useAppSelector(selectPostReviewError);
 
   const [currentTab, setCurrentTab] = useState<string>('information');
-  console.log(currentTab);
 
   useEffect(() => {
     if (postReviewError) {
@@ -89,7 +88,7 @@ const TourPage: NextPage<
               }
               key={`${name}-tab`}
             >
-              {title}
+              <span>{title}</span>
             </button>
           ))}
         </div>
