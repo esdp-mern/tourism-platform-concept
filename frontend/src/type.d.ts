@@ -141,10 +141,44 @@ export interface ReviewOfTour {
   user: {
     _id: string;
     displayName: string;
+    avatar: string;
   };
   tour: string;
   comment: string;
   date: string;
+}
+export interface ReviewOfPlatform {
+  _id: string;
+  user: {
+    _id: string;
+    displayName: string;
+    avatar: string;
+  };
+  comment: string;
+  date: string;
+}
+export interface ReviewOfGuides {
+  _id: string;
+  user: {
+    _id: string;
+    displayName: string;
+    avatar: string;
+  };
+  guide: string;
+  comment: string;
+  date: string;
+}
+export interface allReviews {
+  _id: string;
+  user: {
+    _id: string;
+    displayName: string;
+    avatar: string;
+  };
+  comment: string;
+  date: string;
+  tour?: string;
+  guide?: string;
 }
 export interface RatingOfTour {
   _id: string;
