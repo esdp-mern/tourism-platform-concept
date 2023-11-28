@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import NavLink from 'next/link';
-import AnonymousMenu from './components/AnonymousMenu';
 import UserMenu from './components/UserMenu';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -81,6 +80,9 @@ const AppToolBar = () => {
           )}
           <NavLink href="/news/all/1" className="nav-link">
             News
+          </NavLink>
+          <NavLink href="/reviews/all/1" className="nav-link">
+            Reviews
           </NavLink>
         </nav>
         <div className="user-menu">

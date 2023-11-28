@@ -1,39 +1,81 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchToursReviews } from './reviewThunk';
-import { ReviewOfTour } from '@/type';
+import {
+  fetchGuideReviews,
+  fetchPlatformReviews,
+  fetchToursReviews,
+} from './reviewThunk';
+import { ReviewOfGuides, ReviewOfPlatform, ReviewOfTour } from '@/type';
 import { RootState } from '@/store/store';
 
-interface ToursReviewState {
+interface ReviewsState {
   toursReview: ReviewOfTour[];
-  fetchAllLoading: boolean;
+  fetchToursLoading: boolean;
+  guidesReview: ReviewOfGuides[];
+  fetchGuidesLoading: boolean;
+  platformReview: ReviewOfPlatform[];
+  fetchPlatformLoading: boolean;
 }
 
-const initialState: ToursReviewState = {
+const initialState: ReviewsState = {
   toursReview: [],
-  fetchAllLoading: false,
+  fetchToursLoading: false,
+  guidesReview: [],
+  fetchGuidesLoading: false,
+  platformReview: [],
+  fetchPlatformLoading: false,
 };
 
-export const toursReviewSlice = createSlice({
-  name: 'toursReview',
+export const reviewSlice = createSlice({
+  name: 'reviews',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchToursReviews.pending, (state) => {
-      state.fetchAllLoading = true;
+      state.fetchToursLoading = true;
     });
     builder.addCase(
       fetchToursReviews.fulfilled,
       (state, { payload: toursReview }) => {
         state.toursReview = toursReview;
-        state.fetchAllLoading = false;
+        state.fetchToursLoading = false;
       },
     );
     builder.addCase(fetchToursReviews.rejected, (state) => {
-      state.fetchAllLoading = false;
+      state.fetchToursLoading = false;
+    });
+    builder.addCase(fetchGuideReviews.pending, (state) => {
+      state.fetchGuidesLoading = true;
+    });
+    builder.addCase(
+      fetchGuideReviews.fulfilled,
+      (state, { payload: guidesReview }) => {
+        state.guidesReview = guidesReview;
+        state.fetchGuidesLoading = false;
+      },
+    );
+    builder.addCase(fetchGuideReviews.rejected, (state) => {
+      state.fetchGuidesLoading = false;
+    });
+    builder.addCase(fetchPlatformReviews.pending, (state) => {
+      state.fetchPlatformLoading = true;
+    });
+    builder.addCase(
+      fetchPlatformReviews.fulfilled,
+      (state, { payload: platformReview }) => {
+        state.platformReview = platformReview;
+        state.fetchPlatformLoading = false;
+      },
+    );
+    builder.addCase(fetchPlatformReviews.rejected, (state) => {
+      state.fetchPlatformLoading = false;
     });
   },
 });
 
-export const toursReviewReducer = toursReviewSlice.reducer;
+export const toursReviewReducer = reviewSlice.reducer;
 export const selectToursReviews = (state: RootState) =>
   state.reviews.toursReview;
+export const selectGuidesReviews = (state: RootState) =>
+  state.reviews.guidesReview;
+export const selectPlatformReviews = (state: RootState) =>
+  state.reviews.platformReview;

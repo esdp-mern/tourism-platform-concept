@@ -7,12 +7,17 @@ import MainSlider from '@/components/MainSlider/MainSlider';
 import Link from 'next/link';
 import PageLoader from '@/components/Loaders/PageLoader';
 import HotTours from '@/components/HotTours/HotTours';
+import ReviewsMain from '@/components/ReviewsMain/ReviewsMain';
+import { fetchPlatformReviews } from '@/containers/reviews/reviewThunk';
+import { selectPlatformReviews } from '@/containers/reviews/reviewSlice';
 
 const ToursPage = () => {
   const tours = useAppSelector(selectAllTours);
   const dispatch = useAppDispatch();
+  const reviews = useAppSelector(selectPlatformReviews);
 
   useEffect(() => {
+    dispatch(fetchPlatformReviews());
     dispatch(fetchTours());
   }, [dispatch]);
 
@@ -35,6 +40,9 @@ const ToursPage = () => {
           </div>
         </div>
         <HotTours />
+      </div>
+      <div>
+        <ReviewsMain reviews={reviews} />
       </div>
     </>
   );

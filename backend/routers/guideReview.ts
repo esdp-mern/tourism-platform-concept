@@ -6,9 +6,13 @@ const guideReviewRouter = express.Router();
 
 guideReviewRouter.get('/', async (req, res) => {
   try {
-    const reviews = await GuideReview.find({
-      guide: req.query.guideID,
-    }).populate('user guide');
+    if (req.query.guideID) {
+      const reviews = await GuideReview.find({
+        guide: req.query.guideID,
+      }).populate('user guide');
+      return res.send(reviews);
+    }
+    const reviews = await GuideReview.find().populate('user guide');
     return res.send(reviews);
   } catch (e) {
     return res.status(500).send(e);
