@@ -7,8 +7,8 @@ import { userRoles } from '@/constants';
 import { useRouter } from 'next/router';
 
 const NewTour = () => {
-  const user = useAppSelector(selectUser);
   const router = useRouter();
+  const user = useAppSelector(selectUser);
 
   useEffect(() => {
     if (!user || user.role !== userRoles.admin) {
@@ -22,5 +22,4 @@ const NewTour = () => {
     </div>
   );
 };
-
 export default NewTour;

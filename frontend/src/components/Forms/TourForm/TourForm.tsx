@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { IPlan, ITourMutation } from '@/type';
 import { useSelector } from 'react-redux';
 import FileInput from '@/components/UI/FileInput/FileInput';
@@ -9,8 +9,6 @@ import {
   selectPostTourLoading,
 } from '@/containers/tours/toursSlice';
 import { editTour, postTour } from '@/containers/tours/toursThunk';
-import { selectUser } from '@/containers/users/usersSlice';
-import { userRoles } from '@/constants';
 import { useRouter } from 'next/router';
 import TextFieldGuide from '@/components/UI/TextField/components/TextFieldGuide';
 
@@ -46,14 +44,7 @@ const TourForm: React.FC<Props> = ({
   const dispatch = useAppDispatch();
   const error = useSelector(selectPostTourError);
   const loading = useAppSelector(selectPostTourLoading);
-  const user = useAppSelector(selectUser);
   const routers = useRouter();
-
-  useEffect(() => {
-    if (user && user.role !== userRoles.admin) {
-      routers.push('/').then((r) => r);
-    }
-  }, [routers, user]);
 
   const [state, setState] = useState<ITourMutation>(existingTour);
 
@@ -243,19 +234,12 @@ const TourForm: React.FC<Props> = ({
   };
 
   return (
-    <div className="form-block">
+    <div>
       <form className="form-tour" onSubmit={submitFormHandler}>
         <h2 className="form-tour-title">
           {isEdit ? 'Save Tour' : 'Create Tour'}
         </h2>
-
         <div className="input-tour-wrap">
-          <label htmlFor="name" className="form-tour-label">
-            Tour name:
-          </label>
-          {Boolean(getFieldError('name')) && (
-            <span className="error-tour">{getFieldError('name')}</span>
-          )}
           <input
             type="text"
             className={
@@ -269,8 +253,13 @@ const TourForm: React.FC<Props> = ({
             onChange={inputChangeHandler}
             required
           />
+          <label htmlFor="name" className="form-tour-label">
+            Tour name:
+          </label>
+          {Boolean(getFieldError('name')) && (
+            <span className="error-tour">{getFieldError('name')}</span>
+          )}
         </div>
-
         <div className="input-tour-wrap" style={{ margin: '20px auto' }}>
           <h5 className="form-tour-title">
             Guides for {state.name ? state.name : 'this'} tour:
@@ -283,14 +272,7 @@ const TourForm: React.FC<Props> = ({
             }}
           />
         </div>
-
         <div className="input-tour-wrap">
-          <label htmlFor="country" className="form-tour-label">
-            Country:
-          </label>
-          {Boolean(getFieldError('country')) && (
-            <span className="error-tour">{getFieldError('country')}</span>
-          )}
           <input
             type="text"
             className={
@@ -304,15 +286,14 @@ const TourForm: React.FC<Props> = ({
             onChange={inputChangeHandler}
             required
           />
-        </div>
-
-        <div className="input-tour-wrap">
-          <label htmlFor="duration" className="form-tour-label">
-            Duration:
+          <label htmlFor="country" className="form-tour-label">
+            Country:
           </label>
-          {Boolean(getFieldError('duration')) && (
-            <span className="error-tour">{getFieldError('duration')}</span>
+          {Boolean(getFieldError('country')) && (
+            <span className="error-tour">{getFieldError('country')}</span>
           )}
+        </div>
+        <div className="input-tour-wrap">
           <input
             type="number"
             className={
@@ -326,15 +307,14 @@ const TourForm: React.FC<Props> = ({
             onChange={inputChangeHandler}
             required
           />
-        </div>
-
-        <div className="input-tour-wrap">
-          <label htmlFor="price" className="form-tour-label">
-            Price:
+          <label htmlFor="duration" className="form-tour-label">
+            Duration:
           </label>
-          {Boolean(getFieldError('price')) && (
-            <span className="error-tour">{getFieldError('price')}</span>
+          {Boolean(getFieldError('duration')) && (
+            <span className="error-tour">{getFieldError('duration')}</span>
           )}
+        </div>
+        <div className="input-tour-wrap">
           <input
             type="number"
             className={
@@ -348,10 +328,14 @@ const TourForm: React.FC<Props> = ({
             onChange={inputChangeHandler}
             required
           />
+          <label htmlFor="price" className="form-tour-label">
+            Price:
+          </label>
+          {Boolean(getFieldError('price')) && (
+            <span className="error-tour">{getFieldError('price')}</span>
+          )}
         </div>
-
         <div className="input-tour-wrap">
-          <label className="form-tour-label">Main picture of the tour:</label>
           <FileInput
             onChange={changeFileValue}
             name="mainImage"
@@ -359,14 +343,7 @@ const TourForm: React.FC<Props> = ({
             className="form-tour-control"
           />
         </div>
-
         <div className="input-tour-wrap">
-          <label htmlFor="description" className="form-tour-label">
-            Description:
-          </label>
-          {Boolean(getFieldError('description')) && (
-            <span className="error-tour">{getFieldError('description')}</span>
-          )}
           <textarea
             className={
               getFieldError('name') ? 'form-control-error' : 'form-tour-control'
@@ -377,15 +354,14 @@ const TourForm: React.FC<Props> = ({
             onChange={inputChangeHandler}
             required
           />
-        </div>
-
-        <div className="input-tour-wrap">
-          <label htmlFor="destination" className="form-tour-label">
-            Destination:
+          <label htmlFor="description" className="form-tour-label-two">
+            Description:
           </label>
-          {Boolean(getFieldError('destination')) && (
-            <span className="error-tour">{getFieldError('destination')}</span>
+          {Boolean(getFieldError('description')) && (
+            <span className="error-tour">{getFieldError('description')}</span>
           )}
+        </div>
+        <div className="input-tour-wrap">
           <input
             type="text"
             className={
@@ -399,15 +375,14 @@ const TourForm: React.FC<Props> = ({
             onChange={inputChangeHandler}
             required
           />
-        </div>
-
-        <div className="input-tour-wrap">
-          <label htmlFor="arrival" className="form-tour-label">
-            Arrival:
+          <label htmlFor="destination" className="form-tour-label">
+            Destination:
           </label>
-          {Boolean(getFieldError('arrival')) && (
-            <span className="error-tour">{getFieldError('arrival')}</span>
+          {Boolean(getFieldError('destination')) && (
+            <span className="error-tour">{getFieldError('destination')}</span>
           )}
+        </div>
+        <div className="input-tour-wrap">
           <textarea
             className={
               getFieldError('arrival')
@@ -420,15 +395,14 @@ const TourForm: React.FC<Props> = ({
             onChange={inputChangeHandler}
             required
           />
-        </div>
-
-        <div className="input-tour-wrap">
-          <label htmlFor="departure" className="form-tour-label">
-            Departure:
+          <label htmlFor="arrival" className="form-tour-label-two">
+            Arrival:
           </label>
-          {Boolean(getFieldError('departure')) && (
-            <span className="error-tour">{getFieldError('departure')}</span>
+          {Boolean(getFieldError('arrival')) && (
+            <span className="error-tour">{getFieldError('arrival')}</span>
           )}
+        </div>
+        <div className="input-tour-wrap">
           <textarea
             className={
               getFieldError('departure')
@@ -441,15 +415,14 @@ const TourForm: React.FC<Props> = ({
             onChange={inputChangeHandler}
             required
           />
-        </div>
-
-        <div className="input-tour-wrap">
-          <label htmlFor="dressCode" className="form-tour-label">
-            Dress Code:
+          <label htmlFor="departure" className="form-tour-label-two">
+            Departure:
           </label>
-          {Boolean(getFieldError('dressCode')) && (
-            <span className="error-tour">{getFieldError('dressCode')}</span>
+          {Boolean(getFieldError('departure')) && (
+            <span className="error-tour">{getFieldError('departure')}</span>
           )}
+        </div>
+        <div className="input-tour-wrap">
           <textarea
             className={
               getFieldError('dressCode')
@@ -462,19 +435,15 @@ const TourForm: React.FC<Props> = ({
             onChange={inputChangeHandler}
             required
           />
+          <label htmlFor="dressCode" className="form-tour-label-two">
+            Dress Code:
+          </label>
+          {Boolean(getFieldError('dressCode')) && (
+            <span className="error-tour">{getFieldError('dressCode')}</span>
+          )}
         </div>
-
-        <div
-          style={{
-            borderTop: '1px solid #000f56',
-            borderBottom: '1px solid #000f56',
-            textAlign: 'center',
-            margin: '10px auto',
-            padding: '5px',
-          }}
-        >
+        <div className="form-tour-included">
           <h5 className="form-tour-title">What is Included?</h5>
-
           <button
             type="button"
             className="form-tour-btn-add"
@@ -507,18 +476,8 @@ const TourForm: React.FC<Props> = ({
             </div>
           ))}
         </div>
-
-        <div
-          style={{
-            borderTop: '1px solid #000f56',
-            borderBottom: '1px solid #000f56',
-            textAlign: 'center',
-            margin: '10px auto',
-            padding: '5px',
-          }}
-        >
+        <div className="form-tour-included">
           <h5 className="form-tour-title">Categories:</h5>
-
           <button
             type="button"
             className="form-tour-btn-add"
@@ -551,18 +510,8 @@ const TourForm: React.FC<Props> = ({
             </div>
           ))}
         </div>
-
-        <div
-          style={{
-            borderTop: '1px solid #000f56',
-            borderBottom: '1px solid #000f56',
-            textAlign: 'center',
-            margin: '10px auto',
-            padding: '5px',
-          }}
-        >
+        <div className="form-tour-included">
           <h5 className="form-tour-title">Tour plan:</h5>
-
           <button
             type="button"
             className="form-tour-btn-add"
@@ -570,15 +519,12 @@ const TourForm: React.FC<Props> = ({
           >
             Add day
           </button>
-          {plan.map((singlePlan, index) => (
+          {plan.map((_, index) => (
             <div key={index}>
               <h6>{1 + index} day of the tour:</h6>
               <div className="form-tour-plan">
                 <div>
                   <div className="input-tour-wrap">
-                    <label htmlFor={`title`} className="form-tour-label">
-                      Plan name:
-                    </label>
                     <input
                       type="text"
                       className="form-tour-control"
@@ -590,15 +536,11 @@ const TourForm: React.FC<Props> = ({
                       }
                       required
                     />
-                  </div>
-
-                  <div className="input-tour-wrap">
-                    <label
-                      htmlFor={`planDescription${index}`}
-                      className="form-tour-label"
-                    >
-                      Plan description:
+                    <label htmlFor={`title`} className="form-tour-label">
+                      Plan name:
                     </label>
+                  </div>
+                  <div className="input-tour-wrap">
                     <textarea
                       className="form-tour-control"
                       name={`planDescription`}
@@ -609,6 +551,12 @@ const TourForm: React.FC<Props> = ({
                       }
                       required
                     />
+                    <label
+                      htmlFor={`planDescription${index}`}
+                      className="form-tour-label-two"
+                    >
+                      Plan description:
+                    </label>
                   </div>
                 </div>
                 <button
@@ -622,7 +570,6 @@ const TourForm: React.FC<Props> = ({
             </div>
           ))}
         </div>
-
         <button type="submit" className="form-tour-btn">
           {loading ? (
             <ButtonLoader size={18} />

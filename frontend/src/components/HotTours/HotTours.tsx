@@ -16,16 +16,14 @@ const HotTours = () => {
 
   const slide = useCallback(
     (isNext: boolean) => {
-      if (!carouselRef.current && !carouselTours.length) return;
+      if (!carouselRef.current || !carouselTours.length) return;
 
       const ms = 250;
 
-      if (carouselRef.current) {
-        carouselRef.current.style.cssText = `
-      transition: none;
-      transform: translateX(0);
-    `;
-      }
+      carouselRef.current.style.cssText = `
+  transition: all ${ms}ms ease 0s;
+  transform: translateX(${isNext ? '-' : ''}${x}px);
+`;
 
       setTimeout(() => {
         carouselRef.current!.style.cssText = `

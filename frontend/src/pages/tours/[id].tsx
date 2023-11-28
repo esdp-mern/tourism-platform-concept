@@ -18,6 +18,7 @@ import OneTourOrderForm from '@/components/OneTourOrderForm/OneTourOrderForm';
 import PageLoader from '@/components/Loaders/PageLoader';
 import { fetchToursReviews } from '@/containers/reviews/reviewThunk';
 import Custom404 from '@/pages/404';
+import { fetchTourRating } from '@/containers/ratings/ratingThunk';
 
 interface ITab {
   title: string;
@@ -43,6 +44,7 @@ const TourPage: NextPage<
   const postReviewError = useAppSelector(selectPostReviewError);
 
   const [currentTab, setCurrentTab] = useState<string>('information');
+  console.log(currentTab);
 
   useEffect(() => {
     if (postReviewError) {
@@ -50,6 +52,7 @@ const TourPage: NextPage<
     }
     dispatch(fetchTour(id));
     dispatch(fetchToursReviews(id));
+    dispatch(fetchTourRating(id));
   }, [dispatch, postReviewError, id]);
 
   const imgLink = apiUrl + '/' + tour?.mainImage;
@@ -58,7 +61,6 @@ const TourPage: NextPage<
 
   const toggleTab = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { name } = e.currentTarget;
-
     setCurrentTab(name);
   };
 
@@ -80,7 +82,11 @@ const TourPage: NextPage<
             <button
               name={name}
               onClick={toggleTab}
-              className={`one-tour-slider-${name}`}
+              className={
+                currentTab === name
+                  ? `one-tour-slider-${name} btn-active`
+                  : `one-tour-slider-${name} one-tour-slider-btns-btn`
+              }
               key={`${name}-tab`}
             >
               {title}
