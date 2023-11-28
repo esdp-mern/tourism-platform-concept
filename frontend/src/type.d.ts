@@ -146,7 +146,16 @@ export interface ReviewOfTour {
   comment: string;
   date: string;
 }
-
+export interface RatingOfTour {
+  _id: string;
+  user: {
+    _id: string;
+    displayName: string;
+  };
+  tour: string;
+  rating: number;
+  date: string;
+}
 export interface IAlert {
   message: string;
   type: string;

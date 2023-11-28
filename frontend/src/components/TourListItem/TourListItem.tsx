@@ -18,10 +18,9 @@ import { useRouter } from 'next/router';
 
 interface Props {
   tour: Tour;
-  admin?: boolean;
 }
 
-const TourItem: React.FC<Props> = ({ tour, admin }) => {
+const TourItem: React.FC<Props> = ({ tour }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
@@ -42,19 +41,13 @@ const TourItem: React.FC<Props> = ({ tour, admin }) => {
     }
   };
 
-  if (admin) {
-    if (!user || user.role !== userRoles.admin) {
-      !admin;
-    }
-  }
-
   return (
     <Fade>
       <div className="tour-item">
         <Link href={`/tours/${tour._id}`} className="tour-item-top">
           <img src={imgLink} alt={tour.name} className="tour-item-img" />
           <div className="tour-item-price">{tour.price.toString()} KGS</div>
-          {admin && (
+          {user && user.role === userRoles.admin ? (
             <div
               className={`${
                 tour.isPublished ? 'published-tour' : 'unpublished-tour'
@@ -62,7 +55,7 @@ const TourItem: React.FC<Props> = ({ tour, admin }) => {
             >
               {tour.isPublished ? 'published' : 'unpublished'}
             </div>
-          )}
+          ) : null}
         </Link>
         <div className="tour-item-bottom">
           <Link href={`/tours/${tour._id}`} className="tour-item-links">
@@ -72,7 +65,7 @@ const TourItem: React.FC<Props> = ({ tour, admin }) => {
           <div className="tour-item-info">
             <div className="tour-item-duration">{tour.duration} days</div>
           </div>
-          {admin && (
+          {user && user.role === userRoles.admin ? (
             <div className="buttons-tour">
               <button
                 className="btn-delete-tour"
@@ -108,7 +101,7 @@ const TourItem: React.FC<Props> = ({ tour, admin }) => {
                 Edit
               </button>
             </div>
-          )}
+          ) : null}
         </div>
       </div>
     </Fade>

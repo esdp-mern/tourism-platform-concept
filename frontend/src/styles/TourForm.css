@@ -1,28 +1,31 @@
 .form-tour {
   border-radius: 7px;
   background: #ffffff;
-  box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.05);
   color: #000;
   border-color: transparent;
   min-height: 20vh;
   border-style: solid;
   border-width: 1px;
   padding: 20px 10px;
-  margin: 0 auto;
+  margin: 100px auto;
   width: 800px;
 }
 
 .form-tour-title {
   text-align: center;
   text-transform: uppercase;
+  font-size: 26px;
   letter-spacing: 2px;
-  font-weight: lighter;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  margin-bottom: 30px;
 }
 
 .input-tour-wrap {
   width: 100%;
   max-width: 480px;
-  margin: 0 auto;
+  margin: 0 auto 30px;
+  position: relative;
 }
 
 .input-tour-wrap textarea {
@@ -36,25 +39,61 @@
 }
 
 .form-tour-label {
-  display: block;
-  margin-bottom: 10px;
-  text-align: left;
-  font-size: 15px;
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 27px;
   color: #000;
+  text-align: left;
+  transition: .25s;
+  transform: translateY(-40%);
+  cursor: text;
 }
-
+.form-tour-label-two{
+  position: absolute;
+  top: 12px;
+  left: 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 27px;
+  color: #000;
+  text-align: left;
+  transition: .25s;
+  transform: translateY(-40%);
+  cursor: text;
+}
 .form-tour-control {
-  padding: 10px 5px;
+  box-sizing: border-box;
+  padding: 11px 19px;
   width: 100%;
-  border: 2px solid #bbc6f5;
+  max-height: 50px;
+  border: 0;
+  border-bottom: 1px solid #c4c4c4;
   font-size: 16px;
   margin-bottom: 20px;
+  transition: visibility 0s, opacity 0.5s ease-in;
+  opacity: 1;
+  border-radius: 0;
 }
 
 .form-tour-control:focus {
   outline: none;
+  border-bottom: 1px solid #75c15b;
 }
-
+.form-tour-control:focus ~ .form-tour-label,
+.form-tour-control:valid ~ .form-tour-label{
+  visibility: hidden;
+  opacity: 0;
+}
+.form-tour-control:focus ~ .form-tour-label-two,
+.form-tour-control:valid ~ .form-tour-label-two {
+  visibility: hidden;
+  opacity: 0;
+}
 .form-tour-control-error {
   padding: 10px 5px;
   width: 100%;
@@ -84,12 +123,18 @@
   cursor: pointer;
   width: 100%;
   transition: all 0.2s;
+  text-transform: uppercase;
 }
 
 .form-tour-btn:hover,
 .form-tour-btn:focus {
   color: #fff;
   background-color: #ffa133;
+}
+.form-tour-included {
+  text-align: center;
+  margin: 20px auto;
+  padding: 5px;
 }
 
 @media (max-width: 1000px) {
@@ -108,6 +153,9 @@
   .form-tour {
     width: 90%;
   }
+  .form-tour-title{
+    font-size: 20px;
+  }
 }
 
 @media (max-width: 500px) {
@@ -119,6 +167,9 @@
 @media (max-width: 300px) {
   .form-tour {
     width: 90%;
+  }
+  .form-tour-title{
+    font-size: 17px;
   }
 }
 

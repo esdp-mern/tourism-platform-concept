@@ -7,6 +7,9 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { selectOneTour } from '@/containers/tours/toursSlice';
 import PageLoader from '@/components/Loaders/PageLoader';
 import TourForm from '@/components/Forms/TourForm/TourForm';
+import { selectUser } from '@/containers/users/usersSlice';
+import { userRoles } from '@/constants';
+import Custom404 from '@/pages/404';
 
 const EditTour: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -16,12 +19,17 @@ const EditTour: NextPage<
   const { editID } = useParams() as {
     editID: string;
   };
+  const user = useAppSelector(selectUser);
 
   useEffect(() => {
     if (editID) {
       dispatch(fetchTour(editID));
     }
   }, [editID, dispatch]);
+
+  if (!user || user.role !== userRoles.admin) {
+    return <Custom404 errorType="tour" />;
+  }
 
   let editingTour;
 

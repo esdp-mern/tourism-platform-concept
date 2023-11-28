@@ -59,7 +59,11 @@ const OneTourInformation = () => {
               </tr>
               <tr>
                 <td>Guides</td>
-                <td>{tour.guides.join(', ')}</td>
+                <td>
+                  {tour.guides.map((guide) => (
+                    <div key={guide._id}>{guide.user.displayName}</div>
+                  ))}
+                </td>
               </tr>
               <tr>
                 <td>Category</td>
