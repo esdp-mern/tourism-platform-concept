@@ -133,12 +133,12 @@ const TourPage: NextPage<
         </div>
       </div>
       <div className="container one-tour-tab">
-        <div>
+        <>
           {currentTab === 'information' && <OneTourInformation />}
           {currentTab === 'plan' && <OneTourPlan />}
           {currentTab === 'gallery' && <Gallery />}
           {currentTab === 'reviews' && <OneTourReview />}
-        </div>
+        </>
         <OneTourOrderForm />
       </div>
     </div>
