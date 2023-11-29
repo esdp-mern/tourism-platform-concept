@@ -84,6 +84,9 @@ const AppToolBar = () => {
           <NavLink href="/reviews/all/1" className="nav-link">
             Reviews
           </NavLink>
+          <NavLink href="/contactUs" className="nav-link">
+            Contact Us
+          </NavLink>
         </nav>
         <div className="user-menu">
           {user && (
