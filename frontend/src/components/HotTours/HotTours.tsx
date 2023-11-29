@@ -26,7 +26,8 @@ const HotTours = () => {
 `;
 
       setTimeout(() => {
-        carouselRef.current!.style.cssText = `
+        if (!carouselRef.current) return;
+        carouselRef.current.style.cssText = `
             transition: none;
             transform: translateX(0);
           `;

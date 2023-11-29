@@ -56,8 +56,8 @@ const OneTourReview = () => {
         <Fade>
           <div className="one-tour-average-wrap">
             <div className="one-tour-average-num">
-              <p>{calculateAverageRating().toFixed(1)}</p>
-              <h5>{reviewTotal}</h5>
+              <h5>{calculateAverageRating().toFixed(1)}</h5>
+              <p>{reviewTotal}</p>
             </div>
             <div className="one-tour-average-progress">
               <div

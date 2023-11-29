@@ -11,10 +11,39 @@
 .one-tour-photos {
   display: flex;
   justify-content: space-between;
+  gap: 15px;
 }
 
 .one-tour-photos img {
   width: 250px;
   height: 250px;
-  margin-right: 10px;
+}
+
+@media (max-width: 1020px) {
+  .one-tour-gallery {
+    padding-top: 20px;
+  }
+
+  .one-tour-photos {
+    justify-content: unset;
+  }
+}
+
+@media (max-width: 768px) {
+  .one-tour-photos img {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+@media (max-width: 475px) {
+  .one-tour-gallery h2 {
+    text-align: center;
+  }
+
+  .one-tour-photos {
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
 }

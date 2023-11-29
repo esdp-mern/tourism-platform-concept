@@ -32,14 +32,14 @@
 
 .plan-day-title {
   font-size: 24px;
+  margin-bottom: 25px;
 }
 
 .plan-day-description {
   color: #808080;
   overflow: hidden;
-  padding-top: 25px;
-  max-height: 500px;
-  transition: 0.5s;
+  max-height: 300px;
+  transition: 0.5s ease-out;
 }
 
 .plan-day-checkbox {
@@ -73,5 +73,75 @@
 
 .plan-day-description-hidden {
   max-height: 0;
-  padding-top: 0;
+}
+
+@media (max-width: 768px) {
+  .one-tour-plan {
+    padding: 60px 0;
+  }
+
+  .one-tour-plan-list {
+    gap: 30px;
+  }
+
+  .plan-day-body {
+    padding-left: 50px;
+  }
+
+  .plan-day-title {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  .plan-day-description {
+    font-size: 14px;
+  }
+
+  .plan-day-checkbox {
+    width: 26px;
+    height: 26px;
+  }
+
+  .plan-day-body-arrow {
+    left: 14px;
+    bottom: -50px;
+  }
+}
+
+@media (max-width: 475px) {
+  .one-tour-plan {
+    padding: 40px 0;
+  }
+
+  .one-tour-plan-list {
+    gap: 20px;
+  }
+
+  .plan-day-body {
+    padding-left: 40px;
+  }
+
+  .plan-day-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .plan-day-description {
+    font-size: 12px;
+  }
+
+  .plan-day-checkbox {
+    width: 26px;
+    height: 26px;
+  }
+
+  .plan-day-body-arrow {
+    left: 14px;
+    bottom: -40px;
+  }
+
+  .plan-day-desc-collapse-open {
+    max-height: 450px;
+    animation: collapseOpen 0.7s ease-in;
+  }
 }
