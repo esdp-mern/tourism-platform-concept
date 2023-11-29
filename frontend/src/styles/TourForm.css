@@ -48,11 +48,11 @@
   line-height: 27px;
   color: #000;
   text-align: left;
-  transition: .25s;
+  transition: 0.25s;
   transform: translateY(-40%);
   cursor: text;
 }
-.form-tour-label-two{
+.form-tour-label-two {
   position: absolute;
   top: 12px;
   left: 30px;
@@ -62,7 +62,7 @@
   line-height: 27px;
   color: #000;
   text-align: left;
-  transition: .25s;
+  transition: 0.25s;
   transform: translateY(-40%);
   cursor: text;
 }
@@ -75,7 +75,9 @@
   border-bottom: 1px solid #c4c4c4;
   font-size: 16px;
   margin-bottom: 20px;
-  transition: visibility 0s, opacity 0.5s ease-in;
+  transition:
+    visibility 0s,
+    opacity 0.5s ease-in;
   opacity: 1;
   border-radius: 0;
 }
@@ -85,7 +87,7 @@
   border-bottom: 1px solid #75c15b;
 }
 .form-tour-control:focus ~ .form-tour-label,
-.form-tour-control:valid ~ .form-tour-label{
+.form-tour-control:valid ~ .form-tour-label {
   visibility: hidden;
   opacity: 0;
 }
@@ -153,7 +155,7 @@
   .form-tour {
     width: 90%;
   }
-  .form-tour-title{
+  .form-tour-title {
     font-size: 20px;
   }
 }
@@ -168,7 +170,7 @@
   .form-tour {
     width: 90%;
   }
-  .form-tour-title{
+  .form-tour-title {
     font-size: 17px;
   }
 }

@@ -15,3 +15,7 @@ body {
   letter-spacing: 1px;
   height: 100%;
 }
+
+main {
+  background-color: #f6f6f6;
+}
