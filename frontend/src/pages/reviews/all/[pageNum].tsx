@@ -40,8 +40,6 @@ const ReviewsPage = () => {
     dispatch(fetchPlatformReviews());
   }, [dispatch]);
 
-  console.log(arr);
-
   return (
     <div className="reviews-page">
       <PageLoader />
