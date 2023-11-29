@@ -402,6 +402,7 @@ const run = async () => {
       date: '2023-11-08T11:22:03.760Z',
       category: ['places'],
       images: ['fixtures/issyk-kul.jpeg'],
+      isPublished: true,
     },
     {
       title: 'Riding Horses in Ala-Archa: Personal Experience',
@@ -410,6 +411,7 @@ const run = async () => {
       date: '2023-11-08T11:22:03.760Z',
       category: ['animals'],
       images: ['fixtures/ala-archa.jpeg'],
+      isPublished: true,
     },
     {
       title:
@@ -419,6 +421,7 @@ const run = async () => {
       date: '2023-11-08T11:22:03.760Z',
       category: ['borders'],
       images: ['fixtures/korday.jpeg'],
+      isPublished: true,
     },
     {
       title: '3 beautiful lakes in Kyrgyzstan',
@@ -431,6 +434,7 @@ const run = async () => {
         'fixtures/son-kul.jpeg',
         'fixtures/kol-ukok.jpeg',
       ],
+      isPublished: true,
     },
     {
       title: 'The best things to do in Kyrgyzstan',
@@ -439,6 +443,7 @@ const run = async () => {
       date: '2023-11-08T11:22:03.760Z',
       category: ['places'],
       images: ['fixtures/yurt.jpeg'],
+      isPublished: true,
     },
     {
       title: 'What to wear hiking in Kyrgyzstan?',
@@ -447,6 +452,7 @@ const run = async () => {
       date: '2023-11-08T11:22:03.760Z',
       category: ['clothes'],
       images: ['fixtures/hiking.jpeg'],
+      isPublished: true,
     },
     {
       title: 'Reasons why you should visit Kyrgyzstan?',
@@ -455,6 +461,7 @@ const run = async () => {
       date: '2023-11-08T11:22:03.760Z',
       category: ['places'],
       images: ['fixtures/reasons.jpeg'],
+      isPublished: true,
     },
   );
 

@@ -114,6 +114,27 @@ newsRouter.put(
   },
 );
 
+newsRouter.patch(
+  '/:id/togglePublished',
+  auth,
+  permit('admin'),
+  async (req, res, next) => {
+    try {
+      const id = req.params.id;
+      const news = await News.findById(id);
+
+      if (!news) {
+        return res.status(404).send('Not Found!');
+      }
+
+      await News.findByIdAndUpdate(id, { isPublished: !news.isPublished });
+      return res.send('Changed');
+    } catch (e) {
+      return next(e);
+    }
+  },
+);
+
 newsRouter.delete('/:id', auth, permit('admin'), async (req, res, next) => {
   try {
     const newsId = req.params.id;

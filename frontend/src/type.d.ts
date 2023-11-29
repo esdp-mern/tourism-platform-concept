@@ -205,6 +205,7 @@ export interface INews {
   description: string;
   images: [string];
   category: [string];
+  isPublished: boolean;
 }
 
 export interface IEmployee {
