@@ -9,7 +9,22 @@ const newsRouter = express.Router();
 
 newsRouter.get('/', async (req, res) => {
   try {
-    const news = await News.find();
+    const news = await News.find({ isPublished: true });
+    return res.send(news);
+  } catch (e) {
+    return res.status(500).send('Error');
+  }
+});
+
+newsRouter.get('/all', async (req, res) => {
+  try {
+    let news;
+
+    if (req.query.true) {
+      news = await News.find();
+      return res.send(news);
+    }
+    news = await News.find({ isPublished: false });
     return res.send(news);
   } catch (e) {
     return res.status(500).send('Error');
