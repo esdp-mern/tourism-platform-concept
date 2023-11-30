@@ -3,8 +3,10 @@ import { Fade } from 'react-awesome-reveal';
 import horseImg from '@/assets/images/horses.png';
 import PageLoader from '@/components/Loaders/PageLoader';
 import EmployeeItem from '@/components/EmployeeItem/EmployeeItem';
+import img from '@/assets/images/kg.jpeg';
+import GuideSlider from '@/components/GuideSlider/GuideSlider';
 
-const about = () => {
+const About = () => {
   return (
     <div className="about-page">
       <PageLoader />
@@ -40,7 +42,7 @@ const about = () => {
               </div>
               <button className="about-page-tours-btn">Book now</button>
             </div>
-            <div>
+            <div className="about-page-tours-img-wrap">
               <img
                 src={horseImg.src}
                 alt="coconout"
@@ -193,10 +195,13 @@ const about = () => {
               <div className="about-page-partners-card">Partner 5</div>
             </div>
           </Fade>
+          <div style={{ position: 'relative' }}>
+            <GuideSlider />
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default about;
+export default About;

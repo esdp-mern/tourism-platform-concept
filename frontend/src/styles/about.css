@@ -19,7 +19,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  z-index: 2;
 }
 .about-page-top-line {
   width: 100px;
@@ -54,9 +53,10 @@
 }
 .about-page-tours {
   display: flex;
+  justify-content: space-between;
 }
 .about-page-tours-left {
-  width: 58%;
+  width: 50%;
 }
 .about-page-tours-title {
   max-width: 370px;
@@ -95,15 +95,15 @@
   border: 1px solid #ffa133;
 }
 .about-page-tours-img {
-  width: 110%;
-  padding-left: 100px;
+  width: 450px;
   height: 500px;
 }
 .about-page-advantages {
-  padding: 160px 0;
+  margin: 100px 0;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
+  gap: 20px;
 }
 .about-page-advantages-card {
   width: 250px;
@@ -179,16 +179,19 @@
 .card-four:hover:before {
   background-position: left 5%;
 }
+
 .about-page-clients {
   background-color: #ffffff;
-  padding: 130px 0;
 }
+
 .about-page-clients-main {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 100px;
 }
+
 .about-page-clients-title {
   font-size: 30px;
   line-height: 1.33333;
@@ -197,6 +200,7 @@
   font-weight: 500;
   color: #000000;
 }
+
 .about-page-clients-main div {
   margin-top: 20px;
   font-size: 16px;
@@ -210,7 +214,7 @@
   flex-wrap: wrap;
 }
 .about-page-clients-card {
-  width: 540px;
+  width: 44%;
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
@@ -249,9 +253,10 @@
   text-align: right;
   color: rgba(0, 0, 0, 0.4);
 }
-.about-page-team {
-  padding: 130px 0;
-}
+/*.about-page-team {*/
+/*  padding: 130px 0;*/
+/*}*/
+
 .about-page-team-title {
   font-size: 30px;
   margin-top: 0;
@@ -338,4 +343,56 @@
 .about-page-partners-card:hover {
   box-shadow: 0 9px 58px 0 rgba(0, 0, 0, 0.2);
   opacity: inherit;
+}
+
+@media (max-width: 930px) {
+  .about-page-clients-cards {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .about-page-clients-card {
+    width: 90%;
+    margin-bottom: 30px;
+  }
+
+  .about-page-tours {
+    flex-direction: column;
+  }
+
+  .about-page-tours-left {
+    width: 100%;
+  }
+
+  .about-page-tours-img-wrap{
+    text-align: center;
+  }
+
+  .about-page-advantages {
+
+  }
+
+  .about-page-team-cards {
+    justify-content: space-around;
+  }
+
+  .about-page-team-card {
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 470px) {
+  .about-page-tours-img {
+    width: 100%;
+  }
+
+  .about-page-team {
+    text-align: center;
+  }
+
+  .about-page-team-cards {
+    justify-content: center;
+  }
+
 }
