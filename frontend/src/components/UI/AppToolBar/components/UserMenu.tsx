@@ -33,9 +33,9 @@ const UserMenu: React.FC<IProps> = ({ user, onClick, pathname }) => {
             Create Tour
           </NavLink>
           <NavLink
-            href="/admin/"
+            href="/admin"
             className={`nav-link profile-link ${
-              pathname === '/tours/create' ? 'active' : ''
+              pathname === '/admin' ? 'active' : ''
             }`}
           >
             Admin Page

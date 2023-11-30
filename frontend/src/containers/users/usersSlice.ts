@@ -25,6 +25,9 @@ const initialState: UsersState = {
   alerts: [],
 };
 
+const getFiltredUrl = (url: string) =>
+  `${apiUrl}/${url.includes('fixtures') ? '' : 'images/'}${url}`;
+
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
@@ -74,9 +77,10 @@ export const usersSlice = createSlice({
     builder.addCase(signIn.fulfilled, (state, { payload: userResponse }) => {
       state.signInLoading = false;
       const userData = userResponse.user;
+
       state.user = {
         ...userData,
-        avatar: `${apiUrl}/images/${userData.avatar}`,
+        avatar: userData.avatar && getFiltredUrl(userData.avatar),
       };
     });
     builder.addCase(signIn.rejected, (state, { payload: error }) => {
@@ -95,7 +99,7 @@ export const usersSlice = createSlice({
 
         state.user = {
           ...userResponse,
-          avatar: userResponse.avatar,
+          avatar: userResponse.avatar && getFiltredUrl(userResponse.avatar),
         };
       },
     );
