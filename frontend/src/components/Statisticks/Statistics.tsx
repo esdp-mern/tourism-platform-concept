@@ -1,29 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Fade } from 'react-awesome-reveal';
+import Number from '@/components/Statisticks/Number';
 
 const Statistics = () => {
-  const [bookedTours, setBookedTours] = useState(80);
-  const [visitors, setVisitors] = useState(400);
-  const [reviews, setReviews] = useState(0);
-  const [tours, setTours] = useState(0);
   const targetElementRef = useRef<HTMLDivElement>(null);
   const [isStatisticsVisible, setStatisticsVisible] = useState(false);
-
-  const timeout = (length: number) => {
-    if (length < 50) {
-      return 80;
-    } else if (length > 300) {
-      return 50;
-    } else if (length > 500) {
-      return 30;
-    } else if (length > 700) {
-      return 20;
-    } else if (length > 900) {
-      return 10;
-    } else if (length > 50) {
-      return 70;
-    }
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,23 +20,16 @@ const Statistics = () => {
       }
     };
 
-    if (isStatisticsVisible) {
-      bookedTours !== 109 &&
-        setTimeout(setBookedTours, timeout(90), bookedTours + 1);
-      visitors !== 468 && setTimeout(setVisitors, timeout(468), visitors + 1);
-      reviews !== 70 && setTimeout(setReviews, timeout(70), reviews + 1);
-      tours !== 30 && setTimeout(setTours, timeout(30), tours + 1);
-    }
-
     window.addEventListener('scroll', handleScroll);
     handleScroll();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [isStatisticsVisible, bookedTours, visitors, reviews, tours]);
+  }, [isStatisticsVisible]);
+
   return (
-    <div className="statisticks-main" ref={targetElementRef}>
+    <div className="statisticks-main">
       <div className="container">
         <div className="statisticks">
           <div className="statisticks-info">
@@ -63,7 +37,7 @@ const Statistics = () => {
               <h2 className="statisticks-title">
                 Fastest Way to Book over 50 Great Tours
               </h2>
-              <div className="statisticks-txt">
+              <div className="statisticks-txt" ref={targetElementRef}>
                 <p>
                   Sunway provides a variety of great tours to travelers and
                   customers throughout the world. We offer top deals at
@@ -84,21 +58,34 @@ const Statistics = () => {
           <Fade>
             <div className="statisticks-num">
               <div className="statisticks-num-card">
-                <h3>{tours}+</h3>
+                <h3>
+                  {isStatisticsVisible && <Number value={30} duration={1500} />}
+                  +
+                </h3>
                 <div className="statisticks-num-txt">
                   Tours around Central Asia
                 </div>
               </div>
               <div className="statisticks-num-card">
-                <h3>{bookedTours}</h3>
+                <h3>
+                  {isStatisticsVisible && (
+                    <Number value={109} duration={1500} />
+                  )}
+                </h3>
                 <div className="statisticks-num-txt">Booked tours</div>
               </div>
               <div className="statisticks-num-card">
-                <h3>{visitors}</h3>
+                <h3>
+                  {isStatisticsVisible && (
+                    <Number value={468} duration={1500} />
+                  )}
+                </h3>
                 <div className="statisticks-num-txt">Site visitors</div>
               </div>
               <div className="statisticks-num-card">
-                <h3>{reviews}</h3>
+                <h3>
+                  {isStatisticsVisible && <Number value={70} duration={1500} />}
+                </h3>
                 <div className="statisticks-num-txt">Reviews</div>
               </div>
             </div>

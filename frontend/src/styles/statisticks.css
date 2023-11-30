@@ -111,4 +111,7 @@
     .statisticks-num h3 {
         font-size: 25px;
     }
+    .statisticks-info-right{
+        width: 100%;
+    }
 }
