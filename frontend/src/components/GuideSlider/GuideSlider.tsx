@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { FreeMode, Pagination } from 'swiper/modules';
+import { FreeMode, Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -10,6 +10,7 @@ import { selectGuides } from '@/containers/guides/guidesSlice';
 import { fetchGuides } from '@/containers/guides/guidesThunk';
 import GuideItem from '@/components/GuideItem/GuideItem';
 import { apiUrl } from '@/constants';
+import img from '@/assets/images/kg.jpeg';
 
 const GuideSlider = () => {
   const dispatch = useAppDispatch();
@@ -22,49 +23,52 @@ const GuideSlider = () => {
   return (
     <>
       <Swiper
-        loop={true}
         grabCursor={true}
-        spaceBetween={32}
-        freeMode={true}
-        breakpoints={{
-          700: {
-            slidesPerView: 'auto',
-            spaceBetween: 0,
-          },
-          908: {
-            slidesPerView: 'auto',
-            spaceBetween: 0,
-          },
-        }}
+        slidesPerView={1}
+        spaceBetween={10}
         pagination={{
           clickable: true,
+          type: 'bullets',
+          el: '.swiper-pagination',
         }}
-        modules={[FreeMode, Pagination]}
+        breakpoints={{
+          950: {
+            slidesPerView: 3,
+          },
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 10,
+          },
+        }}
+        modules={[Pagination]}
         className="mySwiper"
       >
-        {guides.map((guide, index) => (
-          <SwiperSlide key={index}>
+        <div className="slider-slides-wrap">
+          {guides.map((guide, index) => (
+            <SwiperSlide key={index}>
+              <GuideItem
+                id={guide._id}
+                name={guide.user.displayName}
+                role={'Guide'}
+                description={guide.description}
+                imageUrl={apiUrl + '/' + guide.user.avatar}
+              />
+            </SwiperSlide>
+          ))}
+          <SwiperSlide key={'jk22'}>
             <GuideItem
-              id={guide._id}
-              name={guide.user.displayName}
-              role={guide.user.role}
-              description={guide.description}
-              imageUrl={apiUrl + '/' + guide.user.avatar}
+              id={'12jjke22'}
+              name={'John'}
+              role={'Guide'}
+              description={
+                'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, molestias.'
+              }
+              imageUrl={img.src}
             />
           </SwiperSlide>
-        ))}
-        {guides.map((guide, index) => (
-          <SwiperSlide key={index + 1}>
-            <GuideItem
-              id={guide._id}
-              name={guide.user.displayName}
-              role={guide.user.role}
-              description={guide.description}
-              imageUrl={apiUrl + '/' + guide.user.avatar}
-            />
-          </SwiperSlide>
-        ))}
+        </div>
       </Swiper>
+      <div className="swiper-pagination"></div>
     </>
   );
 };

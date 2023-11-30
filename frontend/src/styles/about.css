@@ -1,6 +1,7 @@
 .about-page-top {
   position: relative;
 }
+
 .about-page-img {
   position: absolute;
   top: -60px;
@@ -9,6 +10,7 @@
   filter: brightness(85%);
   transform: scale(1.008);
 }
+
 .about-page-top-info {
   position: absolute;
   top: 150px;
@@ -20,6 +22,7 @@
   align-items: center;
   flex-direction: column;
 }
+
 .about-page-top-line {
   width: 100px;
   background-image: url('./../assets/images/wave-icon.svg');
@@ -38,6 +41,7 @@
   text-shadow: 0 4px 4px rgba(21, 21, 21, 0.25);
   margin-bottom: 0;
 }
+
 .about-page-top-txt {
   margin-top: 26px;
   font-size: 18px;
@@ -45,19 +49,24 @@
   text-align: center;
   color: #ffffff;
 }
+
 .about-page-tour {
   background-color: #ffffff;
 }
+
 .about-page-tours {
   padding-top: 500px;
 }
+
 .about-page-tours {
   display: flex;
   justify-content: space-between;
 }
+
 .about-page-tours-left {
   width: 50%;
 }
+
 .about-page-tours-title {
   max-width: 370px;
   font-size: 30px;
@@ -67,12 +76,14 @@
   font-weight: 500;
   color: #000000;
 }
+
 .about-page-tours-txt {
   font-size: 18px;
   margin-top: 50px;
   line-height: 1.75;
   color: #808080;
 }
+
 .about-page-tours-btn {
   margin-top: 40px;
   width: 160px;
@@ -90,14 +101,17 @@
   border-radius: 4px;
   border: 1px solid #75c15b;
 }
+
 .about-page-tours-btn:hover {
   background-color: #ffa133;
   border: 1px solid #ffa133;
 }
+
 .about-page-tours-img {
   width: 450px;
   height: 500px;
 }
+
 .about-page-advantages {
   margin: 100px 0;
   display: flex;
@@ -105,9 +119,11 @@
   justify-content: space-around;
   gap: 20px;
 }
+
 .about-page-advantages-card {
   width: 250px;
 }
+
 .about-page-advantages-title {
   font-size: 24px;
   line-height: 1.25;
@@ -116,6 +132,7 @@
   font-weight: 500;
   color: #000000;
 }
+
 .about-page-advantages-title span {
   font-weight: 600;
   color: #75c15b;
@@ -123,12 +140,14 @@
   line-height: 1.25;
   margin-right: 5px;
 }
+
 .about-page-advantages-txt {
   color: #353535;
   font-size: 16px;
   line-height: 1.75;
   font-weight: 400;
 }
+
 .card-one:before {
   content: '';
   background-image: url('./../assets/images/money-icon.svg');
@@ -140,6 +159,7 @@
   height: 50px;
   transition: 150ms all ease-in-out;
 }
+
 .card-two:before {
   content: '';
   background-image: url('./../assets/images/support-icon.svg');
@@ -151,6 +171,7 @@
   height: 50px;
   transition: 150ms all ease-in-out;
 }
+
 .card-three:before {
   content: '';
   background-image: url('./../assets/images/safety-icon.svg');
@@ -162,6 +183,7 @@
   height: 50px;
   transition: 150ms all ease-in-out;
 }
+
 .card-four:before {
   content: '';
   background-image: url('./../assets/images/sun-icon.svg');
@@ -173,6 +195,7 @@
   height: 50px;
   transition: 150ms all ease-in-out;
 }
+
 .card-one:hover:before,
 .card-two:hover:before,
 .card-three:hover:before,
@@ -208,11 +231,13 @@
   color: #808080;
   margin-bottom: 50px;
 }
+
 .about-page-clients-cards {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 }
+
 .about-page-clients-card {
   width: 44%;
   margin-bottom: 20px;
@@ -223,15 +248,18 @@
   border-radius: 10px;
   box-shadow: 0 9px 28px 0 rgba(0, 0, 0, 0.2);
 }
+
 .about-page-clients-card-top {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
 }
+
 .about-page-clients-card-img {
   border-radius: 50%;
   max-width: 84px;
 }
+
 .about-page-clients-card-title {
   margin-left: 22px;
   font-size: 18px;
@@ -241,6 +269,7 @@
   font-weight: 500;
   color: #000000;
 }
+
 .about-page-clients-card-txt {
   font-size: 18px;
   color: #000000;
@@ -248,14 +277,17 @@
   height: 100px;
   margin-bottom: 10px;
 }
+
 .about-page-clients-card-date {
   font-size: 18px;
   text-align: right;
   color: rgba(0, 0, 0, 0.4);
 }
-/*.about-page-team {*/
-/*  padding: 130px 0;*/
-/*}*/
+
+.about-page-team {
+  margin: 100px 0 25px;
+  text-align: center;
+}
 
 .about-page-team-title {
   font-size: 30px;
@@ -265,18 +297,22 @@
   color: #000000;
   line-height: 1.33333;
 }
+
 .about-page-team-txt {
   margin-top: 20px;
   font-size: 16px;
   color: #808080;
   line-height: 1.75;
 }
+
 .about-page-team-cards {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  gap: 10px;
   margin-top: 40px;
 }
+
 .about-page-team-card {
   width: 280px;
   border-radius: 4px;
@@ -284,10 +320,12 @@
   padding-bottom: 20px;
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.25);
 }
+
 .about-page-team-card-img {
   width: 280px;
   height: 200px;
 }
+
 .about-page-team-card-position {
   font-weight: 400;
   color: rgba(0, 0, 0, 0.4);
@@ -296,6 +334,7 @@
   font-size: 18px;
   line-height: 1.44444;
 }
+
 .about-page-team-card-title {
   font-weight: 600;
   font-size: 24px;
@@ -304,6 +343,7 @@
   margin-bottom: 8px;
   line-height: 1.25;
 }
+
 .about-page-team-card-phone {
   color: #75c15b;
   font-size: 16px;
@@ -315,17 +355,22 @@
   background-position: left 15% center;
   background-size: 15px;
 }
+
 .about-page-team-card-phone:hover {
   color: #000000;
 }
+
 .about-page-partners {
   background-color: #fff;
-  padding: 130px 0;
+  margin: 130px 0;
 }
+
 .about-page-partners-cards {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
+
 .about-page-partners-card {
   font-size: 22px;
   transform: translate3d(0, 0, 0);
@@ -340,9 +385,30 @@
   transition: 0.22s;
   border-radius: 20px;
 }
+
 .about-page-partners-card:hover {
   box-shadow: 0 9px 58px 0 rgba(0, 0, 0, 0.2);
   opacity: inherit;
+}
+
+.about-page-guide {
+  margin: 100px 0 50px;
+}
+
+.about-page-guide-text-wrap {
+  margin-bottom: 40px;
+}
+
+.about-page-guide-wrap {
+  text-align: center;
+}
+
+.about-page-slider-wrap {
+  position: relative;
+}
+
+.swiper-pagination-fraction, .swiper-pagination-custom, .swiper-horizontal > .swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal {
+  margin: -40px 0;
 }
 
 @media (max-width: 930px) {
@@ -369,10 +435,6 @@
     text-align: center;
   }
 
-  .about-page-advantages {
-
-  }
-
   .about-page-team-cards {
     justify-content: space-around;
   }
@@ -395,4 +457,7 @@
     justify-content: center;
   }
 
+  .about-page-partners {
+    margin: 60px 0;
+  }
 }

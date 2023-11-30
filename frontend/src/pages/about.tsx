@@ -184,6 +184,21 @@ const About = () => {
           <EmployeeItem />
         </Fade>
       </div>
+      <div className="about-page-guide">
+        <div className="about-page-guide-wrap container">
+          <Fade>
+            <div className="about-page-guide-text-wrap">
+              <h3 className="about-page-team-title">Meat our guides</h3>
+              <p className="about-page-team-txt">
+                Duis aute irure dolor in reprehenderit in voluptate velit
+              </p>
+            </div>
+            <div className="about-page-slider-wrap">
+              <GuideSlider />
+            </div>
+          </Fade>
+        </div>
+      </div>
       <div className="about-page-partners">
         <div className="container">
           <Fade>
@@ -195,9 +210,6 @@ const About = () => {
               <div className="about-page-partners-card">Partner 5</div>
             </div>
           </Fade>
-          <div style={{ position: 'relative' }}>
-            <GuideSlider />
-          </div>
         </div>
       </div>
     </div>

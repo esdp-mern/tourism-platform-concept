@@ -1,13 +1,13 @@
 .guide-card {
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
-    margin: 16px;
-    width: 300px;
+    width: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .guide-card__image {
+    display: block;
     width: 100%;
     height: 200px;
     object-fit: cover;
@@ -34,12 +34,15 @@
     margin: 0;
     color: #333;
     font-family: 'Montserrat' , sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .guide-card__link {
     display: inline-block;
     width: 40%;
-    margin-top: 8px;
+    margin-top: 20px;
     text-decoration: none;
     color: #fff;
     background-color: #75c15b;
@@ -49,4 +52,22 @@
     border-radius: 4px;
     border: 1px solid #75c15b;
     font-family: 'Montserrat' , sans-serif;
+    font-weight: 500;
+}
+
+@media (max-width: 640px) {
+    .guide-card {
+        width: 70%;
+        margin: 0 auto;
+    }
+
+    .guide-card__link {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 400px) {
+    .guide-card__link {
+        font-size: 12px;
+    }
 }
