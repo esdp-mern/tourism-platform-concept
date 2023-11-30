@@ -4,6 +4,7 @@
   padding: 20px 30px 100px;
   max-width: 1600px;
   margin: 0 auto;
+  background: #ffffff;
 }
 
 .main-slider {
@@ -42,7 +43,7 @@
   transition: 0.2s;
   background-repeat: no-repeat;
   background-size: 20px;
-  background-position: 13px 13px;
+  background-position: 13px center;
   color: #000000;
   text-decoration: none;
 }
@@ -79,7 +80,7 @@
 }
 
 .link-group-lang-en {
-  transform: translateX(50%);
+  transform: translateX(45%);
 }
 
 .link-group-element:hover {
@@ -136,8 +137,8 @@
 .countries-slider {
   position: relative;
   align-self: stretch;
-  width: 1050px;
-  height: 760px;
+  width: 100%;
+  padding-top: 62%;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -163,6 +164,7 @@
 }
 
 .sliderTitle {
+  font-family: 'Baloo Bold', serif;
   font-size: 90px;
   font-weight: 700;
   text-decoration: none;
@@ -179,6 +181,12 @@
   font-size: 24px;
   color: #ffffff;
   margin-top: 30px;
+  font-weight: 500;
+}
+
+.sliderTitle,
+.sliderCaption {
+  padding-left: 15px;
 }
 
 .kyrgyzstan {
@@ -195,6 +203,7 @@
 
 .scrollDown {
   margin-top: 30px;
+  margin-left: 15px;
   width: 50px;
   height: 50px;
   background-color: #ffffff;
@@ -222,5 +231,170 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+@media (max-width: 1020px) {
+  .countries-slider {
+    width: 74%;
+    padding-top: 52%;
+  }
+
+  .sliderTitle {
+    font-size: 60px;
+    margin-top: 35px;
+    line-height: 65px;
+  }
+
+  .sliderCaption {
+    font-size: 20px;
+    margin-top: 5px;
+  }
+
+  .scrollDown {
+    margin-top: 20px;
+    width: 35px;
+    height: 35px;
+    background-size: 13px;
+  }
+
+  .link-group {
+    margin-left: 20px;
+    height: 160px;
+  }
+
+  .link-group-element {
+    width: 42px;
+    height: 42px;
+    background-size: 16px;
+  }
+
+  .link-group-lang {
+    font-size: 16px;
+  }
+
+  .link-group-lang-en {
+    transform: translateX(50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .slider-container {
+    padding: 20px 30px 50px;
+  }
+
+  .main-slider {
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .link-group {
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    height: unset;
+    margin-left: 0;
+    margin-top: 30px;
+  }
+
+  .link-group a {
+    position: unset;
+    transform: translateY(0);
+  }
+
+  .sliderTitle {
+    font-size: 40px;
+    line-height: 40px;
+  }
+
+  .sliderCaption {
+    font-size: 14px;
+  }
+
+  .scrollDown {
+    margin-top: 15px;
+    width: 25px;
+    height: 25px;
+    background-size: 10px;
+  }
+
+  .country-dots {
+    gap: 12px;
+  }
+
+  .country-dot {
+    padding: 10px 0 10px 15px;
+    font-size: 10px;
+  }
+
+  .link-group {
+    height: unset;
+  }
+
+  .link-group-element {
+    width: 32px;
+    height: 32px;
+    background-size: 13px;
+    background-position: 10px center;
+  }
+
+  .link-group-lang {
+    font-size: 12px;
+  }
+
+  .link-group-element:hover {
+    width: 100px;
+  }
+
+  .link-group-element-desc {
+    font-size: 14px;
+  }
+
+  .link-group-lang-en {
+    transform: translateX(50%);
+  }
+}
+
+@media (max-width: 475px) {
+  .countries-slider {
+    width: 100%;
+    padding-top: 71%;
+  }
+
+  .sliderTitle {
+    font-size: 36px;
+    line-height: 36px;
+  }
+
+  .sliderCaption {
+    font-size: 16px;
+  }
+
+  .scrollDown {
+    margin-top: 15px;
+    width: 25px;
+    height: 25px;
+    background-size: 10px;
+  }
+
+  .country-dots {
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 15px;
+  }
+
+  .country-dot {
+    padding: 10px;
+  }
+
+  .country-dot::before {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .link-group {
+    margin-top: 20px;
   }
 }
