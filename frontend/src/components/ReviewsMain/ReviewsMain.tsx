@@ -9,9 +9,9 @@ const ReviewsMain: React.FC<Props> = ({ reviews }) => {
   const last = reviews[reviews.length - 1];
 
   return (
-    <div className="container">
-      <div className="reviews-main-page">
-        <div>
+    <div className="reviews-main-page">
+      <div className="container reviews-main-page-inner">
+        <div className="reviews-main-page-content">
           <h2 className="reviews-main-page-title">What Our Clients Say</h2>
           <div className="reviews-main-page-info">
             <div className="reviews-main-page-txt">{last?.comment}</div>

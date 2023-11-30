@@ -39,9 +39,9 @@ const ToursPage = () => {
             </Link>
           </div>
         </div>
-        {/*<HotTours />*/}
+        <HotTours />
       </div>
-      <div>{/*<ReviewsMain reviews={reviews} />*/}</div>
+      <div>{<ReviewsMain reviews={reviews} />}</div>
     </>
   );
 };
