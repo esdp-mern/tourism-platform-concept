@@ -24,15 +24,6 @@ const AppToolBar = () => {
 
   const closeNavMenu = () => setNavShow(false);
 
-  const userLogout = async () => {
-    try {
-      await dispatch(logout());
-      dispatch(addAlert({ message: 'You have logged out!', type: 'info' }));
-    } catch (e) {
-      dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
-    }
-  };
-
   return (
     <div className="container">
       <div className="tool-bar">
@@ -89,15 +80,6 @@ const AppToolBar = () => {
           </NavLink>
         </nav>
         <div className="user-menu">
-          {user && (
-            <button
-              className="logout"
-              onClick={userLogout}
-              disabled={logoutLoading}
-            >
-              {logoutLoading ? <ButtonLoader size={16} /> : 'Logout'}
-            </button>
-          )}
           <button
             className={`menu-btn ${menuShow ? 'open' : ''}`}
             onClick={() => setMenuShow(!menuShow)}
