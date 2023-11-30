@@ -1,0 +1,117 @@
+.statisticks-main{
+    background: #fff;
+}
+.statisticks{
+    display: flex;
+    flex-direction: column;
+    padding: 40px 0;
+}
+
+.statisticks-info{
+    display: flex;
+    align-items: center;
+}
+.statisticks-info-left{
+    width: 700px;
+}
+.statisticks-info-right{
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.statisticks-title{
+    font-size: 45px;
+    line-height: 1.24444;
+    letter-spacing: 1px;
+    max-width: 480px;
+}
+.statisticks-txt{
+    color: #353535;
+    font-size: 16px;
+    line-height: 1.75;
+}
+.statisticks-btn{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+    padding: 17px 30px 17px 39px;
+    cursor: pointer;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #ffffff;
+    background-color: #75c15b;
+    border:1px solid #75c15b;
+    transition: 250ms all ease-in-out;
+    user-select: none;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    background-image: url("../assets/images/loupe-icon.svg");
+    background-repeat: no-repeat;
+    background-position: left 6% center;
+    background-size: 15%;
+}
+.statisticks-btn:hover{
+    background-color: #de9337;
+    border: 1px solid #de9337;
+}
+.statisticks-num{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+.statisticks-num h3{
+    color: #75c15b;
+    font-size: 47px;
+    font-weight: 600;
+    letter-spacing: -.02em;
+    margin-bottom: 10px;
+}
+.statisticks-num-txt{
+    font-size: 18px;
+    line-height: 1.44444;
+    margin-bottom: 20px;
+    font-weight: 500;
+    color: #000000;
+}
+.statisticks-num-card{
+    width: 250px;
+    text-align: center;
+}
+@media (max-width: 1020px) {
+    .statisticks-num {
+        justify-content: center;
+    }
+    .statisticks-info{
+        flex-direction: column;
+    }
+    .statisticks-btn{
+        margin-top: 40px;
+    }
+}
+@media (max-width: 750px) {
+    .statisticks-title {
+        font-size: 38px;
+    }
+    .statisticks-num h3 {
+        font-size: 35px;
+    }
+    .statisticks-info-left{
+        width: 100%;
+    }
+}
+@media (max-width: 500px) {
+    .statisticks-title {
+        font-size: 30px;
+    }
+    .statisticks-num h3 {
+        font-size: 25px;
+    }
+    .statisticks-info-right{
+        width: 100%;
+    }
+}

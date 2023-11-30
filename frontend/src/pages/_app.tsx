@@ -40,6 +40,7 @@ import '@/styles/allOrders.css';
 import '@/styles/error404.css';
 import '@/styles/admin.css';
 import '@/styles/reviews.css';
+import '@/styles/statisticks.css';
 import '@/styles/contactUs.css';
 
 export default function App({ Component, ...rest }: AppProps) {

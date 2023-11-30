@@ -10,6 +10,7 @@ import HotTours from '@/components/HotTours/HotTours';
 import ReviewsMain from '@/components/ReviewsMain/ReviewsMain';
 import { fetchPlatformReviews } from '@/containers/reviews/reviewThunk';
 import { selectPlatformReviews } from '@/containers/reviews/reviewSlice';
+import Statistics from '@/components/Statisticks/Statistics';
 
 const ToursPage = () => {
   const tours = useAppSelector(selectAllTours);
@@ -38,6 +39,9 @@ const ToursPage = () => {
               See all tours
             </Link>
           </div>
+        </div>
+        <div>
+          <Statistics />
         </div>
         <HotTours />
       </div>
