@@ -48,7 +48,10 @@ const OneTourReview = () => {
     return parseFloat(percentage.toFixed(2));
   };
 
-  const percentage = calculatePercentageOfMax(calculateAverageRating(), 5);
+  let percentage = calculatePercentageOfMax(calculateAverageRating(), 5);
+  if (toursRatings.length === 0) {
+    percentage = 0;
+  }
 
   return (
     <div className="one-tour-reviews">
@@ -56,7 +59,11 @@ const OneTourReview = () => {
         <Fade>
           <div className="one-tour-average-wrap">
             <div className="one-tour-average-num">
-              <h5>{calculateAverageRating().toFixed(1)}</h5>
+              <h5>
+                {toursRatings.length > 0
+                  ? calculateAverageRating().toFixed(1)
+                  : 0}
+              </h5>
               <p>{reviewTotal}</p>
             </div>
             <div className="one-tour-average-progress">
@@ -65,9 +72,7 @@ const OneTourReview = () => {
                 style={{
                   width: `${percentage}%`,
                 }}
-              >
-                {percentage} %
-              </div>
+              ></div>
             </div>
           </div>
           <div className="one-tour-review-wrap">
