@@ -52,7 +52,8 @@
   height: 24px;
   position: absolute;
   left: 0;
-  top: 17px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .text-field-span {
@@ -96,4 +97,71 @@
 .my-today {
   font-weight: bold !important;
   color: blue !important;
+}
+
+@media (max-width: 1020px) {
+  .one-tour-order-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0 !important;
+    padding: 25px 35px 40px !important;
+  }
+
+  .one-tour-order-form-inputs {
+    max-width: unset !important;
+    width: 100%;
+  }
+
+  .one-tour-order-form-inputs .text-field {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 475px) {
+  .one-tour-order-form-title {
+    margin-bottom: 20px;
+  }
+
+  .text-field-label,
+  .css-1jqq78o-placeholder,
+  .one-tour-order-form-inputs input {
+    font-size: 14px;
+  }
+
+  .text-field-input {
+    padding: 5px 19px 5px 35px;
+  }
+
+  .text-field-select {
+    padding-bottom: 0;
+    padding-top: 10px;
+  }
+
+  .one-tour-order-form-btn {
+    margin-top: 30px;
+    font-size: 14px;
+    padding: 12px 20px;
+  }
+
+  .one-tour-inner-gallery2 {
+    gap: 10px;
+  }
+
+  .one-tour-inner-gallery2 img {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (max-width: 768px) {
+  .day-picker {
+    transform: scale(0.9) translate(0, 70px);
+  }
+}
+
+@media (max-width: 475px) {
+  .day-picker {
+    transform: scale(0.8) translate(-20px, 40px);
+  }
 }

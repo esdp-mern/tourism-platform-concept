@@ -91,7 +91,7 @@ const OneNews: NextPage<
             </div>
           </div>
           <div className="one-news-main-right">
-            <div>
+            <div className="one-news-categories">
               <h2 className="one-news-main-right-title">Categories</h2>
               <div>
                 <div className="one-news-main-right-categories">Places</div>
@@ -100,7 +100,7 @@ const OneNews: NextPage<
                 <div className="one-news-main-right-categories">Borders</div>
               </div>
             </div>
-            <div>
+            <div className="one-news-related">
               <h2 className="one-news-main-right-related">Related news</h2>
               {arr.length === 0 ? <div>No related news</div> : items}
             </div>

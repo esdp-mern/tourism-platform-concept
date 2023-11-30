@@ -164,14 +164,21 @@
   position: absolute;
   top: 10px;
   left: 10px;
+  width: 100%;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 35px;
 }
 
 .profile-preview * {
   margin: 0;
   padding: 0;
+}
+
+.profile-preview-avatar-and-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .profile-preview h5 {
@@ -243,12 +250,12 @@
 .logout:hover {
   background-color: #ffa133;
 }
-.backdrop{
+.backdrop {
   position: fixed;
   inset: 0;
   background-color: rgb(0, 0, 0, 0.4);
 }
-.backdrop-hidden{
+.backdrop-hidden {
   display: none;
 }
 

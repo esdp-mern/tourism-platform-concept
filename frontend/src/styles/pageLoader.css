@@ -10,7 +10,7 @@
   background: #f6f6f6;
   overflow: hidden;
   width: 100%;
-  animation: fadeOut 2.3s ease-in-out;
+  animation: fadeOut 2.1s ease-in-out;
 }
 
 .page-loader {
@@ -19,39 +19,41 @@
   border-radius: 50%;
   margin-bottom: 80px;
   background-color: #d9d9d9;
-  background-image: url('../assets/images/uz-loader.png');
   background-size: cover;
   box-shadow: 0 0 20px 4px #c5c5c5;
-  animation: flagSpin 1.9s infinite ease-in-out;
+  animation: flagSpin 1.8s infinite ease-in-out;
 }
 
 @keyframes flagSpin {
   0% {
+    opacity: 0;
     transform: rotateX(0deg);
-    background-image: url('../assets/images/uz-loader.png');
+    background-image: url('../assets/images/kg-loader.png');
+  }
+  13% {
+    opacity: 1;
   }
   28% {
     transform: rotateX(360deg);
-    background-image: url('../assets/images/kg-loader.png');
   }
   35% {
     transform: rotateX(360deg);
     background-image: url('../assets/images/kg-loader.png');
   }
   60% {
-    transform: rotateX(0deg);
+    transform: rotateX(720deg);
     background-image: url('../assets/images/kz-loader.png');
   }
   68% {
-    transform: rotateX(0deg);
+    transform: rotateX(720deg);
     background-image: url('../assets/images/kz-loader.png');
   }
   93% {
-    transform: rotateX(360deg);
+    transform: rotateX(1080deg);
     background-image: url('../assets/images/uz-loader.png');
   }
   100% {
-    transform: rotateX(360deg);
+    transform: rotateX(1080deg);
     background-image: url('../assets/images/uz-loader.png');
   }
 }

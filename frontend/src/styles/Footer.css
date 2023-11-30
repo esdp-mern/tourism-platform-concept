@@ -220,4 +220,8 @@
   .footer-inner-top-3 {
     width: 100%;
   }
+
+  .footer-title {
+    margin: 25px 0 15px;
+  }
 }
