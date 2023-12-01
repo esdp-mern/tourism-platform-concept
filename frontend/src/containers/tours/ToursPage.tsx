@@ -45,9 +45,7 @@ const ToursPage = () => {
         </div>
         <HotTours />
       </div>
-      <div>
-        <ReviewsMain reviews={reviews} />
-      </div>
+      <div>{<ReviewsMain reviews={reviews} />}</div>
     </>
   );
 };

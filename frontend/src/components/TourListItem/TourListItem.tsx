@@ -85,7 +85,7 @@ const TourItem: React.FC<Props> = ({ tour }) => {
               >
                 {publishLoading && publishLoading === tour._id
                   ? tour.isPublished
-                    ? 'unpublication...'
+                    ? 'unpublishing...'
                     : 'publishing...'
                   : tour.isPublished
                     ? 'Unpublish'

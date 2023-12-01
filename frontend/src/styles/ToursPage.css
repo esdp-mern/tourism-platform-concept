@@ -10,8 +10,9 @@
 .tours-page {
   display: flex;
   flex-wrap: wrap;
+  gap: 40px 20px;
   justify-content: center;
-  padding-top: 100px;
+  padding: 100px 10px 0;
 }
 
 .tours-page-title {
@@ -26,7 +27,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: 50px;
+  padding: 50px 0;
 }
 
 .tours-page-link-tours {
@@ -113,4 +114,21 @@
   border: 1px solid #75c15b;
   border-radius: 50%;
   color: #fff;
+}
+
+@media (max-width: 1020px) {
+  .tours-page {
+    padding-top: 40px;
+  }
+
+  .tours-page-title {
+    margin: 0;
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 475px) {
+  .tours-page-title {
+    font-size: 28px;
+  }
 }

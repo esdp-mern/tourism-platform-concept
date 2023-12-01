@@ -2,8 +2,6 @@
   display: flex;
   flex-direction: column;
   width: 350px;
-  margin-right: 20px;
-  margin-bottom: 50px;
   border-radius: 5px;
   overflow: hidden;
   text-decoration: none;
@@ -168,4 +166,42 @@
 
 .btn-publish-tour:active {
   box-shadow: 1px 1px 5px #0083ff;
+}
+
+@media (max-width: 768px) {
+  .tour-item {
+    margin: 0 auto;
+    width: 280px;
+  }
+
+  .tour-item-top {
+    height: 170px;
+  }
+
+  .tour-item-img {
+    height: 100% !important;
+    width: 100% !important;
+  }
+
+  .tour-item-title {
+    font-size: 20px !important;
+    line-height: 26px;
+  }
+
+  .tour-item-bottom {
+    padding: 15px;
+  }
+
+  .tour-item-country {
+    font-size: 16px;
+  }
+
+  .buttons-tour button {
+    font-size: 11px;
+    padding: 8px 15px;
+  }
+
+  .tour-info-publish {
+    font-size: 11px;
+  }
 }
