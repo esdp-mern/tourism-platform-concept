@@ -7,7 +7,7 @@ import {
   selectOneTour,
   selectPostReviewError,
 } from '@/containers/tours/toursSlice';
-import { fetchTour } from '@/containers/tours/toursThunk';
+import { fetchTour, fetchTours } from '@/containers/tours/toursThunk';
 import { useParams } from 'next/navigation';
 import { apiUrl } from '@/constants';
 import OneTourInformation from '@/components/OneTourPage/OneTourInformation/OneTourInformation';
@@ -50,6 +50,7 @@ const TourPage: NextPage<
       dispatch(resetPostReviewError());
     }
     dispatch(fetchTour(id));
+    dispatch(fetchTours());
     dispatch(fetchToursReviews(id));
     dispatch(fetchTourRating(id));
   }, [dispatch, postReviewError, id]);

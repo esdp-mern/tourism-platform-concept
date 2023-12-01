@@ -9,6 +9,7 @@ import AnonymousMenu from '@/components/UI/AppToolBar/components/AnonymousMenu';
 import { usePathname } from 'next/navigation';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import { logout } from '@/containers/users/usersThunk';
+import HotToursToolbar from '@/components/HotTours/HotToursToolbar';
 
 interface IProps {
   show: boolean;
@@ -69,6 +70,7 @@ const ToolBarMenu: React.FC<IProps> = ({ show, onClick }) => {
             <AnonymousMenu onClick={onClick} pathname={pathname} />
           </div>
         )}
+        <HotToursToolbar />
         <button className="close-btn" onClick={onClick}>
           <span></span>
           <span></span>

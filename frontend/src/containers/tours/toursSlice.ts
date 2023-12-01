@@ -29,6 +29,8 @@ interface ToursState {
   editLoading: boolean;
   deleteLoading: boolean | string;
   publishLoading: boolean | string;
+  modal: boolean;
+  hotTours: Tour[];
 }
 
 const initialState: ToursState = {
@@ -46,6 +48,8 @@ const initialState: ToursState = {
   editLoading: false,
   deleteLoading: false,
   publishLoading: false,
+  modal: false,
+  hotTours: [],
 };
 
 export const toursSlice = createSlice({
@@ -54,6 +58,9 @@ export const toursSlice = createSlice({
   reducers: {
     resetPostReviewError: (state) => {
       state.postReviewError = null;
+    },
+    showModal: (state, action) => {
+      state.modal = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -69,6 +76,9 @@ export const toursSlice = createSlice({
     });
     builder.addCase(fetchTours.fulfilled, (state, { payload: tours }) => {
       state.tours = tours;
+      tours.length >= 4
+        ? (state.hotTours = [tours[0], tours[1], tours[2], tours[3]])
+        : (state.hotTours = []);
       state.fetchAllLoading = false;
     });
     builder.addCase(fetchTours.rejected, (state) => {
@@ -162,7 +172,7 @@ export const toursSlice = createSlice({
   },
 });
 
-export const { resetPostReviewError } = toursSlice.actions;
+export const { resetPostReviewError, showModal } = toursSlice.actions;
 export const toursReducer = toursSlice.reducer;
 export const selectAllTours = (state: RootState) => state.tours.tours;
 export const selectOneTour = (state: RootState) => state.tours.tour;
@@ -188,3 +198,5 @@ export const selectTourPublishLoading = (state: RootState) =>
   state.tours.publishLoading;
 export const selectAdminTourLoading = (state: RootState) =>
   state.tours.fetchAdminTourLoading;
+export const galleryModal = (state: RootState) => state.tours.modal;
+export const selectHotTours = (state: RootState) => state.tours.hotTours;

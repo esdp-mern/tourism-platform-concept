@@ -29,8 +29,8 @@
   content: "";
   width: 25px;
   height: 25px;
-  background-image: url("../assets/images/arrow-right.svg");
-  /*Потом добавим лупу, она есть в неправереном таске*/
+  background-image: url("../assets/images/loupe-icon.svg");
+  background-size: 100%;
   background-repeat: no-repeat;
   position: absolute;
   top: 50%;
@@ -39,7 +39,7 @@
   z-index: 1;
 }
 
-.one-tour-photos img {
+.gallery-imgs {
   width: 250px;
   height: 250px;
 }
@@ -148,7 +148,7 @@
   }
 }
 @media (max-width: 768px) {
-  .one-tour-photos img {
+  .gallery-imgs {
     width: 180px;
     height: 180px;
   }

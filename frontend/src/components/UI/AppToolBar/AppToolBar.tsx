@@ -1,26 +1,23 @@
 import React, { useState } from 'react';
 import NavLink from 'next/link';
 import UserMenu from './components/UserMenu';
-import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import {
-  addAlert,
-  selectLogoutLoading,
-  selectUser,
-} from '@/containers/users/usersSlice';
-import { logout } from '@/containers/users/usersThunk';
+import { selectUser } from '@/containers/users/usersSlice';
 import ToolBarMenu from '@/components/UI/AppToolBar/components/ToolBarMenu';
 import { usePathname } from 'next/navigation';
+import { fetchTours } from '@/containers/tours/toursThunk';
 
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const [navShow, setNavShow] = useState(false);
   const [menuShow, setMenuShow] = useState(false);
-  const logoutLoading = useAppSelector(selectLogoutLoading);
   const pathname = usePathname();
 
-  const showMenu = () => setMenuShow(!menuShow);
+  const showMenu = () => {
+    setMenuShow(!menuShow);
+    dispatch(fetchTours);
+  };
 
   const closeNavMenu = () => setNavShow(false);
 

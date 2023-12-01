@@ -15,7 +15,7 @@ const Statistics = () => {
           window.innerHeight || document.documentElement.clientHeight;
 
         const isVisible =
-          elementPosition.top < windowHeight && elementPosition.bottom >= 0;
+          elementPosition.top < windowHeight && elementPosition.bottom >= -250;
         setStatisticsVisible(isVisible);
       }
     };
