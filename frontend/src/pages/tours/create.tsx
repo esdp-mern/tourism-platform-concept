@@ -1,20 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PageLoader from '@/components/Loaders/PageLoader';
 import TourForm from '@/components/Forms/TourForm/TourForm';
 import { useAppSelector } from '@/store/hooks';
 import { selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
-import { useRouter } from 'next/router';
+import Custom404 from '@/pages/404';
 
 const NewTour = () => {
   const user = useAppSelector(selectUser);
-  const router = useRouter();
 
-  useEffect(() => {
-    if (!user || user.role !== userRoles.admin) {
-      void router.push('/');
-    }
-  }, [router, user]);
+  if (!user || user.role !== userRoles.admin) {
+    return <Custom404 errorType="tour" />;
+  }
   return (
     <div className="container sign-up-page">
       <PageLoader />
@@ -22,5 +19,4 @@ const NewTour = () => {
     </div>
   );
 };
-
 export default NewTour;

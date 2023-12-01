@@ -5,8 +5,6 @@ import HotToursItem from '@/components/HotTours/components/HotToursItem/HotTours
 import arrowRightIcon from '@/assets/images/arrow-right.svg';
 import { Tour } from '@/type';
 
-const x = 445;
-
 const HotTours = () => {
   const tours = useAppSelector(selectAllTours);
   const carouselRef = useRef<HTMLDivElement | null>(null);
@@ -16,19 +14,20 @@ const HotTours = () => {
 
   const slide = useCallback(
     (isNext: boolean) => {
-      if (!carouselRef.current && !carouselTours.length) return;
+      if (!carouselRef.current || !carouselTours.length) return;
 
       const ms = 250;
 
-      if (carouselRef.current) {
-        carouselRef.current.style.cssText = `
-      transition: none;
-      transform: translateX(0);
-    `;
-      }
+      const x = carouselRef.current.children[0].clientWidth + 30;
+
+      carouselRef.current.style.cssText = `
+        transition: all ${ms}ms ease 0s;
+        transform: translateX(${isNext ? '-' : ''}${x}px);
+      `;
 
       setTimeout(() => {
-        carouselRef.current!.style.cssText = `
+        if (!carouselRef.current) return;
+        carouselRef.current.style.cssText = `
             transition: none;
             transform: translateX(0);
           `;

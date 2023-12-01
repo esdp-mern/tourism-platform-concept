@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
 import { useAppSelector } from '@/store/hooks';
 import { selectOneTour } from '@/containers/tours/toursSlice';
@@ -12,21 +12,43 @@ interface Props {
   className?: string;
 }
 
+interface ISelectGuide {
+  value: string;
+  label: string;
+}
+
 const TextFieldSelect: React.FC<Props> = (props) => {
   const tour = useAppSelector(selectOneTour);
 
+  const [guides, setGuides] = useState<ISelectGuide[]>([]);
+
+  useEffect(() => {
+    if (!guides.length && tour) {
+      setGuides(
+        tour.guides.map((guide) => ({
+          label: guide.user.displayName,
+          value: guide._id,
+        })),
+      );
+    }
+  }, [guides, tour]);
+
   return (
-    <Select
-      className={`text-field-select ${props.className}`}
-      options={tour?.guides}
-      value={tour?.guides.find((option) => option._id === props.value)}
-      onChange={(newValue) =>
-        newValue &&
-        props.onSelect({ target: { name: props.name, value: newValue._id } })
-      }
-      placeholder={props.label}
-      name={props.name}
-    />
+    tour && (
+      <Select
+        className={`text-field-select ${props.className}`}
+        options={guides}
+        value={guides.find((option) => option.value === props.value)}
+        onChange={(newValue) =>
+          newValue &&
+          props.onSelect({
+            target: { name: props.name, value: newValue.value },
+          })
+        }
+        placeholder={props.label}
+        name={props.name}
+      />
+    )
   );
 };
 

@@ -18,6 +18,7 @@ import OneTourOrderForm from '@/components/OneTourOrderForm/OneTourOrderForm';
 import PageLoader from '@/components/Loaders/PageLoader';
 import { fetchToursReviews } from '@/containers/reviews/reviewThunk';
 import Custom404 from '@/pages/404';
+import { fetchTourRating } from '@/containers/ratings/ratingThunk';
 
 interface ITab {
   title: string;
@@ -41,8 +42,8 @@ const TourPage: NextPage<
   const dispatch = useAppDispatch();
   const tour = useAppSelector(selectOneTour);
   const postReviewError = useAppSelector(selectPostReviewError);
-
   const [currentTab, setCurrentTab] = useState<string>('information');
+  const [adaptiveTabBtns, setAdaptiveTabBtns] = useState('');
 
   useEffect(() => {
     if (postReviewError) {
@@ -50,24 +51,43 @@ const TourPage: NextPage<
     }
     dispatch(fetchTour(id));
     dispatch(fetchToursReviews(id));
+    dispatch(fetchTourRating(id));
   }, [dispatch, postReviewError, id]);
-
-  const imgLink = apiUrl + '/' + tour?.mainImage;
 
   if (!tour) return <Custom404 errorType="tour" />;
 
   const toggleTab = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { name } = e.currentTarget;
-
     setCurrentTab(name);
+    closeNav();
+  };
+
+  const closeNav = () => {
+    if (adaptiveTabBtns === '') return;
+    setAdaptiveTabBtns('closed');
+    setTimeout(() => {
+      setAdaptiveTabBtns('');
+    }, 300);
+  };
+
+  const navBtnToggle = () => {
+    if (adaptiveTabBtns === 'open') {
+      closeNav();
+      return;
+    }
+    setAdaptiveTabBtns('open');
   };
 
   return (
-    <div className="one-tour">
+    <div className="one-tour" onClick={() => closeNav()}>
       <PageLoader />
       <div className="one-tour-top">
-        <img src={imgLink} className="one-tour-img" alt={tour.name} />
-        <div className="one-tour-top-info">
+        <div
+          className="one-tour-top-info"
+          style={{
+            backgroundImage: `url('${apiUrl + '/' + tour.mainImage}')`,
+          }}
+        >
           <div className="one-tour-top-line"></div>
           <h2 className="one-tour-top-title">{tour.name}</h2>
           <div className="one-tour-btns">
@@ -80,21 +100,45 @@ const TourPage: NextPage<
             <button
               name={name}
               onClick={toggleTab}
-              className={`one-tour-slider-${name}`}
+              className={
+                currentTab === name
+                  ? `one-tour-slider-${name} btn-active`
+                  : `one-tour-slider-${name} one-tour-slider-btns-btn`
+              }
               key={`${name}-tab`}
             >
-              {title}
+              <span>{title}</span>
             </button>
           ))}
         </div>
+        <div
+          className="adaptive-one-tour-slider-btns"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button className="show-tour-tab-btns" onClick={navBtnToggle}>
+            <span>Navigation</span>
+          </button>
+          <div className={`tour-tab-btns tour-tab-btns-${adaptiveTabBtns}`}>
+            {TABS.map(({ title, name }) => (
+              <button
+                name={name}
+                onClick={toggleTab}
+                className={`tour-tab-btn tour-tab-btn-${name}`}
+                key={`${name}-tab`}
+              >
+                <span>{title}</span>
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
       <div className="container one-tour-tab">
-        <div>
+        <>
           {currentTab === 'information' && <OneTourInformation />}
           {currentTab === 'plan' && <OneTourPlan />}
           {currentTab === 'gallery' && <Gallery />}
           {currentTab === 'reviews' && <OneTourReview />}
-        </div>
+        </>
         <OneTourOrderForm />
       </div>
     </div>

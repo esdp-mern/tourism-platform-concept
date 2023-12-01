@@ -6,7 +6,7 @@ const Footer = () => {
     <div>
       <div className="footer-inner">
         <div className="footer-inner-top container">
-          <div>
+          <div className="footer-inner-top-1">
             <h6 className="footer-title">Quick Links</h6>
             <div className="footer-inner-top-links">
               <div>
@@ -33,7 +33,7 @@ const Footer = () => {
               <a className="footer-links whatsapp" href="#" />
             </div>
           </div>
-          <div>
+          <div className="footer-inner-top-2">
             <h6 className="footer-title">Get in touch</h6>
             <div className="footer-address">
               9 Valley St. Brooklyn, NY 11203
@@ -41,7 +41,7 @@ const Footer = () => {
             <div className="footer-phone">1-800-346-6277</div>
             <div className="footer-email">info@demolink.org</div>
           </div>
-          <div>
+          <div className="footer-inner-top-3">
             <h6 className="footer-title">For travelers</h6>
             <div>
               <ul className="footer-list-links">
@@ -83,7 +83,7 @@ const Footer = () => {
         <div className="container">
           <div className="footer-inner-two-txt">
             © 2023 Sunway. All rights reserved.
-            <span> Privacy Policy</span>
+            <span>ㅤPrivacy Policy</span>
           </div>
         </div>
       </div>

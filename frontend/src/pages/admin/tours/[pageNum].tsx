@@ -89,7 +89,7 @@ const AllToursPage = () => {
               <div>
                 <div className="tours-admin-page">
                   {currentRecords.map((tour) => (
-                    <TourItem tour={tour} key={tour._id} admin />
+                    <TourItem tour={tour} key={tour._id} />
                   ))}
                 </div>
                 <div className="tours-page-paginate">

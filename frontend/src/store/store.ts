@@ -15,10 +15,11 @@ import { persistReducer } from 'redux-persist';
 import { usersSlice } from '@/containers/users/usersSlice';
 import storage from 'redux-persist/lib/storage';
 import { guidesSlice } from '@/containers/guides/guidesSlice';
-import { toursReviewSlice } from '@/containers/reviews/reviewSlice';
 import { newsSlice } from '@/containers/news/newsSlice';
 import { aboutSlice } from '@/containers/about/aboutSlice';
 import { ordersSlice } from '@/containers/orders/ordersSlice';
+import { toursRatingSlice } from '@/containers/ratings/ratingSlice';
+import { reviewSlice } from '@/containers/reviews/reviewSlice';
 
 const usersPersistConfig = {
   key: 'tourism-platform-concept:users',
@@ -35,7 +36,8 @@ const makeStore = () => {
     about: aboutSlice.reducer,
     [toursSlice.name]: toursSlice.reducer,
     [guidesSlice.name]: guidesSlice.reducer,
-    reviews: toursReviewSlice.reducer,
+    reviews: reviewSlice.reducer,
+    ratings: toursRatingSlice.reducer,
     [usersSlice.name]: isServer
       ? usersSlice.reducer
       : (persistReducer(usersPersistConfig, usersSlice.reducer) as Reducer),

@@ -12,6 +12,8 @@ tourReviewRouter.get('/', async (req, res) => {
       }).populate('user tour');
       return res.send(reviews);
     }
+    const reviews = await TourReview.find().populate('user tour');
+    return res.send(reviews);
   } catch (e) {
     return res.status(500).send(e);
   }
