@@ -1,11 +1,11 @@
-import { IGuide } from '@/type';
+import { IGuideFull } from '@/type';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import { RootState } from '@/store/store';
 import { fetchGuides } from '@/containers/guides/guidesThunk';
 
 interface guidesState {
-  guides: IGuide[];
+  guides: IGuideFull[];
   fetchAllLoading: boolean;
 }
 

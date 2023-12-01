@@ -3,8 +3,10 @@ import { Fade } from 'react-awesome-reveal';
 import horseImg from '@/assets/images/horses.png';
 import PageLoader from '@/components/Loaders/PageLoader';
 import EmployeeItem from '@/components/EmployeeItem/EmployeeItem';
+import img from '@/assets/images/kg.jpeg';
+import GuideSlider from '@/components/GuideSlider/GuideSlider';
 
-const about = () => {
+const About = () => {
   return (
     <div className="about-page">
       <PageLoader />
@@ -40,7 +42,7 @@ const about = () => {
               </div>
               <button className="about-page-tours-btn">Book now</button>
             </div>
-            <div>
+            <div className="about-page-tours-img-wrap">
               <img
                 src={horseImg.src}
                 alt="coconout"
@@ -182,6 +184,21 @@ const about = () => {
           <EmployeeItem />
         </Fade>
       </div>
+      <div className="about-page-guide">
+        <div className="about-page-guide-wrap container">
+          <Fade>
+            <div className="about-page-guide-text-wrap">
+              <h3 className="about-page-team-title">Meat our guides</h3>
+              <p className="about-page-team-txt">
+                Duis aute irure dolor in reprehenderit in voluptate velit
+              </p>
+            </div>
+            <div className="about-page-slider-wrap">
+              <GuideSlider />
+            </div>
+          </Fade>
+        </div>
+      </div>
       <div className="about-page-partners">
         <div className="container">
           <Fade>
@@ -199,4 +216,4 @@ const about = () => {
   );
 };
 
-export default about;
+export default About;
