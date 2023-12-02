@@ -224,7 +224,102 @@
   line-height: 1.7;
   margin: 0;
 }
+.hot-tours-toolbar-wrap{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.hot-tours-toolbar{
+  position: relative;
+  margin-top: 60px;
+  padding: 10px;
+  width: 200px;
+  height: 200px;
+}
+.hot-tours-toolbar-inner{
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+}
+.hot-tour-toolbar-0{
+  display: block;
+}
+.hot-tour-toolbar-1{
+  display: none;
+}
+.hot-tour-toolbar-img{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+.hot-tour-toolbar-sale{
+  position: relative;
+  top: 10px;
+  border-radius: 10px;
+  width: 50px;
+  right: -3px;
+  color: #fff;
+  font-size: 16px;
+  background: #de9337;
+  padding: 10px;
+}
+.hot-tour-toolbar-info{
+  height: 0;
+  margin-top: auto;
+  overflow: hidden;
+  position: absolute;
+  padding: 10px;
+  bottom: 0;
+  z-index: 1;
+  width: 150px;
+  transition: 0.5s;
+  color: #fff;
+}
 
+.hot-tour-toolbar-img:hover~.hot-tour-toolbar-info,
+.hot-tour-toolbar-info:hover {
+  height: 120px;
+}
+.hot-tour-toolbar-link{
+  color: #fff;
+  text-decoration: none;
+}
+.hot-tour-toolbar-link:hover{
+  text-decoration: underline;
+}
+.hot-tour-toolbar-old-price{
+  color: #c4c4c4;
+  text-decoration: line-through;
+  margin-right: 8px;
+  font-weight: 600;
+}
+.hot-tour-toolbar-price{
+  color: #75c15b;
+  font-weight: 600;
+}
+.hot-tours-toolbar-dots{
+  display: flex;
+  margin: 40px auto 0;
+  justify-content: space-around;
+}
+.hot-tours-toolbar-dots div{
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.hot-tours-toolbar-dot-active{
+  background-color: #75c15b;
+}
+.hot-tours-toolbar-dot-hide{
+  background-color: #c4c4c4;
+}
+.hot-tours-toolbar-dot-hide:hover{
+  background-color: #75c15b;
+}
 @media screen and (max-width: 1300px) {
   .hot-tours-wrapper-inner {
     left: 50%;
