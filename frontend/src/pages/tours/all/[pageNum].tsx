@@ -5,6 +5,7 @@ import { fetchTours } from '@/containers/tours/toursThunk';
 import { selectAllTours } from '@/containers/tours/toursSlice';
 import TourItem from '@/components/TourListItem/TourListItem';
 import PageLoader from '@/components/Loaders/PageLoader';
+import { setIsLightMode } from '@/containers/config/configSlice';
 
 const AllToursPage = () => {
   const dispatch = useAppDispatch();
@@ -18,6 +19,7 @@ const AllToursPage = () => {
   const nPages = Math.ceil(tours.length / toursPerPage);
 
   useEffect(() => {
+    dispatch(setIsLightMode(true));
     dispatch(fetchTours());
   }, [dispatch]);
 

@@ -1,9 +1,37 @@
+.tool-bar-body {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  padding: 40px 0;
+  transition:
+    0.35s all cubic-bezier(0.65, 0.05, 0.36, 1),
+    border-bottom 0s;
+  background-color: transparent;
+}
+
+.tool-bar-body-scrolled {
+  background-color: #fff;
+  padding: 20px 0;
+  border-bottom: 1px solid transparent;
+  border-bottom-color: #ddd;
+}
+
+.tool-bar-body-dark *:not(.tool-bar-menu *) {
+  color: #fff !important;
+}
+
+.tool-bar-body-dark-scrolled {
+  background-color: #353535;
+  border-bottom-color: #222;
+}
+
 .tool-bar {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px 0;
   z-index: 1;
 }
 
@@ -39,13 +67,17 @@
 .menu-btn span:not(:last-child),
 .nav-btn span {
   position: absolute;
-  height: 2px;
+  height: 2.25px;
   width: 25px;
   background-color: #000;
   left: 5px;
   transition:
     transform 0.5s,
     opacity 0.5s;
+}
+
+.menu-btn-dark span:not(:last-child) {
+  background-color: #fff;
 }
 
 .menu-btn span:last-child {
@@ -183,6 +215,7 @@
 
 .profile-preview h5 {
   letter-spacing: 0;
+  color: #222;
 }
 
 .profile-preview h6 {

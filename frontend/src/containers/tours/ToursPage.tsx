@@ -11,6 +11,7 @@ import ReviewsMain from '@/components/ReviewsMain/ReviewsMain';
 import { fetchPlatformReviews } from '@/containers/reviews/reviewThunk';
 import { selectPlatformReviews } from '@/containers/reviews/reviewSlice';
 import Statistics from '@/components/Statisticks/Statistics';
+import { setIsLightMode } from '@/containers/config/configSlice';
 
 const ToursPage = () => {
   const tours = useAppSelector(selectAllTours);
@@ -18,6 +19,7 @@ const ToursPage = () => {
   const reviews = useAppSelector(selectPlatformReviews);
 
   useEffect(() => {
+    dispatch(setIsLightMode(true));
     dispatch(fetchPlatformReviews());
     dispatch(fetchTours());
   }, [dispatch]);

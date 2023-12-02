@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PageLoader from '@/components/Loaders/PageLoader';
+import { useAppDispatch } from '@/store/hooks';
+import { setIsLightMode } from '@/containers/config/configSlice';
 
 const ContactUs = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setIsLightMode(false));
+  }, [dispatch]);
+
   return (
     <div className="contacts-page">
       <PageLoader />

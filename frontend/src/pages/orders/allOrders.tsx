@@ -9,12 +9,17 @@ import dayjs from 'dayjs';
 import { addAlert, selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
 import { useRouter } from 'next/router';
+import { setIsLightMode } from '@/containers/config/configSlice';
 
 const AllOrders = () => {
   const dispatch = useAppDispatch();
   const orders = useAppSelector(selectAllOrders);
   const user = useAppSelector(selectUser);
   const router = useRouter();
+
+  useEffect(() => {
+    dispatch(setIsLightMode(true));
+  }, [dispatch]);
 
   useEffect(() => {
     if (!user || user.role !== userRoles.moderator) {

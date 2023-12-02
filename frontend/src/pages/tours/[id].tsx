@@ -19,6 +19,7 @@ import PageLoader from '@/components/Loaders/PageLoader';
 import { fetchToursReviews } from '@/containers/reviews/reviewThunk';
 import Custom404 from '@/pages/404';
 import { fetchTourRating } from '@/containers/ratings/ratingThunk';
+import { setIsLightMode } from '@/containers/config/configSlice';
 
 interface ITab {
   title: string;
@@ -49,6 +50,7 @@ const TourPage: NextPage<
     if (postReviewError) {
       dispatch(resetPostReviewError());
     }
+    dispatch(setIsLightMode(false));
     dispatch(fetchTour(id));
     dispatch(fetchTours());
     dispatch(fetchToursReviews(id));

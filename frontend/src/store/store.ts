@@ -20,6 +20,7 @@ import { aboutSlice } from '@/containers/about/aboutSlice';
 import { ordersSlice } from '@/containers/orders/ordersSlice';
 import { toursRatingSlice } from '@/containers/ratings/ratingSlice';
 import { reviewSlice } from '@/containers/reviews/reviewSlice';
+import { configReducer, configSlice } from '@/containers/config/configSlice';
 
 const usersPersistConfig = {
   key: 'tourism-platform-concept:users',
@@ -31,6 +32,7 @@ const makeStore = () => {
   const isServer = typeof window === 'undefined';
 
   const reducers = {
+    [configSlice.name]: configReducer,
     [ordersSlice.name]: ordersSlice.reducer,
     [newsSlice.name]: newsSlice.reducer,
     about: aboutSlice.reducer,
