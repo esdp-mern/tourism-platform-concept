@@ -126,4 +126,44 @@ usersRouter.post('/google', async (req, res, next) => {
   }
 });
 
+usersRouter.put(
+  '/:id',
+  auth,
+  imagesUpload.single('avatar'),
+  async (req, res, next) => {
+    try {
+      const userId = req.params.id;
+      const user = (req as RequestWithUser).user;
+      const existingUser = await User.findById(userId);
+
+      if (!existingUser) {
+        return res.status(404).send('User not found');
+      }
+
+      if (user._id.toString() !== existingUser._id.toString()) {
+        return res.status(403).send({
+          error: `No permissions to change user: ${user._id} exist: ${existingUser._id}`,
+        });
+      }
+
+      existingUser.username = req.body.username
+        ? req.body.username
+        : existingUser.username;
+      existingUser.email = req.body.email ? req.body.email : existingUser.email;
+      existingUser.displayName = req.body.displayName
+        ? req.body.displayName
+        : existingUser.displayName;
+      existingUser.avatar = req.file ? req.file.filename : existingUser.avatar;
+
+      await existingUser.save();
+      return res.send(existingUser);
+    } catch (e) {
+      if (e instanceof mongoose.Error.ValidationError) {
+        return res.status(400).send(e);
+      }
+      return next(e);
+    }
+  },
+);
+
 export default usersRouter;
