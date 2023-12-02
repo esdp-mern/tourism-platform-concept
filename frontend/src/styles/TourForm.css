@@ -52,6 +52,11 @@
   transform: translateY(-40%);
   cursor: text;
 }
+
+.form-tour-label.form-tour-label-image {
+  transform: translateY(-40px);
+}
+
 .form-tour-label-two {
   position: absolute;
   top: 12px;

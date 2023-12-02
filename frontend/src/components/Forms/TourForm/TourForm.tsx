@@ -11,6 +11,7 @@ import {
 import { editTour, postTour } from '@/containers/tours/toursThunk';
 import { useRouter } from 'next/router';
 import TextFieldGuide from '@/components/UI/TextField/components/TextFieldGuide';
+import FilesInput from '@/components/UI/FileInput/FilesInput';
 
 interface Props {
   existingTour?: ITourMutation;
@@ -342,6 +343,12 @@ const TourForm: React.FC<Props> = ({
             image={state.mainImage}
             className="form-tour-control"
           />
+          <label
+            htmlFor="destination"
+            className="form-tour-label form-tour-label-image"
+          >
+            Main image:
+          </label>
         </div>
         <div className="input-tour-wrap">
           <textarea
@@ -441,6 +448,19 @@ const TourForm: React.FC<Props> = ({
           {Boolean(getFieldError('dressCode')) && (
             <span className="error-tour">{getFieldError('dressCode')}</span>
           )}
+        </div>
+        <div className="input-tour-wrap">
+          <FilesInput
+            onChange={changeFileValue}
+            name="galleryTour"
+            className="form-tour-control"
+          />
+          <label
+            htmlFor="destination"
+            className="form-tour-label form-tour-label-image"
+          >
+            Gallery image:
+          </label>
         </div>
         <div className="form-tour-included">
           <h5 className="form-tour-title">What is Included?</h5>
