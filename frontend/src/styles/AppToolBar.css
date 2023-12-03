@@ -18,14 +18,16 @@
   }
 
   .tool-bar-body-scrolled {
-    background-color: #fff;
     padding: 20px 0;
+    background-color: #fff;
     border-bottom: 1px solid transparent;
     border-bottom-color: #ddd;
   }
 
   .tool-bar-body-dark-scrolled {
+    padding: 20px 0;
     background-color: #353535;
+    border-bottom: 1px solid transparent;
     border-bottom-color: #222;
   }
 

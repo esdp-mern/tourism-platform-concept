@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import NavLink from 'next/link';
 import UserMenu from './components/UserMenu';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -6,6 +6,7 @@ import { selectUser } from '@/containers/users/usersSlice';
 import ToolBarMenu from '@/components/UI/AppToolBar/components/ToolBarMenu';
 import { useParams, usePathname } from 'next/navigation';
 import { fetchTours } from '@/containers/tours/toursThunk';
+import { setIsLightMode } from '@/containers/config/configSlice';
 
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);
@@ -25,28 +26,34 @@ const AppToolBar = () => {
 
   const closeNavMenu = () => setNavShow(false);
 
+  const setClassList = (e: Event) => {
+    if (!toolBarRef.current || isLightMode === null) return;
+
+    const classList: string[] = [
+      `tool-bar-body-${isLightMode ? '' : 'dark-'}scrolled`,
+    ];
+
+    if (window.scrollY > 0) {
+      toolBarRef.current?.classList.add(...classList);
+    } else {
+      toolBarRef.current?.classList.remove(...classList);
+    }
+  };
+
   useEffect(() => {
     if (window.screen.width >= 992) {
-      document.addEventListener('scroll', (e) => {
-        if (!toolBarRef.current || isLightMode === null) return;
-
-        const classList: string[] = !isLightMode
-          ? ['tool-bar-body-scrolled', 'tool-bar-body-dark-scrolled']
-          : ['tool-bar-body-scrolled'];
-
-        if (window.scrollY > 0) {
-          toolBarRef.current?.classList.add(...classList);
-        } else {
-          toolBarRef.current?.classList.remove(...classList);
-        }
-      });
+      document.addEventListener('scroll', setClassList);
     }
+
+    return () => {
+      document.removeEventListener('scroll', setClassList);
+    };
   }, [toolBarRef.current, isLightMode]);
 
   return (
     <div
-      className={`tool-bar-body ${!isLightMode ? 'tool-bar-body-dark' : ''} ${
-        isLightMode ? 'tool-bar-body-light' : ''
+      className={`tool-bar-body ${
+        isLightMode ? 'tool-bar-body-light' : 'tool-bar-body-dark'
       }`}
       ref={toolBarRef}
     >

@@ -12,7 +12,7 @@ export const configSlice = createSlice({
   name: 'config',
   initialState,
   reducers: {
-    setIsLightMode: (state, { payload }: PayloadAction<boolean>) => {
+    setIsLightMode: (state, { payload }: PayloadAction<boolean | null>) => {
       state.isLightMode = payload;
     },
   },
