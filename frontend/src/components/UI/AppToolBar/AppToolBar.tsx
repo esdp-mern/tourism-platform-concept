@@ -26,31 +26,37 @@ const AppToolBar = () => {
   const closeNavMenu = () => setNavShow(false);
 
   useEffect(() => {
-    document.addEventListener('scroll', (e) => {
-      if (!toolBarRef.current || isLightMode === null) return;
+    if (window.screen.width >= 992) {
+      document.addEventListener('scroll', (e) => {
+        if (!toolBarRef.current || isLightMode === null) return;
 
-      const classList: string[] = !isLightMode
-        ? ['tool-bar-body-scrolled', 'tool-bar-body-dark-scrolled']
-        : ['tool-bar-body-scrolled'];
+        const classList: string[] = !isLightMode
+          ? ['tool-bar-body-scrolled', 'tool-bar-body-dark-scrolled']
+          : ['tool-bar-body-scrolled'];
 
-      if (window.scrollY > 0) {
-        toolBarRef.current?.classList.add(...classList);
-      } else {
-        toolBarRef.current?.classList.remove(...classList);
-      }
-    });
+        if (window.scrollY > 0) {
+          toolBarRef.current?.classList.add(...classList);
+        } else {
+          toolBarRef.current?.classList.remove(...classList);
+        }
+      });
+    }
   }, [toolBarRef.current, isLightMode]);
 
   return (
     <div
-      className={`tool-bar-body ${!isLightMode ? 'tool-bar-body-dark' : ''}`}
+      className={`tool-bar-body ${!isLightMode ? 'tool-bar-body-dark' : ''} ${
+        isLightMode ? 'tool-bar-body-light' : ''
+      }`}
       ref={toolBarRef}
     >
       <div className="container">
         <div className="tool-bar">
           <div className="logo-wrap">
             <button
-              className={`nav-btn ${navShow ? 'open' : ''}`}
+              className={`nav-btn ${!isLightMode ? 'nav-btn-dark' : ''} ${
+                navShow ? 'open' : ''
+              }`}
               onClick={() => setNavShow(!navShow)}
             >
               <span></span>

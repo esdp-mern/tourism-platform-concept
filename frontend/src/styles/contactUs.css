@@ -197,27 +197,9 @@ textarea::placeholder {
   }
 }
 
-@media (max-width: 880px) {
-  .tool-bar {
-    padding: 0;
-  }
-}
-
 @media (max-width: 850px) {
   .contacts-first-inputs {
     flex-direction: column;
-  }
-}
-
-@media (max-width: 820px) {
-  .tool-bar {
-    padding: 0;
-  }
-}
-
-@media (max-width: 819px) {
-  .tool-bar {
-    padding: 10px 0;
   }
 }
 
