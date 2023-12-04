@@ -228,7 +228,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
 }
 .hot-tours-toolbar {
   position: relative;

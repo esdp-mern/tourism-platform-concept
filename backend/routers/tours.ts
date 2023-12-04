@@ -8,6 +8,49 @@ import { imagesUpload } from '../multer';
 
 const toursRouter = express.Router();
 
+toursRouter.get('/filterByName', async (req, res) => {
+  try {
+    if (req.query.name) {
+      const tours = await Tour.find({
+        name: { $regex: req.query.name, $options: 'i' },
+      });
+      return res.send(tours);
+    }
+  } catch (e) {
+    return res.status(500).send('Error');
+  }
+});
+
+toursRouter.get('/filterByCategory', async (req, res) => {
+  try {
+    if (req.query.category) {
+      const rawCategories = req.query.category as string;
+      const categories = rawCategories.split(',') as string[];
+
+      const tours = await Tour.find({ category: { $in: categories } });
+
+      return res.send(tours);
+    }
+  } catch (e) {
+    return res.status(500).send('Error');
+  }
+});
+toursRouter.get('/filterByMinPrice', async (req, res) => {
+  try {
+    const tours = await Tour.find().sort({ price: 1 });
+    return res.send(tours);
+  } catch (e) {
+    return res.status(500).send('Error');
+  }
+});
+toursRouter.get('/filterByMaxPrice', async (req, res) => {
+  try {
+    const tours = await Tour.find().sort({ price: -1 });
+    return res.send(tours);
+  } catch (e) {
+    return res.status(500).send('Error');
+  }
+});
 toursRouter.get('/', async (req, res) => {
   try {
     let tours;
@@ -286,5 +329,4 @@ toursRouter.patch(
     }
   },
 );
-
 export default toursRouter;
