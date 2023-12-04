@@ -415,7 +415,10 @@
   position: relative;
 }
 
-.swiper-pagination-fraction, .swiper-pagination-custom, .swiper-horizontal > .swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal {
+.swiper-pagination-fraction,
+.swiper-pagination-custom,
+.swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal {
   margin: -40px 0;
 }
 
@@ -439,7 +442,7 @@
     width: 100%;
   }
 
-  .about-page-tours-img-wrap{
+  .about-page-tours-img-wrap {
     text-align: center;
   }
 
