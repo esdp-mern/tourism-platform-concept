@@ -147,6 +147,7 @@ export interface ReviewOfTour {
   comment: string;
   date: string;
 }
+
 export interface ReviewOfPlatform {
   _id: string;
   user: {
@@ -157,6 +158,7 @@ export interface ReviewOfPlatform {
   comment: string;
   date: string;
 }
+
 export interface ReviewOfGuides {
   _id: string;
   user: {
@@ -168,6 +170,7 @@ export interface ReviewOfGuides {
   comment: string;
   date: string;
 }
+
 export interface allReviews {
   _id: string;
   user: {
@@ -180,6 +183,7 @@ export interface allReviews {
   tour?: string;
   guide?: string;
 }
+
 export interface RatingOfTour {
   _id: string;
   user: {
@@ -190,6 +194,7 @@ export interface RatingOfTour {
   rating: number;
   date: string;
 }
+
 export interface IAlert {
   message: string;
   type: string;
@@ -236,4 +241,11 @@ export interface IOrder2 {
   email?: string;
   phone?: string;
   datetime: string;
+}
+
+export interface IPartner {
+  _id: string;
+  name?: string;
+  image?: string;
+  link?: string;
 }

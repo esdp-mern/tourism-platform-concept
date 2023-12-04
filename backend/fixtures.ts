@@ -12,6 +12,7 @@ import GuideReview from './models/GuideReview';
 import PlatformReview from './models/PlatformReview';
 import TourRating from './models/TourRating';
 import GuideRating from './models/GuideRating';
+import Partner from './models/Partner';
 
 const run = async () => {
   await mongoose.connect(config.db);
@@ -29,6 +30,7 @@ const run = async () => {
     await db.dropCollection('tourreviews');
     await db.dropCollection('tourratings');
     await db.dropCollection('guideratings');
+    await db.dropCollection('partners');
   } catch (e) {
     console.log('Collections were not present, skipping drop...');
   }
@@ -576,6 +578,25 @@ const run = async () => {
       guide: Artem._id,
       rating: 4,
       date: '2024-08-05T17:11:22.353Z',
+    },
+  );
+
+  await Partner.create(
+    {
+      image: 'fixtures/min-tour-logo.png',
+      link: 'https://tourism.gov.kg/',
+    },
+    {
+      name: 'Partner 2',
+      link: 'https://mkk.gov.kg/%D0%B4%D0%B5%D0%BF%D0%B0%D1%80%D1%82%D0%B0%D0%BC%D0%B5%D0%BD%D1%82-%D1%82%D1%83%D1%80%D0%B8%D0%B7%D0%BC%D0%B0/29/',
+    },
+    {
+      name: 'Partner 3',
+      link: 'https://mkk.gov.kg/%D0%B4%D0%B5%D0%BF%D0%B0%D1%80%D1%82%D0%B0%D0%BC%D0%B5%D0%BD%D1%82-%D1%82%D1%83%D1%80%D0%B8%D0%B7%D0%BC%D0%B0/29/',
+    },
+    {
+      name: 'Partner 4',
+      link: 'https://mkk.gov.kg/%D0%B4%D0%B5%D0%BF%D0%B0%D1%80%D1%82%D0%B0%D0%BC%D0%B5%D0%BD%D1%82-%D1%82%D1%83%D1%80%D0%B8%D0%B7%D0%BC%D0%B0/29/',
     },
   );
   await db.close();
