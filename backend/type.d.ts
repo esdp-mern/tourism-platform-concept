@@ -19,12 +19,14 @@ export interface ITourReview {
   comment: string;
   date: string;
 }
+
 export interface ITourRating {
   user: ObjectId;
   tour: ObjectId;
   rating: number;
   date: string;
 }
+
 export interface IGuideReview {
   user: ObjectId;
   guide: ObjectId;
