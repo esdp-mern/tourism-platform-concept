@@ -10,6 +10,7 @@ import TourForm from '@/components/Forms/TourForm/TourForm';
 import { selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
 import Custom404 from '@/pages/404';
+import { setIsLightMode } from '@/containers/config/configSlice';
 
 const EditTour: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -22,6 +23,7 @@ const EditTour: NextPage<
   const user = useAppSelector(selectUser);
 
   useEffect(() => {
+    dispatch(setIsLightMode(true));
     if (editID) {
       dispatch(fetchTour(editID));
     }

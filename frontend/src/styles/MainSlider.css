@@ -3,8 +3,14 @@
   z-index: 0;
   padding: 20px 30px 100px;
   max-width: 1600px;
-  margin: 0 auto;
+  margin: 110px auto 0;
   background: #ffffff;
+}
+
+@media screen and (max-width: 992px) {
+  .slider-container {
+    margin: 60px auto 0;
+  }
 }
 
 .main-slider {

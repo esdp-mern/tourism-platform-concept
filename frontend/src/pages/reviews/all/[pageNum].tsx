@@ -14,6 +14,7 @@ import {
 import { allReviews } from '@/type';
 import Pagination from '@/components/Pagination/Pagination';
 import ReviewItem from '@/components/ReviewItem/ReviewItem';
+import { setIsLightMode } from '@/containers/config/configSlice';
 
 const ReviewsPage = () => {
   const dispatch = useAppDispatch();
@@ -35,6 +36,7 @@ const ReviewsPage = () => {
   };
 
   useEffect(() => {
+    dispatch(setIsLightMode(false));
     dispatch(fetchToursReviews());
     dispatch(fetchGuideReviews());
     dispatch(fetchPlatformReviews());

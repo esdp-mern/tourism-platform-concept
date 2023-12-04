@@ -5,6 +5,7 @@ import { fetchNews } from '@/containers/news/newsThunk';
 import PageLoader from '@/components/Loaders/PageLoader';
 import Pagination from '@/components/Pagination/Pagination';
 import NewsItem from '@/components/NewsItem/NewsItem';
+import { setIsLightMode } from '@/containers/config/configSlice';
 
 const AllNewsPage = () => {
   const dispatch = useAppDispatch();
@@ -18,6 +19,7 @@ const AllNewsPage = () => {
   const nPages = Math.ceil(news.length / newsPerPage);
 
   useEffect(() => {
+    dispatch(setIsLightMode(false));
     dispatch(fetchNews());
   }, [dispatch]);
 

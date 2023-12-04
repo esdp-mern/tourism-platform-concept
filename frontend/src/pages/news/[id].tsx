@@ -11,6 +11,7 @@ import { wrapper } from '@/store/store';
 import { fetchTour } from '@/containers/tours/toursThunk';
 import { INews } from '@/type';
 import Link from 'next/link';
+import { setIsLightMode } from '@/containers/config/configSlice';
 
 const OneNews: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -23,6 +24,7 @@ const OneNews: NextPage<
   const allNews = useAppSelector(selectAllNews);
 
   useEffect(() => {
+    dispatch(setIsLightMode(false));
     dispatch(fetchOneNews(id));
     dispatch(fetchNews());
   }, [dispatch, id]);
