@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import image404 from '@/assets/images/404.jpg';
 import Image from 'next/image';
 import PageLoader from '@/components/Loaders/PageLoader';
 import Link from 'next/link';
+import { useAppDispatch } from '@/store/hooks';
+import { setIsLightMode } from '@/containers/config/configSlice';
 export default function Custom404({
   errorType,
 }: {
   errorType?: 'guide' | 'tour';
 }) {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setIsLightMode(false));
+  }, [dispatch]);
+
   return (
     <div className="page-error">
       <PageLoader />

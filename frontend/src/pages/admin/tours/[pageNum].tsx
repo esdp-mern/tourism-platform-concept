@@ -8,6 +8,7 @@ import PageLoader from '@/components/Loaders/PageLoader';
 import { selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
 import { useRouter } from 'next/router';
+import { setIsLightMode } from '@/containers/config/configSlice';
 
 const AllToursPage = () => {
   const dispatch = useAppDispatch();
@@ -26,10 +27,11 @@ const AllToursPage = () => {
   const nPages = Math.ceil(tours.length / toursPerPage);
 
   useEffect(() => {
+    dispatch(setIsLightMode(true));
     if (user && user.role !== userRoles.admin) {
       routers.push('/').then((r) => r);
     }
-  }, [routers, user]);
+  }, [dispatch, routers, user]);
 
   useEffect(() => {
     switch (currentTours) {

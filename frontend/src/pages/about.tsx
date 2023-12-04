@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Fade } from 'react-awesome-reveal';
 import horseImg from '@/assets/images/horses.png';
 import PageLoader from '@/components/Loaders/PageLoader';
 import EmployeeItem from '@/components/EmployeeItem/EmployeeItem';
 import img from '@/assets/images/kg.jpeg';
 import GuideSlider from '@/components/GuideSlider/GuideSlider';
+import { useAppDispatch } from '@/store/hooks';
+import { setIsLightMode } from '@/containers/config/configSlice';
 
 const About = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setIsLightMode(false));
+  }, [dispatch]);
+
   return (
     <div className="about-page">
       <PageLoader />

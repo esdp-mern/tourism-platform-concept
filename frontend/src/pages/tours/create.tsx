@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PageLoader from '@/components/Loaders/PageLoader';
 import TourForm from '@/components/Forms/TourForm/TourForm';
-import { useAppSelector } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
 import Custom404 from '@/pages/404';
+import { setIsLightMode } from '@/containers/config/configSlice';
 
 const NewTour = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setIsLightMode(true));
+  }, [dispatch]);
+
   const user = useAppSelector(selectUser);
 
   if (!user || user.role !== userRoles.admin) {

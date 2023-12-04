@@ -16,6 +16,26 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.one-tour-top-info * {
+  z-index: 1;
+}
+
+.one-tour-top-info::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(
+    225deg,
+    rgba(21, 21, 21, 0.4) 36.97%,
+    rgba(21, 21, 21, 0.26) 100%
+  );
 }
 
 .one-tour-top-line {
