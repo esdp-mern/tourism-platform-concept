@@ -3,8 +3,8 @@ import { Fade } from 'react-awesome-reveal';
 import horseImg from '@/assets/images/horses.png';
 import PageLoader from '@/components/Loaders/PageLoader';
 import EmployeeItem from '@/components/EmployeeItem/EmployeeItem';
-import img from '@/assets/images/kg.jpeg';
 import GuideSlider from '@/components/GuideSlider/GuideSlider';
+import PartnerItem from '@/components/PartnerItem/PartnerItem';
 import { useAppDispatch } from '@/store/hooks';
 import { setIsLightMode } from '@/containers/config/configSlice';
 
@@ -210,13 +210,7 @@ const About = () => {
       <div className="about-page-partners">
         <div className="container">
           <Fade>
-            <div className="about-page-partners-cards">
-              <div className="about-page-partners-card">Partner 1</div>
-              <div className="about-page-partners-card">Partner 2</div>
-              <div className="about-page-partners-card">Partner 3</div>
-              <div className="about-page-partners-card">Partner 4</div>
-              <div className="about-page-partners-card">Partner 5</div>
-            </div>
+            <PartnerItem />
           </Fade>
         </div>
       </div>

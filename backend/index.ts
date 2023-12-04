@@ -13,6 +13,7 @@ import tourReviewRouter from './routers/tourReview';
 import platformReviewRouter from './routers/platformReview';
 import guideRatingRouter from './routers/guideRating';
 import tourRatingRouter from './routers/tourRating';
+import partnersRouter from './routers/partner';
 
 const app = express();
 const port = 8000;
@@ -31,6 +32,7 @@ app.use('/platformReviews', platformReviewRouter);
 app.use('/tourReviews', tourReviewRouter);
 app.use('/guideRatings', guideRatingRouter);
 app.use('/tourRatings', tourRatingRouter);
+app.use('/partners', partnersRouter);
 
 app.get('*', (_, res) => res.sendStatus(404));
 

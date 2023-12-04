@@ -362,7 +362,7 @@
 
 .about-page-partners {
   background-color: #fff;
-  margin: 130px 0;
+  padding: 100px 0;
 }
 
 .about-page-partners-cards {
@@ -384,13 +384,21 @@
   cursor: pointer;
   transition: 0.22s;
   border-radius: 20px;
+  overflow: hidden;
 }
 
 .about-page-partners-card:hover {
   box-shadow: 0 9px 58px 0 rgba(0, 0, 0, 0.2);
   opacity: inherit;
 }
-
+.about-page-partners-card-link{
+  text-decoration: none;
+  color: #000;
+}
+.about-page-partners-card-link img{
+  width: 100%;
+  height: 100%;
+}
 .about-page-guide {
   margin: 100px 0 50px;
 }
@@ -441,6 +449,9 @@
 
   .about-page-team-card {
     margin-bottom: 30px;
+  }
+  .about-page-partners-card{
+    margin-bottom: 20px;
   }
 }
 
