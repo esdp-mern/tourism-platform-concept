@@ -81,8 +81,21 @@
 
 .pagination {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
   list-style: none;
+  padding-left: 0;
+}
+
+.pagination-arrow {
+  font-size: 20px;
+  min-width: unset !important;
+  width: 24px !important;
+  height: 21px !important;
+  padding: 0 0 4px 1px;
+  text-align: center;
 }
 
 .page-item {
@@ -91,8 +104,8 @@
   cursor: pointer;
   background-color: transparent;
   border: 0 solid transparent;
+  border-radius: 50%;
   color: #808080;
-  margin-right: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -101,6 +114,11 @@
     background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out,
     box-shadow 0.15s ease-in-out;
+}
+
+.page-item:hover {
+  background-color: #75c15b;
+  color: #fff;
 }
 
 .page-link {
@@ -112,7 +130,6 @@
   text-align: center;
   background-color: #75c15b;
   border: 1px solid #75c15b;
-  border-radius: 50%;
   color: #fff;
 }
 
@@ -130,5 +147,30 @@
 @media (max-width: 475px) {
   .tours-page-title {
     font-size: 28px;
+  }
+
+  .pagination {
+    gap: 5px;
+  }
+
+  .pagination-arrow {
+    font-size: 14px !important;
+  }
+
+  .page-item {
+    font-size: 11px;
+    min-width: unset;
+    width: 30px;
+    height: 30px;
+  }
+
+  .page-item:hover {
+    background-color: transparent;
+    color: #808080;
+  }
+
+  .page-item:active {
+    background-color: #75c15b;
+    color: #fff;
   }
 }
