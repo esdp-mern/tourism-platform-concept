@@ -10,6 +10,7 @@ import calendarIcon from '../../assets/images/calendar-order-icon.svg';
 import emailIcon from '../../assets/images/email-icon.svg';
 import phoneIcon from '../../assets/images/phone-icon.svg';
 import NavLink from 'next/link';
+import { TextFieldPhone } from '@/components/UI/TextField/components/TextFieldPhone';
 
 export interface IChangeEvent {
   target: { name: string; value: string };
@@ -103,14 +104,13 @@ const OneTourOrderForm = () => {
               isSubmit={isSubmit}
               required
             />
-            <TextField
+            <TextFieldPhone
               name="phone"
-              type="text"
               value={state.phone}
               onChange={changeValue}
               icon={phoneIcon.src}
-              label="Phone"
               isSubmit={isSubmit}
+              label="Phone"
               required
             />
           </>
