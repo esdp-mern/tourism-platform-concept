@@ -20,6 +20,7 @@ const EditTour: NextPage<
   const { editID } = useParams() as {
     editID: string;
   };
+
   const user = useAppSelector(selectUser);
 
   useEffect(() => {

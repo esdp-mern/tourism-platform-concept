@@ -1,4 +1,5 @@
-.form-tour {
+.form-tour,
+.form-news{
   border-radius: 7px;
   background: #ffffff;
   color: #000;
@@ -11,7 +12,8 @@
   width: 800px;
 }
 
-.form-tour-title {
+.form-tour-title,
+.form-news-title{
   text-align: center;
   text-transform: uppercase;
   font-size: 26px;
@@ -21,14 +23,16 @@
   margin-bottom: 30px;
 }
 
-.input-tour-wrap {
+.input-tour-wrap,
+.input-news-wrap{
   width: 100%;
   max-width: 480px;
   margin: 0 auto 30px;
   position: relative;
 }
 
-.input-tour-wrap textarea {
+.input-tour-wrap textarea,
+.input-news-wrap textarea{
   min-height: 120px;
 }
 
@@ -38,7 +42,8 @@
   margin: 0 auto;
 }
 
-.form-tour-label {
+.form-tour-label,
+.form-news-label {
   position: absolute;
   top: 20px;
   left: 30px;
@@ -53,11 +58,13 @@
   cursor: text;
 }
 
-.form-tour-label.form-tour-label-image {
+.form-tour-label.form-tour-label-image,
+.form-news-label.form-news-label-image{
   transform: translateY(-40px);
 }
 
-.form-tour-label-two {
+.form-tour-label-two,
+.form-news-label-two{
   position: absolute;
   top: 12px;
   left: 30px;
@@ -71,7 +78,8 @@
   transform: translateY(-40%);
   cursor: text;
 }
-.form-tour-control {
+.form-tour-control,
+.form-news-control{
   box-sizing: border-box;
   padding: 11px 19px;
   width: 100%;
@@ -87,32 +95,40 @@
   border-radius: 0;
 }
 
-.form-tour-control:focus {
+.form-tour-control:focus,
+.form-news-control:focus{
   outline: none;
   border-bottom: 1px solid #75c15b;
 }
 .form-tour-control:focus ~ .form-tour-label,
-.form-tour-control:valid ~ .form-tour-label {
+.form-tour-control:valid ~ .form-tour-label,
+.form-news-control:focus ~ .form-news-label,
+.form-news-control:valid ~ .form-news-label{
   visibility: hidden;
   opacity: 0;
 }
 .form-tour-control:focus ~ .form-tour-label-two,
-.form-tour-control:valid ~ .form-tour-label-two {
+.form-tour-control:valid ~ .form-tour-label-two,
+.form-news-control:focus ~ .form-news-label-two,
+.form-news-control:valid ~ .form-news-label-two{
   visibility: hidden;
   opacity: 0;
 }
-.form-tour-control-error {
+.form-tour-control-error,
+.form-news-control-error{
   padding: 10px 5px;
   width: 100%;
   border: 1px solid #f23637;
   margin-bottom: 20px;
 }
 
-.form-tour-control-error:focus {
+.form-tour-control-error:focus,
+.form-news-control-error:focus{
   outline: #f23637;
 }
 
-.error-tour {
+.error-tour,
+.error-news{
   color: #f23637;
   font-size: 12px;
   margin-bottom: 5px;
@@ -121,7 +137,8 @@
   letter-spacing: 2px;
 }
 
-.form-tour-btn {
+.form-tour-btn,
+.form-news-btn{
   background: #75c15b;
   border: none;
   margin: 50px auto;
@@ -134,7 +151,9 @@
 }
 
 .form-tour-btn:hover,
-.form-tour-btn:focus {
+.form-tour-btn:focus,
+.form-news-btn:hover,
+.form-news-btn:focus {
   color: #fff;
   background-color: #ffa133;
 }
@@ -145,42 +164,50 @@
 }
 
 @media (max-width: 1000px) {
-  .form-tour {
+  .form-tour,
+  .form-news {
     width: 80%;
   }
 }
 
 @media (max-width: 800px) {
-  .form-tour {
+  .form-tour,
+  .form-news {
     width: 70%;
   }
 }
 
 @media (max-width: 600px) {
-  .form-tour {
+  .form-tour,
+  .form-news {
     width: 90%;
   }
-  .form-tour-title {
+  .form-tour-title,
+  .form-news-title {
     font-size: 20px;
   }
 }
 
 @media (max-width: 500px) {
-  .form-tour {
+  .form-tour,
+  .form-news {
     width: 80%;
   }
 }
 
 @media (max-width: 300px) {
-  .form-tour {
+  .form-tour,
+  .form-news {
     width: 90%;
   }
-  .form-tour-title {
+  .form-tour-title,
+  .form-news-title {
     font-size: 17px;
   }
 }
 
-.form-tour-btn-add {
+.form-tour-btn-add,
+.form-news-btn-add{
   background: #2f55f1;
   border: 1px solid transparent;
   margin: 10px auto;
@@ -192,13 +219,16 @@
 }
 
 .form-tour-btn-add:hover,
-.form-tour-btn-add:focus {
+.form-tour-btn-add:focus,
+.form-news-btn-add:hover,
+.form-news-btn-add:focus {
   color: #000f56;
   background-color: #fff;
   border: 1px solid #2f55f1;
 }
 
-.tour-btn-remove {
+.tour-btn-remove,
+.news-btn-remove {
   margin: auto 0;
   border: none;
   background: none;
@@ -206,11 +236,13 @@
   font-size: 40px;
 }
 
-.form-tour-center {
+.form-tour-center,
+.form-news-center{
   margin: auto 0;
 }
 
-.tour-btn-remove:hover {
+.tour-btn-remove:hover,
+.news-btn-remove:hover {
   cursor: pointer;
 }
 
