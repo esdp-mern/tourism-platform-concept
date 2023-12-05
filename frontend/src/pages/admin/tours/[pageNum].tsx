@@ -59,7 +59,7 @@ const AllToursPage = () => {
       <PageLoader />
       <div>
         <div className="container">
-          <div>
+          <div style={{ margin: '100px auto 0 0' }}>
             <div className="buttons-admin-tour">
               <button
                 className="btn-admin-fetch-tour btn-admin-all"
@@ -91,7 +91,7 @@ const AllToursPage = () => {
               <div>
                 <div className="tours-admin-page">
                   {currentRecords.map((tour) => (
-                    <TourItem tour={tour} key={tour._id} />
+                    <TourItem tour={tour} key={tour._id} isAdmin />
                   ))}
                 </div>
                 <div className="tours-page-paginate">

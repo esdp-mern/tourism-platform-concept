@@ -8,8 +8,9 @@
 .tours-admin-page {
   display: flex;
   flex-wrap: wrap;
+  gap: 40px 20px;
   justify-content: center;
-  padding-top: 20px;
+  padding: 20px 10px 0;
 }
 
 @media (max-width: 440px) {

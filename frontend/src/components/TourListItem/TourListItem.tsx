@@ -18,9 +18,10 @@ import { useRouter } from 'next/router';
 
 interface Props {
   tour: Tour;
+  isAdmin?: boolean;
 }
 
-const TourItem: React.FC<Props> = ({ tour }) => {
+const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
@@ -47,7 +48,7 @@ const TourItem: React.FC<Props> = ({ tour }) => {
         <Link href={`/tours/${tour._id}`} className="tour-item-top">
           <img src={imgLink} alt={tour.name} className="tour-item-img" />
           <div className="tour-item-price">{tour.price.toString()} KGS</div>
-          {user && user.role === userRoles.admin ? (
+          {isAdmin && user && user.role === userRoles.admin ? (
             <div
               className={`${
                 tour.isPublished ? 'published-tour' : 'unpublished-tour'
@@ -65,7 +66,7 @@ const TourItem: React.FC<Props> = ({ tour }) => {
           <div className="tour-item-info">
             <div className="tour-item-duration">{tour.duration} days</div>
           </div>
-          {user && user.role === userRoles.admin ? (
+          {isAdmin && user && user.role === userRoles.admin ? (
             <div className="buttons-tour">
               <button
                 className="btn-delete-tour"
