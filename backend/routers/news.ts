@@ -72,6 +72,8 @@ newsRouter.post(
         category,
       });
 
+      console.log(req.body);
+
       await news.save();
       return res.send(news);
     } catch (e) {
@@ -118,6 +120,8 @@ newsRouter.put(
       news.category = category;
 
       await news.save();
+
+      console.log(req.body);
 
       return res.send(news);
     } catch (e) {

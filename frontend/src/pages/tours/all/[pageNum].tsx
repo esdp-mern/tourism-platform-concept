@@ -6,6 +6,7 @@ import { selectAllTours } from '@/containers/tours/toursSlice';
 import TourItem from '@/components/TourListItem/TourListItem';
 import PageLoader from '@/components/Loaders/PageLoader';
 import { setIsLightMode } from '@/containers/config/configSlice';
+import TourFilter from '@/components/Filters/TourFilter';
 
 const AllToursPage = () => {
   const dispatch = useAppDispatch();
@@ -27,9 +28,13 @@ const AllToursPage = () => {
     setCurrentPage(pageNumber);
   };
 
+  const filterTour = (type: string) => {};
+
   return (
     <div className="all-tours">
       <PageLoader />
+      <div style={{ margin: '134px 0' }}></div>
+      <TourFilter fetching={filterTour} />
       <div className="container">
         <div>
           <div>

@@ -1,8 +1,5 @@
 import 'react-phone-number-input/style.css';
-import PhoneInputWithCountrySelect, {
-  formatPhoneNumber,
-  formatPhoneNumberIntl,
-} from 'react-phone-number-input';
+import PhoneInputWithCountrySelect from 'react-phone-number-input';
 import React, { useEffect, useState } from 'react';
 import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
 import { E164Number } from 'libphonenumber-js';
