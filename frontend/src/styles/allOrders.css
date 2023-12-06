@@ -98,9 +98,10 @@
 
 .remove-order {
   position: absolute;
-  top: -6px;
+  top: 5px;
   right: 4px;
   font-size: 28px;
+  line-height: 14px;
 }
 
 .order-status-loading {
