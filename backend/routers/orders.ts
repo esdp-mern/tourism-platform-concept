@@ -71,4 +71,28 @@ ordersRouter.delete(
   },
 );
 
+ordersRouter.patch(
+  '/changeStatus',
+  auth,
+  permit('moderator'),
+  async (req, res, next) => {
+    try {
+      const order = await Order.findById(req.query.orderId);
+
+      if (!order) {
+        return res.status(404).send('Order not found');
+      }
+
+      order.status = req.body.status;
+      await order.save();
+      return res.send(order);
+    } catch (e) {
+      if (e instanceof mongoose.Error.ValidationError) {
+        return res.status(400).send(e);
+      }
+      return next(e);
+    }
+  },
+);
+
 export default ordersRouter;
