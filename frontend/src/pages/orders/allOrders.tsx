@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
   selectAllOrders,
-  selectAllOrdersLoading,
   selectOrderStatusChanging,
   setMessages,
 } from '@/containers/orders/ordersSlice';
@@ -34,7 +33,6 @@ const AllOrders = () => {
     boardName: '',
   });
   const orderChangerLoading = useAppSelector(selectOrderStatusChanging);
-  const allOrdersLoading = useAppSelector(selectAllOrdersLoading);
 
   useEffect(() => {
     if (!user || user.role !== userRoles.moderator) {
@@ -124,6 +122,15 @@ const AllOrders = () => {
                         <span className="order-status-loading-inner" />
                       </div>
                     )}
+                    <span
+                      className="remove-order"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        void onDelete(order._id);
+                      }}
+                    >
+                      &#215;
+                    </span>
                     <span className="order-datetime">
                       {dayjs(order.datetime).format('DD.MM.YY HH:MM') || '-'}
                     </span>
