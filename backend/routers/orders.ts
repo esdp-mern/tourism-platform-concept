@@ -83,7 +83,7 @@ ordersRouter.patch(
         return res.status(404).send('Order not found');
       }
 
-      order.status = req.body;
+      order.status = req.body.status;
       await order.save();
       return res.send(order);
     } catch (e) {

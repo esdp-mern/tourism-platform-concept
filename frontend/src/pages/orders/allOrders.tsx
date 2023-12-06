@@ -1,7 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { selectAllOrders, setMessages } from '@/containers/orders/ordersSlice';
-import { deleteOrder, fetchOrders } from '@/containers/orders/ordersThunk';
+import {
+  selectAllOrders,
+  selectAllOrdersLoading,
+  selectOrderStatusChanging,
+  setMessages,
+} from '@/containers/orders/ordersSlice';
+import {
+  changeOrderStatus,
+  deleteOrder,
+  fetchOrders,
+} from '@/containers/orders/ordersThunk';
 import { IOrder2 } from '@/type';
 import PageLoader from '@/components/Loaders/PageLoader';
 import axiosApi from '@/axiosApi';
@@ -20,6 +29,12 @@ const AllOrders = () => {
     (order) => order.status === 'being considered',
   );
   const approvedOrders = orders.filter((order) => order.status === 'approved');
+  const [currentOrder, setCurrentOrder] = useState({
+    id: '',
+    boardName: '',
+  });
+  const orderChangerLoading = useAppSelector(selectOrderStatusChanging);
+  const allOrdersLoading = useAppSelector(selectAllOrdersLoading);
 
   useEffect(() => {
     if (!user || user.role !== userRoles.moderator) {
@@ -55,7 +70,17 @@ const AllOrders = () => {
     }
   };
 
-  const dropHandler = (boardName: string) => {};
+  const dragStartHandler = (id: string, boardName: string) => {
+    setCurrentOrder({ id, boardName });
+  };
+
+  const dropHandler = async (boardName: string) => {
+    if (currentOrder.boardName === boardName) return;
+    await dispatch(
+      changeOrderStatus({ id: currentOrder.id, status: boardName }),
+    );
+    dispatch(fetchOrders());
+  };
 
   return (
     <div className="container">
@@ -86,11 +111,19 @@ const AllOrders = () => {
                     className="order-item"
                     key={order._id}
                     draggable={true}
+                    onDragStart={() =>
+                      dragStartHandler(order._id, order.status)
+                    }
                     onDragOver={(e) => e.preventDefault()}
                     onDrop={(e) => e.preventDefault()}
                     onDragLeave={(e) => e.preventDefault()}
                     onDragEnd={(e) => e.preventDefault()}
                   >
+                    {orderChangerLoading && currentOrder.id === order._id && (
+                      <div className="order-status-loading">
+                        <span className="order-status-loading-inner" />
+                      </div>
+                    )}
                     <span className="order-datetime">
                       {dayjs(order.datetime).format('DD.MM.YY HH:MM') || '-'}
                     </span>

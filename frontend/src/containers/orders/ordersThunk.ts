@@ -17,7 +17,9 @@ export const changeOrderStatus = createAsyncThunk<
   { rejectValue: ValidationError }
 >('', async (data: { id: string; status: string }, { rejectWithValue }) => {
   try {
-    await axiosApi.patch(`orders/changeStatus?orderId=${data.id}`, data.status);
+    await axiosApi.patch(`orders/changeStatus?orderId=${data.id}`, {
+      status: data.status,
+    });
   } catch (e) {
     if (isAxiosError(e) && e.response && e.response.status === 400) {
       return rejectWithValue(e.response.data);

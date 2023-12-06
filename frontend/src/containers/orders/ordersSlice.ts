@@ -73,3 +73,7 @@ export const ordersSlice = createSlice({
 
 export const { setMessages } = ordersSlice.actions;
 export const selectAllOrders = (state: RootState) => state.orders.orders;
+export const selectAllOrdersLoading = (state: RootState) =>
+  state.orders.fetchAllLoading;
+export const selectOrderStatusChanging = (state: RootState) =>
+  state.orders.orderStatusChanging;
