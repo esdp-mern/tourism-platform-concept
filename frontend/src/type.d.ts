@@ -256,3 +256,10 @@ export interface INewsMutation {
   category: string[];
   images: File[] | null;
 }
+
+export interface IEmployeeMutation {
+  name: string;
+  number: string;
+  role: string;
+  image: File | null;
+}

@@ -144,7 +144,9 @@ const NewsForm: React.FC<Props> = ({
       <div className="input-news-wrap">
         <textarea
           className={
-            getFieldError('name') ? 'form-news-error' : 'form-news-control'
+            getFieldError('description')
+              ? 'form-news-error'
+              : 'form-news-control'
           }
           name="description"
           id="description"
