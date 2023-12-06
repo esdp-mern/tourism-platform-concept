@@ -35,7 +35,7 @@ const run = async () => {
     console.log('Collections were not present, skipping drop...');
   }
 
-  const [user, user1, user2, user3, user4] = await User.create(
+  const [user, user1, user2, user3] = await User.create(
     {
       username: 'guide',
       email: 'guide@gmail.com',
@@ -390,13 +390,13 @@ const run = async () => {
       status: 'booked',
     },
     {
-      user: user2._id,
       guide: Artem._id,
       tour: Osh._id,
       price: Osh.price,
       date: '2023-11-08T15:14:05.760Z',
       datetime: '2023-11-22T08:20:12.051Z',
       status: 'being considered',
+      phone: '+996 707 777 404',
     },
     {
       user: user1._id,
@@ -408,13 +408,14 @@ const run = async () => {
       status: 'approved',
     },
     {
-      user: user4._id,
       guide: Artem._id,
       tour: Osh._id,
       price: Osh.price,
       date: '2023-11-08T15:14:05.760Z',
       datetime: '2023-11-22T08:20:12.051Z',
       status: 'being considered',
+      phone: '+996 707 777 404',
+      email: 'brzzkv@gmail.com',
     },
   );
 

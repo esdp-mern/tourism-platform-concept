@@ -8,86 +8,89 @@
   margin-bottom: 30px;
 }
 
-.order-table {
-  overflow-x: auto;
-}
-
-.order-table-titles {
+.boards {
   display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  background: #75c15b;
-  color: #fff;
-  border: 1px solid #75c15b;
-  font-size: 22px;
+  justify-content: space-around;
+  gap: 20px;
 }
 
-.order-list {
+.order-board {
   display: flex;
   flex-direction: column;
-  min-width: 1200px;
+  padding: 15px;
+  background: #f7f8f9;
+  border-radius: 12px;
+  width: 28%;
+  height: 500px;
+}
+
+.board-title {
+  margin: 0 0 15px;
+}
+
+.order-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-grow: 1;
 }
 
 .order-item {
-  border-left: 1px solid #808080;
-  border-right: 1px solid #808080;
-  border-top: 1px solid #808080;
-  padding: 10px;
-  font-size: 15px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #ffffff;
+  padding: 28px 10px 10px;
+  width: 100%;
+  border-radius: 12px;
+  box-sizing: border-box;
+  font-size: 12px;
+  cursor: grab;
+  transition: 0.2s;
+}
+
+.order-item:hover {
+  background-color: #75c15b;
+}
+
+.order-item:active {
+  background-color: #ffa133;
+  border-radius: 0;
+}
+
+.order-item:-moz-drag-over {
+  opacity: 0;
+}
+
+.user-info-row {
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
 
-.order-list:last-child {
-  border-bottom: 1px solid #808080;
-}
-
-.order-table-titles-tour,
-.order-tour {
-  width: 150px;
-}
-
-.order-table-titles-guide,
-.order-guide {
-  width: 100px;
+.user-info-row span {
+  width: 50%;
+  white-space: nowrap;
   overflow: hidden;
 }
 
-.order-table-titles-date,
-.order-date {
-  width: 80px;
+.user-info-row span:hover {
+  overflow: unset;
 }
 
-.order-table-titles-price,
-.order-price {
-  width: 80px;
+.user-info-row span:nth-child(1) {
+  text-align: left;
 }
 
-.order-table-titles-user,
-.order-user {
-  width: 100px;
+.user-info-row span:nth-child(2) {
+  text-align: right;
 }
 
-.order-table-titles-email,
-.order-email {
-  width: 100px;
-}
-
-.order-table-titles-phone,
-.order-phone {
-  width: 120px;
-}
-
-.order-table-titles-delete,
-.order-delete {
-  width: 25px;
-}
-
-.order-delete {
-  cursor: pointer;
-  font-weight: bolder;
-}
-
-.order-delete:hover {
-  color: #f23637;
+.order-datetime {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  font-size: 10px;
+  opacity: 0.5;
 }

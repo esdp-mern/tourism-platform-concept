@@ -7,19 +7,19 @@ import PageLoader from '@/components/Loaders/PageLoader';
 import axiosApi from '@/axiosApi';
 import dayjs from 'dayjs';
 import { addAlert, selectUser } from '@/containers/users/usersSlice';
-import { userRoles } from '@/constants';
+import { boardNames, userRoles } from '@/constants';
 import { useRouter } from 'next/router';
-import { setIsLightMode } from '@/containers/config/configSlice';
 
 const AllOrders = () => {
   const dispatch = useAppDispatch();
   const orders = useAppSelector(selectAllOrders);
   const user = useAppSelector(selectUser);
   const router = useRouter();
-
-  useEffect(() => {
-    dispatch(setIsLightMode(true));
-  }, [dispatch]);
+  const bookedOrders = orders.filter((order) => order.status === 'booked');
+  const underConsiderOrders = orders.filter(
+    (order) => order.status === 'being considered',
+  );
+  const approvedOrders = orders.filter((order) => order.status === 'approved');
 
   useEffect(() => {
     if (!user || user.role !== userRoles.moderator) {
@@ -55,53 +55,67 @@ const AllOrders = () => {
     }
   };
 
+  const dropHandler = (boardName: string) => {};
+
   return (
     <div className="container">
       <PageLoader />
       <div className="orders-page">
-        <div>
-          <h2 className="orders-title">Orders</h2>
-          <div className="order-table-titles">
-            <div className="order-table-titles-tour">Tour</div>
-            <div className="order-table-titles-guide">Guide</div>
-            <div className="order-table-titles-date">Date</div>
-            <div className="order-table-titles-price">Price</div>
-            <div className="order-table-titles-user">User</div>
-            <div className="order-table-titles-email">Email</div>
-            <div className="order-table-titles-phone">Phone</div>
-            <div className="order-table-titles-delete"></div>
-          </div>
-          <div className="order-table">
-            {orders.map((ord) => (
-              <div key={ord._id} className="order-list">
-                <div className="order-item">
-                  <div className="order-tour">{ord.tour.name}</div>
-                  <div className="order-guide">
-                    {ord.guide.user.displayName}
-                  </div>
-                  <div className="order-date">
-                    {dayjs(ord.date).format('DD.MM.YYYY')}
-                  </div>
-                  <div className="order-price">{ord.price} KGS</div>
-                  <div className="order-user">
-                    {ord.user ? ord.user.displayName : '-'}
-                  </div>
-                  <div className="order-email">
-                    {ord.email ? ord.email : '-'}
-                  </div>
-                  <div className="order-phone">
-                    {ord.phone ? ord.phone : '-'}
-                  </div>
+        <h2 className="orders-title">Orders</h2>
+        <div className="boards">
+          {boardNames.map((boardName) => (
+            <div className="order-board" key={boardName}>
+              <h4 className="board-title">
+                {boardName[0].toUpperCase() +
+                  boardName.slice(1, boardName.length)}
+              </h4>
+              <div
+                className="order-items"
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={() => dropHandler(boardName)}
+              >
+                {(boardName === 'booked'
+                  ? bookedOrders
+                  : boardName === 'being considered'
+                    ? underConsiderOrders
+                    : boardName === 'approved'
+                      ? approvedOrders
+                      : []
+                ).map((order) => (
                   <div
-                    className="order-delete"
-                    onClick={() => onDelete(ord._id)}
+                    className="order-item"
+                    key={order._id}
+                    draggable={true}
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={(e) => e.preventDefault()}
+                    onDragLeave={(e) => e.preventDefault()}
+                    onDragEnd={(e) => e.preventDefault()}
                   >
-                    X
+                    <span className="order-datetime">
+                      {dayjs(order.datetime).format('DD.MM.YY HH:MM') || '-'}
+                    </span>
+                    <div className="user-info-row">
+                      <span>{order.email || order.user?.email || '-'}</span>
+                      <span>{order.phone || '-'}</span>
+                    </div>
+                    <div className="user-info-row">
+                      <span className="order-date">
+                        {dayjs(order.date).format('DD.MM.YY') || '-'}
+                      </span>
+                    </div>
+                    <div className="user-info-row">
+                      <span>{order.tour.name || '-'}</span>
+                      <span>{order.price + 'kgs' || '-'}</span>
+                    </div>
+                    <div className="user-info-row">
+                      <span>{order.guide.user.displayName || '-'}</span>
+                      <span>{order.guide.user.email || '-'}</span>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

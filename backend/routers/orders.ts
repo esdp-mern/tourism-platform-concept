@@ -11,10 +11,10 @@ ordersRouter.get('/', async (req, res) => {
     const orders = await Order.find()
       .populate({
         path: 'guide',
-        populate: { path: 'user', model: 'User', select: 'displayName' },
+        populate: { path: 'user', model: 'User', select: 'displayName email' },
       })
       .populate({ path: 'tour', select: 'name' })
-      .populate({ path: 'user', select: 'displayName' });
+      .populate({ path: 'user', select: 'displayName email' });
     if (req.query.datetime && req.query.datetime.length) {
       const datetime = req.query.datetime as string;
 

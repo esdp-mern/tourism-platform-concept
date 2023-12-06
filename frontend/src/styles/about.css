@@ -391,11 +391,11 @@
   box-shadow: 0 9px 58px 0 rgba(0, 0, 0, 0.2);
   opacity: inherit;
 }
-.about-page-partners-card-link{
+.about-page-partners-card-link {
   text-decoration: none;
   color: #000;
 }
-.about-page-partners-card-link img{
+.about-page-partners-card-link img {
   width: 100%;
   height: 100%;
 }
@@ -453,7 +453,7 @@
   .about-page-team-card {
     margin-bottom: 30px;
   }
-  .about-page-partners-card{
+  .about-page-partners-card {
     margin-bottom: 20px;
   }
 }
