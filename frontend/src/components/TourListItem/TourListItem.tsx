@@ -27,6 +27,7 @@ const TourItem: React.FC<Props> = ({ tour }) => {
   const imgLink = apiUrl + '/' + tour.mainImage;
   const publishLoading = useAppSelector(selectTourPublishLoading);
   const deleteLoading = useAppSelector(selectDeleteTourLoading);
+  let guideAvatar = '';
   const onDelete = async () => {
     if (window.confirm('Are you sure you want to delete this tour?')) {
       await dispatch(deleteTour(tour._id));
@@ -41,12 +42,21 @@ const TourItem: React.FC<Props> = ({ tour }) => {
     }
   };
 
+  if (tour.guides.length === 1) {
+    guideAvatar = apiUrl + '/' + tour.guides[0].user.avatar;
+  } else {
+    const randomGuideAvatar = Math.floor(Math.random() * tour.guides.length);
+    guideAvatar = apiUrl + '/' + tour.guides[randomGuideAvatar].user.avatar;
+  }
   return (
     <Fade>
       <div className="tour-item">
         <Link href={`/tours/${tour._id}`} className="tour-item-top">
           <img src={imgLink} alt={tour.name} className="tour-item-img" />
           <div className="tour-item-price">{tour.price.toString()} KGS</div>
+          <div className="tour-item-guide-avatar">
+            <img src={guideAvatar} alt={guideAvatar} />
+          </div>
           {user && user.role === userRoles.admin ? (
             <div
               className={`${
