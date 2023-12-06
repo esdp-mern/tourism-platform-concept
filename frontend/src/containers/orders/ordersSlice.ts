@@ -2,18 +2,24 @@ import { IOrder2 } from '@/type';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import { RootState } from '@/store/store';
-import { deleteOrder, fetchOrders } from '@/containers/orders/ordersThunk';
+import {
+  changeOrderStatus,
+  deleteOrder,
+  fetchOrders,
+} from '@/containers/orders/ordersThunk';
 
 interface OrderState {
   orders: IOrder2[];
   fetchAllLoading: boolean;
   deleteLoading: boolean | string;
+  orderStatusChanging: boolean;
 }
 
 const initialState: OrderState = {
   orders: [],
   fetchAllLoading: false,
   deleteLoading: false,
+  orderStatusChanging: false,
 };
 
 export const ordersSlice = createSlice({
@@ -31,6 +37,7 @@ export const ordersSlice = createSlice({
         return { ...state, ...action.payload.tours };
       },
     );
+
     builder.addCase(fetchOrders.pending, (state) => {
       state.fetchAllLoading = true;
     });
@@ -41,6 +48,7 @@ export const ordersSlice = createSlice({
     builder.addCase(fetchOrders.rejected, (state) => {
       state.fetchAllLoading = false;
     });
+
     builder.addCase(deleteOrder.pending, (state, action) => {
       state.deleteLoading = action.meta.arg;
     });
@@ -49,6 +57,16 @@ export const ordersSlice = createSlice({
     });
     builder.addCase(deleteOrder.rejected, (state) => {
       state.deleteLoading = false;
+    });
+
+    builder.addCase(changeOrderStatus.pending, (state) => {
+      state.orderStatusChanging = true;
+    });
+    builder.addCase(changeOrderStatus.fulfilled, (state) => {
+      state.orderStatusChanging = false;
+    });
+    builder.addCase(changeOrderStatus.rejected, (state) => {
+      state.orderStatusChanging = false;
     });
   },
 });

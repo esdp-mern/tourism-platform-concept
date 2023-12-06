@@ -11,6 +11,22 @@ export const fetchOrders = createAsyncThunk<IOrder2[], void | string>(
   },
 );
 
+export const changeOrderStatus = createAsyncThunk<
+  void,
+  { id: string; status: string },
+  { rejectValue: ValidationError }
+>('', async (data: { id: string; status: string }, { rejectWithValue }) => {
+  try {
+    await axiosApi.patch(`orders/changeStatus?orderId=${data.id}`, data.status);
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 400) {
+      return rejectWithValue(e.response.data);
+    }
+
+    throw e;
+  }
+});
+
 export const deleteOrder = createAsyncThunk<
   void,
   string,

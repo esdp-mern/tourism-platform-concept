@@ -241,6 +241,7 @@ export interface IOrder2 {
   email?: string;
   phone?: string;
   datetime: string;
+  status: string;
 }
 
 export interface IPartner {
