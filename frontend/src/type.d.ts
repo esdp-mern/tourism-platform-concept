@@ -249,3 +249,10 @@ export interface IPartner {
   image?: string;
   link?: string;
 }
+
+export interface INewsMutation {
+  title: string;
+  description: string;
+  category: string[];
+  images: File[] | null;
+}

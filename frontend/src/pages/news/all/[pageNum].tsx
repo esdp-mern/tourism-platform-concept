@@ -6,10 +6,14 @@ import PageLoader from '@/components/Loaders/PageLoader';
 import Pagination from '@/components/Pagination/Pagination';
 import NewsItem from '@/components/NewsItem/NewsItem';
 import { setIsLightMode } from '@/containers/config/configSlice';
+import { selectUser } from '@/containers/users/usersSlice';
+import { userRoles } from '@/constants';
+import Link from 'next/link';
 
 const AllNewsPage = () => {
   const dispatch = useAppDispatch();
   const news = useAppSelector(selectAllNews);
+  const user = useAppSelector(selectUser);
   const [newsPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -46,11 +50,18 @@ const AllNewsPage = () => {
       </div>
       <div className="container">
         <div className="news-main">
-          {currentRecords.map((news) => (
-            <div className="card-news" key={news._id}>
-              <NewsItem news={news} key={news._id} />
-            </div>
-          ))}
+          {user && user.role === userRoles.admin ? (
+            <Link href="/news/create" className="news-admin-create">
+              Create news
+            </Link>
+          ) : null}
+          <div className="news-main-inner">
+            {currentRecords.map((news) => (
+              <div className="card-news" key={news._id}>
+                <NewsItem news={news} key={news._id} />
+              </div>
+            ))}
+          </div>
         </div>
         <div className="news-pagination">
           <Pagination
