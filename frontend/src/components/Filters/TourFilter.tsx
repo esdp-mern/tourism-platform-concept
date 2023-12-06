@@ -1,27 +1,76 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 interface Props {
-  fetching: (fetching: string) => void;
+  fetching: (type: string, value?: string) => void;
+  fetchingByPrice: (type: string) => void;
 }
 
-const TourFilter: React.FC<Props> = ({ fetching }) => {
-  const [currentTab, setCurrentTab] = useState<string>('default');
+const categoriesData = [
+  { id: 'checkbox-1', label: 'history' },
+  { id: 'checkbox-2', label: 'budget' },
+  { id: 'checkbox-3', label: 'popular' },
+  { id: 'checkbox-4', label: 'vacation' },
+  { id: 'checkbox-5', label: 'exotic' },
+];
+
+const TourFilter: React.FC<Props> = ({ fetching, fetchingByPrice }) => {
+  const [currentTab, setCurrentTab] = useState<
+    'name' | 'categories' | 'min' | 'max' | null
+  >(null);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [showInput, setShowInput] = useState<boolean>(false);
   const [showCategories, setShowCategories] = useState<boolean>(false);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const toggleCategory = (label: string) => {
+    const updatedCategories = selectedCategories.includes(label)
+      ? selectedCategories.filter((label) => label !== label)
+      : [...selectedCategories, label];
+
+    setSelectedCategories(updatedCategories);
+  };
+
+  const prevValuesRef = useRef<{
+    name?: string;
+    categories?: string;
+  }>({
+    name: '',
+    categories: '',
+  });
 
   useEffect(() => {
-    fetching(currentTab);
-  }, [currentTab, fetching]);
+    const filters = {
+      name: currentTab === 'name' ? searchTerm : undefined,
+      categories:
+        currentTab === 'categories' ? selectedCategories.join(',') : undefined,
+    };
+
+    const hasChanged =
+      filters.name !== prevValuesRef.current.name ||
+      filters.categories !== prevValuesRef.current.categories;
+
+    if (
+      hasChanged &&
+      currentTab &&
+      (currentTab === 'name' || currentTab === 'categories')
+    ) {
+      fetching(currentTab, filters[currentTab]);
+    }
+
+    prevValuesRef.current = filters;
+  }, [currentTab, searchTerm, selectedCategories, fetching]);
+
+  const filterByPrice = (type: 'max' | 'min') => {
+    setShowCategories(false);
+    setShowInput(false);
+    setCurrentTab(type);
+    if (currentTab && (currentTab === 'min' || currentTab === 'max')) {
+      fetchingByPrice(currentTab);
+    }
+  };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentTab('name');
     setSearchTerm(event.target.value);
-  };
-
-  const resetChoosenFilter = () => {
-    setShowCategories(false);
-    setShowInput(false);
   };
 
   const filterRef = useRef<HTMLDivElement | null>(null);
@@ -72,23 +121,21 @@ const TourFilter: React.FC<Props> = ({ fetching }) => {
             )}
           </button>
         </li>
-        <li className="tab-filter" onClick={resetChoosenFilter}>
+        <li className="tab-filter" onClick={() => filterByPrice('min')}>
           <button
             className={`filter-link ${
-              currentTab === 'low' ? 'filter-active' : ''
+              currentTab === 'min' ? 'filter-active' : ''
             }`}
-            onClick={() => setCurrentTab('low')}
           >
             <span className="icon-filter mdi mdi-arrow-up"> </span>
             <span>Price Low to High</span>
           </button>
         </li>
-        <li className="tab-filter" onClick={resetChoosenFilter}>
+        <li className="tab-filter" onClick={() => filterByPrice('max')}>
           <button
             className={`filter-link ${
-              currentTab === 'high' ? 'filter-active' : ''
+              currentTab === 'max' ? 'filter-active' : ''
             }`}
-            onClick={() => setCurrentTab('high')}
           >
             <span className="icon-filter mdi mdi-arrow-down"></span>
             <span>Price High to Low</span>
@@ -109,7 +156,32 @@ const TourFilter: React.FC<Props> = ({ fetching }) => {
           </button>
 
           {showCategories ? (
-            <div className="categories-filter">fdsfsdfs</div>
+            <div className="categories-filter">
+              <div className="categories-filter-inner">
+                <div className="form-wrap mt-md-30">
+                  <ul className="list-sm">
+                    {categoriesData.map((category) => (
+                      <li key={category.id}>
+                        <label className="checkbox-inline">
+                          <input
+                            name={category.label}
+                            value={category.label}
+                            type="checkbox"
+                            className="checkbox-custom"
+                            checked={selectedCategories.includes(
+                              category.label,
+                            )}
+                            onChange={() => toggleCategory(category.label)}
+                          />
+                          <span className="checkbox-custom-dummy"></span>
+                          {category.label}
+                        </label>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
           ) : null}
         </li>
       </ul>

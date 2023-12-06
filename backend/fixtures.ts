@@ -121,7 +121,7 @@ const run = async () => {
         mainImage: 'fixtures/burana.jpeg',
         description:
           "The Burana Tower is a large minaret in the Chuy Valley in northern Kyrgyzstan. It is located about 80 km east of the country's capital Bishkek, near the town of Tokmok. The tower, along with grave markers, some earthworks and the remnants of a castle and three mausoleums, is all that remains of the ancient city of Balasagun, which was established by the Karakhanids at the end of the 9th century. The tower was built in the 11th century and was used as a template for other minarets. An external staircase and steep, winding stairway inside the tower enables visitors to climb to the top. It is one of the oldest architectural constructions in Central Asia.",
-        category: ['history'],
+        category: ['history', 'exotic'],
         price: 800,
         duration: 1,
         plan: [
@@ -146,7 +146,7 @@ const run = async () => {
         mainImage: 'fixtures/canyon-skazka.jpeg',
         description:
           'Skazka (Fairy Tale) Canyon, located on the southern shore of Issyk-Kul Lake, is one of the most interesting and frequently visited natural places in Kyrgyzstan. It is located 120 kilometers from Balykchi and not far from the village of Tosor. The canyon is located in the gorge of the same name and is famous for its red clay rocks. The wind has been polishing natural and fabulous sculptures here for years. One of the most famous rocks is the "Chinese Wall". So it was nicknamed by the people due to its similarity to the famous architectural monument of China. Walking through the labyrinths of the canyon, you will feel like in a real fairy tale. No wonder the gorge is named that way. The rocks resemble castles, towers, monsters, giants, people and animals. And all this is created by nature, not by the hands of people.',
-        category: ['history'],
+        category: ['history', 'popular', 'exotic'],
         price: 2000,
         duration: 1,
         plan: [
@@ -172,7 +172,7 @@ const run = async () => {
         mainImage: 'fixtures/issyk-kul.jpeg',
         description:
           'Issyk-Kul tours is a journey to the second largest salt lake and sixth deepest lake in the world. Entitled Kyrgyz Baikal for its enormous size, Issyk-Kul does not freeze in winter. The combination of sea and mountainous climate, coniferous forests, thermal springs make Issyk-Kul the place, where your body and soul can rest. Issyk-Kul Lake is surrounded by many intersting sights, including Stone garden withpetroglyphs datingback to the 2000 B.C - 4th century A.D and the cultural center Ruh-Ordo with an old chapel to honor four confessions of the world.',
-        category: ['history'],
+        category: ['history', 'on budget'],
         price: 6000,
         duration: 3,
         plan: [
@@ -207,7 +207,7 @@ const run = async () => {
         mainImage: 'fixtures/osh.jpeg',
         description:
           'Osh tour will introduce you one of the most ancient cities of Central Asia and the second largest city in Kyrgyzstan. The main sight of Osh is the mountain "Solomon\'s Throne" that had been the second Mecca for local Muslims. Legends have endowed the mountain with the might able to heal any disease. There is a museum-reserve inside the mountain consisting of artificial and natural caves. Another sight worth a visit is Shaid Tepa, the largest mosque in Kyrgyzstan.',
-        category: ['history'],
+        category: ['vacation', 'popular'],
         price: 6900,
         duration: 3,
         plan: [
@@ -242,7 +242,7 @@ const run = async () => {
         mainImage: 'fixtures/naryn.jpeg',
         description:
           'Naryn town is the administrative center of the Naryn Region. The town is situated on the banks of the Naryn River (the main headwaters of the Syr Darya). Naryn is the main path of the Great Silk Road, today it connects China, via Torugart Pass. The population of the Naryn Region is 99% Kyrgyz',
-        category: ['history'],
+        category: ['history', 'popular'],
         price: 4500,
         duration: 2,
         plan: [
@@ -272,7 +272,7 @@ const run = async () => {
         mainImage: 'fixtures/sary-chelek.jpeg',
         description:
           'Sary Chelek is located in the Jalal-Abad region in the west of Kyrgyzstan, tucked into the Western Tien Shan Mountains at the foot of the Chatkal Mountain Range. This alpine lake is the highlight of a larger area called Sary Chelek Nature Reserve which has been declared as a UNESCO Biosphere Reserve in 1978. The reserve has seven alpine lakes with Sary Chelek Lake being the largest one. Located at an altitude of 1887 meters and created by a landslide, the lake covers almost 500 hectares. The depth varies across the lake, with its deepest point at 245 meters.',
-        category: ['history'],
+        category: ['on budget'],
         price: 8700,
         duration: 3,
         plan: [

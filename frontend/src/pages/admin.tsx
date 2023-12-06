@@ -12,7 +12,7 @@ const Admin = () => {
   const user = useAppSelector(selectUser);
 
   useEffect(() => {
-    if (user && user.role !== userRoles.admin) {
+    if (!user || user.role !== userRoles.admin) {
       routers.push('/').then((r) => r);
     }
   }, [routers, user]);
