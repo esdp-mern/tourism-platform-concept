@@ -46,11 +46,10 @@ const AllToursPage = () => {
       await dispatch(fetchToursByFilter(filters));
     };
 
-    filterTour().then((r) => r);
+    filterTour();
   }, [filters, dispatch, currentPage]);
 
   const filterByPrice = async (type: string) => {
-    console.log(type);
     await dispatch(fetchToursByPrice(type));
   };
 
