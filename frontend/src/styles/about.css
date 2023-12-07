@@ -1,14 +1,7 @@
-.about-page-top {
-  position: relative;
-}
-
 .about-page-img {
-  position: absolute;
-  top: -60px;
   width: 100%;
   height: 500px;
   filter: brightness(85%);
-  transform: scale(1.008);
 }
 
 .about-page-top-info {
@@ -55,7 +48,7 @@
 }
 
 .about-page-tours {
-  padding-top: 500px;
+  padding-top: 100px;
 }
 
 .about-page-tours {

@@ -1,21 +1,24 @@
 import React, { useEffect } from 'react';
 import PageLoader from '@/components/Loaders/PageLoader';
-import { useAppSelector } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useRouter } from 'next/router';
 import { selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
 import { Fade } from 'react-awesome-reveal';
 import Link from 'next/link';
+import { setIsLightMode } from '@/containers/config/configSlice';
 
 const Admin = () => {
   const routers = useRouter();
   const user = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!user || user.role !== userRoles.admin) {
       routers.push('/').then((r) => r);
     }
-  }, [routers, user]);
+    dispatch(setIsLightMode(true));
+  }, [dispatch, routers, user]);
   return (
     <>
       <PageLoader />
