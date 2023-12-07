@@ -9,3 +9,5 @@ export enum userRoles {
 
 export const GOOGLE_CLIENT_ID =
   '302661332601-7q2hnutfbgkh7jlojlkf5flaut32d71q.apps.googleusercontent.com';
+
+export const boardNames = ['booked', 'being considered', 'approved'];

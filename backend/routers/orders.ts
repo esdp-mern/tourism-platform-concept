@@ -11,10 +11,10 @@ ordersRouter.get('/', async (req, res) => {
     const orders = await Order.find()
       .populate({
         path: 'guide',
-        populate: { path: 'user', model: 'User', select: 'displayName' },
+        populate: { path: 'user', model: 'User', select: 'displayName email' },
       })
       .populate({ path: 'tour', select: 'name' })
-      .populate({ path: 'user', select: 'displayName' });
+      .populate({ path: 'user', select: 'displayName email' });
     if (req.query.datetime && req.query.datetime.length) {
       const datetime = req.query.datetime as string;
 
@@ -66,6 +66,30 @@ ordersRouter.delete(
 
       return res.send('Order deleted successfully');
     } catch (e) {
+      return next(e);
+    }
+  },
+);
+
+ordersRouter.patch(
+  '/changeStatus',
+  auth,
+  permit('moderator'),
+  async (req, res, next) => {
+    try {
+      const order = await Order.findById(req.query.orderId);
+
+      if (!order) {
+        return res.status(404).send('Order not found');
+      }
+
+      order.status = req.body.status;
+      await order.save();
+      return res.send(order);
+    } catch (e) {
+      if (e instanceof mongoose.Error.ValidationError) {
+        return res.status(400).send(e);
+      }
       return next(e);
     }
   },

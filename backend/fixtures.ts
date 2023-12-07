@@ -381,11 +381,13 @@ const run = async () => {
 
   await Order.create(
     {
+      user: user3._id,
       guide: Andrey._id,
       tour: Naryn._id,
       price: Naryn.price,
       date: '2023-11-08T11:22:03.760Z',
       datetime: '2023-11-22T08:20:12.051Z',
+      status: 'booked',
     },
     {
       guide: Artem._id,
@@ -393,6 +395,27 @@ const run = async () => {
       price: Osh.price,
       date: '2023-11-08T15:14:05.760Z',
       datetime: '2023-11-22T08:20:12.051Z',
+      status: 'being considered',
+      phone: '+996 707 777 404',
+    },
+    {
+      user: user1._id,
+      guide: Andrey._id,
+      tour: Naryn._id,
+      price: Naryn.price,
+      date: '2023-11-08T11:22:03.760Z',
+      datetime: '2023-11-22T08:20:12.051Z',
+      status: 'approved',
+    },
+    {
+      guide: Artem._id,
+      tour: Osh._id,
+      price: Osh.price,
+      date: '2023-11-08T15:14:05.760Z',
+      datetime: '2023-11-22T08:20:12.051Z',
+      status: 'being considered',
+      phone: '+996 707 777 404',
+      email: 'brzzkv@gmail.com',
     },
   );
 

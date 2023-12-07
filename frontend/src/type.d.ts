@@ -227,6 +227,7 @@ export interface IOrder2 {
     _id: string;
     user: {
       displayName: string;
+      email: string;
     };
   };
   tour: {
@@ -237,10 +238,12 @@ export interface IOrder2 {
   date: string;
   user?: {
     displayName: string;
+    email: string;
   };
   email?: string;
   phone?: string;
   datetime: string;
+  status: string;
 }
 
 export interface IPartner {
