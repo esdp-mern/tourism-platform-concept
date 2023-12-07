@@ -58,7 +58,7 @@ const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
           <div className="tour-item-guide-avatar">
             <img src={guideAvatar} alt={guideAvatar} />
           </div>
-         {isAdmin && user && user.role === userRoles.admin ? (
+          {isAdmin && user && user.role === userRoles.admin ? (
             <div
               className={`${
                 tour.isPublished ? 'published-tour' : 'unpublished-tour'
