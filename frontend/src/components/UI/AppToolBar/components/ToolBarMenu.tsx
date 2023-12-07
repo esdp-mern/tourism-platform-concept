@@ -33,49 +33,43 @@ const ToolBarMenu: React.FC<IProps> = ({ show, onClick }) => {
 
   return (
     <div
-      className={`${show ? 'backdrop' : 'backdrop-hidden'}`}
-      onClick={onClick}
+      className={`tool-bar-menu ${show ? 'menu-active' : ''}`}
+      onClick={(e) => e.stopPropagation()}
     >
-      <div className={`tool-bar-menu ${show ? 'menu-active' : ''}`}>
-        {user && (
-          <div className="profile-preview">
-            <div className="profile-preview-avatar-and-name">
-              <img
-                src={user.avatar}
-                className="profile-preview-avatar"
-                alt="profile-img"
-              />
-              <div>
-                <h5>{user.displayName}</h5>
-                <h6>{user.role}</h6>
-              </div>
+      {user && (
+        <div className="profile-preview">
+          <div className="profile-preview-avatar-and-name">
+            <img
+              src={user.avatar}
+              className="profile-preview-avatar"
+              alt="profile-img"
+            />
+            <div>
+              <h5>{user.displayName}</h5>
+              <h6>{user.role}</h6>
             </div>
-            <button
-              className="logout"
-              onClick={userLogout}
-              disabled={logoutLoading}
-            >
-              {logoutLoading ? <ButtonLoader size={16} /> : 'Logout'}
-            </button>
           </div>
-        )}
-        {!user && (
-          <div
-            style={{
-              borderBottom: '1px solid #ccc',
-              padding: '10px',
-              margin: '12px',
-            }}
+          <button
+            className="logout"
+            onClick={userLogout}
+            disabled={logoutLoading}
           >
-            <AnonymousMenu onClick={onClick} pathname={pathname} />
-          </div>
-        )}
-        <HotToursToolbar />
-        <button className="close-btn" onClick={onClick}>
-          <span></span>
-          <span></span>
-        </button>
-      </div>
+            {logoutLoading ? <ButtonLoader size={16} /> : 'Logout'}
+          </button>
+        </div>
+      )}
+      {!user && (
+        <div
+          style={{
+            borderBottom: '1px solid #ccc',
+            padding: '10px',
+            margin: '12px',
+          }}
+        >
+          <AnonymousMenu onClick={onClick} pathname={pathname} />
+        </div>
+      )}
+      <HotToursToolbar />
     </div>
   );
 };
