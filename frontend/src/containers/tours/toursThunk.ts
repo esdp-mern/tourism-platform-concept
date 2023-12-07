@@ -3,7 +3,6 @@ import {
   IOrder,
   ITourMutation,
   ITourReview,
-  ITourReview2,
   Tour,
   TourFull,
   ValidationError,
@@ -42,15 +41,9 @@ export const fetchToursByFilter = createAsyncThunk<
 export const fetchToursByPrice = createAsyncThunk<Tour[], string>(
   'tours/fetchByPrice',
   async (type) => {
-    let url = '/tours';
-
-    if (type === 'max') {
-      url = 'tours/filterByMaxPrice';
-    } else if (type === 'min') {
-      url = 'tours/filterByMinPrice';
-    }
-
-    const response = await axiosApi.get<Tour[]>(url);
+    const response = await axiosApi.get<Tour[]>(
+      `/tours/filterBy${type === 'max' ? 'Max' : 'Min'}Price`,
+    );
     return response.data;
   },
 );
@@ -83,7 +76,7 @@ export const publishTour = createAsyncThunk<void, string>(
 
 export const tourReview = createAsyncThunk<
   ITourReview,
-  ITourReview2,
+  ITourReview,
   {
     rejectValue: ValidationError;
   }
