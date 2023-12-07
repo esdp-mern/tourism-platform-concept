@@ -41,7 +41,7 @@ employeeRouter.post(
         name: req.body.name,
         number: req.body.number,
         role: req.body.role,
-        image: req.file ? req.file.filename : null,
+        image: req.file ? 'images/' + req.file.filename : null,
       });
 
       await employee.save();
@@ -68,15 +68,12 @@ employeeRouter.put(
         return res.status(404).send('Not found');
       }
 
-      const image =
-        req.files && 'image' in req.files
-          ? 'images/' + req.files['image'][0].filename
-          : employee.image;
-
       employee.name = req.body.name || employee.name;
       employee.number = req.body.number || employee.number;
       employee.role = req.body.role || employee.role;
-      employee.image = image;
+      employee.image = req.file
+        ? 'images/' + req.file.filename
+        : employee.image;
 
       await employee.save();
       return res.send(employee);

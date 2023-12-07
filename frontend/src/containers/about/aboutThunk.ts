@@ -1,6 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IEmployee, IPartner } from '@/type';
+import {
+  IEmployee,
+  IEmployeeMutation,
+  INewsMutation,
+  IPartner,
+  ValidationError,
+} from '@/type';
 import axiosApi from '@/axiosApi';
+import { isAxiosError } from 'axios';
 
 export const fetchEmployees = createAsyncThunk<IEmployee[], void | string>(
   'about/fetchAllEmployees',
@@ -17,3 +24,89 @@ export const fetchPartners = createAsyncThunk<IPartner[], void | string>(
     return response.data;
   },
 );
+
+export const fetchOneEmployee = createAsyncThunk<IEmployee, string>(
+  'about/fetchOneEmployees',
+  async (id) => {
+    const response = await axiosApi.get(`/employees/${id}`);
+    return response.data;
+  },
+);
+
+export const postEmployees = createAsyncThunk<
+  void,
+  IEmployeeMutation,
+  { rejectValue: ValidationError }
+>('about/createEmployees', async (employeeMutation, { rejectWithValue }) => {
+  try {
+    const formData = new FormData();
+    const keys = Object.keys(employeeMutation) as (keyof IEmployeeMutation)[];
+
+    keys.forEach((key) => {
+      const value = employeeMutation[key];
+
+      if (value !== undefined && value !== null) {
+        formData.append(key, value);
+      }
+    });
+
+    await axiosApi.post<INewsMutation>('/employees', formData);
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 400) {
+      return rejectWithValue(e.response.data);
+    }
+
+    throw e;
+  }
+});
+
+interface updateEmployeesParams {
+  id: string;
+  employeeMutation: IEmployeeMutation;
+}
+
+export const editEmployees = createAsyncThunk<
+  void,
+  updateEmployeesParams,
+  { rejectValue: ValidationError }
+>('about/editEmployees', async (updateEmployeesParams, { rejectWithValue }) => {
+  try {
+    const employeeMutation = updateEmployeesParams.employeeMutation;
+    const formData = new FormData();
+    const keys = Object.keys(employeeMutation) as (keyof IEmployeeMutation)[];
+
+    keys.forEach((key) => {
+      const value = employeeMutation[key];
+
+      if (value !== undefined && value !== null) {
+        formData.append(key, value);
+      }
+    });
+
+    await axiosApi.put<INewsMutation>(
+      `/employees/${updateEmployeesParams.id}`,
+      formData,
+    );
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 400) {
+      return rejectWithValue(e.response.data);
+    }
+
+    throw e;
+  }
+});
+
+export const deleteEmployees = createAsyncThunk<
+  void,
+  string,
+  { rejectValue: ValidationError }
+>('about/deleteEmployees', async (id, { rejectWithValue }) => {
+  try {
+    await axiosApi.delete(`/employees/${id}`);
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 400) {
+      return rejectWithValue(e.response.data);
+    }
+    throw e;
+  }
+});

@@ -66,13 +66,10 @@ newsRouter.post(
       const category = req.body.category ? req.body.category : [];
       const news = new News({
         title: req.body.title,
-        date: req.body.date,
         description: req.body.description,
         images,
         category,
       });
-
-      console.log(req.body);
 
       await news.save();
       return res.send(news);
@@ -114,11 +111,9 @@ newsRouter.put(
           : news.images;
 
       news.title = req.body.title || news.title;
-      news.date = req.body.date || news.date;
       news.images = images;
       news.description = req.body.description || news.description;
       news.category = category;
-
       await news.save();
 
       console.log(req.body);

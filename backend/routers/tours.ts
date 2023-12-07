@@ -56,10 +56,16 @@ toursRouter.get('/', async (req, res) => {
     let tours;
 
     if (req.query.guide) {
-      tours = await Tour.find({ guid: req.query.guide, isPublished: true });
+      tours = await Tour.find({ guides: req.query.guide, isPublished: true });
       return res.send(tours);
     }
-    tours = await Tour.find({ isPublished: true });
+    tours = await Tour.find({ isPublished: true }).populate({
+      path: 'guides',
+      populate: {
+        path: 'user',
+        select: 'username displayName role avatar email',
+      },
+    });
     return res.send(tours);
   } catch (e) {
     return res.status(500).send('Error');
@@ -71,11 +77,23 @@ toursRouter.get('/all', async (req, res) => {
     let tours;
 
     if (req.query.true) {
-      tours = await Tour.find();
+      tours = await Tour.find().populate({
+        path: 'guides',
+        populate: {
+          path: 'user',
+          select: 'username displayName role avatar email',
+        },
+      });
       return res.send(tours);
     }
 
-    tours = await Tour.find({ isPublished: false });
+    tours = await Tour.find({ isPublished: false }).populate({
+      path: 'guides',
+      populate: {
+        path: 'user',
+        select: 'username displayName role avatar email',
+      },
+    });
     return res.send(tours);
   } catch (e) {
     return res.status(500).send('Error');

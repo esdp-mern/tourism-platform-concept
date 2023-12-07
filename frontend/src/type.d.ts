@@ -48,7 +48,7 @@ export interface GlobalError {
 
 export interface IGuide {
   _id: string;
-  user: IUser;
+  user: User;
   description: string;
   languages: string[];
   country: string;
@@ -248,4 +248,18 @@ export interface IPartner {
   name?: string;
   image?: string;
   link?: string;
+}
+
+export interface INewsMutation {
+  title: string;
+  description: string;
+  category: string[];
+  images: File[] | null;
+}
+
+export interface IEmployeeMutation {
+  name: string;
+  number: string;
+  role: string;
+  image: File | null;
 }
