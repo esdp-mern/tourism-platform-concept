@@ -78,16 +78,35 @@ const AllOrders = () => {
       changeOrderStatus({ id: currentOrder.id, status: boardName }),
     );
     dispatch(fetchOrders());
+    dragStartHandler('', '');
+  };
+
+  const onOrderClick = (orderId: string, orderStatus: string) => {
+    if (!currentOrder.id) {
+      dragStartHandler(orderId, orderStatus);
+      return;
+    }
+    dragStartHandler('', '');
   };
 
   return (
-    <div className="container">
+    <div className="container" onClick={() => dragStartHandler('', '')}>
       <PageLoader />
       <div className="orders-page">
         <h2 className="orders-title">Orders</h2>
         <div className="boards">
           {boardNames.map((boardName) => (
-            <div className="order-board" key={boardName}>
+            <div
+              className="order-board"
+              key={boardName}
+              onClick={() => {
+                if (currentOrder.id) {
+                  if (currentOrder.boardName !== boardName) {
+                    void dropHandler(boardName);
+                  }
+                }
+              }}
+            >
               <h4 className="board-title">
                 {boardName[0].toUpperCase() +
                   boardName.slice(1, boardName.length)}
@@ -106,7 +125,9 @@ const AllOrders = () => {
                       : []
                 ).map((order) => (
                   <div
-                    className="order-item"
+                    className={`order-item ${
+                      currentOrder.id === order._id ? 'order-selected' : ''
+                    }`}
                     key={order._id}
                     draggable={true}
                     onDragStart={() =>
@@ -116,6 +137,17 @@ const AllOrders = () => {
                     onDrop={(e) => e.preventDefault()}
                     onDragLeave={(e) => e.preventDefault()}
                     onDragEnd={(e) => e.preventDefault()}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (!currentOrder.id) {
+                        void onOrderClick(order._id, order.status);
+                        return;
+                      }
+                      dragStartHandler('', '');
+                      if (currentOrder.boardName !== boardName) {
+                        void dropHandler(boardName);
+                      }
+                    }}
                   >
                     {orderChangerLoading && currentOrder.id === order._id && (
                       <div className="order-status-loading">
@@ -139,13 +171,13 @@ const AllOrders = () => {
                       <span>{order.phone || '-'}</span>
                     </div>
                     <div className="user-info-row">
+                      <span>{order.tour.name || '-'}</span>
+                      <span>{order.price + 'kgs' || '-'}</span>
+                    </div>
+                    <div className="user-info-row">
                       <span className="order-date">
                         {dayjs(order.date).format('DD.MM.YY') || '-'}
                       </span>
-                    </div>
-                    <div className="user-info-row">
-                      <span>{order.tour.name || '-'}</span>
-                      <span>{order.price + 'kgs' || '-'}</span>
                     </div>
                     <div className="user-info-row">
                       <span>{order.guide.user.displayName || '-'}</span>
