@@ -70,6 +70,7 @@ newsRouter.post(
         images,
         category,
       });
+
       await news.save();
       return res.send(news);
     } catch (e) {
@@ -114,6 +115,8 @@ newsRouter.put(
       news.description = req.body.description || news.description;
       news.category = category;
       await news.save();
+
+      console.log(req.body);
 
       return res.send(news);
     } catch (e) {

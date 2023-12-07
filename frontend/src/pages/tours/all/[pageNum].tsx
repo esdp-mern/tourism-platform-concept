@@ -1,17 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import Pagination from '@/components/Pagination/Pagination';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { fetchTours } from '@/containers/tours/toursThunk';
+import {
+  fetchTours,
+  fetchToursByFilter,
+  fetchToursByPrice,
+} from '@/containers/tours/toursThunk';
 import { selectAllTours } from '@/containers/tours/toursSlice';
 import TourItem from '@/components/TourListItem/TourListItem';
 import PageLoader from '@/components/Loaders/PageLoader';
 import { setIsLightMode } from '@/containers/config/configSlice';
+import TourFilter from '@/components/Filters/TourFilter';
+
+interface Filter {
+  type: string;
+  value?: string;
+}
 
 const AllToursPage = () => {
   const dispatch = useAppDispatch();
-  const tours = useAppSelector(selectAllTours);
+  let tours = useAppSelector(selectAllTours);
   const [toursPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
+  const [filters, setFilters] = useState<Filter>({
+    type: '',
+    value: '',
+  });
 
   const indexOfLastRecord = currentPage * toursPerPage;
   const indexOfFirstRecord = indexOfLastRecord - toursPerPage;
@@ -20,16 +34,36 @@ const AllToursPage = () => {
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
-    dispatch(fetchTours());
+    dispatch(fetchTours);
   }, [dispatch]);
 
   const onSetCurrentPage = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
 
+  useEffect(() => {
+    const filterTour = async () => {
+      await dispatch(fetchToursByFilter(filters));
+    };
+
+    filterTour();
+  }, [filters, dispatch, currentPage]);
+
+  const filterByPrice = async (type: string) => {
+    await dispatch(fetchToursByPrice(type));
+  };
+
   return (
     <div className="all-tours">
       <PageLoader />
+      <div className="fixed-toolbar"></div>
+
+      <TourFilter
+        fetching={(type, value) => {
+          setFilters({ type, value });
+        }}
+        fetchingByPrice={(type) => filterByPrice(type)}
+      />
       <div className="container">
         <div>
           <div>

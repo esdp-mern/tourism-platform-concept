@@ -23,6 +23,37 @@ export const fetchTours = createAsyncThunk<Tour[], void | string>(
   },
 );
 
+export const fetchToursByFilter = createAsyncThunk<
+  Tour[],
+  { type: string; value?: string | undefined }
+>('tours/fetchByFilter', async (arg) => {
+  let url = '/tours';
+
+  if (arg.type === 'name') {
+    url = `/tours/filterByName?name=${arg.value}`;
+  } else if (arg.type === 'categories') {
+    url = `/tours/filterByCategory?category=${arg.value}`;
+  }
+
+  const response = await axiosApi.get<Tour[]>(url);
+  return response.data;
+});
+
+export const fetchToursByPrice = createAsyncThunk<Tour[], string>(
+  'tours/fetchByPrice',
+  async (type) => {
+    let url = '/tours';
+
+    if (type === 'max') {
+      url = 'tours/filterByMaxPrice';
+    } else if (type === 'min') {
+      url = 'tours/filterByMinPrice';
+    }
+
+    const response = await axiosApi.get<Tour[]>(url);
+    return response.data;
+  },
+);
 export const fetchAdminTours = createAsyncThunk<Tour[], void | boolean>(
   'tours/fetchAdminAll',
   async (all) => {
