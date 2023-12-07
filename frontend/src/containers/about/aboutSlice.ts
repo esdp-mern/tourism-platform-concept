@@ -1,8 +1,9 @@
-import { IEmployee, IPartner, ValidationError } from '@/type';
+import { IAboutUs, IEmployee, IPartner, ValidationError } from '@/type';
 import { createSlice } from '@reduxjs/toolkit';
 import {
   deleteEmployees,
   editEmployees,
+  fetchAboutUs,
   fetchEmployees,
   fetchOneEmployee,
   fetchPartners,
@@ -11,6 +12,8 @@ import {
 import { RootState } from '@/store/store';
 
 interface AboutState {
+  about: IAboutUs | null;
+  aboutLoading: boolean;
   employees: IEmployee[];
   employee: IEmployee | null;
   fetchEmployeesLoading: boolean;
@@ -24,6 +27,8 @@ interface AboutState {
 }
 
 const initialState: AboutState = {
+  about: null,
+  aboutLoading: false,
   employees: [],
   employee: null,
   fetchEmployeesLoading: false,
@@ -45,6 +50,17 @@ export const aboutSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchAboutUs.pending, (state) => {
+      state.aboutLoading = true;
+    });
+    builder.addCase(fetchAboutUs.fulfilled, (state, { payload }) => {
+      state.aboutLoading = false;
+      state.about = payload;
+    });
+    builder.addCase(fetchAboutUs.rejected, (state) => {
+      state.aboutLoading = false;
+    });
+
     builder.addCase(fetchEmployees.pending, (state) => {
       state.fetchEmployeesLoading = true;
     });

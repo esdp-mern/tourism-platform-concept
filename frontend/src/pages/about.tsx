@@ -5,13 +5,17 @@ import PageLoader from '@/components/Loaders/PageLoader';
 import EmployeeItem from '@/components/EmployeeItem/EmployeeItem';
 import GuideSlider from '@/components/GuideSlider/GuideSlider';
 import PartnerItem from '@/components/PartnerItem/PartnerItem';
-import { useAppDispatch } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setIsLightMode } from '@/containers/config/configSlice';
+import { fetchAboutUs } from '@/containers/about/aboutThunk';
+import waveIcon from '@/assets/images/wave-icon.svg';
 
 const About = () => {
   const dispatch = useAppDispatch();
+  const { about } = useAppSelector((state) => state.about);
 
   useEffect(() => {
+    dispatch(fetchAboutUs());
     dispatch(setIsLightMode(false));
   }, [dispatch]);
 
@@ -21,38 +25,31 @@ const About = () => {
       <div className="about-page-top">
         <img
           alt="mountains"
-          src="https://livedemo00.template-help.com/wt_prod-19282/images/bg-image-1.jpg"
+          src={about?.main.image}
           className="about-page-img"
         />
         <div className="about-page-top-info">
-          <div className="about-page-top-line"></div>
-          <h2 className="about-page-top-title">About</h2>
-          <div className="about-page-top-txt">
-            Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in
-            reprehenderit.
+          <div className="about-page-top-line">
+            <img src={'http://localhost:3000' + waveIcon.src} alt="img" />
           </div>
+          <h2 className="about-page-top-title">{about?.main.title}</h2>
+          <div className="about-page-top-txt">{about?.main.description}</div>
         </div>
+        <button className="about-page-top-edit-btn">Edit</button>
       </div>
       <div className="about-page-tour">
         <Fade>
           <div className="about-page-tours container">
             <div className="about-page-tours-left">
-              <h3 className="about-page-tours-title">
-                Fastest Way to Book over 450 Great Tours
-              </h3>
+              <h3 className="about-page-tours-title">{about?.offer.title}</h3>
               <div className="about-page-tours-txt">
-                Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam,
-                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo consequat. Duis aute irure dolor in reprehenderit in
-                voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                {about?.offer.description}
               </div>
               <button className="about-page-tours-btn">Book now</button>
             </div>
             <div className="about-page-tours-img-wrap">
               <img
-                src={horseImg.src}
+                src={about?.offer.image}
                 alt="coconout"
                 className="about-page-tours-img"
               />
@@ -63,46 +60,20 @@ const About = () => {
       <div className="container">
         <Fade>
           <div className="about-page-advantages">
-            <div className="about-page-advantages-card card-one">
-              <h4 className="about-page-advantages-title">
-                <span>01.</span>
-                Save Money
-              </h4>
-              <p className="about-page-advantages-txt">
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris nisi ut aliquip ex ea commodo consequat.
-              </p>
-            </div>
-            <div className="about-page-advantages-card card-two">
-              <h4 className="about-page-advantages-title">
-                <span>02.</span>
-                Get Support
-              </h4>
-              <p className="about-page-advantages-txt">
-                Lura, capio, et diatria. Mori recte ducunt ad alter plasmator.
-                Experimentum sapienter ducunt ad audax.
-              </p>
-            </div>
-            <div className="about-page-advantages-card card-three">
-              <h4 className="about-page-advantages-title">
-                <span>03.</span>
-                Travel Safety
-              </h4>
-              <p className="about-page-advantages-txt">
-                Indexs ortum! Classiss sunt solitudos de altus adgium. Castus,
-                regius triticums superbe anhelare.
-              </p>
-            </div>
-            <div className="about-page-advantages-card card-four">
-              <h4 className="about-page-advantages-title">
-                <span>04.</span>
-                Book Easily
-              </h4>
-              <p className="about-page-advantages-txt">
-                Cur nixus mori? Pol. Sunt hippotoxotaes convertam festus, brevis
-                buboes. Brevis terror nunquam amors.
-              </p>
-            </div>
+            {about?.posts.map((post, index) => (
+              <div key={post._id} className="about-page-advantages-card">
+                <img
+                  src={post.image}
+                  className="about-page-advantages-image"
+                  alt="post-img"
+                />
+                <h4 className="about-page-advantages-title">
+                  <span>0{index + 1}.</span>
+                  {post.title}
+                </h4>
+                <p className="about-page-advantages-txt">{post.description}</p>
+              </div>
+            ))}
           </div>
         </Fade>
       </div>
@@ -111,12 +82,9 @@ const About = () => {
           <Fade>
             <div className="about-page-clients-main">
               <h2 className="about-page-clients-title">
-                What Clients Say About Us
+                {about?.review.title}
               </h2>
-              <div>
-                Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur.
-              </div>
+              <div>{about?.review.description}</div>
             </div>
             <div className="about-page-clients-cards">
               <div className="about-page-clients-card">

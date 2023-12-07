@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
+  IAboutUs,
   IEmployee,
   IEmployeeMutation,
   INewsMutation,
@@ -8,6 +9,14 @@ import {
 } from '@/type';
 import axiosApi from '@/axiosApi';
 import { isAxiosError } from 'axios';
+
+export const fetchAboutUs = createAsyncThunk<IAboutUs>(
+  'about/fetchAboutUs',
+  async () => {
+    const { data } = await axiosApi.get('/aboutUs');
+    return data;
+  },
+);
 
 export const fetchEmployees = createAsyncThunk<IEmployee[], void | string>(
   'about/fetchAllEmployees',

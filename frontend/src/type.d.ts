@@ -263,3 +263,18 @@ export interface IEmployeeMutation {
   role: string;
   image: File | null;
 }
+
+export interface IAboutUsBlock {
+  _id: string;
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+export interface IAboutUs {
+  _id: string;
+  main: IAboutUsBlock;
+  offer: IAboutUsBlock;
+  posts: IAboutUsBlock[];
+  review: IAboutUsBlock;
+}
