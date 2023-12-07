@@ -13,6 +13,7 @@ import PlatformReview from './models/PlatformReview';
 import TourRating from './models/TourRating';
 import GuideRating from './models/GuideRating';
 import Partner from './models/Partner';
+import ContactUs from './models/ContactUs';
 
 const run = async () => {
   await mongoose.connect(config.db);
@@ -31,6 +32,7 @@ const run = async () => {
     await db.dropCollection('tourratings');
     await db.dropCollection('guideratings');
     await db.dropCollection('partners');
+    await db.dropCollection('contacts');
   } catch (e) {
     console.log('Collections were not present, skipping drop...');
   }
@@ -599,6 +601,30 @@ const run = async () => {
       link: 'https://mkk.gov.kg/%D0%B4%D0%B5%D0%BF%D0%B0%D1%80%D1%82%D0%B0%D0%BC%D0%B5%D0%BD%D1%82-%D1%82%D1%83%D1%80%D0%B8%D0%B7%D0%BC%D0%B0/29/',
     },
   );
+
+  await ContactUs.create({
+    title: 'Contact Us',
+    description:
+      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
+    contact: [
+      {
+        country: 'United States',
+        address: '9 Valley St. Brooklyn, NY 11203',
+        phone: '1-800-346-6277',
+      },
+      {
+        country: 'Canada',
+        address: '500 Kingston Rd Toronto ON M4L 1V3',
+        phone: '1-800-346-6277',
+      },
+      {
+        country: 'Australia',
+        address: '60 Marcus Clarke St, Canberra, ACT 2601',
+        phone: '1-800-346-6277',
+      },
+    ],
+  });
+
   await db.close();
 };
 
