@@ -46,3 +46,9 @@ export interface IPartner {
   image: string;
   link: string;
 }
+
+export interface IAboutUsBlock {
+  title: string;
+  description?: string;
+  image?: string;
+}

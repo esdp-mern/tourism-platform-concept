@@ -14,6 +14,7 @@ import TourRating from './models/TourRating';
 import GuideRating from './models/GuideRating';
 import Partner from './models/Partner';
 import ContactUs from './models/ContactUs';
+import AboutUs from './models/AboutUs';
 
 const run = async () => {
   await mongoose.connect(config.db);
@@ -32,6 +33,7 @@ const run = async () => {
     await db.dropCollection('tourratings');
     await db.dropCollection('guideratings');
     await db.dropCollection('partners');
+    await db.dropCollection('aboutus');
     await db.dropCollection('contacts');
   } catch (e) {
     console.log('Collections were not present, skipping drop...');
@@ -383,11 +385,13 @@ const run = async () => {
 
   await Order.create(
     {
+      user: user3._id,
       guide: Andrey._id,
       tour: Naryn._id,
       price: Naryn.price,
       date: '2023-11-08T11:22:03.760Z',
       datetime: '2023-11-22T08:20:12.051Z',
+      status: 'booked',
     },
     {
       guide: Artem._id,
@@ -395,6 +399,27 @@ const run = async () => {
       price: Osh.price,
       date: '2023-11-08T15:14:05.760Z',
       datetime: '2023-11-22T08:20:12.051Z',
+      status: 'being considered',
+      phone: '+996 707 777 404',
+    },
+    {
+      user: user1._id,
+      guide: Andrey._id,
+      tour: Naryn._id,
+      price: Naryn.price,
+      date: '2023-11-08T11:22:03.760Z',
+      datetime: '2023-11-22T08:20:12.051Z',
+      status: 'approved',
+    },
+    {
+      guide: Artem._id,
+      tour: Osh._id,
+      price: Osh.price,
+      date: '2023-11-08T15:14:05.760Z',
+      datetime: '2023-11-22T08:20:12.051Z',
+      status: 'being considered',
+      phone: '+996 707 777 404',
+      email: 'brzzkv@gmail.com',
     },
   );
 
@@ -625,6 +650,56 @@ const run = async () => {
     ],
   });
 
+
+  await AboutUs.create({
+    main: {
+      title: 'About',
+      description:
+        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
+      image:
+        'https://livedemo00.template-help.com/wt_prod-19282/images/bg-image-1.jpg',
+    },
+    offer: {
+      title: 'Fastest Way to Book over 450 Great Tours',
+      description:
+        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+      image: 'http://localhost:3000/_next/static/media/horses.3e0f7e1f.png',
+    },
+    posts: [
+      {
+        title: 'Save Money',
+        description:
+          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        image:
+          'http://localhost:3000/_next/static/media/money-icon.1012e8a2.svg',
+      },
+      {
+        title: 'Get Support',
+        description:
+          'Lura, capio, et diatria. Mori recte ducunt ad alter plasmator. Experimentum sapienter ducunt ad audax.',
+        image:
+          'http://localhost:3000/_next/static/media/support-icon.41910bef.svg',
+      },
+      {
+        title: 'Travel Safety',
+        description:
+          'Indexs ortum! Classiss sunt solitudos de altus adgium. Castus, regius triticums superbe anhelare.',
+        image:
+          'http://localhost:3000/_next/static/media/safety-icon.e5b9f421.svg',
+      },
+      {
+        title: 'Book Easily',
+        description:
+          'Cur nixus mori? Pol. Sunt hippotoxotaes convertam festus, brevis buboes. Brevis terror nunquam amors.',
+        image: 'http://localhost:3000/_next/static/media/sun-icon.93ace05d.svg',
+      },
+    ],
+    review: {
+      title: 'What Clients Say About Us',
+      description:
+        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+    },
+  });
   await db.close();
 };
 
