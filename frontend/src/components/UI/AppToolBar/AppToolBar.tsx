@@ -116,14 +116,6 @@ const AppToolBar = () => {
               News
             </NavLink>
             <NavLink
-              href="/reviews/all/1"
-              className={`nav-link ${
-                pathname && pathname.includes('/reviews/all') ? 'active' : ''
-              }`}
-            >
-              Reviews
-            </NavLink>
-            <NavLink
               href="/contactUs"
               className={`nav-link ${
                 pathname === '/contactUs' ? 'active' : ''
