@@ -45,6 +45,7 @@ const UserMenu: React.FC<IProps> = ({ user, onClick, pathname }) => {
       {user && user.role === userRoles.moderator && (
         <NavLink
           href="/orders/allOrders"
+          as="/orders/allOrders"
           className={`nav-link profile-link ${
             pathname === '/orders/allOrders' ? 'active' : ''
           }`}

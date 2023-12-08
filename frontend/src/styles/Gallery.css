@@ -42,6 +42,7 @@
 .gallery-imgs {
   width: 250px;
   height: 250px;
+  object-fit: cover;
 }
 .backdrop-gallery {
   position: fixed;
@@ -57,6 +58,7 @@
 
 .backdrop-gallery-open {
   animation: openGallery 0.5s linear;
+  padding-top: 150px;
 }
 
 .backdrop-gallery-btn {
@@ -79,8 +81,9 @@
 
 .modal-img {
   width: 100vh;
-  height: 500px;
+  height: auto;
   animation: switchImage 0.5s linear;
+  object-fit: cover;
 }
 .backdrop-gallery-inner {
   display: flex;
@@ -138,13 +141,11 @@
   }
   .modal-img {
     width: 700px;
-    height: 400px;
   }
 }
 @media (max-width: 850px) {
   .modal-img {
     width: 600px;
-    height: 300px;
   }
 }
 @media (max-width: 768px) {
@@ -154,7 +155,6 @@
   }
   .modal-img {
     width: 500px;
-    height: 250px;
   }
   .backdrop-gallery-btn {
     font-size: 25px;
@@ -171,11 +171,13 @@
     height: 28px;
     width: 28px;
   }
+  .backdrop-gallery-open {
+    padding-top: 20px;
+  }
 }
 @media (max-width: 575px) {
   .modal-img {
     width: 400px;
-    height: 200px;
     position: relative;
   }
   .backdrop-gallery-inner img {
@@ -205,6 +207,9 @@
   .backdrop-gallery-btn {
     font-size: 23px;
   }
+  .backdrop-gallery-open {
+    padding-top: 0;
+  }
 }
 @media (max-width: 475px) {
   .one-tour-gallery h2 {
@@ -215,6 +220,10 @@
     justify-content: space-around;
     flex-wrap: wrap;
     gap: 10px;
+  }
+
+  .modal-img {
+    width: 300px;
   }
 }
 
