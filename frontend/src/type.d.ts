@@ -11,6 +11,14 @@ export interface RegisterMutation {
   avatar: File | null;
 }
 
+export interface IEditProfile {
+  id: string;
+  username: string;
+  displayName: string;
+  email: string;
+  avatar: File | null;
+}
+
 export interface User {
   _id: string;
   username: string;

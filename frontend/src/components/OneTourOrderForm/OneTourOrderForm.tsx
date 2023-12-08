@@ -34,7 +34,6 @@ const OneTourOrderForm = () => {
 
   const changeValue = (e: IChangeEvent) => {
     const { name, value } = e.target;
-
     setState((prevState) => ({ ...prevState, [name]: value }));
   };
 

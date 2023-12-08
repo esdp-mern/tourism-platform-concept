@@ -69,7 +69,6 @@ const EmployeeForm: React.FC<Props> = ({
     const { name, files } = e.target;
 
     if (files) {
-      console.log(e.target.files, e.target.name);
       setState((prevState) => ({
         ...prevState,
         [name]: files[0],

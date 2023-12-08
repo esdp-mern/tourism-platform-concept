@@ -213,12 +213,12 @@
 .scrollDown:hover {
   box-shadow: 0 4px 20px rgba(255, 255, 255, 0.8);
 }
-.country-slider-btns{
+.country-slider-btns {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.country-slider-btns-delete{
+.country-slider-btns-delete {
   background: #8c0404;
   padding: 10px 20px;
   color: #fff;
@@ -230,7 +230,7 @@
   transition: 0.2s;
 }
 
-.country-slider-btns-edit{
+.country-slider-btns-edit {
   background: #297a0d;
   border: 1px solid transparent;
   padding: 10px 20px;
@@ -242,10 +242,10 @@
 }
 .country-slider-btns-edit:hover,
 .country-slider-btns-add:hover,
-.country-slider-btns-delete:hover{
+.country-slider-btns-delete:hover {
   text-decoration: underline;
 }
-.country-slider-btns-add{
+.country-slider-btns-add {
   background: #0083ff;
   margin: 0 2px;
   padding: 5px 10px;

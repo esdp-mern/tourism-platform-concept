@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { googleLogin, logout, signIn, signUp } from './usersThunk';
+import { editProfile, googleLogin, logout, signIn, signUp } from './usersThunk';
 import { RootState } from '@/store/store';
 import { IAlert, User, ValidationError } from '@/type';
 import { apiUrl } from '@/constants';
@@ -12,7 +12,9 @@ interface UsersState {
   signInLoading: boolean;
   signInError: { error: string } | null;
   logoutLoading: boolean;
+  editLoading: boolean;
   alerts: IAlert[];
+  editorModal: boolean;
 }
 
 const initialState: UsersState = {
@@ -22,10 +24,12 @@ const initialState: UsersState = {
   signInLoading: false,
   signInError: null,
   logoutLoading: false,
+  editLoading: false,
   alerts: [],
+  editorModal: false,
 };
 
-const getFiltredUrl = (url: string) =>
+const getFilteredUrl = (url: string) =>
   `${apiUrl}/${url.includes('fixtures') ? '' : 'images/'}${url}`;
 
 export const usersSlice = createSlice({
@@ -49,6 +53,9 @@ export const usersSlice = createSlice({
     },
     resetSignInError: (state) => {
       state.signInError = null;
+    },
+    setEditorModal: (state) => {
+      state.editorModal = !state.editorModal;
     },
   },
   extraReducers: (builder) => {
@@ -80,7 +87,7 @@ export const usersSlice = createSlice({
 
       state.user = {
         ...userData,
-        avatar: userData.avatar && getFiltredUrl(userData.avatar),
+        avatar: userData.avatar && getFilteredUrl(userData.avatar),
       };
     });
     builder.addCase(signIn.rejected, (state, { payload: error }) => {
@@ -99,7 +106,7 @@ export const usersSlice = createSlice({
 
         state.user = {
           ...userResponse,
-          avatar: userResponse.avatar && getFiltredUrl(userResponse.avatar),
+          avatar: userResponse.avatar && getFilteredUrl(userResponse.avatar),
         };
       },
     );
@@ -119,10 +126,30 @@ export const usersSlice = createSlice({
     builder.addCase(logout.rejected, (state) => {
       state.logoutLoading = false;
     });
+
+    builder.addCase(editProfile.pending, (state) => {
+      state.editLoading = true;
+    });
+    builder.addCase(
+      editProfile.fulfilled,
+      (state, { payload: userResponse }) => {
+        state.editLoading = false;
+        const userData = userResponse.user;
+
+        state.user = {
+          ...userData,
+          avatar: `${apiUrl}/${userData.avatar}`,
+        };
+      },
+    );
+    builder.addCase(editProfile.rejected, (state) => {
+      state.editLoading = false;
+    });
   },
 });
 
-export const { addAlert, disableAlert, resetSignInError } = usersSlice.actions;
+export const { addAlert, disableAlert, resetSignInError, setEditorModal } =
+  usersSlice.actions;
 export const usersReducer = usersSlice.reducer;
 export const selectUser = (state: RootState) => state.users.user;
 export const selectSignUpLoading = (state: RootState) =>
@@ -134,3 +161,5 @@ export const selectSignInError = (state: RootState) => state.users.signInError;
 export const selectLogoutLoading = (state: RootState) =>
   state.users.logoutLoading;
 export const selectAlerts = (state: RootState) => state.users.alerts;
+export const selectEditorModal = (state: RootState) => state.users.editorModal;
+export const selectEditLoading = (state: RootState) => state.users.editLoading;
