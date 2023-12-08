@@ -1,3 +1,11 @@
+.tool-bar-body *:not(.nav *) {
+  color: #fff !important;
+}
+
+.tool-bar-body-light *:not(.nav *) {
+  color: #000 !important;
+}
+
 .tool-bar-body {
   position: fixed;
   top: 0;
@@ -11,7 +19,7 @@
   background-color: #fff;
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 993px) {
   .tool-bar-body {
     padding: 40px 0;
     background-color: transparent;
@@ -179,11 +187,11 @@
 
 .tool-bar-menu {
   position: fixed;
+  z-index: 1080;
   top: 0;
   right: 0;
   width: 270px;
   height: 100%;
-  z-index: 1080;
   transform: translate3d(20px, 0, 0);
   transition: 0.22s;
   background-color: #fff;
@@ -202,13 +210,13 @@
 }
 
 .profile-preview {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 100%;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 35px;
+  gap: 10px;
+  box-sizing: border-box;
+  padding: 10px;
+  width: 100%;
 }
 
 .profile-preview * {
@@ -281,7 +289,7 @@
   background-color: #75c15b;
   border: none;
   padding: 5px 10px;
-  color: #fff;
+  color: #fff !important;
   min-width: 70px;
   cursor: pointer;
   border-radius: 4px;
@@ -292,31 +300,15 @@
 .logout:hover {
   background-color: #ffa133;
 }
-.backdrop {
-  position: fixed;
-  inset: 0;
-  background-color: rgb(0, 0, 0, 0.4);
-}
-.backdrop-hidden {
-  display: none;
-}
 
 @media screen and (max-width: 992px) {
   .tool-bar-body {
     background-color: #222;
   }
 
-  .tool-bar-body *:not(.nav *) {
-    color: #fff !important;
-  }
-
   .tool-bar-body-light {
     background-color: #fff;
     border-bottom: 1px solid #ccc;
-  }
-
-  .tool-bar-body-light *:not(.nav *) {
-    color: #000 !important;
   }
 
   .nav-btn-dark span {

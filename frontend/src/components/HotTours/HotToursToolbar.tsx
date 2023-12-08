@@ -13,7 +13,7 @@ const HotToursToolbar = () => {
   useEffect(() => {
     dispatch(fetchTours());
     document.addEventListener('DOMContentLoaded', () => {
-      setCurrentIndex(0);
+      // setCurrentIndex(0);
     });
   }, [dispatch]);
   const goToSlide = (index: number, e: React.MouseEvent) => {

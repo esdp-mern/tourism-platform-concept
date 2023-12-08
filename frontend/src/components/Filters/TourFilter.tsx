@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-
-interface Props {
-  fetching: (type: string, value?: string) => void;
-  fetchingByPrice: (type: string) => void;
-}
+import { useAppDispatch } from '@/store/hooks';
+import {
+  fetchTours,
+  fetchToursByFilter,
+  fetchToursByPrice,
+} from '@/containers/tours/toursThunk';
 
 const categoriesData = [
   { id: 'checkbox-1', label: 'history' },
@@ -13,64 +14,57 @@ const categoriesData = [
   { id: 'checkbox-5', label: 'exotic' },
 ];
 
-const TourFilter: React.FC<Props> = ({ fetching, fetchingByPrice }) => {
+const TourFilter = () => {
   const [currentTab, setCurrentTab] = useState<
     'name' | 'categories' | 'min' | 'max' | null
   >(null);
+  const dispatch = useAppDispatch();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [showInput, setShowInput] = useState<boolean>(false);
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const toggleCategory = (label: string) => {
+
+  const toggleCategory = async (label: string) => {
     const updatedCategories = selectedCategories.includes(label)
       ? selectedCategories.filter((label) => label !== label)
       : [...selectedCategories, label];
 
     setSelectedCategories(updatedCategories);
+    if (!currentTab || !selectedCategories) return;
+    console.log(updatedCategories);
+    if (updatedCategories.length) {
+      await dispatch(
+        fetchToursByFilter({
+          type: 'categories',
+          value: updatedCategories.join(','),
+        }),
+      );
+      return;
+    }
+    await dispatch(fetchTours());
   };
 
-  const prevValuesRef = useRef<{
-    name?: string;
-    categories?: string;
-  }>({
-    name: '',
-    categories: '',
-  });
-
-  useEffect(() => {
-    const filters = {
-      name: currentTab === 'name' ? searchTerm : undefined,
-      categories:
-        currentTab === 'categories' ? selectedCategories.join(',') : undefined,
-    };
-
-    const hasChanged =
-      filters.name !== prevValuesRef.current.name ||
-      filters.categories !== prevValuesRef.current.categories;
-
-    if (
-      hasChanged &&
-      currentTab &&
-      (currentTab === 'name' || currentTab === 'categories')
-    ) {
-      fetching(currentTab, filters[currentTab]);
-    }
-
-    prevValuesRef.current = filters;
-  }, [currentTab, searchTerm, selectedCategories, fetching]);
-
-  const filterByPrice = (type: 'max' | 'min') => {
+  const filterByPrice = async (type: 'max' | 'min') => {
     setShowCategories(false);
     setShowInput(false);
     setCurrentTab(type);
-    if (currentTab && (currentTab === 'min' || currentTab === 'max')) {
-      fetchingByPrice(currentTab);
+    if (type && (type === 'min' || type === 'max')) {
+      await dispatch(fetchToursByPrice(type));
     }
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     setCurrentTab('name');
     setSearchTerm(event.target.value);
+    if (event.target.value.length) {
+      await dispatch(
+        fetchToursByFilter({ type: 'name', value: event.target.value }),
+      );
+      return;
+    }
+    await dispatch(fetchTours());
   };
 
   const filterRef = useRef<HTMLDivElement | null>(null);

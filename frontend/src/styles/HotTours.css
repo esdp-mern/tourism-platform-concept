@@ -231,9 +231,8 @@
 }
 .hot-tours-toolbar {
   position: relative;
-  margin-top: 60px;
-  padding: 10px;
-  width: 200px;
+  margin-top: 20px;
+  width: 220px;
   height: 200px;
 }
 .hot-tours-toolbar-inner {
@@ -300,7 +299,7 @@
 }
 .hot-tours-toolbar-dots {
   display: flex;
-  margin: 40px auto 0;
+  margin: 25px auto 0;
   justify-content: space-around;
 }
 .hot-tours-toolbar-dots div {
