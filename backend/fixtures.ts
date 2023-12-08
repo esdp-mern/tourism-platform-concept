@@ -13,6 +13,7 @@ import PlatformReview from './models/PlatformReview';
 import TourRating from './models/TourRating';
 import GuideRating from './models/GuideRating';
 import Partner from './models/Partner';
+import MainSlider from './models/MainSlider';
 
 const run = async () => {
   await mongoose.connect(config.db);
@@ -31,6 +32,7 @@ const run = async () => {
     await db.dropCollection('tourratings');
     await db.dropCollection('guideratings');
     await db.dropCollection('partners');
+    await db.dropCollection('mainsliders');
   } catch (e) {
     console.log('Collections were not present, skipping drop...');
   }
@@ -620,6 +622,24 @@ const run = async () => {
     {
       name: 'Partner 4',
       link: 'https://mkk.gov.kg/%D0%B4%D0%B5%D0%BF%D0%B0%D1%80%D1%82%D0%B0%D0%BC%D0%B5%D0%BD%D1%82-%D1%82%D1%83%D1%80%D0%B8%D0%B7%D0%BC%D0%B0/29/',
+    },
+  );
+
+  await MainSlider.create(
+    {
+      country: 'Kyrgyzstan',
+      toursAmount: 13,
+      image: 'fixtures/kyrgyzstan.jpeg',
+    },
+    {
+      country: 'Kazakhstan',
+      toursAmount: 20,
+      image: 'fixtures/kazakhstan.jpeg',
+    },
+    {
+      country: 'Uzbekistan',
+      toursAmount: 32,
+      image: 'fixtures/uzbekistan.jpeg',
     },
   );
   await db.close();

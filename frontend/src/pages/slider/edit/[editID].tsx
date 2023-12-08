@@ -1,22 +1,25 @@
 import React, { useEffect } from 'react';
 import { InferGetServerSidePropsType, NextPage } from 'next';
 import { wrapper } from '@/store/store';
+import { fetchOneSlider } from '@/containers/slider/sliderThunk';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useParams } from 'next/navigation';
-import { selectOneEmployee } from '@/containers/about/aboutSlice';
 import { selectUser } from '@/containers/users/usersSlice';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import { userRoles } from '@/constants';
 import Custom404 from '@/pages/404';
-import { fetchOneEmployee } from '@/containers/about/aboutThunk';
+import {
+  addSlider,
+  selectOneMainSliders,
+} from '@/containers/slider/sliderSlice';
 import PageLoader from '@/components/Loaders/PageLoader';
-import EmployeeForm from '@/components/Forms/EmployeeForm/EmployeeForm';
+import MainSliderForm from '@/components/Forms/MainSliderForm/MainSliderForm';
 
-const EditTeam: NextPage<
+const EditSlider: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = () => {
   const dispatch = useAppDispatch();
-  const employee = useAppSelector(selectOneEmployee);
+  const slider = useAppSelector(selectOneMainSliders);
   const { editID } = useParams() as {
     editID: string;
   };
@@ -25,8 +28,9 @@ const EditTeam: NextPage<
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
+    dispatch(addSlider(null));
     if (editID) {
-      dispatch(fetchOneEmployee(editID));
+      dispatch(fetchOneSlider(editID));
     }
   }, [editID, dispatch]);
 
@@ -34,26 +38,24 @@ const EditTeam: NextPage<
     return <Custom404 errorType="tour" />;
   }
 
-  let editingEmployee;
+  let editingSlider;
 
-  if (employee) {
-    editingEmployee = {
-      name: employee.name,
-      number: employee.number,
-      role: employee.role,
+  if (slider && editID) {
+    editingSlider = {
+      country: slider.country,
+      toursAmount: slider.toursAmount,
       image: null,
     };
   }
-
   return (
     <div className="container">
       <PageLoader />
       <div className="form-block">
-        {editingEmployee && (
-          <EmployeeForm
+        {editingSlider && (
+          <MainSliderForm
             isEdit
-            existingEmployee={editingEmployee}
-            idEmployee={employee?._id}
+            existingSlider={editingSlider}
+            idSlider={slider?._id}
           />
         )}
       </div>
@@ -70,8 +72,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
         throw new Error('Param id must be a string');
       }
 
-      await store.dispatch(fetchOneEmployee(editID));
+      await store.dispatch(fetchOneSlider(editID));
       return { props: {} };
     },
 );
-export default EditTeam;
+export default EditSlider;
