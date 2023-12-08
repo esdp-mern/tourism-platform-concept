@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useAppDispatch } from '@/store/hooks';
-import { fetchTours, fetchToursByFilter } from '@/containers/tours/toursThunk';
-
-interface Props {
-  fetchingByPrice: (type: string) => void;
-}
+import {
+  fetchTours,
+  fetchToursByFilter,
+  fetchToursByPrice,
+} from '@/containers/tours/toursThunk';
 
 const categoriesData = [
   { id: 'checkbox-1', label: 'history' },
@@ -14,7 +14,7 @@ const categoriesData = [
   { id: 'checkbox-5', label: 'exotic' },
 ];
 
-const TourFilter: React.FC<Props> = ({ fetchingByPrice }) => {
+const TourFilter = () => {
   const [currentTab, setCurrentTab] = useState<
     'name' | 'categories' | 'min' | 'max' | null
   >(null);
@@ -44,12 +44,12 @@ const TourFilter: React.FC<Props> = ({ fetchingByPrice }) => {
     await dispatch(fetchTours());
   };
 
-  const filterByPrice = (type: 'max' | 'min') => {
+  const filterByPrice = async (type: 'max' | 'min') => {
     setShowCategories(false);
     setShowInput(false);
     setCurrentTab(type);
-    if (currentTab && (currentTab === 'min' || currentTab === 'max')) {
-      fetchingByPrice(currentTab);
+    if (type && (type === 'min' || type === 'max')) {
+      await dispatch(fetchToursByPrice(type));
     }
   };
 

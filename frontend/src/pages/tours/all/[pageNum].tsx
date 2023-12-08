@@ -32,16 +32,12 @@ const AllToursPage = () => {
     setCurrentPage(pageNumber);
   };
 
-  const filterByPrice = async (type: string) => {
-    await dispatch(fetchToursByPrice(type));
-  };
-
   return (
     <div className="all-tours">
       <PageLoader />
       <div className="fixed-toolbar"></div>
 
-      <TourFilter fetchingByPrice={(type) => filterByPrice(type)} />
+      <TourFilter />
       <div className="container">
         <div>
           <div>
