@@ -40,12 +40,18 @@ const AppToolBar = () => {
     }
   };
 
-  useEffect(() => {
+  const setEventListener = () => {
     if (window.screen.width >= 992) {
       document.addEventListener('scroll', setClassList);
     }
+  };
+
+  useEffect(() => {
+    setEventListener();
+    window.addEventListener('resize', setEventListener);
 
     return () => {
+      window.removeEventListener('resize', setEventListener);
       document.removeEventListener('scroll', setClassList);
     };
   }, [toolBarRef.current, isLightMode]);
@@ -114,14 +120,6 @@ const AppToolBar = () => {
               }`}
             >
               News
-            </NavLink>
-            <NavLink
-              href="/reviews/all/1"
-              className={`nav-link ${
-                pathname && pathname.includes('/reviews/all') ? 'active' : ''
-              }`}
-            >
-              Reviews
             </NavLink>
             <NavLink
               href="/contactUs"
