@@ -194,7 +194,8 @@
     width: 100% !important;
   }
 
-  .tour-item-title {
+  .tour-item-title,
+  .news-item-title {
     font-size: 20px !important;
     line-height: 26px;
   }

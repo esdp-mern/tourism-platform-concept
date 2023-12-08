@@ -34,7 +34,7 @@ export const fetchToursByFilter = createAsyncThunk<
     url = `/tours/filterByCategory?category=${arg.value}`;
   }
 
-  const response = await axiosApi.get<Tour[]>(url);
+  const response = await axiosApi<Tour[]>(url);
   return response.data;
 });
 
