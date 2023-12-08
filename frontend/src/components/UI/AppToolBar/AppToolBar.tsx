@@ -39,10 +39,15 @@ const AppToolBar = () => {
     }
   };
 
-  useEffect(() => {
+  const setEventListener = () => {
     if (window.screen.width >= 992) {
       document.addEventListener('scroll', setClassList);
     }
+  };
+
+  useEffect(() => {
+    setEventListener();
+    window.addEventListener('resize', setEventListener);
 
     document.addEventListener('click', () => {
       setNavShow(false);
@@ -50,6 +55,7 @@ const AppToolBar = () => {
     });
 
     return () => {
+      window.removeEventListener('resize', setEventListener);
       document.removeEventListener('scroll', setClassList);
     };
   }, [isLightMode, setClassList]);
