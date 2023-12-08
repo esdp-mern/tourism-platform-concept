@@ -13,8 +13,10 @@ import PlatformReview from './models/PlatformReview';
 import TourRating from './models/TourRating';
 import GuideRating from './models/GuideRating';
 import Partner from './models/Partner';
+import MainSlider from './models/MainSlider';
 import ContactUs from './models/ContactUs';
 import AboutUs from './models/AboutUs';
+
 
 const run = async () => {
   await mongoose.connect(config.db);
@@ -33,6 +35,7 @@ const run = async () => {
     await db.dropCollection('tourratings');
     await db.dropCollection('guideratings');
     await db.dropCollection('partners');
+    await db.dropCollection('mainsliders');
     await db.dropCollection('aboutus');
     await db.dropCollection('contacts');
   } catch (e) {
@@ -627,6 +630,24 @@ const run = async () => {
     },
   );
 
+  await MainSlider.create(
+    {
+      country: 'Kyrgyzstan',
+      toursAmount: 13,
+      image: 'fixtures/kyrgyzstan.jpeg',
+    },
+    {
+      country: 'Kazakhstan',
+      toursAmount: 20,
+      image: 'fixtures/kazakhstan.jpeg',
+    },
+    {
+      country: 'Uzbekistan',
+      toursAmount: 32,
+      image: 'fixtures/uzbekistan.jpeg',
+    },
+  );
+
   await ContactUs.create({
     title: 'Contact Us',
     description:
@@ -700,6 +721,7 @@ const run = async () => {
         'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
     },
   });
+
   await db.close();
 };
 

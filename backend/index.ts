@@ -14,6 +14,7 @@ import platformReviewRouter from './routers/platformReview';
 import guideRatingRouter from './routers/guideRating';
 import tourRatingRouter from './routers/tourRating';
 import partnersRouter from './routers/partner';
+import mainSliderRouter from './routers/mainSlider';
 import contactsRouter from './routers/contacts';
 import aboutUsRouter from './routers/aboutUs';
 
@@ -35,6 +36,7 @@ app.use('/tourReviews', tourReviewRouter);
 app.use('/guideRatings', guideRatingRouter);
 app.use('/tourRatings', tourRatingRouter);
 app.use('/partners', partnersRouter);
+app.use('/mainSlider', mainSliderRouter);
 app.use('/aboutUs', aboutUsRouter);
 app.use('/contacts', contactsRouter);
 
