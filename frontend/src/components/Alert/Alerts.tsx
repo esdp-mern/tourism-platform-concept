@@ -13,7 +13,10 @@ const Alerts = () => {
         <div
           className={`alert alert-${alert.type} ${alert.className}`}
           key={alert.id}
-          onClick={() => dispatch(disableAlert(alert.id))}
+          onClick={(e) => {
+            e.stopPropagation();
+            dispatch(disableAlert(alert.id));
+          }}
         >
           <span>{alert.message}</span>
         </div>

@@ -58,7 +58,7 @@ const AppToolBar = () => {
       window.removeEventListener('resize', setEventListener);
       document.removeEventListener('scroll', setClassList);
     };
-  }, [isLightMode, setClassList]);
+  }, [isLightMode, setClassList, setEventListener]);
 
   return (
     <>

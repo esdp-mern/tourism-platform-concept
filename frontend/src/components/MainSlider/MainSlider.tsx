@@ -106,7 +106,6 @@ const MainSlider = () => {
                   type="button"
                   onClick={() => {
                     if (currentSlide && currentSlide._id) {
-                      console.log(currentSlide.country);
                       router
                         .push(`/slider/edit/${currentSlide._id}`)
                         .then((r) => r);

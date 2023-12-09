@@ -4,12 +4,14 @@ import {
   addAlert,
   selectLogoutLoading,
   selectUser,
+  setEditorModal,
 } from '@/containers/users/usersSlice';
 import AnonymousMenu from '@/components/UI/AppToolBar/components/AnonymousMenu';
 import { usePathname } from 'next/navigation';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import { logout } from '@/containers/users/usersThunk';
 import HotToursToolbar from '@/components/HotTours/HotToursToolbar';
+import EditorModal from '@/components/EditProfile/EditorModal';
 
 interface IProps {
   show: boolean;
@@ -32,45 +34,59 @@ const ToolBarMenu: React.FC<IProps> = ({ show, onClick }) => {
   };
 
   return (
-    <div
-      className={`tool-bar-menu ${show ? 'menu-active' : ''}`}
-      onClick={(e) => e.stopPropagation()}
-    >
-      {user && (
-        <div className="profile-preview">
-          <div className="profile-preview-avatar-and-name">
-            <img
-              src={user.avatar}
-              className="profile-preview-avatar"
-              alt="profile-img"
-            />
-            <div>
-              <h5>{user.displayName}</h5>
-              <h6>{user.role}</h6>
+    <>
+      <EditorModal />
+      <div
+        className={`tool-bar-menu ${show ? 'menu-active' : ''}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {user && (
+          <div className="profile-preview">
+            <div className="profile-preview-avatar-and-name">
+              <img
+                src={user.avatar}
+                className="profile-preview-avatar"
+                alt="profile-img"
+              />
+              <div>
+                <h5>{user.displayName}</h5>
+                <h6>{user.role}</h6>
+              </div>
+            </div>
+            <div className="profile-preview-btns">
+              <button
+                className="edit-profile"
+                onClick={() => {
+                  dispatch(setEditorModal());
+                  onClick();
+                }}
+              >
+                {logoutLoading ? <ButtonLoader size={16} /> : 'Edit profile'}
+              </button>
+              <button
+                className="logout"
+                onClick={userLogout}
+                disabled={logoutLoading}
+              >
+                {logoutLoading ? <ButtonLoader size={16} /> : 'Logout'}
+              </button>
             </div>
           </div>
-          <button
-            className="logout"
-            onClick={userLogout}
-            disabled={logoutLoading}
+        )}
+        {!user && (
+          <div
+            style={{
+              borderBottom: '1px solid #ccc',
+              padding: '10px',
+              margin: '12px',
+            }}
           >
-            {logoutLoading ? <ButtonLoader size={16} /> : 'Logout'}
-          </button>
-        </div>
-      )}
-      {!user && (
-        <div
-          style={{
-            borderBottom: '1px solid #ccc',
-            padding: '10px',
-            margin: '12px',
-          }}
-        >
-          <AnonymousMenu onClick={onClick} pathname={pathname} />
-        </div>
-      )}
-      <HotToursToolbar />
-    </div>
+            <AnonymousMenu onClick={onClick} pathname={pathname} />
+          </div>
+        )}
+        <HotToursToolbar />
+      </div>
+    </>
   );
 };
 

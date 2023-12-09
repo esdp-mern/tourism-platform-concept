@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   GlobalError,
+  IEditProfile,
   RegisterMutation,
   RegisterResponse,
   signInMutation,
@@ -93,6 +94,38 @@ export const googleLogin = createAsyncThunk<
     if (isAxiosError(e) && e.response && e.response.status === 400) {
       return rejectWithValue(e.response.data as GlobalError);
     }
+    throw e;
+  }
+});
+
+export const editProfile = createAsyncThunk<
+  RegisterResponse,
+  IEditProfile,
+  { rejectValue: ValidationError }
+>('users/editProfile', async (userData: IEditProfile, { rejectWithValue }) => {
+  try {
+    const formData = new FormData();
+    const keys = Object.keys(userData) as (keyof IEditProfile)[];
+
+    keys.forEach((key) => {
+      const value = userData[key];
+
+      if (value !== undefined && value !== null) {
+        formData.append(key, value);
+      }
+    });
+
+    const response = await axiosApi.put<RegisterResponse>(
+      `/users/${userData.id}`,
+      formData,
+    );
+
+    return response.data;
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 400) {
+      return rejectWithValue(e.response.data);
+    }
+
     throw e;
   }
 });

@@ -44,6 +44,7 @@ import '@/styles/reviews.css';
 import '@/styles/statisticks.css';
 import '@/styles/contactUs.css';
 import '@/styles/Filter.css';
+import '@/styles/editorModal.css';
 export default function App({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
 
