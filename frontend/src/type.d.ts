@@ -286,3 +286,23 @@ export interface IMainSliderMutation {
   country: string;
   toursAmount: string;
 }
+
+export interface IContactInfo {
+  _id?: string;
+  country: string;
+  address: string;
+  phone: string;
+}
+
+export interface IContacts {
+  _id: string;
+  title: string;
+  description: string;
+  contact: IContactInfo[];
+}
+
+export interface IContactsMutation {
+  title: string;
+  description: string;
+  contact: IContactInfo[];
+}

@@ -8,7 +8,7 @@ const contactsRouter = express.Router();
 
 contactsRouter.get('/', async (req, res) => {
   try {
-    const contacts = await Contacts.find();
+    const contacts = await Contacts.findOne();
     return res.send(contacts);
   } catch (e) {
     return res.status(500).send('Error');
