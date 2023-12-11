@@ -21,7 +21,7 @@ guidesRouter.get('/:id', async (req, res) => {
     const id = req.params.id;
     const guide = await Guide.findById(id).populate({
       path: 'user',
-      select: 'username , displayName',
+      select: 'username , displayName , avatar',
     });
 
     if (!guide) {
