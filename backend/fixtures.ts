@@ -105,18 +105,21 @@ const run = async () => {
       description: 'My name is Artem',
       languages: ['kyrgyz', 'russian', 'english'],
       country: 'Kyrgyzstan',
+      isPublished: true,
     },
     {
       user: user1._id,
       description: 'My name is Andrey',
       languages: ['russian', 'english'],
       country: 'Kyrgyzstan',
+      isPublished: true,
     },
     {
       user: user2._id,
       description: 'My name is Askar',
       languages: ['kyrgyz', 'english'],
       country: 'Kyrgyzstan',
+      isPublished: false,
     },
   );
 
