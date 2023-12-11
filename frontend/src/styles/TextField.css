@@ -125,6 +125,8 @@
   font-family: 'Montserrat Regular', serif;
   font-size: 18px;
   border: 0;
+  width: 100%;
+  box-sizing: border-box;
   border-bottom: 1px solid #c4c4c4;
   transition: all 0.3s ease-in-out;
   background-color: transparent;

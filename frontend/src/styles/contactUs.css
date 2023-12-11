@@ -197,7 +197,7 @@ textarea::placeholder {
 }
 
 .icon-container-edit-contact:hover {
-  box-shadow: 0 0 10px 1px rgba(19,86,0,30);
+  box-shadow: 0 0 10px 1px rgba(19, 86, 0, 30);
 }
 
 .icon-edit {
