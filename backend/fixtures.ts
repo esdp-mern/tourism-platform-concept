@@ -16,6 +16,7 @@ import Partner from './models/Partner';
 import MainSlider from './models/MainSlider';
 import ContactUs from './models/ContactUs';
 import AboutUs from './models/AboutUs';
+import GuideOrder from './models/GuideOrder';
 
 const run = async () => {
   await mongoose.connect(config.db);
@@ -37,6 +38,7 @@ const run = async () => {
     await db.dropCollection('mainsliders');
     await db.dropCollection('aboutus');
     await db.dropCollection('contacts');
+    await db.dropCollection('guideorders');
   } catch (e) {
     console.log('Collections were not present, skipping drop...');
   }
@@ -723,6 +725,29 @@ const run = async () => {
     },
   });
 
+  await GuideOrder.create(
+    {
+      name: 'Alex',
+      surname: 'Walt',
+      number: '+996 800 900 900',
+      message: 'I love being guide!',
+      status: 'new',
+    },
+    {
+      name: 'Arnold',
+      surname: 'Skott',
+      number: '+996 800 900 900',
+      message: 'I love being guide!',
+      status: 'being considered',
+    },
+    {
+      name: 'Murat',
+      surname: 'Nasyrov',
+      number: '+996 800 900 900',
+      message: 'I love being guide!',
+      status: 'being considered',
+    },
+  );
   await db.close();
 };
 
