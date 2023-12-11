@@ -61,6 +61,7 @@ export interface IGuide {
   languages: string[];
   country: string;
   image: string;
+  isPublished: boolean;
 }
 
 export interface IGuideFull extends IGuide {

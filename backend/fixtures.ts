@@ -17,7 +17,6 @@ import MainSlider from './models/MainSlider';
 import ContactUs from './models/ContactUs';
 import AboutUs from './models/AboutUs';
 
-
 const run = async () => {
   await mongoose.connect(config.db);
   const db = mongoose.connection;
@@ -105,18 +104,21 @@ const run = async () => {
       description: 'My name is Artem',
       languages: ['kyrgyz', 'russian', 'english'],
       country: 'Kyrgyzstan',
+      isPublished: true,
     },
     {
       user: user1._id,
       description: 'My name is Andrey',
       languages: ['russian', 'english'],
       country: 'Kyrgyzstan',
+      isPublished: true,
     },
     {
       user: user2._id,
       description: 'My name is Askar',
       languages: ['kyrgyz', 'english'],
       country: 'Kyrgyzstan',
+      isPublished: false,
     },
   );
 
@@ -670,7 +672,6 @@ const run = async () => {
       },
     ],
   });
-
 
   await AboutUs.create({
     main: {
