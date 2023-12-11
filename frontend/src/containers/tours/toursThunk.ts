@@ -199,3 +199,11 @@ export const deleteTour = createAsyncThunk<
     throw e;
   }
 });
+
+export const fetchToursGuide = createAsyncThunk(
+  'tours/guideTours',
+  async (id: string) => {
+    const response = await axiosApi.get<Tour[]>(`/tours?guide=${id}`);
+    return response.data;
+  },
+);

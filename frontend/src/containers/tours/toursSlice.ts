@@ -8,6 +8,7 @@ import {
   fetchTours,
   fetchToursByFilter,
   fetchToursByPrice,
+  fetchToursGuide,
   postTour,
   publishTour,
   tourReview,
@@ -33,6 +34,8 @@ interface ToursState {
   publishLoading: boolean | string;
   modal: boolean;
   hotTours: Tour[];
+  guideTours: Tour[];
+  loadingGuideTours: boolean;
 }
 
 const initialState: ToursState = {
@@ -52,6 +55,8 @@ const initialState: ToursState = {
   publishLoading: false,
   modal: false,
   hotTours: [],
+  guideTours: [],
+  loadingGuideTours: false,
 };
 
 export const toursSlice = createSlice({
@@ -199,6 +204,20 @@ export const toursSlice = createSlice({
     builder.addCase(publishTour.rejected, (state) => {
       state.publishLoading = false;
     });
+
+    builder.addCase(fetchToursGuide.pending, (state, action) => {
+      state.loadingGuideTours = true;
+    });
+    builder.addCase(
+      fetchToursGuide.fulfilled,
+      (state, { payload: guideTours }) => {
+        state.loadingGuideTours = false;
+        state.guideTours = guideTours;
+      },
+    );
+    builder.addCase(fetchToursGuide.rejected, (state) => {
+      state.loadingGuideTours = false;
+    });
   },
 });
 
@@ -230,3 +249,6 @@ export const selectAdminTourLoading = (state: RootState) =>
   state.tours.fetchAdminTourLoading;
 export const galleryModal = (state: RootState) => state.tours.modal;
 export const selectHotTours = (state: RootState) => state.tours.hotTours;
+export const selectGuideTours = (state: RootState) => state.tours.guideTours;
+export const selectLoadingGuideTours = (state: RootState) =>
+  state.tours.loadingGuideTours;
