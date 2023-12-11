@@ -18,7 +18,18 @@ guidesRouter.get('/', async (req, res) => {
     return res.status(500).send('Error');
   }
 });
+guidesRouter.get('/all', auth, permit('admin'), async (req, res) => {
+  try {
+    const guides = await Guide.find().populate({
+      path: 'user',
+      select: 'username, displayName, avatar',
+    });
 
+    return res.send(guides);
+  } catch (e) {
+    return res.status(500).send('Error');
+  }
+});
 guidesRouter.get('/:id', async (req, res) => {
   try {
     const id = req.params.id;

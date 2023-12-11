@@ -17,7 +17,6 @@ import MainSlider from './models/MainSlider';
 import ContactUs from './models/ContactUs';
 import AboutUs from './models/AboutUs';
 
-
 const run = async () => {
   await mongoose.connect(config.db);
   const db = mongoose.connection;
@@ -673,7 +672,6 @@ const run = async () => {
       },
     ],
   });
-
 
   await AboutUs.create({
     main: {
