@@ -13,7 +13,10 @@ import PlatformReview from './models/PlatformReview';
 import TourRating from './models/TourRating';
 import GuideRating from './models/GuideRating';
 import Partner from './models/Partner';
+import MainSlider from './models/MainSlider';
+import ContactUs from './models/ContactUs';
 import AboutUs from './models/AboutUs';
+import GuideOrder from './models/GuideOrder';
 
 const run = async () => {
   await mongoose.connect(config.db);
@@ -32,7 +35,10 @@ const run = async () => {
     await db.dropCollection('tourratings');
     await db.dropCollection('guideratings');
     await db.dropCollection('partners');
+    await db.dropCollection('mainsliders');
     await db.dropCollection('aboutus');
+    await db.dropCollection('contacts');
+    await db.dropCollection('guideorders');
   } catch (e) {
     console.log('Collections were not present, skipping drop...');
   }
@@ -100,18 +106,21 @@ const run = async () => {
       description: 'My name is Artem',
       languages: ['kyrgyz', 'russian', 'english'],
       country: 'Kyrgyzstan',
+      isPublished: true,
     },
     {
       user: user1._id,
       description: 'My name is Andrey',
       languages: ['russian', 'english'],
       country: 'Kyrgyzstan',
+      isPublished: true,
     },
     {
       user: user2._id,
       description: 'My name is Askar',
       languages: ['kyrgyz', 'english'],
       country: 'Kyrgyzstan',
+      isPublished: false,
     },
   );
 
@@ -383,11 +392,13 @@ const run = async () => {
 
   await Order.create(
     {
+      user: user3._id,
       guide: Andrey._id,
       tour: Naryn._id,
       price: Naryn.price,
       date: '2023-11-08T11:22:03.760Z',
       datetime: '2023-11-22T08:20:12.051Z',
+      status: 'booked',
     },
     {
       guide: Artem._id,
@@ -395,6 +406,27 @@ const run = async () => {
       price: Osh.price,
       date: '2023-11-08T15:14:05.760Z',
       datetime: '2023-11-22T08:20:12.051Z',
+      status: 'being considered',
+      phone: '+996 707 777 404',
+    },
+    {
+      user: user1._id,
+      guide: Andrey._id,
+      tour: Naryn._id,
+      price: Naryn.price,
+      date: '2023-11-08T11:22:03.760Z',
+      datetime: '2023-11-22T08:20:12.051Z',
+      status: 'approved',
+    },
+    {
+      guide: Artem._id,
+      tour: Osh._id,
+      price: Osh.price,
+      date: '2023-11-08T15:14:05.760Z',
+      datetime: '2023-11-22T08:20:12.051Z',
+      status: 'being considered',
+      phone: '+996 707 777 404',
+      email: 'brzzkv@gmail.com',
     },
   );
 
@@ -602,6 +634,47 @@ const run = async () => {
     },
   );
 
+  await MainSlider.create(
+    {
+      country: 'Kyrgyzstan',
+      toursAmount: 13,
+      image: 'fixtures/kyrgyzstan.jpeg',
+    },
+    {
+      country: 'Kazakhstan',
+      toursAmount: 20,
+      image: 'fixtures/kazakhstan.jpeg',
+    },
+    {
+      country: 'Uzbekistan',
+      toursAmount: 32,
+      image: 'fixtures/uzbekistan.jpeg',
+    },
+  );
+
+  await ContactUs.create({
+    title: 'Contact Us',
+    description:
+      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
+    contact: [
+      {
+        country: 'United States',
+        address: '9 Valley St. Brooklyn, NY 11203',
+        phone: '1-800-346-6277',
+      },
+      {
+        country: 'Canada',
+        address: '500 Kingston Rd Toronto ON M4L 1V3',
+        phone: '1-800-346-6277',
+      },
+      {
+        country: 'Australia',
+        address: '60 Marcus Clarke St, Canberra, ACT 2601',
+        phone: '1-800-346-6277',
+      },
+    ],
+  });
+
   await AboutUs.create({
     main: {
       title: 'About',
@@ -647,6 +720,30 @@ const run = async () => {
         'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
     },
   });
+
+  await GuideOrder.create(
+    {
+      name: 'Alex',
+      surname: 'Walt',
+      number: '+996 800 900 900',
+      message: 'I love being guide!',
+      status: 'new',
+    },
+    {
+      name: 'Arnold',
+      surname: 'Skott',
+      number: '+996 800 900 900',
+      message: 'I love being guide!',
+      status: 'being considered',
+    },
+    {
+      name: 'Murat',
+      surname: 'Nasyrov',
+      number: '+996 800 900 900',
+      message: 'I love being guide!',
+      status: 'being considered',
+    },
+  );
   await db.close();
 };
 

@@ -153,10 +153,12 @@ usersRouter.put(
       existingUser.displayName = req.body.displayName
         ? req.body.displayName
         : existingUser.displayName;
-      existingUser.avatar = req.file ? req.file.filename : existingUser.avatar;
+      existingUser.avatar = req.file
+        ? '/images/' + req.file.filename
+        : existingUser.avatar;
 
       await existingUser.save();
-      return res.send(existingUser);
+      return res.send({ user: existingUser, message: 'Changes saved!' });
     } catch (e) {
       if (e instanceof mongoose.Error.ValidationError) {
         return res.status(400).send(e);

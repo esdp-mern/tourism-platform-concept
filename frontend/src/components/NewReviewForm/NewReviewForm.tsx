@@ -1,19 +1,23 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { Fade } from 'react-awesome-reveal';
 import { useParams } from 'next/navigation';
-import { IPostReview } from '@/type';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { selectUser } from '@/containers/users/usersSlice';
-import { postReview } from '@/containers/tours/toursThunk';
+import { addAlert, selectUser } from '@/containers/users/usersSlice';
+import { tourReview } from '@/containers/tours/toursThunk';
+import { fetchToursReviews } from '@/containers/reviews/reviewThunk';
+
+interface IPostReview {
+  tour: string;
+  comment: string;
+  rating: number;
+}
 
 const NewReviewForm = () => {
   const { id } = useParams() as {
     id: string;
   };
   const [state, setState] = useState<IPostReview>({
-    user: '',
     tour: '',
-    guide: null,
     comment: '',
     rating: 5,
   });
@@ -40,20 +44,19 @@ const NewReviewForm = () => {
     try {
       if (!user) return;
       await dispatch(
-        postReview({
+        tourReview({
           ...state,
           user: user._id,
           tour: id,
         }),
       ).unwrap();
-      // dispatch(addAlert({ message: 'Your review is sent!', type: 'info' }));
+      dispatch(addAlert({ message: 'Your review is sent!', type: 'info' }));
       setState({
-        user: '',
         tour: '',
-        guide: null,
         comment: '',
         rating: 5,
       });
+      dispatch(fetchToursReviews(id));
     } catch {
       // nothing
     }

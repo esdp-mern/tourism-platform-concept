@@ -196,18 +196,6 @@
   padding-left: 15px;
 }
 
-.kyrgyzstan {
-  background-image: url('../assets/images/kg.jpeg');
-}
-
-.uzbekistan {
-  background-image: url('../assets/images/uz.jpeg');
-}
-
-.kazakhstan {
-  background-image: url('../assets/images/kz.jpeg');
-}
-
 .scrollDown {
   margin-top: 30px;
   margin-left: 15px;
@@ -225,7 +213,49 @@
 .scrollDown:hover {
   box-shadow: 0 4px 20px rgba(255, 255, 255, 0.8);
 }
+.country-slider-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.country-slider-btns-delete {
+  background: #8c0404;
+  padding: 10px 20px;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 8px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  margin-right: 10px;
+  transition: 0.2s;
+}
 
+.country-slider-btns-edit {
+  background: #297a0d;
+  border: 1px solid transparent;
+  padding: 10px 20px;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: 0.2s;
+}
+.country-slider-btns-edit:hover,
+.country-slider-btns-add:hover,
+.country-slider-btns-delete:hover {
+  text-decoration: underline;
+}
+.country-slider-btns-add {
+  background: #0083ff;
+  margin: 0 2px;
+  padding: 5px 10px;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 8px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: 0.2s;
+}
 @keyframes showDesc {
   0% {
     opacity: 0;

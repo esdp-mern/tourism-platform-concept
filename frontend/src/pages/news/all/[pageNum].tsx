@@ -35,11 +35,7 @@ const AllNewsPage = () => {
     <div className="news-page">
       <PageLoader />
       <div className="news-top">
-        <img
-          src="https://livedemo00.template-help.com/wt_prod-19282/images/bg-image-1.jpg"
-          alt="nature"
-          className="news-main-img"
-        />
+        <div className="news-top-bg" />
         <div className="news-top-info">
           <div className="news-top-line"></div>
           <h2 className="news-top-title">Tourism news</h2>

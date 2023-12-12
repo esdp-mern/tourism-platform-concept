@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { InferGetServerSidePropsType, NextPage } from 'next';
 import { wrapper } from '@/store/store';
-import { fetchOneNews } from '@/containers/news/newsThunk';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useParams } from 'next/navigation';
 import { selectOneEmployee } from '@/containers/about/aboutSlice';
@@ -71,7 +70,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
         throw new Error('Param id must be a string');
       }
 
-      await store.dispatch(fetchOneNews(editID));
+      await store.dispatch(fetchOneEmployee(editID));
       return { props: {} };
     },
 );

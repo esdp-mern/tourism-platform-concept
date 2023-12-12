@@ -12,20 +12,11 @@ import PageLoader from '@/components/Loaders/PageLoader';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import TourFilter from '@/components/Filters/TourFilter';
 
-interface Filter {
-  type: string;
-  value?: string;
-}
-
 const AllToursPage = () => {
   const dispatch = useAppDispatch();
   let tours = useAppSelector(selectAllTours);
   const [toursPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
-  const [filters, setFilters] = useState<Filter>({
-    type: '',
-    value: '',
-  });
 
   const indexOfLastRecord = currentPage * toursPerPage;
   const indexOfFirstRecord = indexOfLastRecord - toursPerPage;
@@ -41,29 +32,12 @@ const AllToursPage = () => {
     setCurrentPage(pageNumber);
   };
 
-  useEffect(() => {
-    const filterTour = async () => {
-      await dispatch(fetchToursByFilter(filters));
-    };
-
-    filterTour();
-  }, [filters, dispatch, currentPage]);
-
-  const filterByPrice = async (type: string) => {
-    await dispatch(fetchToursByPrice(type));
-  };
-
   return (
     <div className="all-tours">
       <PageLoader />
       <div className="fixed-toolbar"></div>
 
-      <TourFilter
-        fetching={(type, value) => {
-          setFilters({ type, value });
-        }}
-        fetchingByPrice={(type) => filterByPrice(type)}
-      />
+      <TourFilter />
       <div className="container">
         <div>
           <div>

@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { FreeMode, Pagination, Navigation } from 'swiper/modules';
+import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -10,7 +10,6 @@ import { selectGuides } from '@/containers/guides/guidesSlice';
 import { fetchGuides } from '@/containers/guides/guidesThunk';
 import GuideItem from '@/components/GuideItem/GuideItem';
 import { apiUrl } from '@/constants';
-import img from '@/assets/images/kg.jpeg';
 
 const GuideSlider = () => {
   const dispatch = useAppDispatch();
@@ -63,7 +62,7 @@ const GuideSlider = () => {
               description={
                 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, molestias.'
               }
-              imageUrl={img.src}
+              imageUrl={apiUrl + '/' + 'fixtures/kyrgyzstan.jpeg'}
             />
           </SwiperSlide>
         </div>

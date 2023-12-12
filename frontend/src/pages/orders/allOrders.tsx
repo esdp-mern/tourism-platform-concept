@@ -1,25 +1,38 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { selectAllOrders, setMessages } from '@/containers/orders/ordersSlice';
-import { deleteOrder, fetchOrders } from '@/containers/orders/ordersThunk';
+import {
+  selectAllOrders,
+  selectOrderStatusChanging,
+  setMessages,
+} from '@/containers/orders/ordersSlice';
+import {
+  changeOrderStatus,
+  deleteOrder,
+  fetchOrders,
+} from '@/containers/orders/ordersThunk';
 import { IOrder2 } from '@/type';
 import PageLoader from '@/components/Loaders/PageLoader';
 import axiosApi from '@/axiosApi';
 import dayjs from 'dayjs';
 import { addAlert, selectUser } from '@/containers/users/usersSlice';
-import { userRoles } from '@/constants';
+import { boardNames, userRoles } from '@/constants';
 import { useRouter } from 'next/router';
-import { setIsLightMode } from '@/containers/config/configSlice';
 
 const AllOrders = () => {
   const dispatch = useAppDispatch();
   const orders = useAppSelector(selectAllOrders);
   const user = useAppSelector(selectUser);
   const router = useRouter();
-
-  useEffect(() => {
-    dispatch(setIsLightMode(true));
-  }, [dispatch]);
+  const bookedOrders = orders.filter((order) => order.status === 'booked');
+  const underConsiderOrders = orders.filter(
+    (order) => order.status === 'being considered',
+  );
+  const approvedOrders = orders.filter((order) => order.status === 'approved');
+  const [currentOrder, setCurrentOrder] = useState({
+    id: '',
+    boardName: '',
+  });
+  const orderChangerLoading = useAppSelector(selectOrderStatusChanging);
 
   useEffect(() => {
     if (!user || user.role !== userRoles.moderator) {
@@ -55,53 +68,126 @@ const AllOrders = () => {
     }
   };
 
+  const dragStartHandler = (id: string, boardName: string) => {
+    setCurrentOrder({ id, boardName });
+  };
+
+  const dropHandler = async (boardName: string) => {
+    if (currentOrder.boardName === boardName) return;
+    await dispatch(
+      changeOrderStatus({ id: currentOrder.id, status: boardName }),
+    );
+    dispatch(fetchOrders());
+    dragStartHandler('', '');
+  };
+
+  const onOrderClick = (orderId: string, orderStatus: string) => {
+    if (!currentOrder.id) {
+      dragStartHandler(orderId, orderStatus);
+      return;
+    }
+    dragStartHandler('', '');
+  };
+
   return (
-    <div className="container">
+    <div className="container" onClick={() => dragStartHandler('', '')}>
       <PageLoader />
       <div className="orders-page">
-        <div>
-          <h2 className="orders-title">Orders</h2>
-          <div className="order-table-titles">
-            <div className="order-table-titles-tour">Tour</div>
-            <div className="order-table-titles-guide">Guide</div>
-            <div className="order-table-titles-date">Date</div>
-            <div className="order-table-titles-price">Price</div>
-            <div className="order-table-titles-user">User</div>
-            <div className="order-table-titles-email">Email</div>
-            <div className="order-table-titles-phone">Phone</div>
-            <div className="order-table-titles-delete"></div>
-          </div>
-          <div className="order-table">
-            {orders.map((ord) => (
-              <div key={ord._id} className="order-list">
-                <div className="order-item">
-                  <div className="order-tour">{ord.tour.name}</div>
-                  <div className="order-guide">
-                    {ord.guide.user.displayName}
-                  </div>
-                  <div className="order-date">
-                    {dayjs(ord.date).format('DD.MM.YYYY')}
-                  </div>
-                  <div className="order-price">{ord.price} KGS</div>
-                  <div className="order-user">
-                    {ord.user ? ord.user.displayName : '-'}
-                  </div>
-                  <div className="order-email">
-                    {ord.email ? ord.email : '-'}
-                  </div>
-                  <div className="order-phone">
-                    {ord.phone ? ord.phone : '-'}
-                  </div>
+        <h2 className="orders-title">Orders</h2>
+        <div className="boards">
+          {boardNames.map((boardName) => (
+            <div
+              className="order-board"
+              key={boardName}
+              onClick={() => {
+                if (currentOrder.id) {
+                  if (currentOrder.boardName !== boardName) {
+                    void dropHandler(boardName);
+                  }
+                }
+              }}
+            >
+              <h4 className="board-title">
+                {boardName[0].toUpperCase() +
+                  boardName.slice(1, boardName.length)}
+              </h4>
+              <div
+                className="order-items"
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={() => dropHandler(boardName)}
+              >
+                {(boardName === 'booked'
+                  ? bookedOrders
+                  : boardName === 'being considered'
+                    ? underConsiderOrders
+                    : boardName === 'approved'
+                      ? approvedOrders
+                      : []
+                ).map((order) => (
                   <div
-                    className="order-delete"
-                    onClick={() => onDelete(ord._id)}
+                    className={`order-item ${
+                      currentOrder.id === order._id ? 'order-selected' : ''
+                    }`}
+                    key={order._id}
+                    draggable={true}
+                    onDragStart={() =>
+                      dragStartHandler(order._id, order.status)
+                    }
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={(e) => e.preventDefault()}
+                    onDragLeave={(e) => e.preventDefault()}
+                    onDragEnd={(e) => e.preventDefault()}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (!currentOrder.id) {
+                        void onOrderClick(order._id, order.status);
+                        return;
+                      }
+                      dragStartHandler('', '');
+                      if (currentOrder.boardName !== boardName) {
+                        void dropHandler(boardName);
+                      }
+                    }}
                   >
-                    X
+                    {orderChangerLoading && currentOrder.id === order._id && (
+                      <div className="order-status-loading">
+                        <span className="order-status-loading-inner" />
+                      </div>
+                    )}
+                    <span
+                      className="remove-order"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        void onDelete(order._id);
+                      }}
+                    >
+                      &#215;
+                    </span>
+                    <span className="order-datetime">
+                      {dayjs(order.datetime).format('DD.MM.YY HH:MM') || '-'}
+                    </span>
+                    <div className="user-info-row">
+                      <span>{order.email || order.user?.email || '-'}</span>
+                      <span>{order.phone || '-'}</span>
+                    </div>
+                    <div className="user-info-row">
+                      <span>{order.tour.name || '-'}</span>
+                      <span>{order.price + 'kgs' || '-'}</span>
+                    </div>
+                    <div className="user-info-row">
+                      <span className="order-date">
+                        {dayjs(order.date).format('DD.MM.YY') || '-'}
+                      </span>
+                    </div>
+                    <div className="user-info-row">
+                      <span>{order.guide.user.displayName || '-'}</span>
+                      <span>{order.guide.user.email || '-'}</span>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

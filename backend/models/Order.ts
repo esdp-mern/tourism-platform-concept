@@ -47,6 +47,12 @@ const OrderSchema = new mongoose.Schema({
     type: String,
     default: () => new Date().toISOString(),
   },
+  status: {
+    type: String,
+    required: true,
+    default: 'booked',
+    enum: ['booked', 'being considered', 'approved'],
+  },
 });
 
 const Order = mongoose.model('Order', OrderSchema);

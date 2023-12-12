@@ -11,6 +11,14 @@ export interface RegisterMutation {
   avatar: File | null;
 }
 
+export interface IEditProfile {
+  id: string;
+  username: string;
+  displayName: string;
+  email: string;
+  avatar: File | null;
+}
+
 export interface User {
   _id: string;
   username: string;
@@ -53,6 +61,7 @@ export interface IGuide {
   languages: string[];
   country: string;
   image: string;
+  isPublished: boolean;
 }
 
 export interface IGuideFull extends IGuide {
@@ -227,6 +236,7 @@ export interface IOrder2 {
     _id: string;
     user: {
       displayName: string;
+      email: string;
     };
   };
   tour: {
@@ -237,10 +247,12 @@ export interface IOrder2 {
   date: string;
   user?: {
     displayName: string;
+    email: string;
   };
   email?: string;
   phone?: string;
   datetime: string;
+  status: string;
 }
 
 export interface IPartner {
@@ -264,6 +276,18 @@ export interface IEmployeeMutation {
   image: File | null;
 }
 
+export interface IMainSlider {
+  _id: string;
+  image: string;
+  country: string;
+  toursAmount: string;
+}
+export interface IMainSliderMutation {
+  image: File | null;
+  country: string;
+  toursAmount: string;
+}
+
 export interface IAboutUsBlock {
   _id: string;
   title: string;
@@ -277,4 +301,24 @@ export interface IAboutUs {
   offer: IAboutUsBlock;
   posts: IAboutUsBlock[];
   review: IAboutUsBlock;
+}
+
+export interface IContactInfo {
+  _id?: string;
+  country: string;
+  address: string;
+  phone: string;
+}
+
+export interface IContacts {
+  _id: string;
+  title: string;
+  description: string;
+  contact: IContactInfo[];
+}
+
+export interface IContactsMutation {
+  title: string;
+  description: string;
+  contact: IContactInfo[];
 }

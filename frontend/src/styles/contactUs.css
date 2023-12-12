@@ -40,6 +40,7 @@
   line-height: 1.24444;
   text-shadow: 0 4px 4px rgba(21, 21, 21, 0.25);
   margin-bottom: 0;
+  display: flex;
 }
 
 .contacts-top-txt {
@@ -175,6 +176,43 @@ textarea::placeholder {
 
 .contact-form button:hover {
   background: #ffa133;
+}
+
+.form-btn-delete {
+  padding: 7px 7px;
+  color: #fff;
+  background: #7e0000;
+  margin: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.icon-container-edit-contacts {
+  position: relative;
+  padding: 20px;
+  margin: auto 4px;
+  border-radius: 50%;
+  border: 1px solid #32da00;
+  cursor: pointer;
+}
+
+.icon-container-edit-contact:hover {
+  box-shadow: 0 0 10px 1px rgba(19,86,0,30);
+}
+
+.icon-edit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.add-info {
+  width: 40px;
+  height: 40px;
+  margin: auto;
+  font-size: 40px;
+  color: #297a0d;
+  cursor: pointer;
 }
 
 @media (max-width: 1180px) {

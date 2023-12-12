@@ -13,6 +13,12 @@ toursRouter.get('/filterByName', async (req, res) => {
     if (req.query.name) {
       const tours = await Tour.find({
         name: { $regex: req.query.name, $options: 'i' },
+      }).populate({
+        path: 'guides',
+        populate: {
+          path: 'user',
+          select: 'username displayName role avatar email',
+        },
       });
       return res.send(tours);
     }
@@ -27,7 +33,15 @@ toursRouter.get('/filterByCategory', async (req, res) => {
       const rawCategories = req.query.category as string;
       const categories = rawCategories.split(',') as string[];
 
-      const tours = await Tour.find({ category: { $in: categories } });
+      const tours = await Tour.find({ category: { $in: categories } }).populate(
+        {
+          path: 'guides',
+          populate: {
+            path: 'user',
+            select: 'username displayName role avatar email',
+          },
+        },
+      );
 
       return res.send(tours);
     }
@@ -35,17 +49,33 @@ toursRouter.get('/filterByCategory', async (req, res) => {
     return res.status(500).send('Error');
   }
 });
-toursRouter.get('/filterByMinPrice', async (req, res) => {
+toursRouter.get('/filterByMinPrice', async (_, res) => {
   try {
-    const tours = await Tour.find().sort({ price: 1 });
+    const tours = await Tour.find()
+      .populate({
+        path: 'guides',
+        populate: {
+          path: 'user',
+          select: 'username displayName role avatar email',
+        },
+      })
+      .sort({ price: 1 });
     return res.send(tours);
   } catch (e) {
     return res.status(500).send('Error');
   }
 });
-toursRouter.get('/filterByMaxPrice', async (req, res) => {
+toursRouter.get('/filterByMaxPrice', async (_, res) => {
   try {
-    const tours = await Tour.find().sort({ price: -1 });
+    const tours = await Tour.find()
+      .sort({ price: -1 })
+      .populate({
+        path: 'guides',
+        populate: {
+          path: 'user',
+          select: 'username displayName role avatar email',
+        },
+      });
     return res.send(tours);
   } catch (e) {
     return res.status(500).send('Error');
