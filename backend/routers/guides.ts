@@ -6,7 +6,7 @@ import { imagesUpload } from '../multer';
 import mongoose from 'mongoose';
 
 const guidesRouter = express.Router();
-guidesRouter.get('/', async (req, res) => {
+guidesRouter.get('/', async (_, res) => {
   try {
     const guides = await Guide.find({ isPublished: true }).populate({
       path: 'user',
@@ -18,7 +18,7 @@ guidesRouter.get('/', async (req, res) => {
     return res.status(500).send('Error');
   }
 });
-guidesRouter.get('/all', auth, permit('admin'), async (req, res) => {
+guidesRouter.get('/all', auth, permit('admin'), async (_, res) => {
   try {
     const guides = await Guide.find().populate({
       path: 'user',
@@ -92,11 +92,9 @@ guidesRouter.put(
           ? 'images/' + req.files['image'][0].filename
           : guide.image;
 
-      const languages = req.body.languages
+      guide.languages = req.body.languages
         ? req.body.languages
         : guide.languages;
-
-      guide.languages = languages;
       guide.country = req.body.country || guide.country;
       guide.description = req.body.description || guide.description;
       guide.image = image;

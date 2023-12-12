@@ -282,6 +282,7 @@ export interface IMainSlider {
   country: string;
   toursAmount: string;
 }
+
 export interface IMainSliderMutation {
   image: File | null;
   country: string;
@@ -321,4 +322,24 @@ export interface IContactsMutation {
   title: string;
   description: string;
   contact: IContactInfo[];
+}
+
+export interface ISendGuideRequest {
+  name: string;
+  surname: string;
+  number: string;
+  message: string;
+}
+
+export interface IGuideRequest extends ISendGuideRequest {
+  _id: string;
+  status: string;
+}
+
+export interface ICreateGuide {
+  user: string;
+  description: string;
+  languages: string[];
+  country: string;
+  image: File | null;
 }

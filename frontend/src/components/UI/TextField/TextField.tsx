@@ -11,6 +11,7 @@ interface Props {
   value: string;
   onChange: (e: IChangeEvent) => void;
   icon: string;
+  className?: string;
   label?: string;
   required?: boolean;
   isSubmit?: boolean;
@@ -69,8 +70,8 @@ const TextField: React.FC<Props> = (props) => {
         />
       ) : (
         <input
+          className={inputClassNames + (props.className || '')}
           style={props.style}
-          className={inputClassNames}
           type={isDatePicker ? 'text' : props.type}
           name={props.name}
           value={
