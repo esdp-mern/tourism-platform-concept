@@ -147,6 +147,10 @@
   min-height: 60px;
 }
 
+.text-field-input-success {
+  border-bottom: 1px solid #62ef2b;
+}
+
 .text-field-input-error {
   border-bottom: 1px solid #f5543f;
 }

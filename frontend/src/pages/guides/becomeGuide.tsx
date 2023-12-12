@@ -1,17 +1,20 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { addAlert, selectEditLoading } from '@/containers/users/usersSlice';
-import peopleIcon from '@/assets/images/people-icon.svg';
-import phoneIcon from '@/assets/images/phone-icon.svg';
 import TextField from '@/components/UI/TextField/TextField';
-import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
+import { becomeGuide } from '@/containers/guides/guidesThunk';
+import PageLoader from '@/components/Loaders/PageLoader';
+import { useRouter } from 'next/router';
 import { AxiosError } from 'axios';
+import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
+import { addAlert, selectUser } from '@/containers/users/usersSlice';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import { ISendGuideRequest } from '@/type';
-import { becomeGuide } from '@/containers/guides/guidesThunk';
-import { useRouter } from 'next/router';
-import PageLoader from '@/components/Loaders/PageLoader';
+import peopleIcon from '@/assets/images/people-icon.svg';
+import phoneIcon from '@/assets/images/phone-icon.svg';
+import { selectGuideRequestLoading } from '@/containers/guides/guidesSlice';
+import { userRoles } from '@/constants';
+import Custom404 from '@/pages/404';
 
 const BecomeGuide = () => {
   const initialState = {
@@ -21,7 +24,8 @@ const BecomeGuide = () => {
     message: '',
   };
   const dispatch = useAppDispatch();
-  const editLoading = useAppSelector(selectEditLoading);
+  const guideRequestLoading = useAppSelector(selectGuideRequestLoading);
+  const user = useAppSelector(selectUser);
   const router = useRouter();
   const [state, setSate] = useState<ISendGuideRequest>(initialState);
   const [focused, setFocused] = useState(false);
@@ -40,14 +44,18 @@ const BecomeGuide = () => {
     try {
       await dispatch(becomeGuide(state));
       dispatch(addAlert({ message: 'Request is sent', type: 'info' }));
-      void router.push('/');
       setSate(initialState);
+      void router.push('/');
     } catch (e) {
       if (e instanceof AxiosError) {
         dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
       }
     }
   };
+
+  if (!user || user.role !== userRoles.admin) {
+    return <Custom404 errorType="tour" />;
+  }
 
   return (
     <div className="container">
@@ -93,7 +101,7 @@ const BecomeGuide = () => {
             required
           />
           <button type="submit" className="form-tour-btn">
-            {editLoading ? <ButtonLoader size={18} /> : 'Send'}
+            {guideRequestLoading ? <ButtonLoader size={18} /> : 'Send'}
           </button>
         </form>
       </div>

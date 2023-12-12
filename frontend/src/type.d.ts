@@ -320,3 +320,11 @@ export interface IGuideRequest extends ISendGuideRequest {
   _id: string;
   status: string;
 }
+
+export interface ICreateGuide {
+  user: string;
+  description: string;
+  languages: string[];
+  country: string;
+  image: File | null;
+}
