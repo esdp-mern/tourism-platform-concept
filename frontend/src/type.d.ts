@@ -288,6 +288,21 @@ export interface IMainSliderMutation {
   toursAmount: string;
 }
 
+export interface IAboutUsBlock {
+  _id: string;
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+export interface IAboutUs {
+  _id: string;
+  main: IAboutUsBlock;
+  offer: IAboutUsBlock;
+  posts: IAboutUsBlock[];
+  review: IAboutUsBlock;
+}
+
 export interface IContactInfo {
   _id?: string;
   country: string;
