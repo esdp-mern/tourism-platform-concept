@@ -183,4 +183,20 @@ usersRouter.put(
   },
 );
 
+usersRouter.patch('/:id', async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res.status(404).send({ message: 'User not found' });
+    }
+
+    user.role = req.body.role;
+    await user.save();
+    return res.send(user);
+  } catch (e) {
+    next(e);
+  }
+});
+
 export default usersRouter;
