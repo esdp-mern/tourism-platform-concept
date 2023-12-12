@@ -10,7 +10,6 @@ import PageLoader from '@/components/Loaders/PageLoader';
 import Custom404 from '@/pages/404';
 import GuideInfo from '@/components/OneGuidePage/GuideInfo/GuideInfo';
 import GuideReviews from '@/components/OneGuidePage/GuideReviews/GuideReviews';
-import GuideTours from '@/components/OneGuidePage/GuideTours/GuideTours';
 import { fetchGuideReviews } from '@/containers/reviews/reviewThunk';
 import { fetchToursGuide } from '@/containers/tours/toursThunk';
 
@@ -22,7 +21,6 @@ interface IGuidePageTabs {
 const GuidePageTabs: IGuidePageTabs[] = [
   { title: 'Information', name: 'information' },
   { title: 'Reviews', name: 'reviews' },
-  { title: 'Tours', name: 'tours' },
 ];
 
 const OneGuidePage: NextPage<
@@ -100,7 +98,6 @@ const OneGuidePage: NextPage<
       <div className="container">
         {currentTab === 'information' && <GuideInfo />}
         {currentTab === 'reviews' && <GuideReviews />}
-        {currentTab === 'tours' && <GuideTours />}
       </div>
     </div>
   );
