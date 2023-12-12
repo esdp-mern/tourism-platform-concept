@@ -1,16 +1,28 @@
-import { IEmployee, IPartner, ValidationError } from '@/type';
+import {
+  IAboutUs,
+  IAboutUsBlock,
+  IEmployee,
+  IPartner,
+  ValidationError,
+} from '@/type';
 import { createSlice } from '@reduxjs/toolkit';
 import {
   deleteEmployees,
+  editAboutUsBlock,
   editEmployees,
+  fetchAboutUs,
   fetchEmployees,
   fetchOneEmployee,
   fetchPartners,
   postEmployees,
 } from '@/containers/about/aboutThunk';
 import { RootState } from '@/store/store';
+import { apiUrl } from '@/constants';
 
 interface AboutState {
+  about: IAboutUs | null;
+  aboutLoading: boolean;
+  editAboutUsBlockLoading: boolean;
   employees: IEmployee[];
   employee: IEmployee | null;
   fetchEmployeesLoading: boolean;
@@ -24,6 +36,9 @@ interface AboutState {
 }
 
 const initialState: AboutState = {
+  about: null,
+  aboutLoading: false,
+  editAboutUsBlockLoading: false,
   employees: [],
   employee: null,
   fetchEmployeesLoading: false,
@@ -36,6 +51,28 @@ const initialState: AboutState = {
   editEmployeesLoading: false,
 };
 
+const getFiltredUrl = (url: string) =>
+  url.includes('http')
+    ? url
+    : `${apiUrl}/${url.includes('fixtures') ? '' : 'images/'}${url}`;
+
+const setImages = (payload: IAboutUs) => {
+  const aboutUsKeys = Object.keys(payload) as Array<keyof IAboutUs>;
+
+  aboutUsKeys.forEach((sectionKey: keyof IAboutUs) => {
+    const section = payload[sectionKey] as IAboutUsBlock | IAboutUsBlock[];
+
+    if (!(section instanceof Array)) {
+      if (!section.image) return;
+      section.image = section.image && getFiltredUrl(section.image);
+    } else {
+      section.forEach((block) => {
+        block.image = block.image && getFiltredUrl(block.image);
+      });
+    }
+  });
+};
+
 export const aboutSlice = createSlice({
   name: 'about',
   initialState,
@@ -45,6 +82,32 @@ export const aboutSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchAboutUs.pending, (state) => {
+      state.aboutLoading = true;
+    });
+    builder.addCase(fetchAboutUs.fulfilled, (state, { payload }) => {
+      state.aboutLoading = false;
+      setImages(payload);
+
+      state.about = payload;
+    });
+    builder.addCase(fetchAboutUs.rejected, (state) => {
+      state.aboutLoading = false;
+    });
+
+    builder.addCase(editAboutUsBlock.pending, (state) => {
+      state.editAboutUsBlockLoading = true;
+    });
+    builder.addCase(editAboutUsBlock.fulfilled, (state, { payload }) => {
+      state.editAboutUsBlockLoading = false;
+      setImages(payload);
+
+      state.about = payload;
+    });
+    builder.addCase(editAboutUsBlock.rejected, (state) => {
+      state.editAboutUsBlockLoading = false;
+    });
+
     builder.addCase(fetchEmployees.pending, (state) => {
       state.fetchEmployeesLoading = true;
     });
