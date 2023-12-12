@@ -29,7 +29,7 @@ const initialState: UsersState = {
   editorModal: false,
 };
 
-const getFiltredUrl = (url: string) =>
+const getFilteredUrl = (url: string) =>
   url.includes('http')
     ? url
     : `${apiUrl}/${url.includes('fixtures') ? '' : 'images/'}${url}`;
@@ -71,7 +71,7 @@ export const usersSlice = createSlice({
 
       state.user = {
         ...userData,
-        avatar: userData.avatar && getFiltredUrl(userData.avatar),
+        avatar: userData.avatar && getFilteredUrl(userData.avatar),
       };
     });
     builder.addCase(signUp.rejected, (state, { payload: error }) => {
