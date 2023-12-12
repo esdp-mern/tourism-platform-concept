@@ -100,6 +100,18 @@
     margin: 40px 0 90px;
 }
 
+.one-guide_btn-active {
+    color: #000000;
+    background-color: #f6f6f6;
+    border: 0;
+    flex-grow: 1;
+    cursor: pointer;
+    padding: 28px 0;
+    font-size: 18px;
+    transition: 0.33s all ease;
+    text-transform: uppercase;
+}
+
 @media (max-width: 475px) {
     .guide-page_top{
         height: 250px;
@@ -120,6 +132,10 @@
     }
 
     .one-guide_slider-btns-btn {
+        font-size: 14px;
+    }
+
+    .one-guide_btn-active {
         font-size: 14px;
     }
 }

@@ -70,7 +70,7 @@ const OneGuidePage: NextPage<
             onClick={clickTab}
             className={
               currentTab === name
-                ? `one-guide_slider-${name} btn-active`
+                ? `one-guide_slider-${name} one-guide_btn-active`
                 : `one-guide_slider-${name} one-guide_slider-btns-btn`
             }
             key={name}
