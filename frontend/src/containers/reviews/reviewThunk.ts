@@ -1,6 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ReviewOfGuides, ReviewOfPlatform, ReviewOfTour } from '@/type';
+import {
+  IPostGuideReview,
+  ReviewOfGuides,
+  ReviewOfPlatform,
+  ReviewOfTour,
+  ValidationError,
+} from '@/type';
 import axiosApi from '@/axiosApi';
+import { isAxiosError } from 'axios';
 
 export const fetchToursReviews = createAsyncThunk<
   ReviewOfTour[],
@@ -39,3 +46,21 @@ export const fetchPlatformReviews = createAsyncThunk<ReviewOfPlatform[]>(
     return response.data;
   },
 );
+
+export const createGuideReview = createAsyncThunk<
+  IPostGuideReview,
+  IPostGuideReview,
+  {
+    rejectValue: ValidationError;
+  }
+>('reviews/createGuideReview', async (review, { rejectWithValue }) => {
+  try {
+    const response = await axiosApi.post('/guideReviews', review);
+    return response.data;
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 400) {
+      return rejectWithValue(e.response.data);
+    }
+    throw e;
+  }
+});

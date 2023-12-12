@@ -281,6 +281,7 @@ export interface IMainSlider {
   country: string;
   toursAmount: string;
 }
+
 export interface IMainSliderMutation {
   image: File | null;
   country: string;
@@ -305,4 +306,27 @@ export interface IContactsMutation {
   title: string;
   description: string;
   contact: IContactInfo[];
+}
+
+export interface RatingOfGuide {
+  _id: string;
+  user: {
+    _id: string;
+    displayName: string;
+  };
+  tour: string;
+  rating: number;
+  date: string;
+}
+
+export interface IPostGuideRating {
+  guide: string;
+  rating: number;
+  user: string;
+}
+
+export interface IPostGuideReview {
+  guide: string;
+  comment: string;
+  user: string;
 }
