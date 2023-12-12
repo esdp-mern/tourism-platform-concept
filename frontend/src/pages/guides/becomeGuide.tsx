@@ -7,14 +7,12 @@ import PageLoader from '@/components/Loaders/PageLoader';
 import { useRouter } from 'next/router';
 import { AxiosError } from 'axios';
 import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
-import { addAlert, selectUser } from '@/containers/users/usersSlice';
+import { addAlert } from '@/containers/users/usersSlice';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import { ISendGuideRequest } from '@/type';
 import peopleIcon from '@/assets/images/people-icon.svg';
 import phoneIcon from '@/assets/images/phone-icon.svg';
 import { selectGuideRequestLoading } from '@/containers/guides/guidesSlice';
-import { userRoles } from '@/constants';
-import Custom404 from '@/pages/404';
 
 const BecomeGuide = () => {
   const initialState = {
@@ -25,7 +23,6 @@ const BecomeGuide = () => {
   };
   const dispatch = useAppDispatch();
   const guideRequestLoading = useAppSelector(selectGuideRequestLoading);
-  const user = useAppSelector(selectUser);
   const router = useRouter();
   const [state, setSate] = useState<ISendGuideRequest>(initialState);
   const [focused, setFocused] = useState(false);
@@ -52,10 +49,6 @@ const BecomeGuide = () => {
       }
     }
   };
-
-  if (!user || user.role !== userRoles.admin) {
-    return <Custom404 errorType="tour" />;
-  }
 
   return (
     <div className="container">

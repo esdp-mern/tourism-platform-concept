@@ -16,6 +16,12 @@ const Footer = () => {
                 <Link href="/reviews" className="footer-inner-top-link">
                   Customer Reviews
                 </Link>
+                <Link
+                  href="/guides/becomeGuide"
+                  className="footer-inner-top-link"
+                >
+                  Become a guide!
+                </Link>
               </div>
               <div>
                 <Link href="/contacts" className="footer-inner-top-link">
