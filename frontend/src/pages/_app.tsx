@@ -47,6 +47,7 @@ import '@/styles/Filter.css';
 import '@/styles/editorModal.css';
 import '@/styles/becomeGuide.css';
 import '@/styles/createGuide.css';
+import '@/styles/allUsers.css';
 export default function App({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
 
