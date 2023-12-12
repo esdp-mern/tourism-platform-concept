@@ -12,6 +12,7 @@ import GuideInfo from '@/components/OneGuidePage/GuideInfo/GuideInfo';
 import GuideReviews from '@/components/OneGuidePage/GuideReviews/GuideReviews';
 import { fetchGuideReviews } from '@/containers/reviews/reviewThunk';
 import { fetchToursGuide } from '@/containers/tours/toursThunk';
+import { fetchGuideRating } from '@/containers/ratings/ratingThunk';
 
 interface IGuidePageTabs {
   name: string;
@@ -32,37 +33,20 @@ const OneGuidePage: NextPage<
     id: string;
   };
   const [currentTab, setCurrentTab] = useState<string>('information');
-  const [adaptiveTabBtns, setAdaptiveTabBtns] = useState('');
 
   useEffect(() => {
     dispatch(setIsLightMode(false));
     dispatch(fetchGuide(id));
-    dispatch(fetchGuideReviews(id));
     dispatch(fetchToursGuide(id));
+    dispatch(fetchGuideReviews(id));
+    dispatch(fetchGuideRating(id));
   }, [dispatch, id]);
 
   if (!guide) return <Custom404 errorType="guide" />;
 
-  const toggleTab = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const clickTab = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { name } = e.currentTarget;
     setCurrentTab(name);
-    closeNav();
-  };
-
-  const closeNav = () => {
-    if (adaptiveTabBtns === '') return;
-    setAdaptiveTabBtns('closed');
-    setTimeout(() => {
-      setAdaptiveTabBtns('');
-    }, 300);
-  };
-
-  const navBtnToggle = () => {
-    if (adaptiveTabBtns === 'open') {
-      closeNav();
-      return;
-    }
-    setAdaptiveTabBtns('open');
   };
 
   return (
@@ -83,7 +67,7 @@ const OneGuidePage: NextPage<
         {GuidePageTabs.map(({ title, name }) => (
           <button
             name={name}
-            onClick={toggleTab}
+            onClick={clickTab}
             className={
               currentTab === name
                 ? `one-guide_slider-${name} btn-active`

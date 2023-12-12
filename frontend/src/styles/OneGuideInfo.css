@@ -49,7 +49,6 @@
 }
 
 .guide-page_table td:first-child {
-    min-width: 110px;
     padding-left: 0;
     font-weight: 600;
     letter-spacing: 0.03em;
@@ -57,7 +56,6 @@
 }
 
 .guide-page_table td:last-child {
-    min-width: 300px;
     letter-spacing: 2px;
 }
 
@@ -70,4 +68,22 @@
     flex-wrap: wrap;
     gap: 20px;
     margin: 20px 0 40px;
+}
+
+@media (max-width: 1110px) {
+    .guide-page_tours-wrap {
+        justify-content: space-evenly;
+    }
+}
+
+
+@media (max-width: 570px) {
+    .guide-page_info-title-wrap {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .guide-page_table {
+        width: 100%;
+    }
 }

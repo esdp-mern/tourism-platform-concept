@@ -95,3 +95,31 @@
 .one-guide_slider-reviews span:before {
     background-image: url('../assets/images/review-icon.svg');
 }
+
+.one-guide_review-wrap {
+    margin: 40px 0 90px;
+}
+
+@media (max-width: 475px) {
+    .guide-page_top{
+        height: 250px;
+    }
+
+    .guide-page_top-line {
+        width: 70px;
+        background-size: 150%;
+    }
+
+    .guide-page_top-name {
+        font-size: 26px;
+    }
+
+    .one-guide_slider-button span:before {
+        width: 15px;
+        height: 15px;
+    }
+
+    .one-guide_slider-btns-btn {
+        font-size: 14px;
+    }
+}
