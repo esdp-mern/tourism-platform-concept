@@ -14,7 +14,8 @@ import {
 import { setIsLightMode } from '@/containers/config/configSlice';
 import { ICreateGuide, User } from '@/type';
 import peopleIcon from '@/assets/images/people-icon.svg';
-import phoneIcon from '@/assets/images/phone-icon.svg';
+import languageIcon from '@/assets/images/languages.svg';
+import globeIcon from '@/assets/images/globe.svg';
 import { getUsers } from '@/containers/users/usersThunk';
 import { createGuide } from '@/containers/guides/guidesThunk';
 import FileInput from '@/components/UI/FileInput/FileInput';
@@ -155,7 +156,7 @@ const CreateGuide = () => {
                 type="text"
                 value={currentLanguage}
                 onChange={(e) => setCurrentLanguage(e.target.value)}
-                icon={peopleIcon.src}
+                icon={languageIcon.src}
                 label="language*"
                 required
               />
@@ -199,7 +200,7 @@ const CreateGuide = () => {
             type="text"
             value={state.country}
             onChange={onChange}
-            icon={phoneIcon.src}
+            icon={globeIcon.src}
             label="country*"
             required
           />
