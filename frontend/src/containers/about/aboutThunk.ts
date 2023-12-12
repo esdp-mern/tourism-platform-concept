@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   IAboutUs,
+  IAboutUsBlock,
   IEmployee,
   IEmployeeMutation,
   INewsMutation,
@@ -17,6 +18,25 @@ export const fetchAboutUs = createAsyncThunk<IAboutUs>(
     return data;
   },
 );
+
+interface IEditAboutUsBLockSubmit {
+  sectionName: string;
+  section: IAboutUsBlock;
+}
+
+export const editAboutUsBlock = createAsyncThunk<
+  IAboutUs,
+  IEditAboutUsBLockSubmit
+>('about/editAboutUsBlock', async (block) => {
+  const { data } = await axiosApi.put<IAboutUs>(
+    `/aboutUs/${block.sectionName}${
+      block.sectionName === 'posts' ? `?postId=${block.section._id}` : ''
+    }`,
+    block.section,
+  );
+
+  return data;
+});
 
 export const fetchEmployees = createAsyncThunk<IEmployee[], void | string>(
   'about/fetchAllEmployees',

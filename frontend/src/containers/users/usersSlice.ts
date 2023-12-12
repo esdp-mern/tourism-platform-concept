@@ -26,7 +26,9 @@ const initialState: UsersState = {
 };
 
 const getFiltredUrl = (url: string) =>
-  `${apiUrl}/${url.includes('fixtures') ? '' : 'images/'}${url}`;
+  url.includes('http')
+    ? url
+    : `${apiUrl}/${url.includes('fixtures') ? '' : 'images/'}${url}`;
 
 export const usersSlice = createSlice({
   name: 'users',
@@ -62,7 +64,7 @@ export const usersSlice = createSlice({
 
       state.user = {
         ...userData,
-        avatar: `${apiUrl}/images/${userData.avatar}`,
+        avatar: userData.avatar && getFiltredUrl(userData.avatar),
       };
     });
     builder.addCase(signUp.rejected, (state, { payload: error }) => {

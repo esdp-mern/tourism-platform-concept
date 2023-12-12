@@ -8,12 +8,13 @@ import 'react-day-picker/dist/style.css';
 interface Props {
   name: string;
   type: React.HTMLInputTypeAttribute | 'select';
-  label?: string;
-  required?: boolean;
-  isSubmit?: boolean;
   value: string;
   onChange: (e: IChangeEvent) => void;
   icon: string;
+  label?: string;
+  required?: boolean;
+  isSubmit?: boolean;
+  style?: React.CSSProperties;
 }
 
 const TextField: React.FC<Props> = (props) => {
@@ -68,6 +69,7 @@ const TextField: React.FC<Props> = (props) => {
         />
       ) : (
         <input
+          style={props.style}
           className={inputClassNames}
           type={isDatePicker ? 'text' : props.type}
           name={props.name}

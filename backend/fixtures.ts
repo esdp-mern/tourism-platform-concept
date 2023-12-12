@@ -607,42 +607,38 @@ const run = async () => {
       title: 'About',
       description:
         'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
-      image:
-        'https://livedemo00.template-help.com/wt_prod-19282/images/bg-image-1.jpg',
+      image: 'fixtures/about-us-bg.jpg',
     },
     offer: {
       title: 'Fastest Way to Book over 450 Great Tours',
       description:
         'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      image: 'http://localhost:3000/_next/static/media/horses.3e0f7e1f.png',
+      image: 'fixtures/horses.png',
     },
     posts: [
       {
         title: 'Save Money',
         description:
           'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-        image:
-          'http://localhost:3000/_next/static/media/money-icon.1012e8a2.svg',
+        image: 'fixtures/money-icon.svg',
       },
       {
         title: 'Get Support',
         description:
           'Lura, capio, et diatria. Mori recte ducunt ad alter plasmator. Experimentum sapienter ducunt ad audax.',
-        image:
-          'http://localhost:3000/_next/static/media/support-icon.41910bef.svg',
+        image: 'fixtures/support-icon.svg',
       },
       {
         title: 'Travel Safety',
         description:
           'Indexs ortum! Classiss sunt solitudos de altus adgium. Castus, regius triticums superbe anhelare.',
-        image:
-          'http://localhost:3000/_next/static/media/safety-icon.e5b9f421.svg',
+        image: 'fixtures/safety-icon.svg',
       },
       {
         title: 'Book Easily',
         description:
           'Cur nixus mori? Pol. Sunt hippotoxotaes convertam festus, brevis buboes. Brevis terror nunquam amors.',
-        image: 'http://localhost:3000/_next/static/media/sun-icon.93ace05d.svg',
+        image: 'fixtures/sun-icon.svg',
       },
     ],
     review: {
