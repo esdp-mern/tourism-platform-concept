@@ -23,8 +23,8 @@ const Admin = () => {
     <>
       <PageLoader />
       <div className="container">
-        <div className="tours-page">
-          <Fade>
+        <Fade>
+          <div className="tours-page">
             <div className="admin-item">
               <Link href={`/admin/tours/1`} className="tour-item-links">
                 <h2 className="tour-item-title">TOURS</h2>
@@ -42,6 +42,18 @@ const Admin = () => {
             </div>
           </Fade>
         </div>
+            <div className="users-item">
+              <Link href={`/admin/allUsers/1`} className="users-item-links">
+                <h2 className="news-item-title">USERS</h2>
+              </Link>
+            </div>
+            <div className="users-item">
+              <Link href={`/tours/create`} className="tour-item-links">
+                <h2 className="news-item-title">CREATE TOUR</h2>
+              </Link>
+            </div>
+          </div>
+        </Fade>
       </div>
     </>
   );
