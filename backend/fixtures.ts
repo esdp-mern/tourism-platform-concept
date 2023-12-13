@@ -728,7 +728,6 @@ const run = async () => {
       surname: 'Walt',
       number: '+996 800 900 900',
       message: 'I love being guide!',
-      status: 'new',
     },
     {
       user: user._id,
@@ -736,7 +735,6 @@ const run = async () => {
       surname: 'Skott',
       number: '+996 800 900 900',
       message: 'I love being guide!',
-      status: 'being considered',
     },
     {
       user: user._id,
@@ -744,7 +742,6 @@ const run = async () => {
       surname: 'Nasyrov',
       number: '+996 800 900 900',
       message: 'I love being guide!',
-      status: 'being considered',
     },
   );
   await db.close();
