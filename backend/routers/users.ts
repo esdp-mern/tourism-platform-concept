@@ -6,6 +6,7 @@ import auth, { RequestWithUser } from '../middleware/auth';
 import { OAuth2Client } from 'google-auth-library';
 import config from '../config';
 import { imagesUpload } from '../multer';
+import permit from '../middleware/permit';
 
 const usersRouter = express.Router();
 const client = new OAuth2Client(config.google.clientId);
@@ -182,5 +183,21 @@ usersRouter.put(
     }
   },
 );
+
+usersRouter.patch('/:id', auth, permit('admin'), async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res.status(404).send({ message: 'User not found' });
+    }
+
+    user.role = req.body.role;
+    await user.save();
+    return res.send(user);
+  } catch (e) {
+    next(e);
+  }
+});
 
 export default usersRouter;

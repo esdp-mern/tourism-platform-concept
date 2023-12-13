@@ -17,6 +17,7 @@
   height: 230px;
   transition: 0.2s;
 }
+
 .tour-item-guide-avatar {
   position: absolute;
   width: 80px;
@@ -24,12 +25,14 @@
   bottom: 8px;
   right: 8px;
 }
+
 .tour-item-guide-avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
 }
+
 .tour-info-publish {
   position: absolute;
   top: 5px;
@@ -105,7 +108,8 @@
   background-size: contain;
 }
 
-.tour-item-links {
+.tour-item-links,
+.users-item-links {
   text-decoration: none;
 }
 
@@ -213,10 +217,12 @@
     font-size: 11px;
     padding: 8px 15px;
   }
+
   .tour-item-guide-avatar {
     width: 50px;
     height: 50px;
   }
+
   .tour-info-publish {
     font-size: 11px;
   }
