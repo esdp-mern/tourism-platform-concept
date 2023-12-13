@@ -13,6 +13,14 @@ export const fetchGuides = createAsyncThunk('guides/fetchAll', async () => {
   return response.data;
 });
 
+export const fetchGuide = createAsyncThunk(
+  'guides/fetchGuide',
+  async (id: string) => {
+    const response = await axiosApi.get<IGuideFull>(`/guides/${id}`);
+    return response.data;
+   },
+);
+
 export const becomeGuide = createAsyncThunk<IGuideRequest, ISendGuideRequest>(
   'guides/sendRequest',
   async (guideData: ISendGuideRequest) => {

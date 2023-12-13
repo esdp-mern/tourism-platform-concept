@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
+  createGuideReview,
   fetchGuideReviews,
   fetchPlatformReviews,
   fetchToursReviews,
@@ -14,6 +15,7 @@ interface ReviewsState {
   fetchGuidesLoading: boolean;
   platformReview: ReviewOfPlatform[];
   fetchPlatformLoading: boolean;
+  postGuideReviewLoading: boolean;
 }
 
 const initialState: ReviewsState = {
@@ -23,6 +25,7 @@ const initialState: ReviewsState = {
   fetchGuidesLoading: false,
   platformReview: [],
   fetchPlatformLoading: false,
+  postGuideReviewLoading: false,
 };
 
 export const reviewSlice = createSlice({
@@ -56,6 +59,7 @@ export const reviewSlice = createSlice({
     builder.addCase(fetchGuideReviews.rejected, (state) => {
       state.fetchGuidesLoading = false;
     });
+
     builder.addCase(fetchPlatformReviews.pending, (state) => {
       state.fetchPlatformLoading = true;
     });
@@ -68,6 +72,16 @@ export const reviewSlice = createSlice({
     );
     builder.addCase(fetchPlatformReviews.rejected, (state) => {
       state.fetchPlatformLoading = false;
+    });
+
+    builder.addCase(createGuideReview.pending, (state) => {
+      state.postGuideReviewLoading = true;
+    });
+    builder.addCase(createGuideReview.fulfilled, (state) => {
+      state.postGuideReviewLoading = false;
+    });
+    builder.addCase(createGuideReview.rejected, (state) => {
+      state.postGuideReviewLoading = false;
     });
   },
 });

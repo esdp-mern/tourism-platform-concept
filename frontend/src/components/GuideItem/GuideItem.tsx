@@ -27,7 +27,7 @@ const GuideItem: React.FC<Props> = ({
         <h2 className="guide-card__name">{name}</h2>
         <p className="guide-card__role">{role}</p>
         <p className="guide-card__description">{description}</p>
-        <Link href={`/team/${id}`} className="guide-card__link">
+        <Link href={`/guides/${id}`} className="guide-card__link">
           View More
         </Link>
       </div>

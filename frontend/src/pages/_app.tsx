@@ -45,9 +45,13 @@ import '@/styles/statisticks.css';
 import '@/styles/contactUs.css';
 import '@/styles/Filter.css';
 import '@/styles/editorModal.css';
+import '@/styles/OneGuidePage.css';
+import '@/styles/OneGuideInfo.css';
+import '@/styles/OneReview.css';
 import '@/styles/becomeGuide.css';
 import '@/styles/createGuide.css';
 import '@/styles/allUsers.css';
+
 export default function App({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
 
