@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useAppDispatch } from '@/store/hooks';
 import { fetchTours } from '@/containers/tours/toursThunk';
-import { fetchGuideNameByFilter } from '@/containers/guides/guidesThunk';
+import {
+  fetchAdminGuides,
+  fetchGuideNameByFilter,
+} from '@/containers/guides/guidesThunk';
 
 const GuideFilter = () => {
   const [currentTab, setCurrentTab] = useState<'name' | null>(null);
@@ -35,6 +38,8 @@ const GuideFilter = () => {
     if (event.target.value.length) {
       await dispatch(fetchGuideNameByFilter(event.target.value));
       return;
+    } else {
+      await dispatch(fetchAdminGuides());
     }
     await dispatch(fetchTours());
   };
