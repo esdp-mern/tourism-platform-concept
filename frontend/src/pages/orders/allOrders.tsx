@@ -17,6 +17,7 @@ import dayjs from 'dayjs';
 import { addAlert, selectUser } from '@/containers/users/usersSlice';
 import { boardNames, userRoles } from '@/constants';
 import { useRouter } from 'next/router';
+import { setIsLightMode } from '@/containers/config/configSlice';
 
 const AllOrders = () => {
   const dispatch = useAppDispatch();
@@ -35,6 +36,7 @@ const AllOrders = () => {
   const orderChangerLoading = useAppSelector(selectOrderStatusChanging);
 
   useEffect(() => {
+    dispatch(setIsLightMode(true));
     if (!user || user.role !== userRoles.moderator) {
       void router.push('/');
     }

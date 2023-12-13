@@ -12,6 +12,18 @@ import axiosApi from '@/axiosApi';
 import { isAxiosError } from 'axios';
 import { RootState } from '@/store/store';
 
+export const getUsers = createAsyncThunk<User[], string>(
+  'users/getUser',
+  async (username: string) => {
+    try {
+      const { data } = await axiosApi.get(`/users?username=${username}`);
+      return data;
+    } catch (e) {
+      throw e;
+    }
+  },
+);
+
 export const signUp = createAsyncThunk<
   RegisterResponse,
   RegisterMutation,

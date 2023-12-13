@@ -61,6 +61,7 @@ export interface IGuide {
   languages: string[];
   country: string;
   image: string;
+  isPublished: boolean;
 }
 
 export interface IGuideFull extends IGuide {
@@ -288,6 +289,21 @@ export interface IMainSliderMutation {
   toursAmount: string;
 }
 
+export interface IAboutUsBlock {
+  _id: string;
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+export interface IAboutUs {
+  _id: string;
+  main: IAboutUsBlock;
+  offer: IAboutUsBlock;
+  posts: IAboutUsBlock[];
+  review: IAboutUsBlock;
+}
+
 export interface IContactInfo {
   _id?: string;
   country: string;
@@ -307,6 +323,7 @@ export interface IContactsMutation {
   description: string;
   contact: IContactInfo[];
 }
+
 
 export interface RatingOfGuide {
   _id: string;
@@ -329,4 +346,24 @@ export interface IPostGuideReview {
   guide: string;
   comment: string;
   user: string;
+}
+
+export interface ISendGuideRequest {
+  name: string;
+  surname: string;
+  number: string;
+  message: string;
+}
+
+export interface IGuideRequest extends ISendGuideRequest {
+  _id: string;
+  status: string;
+}
+
+export interface ICreateGuide {
+  user: string;
+  description: string;
+  languages: string[];
+  country: string;
+  image: File | null;
 }

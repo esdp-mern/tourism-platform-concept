@@ -27,6 +27,11 @@ const GuideSchema = new mongoose.Schema({
   image: {
     type: String,
   },
+  isPublished: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
 });
 
 const Guide = mongoose.model('Guide', GuideSchema);

@@ -2,13 +2,20 @@ import { IGuideFull } from '@/type';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import { RootState } from '@/store/store';
-import { fetchGuide, fetchGuides } from '@/containers/guides/guidesThunk';
+import {
+  becomeGuide,
+  createGuide,
+  fetchGuides,
+  fetchGuide,
+} from '@/containers/guides/guidesThunk';
 
 interface guidesState {
   guides: IGuideFull[];
   guide: IGuideFull | null;
   fetchAllLoading: boolean;
   fetchOneLoading: boolean;
+  guideRequestLoading: boolean;
+  createGuideLoading: boolean;
 }
 
 const initialState: guidesState = {
@@ -16,6 +23,8 @@ const initialState: guidesState = {
   guide: null,
   fetchAllLoading: false,
   fetchOneLoading: false,
+  guideRequestLoading: false,
+  createGuideLoading: false,
 };
 
 export const guidesSlice = createSlice({
@@ -40,7 +49,6 @@ export const guidesSlice = createSlice({
     builder.addCase(fetchGuides.rejected, (state) => {
       state.fetchAllLoading = false;
     });
-
     builder.addCase(fetchGuide.pending, (state) => {
       state.fetchOneLoading = true;
     });
@@ -50,6 +58,24 @@ export const guidesSlice = createSlice({
     });
     builder.addCase(fetchGuide.rejected, (state) => {
       state.fetchOneLoading = false;
+    builder.addCase(becomeGuide.pending, (state) => {
+      state.guideRequestLoading = true;
+    });
+    builder.addCase(becomeGuide.fulfilled, (state) => {
+      state.guideRequestLoading = false;
+    });
+    builder.addCase(becomeGuide.rejected, (state) => {
+      state.guideRequestLoading = false;
+    });
+
+    builder.addCase(createGuide.pending, (state) => {
+      state.createGuideLoading = true;
+    });
+    builder.addCase(createGuide.fulfilled, (state) => {
+      state.createGuideLoading = false;
+    });
+    builder.addCase(createGuide.rejected, (state) => {
+      state.createGuideLoading = false;
     });
   },
 });
@@ -61,3 +87,7 @@ export const selectFetchGuidesLoading = (state: RootState) =>
 export const selectOneGuide = (state: RootState) => state.guides.guide;
 export const selectGuideLoading = (state: RootState) =>
   state.guides.fetchOneLoading;
+export const selectGuideRequestLoading = (state: RootState) =>
+  state.guides.guideRequestLoading;
+export const selectCreateGuideLoading = (state: RootState) =>
+  state.guides.createGuideLoading;

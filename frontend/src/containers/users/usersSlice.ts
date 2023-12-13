@@ -1,5 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { editProfile, googleLogin, logout, signIn, signUp } from './usersThunk';
+import {
+  editProfile,
+  getUsers,
+  googleLogin,
+  logout,
+  signIn,
+  signUp,
+} from './usersThunk';
 import { RootState } from '@/store/store';
 import { IAlert, User, ValidationError } from '@/type';
 import { apiUrl } from '@/constants';
@@ -7,6 +14,8 @@ import { nanoid } from 'nanoid';
 
 interface UsersState {
   user: User | null;
+  users: User[];
+  usersLoading: boolean;
   registerLoading: boolean;
   signUpError: ValidationError | null;
   signInLoading: boolean;
@@ -19,6 +28,8 @@ interface UsersState {
 
 const initialState: UsersState = {
   user: null,
+  users: [],
+  usersLoading: false,
   registerLoading: false,
   signUpError: null,
   signInLoading: false,
@@ -30,7 +41,9 @@ const initialState: UsersState = {
 };
 
 const getFilteredUrl = (url: string) =>
-  `${apiUrl}/${url.includes('fixtures') ? '' : 'images/'}${url}`;
+  url.includes('http')
+    ? url
+    : `${apiUrl}/${url.includes('fixtures') ? '' : 'images/'}${url}`;
 
 export const usersSlice = createSlice({
   name: 'users',
@@ -69,7 +82,7 @@ export const usersSlice = createSlice({
 
       state.user = {
         ...userData,
-        avatar: `${apiUrl}/images/${userData.avatar}`,
+        avatar: userData.avatar && getFilteredUrl(userData.avatar),
       };
     });
     builder.addCase(signUp.rejected, (state, { payload: error }) => {
@@ -145,6 +158,17 @@ export const usersSlice = createSlice({
     builder.addCase(editProfile.rejected, (state) => {
       state.editLoading = false;
     });
+
+    builder.addCase(getUsers.pending, (state) => {
+      state.usersLoading = true;
+    });
+    builder.addCase(getUsers.fulfilled, (state, { payload }) => {
+      state.usersLoading = false;
+      state.users = payload;
+    });
+    builder.addCase(getUsers.rejected, (state) => {
+      state.usersLoading = false;
+    });
   },
 });
 
@@ -163,3 +187,6 @@ export const selectLogoutLoading = (state: RootState) =>
 export const selectAlerts = (state: RootState) => state.users.alerts;
 export const selectEditorModal = (state: RootState) => state.users.editorModal;
 export const selectEditLoading = (state: RootState) => state.users.editLoading;
+export const selectUsers = (state: RootState) => state.users.users;
+export const selectUsersLoading = (state: RootState) =>
+  state.users.usersLoading;

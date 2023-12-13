@@ -16,6 +16,7 @@ import Partner from './models/Partner';
 import MainSlider from './models/MainSlider';
 import ContactUs from './models/ContactUs';
 import AboutUs from './models/AboutUs';
+import GuideOrder from './models/GuideOrder';
 
 const run = async () => {
   await mongoose.connect(config.db);
@@ -37,6 +38,7 @@ const run = async () => {
     await db.dropCollection('mainsliders');
     await db.dropCollection('aboutus');
     await db.dropCollection('contacts');
+    await db.dropCollection('guideorders');
   } catch (e) {
     console.log('Collections were not present, skipping drop...');
   }
@@ -105,6 +107,7 @@ const run = async () => {
         'My name is Artem.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
       languages: ['kyrgyz', 'russian', 'english'],
       country: 'Kyrgyzstan',
+      isPublished: true,
     },
     {
       user: user1._id,
@@ -112,6 +115,7 @@ const run = async () => {
         'My name is Andrey.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
       languages: ['russian', 'english'],
       country: 'Kyrgyzstan',
+      isPublished: true,
     },
     {
       user: user2._id,
@@ -119,6 +123,7 @@ const run = async () => {
         'My name is Askar.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
       languages: ['kyrgyz', 'english'],
       country: 'Kyrgyzstan',
+      isPublished: false,
     },
   );
 
@@ -678,42 +683,38 @@ const run = async () => {
       title: 'About',
       description:
         'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
-      image:
-        'https://livedemo00.template-help.com/wt_prod-19282/images/bg-image-1.jpg',
+      image: 'fixtures/about-us-bg.jpg',
     },
     offer: {
       title: 'Fastest Way to Book over 450 Great Tours',
       description:
         'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      image: 'http://localhost:3000/_next/static/media/horses.3e0f7e1f.png',
+      image: 'fixtures/horses.png',
     },
     posts: [
       {
         title: 'Save Money',
         description:
           'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-        image:
-          'http://localhost:3000/_next/static/media/money-icon.1012e8a2.svg',
+        image: 'fixtures/money-icon.svg',
       },
       {
         title: 'Get Support',
         description:
           'Lura, capio, et diatria. Mori recte ducunt ad alter plasmator. Experimentum sapienter ducunt ad audax.',
-        image:
-          'http://localhost:3000/_next/static/media/support-icon.41910bef.svg',
+        image: 'fixtures/support-icon.svg',
       },
       {
         title: 'Travel Safety',
         description:
           'Indexs ortum! Classiss sunt solitudos de altus adgium. Castus, regius triticums superbe anhelare.',
-        image:
-          'http://localhost:3000/_next/static/media/safety-icon.e5b9f421.svg',
+        image: 'fixtures/safety-icon.svg',
       },
       {
         title: 'Book Easily',
         description:
           'Cur nixus mori? Pol. Sunt hippotoxotaes convertam festus, brevis buboes. Brevis terror nunquam amors.',
-        image: 'http://localhost:3000/_next/static/media/sun-icon.93ace05d.svg',
+        image: 'fixtures/sun-icon.svg',
       },
     ],
     review: {
@@ -723,6 +724,29 @@ const run = async () => {
     },
   });
 
+  await GuideOrder.create(
+    {
+      name: 'Alex',
+      surname: 'Walt',
+      number: '+996 800 900 900',
+      message: 'I love being guide!',
+      status: 'new',
+    },
+    {
+      name: 'Arnold',
+      surname: 'Skott',
+      number: '+996 800 900 900',
+      message: 'I love being guide!',
+      status: 'being considered',
+    },
+    {
+      name: 'Murat',
+      surname: 'Nasyrov',
+      number: '+996 800 900 900',
+      message: 'I love being guide!',
+      status: 'being considered',
+    },
+  );
   await db.close();
 };
 
