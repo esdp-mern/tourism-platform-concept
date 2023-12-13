@@ -66,6 +66,13 @@ const TourFilter = () => {
   };
 
   const filterRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (currentTab === 'name' && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [currentTab]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -103,11 +110,11 @@ const TourFilter = () => {
             onClick={() => {
               setCurrentTab('name');
             }}
-            style={searchTerm ? { textTransform: 'none' } : {}}
           >
             <span className="icon-filter mdi mdi-border-color"></span>
             {currentTab === 'name' ? (
               <input
+                ref={inputRef}
                 type="text"
                 placeholder="name"
                 className={`filter-link input-filter-name ${
@@ -115,14 +122,9 @@ const TourFilter = () => {
                 }`}
                 value={searchTerm}
                 onChange={handleInputChange}
-                onClick={() => {
-                  setCurrentTab('name');
-                }}
               />
-            ) : searchTerm ? (
-              searchTerm
             ) : (
-              'name'
+              <span>{searchTerm ? searchTerm : 'name'}</span>
             )}
           </button>
         </li>
