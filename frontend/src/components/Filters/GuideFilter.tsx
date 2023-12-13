@@ -11,7 +11,6 @@ const GuideFilter = () => {
   const dispatch = useAppDispatch();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const filterRef = useRef<HTMLDivElement | null>(null);
-  const [showInput, setShowInput] = useState<boolean>(false);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -19,7 +18,7 @@ const GuideFilter = () => {
         filterRef.current &&
         !filterRef.current.contains(event.target as Node)
       ) {
-        setShowInput(false);
+        setCurrentTab(null);
       }
     };
 
@@ -47,15 +46,25 @@ const GuideFilter = () => {
   return (
     <section className="section-filter" ref={filterRef}>
       <ul className="filters-list">
-        <li className="tab-filter" onClick={() => setShowInput(true)}>
+        <li
+          className="tab-filter"
+          onClick={() => {
+            setCurrentTab('name');
+          }}
+        >
           <button
-            className={`${showInput ? 'filter-input' : 'filter-link'} ${
-              currentTab === 'name' ? 'filter-active' : ''
+            className={`${
+              currentTab === 'name'
+                ? 'filter-input filter-active'
+                : 'filter-link'
             }`}
-            onClick={() => setCurrentTab('name')}
+            onClick={() => {
+              setCurrentTab('name');
+            }}
+            style={searchTerm ? { textTransform: 'none' } : {}}
           >
             <span className="icon-filter mdi mdi-border-color"></span>
-            {showInput ? (
+            {currentTab === 'name' ? (
               <input
                 type="text"
                 placeholder="name"
@@ -64,11 +73,14 @@ const GuideFilter = () => {
                 }`}
                 value={searchTerm}
                 onChange={handleInputChange}
+                onClick={() => {
+                  setCurrentTab('name');
+                }}
               />
+            ) : searchTerm ? (
+              searchTerm
             ) : (
-              <span style={searchTerm ? { textTransform: 'none' } : {}}>
-                {searchTerm ? searchTerm : 'name'}
-              </span>
+              'name'
             )}
           </button>
         </li>
