@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Pagination from '@/components/Pagination/Pagination';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import {
-  fetchTours,
-  fetchToursByFilter,
-  fetchToursByPrice,
-} from '@/containers/tours/toursThunk';
+import { fetchTours } from '@/containers/tours/toursThunk';
 import { selectAllTours } from '@/containers/tours/toursSlice';
 import TourItem from '@/components/TourListItem/TourListItem';
 import PageLoader from '@/components/Loaders/PageLoader';

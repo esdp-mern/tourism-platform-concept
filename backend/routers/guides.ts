@@ -4,6 +4,8 @@ import auth from '../middleware/auth';
 import permit from '../middleware/permit';
 import { imagesUpload } from '../multer';
 import mongoose from 'mongoose';
+import Tour from '../models/Tour';
+import User from '../models/User';
 
 const guidesRouter = express.Router();
 guidesRouter.get('/', async (_, res) => {
@@ -26,6 +28,48 @@ guidesRouter.get('/all', auth, permit('admin'), async (_, res) => {
     });
 
     return res.send(guides);
+  } catch (e) {
+    return res.status(500).send('Error');
+  }
+});
+guidesRouter.get('/filterByName', auth, permit('admin'), async (req, res) => {
+  try {
+    if (req.query.name) {
+      const guide = await Guide.aggregate([
+        {
+          $lookup: {
+            from: 'users',
+            localField: 'user',
+            foreignField: '_id',
+            as: 'userDetails',
+          },
+        },
+        {
+          $match: {
+            'userDetails.username': {
+              $regex: req.query.name,
+              $options: 'i',
+            },
+          },
+        },
+        {
+          $project: {
+            description: 1,
+            languages: 1,
+            country: 1,
+            image: 1,
+            isPublished: 1,
+            user: {
+              $arrayElemAt: ['$userDetails', 0],
+            },
+          },
+        },
+      ]);
+
+      return res.send(guide);
+    } else {
+      return res.send([]);
+    }
   } catch (e) {
     return res.status(500).send('Error');
   }
@@ -116,6 +160,17 @@ guidesRouter.delete('/:id', auth, permit('admin'), async (req, res, next) => {
 
     if (!guide) {
       return res.status(404).send('Not found');
+    }
+
+    await Tour.updateMany(
+      { guides: req.params.id },
+      { $pull: { guides: req.params.id } },
+    );
+
+    const user = await User.findOne({ _id: guide.user });
+    if (user) {
+      user.role = 'user';
+      await user.save();
     }
     await guide.deleteOne();
     return res.send('Guide is deleted!');

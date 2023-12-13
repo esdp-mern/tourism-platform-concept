@@ -7,13 +7,11 @@ import TourItem from '@/components/TourListItem/TourListItem';
 import PageLoader from '@/components/Loaders/PageLoader';
 import { selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
-import { useRouter } from 'next/router';
-import { setIsLightMode } from '@/containers/config/configSlice';
+import Custom404 from '@/pages/404';
 
 const AllToursPage = () => {
   const dispatch = useAppDispatch();
   const tours = useAppSelector(selectAllTours);
-  const routers = useRouter();
   const user = useAppSelector(selectUser);
   const [toursPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,13 +23,6 @@ const AllToursPage = () => {
   const indexOfFirstRecord = indexOfLastRecord - toursPerPage;
   const currentRecords = tours.slice(indexOfFirstRecord, indexOfLastRecord);
   const nPages = Math.ceil(tours.length / toursPerPage);
-
-  useEffect(() => {
-    dispatch(setIsLightMode(true));
-    if (user && user.role !== userRoles.admin) {
-      routers.push('/').then((r) => r);
-    }
-  }, [dispatch, routers, user]);
 
   useEffect(() => {
     switch (currentTours) {
@@ -49,6 +40,10 @@ const AllToursPage = () => {
         break;
     }
   }, [currentTours, dispatch]);
+
+  if (!user || user.role !== userRoles.admin) {
+    return <Custom404 errorType="tour" />;
+  }
 
   const onSetCurrentPage = (pageNumber: number) => {
     setCurrentPage(pageNumber);
