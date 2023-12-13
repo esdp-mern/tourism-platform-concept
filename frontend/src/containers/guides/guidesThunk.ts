@@ -4,7 +4,7 @@ import {
   IGuide,
   IGuideFull,
   IGuideRequest,
-  ISendGuideRequest,
+  ISendGuideRequestMutation,
   ValidationError,
 } from '@/type';
 import axiosApi from '@/axiosApi';
@@ -15,17 +15,17 @@ export const fetchGuides = createAsyncThunk('guides/fetchAll', async () => {
   return response.data;
 });
 
-export const becomeGuide = createAsyncThunk<IGuideRequest, ISendGuideRequest>(
-  'guides/sendRequest',
-  async (guideData: ISendGuideRequest) => {
-    try {
-      const request = await axiosApi.post('guideOrders', guideData);
-      return request.data;
-    } catch (e) {
-      throw e;
-    }
-  },
-);
+export const becomeGuide = createAsyncThunk<
+  IGuideRequest,
+  ISendGuideRequestMutation
+>('guides/sendRequest', async (guideData: ISendGuideRequestMutation) => {
+  try {
+    const request = await axiosApi.post('guideOrders', guideData);
+    return request.data;
+  } catch (e) {
+    throw e;
+  }
+});
 
 export const createGuide = createAsyncThunk<IGuide, ICreateGuideMutation>(
   'guides/createGuide',

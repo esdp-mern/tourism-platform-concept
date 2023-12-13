@@ -9,15 +9,17 @@ import { AxiosError } from 'axios';
 import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
 import { addAlert, selectUser } from '@/containers/users/usersSlice';
 import { setIsLightMode } from '@/containers/config/configSlice';
-import { ISendGuideRequest } from '@/type';
+import { ISendGuideRequestMutation } from '@/type';
 import peopleIcon from '@/assets/images/people-icon.svg';
 import phoneIcon from '@/assets/images/phone-icon.svg';
 import { selectGuideRequestLoading } from '@/containers/guides/guidesSlice';
 import Custom404 from '@/pages/404';
 
 const BecomeGuide = () => {
-  const initialState: ISendGuideRequest = {
-    user: '',
+  const user = useAppSelector(selectUser);
+  const userId = user._id || '';
+  const initialState: ISendGuideRequestMutation = {
+    user: userId,
     name: '',
     surname: '',
     number: '',
@@ -27,7 +29,7 @@ const BecomeGuide = () => {
   const guideRequestLoading = useAppSelector(selectGuideRequestLoading);
   const thisUser = useAppSelector(selectUser);
   const router = useRouter();
-  const [state, setSate] = useState<ISendGuideRequest>(initialState);
+  const [state, setSate] = useState<ISendGuideRequestMutation>(initialState);
   const [focused, setFocused] = useState(false);
 
   useEffect(() => {
@@ -57,6 +59,7 @@ const BecomeGuide = () => {
     } catch (e) {
       if (e instanceof AxiosError) {
         dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+        return;
       }
     }
   };
@@ -65,12 +68,25 @@ const BecomeGuide = () => {
     return <Custom404 errorType="tour" />;
   }
 
+  console.log(user);
+
   return (
     <div className="container">
       <PageLoader />
       <div className="become-guide">
         <form onSubmit={onSubmit} className="become-guide-form">
           <h2>Become a guide</h2>
+          <div style={{ display: 'none' }}>
+            <TextField
+              name="user"
+              type="text"
+              value={userId}
+              onChange={onChange}
+              icon={peopleIcon.src}
+              label="user*"
+              required
+            />
+          </div>
           <TextField
             name="name"
             type="text"
