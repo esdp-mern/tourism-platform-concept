@@ -16,7 +16,8 @@ import { selectGuideRequestLoading } from '@/containers/guides/guidesSlice';
 import Custom404 from '@/pages/404';
 
 const BecomeGuide = () => {
-  const initialState = {
+  const initialState: ISendGuideRequest = {
+    user: '',
     name: '',
     surname: '',
     number: '',
@@ -24,7 +25,7 @@ const BecomeGuide = () => {
   };
   const dispatch = useAppDispatch();
   const guideRequestLoading = useAppSelector(selectGuideRequestLoading);
-  const user = useAppSelector(selectUser);
+  const thisUser = useAppSelector(selectUser);
   const router = useRouter();
   const [state, setSate] = useState<ISendGuideRequest>(initialState);
   const [focused, setFocused] = useState(false);
@@ -40,6 +41,14 @@ const BecomeGuide = () => {
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    if (!state.name || !state.surname || !state.number || !state.message) {
+      dispatch(
+        addAlert({ message: 'Please fill in all fields', type: 'error' }),
+      );
+      return;
+    }
+
     try {
       await dispatch(becomeGuide(state));
       dispatch(addAlert({ message: 'Request is sent', type: 'info' }));
@@ -52,7 +61,7 @@ const BecomeGuide = () => {
     }
   };
 
-  if (!user) {
+  if (!thisUser) {
     return <Custom404 errorType="tour" />;
   }
 

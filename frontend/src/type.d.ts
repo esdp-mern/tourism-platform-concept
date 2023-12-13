@@ -337,9 +337,19 @@ export interface IGuideRequest extends ISendGuideRequest {
 }
 
 export interface ICreateGuide {
-  user: string;
-  description: string;
-  languages: string[];
-  country: string;
-  image: File | null;
+    user: {
+        _id: string;
+    };
+    description: string;
+    languages: string[];
+    country: string;
+    image: File | null;
+}
+
+export interface ICreateGuideMutation {
+    user: string | null;
+    description: string;
+    languages: string[];
+    country: string;
+    image: File | null;
 }

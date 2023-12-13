@@ -723,6 +723,7 @@ const run = async () => {
 
   await GuideOrder.create(
     {
+      user: user._id,
       name: 'Alex',
       surname: 'Walt',
       number: '+996 800 900 900',
@@ -730,6 +731,7 @@ const run = async () => {
       status: 'new',
     },
     {
+      user: user._id,
       name: 'Arnold',
       surname: 'Skott',
       number: '+996 800 900 900',
@@ -737,6 +739,7 @@ const run = async () => {
       status: 'being considered',
     },
     {
+      user: user._id,
       name: 'Murat',
       surname: 'Nasyrov',
       number: '+996 800 900 900',

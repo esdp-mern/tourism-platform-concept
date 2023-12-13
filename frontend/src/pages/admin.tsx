@@ -35,6 +35,11 @@ const Admin = () => {
                 <h2 className="news-item-title">NEWS</h2>
               </Link>
             </div>
+            <div className="news-item">
+              <Link href={`/admin/guideOrders/1`} className="news-item-links">
+                <h2 className="news-item-title">GUIDE REQUESTS</h2>
+              </Link>
+            </div>
           </Fade>
         </div>
       </div>
