@@ -8,6 +8,7 @@ import { selectAllNews } from '@/containers/news/newsSlice';
 import NewsItem from '@/components/NewsItem/NewsItem';
 import { fetchAdminNews, fetchNews } from '@/containers/news/newsThunk';
 import Custom404 from '@/pages/404';
+import { setIsLightMode } from '@/containers/config/configSlice';
 
 const AllNewsPage = () => {
   const dispatch = useAppDispatch();
@@ -23,6 +24,10 @@ const AllNewsPage = () => {
   const indexOfFirstRecord = indexOfLastRecord - newsPerPage;
   const currentRecords = news.slice(indexOfFirstRecord, indexOfLastRecord);
   const nPages = Math.ceil(news.length / newsPerPage);
+
+  useEffect(() => {
+    dispatch(setIsLightMode(true));
+  }, [dispatch]);
 
   useEffect(() => {
     switch (currentNews) {

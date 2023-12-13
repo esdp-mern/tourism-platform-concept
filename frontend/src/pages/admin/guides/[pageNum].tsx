@@ -9,6 +9,7 @@ import Pagination from '@/components/Pagination/Pagination';
 import GuideItem from '@/components/GuideItem/GuideItem';
 import Custom404 from '@/pages/404';
 import GuideFilter from '@/components/Filters/GuideFilter';
+import { setIsLightMode } from '@/containers/config/configSlice';
 
 const AllGuidesPage = () => {
   const dispatch = useAppDispatch();
@@ -21,6 +22,10 @@ const AllGuidesPage = () => {
   const indexOfFirstRecord = indexOfLastRecord - guidesPerPage;
   const currentRecords = guides.slice(indexOfFirstRecord, indexOfLastRecord);
   const nPages = Math.ceil(guides.length / guidesPerPage);
+
+  useEffect(() => {
+    dispatch(setIsLightMode(true));
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchAdminGuides());

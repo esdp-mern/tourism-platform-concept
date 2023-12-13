@@ -6,6 +6,8 @@ import { imagesUpload } from '../multer';
 import mongoose from 'mongoose';
 import Tour from '../models/Tour';
 import User from '../models/User';
+import GuideRating from '../models/GuideRating';
+import GuideReview from '../models/GuideReview';
 
 const guidesRouter = express.Router();
 guidesRouter.get('/', async (_, res) => {
@@ -162,6 +164,9 @@ guidesRouter.delete('/:id', auth, permit('admin'), async (req, res, next) => {
       return res.status(404).send('Not found');
     }
 
+    await GuideRating.deleteMany({ guide: guide._id });
+    await GuideReview.deleteMany({ guide: guide._id });
+
     await Tour.updateMany(
       { guides: req.params.id },
       { $pull: { guides: req.params.id } },
@@ -172,6 +177,7 @@ guidesRouter.delete('/:id', auth, permit('admin'), async (req, res, next) => {
       user.role = 'user';
       await user.save();
     }
+
     await guide.deleteOne();
     return res.send('Guide is deleted!');
   } catch (e) {

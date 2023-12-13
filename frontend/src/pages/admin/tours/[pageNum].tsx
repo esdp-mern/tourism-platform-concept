@@ -8,6 +8,7 @@ import PageLoader from '@/components/Loaders/PageLoader';
 import { selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
 import Custom404 from '@/pages/404';
+import { setIsLightMode } from '@/containers/config/configSlice';
 
 const AllToursPage = () => {
   const dispatch = useAppDispatch();
@@ -23,6 +24,10 @@ const AllToursPage = () => {
   const indexOfFirstRecord = indexOfLastRecord - toursPerPage;
   const currentRecords = tours.slice(indexOfFirstRecord, indexOfLastRecord);
   const nPages = Math.ceil(tours.length / toursPerPage);
+
+  useEffect(() => {
+    dispatch(setIsLightMode(true));
+  }, [dispatch]);
 
   useEffect(() => {
     switch (currentTours) {

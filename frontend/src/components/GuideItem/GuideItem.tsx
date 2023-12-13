@@ -24,7 +24,7 @@ const GuideItem: React.FC<Props> = ({
   const dispatch = useAppDispatch();
 
   const onDelete = async (id: string) => {
-    if (window.confirm(`W ${id}`)) {
+    if (window.confirm('Are you sure you want to delete this guide?')) {
       await dispatch(deleteGuide(id));
       dispatch(fetchAdminGuides());
     }
