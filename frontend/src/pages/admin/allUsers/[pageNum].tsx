@@ -7,13 +7,20 @@ import { User } from '@/type';
 import { apiUrl, userRoles } from '@/constants';
 import PageLoader from '@/components/Loaders/PageLoader';
 import Custom404 from '@/pages/404';
+import Pagination from '@/components/Pagination/Pagination';
 
-const AllUsers = () => {
+const PageNum = () => {
   const dispatch = useAppDispatch();
   const users = useAppSelector(selectUsers);
   const user = useAppSelector(selectUser);
+  const usersPerPage = 8;
+  const [currentPage, setCurrentPage] = useState(1);
   const [selectedCardId, setSelectedCardId] = useState('');
   const [roles, setRoles] = useState<string[]>([]);
+  const indexOfLastRecord = currentPage * usersPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - usersPerPage;
+  const currentRecords = users.slice(indexOfFirstRecord, indexOfLastRecord);
+  const nPages = Math.ceil(users.length / usersPerPage);
 
   useEffect(() => {
     document.addEventListener('click', () => setSelectedCardId(''));
@@ -28,11 +35,15 @@ const AllUsers = () => {
     return <Custom404 errorType="tour" />;
   }
 
+  const onSetCurrentPage = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="container">
       <PageLoader />
       <div className="all-users">
-        {users.map((user: User) => (
+        {currentRecords.map((user: User) => (
           <div className="user-card" key={user._id}>
             <div className="user-card-top">
               <img
@@ -87,8 +98,16 @@ const AllUsers = () => {
           </div>
         ))}
       </div>
+      {users.length > 8 && (
+        <Pagination
+          pathname={'/admin/allUsers/'}
+          nPages={nPages}
+          currentPage={currentPage}
+          onSetCurrentPage={onSetCurrentPage}
+        />
+      )}
     </div>
   );
 };
 
-export default AllUsers;
+export default PageNum;

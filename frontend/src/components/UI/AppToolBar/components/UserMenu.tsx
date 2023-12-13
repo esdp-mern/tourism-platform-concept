@@ -40,15 +40,6 @@ const UserMenu: React.FC<IProps> = ({ user, onClick, pathname }) => {
           >
             Admin Page
           </NavLink>
-          <NavLink
-            href="/allUsers"
-            className={`nav-link profile-link ${
-              pathname === '/tours/create' ? 'active' : ''
-            }`}
-            onClick={onClick}
-          >
-            All users
-          </NavLink>
         </>
       )}
       {user && user.role === userRoles.moderator && (
