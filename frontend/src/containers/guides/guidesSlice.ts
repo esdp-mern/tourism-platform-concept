@@ -6,18 +6,23 @@ import {
   becomeGuide,
   createGuide,
   fetchGuides,
+  fetchGuide,
 } from '@/containers/guides/guidesThunk';
 
 interface guidesState {
   guides: IGuideFull[];
+  guide: IGuideFull | null;
   fetchAllLoading: boolean;
+  fetchOneLoading: boolean;
   guideRequestLoading: boolean;
   createGuideLoading: boolean;
 }
 
 const initialState: guidesState = {
   guides: [],
+  guide: null,
   fetchAllLoading: false,
+  fetchOneLoading: false,
   guideRequestLoading: false,
   createGuideLoading: false,
 };
@@ -44,7 +49,15 @@ export const guidesSlice = createSlice({
     builder.addCase(fetchGuides.rejected, (state) => {
       state.fetchAllLoading = false;
     });
-
+    builder.addCase(fetchGuide.pending, (state) => {
+      state.fetchOneLoading = true;
+    });
+    builder.addCase(fetchGuide.fulfilled, (state, { payload: guide }) => {
+      state.fetchOneLoading = false;
+      state.guide = guide;
+    });
+    builder.addCase(fetchGuide.rejected, (state) => {
+      state.fetchOneLoading = false;
     builder.addCase(becomeGuide.pending, (state) => {
       state.guideRequestLoading = true;
     });
@@ -71,6 +84,9 @@ export const guidesReducer = guidesSlice.reducer;
 export const selectGuides = (state: RootState) => state.guides.guides;
 export const selectFetchGuidesLoading = (state: RootState) =>
   state.guides.fetchAllLoading;
+export const selectOneGuide = (state: RootState) => state.guides.guide;
+export const selectGuideLoading = (state: RootState) =>
+  state.guides.fetchOneLoading;
 export const selectGuideRequestLoading = (state: RootState) =>
   state.guides.guideRequestLoading;
 export const selectCreateGuideLoading = (state: RootState) =>

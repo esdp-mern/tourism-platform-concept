@@ -324,6 +324,30 @@ export interface IContactsMutation {
   contact: IContactInfo[];
 }
 
+
+export interface RatingOfGuide {
+  _id: string;
+  user: {
+    _id: string;
+    displayName: string;
+  };
+  tour: string;
+  rating: number;
+  date: string;
+}
+
+export interface IPostGuideRating {
+  guide: string;
+  rating: number;
+  user: string;
+}
+
+export interface IPostGuideReview {
+  guide: string;
+  comment: string;
+  user: string;
+}
+
 export interface ISendGuideRequest {
   name: string;
   surname: string;

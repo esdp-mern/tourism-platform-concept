@@ -86,7 +86,16 @@ toursRouter.get('/', async (req, res) => {
     let tours;
 
     if (req.query.guide) {
-      tours = await Tour.find({ guides: req.query.guide, isPublished: true });
+      tours = await Tour.find({
+        guides: req.query.guide,
+        isPublished: true,
+      }).populate({
+        path: 'guides',
+        populate: {
+          path: 'user',
+          select: 'username displayName role avatar email',
+        },
+      });
       return res.send(tours);
     }
     tours = await Tour.find({ isPublished: true }).populate({
