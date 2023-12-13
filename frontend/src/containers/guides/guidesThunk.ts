@@ -5,8 +5,10 @@ import {
   IGuideFull,
   IGuideRequest,
   ISendGuideRequest,
+  ValidationError,
 } from '@/type';
 import axiosApi from '@/axiosApi';
+import { isAxiosError } from 'axios';
 
 export const fetchGuides = createAsyncThunk('guides/fetchAll', async () => {
   const response = await axiosApi.get<IGuideFull[]>('/guides');
@@ -18,7 +20,25 @@ export const fetchGuide = createAsyncThunk(
   async (id: string) => {
     const response = await axiosApi.get<IGuideFull>(`/guides/${id}`);
     return response.data;
-   },
+  },
+);
+
+export const fetchAdminGuides = createAsyncThunk(
+  'guides/fetchAdminGuides',
+  async () => {
+    const response = await axiosApi.get<IGuideFull[]>('/guides/all');
+    return response.data;
+  },
+);
+
+export const fetchGuideNameByFilter = createAsyncThunk<IGuideFull[], string>(
+  'guides/fetchByFilter',
+  async (name) => {
+    const response = await axiosApi.get<IGuideFull[]>(
+      `/guides/filterByName?name=${name}`,
+    );
+    return response.data;
+  },
 );
 
 export const becomeGuide = createAsyncThunk<IGuideRequest, ISendGuideRequest>(
@@ -61,3 +81,19 @@ export const createGuide = createAsyncThunk<IGuide, ICreateGuide>(
     }
   },
 );
+
+export const deleteGuide = createAsyncThunk<
+  void,
+  string,
+  { rejectValue: ValidationError }
+>('guides/delete', async (id, { rejectWithValue }) => {
+  try {
+    await axiosApi.delete(`/guides/${id}`);
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 400) {
+      return rejectWithValue(e.response.data);
+    }
+
+    throw e;
+  }
+});

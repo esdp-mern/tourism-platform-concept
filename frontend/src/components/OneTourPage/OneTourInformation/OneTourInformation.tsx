@@ -121,9 +121,13 @@ const OneTourInformation = () => {
                 <tr>
                   <td>Guides</td>
                   <td>
-                    {tour.guides.map((guide) => (
-                      <div key={guide._id}>{guide.user.displayName}</div>
-                    ))}
+                    {tour.guides.length > 0 ? (
+                      tour.guides.map((guide) => (
+                        <div key={guide._id}>{guide.user.displayName}</div>
+                      ))
+                    ) : (
+                      <div>No guide for this tour</div>
+                    )}
                   </td>
                 </tr>
                 <tr>
@@ -138,15 +142,6 @@ const OneTourInformation = () => {
           <div className="one-tour-inner-gallery">
             <h3>Tour Gallery</h3>
             <div className="one-tour-inner-gallery2">
-              {/*{tour.galleryTour.map((photo, id) => (*/}
-              {/*  <div key={id}>*/}
-              {/*    <img*/}
-              {/*      alt="photo"*/}
-              {/*      src={apiUrl + '/' + photo}*/}
-              {/*      className="one-tour-inner-photo"*/}
-              {/*    />*/}
-              {/*  </div>*/}
-              {/*))}*/}
               <GalleryItem tour={tour} onOpenModal={onOpenModal} />
             </div>
           </div>

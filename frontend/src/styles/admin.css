@@ -13,6 +13,14 @@
   padding: 20px 10px 0;
 }
 
+.guides-admin-page{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px 20px;
+  justify-content: center;
+  padding: 20px 10px 0;
+  margin-top: 100px;
+}
 @media (max-width: 440px) {
   .buttons-admin-tour {
     flex-direction: column;

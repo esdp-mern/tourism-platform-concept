@@ -7,6 +7,9 @@ import {
   createGuide,
   fetchGuides,
   fetchGuide,
+  fetchAdminGuides,
+  deleteGuide,
+  fetchGuideNameByFilter,
 } from '@/containers/guides/guidesThunk';
 
 interface guidesState {
@@ -16,6 +19,8 @@ interface guidesState {
   fetchOneLoading: boolean;
   guideRequestLoading: boolean;
   createGuideLoading: boolean;
+  fetchAdminGuidesLoading: boolean;
+  deleteLoading: boolean | string;
 }
 
 const initialState: guidesState = {
@@ -25,6 +30,8 @@ const initialState: guidesState = {
   fetchOneLoading: false,
   guideRequestLoading: false,
   createGuideLoading: false,
+  fetchAdminGuidesLoading: false,
+  deleteLoading: false,
 };
 
 export const guidesSlice = createSlice({
@@ -49,6 +56,19 @@ export const guidesSlice = createSlice({
     builder.addCase(fetchGuides.rejected, (state) => {
       state.fetchAllLoading = false;
     });
+    builder.addCase(fetchAdminGuides.pending, (state) => {
+      state.fetchAdminGuidesLoading = true;
+    });
+    builder.addCase(
+      fetchAdminGuides.fulfilled,
+      (state, { payload: guides }) => {
+        state.guides = guides;
+        state.fetchAdminGuidesLoading = false;
+      },
+    );
+    builder.addCase(fetchAdminGuides.rejected, (state) => {
+      state.fetchAdminGuidesLoading = false;
+    });
     builder.addCase(fetchGuide.pending, (state) => {
       state.fetchOneLoading = true;
     });
@@ -58,6 +78,20 @@ export const guidesSlice = createSlice({
     });
     builder.addCase(fetchGuide.rejected, (state) => {
       state.fetchOneLoading = false;
+    });
+    builder.addCase(fetchGuideNameByFilter.pending, (state) => {
+      state.fetchAdminGuidesLoading = true;
+    });
+    builder.addCase(
+      fetchGuideNameByFilter.fulfilled,
+      (state, { payload: tours }) => {
+        state.guides = tours;
+        state.fetchAdminGuidesLoading = false;
+      },
+    );
+    builder.addCase(fetchGuideNameByFilter.rejected, (state) => {
+      state.fetchAdminGuidesLoading = false;
+    });
     builder.addCase(becomeGuide.pending, (state) => {
       state.guideRequestLoading = true;
     });
@@ -67,7 +101,6 @@ export const guidesSlice = createSlice({
     builder.addCase(becomeGuide.rejected, (state) => {
       state.guideRequestLoading = false;
     });
-
     builder.addCase(createGuide.pending, (state) => {
       state.createGuideLoading = true;
     });
@@ -76,6 +109,15 @@ export const guidesSlice = createSlice({
     });
     builder.addCase(createGuide.rejected, (state) => {
       state.createGuideLoading = false;
+    });
+    builder.addCase(deleteGuide.pending, (state, action) => {
+      state.deleteLoading = action.meta.arg;
+    });
+    builder.addCase(deleteGuide.fulfilled, (state) => {
+      state.deleteLoading = false;
+    });
+    builder.addCase(deleteGuide.rejected, (state) => {
+      state.deleteLoading = false;
     });
   },
 });
