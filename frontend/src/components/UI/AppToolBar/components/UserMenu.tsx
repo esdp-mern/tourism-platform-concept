@@ -24,9 +24,11 @@ const UserMenu: React.FC<IProps> = ({ user, onClick, pathname }) => {
       {user && user.role === userRoles.admin && (
         <NavLink
           href="/admin"
+          as="/admin"
           className={`nav-link profile-link ${
             pathname === '/admin' ? 'active' : ''
           }`}
+          onClick={onClick}
         >
           Admin Page
         </NavLink>
@@ -38,6 +40,7 @@ const UserMenu: React.FC<IProps> = ({ user, onClick, pathname }) => {
           className={`nav-link profile-link ${
             pathname === '/orders/allOrders' ? 'active' : ''
           }`}
+          onClick={onClick}
         >
           Orders
         </NavLink>
