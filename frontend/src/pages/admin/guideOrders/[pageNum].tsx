@@ -9,6 +9,7 @@ import { userRoles } from '@/constants';
 import { selectGuideOrders } from '@/containers/guides/guidesSlice';
 import { fetchGuideOrders } from '@/containers/guides/guidesThunk';
 import GuideOrder from '@/components/GuideOrder/GuideOrder';
+import Custom404 from '@/pages/404';
 
 const AllGuideOrdersPage = () => {
   const dispatch = useAppDispatch();
@@ -36,6 +37,10 @@ const AllGuideOrdersPage = () => {
   const onSetCurrentPage = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
+
+  if (!user || user.role !== userRoles.admin) {
+    return <Custom404 errorType="tour" />;
+  }
 
   return (
     <div className="all-guides">

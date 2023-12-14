@@ -51,9 +51,10 @@ const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
           <div className="tour-item-guide-avatar">
             <img
               src={
-                tour.guides[0].user
-                  ? apiUrl + '/' + tour.guides[0].user.avatar
-                  : ''
+                tour.guides[0].user.avatar &&
+                tour.guides[0].user.avatar.startsWith('http')
+                  ? tour.guides[0].user.avatar
+                  : apiUrl + '/' + tour.guides[0].user.avatar
               }
               alt="guide"
             />
