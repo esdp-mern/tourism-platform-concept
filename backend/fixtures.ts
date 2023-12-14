@@ -17,6 +17,7 @@ import MainSlider from './models/MainSlider';
 import ContactUs from './models/ContactUs';
 import AboutUs from './models/AboutUs';
 import GuideOrder from './models/GuideOrder';
+import PartnerOrder from './models/PartnerOrder';
 
 const run = async () => {
   await mongoose.connect(config.db);
@@ -745,6 +746,31 @@ const run = async () => {
       number: '+996 800 900 900',
       message: 'I love being guide!',
       status: 'being considered',
+    },
+  );
+
+  await PartnerOrder.create(
+    {
+      name: 'Sam',
+      surname: 'Felton',
+      number: '+996 800 900 900',
+      message: 'I would like to be a partner with your company!',
+      status: 'pending',
+    },
+    {
+      name: 'Nam',
+      surname: 'RM',
+      number: '+996 800 900 900',
+      message: 'This would be a great opportunity to be a partners!',
+      status: 'pending',
+    },
+    {
+      name: 'Jennie',
+      surname: 'Kim',
+      number: '+996 800 900 900',
+      message:
+        'I think it would be great for both companies to be a partners. I hope that we will meet soon',
+      status: 'approved',
     },
   );
   await db.close();
