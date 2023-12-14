@@ -18,9 +18,9 @@ const AppToolBar = () => {
 
   const toolBarRef = useRef<HTMLDivElement | null>(null);
 
-  const showMenu = () => {
-    setMenuShow(!menuShow);
-    dispatch(fetchTours);
+  const showMenu = async () => {
+    setMenuShow(false);
+    await dispatch(fetchTours);
   };
 
   const closeNavMenu = () => setNavShow(false);
@@ -85,7 +85,7 @@ const AppToolBar = () => {
                 <span></span>
                 <span></span>
               </button>
-              <NavLink href="/" className="logo">
+              <NavLink href="/" className="logo" onClick={showMenu}>
                 Tourism Concept
               </NavLink>
             </div>
@@ -96,7 +96,10 @@ const AppToolBar = () => {
               <NavLink
                 href="/"
                 className={`nav-link ${pathname === '/' ? 'active' : ''}`}
-                onClick={closeNavMenu}
+                onClick={() => {
+                  showMenu();
+                  closeNavMenu();
+                }}
               >
                 Home
               </NavLink>
@@ -105,21 +108,30 @@ const AppToolBar = () => {
                 className={`nav-link ${
                   pathname && pathname.includes('/tours/all') ? 'active' : ''
                 }`}
-                onClick={closeNavMenu}
+                onClick={() => {
+                  showMenu();
+                  closeNavMenu();
+                }}
               >
                 Tours
               </NavLink>
               <NavLink
                 href="/about"
                 className={`nav-link ${pathname === '/about' ? 'active' : ''}`}
-                onClick={closeNavMenu}
+                onClick={() => {
+                  showMenu();
+                  closeNavMenu();
+                }}
               >
                 About Us
               </NavLink>
               {user ? (
                 <UserMenu
                   user={user}
-                  onClick={closeNavMenu}
+                  onClick={() => {
+                    showMenu();
+                    closeNavMenu();
+                  }}
                   pathname={pathname}
                 />
               ) : (
@@ -130,6 +142,10 @@ const AppToolBar = () => {
                 className={`nav-link ${
                   pathname && pathname.includes('/news/all') ? 'active' : ''
                 }`}
+                onClick={() => {
+                  showMenu();
+                  closeNavMenu();
+                }}
               >
                 News
               </NavLink>
@@ -138,6 +154,10 @@ const AppToolBar = () => {
                 className={`nav-link ${
                   pathname === '/contactUs' ? 'active' : ''
                 }`}
+                onClick={() => {
+                  showMenu();
+                  closeNavMenu();
+                }}
               >
                 Contact Us
               </NavLink>
