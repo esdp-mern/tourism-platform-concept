@@ -6,6 +6,7 @@ import auth, { RequestWithUser } from '../middleware/auth';
 import { OAuth2Client } from 'google-auth-library';
 import config from '../config';
 import { imagesUpload } from '../multer';
+import permit from '../middleware/permit';
 
 const usersRouter = express.Router();
 const client = new OAuth2Client(config.google.clientId);
@@ -174,6 +175,37 @@ usersRouter.put(
 
       await existingUser.save();
       return res.send({ user: existingUser, message: 'Changes saved!' });
+    } catch (e) {
+      if (e instanceof mongoose.Error.ValidationError) {
+        return res.status(400).send(e);
+      }
+      return next(e);
+    }
+  },
+);
+
+usersRouter.put(
+  '/:id/change-role',
+  auth,
+  permit('admin'),
+  async (req, res, next) => {
+    try {
+      const userId = req.params.id;
+      const user = (req as RequestWithUser).user;
+      const currentUser = await User.findById(userId);
+
+      if (!currentUser) {
+        return res.status(404).send('User not found');
+      }
+
+      currentUser.role = req.body.role || currentUser.role;
+
+      await currentUser.save();
+
+      return res.send({
+        user: currentUser,
+        message: 'User role updated successfully',
+      });
     } catch (e) {
       if (e instanceof mongoose.Error.ValidationError) {
         return res.status(400).send(e);

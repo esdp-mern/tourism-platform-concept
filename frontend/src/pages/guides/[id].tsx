@@ -27,6 +27,7 @@ import languageIcon from '@/assets/images/languages.svg';
 import globeIcon from '@/assets/images/globe.svg';
 import FileInput from '@/components/UI/FileInput/FileInput';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
+import { changeUserRole } from '@/containers/users/usersThunk';
 
 const CreateGuide: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -93,6 +94,7 @@ const CreateGuide: NextPage<
         await dispatch(addAlert({ message: 'Guide is added', type: 'info' }));
         setState(initialState);
         await dispatch(deleteGuideOrder(id));
+        await dispatch(changeUserRole({ userId, newRole: userRoles.guid }));
         void router.push('/admin/guideOrders/1');
       } else {
         dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
