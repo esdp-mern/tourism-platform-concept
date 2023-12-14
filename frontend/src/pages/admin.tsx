@@ -40,12 +40,6 @@ const Admin = () => {
                 <h2 className="news-item-title">GUIDES</h2>
               </Link>
             </div>
-          </div>
-        </Fade>
-      </div>
-      <div>
-        <Fade>
-          <div className="tours-page">
             <div className="users-item">
               <Link href={`/admin/allUsers/1`} className="users-item-links">
                 <h2 className="news-item-title">USERS</h2>
