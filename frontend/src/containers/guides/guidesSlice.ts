@@ -6,6 +6,7 @@ import {
   becomeGuide,
   createGuide,
   deleteGuideOrder,
+  fetchAdminGuides,
   fetchGuideOrders,
   fetchGuides,
   fetchOneGuideOrder,
@@ -14,6 +15,7 @@ import {
 interface guidesState {
   guides: IGuideFull[];
   guideOrders: IGuideRequest[];
+  adminGuides: IGuideFull[];
   oneGuideOrder: IGuideRequest | null;
   fetchAllLoading: boolean;
   fetchAllOrdersLoading: boolean;
@@ -26,6 +28,7 @@ interface guidesState {
 const initialState: guidesState = {
   guides: [],
   guideOrders: [],
+  adminGuides: [],
   oneGuideOrder: null,
   fetchAllLoading: false,
   fetchAllOrdersLoading: false,
@@ -55,6 +58,20 @@ export const guidesSlice = createSlice({
       state.fetchAllLoading = false;
     });
     builder.addCase(fetchGuides.rejected, (state) => {
+      state.fetchAllLoading = false;
+    });
+
+    builder.addCase(fetchAdminGuides.pending, (state) => {
+      state.fetchAllLoading = true;
+    });
+    builder.addCase(
+      fetchAdminGuides.fulfilled,
+      (state, { payload: adminGuides }) => {
+        state.adminGuides = adminGuides;
+        state.fetchAllLoading = false;
+      },
+    );
+    builder.addCase(fetchAdminGuides.rejected, (state) => {
       state.fetchAllLoading = false;
     });
 
@@ -137,3 +154,5 @@ export const selectOneGuideOrder = (state: RootState) =>
 
 export const selectOneGuideOrderLoading = (state: RootState) =>
   state.guides.fetchOneOrderLoading;
+
+export const selectAdminGuides = (state: RootState) => state.guides.adminGuides;

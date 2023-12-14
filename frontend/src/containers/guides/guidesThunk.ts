@@ -15,6 +15,14 @@ export const fetchGuides = createAsyncThunk('guides/fetchAll', async () => {
   return response.data;
 });
 
+export const fetchAdminGuides = createAsyncThunk(
+  'guides/fetchAdminGuides',
+  async () => {
+    const response = await axiosApi.get<IGuideFull[]>('/guides/all');
+    return response.data
+  },
+);
+
 export const becomeGuide = createAsyncThunk<
   IGuideRequest,
   ISendGuideRequestMutation
