@@ -248,7 +248,7 @@ toursRouter.post(
         included: included,
         galleryTour: gallery,
         country: req.body.country,
-        route: req.body.country,
+        routes: [JSON.parse(req.body.routes)],
       });
 
       await tour.save();
@@ -335,7 +335,10 @@ toursRouter.post(
         existingTour.included = included;
         existingTour.galleryTour = gallery;
         existingTour.country = req.body.country || existingTour.country;
-        existingTour.routes = req.body.route || existingTour.routes;
+        existingTour.routes =
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          JSON.parse([req.body.routes[0]]) || existingTour.routes;
 
         await existingTour.save();
 

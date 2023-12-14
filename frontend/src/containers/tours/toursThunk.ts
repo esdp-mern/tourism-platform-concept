@@ -118,6 +118,8 @@ export const postTour = createAsyncThunk<
               formData.append(key, item);
             } else if (item instanceof File) {
               formData.append(key, item, item.name);
+            } else if (key === 'routes') {
+              formData.append(key, JSON.stringify(item));
             } else {
               formData.append(key, JSON.stringify(item));
             }

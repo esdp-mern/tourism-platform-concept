@@ -1,0 +1,59 @@
+.select-category {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Montserrat Regular', serif;
+  padding: 11px 19px 11px 40px;
+  font-size: 18px;
+  border: 0;
+  box-sizing: border-box;
+  border-bottom: 1px solid #c4c4c4;
+  transition: all 0.3s ease-in-out;
+  background-color: transparent;
+  outline: 0;
+  min-height: 60px;
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: 10px 20px;
+}
+
+.select-category-arrow {
+  display: flex;
+  align-items: flex-end;
+  padding: 0 8px;
+  border-left: 1px solid hsl(0, 0%, 80%);
+  color: hsl(0, 0%, 80%);
+  transition: 0.1s;
+}
+
+.select-category-arrow:hover {
+  color: hsl(0, 0%, 60%);
+}
+
+.marker-categories {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #f6f6f6;
+  background-color: #FFFFFF;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.marker-category {
+  position: relative;
+  padding: 10px 10px 10px 50px;
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: 15px 10px;
+  background-color: #f6f6f6;
+}
+
+.marker-category:hover {
+  background-color: #e1eeff;
+}

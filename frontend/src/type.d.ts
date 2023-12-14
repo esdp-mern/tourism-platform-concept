@@ -69,11 +69,19 @@ export interface IGuideFull extends IGuide {
 }
 
 export interface ITourRoute {
-  lat: string;
-  lng: string;
-  icon: string;
-  title: string;
-  strokeColor: string;
+  [lat: string]: string;
+
+  [lng: string]: string;
+
+  [icon: string]: string;
+
+  [title: string]: string;
+
+  [strokeColor: string]: string;
+}
+
+export interface ICreateTourRoutes extends ITourRoute {
+  [id: string]: string;
 }
 
 export interface Tour {
@@ -124,6 +132,7 @@ export interface ITourMutation {
   galleryTour: File[] | null;
   mainImage: File | null;
   price: string;
+  routes: ICreateTourRoutes[][];
 }
 
 export interface ITourReview {

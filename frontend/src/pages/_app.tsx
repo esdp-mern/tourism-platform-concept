@@ -51,6 +51,7 @@ import '@/styles/OneReview.css';
 import '@/styles/becomeGuide.css';
 import '@/styles/createGuide.css';
 import '@/styles/allUsers.css';
+import '@/styles/selectCategory.css';
 
 export default function App({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
