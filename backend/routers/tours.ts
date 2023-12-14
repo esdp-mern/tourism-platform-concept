@@ -171,6 +171,7 @@ toursRouter.get('/:id', async (req, res) => {
       country: tour.country,
       galleryTour: tour.galleryTour,
       isPublished: tour.isPublished,
+      routes: tour.routes,
     };
     return res.send(tourReviews);
   } catch (e) {
@@ -247,6 +248,7 @@ toursRouter.post(
         included: included,
         galleryTour: gallery,
         country: req.body.country,
+        route: req.body.country,
       });
 
       await tour.save();
@@ -333,6 +335,7 @@ toursRouter.post(
         existingTour.included = included;
         existingTour.galleryTour = gallery;
         existingTour.country = req.body.country || existingTour.country;
+        existingTour.routes = req.body.route || existingTour.routes;
 
         await existingTour.save();
 

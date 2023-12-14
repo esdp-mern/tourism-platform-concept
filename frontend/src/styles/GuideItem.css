@@ -55,11 +55,11 @@
   font-weight: 500;
 }
 
-.guide-card__btn{
+.guide-card__btn {
   margin: 10px 0;
 }
 
-.guide-card__btn button{
+.guide-card__btn button {
   background: #8c0404;
   padding: 10px 20px;
   color: #fff;
@@ -69,7 +69,7 @@
   border: 1px solid transparent;
   transition: 0.2s;
 }
-.guide-card__btn button:hover{
+.guide-card__btn button:hover {
   text-decoration: underline;
 }
 @media (max-width: 640px) {

@@ -69,6 +69,7 @@ const TourSchema = new mongoose.Schema({
     required: true,
     default: false,
   },
+  routes: [],
 });
 
 const Tour = mongoose.model('Tour', TourSchema);
