@@ -17,7 +17,7 @@ import Custom404 from '@/pages/404';
 
 const BecomeGuide = () => {
   const user = useAppSelector(selectUser);
-  const userId = user._id || '';
+  const userId = (user && user._id) || '';
   const initialState: ISendGuideRequestMutation = {
     user: userId,
     name: '',
