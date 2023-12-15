@@ -324,7 +324,6 @@ export interface IContactsMutation {
   contact: IContactInfo[];
 }
 
-
 export interface RatingOfGuide {
   _id: string;
   user: {
@@ -366,4 +365,24 @@ export interface ICreateGuide {
   languages: string[];
   country: string;
   image: File | null;
+}
+
+export interface IStatisticsAdmin {
+  toursPublished: number;
+  toursUnpublished: number;
+  toursAll: number;
+  users: number;
+  usersModerators: number;
+  guidesAll: number;
+  guidesPublished: number;
+  guidesUnpublished: number;
+  newsAll: number;
+  newsPublished: number;
+  newsUnpublished: number;
+  employeeAll: number;
+  partnersAll: number;
+  ordersAll: number;
+  ordersBooked: number;
+  ordersConsiders: number;
+  ordersApproved: number;
 }
