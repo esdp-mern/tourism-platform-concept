@@ -49,7 +49,7 @@ const GuideOrder: React.FC<Props> = ({
         </div>
         <div className="guide-card-orders__buttons">
           <Link
-            href={`/guides/${_id}`}
+            href={`/guideOrders/${_id}`}
             className="btn-tour-edit"
             style={{ margin: '5px' }}
           >
