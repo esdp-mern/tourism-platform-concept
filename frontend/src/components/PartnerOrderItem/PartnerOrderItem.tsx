@@ -14,9 +14,17 @@ interface Props {
   surname: string;
   message: string;
   status: string;
+  number: string;
 }
 
-const GuideItem: React.FC<Props> = ({ id, name, surname, message, status }) => {
+const GuideItem: React.FC<Props> = ({
+  id,
+  name,
+  surname,
+  message,
+  status,
+  number,
+}) => {
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
 
@@ -42,7 +50,11 @@ const GuideItem: React.FC<Props> = ({ id, name, surname, message, status }) => {
           <strong>Message: </strong>
           {message}
         </p>
-        <p className="guide-card__description">
+        <p>
+          <strong>Number: </strong>
+          {number}
+        </p>
+        <p>
           <strong>Status: </strong>
           {status}
         </p>

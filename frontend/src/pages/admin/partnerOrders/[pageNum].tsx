@@ -62,6 +62,7 @@ const AllNewsPage = () => {
                         surname={orders.surname}
                         message={orders.message}
                         status={orders.status}
+                        number={orders.number}
                       />
                     </div>
                   ))}

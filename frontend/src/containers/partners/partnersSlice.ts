@@ -97,7 +97,7 @@ export const selectAllPartnerOrders = (state: RootState) =>
   state.partners.partnerOrders;
 export const selectDeletePartnerOrderLoading = (state: RootState) =>
   state.partners.deleteLoading;
-export const selectPartnerOrderPublishLoading = (state: RootState) =>
+export const selectPostOrderLoading = (state: RootState) =>
   state.partners.postOrderLoading;
 export const selectChangeStatusLoading = (state: RootState) =>
   state.partners.changeStatusLoading;

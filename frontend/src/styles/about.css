@@ -640,6 +640,12 @@
   display: flex;
   justify-content: space-around;
 }
+.become-partner {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 16px;
+  font-weight: bold;
+}
 
 @media screen and (min-width: 768px) {
   .about-page-edit-btn[name='posts'] {

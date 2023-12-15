@@ -402,5 +402,4 @@ export interface IPartnerOrderMutation {
   surname: string;
   number: string;
   message: string;
-  status: string;
 }
