@@ -385,4 +385,22 @@ export interface IStatisticsAdmin {
   ordersBooked: number;
   ordersConsiders: number;
   ordersApproved: number;
+  partnerOrdersAll: number;
+  partnerOrdersApproved: number;
+  partnerOrdersPending: number;
+}
+export interface IPartnerOrder {
+  _id: string;
+  name: string;
+  surname: string;
+  number: string;
+  message: string;
+  status: string;
+}
+export interface IPartnerOrderMutation {
+  name: string;
+  surname: string;
+  number: string;
+  message: string;
+  status: string;
 }

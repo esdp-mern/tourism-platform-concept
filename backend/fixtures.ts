@@ -40,6 +40,7 @@ const run = async () => {
     await db.dropCollection('aboutus');
     await db.dropCollection('contacts');
     await db.dropCollection('guideorders');
+    await db.dropCollection('partnerorders')
   } catch (e) {
     console.log('Collections were not present, skipping drop...');
   }

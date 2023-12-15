@@ -12,7 +12,6 @@ import {
 } from '@/containers/statistics/statisticsSlice';
 import { fetchStatsAdmin } from '@/containers/statistics/statisticsThunk';
 import Link from 'next/link';
-import { Fade } from 'react-awesome-reveal';
 import Image from 'next/image';
 
 const Admin = () => {
@@ -134,6 +133,30 @@ const Admin = () => {
                 <h2 className="stats-admin-info">
                   Current partners: {stats?.partnersAll}
                 </h2>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-4 stretch-card">
+            <div className="card bg-gradient-partner-orders card-img-holder">
+              <div className="card-body">
+                <Link
+                  href={`/admin/partnerOrders/1`}
+                  className="stats-admin-link"
+                >
+                  <Image
+                    src={circle}
+                    alt="circle"
+                    className="card-img-absolute"
+                  />
+                  <h4 className="stats-admin-title">Partner orders</h4>
+                  <h2 className="stats-admin-info">
+                    Total partner orders: {stats?.partnerOrdersAll}
+                  </h2>
+                  <h6>
+                    Approved partner orders: {stats?.partnerOrdersApproved}
+                  </h6>
+                  <h6>Pending partner orders: {stats?.partnerOrdersPending}</h6>
+                </Link>
               </div>
             </div>
           </div>
