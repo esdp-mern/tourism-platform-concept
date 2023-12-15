@@ -8,26 +8,26 @@ import { AxiosError } from 'axios';
 import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
 import { addAlert, selectUser } from '@/containers/users/usersSlice';
 import { setIsLightMode } from '@/containers/config/configSlice';
-import { IPartnerOrderMutation } from '@/type';
+import { IPartnerMutation } from '@/type';
 import peopleIcon from '@/assets/images/people-icon.svg';
 import phoneIcon from '@/assets/images/phone-icon.svg';
 import Custom404 from '@/pages/404';
-import { selectPostOrderLoading } from '@/containers/partners/partnersSlice';
-import { createPartnerOrder } from '@/containers/partners/partnersThunk';
+import { selectCreatePartnerLoading } from '@/containers/partners/partnersSlice';
+import { createPartner } from '@/containers/partners/partnersThunk';
+import { userRoles } from '@/constants';
+import FileInput from '@/components/UI/FileInput/FileInput';
 
-const BecomePartner = () => {
+const CreatePartner = () => {
   const initialState = {
     name: '',
-    surname: '',
-    number: '',
-    message: '',
+    link: '',
+    image: null,
   };
   const dispatch = useAppDispatch();
-  const partnerRequestLoading = useAppSelector(selectPostOrderLoading);
+  const postLoading = useAppSelector(selectCreatePartnerLoading);
   const user = useAppSelector(selectUser);
   const router = useRouter();
-  const [state, setState] = useState<IPartnerOrderMutation>(initialState);
-  const [focused, setFocused] = useState(false);
+  const [state, setState] = useState<IPartnerMutation>(initialState);
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -40,11 +40,19 @@ const BecomePartner = () => {
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    if (!(state.name || state.image)) {
+      dispatch(
+        addAlert({ message: 'Name or Image is required', type: 'error' }),
+      );
+      return;
+    }
+
     try {
-      await dispatch(createPartnerOrder(state));
+      await dispatch(createPartner(state));
       dispatch(addAlert({ message: 'Request is sent', type: 'info' }));
       setState(initialState);
-      void router.push('/');
+      void router.push('/admin');
     } catch (e) {
       if (e instanceof AxiosError) {
         dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
@@ -52,9 +60,20 @@ const BecomePartner = () => {
     }
   };
 
-  if (!user) {
+  if (!user || user.role !== userRoles.admin) {
     return <Custom404 errorType="tour" />;
   }
+
+  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, files } = e.target;
+
+    if (files) {
+      setState((prevState) => ({
+        ...prevState,
+        [name]: files[0],
+      }));
+    }
+  };
 
   return (
     <div className="container">
@@ -65,42 +84,36 @@ const BecomePartner = () => {
           <TextField
             name="name"
             type="text"
-            value={state.name}
+            value={state.name!}
             onChange={onChange}
             icon={peopleIcon.src}
             label="name*"
             required
           />
           <TextField
-            name="surname"
+            name="link"
             type="text"
-            value={state.surname}
-            onChange={onChange}
-            icon={peopleIcon.src}
-            label="surname*"
-            required
-          />
-          <TextField
-            name="number"
-            type="text"
-            value={state.number}
+            value={state.link!}
             onChange={onChange}
             icon={phoneIcon.src}
-            label="phone number*"
-            required
+            label="link*"
           />
-          <textarea
-            className="guide-request-description"
-            value={state.message}
-            onChange={onChange}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            placeholder={focused ? '' : 'message*'}
-            name="message"
-            required
-          />
+          <div className="input-tour-wrap" style={{ marginTop: '30px' }}>
+            <FileInput
+              onChange={onFileChange}
+              name="image"
+              image={state.image}
+              className="form-tour-control"
+            />
+            <label
+              htmlFor="destination"
+              className="form-tour-label form-tour-label-image"
+            >
+              Image:
+            </label>
+          </div>
           <button type="submit" className="form-tour-btn">
-            {partnerRequestLoading ? <ButtonLoader size={18} /> : 'Send'}
+            {postLoading ? <ButtonLoader size={18} /> : 'Send'}
           </button>
         </form>
       </div>
@@ -108,4 +121,4 @@ const BecomePartner = () => {
   );
 };
 
-export default BecomePartner;
+export default CreatePartner;

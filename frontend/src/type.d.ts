@@ -262,6 +262,12 @@ export interface IPartner {
   link?: string;
 }
 
+export interface IPartnerMutation {
+  name?: string;
+  image?: File | null;
+  link?: string;
+}
+
 export interface INewsMutation {
   title: string;
   description: string;
@@ -389,6 +395,7 @@ export interface IStatisticsAdmin {
   partnerOrdersApproved: number;
   partnerOrdersPending: number;
 }
+
 export interface IPartnerOrder {
   _id: string;
   name: string;
@@ -397,6 +404,7 @@ export interface IPartnerOrder {
   message: string;
   status: string;
 }
+
 export interface IPartnerOrderMutation {
   name: string;
   surname: string;

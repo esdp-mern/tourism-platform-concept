@@ -4,6 +4,7 @@ import { HYDRATE } from 'next-redux-wrapper';
 import { RootState } from '@/store/store';
 import {
   changeStatusPartnerOrder,
+  createPartner,
   createPartnerOrder,
   deletePartnerOrder,
   fetchPartnerOrders,
@@ -18,6 +19,8 @@ interface NewsState {
   postOrderError: ValidationError | null;
   deleteLoading: boolean | string;
   changeStatusLoading: boolean;
+  postPartnerLoading: boolean;
+  postPartnerError: ValidationError | null;
 }
 
 const initialState: NewsState = {
@@ -29,6 +32,8 @@ const initialState: NewsState = {
   postOrderError: null,
   deleteLoading: false,
   changeStatusLoading: false,
+  postPartnerLoading: false,
+  postPartnerError: null,
 };
 
 export const partnersSlice = createSlice({
@@ -90,6 +95,18 @@ export const partnersSlice = createSlice({
     builder.addCase(changeStatusPartnerOrder.rejected, (state) => {
       state.changeStatusLoading = false;
     });
+
+    builder.addCase(createPartner.pending, (state) => {
+      state.postPartnerLoading = true;
+      state.postPartnerError = null;
+    });
+    builder.addCase(createPartner.fulfilled, (state) => {
+      state.postPartnerLoading = false;
+    });
+    builder.addCase(createPartner.rejected, (state, { payload: error }) => {
+      state.postPartnerLoading = false;
+      state.postPartnerError = error || null;
+    });
   },
 });
 
@@ -101,3 +118,5 @@ export const selectPostOrderLoading = (state: RootState) =>
   state.partners.postOrderLoading;
 export const selectChangeStatusLoading = (state: RootState) =>
   state.partners.changeStatusLoading;
+export const selectCreatePartnerLoading = (state: RootState) =>
+  state.partners.postPartnerLoading;

@@ -9,6 +9,7 @@ import { setIsLightMode } from '@/containers/config/configSlice';
 import { selectAllPartnerOrders } from '@/containers/partners/partnersSlice';
 import { fetchPartnerOrders } from '@/containers/partners/partnersThunk';
 import PartnerOrderItem from '@/components/PartnerOrderItem/PartnerOrderItem';
+import Link from 'next/link';
 
 const AllNewsPage = () => {
   const dispatch = useAppDispatch();
@@ -53,6 +54,21 @@ const AllNewsPage = () => {
               </div>
             ) : (
               <div>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center ',
+                    marginTop: '10px',
+                  }}
+                >
+                  <Link
+                    href={`/partners/createPartner`}
+                    className="become-partner"
+                    style={{ marginBottom: '20px' }}
+                  >
+                    CREATE A PARTNER
+                  </Link>
+                </div>
                 <div className="tours-admin-page">
                   {currentRecords.map((orders) => (
                     <div className="card-news" key={orders._id}>

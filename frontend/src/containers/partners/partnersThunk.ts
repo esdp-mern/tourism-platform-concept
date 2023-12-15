@@ -1,5 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IPartnerOrder, IPartnerOrderMutation, ValidationError } from '@/type';
+import {
+  IPartnerMutation,
+  IPartnerOrder,
+  IPartnerOrderMutation,
+  ValidationError,
+} from '@/type';
 import axiosApi from '@/axiosApi';
 import { isAxiosError } from 'axios';
 
@@ -57,3 +62,40 @@ export const changeStatusPartnerOrder = createAsyncThunk<void, string>(
     await axiosApi.patch(`/partnerOrders/${orderId}/toggle-status`);
   },
 );
+
+export const createPartner = createAsyncThunk<
+  void,
+  IPartnerMutation,
+  { rejectValue: ValidationError }
+>('partners/create', async (partnerMutation, { rejectWithValue }) => {
+  try {
+    const formData = new FormData();
+    const keys = Object.keys(partnerMutation) as (keyof IPartnerMutation)[];
+    keys.forEach((key) => {
+      const value = partnerMutation[key];
+
+      if (value !== null) {
+        if (Array.isArray(value)) {
+          value.forEach((item) => {
+            if (typeof item === 'string') {
+              formData.append(key, item);
+            } else if (item instanceof File) {
+              formData.append(key, item, item.name);
+            } else {
+              formData.append(key, JSON.stringify(item));
+            }
+          });
+        } else {
+          formData.append(key, value as string);
+        }
+      }
+    });
+    await axiosApi.post('/partners', formData);
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 400) {
+      return rejectWithValue(e.response.data);
+    }
+
+    throw e;
+  }
+});
