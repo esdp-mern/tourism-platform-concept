@@ -19,7 +19,7 @@ export const fetchAdminGuides = createAsyncThunk(
   'guides/fetchAdminGuides',
   async () => {
     const response = await axiosApi.get<IGuideFull[]>('/guides/all');
-    return response.data
+    return response.data;
   },
 );
 
