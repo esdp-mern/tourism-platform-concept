@@ -33,7 +33,29 @@ partnerOrderRouter.post('/', async (req, res, next) => {
     return next(e);
   }
 });
+partnerOrderRouter.patch(
+  '/:id/toggle-status',
+  auth,
+  permit('admin'),
+  async (req, res, next) => {
+    try {
+      const requestId = req.params.id;
+      const partnerOrder = await PartnerOrder.findById(requestId);
 
+      if (!partnerOrder) {
+        return res.status(404).send('Partner order not found');
+      }
+
+      partnerOrder.status =
+        partnerOrder.status === 'approved' ? 'pending' : 'approved';
+
+      await partnerOrder.save();
+      return res.send(partnerOrder);
+    } catch (e) {
+      return next(e);
+    }
+  },
+);
 partnerOrderRouter.delete(
   '/:id',
   auth,

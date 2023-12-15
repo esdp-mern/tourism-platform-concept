@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import { RootState } from '@/store/store';
 import {
+  changeStatusPartnerOrder,
   createPartnerOrder,
   deletePartnerOrder,
   fetchPartnerOrders,
@@ -16,6 +17,7 @@ interface NewsState {
   postOrderLoading: boolean;
   postOrderError: ValidationError | null;
   deleteLoading: boolean | string;
+  changeStatusLoading: boolean;
 }
 
 const initialState: NewsState = {
@@ -26,6 +28,7 @@ const initialState: NewsState = {
   postOrderLoading: false,
   postOrderError: null,
   deleteLoading: false,
+  changeStatusLoading: false,
 };
 
 export const partnersSlice = createSlice({
@@ -77,6 +80,16 @@ export const partnersSlice = createSlice({
     builder.addCase(deletePartnerOrder.rejected, (state) => {
       state.deleteLoading = false;
     });
+
+    builder.addCase(changeStatusPartnerOrder.pending, (state) => {
+      state.changeStatusLoading = true;
+    });
+    builder.addCase(changeStatusPartnerOrder.fulfilled, (state) => {
+      state.changeStatusLoading = false;
+    });
+    builder.addCase(changeStatusPartnerOrder.rejected, (state) => {
+      state.changeStatusLoading = false;
+    });
   },
 });
 
@@ -86,3 +99,5 @@ export const selectDeletePartnerOrderLoading = (state: RootState) =>
   state.partners.deleteLoading;
 export const selectPartnerOrderPublishLoading = (state: RootState) =>
   state.partners.postOrderLoading;
+export const selectChangeStatusLoading = (state: RootState) =>
+  state.partners.changeStatusLoading;

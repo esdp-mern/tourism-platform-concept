@@ -50,3 +50,10 @@ export const deletePartnerOrder = createAsyncThunk<
     throw e;
   }
 });
+
+export const changeStatusPartnerOrder = createAsyncThunk<void, string>(
+  'partners/changeStatus',
+  async (orderId: string) => {
+    await axiosApi.patch(`/partnerOrders/${orderId}/toggle-status`);
+  },
+);
