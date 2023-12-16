@@ -5,7 +5,6 @@ import {
   IGuideFull,
   IGuideRequest,
   ISendGuideRequestMutation,
-  ISendGuideRequest,
   ValidationError,
 } from '@/type';
 import axiosApi from '@/axiosApi';
@@ -41,7 +40,6 @@ export const fetchGuideNameByFilter = createAsyncThunk<IGuideFull[], string>(
     return response.data;
   },
 );
-
 
 export const becomeGuide = createAsyncThunk<
   IGuideRequest,
@@ -84,7 +82,6 @@ export const createGuide = createAsyncThunk<IGuide, ICreateGuideMutation>(
   },
 );
 
-
 export const fetchGuideOrders = createAsyncThunk<
   IGuideRequest[],
   void | string
@@ -105,7 +102,7 @@ export const deleteGuideOrder = createAsyncThunk<
   void,
   string,
   { rejectValue: ValidationError }
->('guides/delete', async (id, { rejectWithValue }) => {
+>('guides/deleteOrder', async (id, { rejectWithValue }) => {
   try {
     await axiosApi.delete(`/guideOrders/${id}`);
   } catch (e) {

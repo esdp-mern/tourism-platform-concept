@@ -6,7 +6,6 @@ import {
   becomeGuide,
   createGuide,
   deleteGuideOrder,
-  fetchAdminGuides,
   fetchGuideOrders,
   fetchGuides,
   fetchOneGuideOrder,
@@ -161,6 +160,7 @@ export const guidesSlice = createSlice({
     });
     builder.addCase(deleteGuideOrder.rejected, (state) => {
       state.deleteOrderLoading = false;
+    });
     builder.addCase(deleteGuide.pending, (state, action) => {
       state.deleteLoading = action.meta.arg;
     });

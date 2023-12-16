@@ -6,13 +6,9 @@ import { selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import circle from '@/assets/images/circle.png';
-import {
-  selectAdminStats,
-  selectStatsFetchLoading,
-} from '@/containers/statistics/statisticsSlice';
+import { selectAdminStats } from '@/containers/statistics/statisticsSlice';
 import { fetchStatsAdmin } from '@/containers/statistics/statisticsThunk';
 import Link from 'next/link';
-import { Fade } from 'react-awesome-reveal';
 import Image from 'next/image';
 
 const Admin = () => {
@@ -177,12 +173,13 @@ const Admin = () => {
                   alt="circle"
                   className="card-img-absolute"
                 />
-                <Link href={`/admin/guideOrders/1`} className="news-item-links">
-                <h4 className="stats-admin-title">Guide Orders</h4>
-              </Link>  
-                <h2 className="stats-admin-info">
-                  Total guide orders: 
-                </h2>
+                <Link
+                  href={`/admin/guideOrders/1`}
+                  className="stats-admin-link"
+                >
+                  <h4 className="stats-admin-title">Guide Orders</h4>
+                </Link>
+                <h2 className="stats-admin-info">Total guide orders:</h2>
               </div>
             </div>
           </div>
