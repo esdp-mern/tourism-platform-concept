@@ -22,25 +22,16 @@ const UserMenu: React.FC<IProps> = ({ user, onClick, pathname }) => {
         My profile
       </NavLink>
       {user && user.role === userRoles.admin && (
-        <>
-          <NavLink
-            href="/tours/create"
-            className={`nav-link profile-link ${
-              pathname === '/tours/create' ? 'active' : ''
-            }`}
-            onClick={onClick}
-          >
-            Create Tour
-          </NavLink>
-          <NavLink
-            href="/admin"
-            className={`nav-link profile-link ${
-              pathname === '/admin' ? 'active' : ''
-            }`}
-          >
-            Admin Page
-          </NavLink>
-        </>
+        <NavLink
+          href="/admin"
+          as="/admin"
+          className={`nav-link profile-link ${
+            pathname === '/admin' ? 'active' : ''
+          }`}
+          onClick={onClick}
+        >
+          Admin Page
+        </NavLink>
       )}
       {user && user.role === userRoles.moderator && (
         <NavLink
@@ -49,6 +40,7 @@ const UserMenu: React.FC<IProps> = ({ user, onClick, pathname }) => {
           className={`nav-link profile-link ${
             pathname === '/orders/allOrders' ? 'active' : ''
           }`}
+          onClick={onClick}
         >
           Orders
         </NavLink>

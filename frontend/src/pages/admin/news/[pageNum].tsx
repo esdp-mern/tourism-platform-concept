@@ -2,18 +2,17 @@ import React, { useEffect, useState } from 'react';
 import PageLoader from '@/components/Loaders/PageLoader';
 import Pagination from '@/components/Pagination/Pagination';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { useRouter } from 'next/router';
 import { selectUser } from '@/containers/users/usersSlice';
-import { setIsLightMode } from '@/containers/config/configSlice';
 import { userRoles } from '@/constants';
 import { selectAllNews } from '@/containers/news/newsSlice';
 import NewsItem from '@/components/NewsItem/NewsItem';
 import { fetchAdminNews, fetchNews } from '@/containers/news/newsThunk';
+import Custom404 from '@/pages/404';
+import { setIsLightMode } from '@/containers/config/configSlice';
 
 const AllNewsPage = () => {
   const dispatch = useAppDispatch();
   const news = useAppSelector(selectAllNews);
-  const routers = useRouter();
   const user = useAppSelector(selectUser);
   const [newsPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
@@ -28,10 +27,7 @@ const AllNewsPage = () => {
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
-    if (user && user.role !== userRoles.admin) {
-      routers.push('/').then((r) => r);
-    }
-  }, [dispatch, routers, user]);
+  }, [dispatch]);
 
   useEffect(() => {
     switch (currentNews) {
@@ -49,6 +45,10 @@ const AllNewsPage = () => {
         break;
     }
   }, [currentNews, dispatch]);
+
+  if (!user || user.role !== userRoles.admin) {
+    return <Custom404 errorType="tour" />;
+  }
 
   const onSetCurrentPage = (pageNumber: number) => {
     setCurrentPage(pageNumber);

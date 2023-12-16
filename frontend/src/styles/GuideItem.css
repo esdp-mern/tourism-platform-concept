@@ -61,6 +61,23 @@
     flex-wrap: wrap;
 }
 
+.guide-card__btn{
+  margin: 10px 0;
+}
+
+.guide-card__btn button{
+  background: #8c0404;
+  padding: 10px 20px;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 8px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: 0.2s;
+}
+.guide-card__btn button:hover{
+  text-decoration: underline;
+}
 @media (max-width: 640px) {
     .guide-card {
         width: 70%;

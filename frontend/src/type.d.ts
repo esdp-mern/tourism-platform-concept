@@ -324,6 +324,29 @@ export interface IContactsMutation {
   contact: IContactInfo[];
 }
 
+export interface RatingOfGuide {
+  _id: string;
+  user: {
+    _id: string;
+    displayName: string;
+  };
+  tour: string;
+  rating: number;
+  date: string;
+}
+
+export interface IPostGuideRating {
+  guide: string;
+  rating: number;
+  user: string;
+}
+
+export interface IPostGuideReview {
+  guide: string;
+  comment: string;
+  user: string;
+}
+
 export interface ISendGuideRequest {
   user: {
     _id: string;
@@ -363,4 +386,24 @@ export interface ICreateGuideMutation {
   languages: string[];
   country: string;
   image: File | null;
+}
+
+export interface IStatisticsAdmin {
+  toursPublished: number;
+  toursUnpublished: number;
+  toursAll: number;
+  users: number;
+  usersModerators: number;
+  guidesAll: number;
+  guidesPublished: number;
+  guidesUnpublished: number;
+  newsAll: number;
+  newsPublished: number;
+  newsUnpublished: number;
+  employeeAll: number;
+  partnersAll: number;
+  ordersAll: number;
+  ordersBooked: number;
+  ordersConsiders: number;
+  ordersApproved: number;
 }

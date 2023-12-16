@@ -103,21 +103,24 @@ const run = async () => {
   const [Artem, Andrey, Askar] = await Guide.create(
     {
       user: user._id,
-      description: 'My name is Artem',
+      description:
+        'My name is Artem.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
       languages: ['kyrgyz', 'russian', 'english'],
       country: 'Kyrgyzstan',
       isPublished: true,
     },
     {
       user: user1._id,
-      description: 'My name is Andrey',
+      description:
+        'My name is Andrey.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
       languages: ['russian', 'english'],
       country: 'Kyrgyzstan',
       isPublished: true,
     },
     {
       user: user2._id,
-      description: 'My name is Askar',
+      description:
+        'My name is Askar.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
       languages: ['kyrgyz', 'english'],
       country: 'Kyrgyzstan',
       isPublished: false,

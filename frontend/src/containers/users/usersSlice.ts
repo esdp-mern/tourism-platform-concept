@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   changeUserRole,
   editProfile,
+  editUserRole,
   getUsers,
   googleLogin,
   logout,
@@ -26,6 +27,7 @@ interface UsersState {
   alerts: IAlert[];
   editorModal: boolean;
   changeRoleLoading: boolean;
+  patchLoading: boolean;
 }
 
 const initialState: UsersState = {
@@ -41,6 +43,7 @@ const initialState: UsersState = {
   alerts: [],
   editorModal: false,
   changeRoleLoading: false,
+  patchLoading: false,
 };
 
 const getFilteredUrl = (url: string) =>
@@ -186,13 +189,23 @@ export const usersSlice = createSlice({
 
     builder.addCase(changeUserRole.rejected, (state) => {
       state.changeRoleLoading = false;
+    builder.addCase(editUserRole.pending, (state) => {
+      state.patchLoading = true;
+    });
+    builder.addCase(editUserRole.fulfilled, (state, { payload }) => {
+      state.patchLoading = false;
+      if (state.user && state.user.username === payload.username) {
+        state.user = payload;
+      }
+    });
+    builder.addCase(editUserRole.rejected, (state) => {
+      state.patchLoading = false;
     });
   },
 });
 
 export const { addAlert, disableAlert, resetSignInError, setEditorModal } =
   usersSlice.actions;
-export const usersReducer = usersSlice.reducer;
 export const selectUser = (state: RootState) => state.users.user;
 export const selectSignUpLoading = (state: RootState) =>
   state.users.registerLoading;
@@ -210,3 +223,5 @@ export const selectUsersLoading = (state: RootState) =>
   state.users.usersLoading;
 export const selectChangeRoleLoading = (state: RootState) =>
   state.users.changeRoleLoading;
+export const selectPatchLoading = (state: RootState) =>
+  state.users.patchLoading;

@@ -10,30 +10,40 @@ import {
   fetchGuideOrders,
   fetchGuides,
   fetchOneGuideOrder,
+  fetchGuide,
+  fetchAdminGuides,
+  deleteGuide,
+  fetchGuideNameByFilter,
 } from '@/containers/guides/guidesThunk';
 
 interface guidesState {
   guides: IGuideFull[];
+  guide: IGuideFull | null;
   guideOrders: IGuideRequest[];
-  adminGuides: IGuideFull[];
   oneGuideOrder: IGuideRequest | null;
   fetchAllLoading: boolean;
+  fetchOneLoading: boolean;
+  fetchAdminGuidesLoading: boolean;
   fetchAllOrdersLoading: boolean;
   guideRequestLoading: boolean;
   createGuideLoading: boolean;
+  deleteLoading: boolean | string;
   deleteOrderLoading: boolean | string;
   fetchOneOrderLoading: boolean;
 }
 
 const initialState: guidesState = {
   guides: [],
+  guide: null,
   guideOrders: [],
-  adminGuides: [],
   oneGuideOrder: null,
   fetchAllLoading: false,
+  fetchOneLoading: false,
+  fetchAdminGuidesLoading: false,
   fetchAllOrdersLoading: false,
   guideRequestLoading: false,
   createGuideLoading: false,
+  deleteLoading: false,
   deleteOrderLoading: false,
   fetchOneOrderLoading: false,
 };
@@ -60,21 +70,42 @@ export const guidesSlice = createSlice({
     builder.addCase(fetchGuides.rejected, (state) => {
       state.fetchAllLoading = false;
     });
-
     builder.addCase(fetchAdminGuides.pending, (state) => {
-      state.fetchAllLoading = true;
+      state.fetchAdminGuidesLoading = true;
     });
     builder.addCase(
       fetchAdminGuides.fulfilled,
-      (state, { payload: adminGuides }) => {
-        state.adminGuides = adminGuides;
-        state.fetchAllLoading = false;
+      (state, { payload: guides }) => {
+        state.guides = guides;
+        state.fetchAdminGuidesLoading = false;
       },
     );
     builder.addCase(fetchAdminGuides.rejected, (state) => {
-      state.fetchAllLoading = false;
+      state.fetchAdminGuidesLoading = false;
     });
-
+    builder.addCase(fetchGuide.pending, (state) => {
+      state.fetchOneLoading = true;
+    });
+    builder.addCase(fetchGuide.fulfilled, (state, { payload: guide }) => {
+      state.fetchOneLoading = false;
+      state.guide = guide;
+    });
+    builder.addCase(fetchGuide.rejected, (state) => {
+      state.fetchOneLoading = false;
+    });
+    builder.addCase(fetchGuideNameByFilter.pending, (state) => {
+      state.fetchAdminGuidesLoading = true;
+    });
+    builder.addCase(
+      fetchGuideNameByFilter.fulfilled,
+      (state, { payload: tours }) => {
+        state.guides = tours;
+        state.fetchAdminGuidesLoading = false;
+      },
+    );
+    builder.addCase(fetchGuideNameByFilter.rejected, (state) => {
+      state.fetchAdminGuidesLoading = false;
+    });
     builder.addCase(becomeGuide.pending, (state) => {
       state.guideRequestLoading = true;
     });
@@ -84,7 +115,6 @@ export const guidesSlice = createSlice({
     builder.addCase(becomeGuide.rejected, (state) => {
       state.guideRequestLoading = false;
     });
-
     builder.addCase(createGuide.pending, (state) => {
       state.createGuideLoading = true;
     });
@@ -131,6 +161,14 @@ export const guidesSlice = createSlice({
     });
     builder.addCase(deleteGuideOrder.rejected, (state) => {
       state.deleteOrderLoading = false;
+    builder.addCase(deleteGuide.pending, (state, action) => {
+      state.deleteLoading = action.meta.arg;
+    });
+    builder.addCase(deleteGuide.fulfilled, (state) => {
+      state.deleteLoading = false;
+    });
+    builder.addCase(deleteGuide.rejected, (state) => {
+      state.deleteLoading = false;
     });
   },
 });
@@ -139,6 +177,9 @@ export const guidesReducer = guidesSlice.reducer;
 export const selectGuides = (state: RootState) => state.guides.guides;
 export const selectFetchGuidesLoading = (state: RootState) =>
   state.guides.fetchAllLoading;
+export const selectOneGuide = (state: RootState) => state.guides.guide;
+export const selectGuideLoading = (state: RootState) =>
+  state.guides.fetchOneLoading;
 export const selectGuideRequestLoading = (state: RootState) =>
   state.guides.guideRequestLoading;
 export const selectCreateGuideLoading = (state: RootState) =>
@@ -155,4 +196,4 @@ export const selectOneGuideOrder = (state: RootState) =>
 export const selectOneGuideOrderLoading = (state: RootState) =>
   state.guides.fetchOneOrderLoading;
 
-export const selectAdminGuides = (state: RootState) => state.guides.adminGuides;
+export const selectAdminGuides = (state: RootState) => state.guides.guides;

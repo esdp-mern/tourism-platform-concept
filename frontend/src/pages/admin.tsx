@@ -4,43 +4,188 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useRouter } from 'next/router';
 import { selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
-import { Fade } from 'react-awesome-reveal';
-import Link from 'next/link';
 import { setIsLightMode } from '@/containers/config/configSlice';
+import circle from '@/assets/images/circle.png';
+import {
+  selectAdminStats,
+  selectStatsFetchLoading,
+} from '@/containers/statistics/statisticsSlice';
+import { fetchStatsAdmin } from '@/containers/statistics/statisticsThunk';
+import Link from 'next/link';
+import { Fade } from 'react-awesome-reveal';
+import Image from 'next/image';
 
 const Admin = () => {
   const routers = useRouter();
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
+  const state = useAppSelector(selectAdminStats);
 
   useEffect(() => {
     if (!user || user.role !== userRoles.admin) {
       routers.push('/').then((r) => r);
     }
     dispatch(setIsLightMode(true));
+    dispatch(fetchStatsAdmin());
   }, [dispatch, routers, user]);
   return (
     <>
       <PageLoader />
-      <div className="container">
-        <div className="tours-page">
-          <Fade>
-            <div className="admin-item">
-              <Link href={`/admin/tours/1`} className="tour-item-links">
-                <h2 className="tour-item-title">TOURS</h2>
-              </Link>
+      <div className="fixed-toolbar"></div>
+      <div className="container" style={{ marginTop: '10px' }}>
+        <div className="row">
+          <div className="col-md-4 stretch-card">
+            <div className="card bg-gradient-tours card-img-holder">
+              <div className="card-body">
+                <Link href={`/admin/tours/1`} className="stats-admin-link">
+                  <Image
+                    src={circle}
+                    alt="circle"
+                    className="card-img-absolute"
+                  />
+                </Link>
+                <Link href={`/admin/tours/1`} className="stats-admin-link">
+                  <h4 className="stats-admin-title">Tours </h4>
+                </Link>
+                <h2 className="stats-admin-info">
+                  Total tours: {state?.toursAll}
+                </h2>
+                <h6>Published tours: {state?.toursPublished}</h6>
+                <h6>Unpublished tours: {state?.toursUnpublished}</h6>
+
+                <Link href={`/tours/create`} className="btn-create-tour">
+                  Create Tour
+                </Link>
+              </div>
             </div>
-            <div className="news-item">
-              <Link href={`/admin/news/1`} className="news-item-links">
-                <h2 className="news-item-title">NEWS</h2>
-              </Link>
+          </div>
+          <div className="col-md-4 stretch-card">
+            <div className="card bg-gradient-guides card-img-holder">
+              <div className="card-body">
+                <Link href={`/admin/guides/1`} className="stats-admin-link">
+                  <Image
+                    src={circle}
+                    alt="circle"
+                    className="card-img-absolute"
+                  />
+                </Link>
+                <Link href={`/admin/guides/1`} className="stats-admin-link">
+                  <h4 className="stats-admin-title">Guides</h4>
+                </Link>
+                <h2 className="stats-admin-info">
+                  Current guides: {state?.guidesAll}
+                </h2>
+                <h6>Active guides: {state?.guidesPublished}</h6>
+                <h6>Non active guides: {state?.guidesUnpublished}</h6>
+              </div>
             </div>
-            <div className="news-item">
-              <Link href={`/admin/guideOrders/1`} className="news-item-links">
-                <h2 className="news-item-title">GUIDE REQUESTS</h2>
-              </Link>
+          </div>
+          <div className="col-md-4 stretch-card">
+            <div className="card bg-gradient-news card-img-holder">
+              <div className="card-body">
+                <Link href={`/admin/news/1`} className="stats-admin-link">
+                  <Image
+                    src={circle}
+                    alt="circle"
+                    className="card-img-absolute"
+                  />
+                </Link>
+                <Link href={`/admin/news/1`} className="stats-admin-link">
+                  <h4 className="stats-admin-title">News</h4>
+                </Link>
+                <h2 className="stats-admin-info">
+                  Total news: {state?.newsAll}
+                </h2>
+                <h6>Published news: {state?.newsPublished}</h6>
+                <h6>Unpublished news: {state?.newsUnpublished}</h6>
+              </div>
             </div>
-          </Fade>
+          </div>
+          <div className="col-md-4 stretch-card">
+            <div className="card bg-gradient-users card-img-holder">
+              <div className="card-body">
+                <Link href={`/admin/allUsers/1`} className="stats-admin-link">
+                  <Image
+                    src={circle}
+                    alt="circle"
+                    className="card-img-absolute"
+                  />
+                </Link>
+                <Link href={`/admin/allUsers/1`} className="stats-admin-link">
+                  <h4 className="stats-admin-title">Users</h4>
+                </Link>
+                <h2 className="stats-admin-info">
+                  Total users: {state?.users}
+                </h2>
+                <h6>Active moderators: {state?.usersModerators}</h6>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-4 stretch-card">
+            <div className="card bg-gradient-partners card-img-holder">
+              <div className="card-body">
+                <Image
+                  src={circle}
+                  alt="circle"
+                  className="card-img-absolute"
+                />
+                <h4 className="stats-admin-title">Partners</h4>
+                <h2 className="stats-admin-info">
+                  Current partners: {state?.partnersAll}
+                </h2>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-4 stretch-card">
+            <div className="card bg-gradient-employee card-img-holder">
+              <div className="card-body">
+                <Image
+                  src={circle}
+                  alt="circle"
+                  className="card-img-absolute"
+                />
+                <h4 className="stats-admin-title">Employees</h4>
+                <h2 className="stats-admin-info">
+                  Employees: {state?.employeeAll}
+                </h2>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-4 stretch-card">
+            <div className="card bg-gradient-orders card-img-holder">
+              <div className="card-body">
+                <Image
+                  src={circle}
+                  alt="circle"
+                  className="card-img-absolute"
+                />
+                <h4 className="stats-admin-title">Orders</h4>
+                <h2 className="stats-admin-info">
+                  Total orders: {state?.ordersAll}
+                </h2>
+                <h6>Booked: {state?.ordersBooked}</h6>
+                <h6>Being considers: {state?.ordersConsiders}</h6>
+                <h6>Approved orders: {state?.ordersApproved}</h6>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-4 stretch-card">
+            <div className="card bg-gradient-orders card-img-holder">
+              <div className="card-body">
+                <Image
+                  src={circle}
+                  alt="circle"
+                  className="card-img-absolute"
+                />
+                <Link href={`/admin/guideOrders/1`} className="news-item-links">
+                <h4 className="stats-admin-title">Guide Orders</h4>
+              </Link>  
+                <h2 className="stats-admin-info">
+                  Total guide orders: 
+                </h2>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

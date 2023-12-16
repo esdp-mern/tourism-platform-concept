@@ -141,6 +141,19 @@ export const editProfile = createAsyncThunk<
     throw e;
   }
 });
+
+export const editUserRole = createAsyncThunk<
+  User,
+  { id: string; role: string }
+>('users/editUserRole', async (userData: { id: string; role: string }) => {
+  try {
+    const { data } = await axiosApi.patch(`/users/${userData.id}`, userData);
+    return data;
+  } catch (e) {
+    throw e;
+  }
+});
+
 export const changeUserRole = createAsyncThunk<
   RegisterResponse,
   { userId: string; newRole: string },

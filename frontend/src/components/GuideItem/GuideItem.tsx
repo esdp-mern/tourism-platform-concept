@@ -1,5 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { selectUser } from '@/containers/users/usersSlice';
+import { userRoles } from '@/constants';
+import { deleteGuide, fetchAdminGuides } from '@/containers/guides/guidesThunk';
 
 interface Props {
   id: string;
@@ -16,6 +20,16 @@ const GuideItem: React.FC<Props> = ({
   description,
   imageUrl,
 }) => {
+  const user = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
+
+  const onDelete = async (id: string) => {
+    if (window.confirm('Are you sure you want to delete this guide?')) {
+      await dispatch(deleteGuide(id));
+      dispatch(fetchAdminGuides());
+    }
+  };
+
   return (
     <div className="guide-card">
       <img
@@ -27,9 +41,14 @@ const GuideItem: React.FC<Props> = ({
         <h2 className="guide-card__name">{name}</h2>
         <p className="guide-card__role">{role}</p>
         <p className="guide-card__description">{description}</p>
-        <Link href={`/team/${id}`} className="guide-card__link">
+        <Link href={`/guides/${id}`} className="guide-card__link">
           View More
         </Link>
+        {user && user.role === userRoles.admin ? (
+          <div className="guide-card__btn">
+            <button onClick={() => onDelete(id)}>Delete</button>
+          </div>
+        ) : null}
       </div>
     </div>
   );
