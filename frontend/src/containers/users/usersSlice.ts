@@ -189,17 +189,18 @@ export const usersSlice = createSlice({
 
     builder.addCase(changeUserRole.rejected, (state) => {
       state.changeRoleLoading = false;
-    builder.addCase(editUserRole.pending, (state) => {
-      state.patchLoading = true;
-    });
-    builder.addCase(editUserRole.fulfilled, (state, { payload }) => {
-      state.patchLoading = false;
-      if (state.user && state.user.username === payload.username) {
-        state.user = payload;
-      }
-    });
-    builder.addCase(editUserRole.rejected, (state) => {
-      state.patchLoading = false;
+      builder.addCase(editUserRole.pending, (state) => {
+        state.patchLoading = true;
+      });
+      builder.addCase(editUserRole.fulfilled, (state, { payload }) => {
+        state.patchLoading = false;
+        if (state.user && state.user.username === payload.username) {
+          state.user = payload;
+        }
+      });
+      builder.addCase(editUserRole.rejected, (state) => {
+        state.patchLoading = false;
+      });
     });
   },
 });
