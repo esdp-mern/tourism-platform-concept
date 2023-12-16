@@ -153,3 +153,21 @@ export const editUserRole = createAsyncThunk<
     throw e;
   }
 });
+
+export const changeUserRole = createAsyncThunk<
+  RegisterResponse,
+  { userId: string; newRole: string },
+  { rejectValue: GlobalError }
+>('users/changeUserRole', async ({ userId, newRole }, { rejectWithValue }) => {
+  try {
+    const response = await axiosApi.put(`/users/${userId}/change-role`, {
+      role: newRole,
+    });
+    return response.data as RegisterResponse;
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 400) {
+      return rejectWithValue(e.response.data as GlobalError);
+    }
+    throw e;
+  }
+});
