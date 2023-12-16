@@ -14,7 +14,7 @@ guidesRouter.get('/', async (_, res) => {
   try {
     const guides = await Guide.find({ isPublished: true }).populate({
       path: 'user',
-      select: 'username displayName avatar',
+      select: ['username', 'displayName', 'avatar'],
     });
 
     return res.send(guides);
@@ -26,7 +26,7 @@ guidesRouter.get('/all', auth, permit('admin'), async (_, res) => {
   try {
     const guides = await Guide.find().populate({
       path: 'user',
-      select: 'username, displayName, avatar',
+      select: ['username', 'displayName', 'avatar'],
     });
 
     return res.send(guides);
