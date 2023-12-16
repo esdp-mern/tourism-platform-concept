@@ -348,6 +348,17 @@ export interface IPostGuideReview {
 }
 
 export interface ISendGuideRequest {
+  user: {
+    _id: string;
+  };
+  name: string;
+  surname: string;
+  number: string;
+  message: string;
+}
+
+export interface ISendGuideRequestMutation {
+  user: string | null;
   name: string;
   surname: string;
   number: string;
@@ -360,7 +371,17 @@ export interface IGuideRequest extends ISendGuideRequest {
 }
 
 export interface ICreateGuide {
-  user: string;
+  user: {
+    _id: string;
+  };
+  description: string;
+  languages: string[];
+  country: string;
+  image: File | null;
+}
+
+export interface ICreateGuideMutation {
+  user: string | null;
   description: string;
   languages: string[];
   country: string;

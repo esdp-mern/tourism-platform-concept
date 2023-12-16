@@ -184,6 +184,36 @@ usersRouter.put(
   },
 );
 
+usersRouter.put(
+  '/:id/change-role',
+  auth,
+  permit('admin'),
+  async (req, res, next) => {
+    try {
+      const userId = req.params.id;
+      const currentUser = await User.findById(userId);
+
+      if (!currentUser) {
+        return res.status(404).send('User not found');
+      }
+
+      currentUser.role = req.body.role || currentUser.role;
+
+      await currentUser.save();
+
+      return res.send({
+        user: currentUser,
+        message: 'User role updated successfully',
+      });
+    } catch (e) {
+      if (e instanceof mongoose.Error.ValidationError) {
+        return res.status(400).send(e);
+      }
+      return next(e);
+    }
+  },
+);
+
 usersRouter.patch('/:id', auth, permit('admin'), async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);

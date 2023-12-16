@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
+  changeUserRole,
   editProfile,
   editUserRole,
   getUsers,
@@ -25,6 +26,7 @@ interface UsersState {
   editLoading: boolean;
   alerts: IAlert[];
   editorModal: boolean;
+  changeRoleLoading: boolean;
   patchLoading: boolean;
 }
 
@@ -40,6 +42,7 @@ const initialState: UsersState = {
   editLoading: false,
   alerts: [],
   editorModal: false,
+  changeRoleLoading: false,
   patchLoading: false,
 };
 
@@ -161,7 +164,6 @@ export const usersSlice = createSlice({
     builder.addCase(editProfile.rejected, (state) => {
       state.editLoading = false;
     });
-
     builder.addCase(getUsers.pending, (state) => {
       state.usersLoading = true;
     });
@@ -173,6 +175,20 @@ export const usersSlice = createSlice({
       state.usersLoading = false;
     });
 
+    builder.addCase(changeUserRole.pending, (state) => {
+      state.changeRoleLoading = true;
+    });
+
+    builder.addCase(
+      changeUserRole.fulfilled,
+      (state, { payload: userResponse }) => {
+        const userData = userResponse.user;
+        state.changeRoleLoading = false;
+      },
+    );
+
+    builder.addCase(changeUserRole.rejected, (state) => {
+      state.changeRoleLoading = false;
     builder.addCase(editUserRole.pending, (state) => {
       state.patchLoading = true;
     });
@@ -205,5 +221,7 @@ export const selectEditLoading = (state: RootState) => state.users.editLoading;
 export const selectUsers = (state: RootState) => state.users.users;
 export const selectUsersLoading = (state: RootState) =>
   state.users.usersLoading;
+export const selectChangeRoleLoading = (state: RootState) =>
+  state.users.changeRoleLoading;
 export const selectPatchLoading = (state: RootState) =>
   state.users.patchLoading;

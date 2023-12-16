@@ -12,7 +12,7 @@ import {
   selectUsers,
 } from '@/containers/users/usersSlice';
 import { setIsLightMode } from '@/containers/config/configSlice';
-import { ICreateGuide, User } from '@/type';
+import { ICreateGuideMutation, User } from '@/type';
 import peopleIcon from '@/assets/images/people-icon.svg';
 import languageIcon from '@/assets/images/languages.svg';
 import globeIcon from '@/assets/images/globe.svg';
@@ -30,13 +30,13 @@ const CreateGuide = () => {
     languages: [],
     country: '',
     image: null,
-  } as ICreateGuide;
+  } as ICreateGuideMutation;
   const dispatch = useAppDispatch();
   const createLoading = useAppSelector(selectCreateGuideLoading);
   const router = useRouter();
   const users = useAppSelector(selectUsers);
   const user = useAppSelector(selectUser);
-  const [state, setSate] = useState<ICreateGuide>(initialState);
+  const [state, setSate] = useState<ICreateGuideMutation>(initialState);
   const [focused, setFocused] = useState(false);
   const [userInputFocused, setUserInputFocused] = useState(false);
   const [userId, setUserId] = useState('');
@@ -119,7 +119,7 @@ const CreateGuide = () => {
               className={userFieldClassName}
               name="user"
               type="text"
-              value={state.user}
+              value={state.user!}
               onChange={onChange}
               icon={peopleIcon.src}
               label="user*"
