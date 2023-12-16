@@ -793,7 +793,9 @@ const TourForm: React.FC<Props> = ({
                   <div className="tour-route-point" key={point.id}>
                     <span
                       className="remove-checkpoint"
-                      onClick={() => removeCheckpoint(index, point.id)}
+                      onClick={() =>
+                        removeCheckpoint(index, point.id ? point.id : '')
+                      }
                     >
                       ×
                     </span>
@@ -806,7 +808,7 @@ const TourForm: React.FC<Props> = ({
                           e.target.name,
                           e.target.value,
                           index,
-                          point.id,
+                          point.id ? point.id : '',
                         )
                       }
                       icon={invisibleIcon.src}
@@ -822,7 +824,7 @@ const TourForm: React.FC<Props> = ({
                           e.target.name,
                           e.target.value,
                           index,
-                          point.id,
+                          point.id ? point.id : '',
                         )
                       }
                       icon={invisibleIcon.src}

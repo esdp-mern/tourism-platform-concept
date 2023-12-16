@@ -76,7 +76,7 @@ export interface ITourRoute {
 }
 
 export interface ICreateTourRoutes extends ITourRoute {
-  id: string;
+  id?: string;
 }
 
 export interface Tour {
