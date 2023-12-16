@@ -5,6 +5,7 @@ import permit from '../middleware/permit';
 import mongoose from 'mongoose';
 import Guide from '../models/Guide';
 import { imagesUpload } from '../multer';
+import { ITourPoint } from '../type';
 
 const toursRouter = express.Router();
 
@@ -192,7 +193,7 @@ toursRouter.post(
       let existGuide;
 
       if (req.body.guides) {
-        const guideInput = req.body.guides;
+        const guideInput = JSON.parse(req.body.guides);
 
         existGuide = Array.isArray(guideInput) ? guideInput : [guideInput];
 
@@ -224,31 +225,34 @@ toursRouter.post(
             ].map((file) => 'images/' + file.filename)
           : [];
 
-      const plan =
-        req.body.plan && Array.isArray(req.body.plan)
-          ? req.body.plan.map(JSON.parse)
-          : [];
-
-      const category = req.body.category ? req.body.category : [];
-      const included = req.body.included ? req.body.included : [];
+      const routes = JSON.parse(req.body.routes).map((route: ITourPoint[]) => {
+        return route.map((point) => {
+          return {
+            ...point,
+            icon: `mapMarkers/${point.icon}-map-marker.svg`,
+            lat: point.lat,
+            lng: point.lng,
+          };
+        });
+      });
 
       const tour = new Tour({
         guides: existGuide,
         name: req.body.name,
         mainImage: mainImage,
         description: req.body.description,
-        category: category,
+        category: JSON.parse(req.body.category),
         price: parseFloat(req.body.price),
         duration: parseFloat(req.body.duration),
-        plan: plan,
+        plan: JSON.parse(req.body.plan),
         destination: req.body.destination,
         arrival: req.body.arrival,
         departure: req.body.departure,
         dressCode: req.body.dressCode,
-        included: included,
+        included: JSON.parse(req.body.included),
         galleryTour: gallery,
         country: req.body.country,
-        routes: [JSON.parse(req.body.routes)],
+        routes: routes,
       });
 
       await tour.save();

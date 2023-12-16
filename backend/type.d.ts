@@ -52,3 +52,11 @@ export interface IAboutUsBlock {
   description?: string;
   image?: string;
 }
+
+export interface ITourPoint {
+  lat: number;
+  lng: number;
+  icon: string;
+  title: string;
+  strokeColor: string;
+}

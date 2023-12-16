@@ -1,6 +1,7 @@
 .one-tour-inner {
   padding-top: 100px;
   box-sizing: border-box;
+  max-width: 700px;
 }
 
 .one-tour-inner div {
@@ -78,7 +79,10 @@
 }
 
 .one-tour-inner-table tr {
+  display: flex;
+  justify-content: space-between;
   border-top: 1px solid #c4c4c4;
+  width: 100%;
 }
 
 .one-tour-inner-table td {
@@ -100,6 +104,10 @@
 
 .one-tour-inner-table tr:last-child {
   border-bottom: 1px solid #c4c4c4;
+}
+
+.one-tour-inner-table td:last-child {
+  text-align: right;
 }
 
 .one-tour-inner-table-list {
@@ -137,10 +145,6 @@
     flex-direction: column;
   }
 
-  .one-tour-inner-table {
-    width: unset;
-  }
-
   .one-tour-inner-table td:last-child {
     min-width: unset;
   }
@@ -164,6 +168,12 @@
     height: 15px;
     top: -15%;
     left: -10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .one-tour-inner-table {
+    width: 100%;
   }
 }
 

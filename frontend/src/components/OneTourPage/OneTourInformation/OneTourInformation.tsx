@@ -132,9 +132,7 @@ const OneTourInformation = () => {
                 </tr>
                 <tr>
                   <td>Category</td>
-                  {tour.category.map((cat, id) => (
-                    <td key={id}>{cat}</td>
-                  ))}
+                  <td>{tour.category.join(', ')}</td>
                 </tr>
               </tbody>
             </table>

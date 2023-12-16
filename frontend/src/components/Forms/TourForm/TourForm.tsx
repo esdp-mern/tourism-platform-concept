@@ -26,25 +26,42 @@ interface Props {
 }
 
 const initialState = {
-  name: '',
-  country: '',
+  name: '1234',
+  country: '1234',
   mainImage: null,
-  duration: '',
-  price: '',
-  description: '',
-  destination: '',
-  arrival: '',
-  departure: '',
+  duration: 2,
+  price: 1234,
+  description: '1234',
+  destination: '1234',
+  arrival: '1234',
+  departure: '1234',
   included: [],
-  dressCode: '',
-  category: [],
+  dressCode: '1234',
+  category: ['budget'],
   galleryTour: null,
   plan: [],
   guides: [],
   routes: [
-    [{ id: nanoid(), lat: '', lng: '', title: '', strokeColor: '', icon: '' }],
+    [
+      {
+        id: nanoid(),
+        lat: 42,
+        lng: 71,
+        title: '1234',
+        strokeColor: '',
+        icon: '',
+      },
+      {
+        id: nanoid(),
+        lat: 42.1,
+        lng: 71.1,
+        title: '1234',
+        strokeColor: '',
+        icon: '',
+      },
+    ],
   ],
-};
+} as ITourMutation;
 const colors = [
   '#3391fc',
   '#9b33fc',
@@ -106,7 +123,7 @@ const TourForm: React.FC<Props> = ({
       } else {
         await dispatch(postTour(state)).unwrap();
       }
-      // routers.push('/').then((r) => r);
+      routers.push('/').then((r) => r);
     } catch (e) {
       alert('Invalid field');
     }
@@ -293,8 +310,8 @@ const TourForm: React.FC<Props> = ({
     const updatedRoutes = state.routes;
     updatedRoutes[index].push({
       id: nanoid(),
-      lat: '',
-      lng: '',
+      lat: 0,
+      lng: 0,
       title: '',
       strokeColor: '',
       icon: '',
@@ -310,8 +327,8 @@ const TourForm: React.FC<Props> = ({
     updatedRoutes.push([
       {
         id: nanoid(),
-        lat: '',
-        lng: '',
+        lat: 0,
+        lng: 0,
         title: '',
         strokeColor: '',
         icon: '',
@@ -764,7 +781,7 @@ const TourForm: React.FC<Props> = ({
             {state.routes.map((route, index) => (
               <div className="tour-route" key={index}>
                 <SelectCategory
-                  value={route[index].strokeColor}
+                  value={route[0].strokeColor}
                   onSelect={onMarkerColorSelect}
                   routeIndex={index}
                   selected={colorInputSelected}
@@ -787,7 +804,7 @@ const TourForm: React.FC<Props> = ({
                     <TextField
                       name="lat"
                       type="number"
-                      value={point.lat}
+                      value={point.lat.toString()}
                       onChange={(e) =>
                         onRoutePointInputChange(
                           e.target.name,
@@ -803,7 +820,7 @@ const TourForm: React.FC<Props> = ({
                     <TextField
                       name="lng"
                       type="number"
-                      value={point.lng}
+                      value={point.lng.toString()}
                       onChange={(e) =>
                         onRoutePointInputChange(
                           e.target.name,

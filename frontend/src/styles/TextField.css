@@ -178,6 +178,8 @@
 
 .day-picker {
   position: absolute;
+  left: 50%;
+  transform: translate(-50%, 40px);
   display: flex;
   justify-content: center;
   background-color: #222;
@@ -226,6 +228,12 @@
   }
 }
 
+@media (max-width: 768px) {
+  .day-picker {
+    transform: scale(0.8) translate(-60%, 70px);
+  }
+}
+
 @media (max-width: 475px) {
   .one-tour-order-form-title {
     margin-bottom: 20px;
@@ -259,17 +267,5 @@
   .one-tour-inner-gallery2 img {
     width: 120px;
     height: 120px;
-  }
-}
-
-@media (max-width: 768px) {
-  .day-picker {
-    transform: scale(0.9) translate(0, 70px);
-  }
-}
-
-@media (max-width: 475px) {
-  .day-picker {
-    transform: scale(0.8) translate(-20px, 40px);
   }
 }
