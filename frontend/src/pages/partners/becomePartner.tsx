@@ -14,13 +14,15 @@ import phoneIcon from '@/assets/images/phone-icon.svg';
 import Custom404 from '@/pages/404';
 import { selectPostOrderLoading } from '@/containers/partners/partnersSlice';
 import { createPartnerOrder } from '@/containers/partners/partnersThunk';
+import FileInput from '@/components/UI/FileInput/FileInput';
 
 const BecomePartner = () => {
   const initialState = {
     name: '',
-    surname: '',
     number: '',
     message: '',
+    link: '',
+    image: null,
   };
   const dispatch = useAppDispatch();
   const partnerRequestLoading = useAppSelector(selectPostOrderLoading);
@@ -40,15 +42,47 @@ const BecomePartner = () => {
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    if (!(state.name || state.image)) {
+      dispatch(
+        addAlert({
+          message: 'NAME or IMAGE must be filled',
+          type: 'error',
+        }),
+      );
+      return;
+    }
+
+    if (!state.number) {
+      dispatch(
+        addAlert({
+          message: 'Number is required',
+          type: 'error',
+        }),
+      );
+      return;
+    }
+
     try {
       await dispatch(createPartnerOrder(state));
       dispatch(addAlert({ message: 'Request is sent', type: 'info' }));
       setState(initialState);
-      void router.push('/');
+      void router.push('/admin');
     } catch (e) {
       if (e instanceof AxiosError) {
         dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
       }
+    }
+  };
+
+  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, files } = e.target;
+
+    if (files) {
+      setState((prevState) => ({
+        ...prevState,
+        [name]: files[0],
+      }));
     }
   };
 
@@ -61,7 +95,7 @@ const BecomePartner = () => {
       <PageLoader />
       <div className="become-guide">
         <form onSubmit={onSubmit} className="become-guide-form">
-          <h2>Become a guide</h2>
+          <h2>Become a partner</h2>
           <TextField
             name="name"
             type="text"
@@ -69,15 +103,6 @@ const BecomePartner = () => {
             onChange={onChange}
             icon={peopleIcon.src}
             label="name*"
-            required
-          />
-          <TextField
-            name="surname"
-            type="text"
-            value={state.surname}
-            onChange={onChange}
-            icon={peopleIcon.src}
-            label="surname*"
             required
           />
           <TextField
@@ -89,6 +114,14 @@ const BecomePartner = () => {
             label="phone number*"
             required
           />
+          <TextField
+            name="link"
+            type="text"
+            value={state.link}
+            onChange={onChange}
+            icon={phoneIcon.src}
+            label="link*"
+          />
           <textarea
             className="guide-request-description"
             value={state.message}
@@ -97,8 +130,18 @@ const BecomePartner = () => {
             onBlur={() => setFocused(false)}
             placeholder={focused ? '' : 'message*'}
             name="message"
-            required
           />
+          <div className="input-wrap" style={{ marginTop: '15px' }}>
+            <label className="form-label-avatar avatar" htmlFor="image">
+              Image
+            </label>
+            <FileInput
+              onChange={onFileChange}
+              name="image"
+              image={state.image}
+              className="form-control"
+            />
+          </div>
           <button type="submit" className="form-tour-btn">
             {partnerRequestLoading ? <ButtonLoader size={18} /> : 'Send'}
           </button>

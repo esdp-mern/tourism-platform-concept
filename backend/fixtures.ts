@@ -40,7 +40,7 @@ const run = async () => {
     await db.dropCollection('aboutus');
     await db.dropCollection('contacts');
     await db.dropCollection('guideorders');
-    await db.dropCollection('partnerorders')
+    await db.dropCollection('partnerorders');
   } catch (e) {
     console.log('Collections were not present, skipping drop...');
   }
@@ -753,25 +753,21 @@ const run = async () => {
   await PartnerOrder.create(
     {
       name: 'Sam',
-      surname: 'Felton',
       number: '+996 800 900 900',
       message: 'I would like to be a partner with your company!',
-      status: 'pending',
+      image: 'fixtures/min-tour-logo.png',
+      link: 'https://tourism.gov.kg/',
     },
     {
-      name: 'Nam',
-      surname: 'RM',
+      name: 'Nam RM',
       number: '+996 800 900 900',
-      message: 'This would be a great opportunity to be a partners!',
-      status: 'pending',
+      message: 'I would like to be a partner with your company!',
+      link: 'https://tourism.gov.kg/',
     },
     {
-      name: 'Jennie',
-      surname: 'Kim',
+      name: 'Felton',
       number: '+996 800 900 900',
-      message:
-        'I think it would be great for both companies to be a partners. I hope that we will meet soon',
-      status: 'approved',
+      message: 'I would like to be a partner with your company!',
     },
   );
   await db.close();

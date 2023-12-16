@@ -1,29 +1,36 @@
-import mongoose from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
+import { IPartner } from '../type';
 
 const PartnerOrderSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    validate: {
+      validator: function (this: HydratedDocument<IPartner>, name: string) {
+        return !!(this.image || name);
+      },
+      message: 'Name or image is required!',
+    },
   },
-  surname: {
+  image: {
     type: String,
-    required: true,
+    validate: {
+      validator: function (this: HydratedDocument<IPartner>, image: string) {
+        return !!(this.name || image);
+      },
+      message: 'Name or image is required!',
+    },
+  },
+  link: {
+    type: String,
   },
   message: {
     type: String,
-    required: true,
   },
   number: {
     type: String,
     required: true,
   },
-  status: {
-    type: String,
-    required: true,
-    default: 'pending',
-    enum: ['approved', 'pending'],
-  },
 });
 
-const Contacts = mongoose.model('PartnerOrder', PartnerOrderSchema);
-export default Contacts;
+const PartnerOrder = mongoose.model('PartnerOrder', PartnerOrderSchema);
+export default PartnerOrder;

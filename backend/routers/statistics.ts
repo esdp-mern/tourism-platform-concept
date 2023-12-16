@@ -7,6 +7,7 @@ import News from '../models/News';
 import Employee from '../models/Employee';
 import Partner from '../models/Partner';
 import PartnerOrder from '../models/PartnerOrder';
+import GuideOrder from '../models/GuideOrder';
 
 const statisticsRouter = express.Router();
 
@@ -31,8 +32,7 @@ statisticsRouter.get('/', async (req, res) => {
       ordersConsiders,
       ordersApproved,
       partnerOrdersAll,
-      partnerOrdersApproved,
-      partnerOrdersPending,
+      totalGuideOrders,
     ] = await Promise.all([
       Tour.countDocuments({ isPublished: true }),
       Tour.countDocuments({ isPublished: false }),
@@ -52,8 +52,7 @@ statisticsRouter.get('/', async (req, res) => {
       Order.countDocuments({ status: 'being considered' }),
       Order.countDocuments({ status: 'approved' }),
       PartnerOrder.countDocuments(),
-      PartnerOrder.countDocuments({ status: 'approved' }),
-      PartnerOrder.countDocuments({ status: 'pending' }),
+      GuideOrder.countDocuments(),
     ]);
 
     const newStats = {
@@ -75,8 +74,7 @@ statisticsRouter.get('/', async (req, res) => {
       ordersConsiders,
       ordersApproved,
       partnerOrdersAll,
-      partnerOrdersApproved,
-      partnerOrdersPending,
+      totalGuideOrders,
     };
 
     return res.send(newStats);

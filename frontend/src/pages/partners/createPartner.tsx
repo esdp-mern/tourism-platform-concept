@@ -80,7 +80,7 @@ const CreatePartner = () => {
       <PageLoader />
       <div className="become-guide">
         <form onSubmit={onSubmit} className="become-guide-form">
-          <h2>Become a guide</h2>
+          <h2>Create a partner</h2>
           <TextField
             name="name"
             type="text"
@@ -96,21 +96,18 @@ const CreatePartner = () => {
             value={state.link!}
             onChange={onChange}
             icon={phoneIcon.src}
-            label="link*"
+            label="link"
           />
-          <div className="input-tour-wrap" style={{ marginTop: '30px' }}>
+          <div className="input-wrap" style={{ marginTop: '15px' }}>
+            <label className="form-label-avatar avatar" htmlFor="image">
+              Image
+            </label>
             <FileInput
               onChange={onFileChange}
               name="image"
               image={state.image}
-              className="form-tour-control"
+              className="form-control"
             />
-            <label
-              htmlFor="destination"
-              className="form-tour-label form-tour-label-image"
-            >
-              Image:
-            </label>
           </div>
           <button type="submit" className="form-tour-btn">
             {postLoading ? <ButtonLoader size={18} /> : 'Send'}

@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
+  IPartnerAccept,
   IPartnerMutation,
   IPartnerOrder,
   IPartnerOrderMutation,
@@ -17,29 +18,36 @@ export const fetchPartnerOrders = createAsyncThunk<IPartnerOrder[]>(
 );
 
 export const createPartnerOrder = createAsyncThunk<
-  IPartnerOrderMutation,
-  IPartnerOrderMutation,
-  {
-    rejectValue: ValidationError;
-  }
->(
-  'partners/createPartnerOrder',
-  async (partnerMutation, { rejectWithValue }) => {
-    try {
-      const response = await axiosApi.post<IPartnerOrderMutation>(
-        '/partnerOrders',
-        partnerMutation,
-      );
-      return response.data;
-    } catch (e) {
-      if (isAxiosError(e) && e.response && e.response.status === 400) {
-        return rejectWithValue(e.response.data);
-      }
+  IPartnerOrder,
+  IPartnerOrderMutation
+>('partners/createPartnerOrder', async (orderData: IPartnerOrderMutation) => {
+  try {
+    const formData = new FormData();
+    const keys = Object.keys(orderData) as (keyof IPartnerOrderMutation)[];
 
-      throw e;
+    for (const key of keys) {
+      const value = orderData[key];
+
+      if (value !== undefined && value !== null) {
+        if (key === 'image' && value instanceof File) {
+          formData.append(key, value, value.name);
+        } else if (Array.isArray(value)) {
+          value.forEach((val) => formData.append(key, val));
+        } else {
+          formData.append(key, value.toString());
+        }
+      }
     }
-  },
-);
+
+    const request = await axiosApi.post<IPartnerOrder>(
+      '/partnerOrders',
+      formData,
+    );
+    return request.data;
+  } catch (e) {
+    throw e;
+  }
+});
 
 export const deletePartnerOrder = createAsyncThunk<
   void,
@@ -91,6 +99,25 @@ export const createPartner = createAsyncThunk<
       }
     });
     await axiosApi.post('/partners', formData);
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 400) {
+      return rejectWithValue(e.response.data);
+    }
+
+    throw e;
+  }
+});
+
+export const acceptPartner = createAsyncThunk<
+  IPartnerAccept,
+  IPartnerAccept,
+  {
+    rejectValue: ValidationError;
+  }
+>('partners/acceptPartner', async (rating, { rejectWithValue }) => {
+  try {
+    const response = await axiosApi.post<IPartnerAccept>('/partners', rating);
+    return response.data;
   } catch (e) {
     if (isAxiosError(e) && e.response && e.response.status === 400) {
       return rejectWithValue(e.response.data);

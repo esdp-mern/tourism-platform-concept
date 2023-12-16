@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import { RootState } from '@/store/store';
 import {
+  acceptPartner,
   changeStatusPartnerOrder,
   createPartner,
   createPartnerOrder,
@@ -63,18 +64,13 @@ export const partnersSlice = createSlice({
 
     builder.addCase(createPartnerOrder.pending, (state) => {
       state.postOrderLoading = true;
-      state.postOrderError = null;
     });
     builder.addCase(createPartnerOrder.fulfilled, (state) => {
       state.postOrderLoading = false;
     });
-    builder.addCase(
-      createPartnerOrder.rejected,
-      (state, { payload: error }) => {
-        state.postOrderLoading = false;
-        state.postOrderError = error || null;
-      },
-    );
+    builder.addCase(createPartnerOrder.rejected, (state) => {
+      state.postOrderLoading = false;
+    });
 
     builder.addCase(deletePartnerOrder.pending, (state, action) => {
       state.deleteLoading = action.meta.arg;
@@ -104,6 +100,18 @@ export const partnersSlice = createSlice({
       state.postPartnerLoading = false;
     });
     builder.addCase(createPartner.rejected, (state, { payload: error }) => {
+      state.postPartnerLoading = false;
+      state.postPartnerError = error || null;
+    });
+
+    builder.addCase(acceptPartner.pending, (state) => {
+      state.postPartnerLoading = true;
+      state.postPartnerError = null;
+    });
+    builder.addCase(acceptPartner.fulfilled, (state) => {
+      state.postPartnerLoading = false;
+    });
+    builder.addCase(acceptPartner.rejected, (state, { payload: error }) => {
       state.postPartnerLoading = false;
       state.postPartnerError = error || null;
     });

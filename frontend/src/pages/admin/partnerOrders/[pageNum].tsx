@@ -11,7 +11,7 @@ import { fetchPartnerOrders } from '@/containers/partners/partnersThunk';
 import PartnerOrderItem from '@/components/PartnerOrderItem/PartnerOrderItem';
 import Link from 'next/link';
 
-const AllNewsPage = () => {
+const AllPartnerOrdersPage = () => {
   const dispatch = useAppDispatch();
   const partnerOrders = useAppSelector(selectAllPartnerOrders);
   const user = useAppSelector(selectUser);
@@ -28,9 +28,6 @@ const AllNewsPage = () => {
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
-  }, [dispatch]);
-
-  useEffect(() => {
     dispatch(fetchPartnerOrders());
   }, [dispatch]);
 
@@ -75,10 +72,10 @@ const AllNewsPage = () => {
                       <PartnerOrderItem
                         id={orders._id}
                         name={orders.name}
-                        surname={orders.surname}
                         message={orders.message}
-                        status={orders.status}
                         number={orders.number}
+                        link={orders.link}
+                        image={orders.image}
                       />
                     </div>
                   ))}
@@ -100,4 +97,4 @@ const AllNewsPage = () => {
   );
 };
 
-export default AllNewsPage;
+export default AllPartnerOrdersPage;

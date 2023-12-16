@@ -268,6 +268,12 @@ export interface IPartnerMutation {
   link?: string;
 }
 
+export interface IPartnerAccept {
+  name?: string;
+  image?: string | null;
+  link?: string;
+}
+
 export interface INewsMutation {
   title: string;
   description: string;
@@ -413,22 +419,22 @@ export interface IStatisticsAdmin {
   ordersConsiders: number;
   ordersApproved: number;
   partnerOrdersAll: number;
-  partnerOrdersApproved: number;
-  partnerOrdersPending: number;
+  totalGuideOrders: number;
 }
 
 export interface IPartnerOrder {
-  _id: string;
-  name: string;
-  surname: string;
-  number: string;
-  message: string;
-  status: string;
+    _id: string;
+    name: string;
+    number: string;
+    message: string;
+    image: string;
+    link: string;
 }
 
 export interface IPartnerOrderMutation {
-  name: string;
-  surname: string;
-  number: string;
-  message: string;
+    name: string;
+    number: string;
+    message: string;
+    link: string;
+    image: File | null;
 }

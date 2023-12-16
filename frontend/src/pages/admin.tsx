@@ -146,12 +146,8 @@ const Admin = () => {
                   />
                   <h4 className="stats-admin-title">Partner orders</h4>
                   <h2 className="stats-admin-info">
-                    Total partner orders: {stats?.partnerOrdersAll}
+                    Total partner orders: {state?.partnerOrdersAll}
                   </h2>
-                  <h6>
-                    Approved partner orders: {stats?.partnerOrdersApproved}
-                  </h6>
-                  <h6>Pending partner orders: {stats?.partnerOrdersPending}</h6>
                 </Link>
               </div>
             </div>
@@ -190,20 +186,22 @@ const Admin = () => {
             </div>
           </div>
           <div className="col-md-4 stretch-card">
-            <div className="card bg-gradient-orders card-img-holder">
+            <div className="card bg-gradient-news card-img-holder">
               <div className="card-body">
-                <Image
-                  src={circle}
-                  alt="circle"
-                  className="card-img-absolute"
-                />
                 <Link
                   href={`/admin/guideOrders/1`}
                   className="stats-admin-link"
                 >
+                  <Image
+                    src={circle}
+                    alt="circle"
+                    className="card-img-absolute"
+                  />
                   <h4 className="stats-admin-title">Guide Orders</h4>
+                  <h2 className="stats-admin-info">
+                    Total orders: {state?.totalGuideOrders}
+                  </h2>
                 </Link>
-                <h2 className="stats-admin-info">Total guide orders:</h2>
               </div>
             </div>
           </div>

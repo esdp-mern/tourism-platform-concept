@@ -1,51 +1,82 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { selectUser } from '@/containers/users/usersSlice';
-import { userRoles } from '@/constants';
+import { addAlert, selectUser } from '@/containers/users/usersSlice';
+import { apiUrl, userRoles } from '@/constants';
 import {
-  changeStatusPartnerOrder,
+  acceptPartner,
   deletePartnerOrder,
   fetchPartnerOrders,
 } from '@/containers/partners/partnersThunk';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { IPartnerAccept } from '@/type';
+import { AxiosError } from 'axios';
 
 interface Props {
   id: string;
   name: string;
-  surname: string;
   message: string;
-  status: string;
   number: string;
+  image: string;
+  link: string;
 }
 
-const GuideItem: React.FC<Props> = ({
+const PartnerOrderItem: React.FC<Props> = ({
   id,
   name,
-  surname,
   message,
-  status,
   number,
+  image,
+  link,
 }) => {
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
 
-  const onDelete = async (id: string) => {
-    if (window.confirm('Are you sure you want to reject this request?')) {
+  const initialState = {
+    name: name,
+    link: link,
+    image: image,
+  };
+  const router = useRouter();
+  const [state, setState] = useState<IPartnerAccept>(initialState);
+
+  useEffect(() => {
+    dispatch(fetchPartnerOrders());
+  }, [dispatch]);
+
+  const onAccept = async (id: string) => {
+    if (!(state.name || state.image)) {
+      dispatch(
+        addAlert({ message: 'Name or Image is required', type: 'error' }),
+      );
+      return;
+    }
+
+    try {
+      await dispatch(acceptPartner(state));
+      dispatch(addAlert({ message: 'Request is sent', type: 'info' }));
       await dispatch(deletePartnerOrder(id));
-      dispatch(fetchPartnerOrders());
+      setState(initialState);
+      await dispatch(fetchPartnerOrders());
+      void router.push('/admin');
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+      }
     }
   };
 
-  const onChangeStatus = async (id: string) => {
-    await dispatch(changeStatusPartnerOrder(id));
-    dispatch(fetchPartnerOrders());
+  const onDelete = async (id: string) => {
+    if (window.confirm('Are you sure you want to reject this request?')) {
+      await dispatch(deletePartnerOrder(id));
+      await dispatch(fetchPartnerOrders());
+    }
   };
 
   return (
     <div className="guide-card" style={{ background: 'white' }}>
       <div className="guide-card__content">
-        <h2 className="guide-card__name">
-          {name} {surname}
-        </h2>
+        <h2 className="guide-card__name">{name}</h2>
         <p>
           <strong>Message: </strong>
           {message}
@@ -54,16 +85,25 @@ const GuideItem: React.FC<Props> = ({
           <strong>Number: </strong>
           {number}
         </p>
-        <p>
-          <strong>Status: </strong>
-          {status}
-        </p>
+        {image && <img src={apiUrl + '/' + image} alt={name} />}
+
+        {link && (
+          <p>
+            <Link href={link}>{link}</Link>
+          </p>
+        )}
         {user && user.role === userRoles.admin ? (
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: '5px',
+            }}
+          >
             <div className="guide-card__btn" style={{ margin: '5px' }}>
               <button
                 style={{ background: 'green' }}
-                onClick={() => onChangeStatus(id)}
+                onClick={() => onAccept(id)}
               >
                 Accept
               </button>
@@ -83,4 +123,4 @@ const GuideItem: React.FC<Props> = ({
   );
 };
 
-export default GuideItem;
+export default PartnerOrderItem;
