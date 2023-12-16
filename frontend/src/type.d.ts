@@ -69,8 +69,7 @@ export interface IGuideFull extends IGuide {
 }
 
 export interface ITourRoute {
-  lat: number;
-  lng: number;
+  coordinates: string;
   icon: string;
   title: string;
   strokeColor: string;

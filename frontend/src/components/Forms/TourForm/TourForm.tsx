@@ -45,16 +45,14 @@ const initialState = {
     [
       {
         id: nanoid(),
-        lat: 42,
-        lng: 71,
+        coordinates: '41.357104, 74.386171',
         title: '1234',
         strokeColor: '',
         icon: '',
       },
       {
         id: nanoid(),
-        lat: 42.1,
-        lng: 71.1,
+        coordinates: '41.357104, 74.386171',
         title: '1234',
         strokeColor: '',
         icon: '',
@@ -310,8 +308,7 @@ const TourForm: React.FC<Props> = ({
     const updatedRoutes = state.routes;
     updatedRoutes[index].push({
       id: nanoid(),
-      lat: 0,
-      lng: 0,
+      coordinates: '',
       title: '',
       strokeColor: '',
       icon: '',
@@ -327,8 +324,7 @@ const TourForm: React.FC<Props> = ({
     updatedRoutes.push([
       {
         id: nanoid(),
-        lat: 0,
-        lng: 0,
+        coordinates: '',
         title: '',
         strokeColor: '',
         icon: '',
@@ -802,9 +798,9 @@ const TourForm: React.FC<Props> = ({
                       ×
                     </span>
                     <TextField
-                      name="lat"
-                      type="number"
-                      value={point.lat.toString()}
+                      name="coordinates"
+                      type="text"
+                      value={point.coordinates}
                       onChange={(e) =>
                         onRoutePointInputChange(
                           e.target.name,
@@ -815,22 +811,6 @@ const TourForm: React.FC<Props> = ({
                       }
                       icon={invisibleIcon.src}
                       label="latitude"
-                      required
-                    />
-                    <TextField
-                      name="lng"
-                      type="number"
-                      value={point.lng.toString()}
-                      onChange={(e) =>
-                        onRoutePointInputChange(
-                          e.target.name,
-                          e.target.value,
-                          index,
-                          point.id,
-                        )
-                      }
-                      icon={invisibleIcon.src}
-                      label="longitude"
                       required
                     />
                     <TextField

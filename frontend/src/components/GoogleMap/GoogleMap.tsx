@@ -11,18 +11,21 @@ interface IProps {
 
 const GoogleMap: React.FC<IProps> = ({ width, height, routes }) => {
   const handleApiLoaded = (map: any, maps: any) => {
-    new maps.Marker({
-      position: { lat: 42.846362, lng: 74.597243 },
-      map,
-      title: 'Attractor School',
-    });
+    routes.forEach((route) => {
+      const routeCoordinates = route.map((point) => {
+        const coordinates = point.coordinates.split(',') as string[];
+        return {
+          lat: parseFloat(coordinates[0]),
+          lng: parseFloat(coordinates[1]),
+        };
+      });
 
-    let routeWithMarkers = routes as ITourRoute[][];
-
-    routeWithMarkers.forEach((route) => {
       route.forEach((point) => {
         new maps.Marker({
-          position: { lat: point.lat, lng: point.lng },
+          position: {
+            lat: parseFloat(point.coordinates.split(',')[0]),
+            lng: parseFloat(point.coordinates.split(',')[1]),
+          },
           map,
           title: point.title,
           icon: {
@@ -34,9 +37,9 @@ const GoogleMap: React.FC<IProps> = ({ width, height, routes }) => {
       });
 
       const roadPath = new maps.Polyline({
-        path: route,
+        path: routeCoordinates,
         geodesic: true,
-        strokeColor: route[0].strokeColor,
+        strokeColor: route[0].strokeColor || '#FF0000', // Default to red if strokeColor is missing
         strokeOpacity: 1.0,
         strokeWeight: 5,
       });

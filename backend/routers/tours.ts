@@ -230,8 +230,6 @@ toursRouter.post(
           return {
             ...point,
             icon: `mapMarkers/${point.icon}-map-marker.svg`,
-            lat: point.lat,
-            lng: point.lng,
           };
         });
       });
