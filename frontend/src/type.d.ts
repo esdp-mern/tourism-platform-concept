@@ -324,7 +324,6 @@ export interface IContactsMutation {
   contact: IContactInfo[];
 }
 
-
 export interface RatingOfGuide {
   _id: string;
   user: {
@@ -366,4 +365,11 @@ export interface ICreateGuide {
   languages: string[];
   country: string;
   image: File | null;
+}
+
+export interface IEditGuide {
+  id: string;
+  description: string;
+  country: string;
+  languages: string[];
 }
