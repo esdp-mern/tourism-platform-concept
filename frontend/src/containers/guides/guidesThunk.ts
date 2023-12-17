@@ -117,7 +117,22 @@ export const editGuide = createAsyncThunk<
   { rejectValue: ValidationError }
 >('guides/editGuide', async (guide: IEditGuide, { rejectWithValue }) => {
   try {
-    const response = await axiosApi.put(`/guides/${guide.id}`, guide);
+    const formData = new FormData();
+    const keys = Object.keys(guide) as (keyof IEditGuide)[];
+
+    for (const key of keys) {
+      const value = guide[key];
+
+      if (value !== undefined && value !== null) {
+        if (Array.isArray(value)) {
+          value.forEach((val) => formData.append(key, val));
+        } else {
+          formData.append(key, value.toString());
+        }
+      }
+    }
+
+    const response = await axiosApi.put(`/guides/${guide.id}`, formData);
     return response.data;
   } catch (e) {
     if (isAxiosError(e) && e.response && e.response.status === 400) {

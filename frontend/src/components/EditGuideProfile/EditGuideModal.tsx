@@ -45,10 +45,12 @@ const EditGuideModal = () => {
 
   const onChangeHandler = (e: IChangeEvent) => {
     const { name, value } = e.target;
+    console.log(name, value);
     if (name === 'languages') {
-      setSate((prevState) => ({
+      const lang = value.split(',');
+      return setSate((prevState) => ({
         ...prevState,
-        languages: value.split(',').map((str) => str),
+        languages: lang,
       }));
     }
     setSate((prevState) => ({ ...prevState, [name]: value }));
@@ -104,9 +106,15 @@ const EditGuideModal = () => {
             label="languages"
             required
           />
-          <button type="submit" className="form-tour-btn" style={{ margin: 0 }}>
-            {editLoading ? <ButtonLoader size={18} /> : 'Save'}
-          </button>
+          <div>
+            <button
+              type="submit"
+              className="form-tour-btn"
+              style={{ margin: 0 }}
+            >
+              {editLoading ? <ButtonLoader size={18} /> : 'Save'}
+            </button>
+          </div>
         </form>
       </div>
     </div>

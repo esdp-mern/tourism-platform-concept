@@ -36,7 +36,9 @@ const GuideProfile = () => {
                 <td>Languages :</td>
                 <td>
                   {guide.languages.map((lang) => (
-                    <span key={lang}>{lang} </span>
+                    <span key={lang} className="language">
+                      {lang}
+                    </span>
                   ))}
                 </td>
               </tr>

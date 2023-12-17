@@ -76,10 +76,6 @@
     border-radius: 50%;
 }
 
-.page-profile_edit-btn {
-
-}
-
 .guide-profile {
     display: flex;
     flex-direction: column;
@@ -117,6 +113,8 @@
 
 .profile-page_table td:last-child {
     letter-spacing: 2px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .profile-page_table tr:last-child {
@@ -129,6 +127,10 @@
     resize: none;
     border: 1px solid #ccc;
     padding: 5px;
+}
+
+.language {
+    padding-right: 3px;
 }
 
 @media (max-width: 570px) {

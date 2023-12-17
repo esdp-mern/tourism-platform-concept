@@ -120,9 +120,15 @@ const EditorModal = () => {
               className="form-control"
             />
           </div>
-          <button type="submit" className="form-tour-btn" style={{ margin: 0 }}>
-            {editLoading ? <ButtonLoader size={18} /> : 'Save'}
-          </button>
+          <div>
+            <button
+              type="submit"
+              className="form-tour-btn"
+              style={{ margin: 0 }}
+            >
+              {editLoading ? <ButtonLoader size={18} /> : 'Save'}
+            </button>
+          </div>
         </form>
       </div>
     </div>
