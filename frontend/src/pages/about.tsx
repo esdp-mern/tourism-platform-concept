@@ -12,7 +12,6 @@ import penIcon from '@/assets/images/pen-icon.svg';
 import { IAboutUs, IAboutUsBlock } from '@/type';
 import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
 import { userRoles } from '@/constants';
-import Link from "next/link";
 
 const About = () => {
   const dispatch = useAppDispatch();
@@ -306,12 +305,7 @@ const About = () => {
         <div className="about-page-partners">
           <div className="container">
             <Fade>
-              <div style={{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
-                <Link href={`/partners/becomePartner`} className="become-partner" style={{ marginBottom: '20px' }}>
-                  BECOME A PARTNER
-                </Link>
-                <PartnerItem />
-              </div>
+              <PartnerItem />
             </Fade>
           </div>
         </div>

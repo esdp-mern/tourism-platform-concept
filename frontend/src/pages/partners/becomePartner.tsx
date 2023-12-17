@@ -6,12 +6,11 @@ import PageLoader from '@/components/Loaders/PageLoader';
 import { useRouter } from 'next/router';
 import { AxiosError } from 'axios';
 import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
-import { addAlert, selectUser } from '@/containers/users/usersSlice';
+import { addAlert } from '@/containers/users/usersSlice';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import { IPartnerOrderMutation } from '@/type';
 import peopleIcon from '@/assets/images/people-icon.svg';
 import phoneIcon from '@/assets/images/phone-icon.svg';
-import Custom404 from '@/pages/404';
 import { selectPostOrderLoading } from '@/containers/partners/partnersSlice';
 import { createPartnerOrder } from '@/containers/partners/partnersThunk';
 import FileInput from '@/components/UI/FileInput/FileInput';
@@ -26,7 +25,6 @@ const BecomePartner = () => {
   };
   const dispatch = useAppDispatch();
   const partnerRequestLoading = useAppSelector(selectPostOrderLoading);
-  const user = useAppSelector(selectUser);
   const router = useRouter();
   const [state, setState] = useState<IPartnerOrderMutation>(initialState);
   const [focused, setFocused] = useState(false);
@@ -85,10 +83,6 @@ const BecomePartner = () => {
       }));
     }
   };
-
-  if (!user) {
-    return <Custom404 errorType="tour" />;
-  }
 
   return (
     <div className="container">

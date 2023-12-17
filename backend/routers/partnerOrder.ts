@@ -18,8 +18,6 @@ partnerOrderRouter.get('/', auth, permit('admin'), async (req, res) => {
 
 partnerOrderRouter.post(
   '/',
-  auth,
-  permit('admin'),
   imagesUpload.single('image'),
   async (req, res, next) => {
     try {

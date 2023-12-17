@@ -85,7 +85,13 @@ const PartnerOrderItem: React.FC<Props> = ({
           <strong>Number: </strong>
           {number}
         </p>
-        {image && <img src={apiUrl + '/' + image} alt={name} />}
+        {image && (
+          <img
+            src={apiUrl + '/images/' + image}
+            style={{ width: '80px', height: '80px' }}
+            alt={name}
+          />
+        )}
 
         {link && (
           <p>
