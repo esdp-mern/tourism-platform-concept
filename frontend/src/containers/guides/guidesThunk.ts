@@ -1,14 +1,19 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   ICreateGuide,
+  IEditGuide,
+  IEditProfile,
   IGuide,
   IGuideFull,
   IGuideRequest,
   ISendGuideRequest,
+  RegisterResponse,
   ValidationError,
 } from '@/type';
 import axiosApi from '@/axiosApi';
 import { isAxiosError } from 'axios';
+import { array } from 'prop-types';
+import { isArray } from 'util';
 
 export const fetchGuides = createAsyncThunk('guides/fetchAll', async () => {
   const response = await axiosApi.get<IGuideFull[]>('/guides');
@@ -89,6 +94,31 @@ export const deleteGuide = createAsyncThunk<
 >('guides/delete', async (id, { rejectWithValue }) => {
   try {
     await axiosApi.delete(`/guides/${id}`);
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 400) {
+      return rejectWithValue(e.response.data);
+    }
+
+    throw e;
+  }
+});
+
+export const fetchGuideUser = createAsyncThunk(
+  'guides/fetchGuideByUser',
+  async (id: string) => {
+    const response = await axiosApi.get<IGuide>(`/guides?userID=${id}`);
+    return response.data;
+  },
+);
+
+export const editGuide = createAsyncThunk<
+  IEditGuide,
+  IEditGuide,
+  { rejectValue: ValidationError }
+>('guides/editGuide', async (guide: IEditGuide, { rejectWithValue }) => {
+  try {
+    const response = await axiosApi.put(`/guides/${guide.id}`, guide);
+    return response.data;
   } catch (e) {
     if (isAxiosError(e) && e.response && e.response.status === 400) {
       return rejectWithValue(e.response.data);
