@@ -10,8 +10,14 @@ import GuideRating from '../models/GuideRating';
 import GuideReview from '../models/GuideReview';
 
 const guidesRouter = express.Router();
-guidesRouter.get('/', async (_, res) => {
+guidesRouter.get('/', async (req, res) => {
   try {
+    if (req.query.userID) {
+      const queryUser = req.query.userID as string;
+      const guide = await Guide.findOne({ user: queryUser });
+      return res.send(guide);
+    }
+
     const guides = await Guide.find({ isPublished: true }).populate({
       path: 'user',
       select: 'username displayName avatar',
@@ -26,7 +32,7 @@ guidesRouter.get('/all', auth, permit('admin'), async (_, res) => {
   try {
     const guides = await Guide.find().populate({
       path: 'user',
-      select: 'username, displayName, avatar',
+      select: 'username displayName avatar',
     });
 
     return res.send(guides);
@@ -81,7 +87,7 @@ guidesRouter.get('/:id', async (req, res) => {
     const id = req.params.id;
     const guide = await Guide.findById(id).populate({
       path: 'user',
-      select: 'username , displayName , avatar',
+      select: 'username  displayName  avatar',
     });
 
     if (!guide) {
@@ -123,7 +129,7 @@ guidesRouter.post(
 guidesRouter.put(
   '/:id',
   auth,
-  permit('admin'),
+  permit('admin', 'guid'),
   imagesUpload.single('image'),
   async (req, res, next) => {
     try {
