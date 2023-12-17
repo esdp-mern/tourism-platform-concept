@@ -213,8 +213,10 @@
   .one-tour-order-form {
     display: flex;
     flex-direction: column;
-    margin-top: 0 !important;
+    margin-top: 50px !important;
     padding: 25px 35px 40px !important;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .one-tour-order-form-inputs {

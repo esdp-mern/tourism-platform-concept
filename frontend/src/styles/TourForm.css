@@ -186,20 +186,42 @@
   .form-news-title {
     font-size: 20px;
   }
+
+  .tour-route input,
+  .tour-route .text-field-label {
+    font-size: 14px;
+  }
+
+  .text-field-input {
+    padding: 8px 15px 8px 20px;
+    min-height: 45px;
+  }
+
+  .text-field-label {
+    left: 20px;
+  }
+
+  .css-1jqq78o-placeholder {
+    margin-left: 10px;
+  }
 }
 
 @media (max-width: 500px) {
-  .form-tour,
   .form-news {
     width: 80%;
   }
 }
 
-@media (max-width: 300px) {
+@media (max-width: 400px) {
   .form-tour,
   .form-news {
-    width: 90%;
+    width: 97%;
   }
+
+  .form-tour {
+    padding: 20px 0;
+  }
+
   .form-tour-title,
   .form-news-title {
     font-size: 17px;

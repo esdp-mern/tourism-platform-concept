@@ -5,7 +5,6 @@ import permit from '../middleware/permit';
 import mongoose from 'mongoose';
 import Guide from '../models/Guide';
 import { imagesUpload } from '../multer';
-import { ITourPoint } from '../type';
 
 const toursRouter = express.Router();
 
@@ -225,15 +224,6 @@ toursRouter.post(
             ].map((file) => 'images/' + file.filename)
           : [];
 
-      const routes = JSON.parse(req.body.routes).map((route: ITourPoint[]) => {
-        return route.map((point) => {
-          return {
-            ...point,
-            icon: `mapMarkers/${point.icon}-map-marker.svg`,
-          };
-        });
-      });
-
       const tour = new Tour({
         guides: existGuide,
         name: req.body.name,
@@ -250,7 +240,7 @@ toursRouter.post(
         included: JSON.parse(req.body.included),
         galleryTour: gallery,
         country: req.body.country,
-        routes: routes,
+        routes: JSON.parse(req.body.routes),
       });
 
       await tour.save();
@@ -283,30 +273,19 @@ toursRouter.post(
 
         let existGuide;
 
-        if (req.body.guide) {
-          const guide = JSON.parse(req.body.guide);
+        if (req.body.guides) {
+          const guides = JSON.parse(req.body.guides);
 
           existGuide = await Promise.all(
-            guide.map(async (guideId: string) => {
-              const guides = await Guide.findById(guideId);
+            guides.map(async (guideId: string) => {
+              const guide = await Guide.findById(guideId);
 
-              if (guides) {
-                return guides._id;
+              if (guide) {
+                return guide._id;
               }
             }),
           );
         }
-        const plan =
-          req.body.plan && Array.isArray(req.body.plan)
-            ? req.body.plan.map(JSON.parse)
-            : existingTour.plan;
-
-        const category = req.body.category
-          ? req.body.category
-          : existingTour.category;
-        const included = req.body.included
-          ? req.body.included
-          : existingTour.included;
 
         const mainImage =
           req.files && 'mainImage' in req.files
@@ -325,22 +304,19 @@ toursRouter.post(
         existingTour.mainImage = mainImage;
         existingTour.description =
           req.body.description || existingTour.description;
-        existingTour.category = category;
+        existingTour.category = JSON.parse(req.body.category);
         existingTour.price = req.body.price || existingTour.price;
         existingTour.duration = req.body.duration || existingTour.duration;
-        existingTour.plan = plan;
+        existingTour.plan = JSON.parse(req.body.plan);
         existingTour.destination =
           req.body.destination || existingTour.destination;
         existingTour.arrival = req.body.arrival || existingTour.arrival;
         existingTour.departure = req.body.departure || existingTour.departure;
         existingTour.dressCode = req.body.dressCode || existingTour.dressCode;
-        existingTour.included = included;
+        existingTour.included = JSON.parse(req.body.included);
         existingTour.galleryTour = gallery;
         existingTour.country = req.body.country || existingTour.country;
-        existingTour.routes =
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          JSON.parse([req.body.routes[0]]) || existingTour.routes;
+        existingTour.routes = JSON.parse(req.body.routes);
 
         await existingTour.save();
 

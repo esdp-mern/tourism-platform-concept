@@ -30,7 +30,9 @@ const GoogleMap: React.FC<IProps> = ({ width, height, routes }) => {
           title: point.title,
           icon: {
             url:
-              apiUrl + '/' + (point.icon || 'fixtures/default-map-marker.svg'),
+              apiUrl +
+              '/' +
+              (point.icon.src || 'fixtures/default-map-marker.svg'),
             scaledSize: new maps.Size(25, 25),
           },
         });
@@ -39,7 +41,7 @@ const GoogleMap: React.FC<IProps> = ({ width, height, routes }) => {
       const roadPath = new maps.Polyline({
         path: routeCoordinates,
         geodesic: true,
-        strokeColor: route[0].strokeColor || '#FF0000', // Default to red if strokeColor is missing
+        strokeColor: route[0].strokeColor || '#FF0000',
         strokeOpacity: 1.0,
         strokeWeight: 5,
       });
@@ -49,7 +51,7 @@ const GoogleMap: React.FC<IProps> = ({ width, height, routes }) => {
   };
 
   return (
-    <div style={{ height: height, width: width, marginTop: '50px' }}>
+    <div style={{ height: height, width: width, marginTop: '100px' }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: 'AIzaSyDFl0Ww1q9QHPiGn_RiQ6ps8Lr5Yb4TtT8' }}
         defaultCenter={{

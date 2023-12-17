@@ -25,41 +25,6 @@ interface Props {
   idTour?: string;
 }
 
-const initialState = {
-  name: '1234',
-  country: '1234',
-  mainImage: null,
-  duration: 2,
-  price: 1234,
-  description: '1234',
-  destination: '1234',
-  arrival: '1234',
-  departure: '1234',
-  included: [],
-  dressCode: '1234',
-  category: ['budget'],
-  galleryTour: null,
-  plan: [],
-  guides: [],
-  routes: [
-    [
-      {
-        id: nanoid(),
-        coordinates: '41.357104, 74.386171',
-        title: '1234',
-        strokeColor: '',
-        icon: '',
-      },
-      {
-        id: nanoid(),
-        coordinates: '41.357104, 74.386171',
-        title: '1234',
-        strokeColor: '',
-        icon: '',
-      },
-    ],
-  ],
-} as ITourMutation;
 const colors = [
   '#3391fc',
   '#9b33fc',
@@ -69,36 +34,73 @@ const colors = [
   '#cb50ff',
 ];
 
-const TourForm: React.FC<Props> = ({
-  isEdit,
-  existingTour = initialState,
-  idTour,
-}) => {
+const initialState = {
+  name: '',
+  country: '',
+  mainImage: null,
+  duration: 0,
+  price: 0,
+  description: '',
+  destination: '',
+  arrival: '',
+  departure: '',
+  included: [],
+  dressCode: '',
+  category: [],
+  galleryTour: null,
+  plan: [],
+  guides: [],
+  routes: [
+    [
+      {
+        id: nanoid(),
+        coordinates: '',
+        title: '',
+        strokeColor: colors[0],
+        icon: { src: 'mapMarkers/default-map-marker.svg', type: 'default' },
+      },
+    ],
+  ],
+} as ITourMutation;
+
+const TourForm: React.FC<Props> = ({ isEdit, existingTour, idTour }) => {
   const dispatch = useAppDispatch();
   const error = useSelector(selectPostTourError);
   const loading = useAppSelector(selectPostTourLoading);
   const routers = useRouter();
 
-  const [state, setState] = useState<ITourMutation>(existingTour);
-
-  const [plan, setPlan] = useState<IPlan[]>(existingTour.plan || []);
-  const [category, setCategory] = useState<string[]>(
-    existingTour.category || [],
+  const [state, setState] = useState<ITourMutation>(
+    isEdit && existingTour ? existingTour : initialState,
   );
-  const [guide, setGuide] = useState<string[]>(existingTour.guides || []);
+
+  const [plan, setPlan] = useState<IPlan[]>(
+    (existingTour && existingTour.plan) || [],
+  );
+  const [category, setCategory] = useState<string[]>(
+    (existingTour && existingTour.category) || [],
+  );
+  const [guide, setGuide] = useState<string[]>(
+    (existingTour && existingTour.guides) || [],
+  );
   const [included, setIncluded] = useState<string[]>(
-    existingTour.included || [],
+    (existingTour && existingTour.included) || [],
   );
   const [galleryTour, setGalleryTour] = useState<File[]>(
-    existingTour.galleryTour || [],
+    (existingTour && existingTour.galleryTour) || [],
   );
-  const [markersInputSelected, setMarkersInputSelected] = useState(false);
-  const [colorInputSelected, setColorInputSelected] = useState(false);
+  const [markersInputSelected, setMarkersInputSelected] = useState({
+    routeIndex: 0,
+    checkpointId: '',
+  });
+  const [colorInputSelected, setColorInputSelected] = useState(-1);
 
   useEffect(() => {
     document.addEventListener('click', () => {
-      setMarkersInputSelected(false);
-      setColorInputSelected(false);
+      setMarkersInputSelected({
+        routeIndex: -1,
+        checkpointId: '',
+      });
+      setColorInputSelected(-1);
     });
   }, []);
 
@@ -106,11 +108,14 @@ const TourForm: React.FC<Props> = ({
     e.preventDefault();
 
     try {
-      state.plan = plan;
-      state.category = category;
-      state.guides = guide;
-      state.included = included;
-      state.galleryTour = galleryTour;
+      setState((prevState) => ({
+        ...prevState,
+        plan: plan,
+        category: category,
+        guides: guide,
+        included: included,
+        galleryTour: galleryTour,
+      }));
       if (isEdit && idTour) {
         await dispatch(
           editTour({
@@ -305,14 +310,22 @@ const TourForm: React.FC<Props> = ({
   };
 
   const addCheckpoint = (index: number) => {
-    const updatedRoutes = state.routes;
-    updatedRoutes[index].push({
-      id: nanoid(),
-      coordinates: '',
-      title: '',
-      strokeColor: '',
-      icon: '',
+    const updatedRoutes = state.routes.map((route, i) => {
+      if (index === i) {
+        return [
+          ...route,
+          {
+            id: nanoid(),
+            coordinates: '',
+            title: '',
+            strokeColor: colors[0],
+            icon: { src: 'mapMarkers/default-map-marker.svg', type: 'default' },
+          },
+        ];
+      }
+      return route;
     });
+
     setState((prevState) => ({
       ...prevState,
       routes: updatedRoutes,
@@ -320,14 +333,14 @@ const TourForm: React.FC<Props> = ({
   };
 
   const addRoute = () => {
-    const updatedRoutes = state.routes;
+    const updatedRoutes = [...state.routes];
     updatedRoutes.push([
       {
         id: nanoid(),
         coordinates: '',
         title: '',
-        strokeColor: '',
-        icon: '',
+        strokeColor: colors[0],
+        icon: { src: 'mapMarkers/default-map-marker.svg', type: 'default' },
       },
     ]);
     setState((prevState) => ({
@@ -361,7 +374,7 @@ const TourForm: React.FC<Props> = ({
   const onMarkerCategorySelect = (
     routeIndex: number,
     checkpointId: string,
-    markerCategory: string,
+    markerData: { src: string; type: string },
   ) => {
     setState((prevState) => {
       const updatedRoutes = prevState.routes.map((route, index) => {
@@ -370,7 +383,7 @@ const TourForm: React.FC<Props> = ({
             if (point.id === checkpointId) {
               return {
                 ...point,
-                icon: markerCategory,
+                icon: markerData,
               };
             }
             return point;
@@ -384,35 +397,23 @@ const TourForm: React.FC<Props> = ({
         routes: updatedRoutes,
       };
     });
-
-    setMarkersInputSelected(false);
   };
 
-  const onMarkerColorSelect = (
-    routeIndex: number,
-    checkpointId: string,
-    markerColor: string,
-  ) => {
-    setState((prevState) => {
-      const updatedRoutes = prevState.routes.map((route, index) => {
-        if (index === routeIndex) {
-          return route.map((point) => {
-            return {
-              ...point,
-              strokeColor: markerColor,
-            };
-          });
-        }
-        return route;
-      });
-
-      return {
-        ...prevState,
-        routes: updatedRoutes,
-      };
+  const onMarkerColorSelect = (routeIndex: number, markerColor: string) => {
+    const updatedRoutes = state.routes.map((route, index) => {
+      if (index === routeIndex) {
+        return route.map((point) => ({
+          ...point,
+          strokeColor: markerColor,
+        }));
+      }
+      return route;
     });
 
-    setColorInputSelected(false);
+    setState((prevState) => ({
+      ...prevState,
+      routes: updatedRoutes,
+    }));
   };
 
   return (
@@ -772,22 +773,28 @@ const TourForm: React.FC<Props> = ({
           ))}
         </div>
         <div className="tour-routes">
-          <h5 className="form-tour-title">Tour plan:</h5>
+          <h5 className="form-tour-title">Tour routes:</h5>
           <div className="tour-routes-inner">
             {state.routes.map((route, index) => (
               <div className="tour-route" key={index}>
                 <SelectCategory
-                  value={route[0].strokeColor}
-                  onSelect={onMarkerColorSelect}
+                  type="colors"
+                  colorValue={route[0].strokeColor}
+                  onColorSelect={onMarkerColorSelect}
                   routeIndex={index}
-                  selected={colorInputSelected}
+                  selected={colorInputSelected === index}
                   onToggle={() => {
-                    setColorInputSelected(!colorInputSelected);
+                    setColorInputSelected(colorInputSelected >= 0 ? -1 : index);
                     if (markersInputSelected) {
-                      setMarkersInputSelected(!markersInputSelected);
+                      setMarkersInputSelected({
+                        routeIndex: -1,
+                        checkpointId: '',
+                      });
                     }
                   }}
-                  categories={colors}
+                  colorCategories={colors}
+                  markerCategories={[]}
+                  onMarkerSelect={() => {}}
                 />
                 {route.map((point) => (
                   <div className="tour-route-point" key={point.id}>
@@ -832,18 +839,28 @@ const TourForm: React.FC<Props> = ({
                       required
                     />
                     <SelectCategory
-                      value={point.icon}
-                      onSelect={onMarkerCategorySelect}
+                      type="markers"
+                      markerValue={point.icon}
+                      onMarkerSelect={onMarkerCategorySelect}
+                      onColorSelect={() => {}}
                       routeIndex={index}
                       checkpointId={point.id}
-                      selected={markersInputSelected}
+                      selected={
+                        markersInputSelected.routeIndex === index &&
+                        markersInputSelected.checkpointId === point.id
+                      }
                       onToggle={() => {
-                        setMarkersInputSelected(!markersInputSelected);
-                        if (colorInputSelected) {
-                          setColorInputSelected(!colorInputSelected);
-                        }
+                        setMarkersInputSelected({
+                          routeIndex:
+                            markersInputSelected.routeIndex >= 0 ? -1 : index,
+                          checkpointId: markersInputSelected.checkpointId.length
+                            ? ''
+                            : point.id,
+                        });
+                        setColorInputSelected(-1);
                       }}
-                      categories={mapMarkerCategories}
+                      markerCategories={mapMarkerCategories}
+                      colorCategories={[]}
                     />
                   </div>
                 ))}

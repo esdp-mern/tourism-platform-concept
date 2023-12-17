@@ -70,13 +70,10 @@ export interface IGuideFull extends IGuide {
 
 export interface ITourRoute {
   coordinates: string;
-  icon: string;
+  icon: { src: string; type: string };
   title: string;
   strokeColor: string;
-}
-
-export interface ICreateTourRoutes extends ITourRoute {
-  id?: string;
+  id: string;
 }
 
 export interface Tour {
@@ -127,7 +124,7 @@ export interface ITourMutation {
   galleryTour: File[] | null;
   mainImage: File | null;
   price: number;
-  routes: ICreateTourRoutes[][];
+  routes: ITourRoute[][];
 }
 
 export interface ITourReview {

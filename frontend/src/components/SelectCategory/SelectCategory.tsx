@@ -2,27 +2,41 @@ import React from 'react';
 import { apiUrl } from '@/constants';
 
 interface IProps {
-  value: string;
-  onSelect: (
+  type: string;
+  colorValue?: string;
+  markerValue?: { src: string; type: string };
+  onMarkerSelect: (
     routeIndex: number,
     checkpointId: string,
-    markerCategory: string,
+    markerCategory: {
+      src: string;
+      type: string;
+    },
   ) => void;
+  onColorSelect: (routeIndex: number, markerCategory: string) => void;
   routeIndex: number;
   checkpointId?: string;
   selected: boolean;
   onToggle: () => void;
-  categories: string[];
+  colorCategories: string[];
+  markerCategories: {
+    src: string;
+    type: string;
+  }[];
 }
 
 const SelectCategory: React.FC<IProps> = ({
-  value,
-  onSelect,
+  type,
+  colorValue,
+  markerValue,
+  onColorSelect,
+  onMarkerSelect,
   routeIndex,
   checkpointId,
   selected,
   onToggle,
-  categories,
+  colorCategories,
+  markerCategories,
 }) => {
   return (
     <div
@@ -32,10 +46,11 @@ const SelectCategory: React.FC<IProps> = ({
         void onToggle();
       }}
       style={{
-        backgroundImage: checkpointId
-          ? `url(${apiUrl + '/mapMarkers/' + value}-map-marker.svg)`
-          : 'unset',
-        margin: checkpointId ? '' : '0 20px',
+        backgroundImage:
+          type === 'markers'
+            ? `url(${apiUrl + '/' + (markerValue ? markerValue.src : '')})`
+            : 'unset',
+        margin: type === 'markers' ? '' : '0 20px',
       }}
     >
       <span
@@ -45,10 +60,13 @@ const SelectCategory: React.FC<IProps> = ({
           left: '10px',
           width: '20px',
           height: '20px',
-          backgroundColor: checkpointId ? '' : value,
+          backgroundColor: colorValue,
         }}
+        className="route-color-marker"
       />
-      <span>{value || 'select marker...'}</span>
+      <span>
+        {(markerValue && markerValue.type) || (colorValue && colorValue)}
+      </span>
       <span className="select-category-arrow">
         <svg
           height="20"
@@ -63,31 +81,46 @@ const SelectCategory: React.FC<IProps> = ({
       </span>
       {selected && (
         <div className="marker-categories">
-          {categories.map((category) => (
-            <span
-              className="marker-category"
-              key={category}
-              onClick={() => onSelect(routeIndex, checkpointId || '', category)}
-              style={{
-                backgroundImage: checkpointId
-                  ? `url(${apiUrl + '/mapMarkers/' + category}-map-marker.svg)`
-                  : 'unset',
-                backgroundColor: checkpointId ? '' : 'inherit',
-              }}
-            >
+          {(type === 'markers' ? markerCategories : colorCategories).map(
+            (category, index) => (
               <span
-                style={{
-                  position: 'absolute',
-                  top: '15px',
-                  left: '10px',
-                  width: '20px',
-                  height: '20px',
-                  backgroundColor: checkpointId ? '' : category,
+                className="marker-category"
+                key={index}
+                onClick={() => {
+                  if (typeof category === 'string') {
+                    onColorSelect(routeIndex, category);
+                  } else {
+                    onMarkerSelect(routeIndex, checkpointId || '', category);
+                  }
                 }}
-              />
-              {category}
-            </span>
-          ))}
+                style={{
+                  backgroundImage:
+                    type === 'markers'
+                      ? `url(${
+                          apiUrl +
+                          '/' +
+                          (typeof category === 'string' ? '' : category.src)
+                        }`
+                      : 'unset',
+                  backgroundColor: type === 'markers' ? '' : 'inherit',
+                }}
+              >
+                <span
+                  style={{
+                    position: 'absolute',
+                    top: '15px',
+                    left: '10px',
+                    width: '20px',
+                    height: '20px',
+                    backgroundColor:
+                      typeof category === 'string' ? category : '',
+                  }}
+                  className="marker-color-element"
+                />
+                {typeof category === 'string' ? category : category.type}
+              </span>
+            ),
+          )}
         </div>
       )}
     </div>
