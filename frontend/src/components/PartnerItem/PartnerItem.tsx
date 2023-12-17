@@ -14,31 +14,45 @@ const PartnerItem = () => {
   }, [dispatch]);
   return (
     <div className="about-page-partners-cards">
-      {partners.map((partner) =>
-        partner.link ? (
-          <Link
-            href={partner.link}
-            key={partner._id}
-            className="about-page-partners-card-link"
-          >
-            <div className="about-page-partners-card">
+      <div className="about-page-guide-wrap">
+        <h3 className="about-page-team-title">Meet Our Partners</h3>
+        <Link href={`/partners/becomePartner`} className="become-partner">
+          BECOME A PARTNER
+        </Link>
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+        }}
+      >
+        {partners.map((partner) =>
+          partner.link ? (
+            <Link
+              href={partner.link}
+              key={partner._id}
+              className="about-page-partners-card-link"
+            >
+              <div className="about-page-partners-card">
+                {partner.image || (partner.image && partner.name) ? (
+                  <img src={apiUrl + '/' + partner.image} alt={partner._id} />
+                ) : (
+                  partner.name
+                )}
+              </div>
+            </Link>
+          ) : (
+            <div className="about-page-partners-card" key={partner._id}>
               {partner.image || (partner.image && partner.name) ? (
                 <img src={apiUrl + '/' + partner.image} alt={partner._id} />
               ) : (
                 partner.name
               )}
             </div>
-          </Link>
-        ) : (
-          <div className="about-page-partners-card" key={partner._id}>
-            {partner.image || (partner.image && partner.name) ? (
-              <img src={apiUrl + '/' + partner.image} alt={partner._id} />
-            ) : (
-              partner.name
-            )}
-          </div>
-        ),
-      )}
+          ),
+        )}
+      </div>
     </div>
   );
 };

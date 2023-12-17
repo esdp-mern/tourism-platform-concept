@@ -17,6 +17,7 @@ import MainSlider from './models/MainSlider';
 import ContactUs from './models/ContactUs';
 import AboutUs from './models/AboutUs';
 import GuideOrder from './models/GuideOrder';
+import PartnerOrder from './models/PartnerOrder';
 
 const run = async () => {
   await mongoose.connect(config.db);
@@ -39,6 +40,7 @@ const run = async () => {
     await db.dropCollection('aboutus');
     await db.dropCollection('contacts');
     await db.dropCollection('guideorders');
+    await db.dropCollection('partnerorders');
   } catch (e) {
     console.log('Collections were not present, skipping drop...');
   }
@@ -745,6 +747,27 @@ const run = async () => {
       surname: 'Nasyrov',
       number: '+996 800 900 900',
       message: 'I love being guide!',
+    },
+  );
+
+  await PartnerOrder.create(
+    {
+      name: 'Sam',
+      number: '+996 800 900 900',
+      message: 'I would like to be a partner with your company!',
+      image: 'fixtures/min-tour-logo.png',
+      link: 'https://tourism.gov.kg/',
+    },
+    {
+      name: 'Nam RM',
+      number: '+996 800 900 900',
+      message: 'I would like to be a partner with your company!',
+      link: 'https://tourism.gov.kg/',
+    },
+    {
+      name: 'Felton',
+      number: '+996 800 900 900',
+      message: 'I would like to be a partner with your company!',
     },
   );
   await db.close();

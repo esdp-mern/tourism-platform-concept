@@ -89,6 +89,10 @@
     background: linear-gradient(to right, #036e05, #464201 99%) !important;
 }
 
+.bg-gradient-partner-orders {
+    background: linear-gradient(to right, #3498db, #e74c3c 99%) !important;
+}
+
 @media (min-width: 768px) {
     .col-md-4 {
         -webkit-box-flex: 0;

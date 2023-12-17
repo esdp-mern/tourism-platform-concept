@@ -69,6 +69,22 @@ const StatisticsSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  partnerOrdersAll: {
+    type: Number,
+    required: true,
+  },
+  partnerOrdersApproved: {
+    type: Number,
+    required: true,
+  },
+  partnerOrdersPending: {
+    type: Number,
+    required: true,
+  },
+  totalGuideOrders: {
+    type: Number,
+    required: true,
+  },
 });
 
 const Statistic = mongoose.model('Statistic', StatisticsSchema);
