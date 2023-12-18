@@ -88,7 +88,7 @@ export const usersSlice = createSlice({
 
       state.user = {
         ...userData,
-        avatar: userData.avatar && getFilteredUrl(userData.avatar),
+        avatar: userData.avatar ? getFilteredUrl(userData.avatar) : null,
       };
     });
     builder.addCase(signUp.rejected, (state, { payload: error }) => {

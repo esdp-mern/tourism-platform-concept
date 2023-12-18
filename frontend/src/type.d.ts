@@ -392,6 +392,12 @@ export interface ICreateGuide {
   image: File | null;
 }
 
+export interface IEditGuide {
+  id: string;
+  description: string;
+  country: string;
+  languages: string[];
+}
 export interface ICreateGuideMutation {
   user: string | null;
   description: string;
