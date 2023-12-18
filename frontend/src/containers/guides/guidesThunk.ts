@@ -1,9 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
-  ICreateGuide,
   IEditGuide,
-  IEditProfile,
-  ISendGuideRequest,
   ICreateGuideMutation,
   IGuide,
   IGuideFull,
@@ -13,9 +10,6 @@ import {
 } from '@/type';
 import axiosApi from '@/axiosApi';
 import { isAxiosError } from 'axios';
-import { array } from 'prop-types';
-import { isArray } from 'util';
-
 export const fetchGuides = createAsyncThunk('guides/fetchAll', async () => {
   const response = await axiosApi.get<IGuideFull[]>('/guides');
   return response.data;

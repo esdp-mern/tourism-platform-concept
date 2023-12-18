@@ -1,4 +1,4 @@
-import { IGuide, IGuideFull, IGuideFull, IGuideRequest } from '@/type';
+import { IGuide, IGuideFull, IGuideRequest } from '@/type';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import { RootState } from '@/store/store';
@@ -16,7 +16,6 @@ import {
   fetchGuideUser,
   editGuide,
 } from '@/containers/guides/guidesThunk';
-import { usersSlice } from '@/containers/users/usersSlice';
 
 interface guidesState {
   guides: IGuideFull[];
