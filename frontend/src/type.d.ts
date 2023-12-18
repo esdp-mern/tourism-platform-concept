@@ -398,6 +398,7 @@ export interface IEditGuide {
   country: string;
   languages: string[];
 }
+
 export interface ICreateGuideMutation {
   user: string | null;
   description: string;
@@ -429,18 +430,18 @@ export interface IStatisticsAdmin {
 }
 
 export interface IPartnerOrder {
-    _id: string;
-    name: string;
-    number: string;
-    message: string;
-    image: string;
-    link: string;
+  _id: string;
+  name: string;
+  number: string;
+  message: string;
+  image: string;
+  link: string;
 }
 
 export interface IPartnerOrderMutation {
-    name: string;
-    number: string;
-    message: string;
-    link: string;
-    image: File | null;
+  name: string;
+  number: string;
+  message: string;
+  link: string;
+  image: File | null;
 }
