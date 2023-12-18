@@ -45,8 +45,8 @@ const EditTour: NextPage<
       name: tour.name,
       country: tour.country,
       mainImage: null,
-      duration: tour.duration.toString(),
-      price: tour.price.toString(),
+      duration: tour.duration,
+      price: tour.price,
       description: tour.description,
       destination: tour.destination,
       arrival: tour.arrival,
@@ -57,6 +57,7 @@ const EditTour: NextPage<
       galleryTour: null,
       plan: tour.plan,
       guides: guides,
+      routes: tour.routes,
     };
   }
 

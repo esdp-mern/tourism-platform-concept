@@ -186,20 +186,42 @@
   .form-news-title {
     font-size: 20px;
   }
+
+  .tour-route input,
+  .tour-route .text-field-label {
+    font-size: 14px;
+  }
+
+  .text-field-input {
+    padding: 8px 15px 8px 20px;
+    min-height: 45px;
+  }
+
+  .text-field-label {
+    left: 20px;
+  }
+
+  .css-1jqq78o-placeholder {
+    margin-left: 10px;
+  }
 }
 
 @media (max-width: 500px) {
-  .form-tour,
   .form-news {
     width: 80%;
   }
 }
 
-@media (max-width: 300px) {
+@media (max-width: 400px) {
   .form-tour,
   .form-news {
-    width: 90%;
+    width: 97%;
   }
+
+  .form-tour {
+    padding: 20px 0;
+  }
+
   .form-tour-title,
   .form-news-title {
     font-size: 17px;
@@ -254,4 +276,33 @@
 
 .btn-remove-plan {
   margin-left: auto;
+}
+
+.tour-route {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #f6f6f6;
+  border-radius: 15px;
+  padding: 15px 25px;
+  margin-bottom: 20px;
+}
+
+.tour-route-point {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.remove-checkpoint {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 34px;
+  line-height: 20px;
+  cursor: pointer;
 }

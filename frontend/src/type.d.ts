@@ -68,6 +68,14 @@ export interface IGuideFull extends IGuide {
   user: TConfidentialUser;
 }
 
+export interface ITourRoute {
+  coordinates: string;
+  icon: { src: string; type: string };
+  title: string;
+  strokeColor: string;
+  id: string;
+}
+
 export interface Tour {
   _id: string;
   guides: IGuide[];
@@ -86,6 +94,7 @@ export interface Tour {
   mainImage: string;
   price: number;
   isPublished: boolean;
+  routes: ITourRoute[][];
 }
 
 export interface TourFull extends Tour {
@@ -104,7 +113,7 @@ export interface ITourMutation {
   category: string[];
   name: string;
   description: string;
-  duration: string;
+  duration: number;
   plan: IPlan[];
   country: string;
   destination: string;
@@ -114,7 +123,8 @@ export interface ITourMutation {
   included: string[];
   galleryTour: File[] | null;
   mainImage: File | null;
-  price: string;
+  price: number;
+  routes: ITourRoute[][];
 }
 
 export interface ITourReview {

@@ -1,7 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
+import { useAppSelector } from '@/store/hooks';
+import { selectUser } from '@/containers/users/usersSlice';
 
 const Footer = () => {
+  const user = useAppSelector(selectUser);
   return (
     <div>
       <div className="footer-inner">
@@ -17,7 +20,7 @@ const Footer = () => {
                   Customer Reviews
                 </Link>
                 <Link
-                  href="/guides/becomeGuide"
+                  href={user ? '/guides/becomeGuide' : '/login'}
                   className="footer-inner-top-link"
                 >
                   Become a guide!

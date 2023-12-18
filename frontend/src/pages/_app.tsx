@@ -51,6 +51,7 @@ import '@/styles/OneReview.css';
 import '@/styles/becomeGuide.css';
 import '@/styles/createGuide.css';
 import '@/styles/allUsers.css';
+import '@/styles/selectCategory.css';
 import '@/styles/profile.css';
 import '@/styles/UserOrder.css';
 import '@/styles/adminStats.css';

@@ -16,6 +16,7 @@
     "axios": "^1.6.1",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.10",
+    "google-map-react": "^2.2.1",
     "igniteui-react-maps": "^18.3.1",
     "js-cookie": "^3.0.5",
     "next": "14.0.2",
@@ -32,6 +33,7 @@
     "swiper": "^10.3.1"
   },
   "devDependencies": {
+    "@types/google-map-react": "^2.1.10",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
