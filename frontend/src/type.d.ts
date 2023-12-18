@@ -272,6 +272,18 @@ export interface IPartner {
   link?: string;
 }
 
+export interface IPartnerMutation {
+  name?: string;
+  image?: File | null;
+  link?: string;
+}
+
+export interface IPartnerAccept {
+  name?: string;
+  image?: string | null;
+  link?: string;
+}
+
 export interface INewsMutation {
   title: string;
   description: string;
@@ -390,6 +402,13 @@ export interface ICreateGuide {
   image: File | null;
 }
 
+export interface IEditGuide {
+  id: string;
+  description: string;
+  country: string;
+  languages: string[];
+}
+
 export interface ICreateGuideMutation {
   user: string | null;
   description: string;
@@ -416,4 +435,23 @@ export interface IStatisticsAdmin {
   ordersBooked: number;
   ordersConsiders: number;
   ordersApproved: number;
+  partnerOrdersAll: number;
+  totalGuideOrders: number;
+}
+
+export interface IPartnerOrder {
+  _id: string;
+  name: string;
+  number: string;
+  message: string;
+  image: string;
+  link: string;
+}
+
+export interface IPartnerOrderMutation {
+  name: string;
+  number: string;
+  message: string;
+  link: string;
+  image: File | null;
 }

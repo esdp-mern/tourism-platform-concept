@@ -44,3 +44,11 @@ export const deleteOrder = createAsyncThunk<
     throw e;
   }
 });
+
+export const fetchOrdersUser = createAsyncThunk(
+  'orders/fetchGuideByUser',
+  async (id: string) => {
+    const response = await axiosApi.get<IOrder2[]>(`/orders?userID=${id}`);
+    return response.data;
+  },
+);

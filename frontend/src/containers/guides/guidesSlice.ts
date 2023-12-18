@@ -1,4 +1,4 @@
-import { IGuideFull, IGuideRequest } from '@/type';
+import { IGuide, IGuideFull, IGuideRequest } from '@/type';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import { RootState } from '@/store/store';
@@ -13,11 +13,14 @@ import {
   fetchAdminGuides,
   deleteGuide,
   fetchGuideNameByFilter,
+  fetchGuideUser,
+  editGuide,
 } from '@/containers/guides/guidesThunk';
 
 interface guidesState {
   guides: IGuideFull[];
   guide: IGuideFull | null;
+  guideUser: IGuide | null;
   guideOrders: IGuideRequest[];
   oneGuideOrder: IGuideRequest | null;
   fetchAllLoading: boolean;
@@ -27,6 +30,9 @@ interface guidesState {
   guideRequestLoading: boolean;
   createGuideLoading: boolean;
   deleteLoading: boolean | string;
+  fetchGuideUser: boolean;
+  editorGuideModal: boolean;
+  editGuideLoading: boolean;
   deleteOrderLoading: boolean | string;
   fetchOneOrderLoading: boolean;
 }
@@ -34,6 +40,7 @@ interface guidesState {
 const initialState: guidesState = {
   guides: [],
   guide: null,
+  guideUser: null,
   guideOrders: [],
   oneGuideOrder: null,
   fetchAllLoading: false,
@@ -43,6 +50,9 @@ const initialState: guidesState = {
   guideRequestLoading: false,
   createGuideLoading: false,
   deleteLoading: false,
+  fetchGuideUser: false,
+  editorGuideModal: false,
+  editGuideLoading: false,
   deleteOrderLoading: false,
   fetchOneOrderLoading: false,
 };
@@ -50,7 +60,11 @@ const initialState: guidesState = {
 export const guidesSlice = createSlice({
   name: 'guides',
   initialState,
-  reducers: {},
+  reducers: {
+    setGuideEditorModal: (state) => {
+      state.editorGuideModal = !state.editorGuideModal;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase<typeof HYDRATE, PayloadAction<RootState, typeof HYDRATE>>(
       HYDRATE,
@@ -170,9 +184,30 @@ export const guidesSlice = createSlice({
     builder.addCase(deleteGuide.rejected, (state) => {
       state.deleteLoading = false;
     });
+    builder.addCase(fetchGuideUser.pending, (state) => {
+      state.fetchGuideUser = true;
+    });
+    builder.addCase(fetchGuideUser.fulfilled, (state, { payload: guide }) => {
+      state.fetchGuideUser = false;
+      state.guideUser = guide;
+    });
+    builder.addCase(fetchGuideUser.rejected, (state) => {
+      state.fetchGuideUser = false;
+    });
+
+    builder.addCase(editGuide.pending, (state) => {
+      state.editGuideLoading = true;
+    });
+    builder.addCase(editGuide.fulfilled, (state) => {
+      state.editGuideLoading = false;
+    });
+    builder.addCase(editGuide.rejected, (state) => {
+      state.editGuideLoading = false;
+    });
   },
 });
 
+export const { setGuideEditorModal } = guidesSlice.actions;
 export const guidesReducer = guidesSlice.reducer;
 export const selectGuides = (state: RootState) => state.guides.guides;
 export const selectFetchGuidesLoading = (state: RootState) =>
@@ -184,7 +219,11 @@ export const selectGuideRequestLoading = (state: RootState) =>
   state.guides.guideRequestLoading;
 export const selectCreateGuideLoading = (state: RootState) =>
   state.guides.createGuideLoading;
-
+export const selectGuideUser = (state: RootState) => state.guides.guideUser;
+export const selectEditorGuideModal = (state: RootState) =>
+  state.guides.editorGuideModal;
+export const selectEditGuideLoading = (state: RootState) =>
+  state.guides.editGuideLoading;
 export const selectGuideOrders = (state: RootState) => state.guides.guideOrders;
 export const selectFetchGuideOrdersLoading = (state: RootState) =>
   state.guides.fetchAllOrdersLoading;

@@ -8,6 +8,21 @@ const ordersRouter = express.Router();
 
 ordersRouter.get('/', async (req, res) => {
   try {
+    if (req.query.userID) {
+      const queryUser = req.query.userID as string;
+      const guide = await Order.find({ user: queryUser })
+        .populate({
+          path: 'guide',
+          populate: {
+            path: 'user',
+            model: 'User',
+            select: 'displayName email',
+          },
+        })
+        .populate({ path: 'tour', select: 'name' });
+      return res.send(guide);
+    }
+
     const orders = await Order.find()
       .populate({
         path: 'guide',

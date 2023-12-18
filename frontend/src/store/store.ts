@@ -13,7 +13,6 @@ import { toursSlice } from '@/containers/tours/toursSlice';
 import { store } from 'next/dist/build/output/store';
 import { persistReducer } from 'redux-persist';
 import { usersSlice } from '@/containers/users/usersSlice';
-import storage from 'redux-persist/lib/storage';
 import { guidesSlice } from '@/containers/guides/guidesSlice';
 import { newsSlice } from '@/containers/news/newsSlice';
 import { aboutSlice } from '@/containers/about/aboutSlice';
@@ -24,10 +23,14 @@ import { configReducer, configSlice } from '@/containers/config/configSlice';
 import { sliderSlice } from '@/containers/slider/sliderSlice';
 import { contactsSlice } from '@/containers/contacts/contactsSlice';
 import { statsAdminSlice } from '@/containers/statistics/statisticsSlice';
+import { partnersSlice } from '@/containers/partners/partnersSlice';
+// @ts-expect-error
+import { CookieStorage } from 'redux-persist-cookie-storage';
+import Cookies from 'js-cookie';
 
 const usersPersistConfig = {
   key: 'tourism-platform-concept:users',
-  storage,
+  storage: new CookieStorage(Cookies),
   whitelist: ['user'],
 };
 
@@ -42,6 +45,7 @@ const makeStore = () => {
     [sliderSlice.name]: sliderSlice.reducer,
     [toursSlice.name]: toursSlice.reducer,
     [guidesSlice.name]: guidesSlice.reducer,
+    [partnersSlice.name]: partnersSlice.reducer,
     reviews: reviewSlice.reducer,
     ratings: toursRatingSlice.reducer,
     contacts: contactsSlice.reducer,
