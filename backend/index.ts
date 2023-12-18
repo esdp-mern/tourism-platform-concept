@@ -18,6 +18,8 @@ import mainSliderRouter from './routers/mainSlider';
 import contactsRouter from './routers/contacts';
 import aboutUsRouter from './routers/aboutUs';
 import guideOrderRouter from './routers/guideOrder';
+import partnerOrderRouter from './routers/partnerOrder';
+import statisticsRouter from './routers/statistics';
 
 const app = express();
 const port = 8000;
@@ -41,6 +43,8 @@ app.use('/mainSlider', mainSliderRouter);
 app.use('/aboutUs', aboutUsRouter);
 app.use('/contacts', contactsRouter);
 app.use('/guideOrders', guideOrderRouter);
+app.use('/partnerOrders', partnerOrderRouter);
+app.use('/statistics', statisticsRouter);
 
 app.get('*', (_, res) => res.sendStatus(404));
 

@@ -2,34 +2,31 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import TextField from '@/components/UI/TextField/TextField';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
-import { becomeGuide } from '@/containers/guides/guidesThunk';
 import PageLoader from '@/components/Loaders/PageLoader';
 import { useRouter } from 'next/router';
 import { AxiosError } from 'axios';
 import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
-import { addAlert, selectUser } from '@/containers/users/usersSlice';
+import { addAlert } from '@/containers/users/usersSlice';
 import { setIsLightMode } from '@/containers/config/configSlice';
-import { ISendGuideRequestMutation } from '@/type';
+import { IPartnerOrderMutation } from '@/type';
 import peopleIcon from '@/assets/images/people-icon.svg';
 import phoneIcon from '@/assets/images/phone-icon.svg';
-import { selectGuideRequestLoading } from '@/containers/guides/guidesSlice';
-import Custom404 from '@/pages/404';
+import { selectPostOrderLoading } from '@/containers/partners/partnersSlice';
+import { createPartnerOrder } from '@/containers/partners/partnersThunk';
+import FileInput from '@/components/UI/FileInput/FileInput';
 
-const BecomeGuide = () => {
-  const user = useAppSelector(selectUser);
-  const userId = (user && user._id) || '';
-  const initialState: ISendGuideRequestMutation = {
-    user: userId,
+const BecomePartner = () => {
+  const initialState = {
     name: '',
-    surname: '',
     number: '',
     message: '',
+    link: '',
+    image: null,
   };
   const dispatch = useAppDispatch();
-  const guideRequestLoading = useAppSelector(selectGuideRequestLoading);
-  const thisUser = useAppSelector(selectUser);
+  const partnerRequestLoading = useAppSelector(selectPostOrderLoading);
   const router = useRouter();
-  const [state, setSate] = useState<ISendGuideRequestMutation>(initialState);
+  const [state, setState] = useState<IPartnerOrderMutation>(initialState);
   const [focused, setFocused] = useState(false);
 
   useEffect(() => {
@@ -38,55 +35,61 @@ const BecomeGuide = () => {
 
   const onChange = (e: IChangeEvent) => {
     const { name, value } = e.target;
-    setSate((prevState) => ({ ...prevState, [name]: value }));
+    setState((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (!state.name || !state.surname || !state.number || !state.message) {
+    if (!(state.name || state.image)) {
       dispatch(
-        addAlert({ message: 'Please fill in all fields', type: 'error' }),
+        addAlert({
+          message: 'NAME or IMAGE must be filled',
+          type: 'error',
+        }),
+      );
+      return;
+    }
+
+    if (!state.number) {
+      dispatch(
+        addAlert({
+          message: 'Number is required',
+          type: 'error',
+        }),
       );
       return;
     }
 
     try {
-      await dispatch(becomeGuide(state));
+      await dispatch(createPartnerOrder(state));
       dispatch(addAlert({ message: 'Request is sent', type: 'info' }));
-      setSate(initialState);
-      void router.push('/');
+      setState(initialState);
+      void router.push('/admin');
     } catch (e) {
       if (e instanceof AxiosError) {
         dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
-        return;
       }
     }
   };
 
-  if (!thisUser) {
-    return <Custom404 errorType="tour" />;
-  }
+  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, files } = e.target;
 
-  console.log(user);
+    if (files) {
+      setState((prevState) => ({
+        ...prevState,
+        [name]: files[0],
+      }));
+    }
+  };
 
   return (
     <div className="container">
       <PageLoader />
       <div className="become-guide">
         <form onSubmit={onSubmit} className="become-guide-form">
-          <h2>Become a guide</h2>
-          <div style={{ display: 'none' }}>
-            <TextField
-              name="user"
-              type="text"
-              value={userId}
-              onChange={onChange}
-              icon={peopleIcon.src}
-              label="user*"
-              required
-            />
-          </div>
+          <h2>Become a partner</h2>
           <TextField
             name="name"
             type="text"
@@ -94,15 +97,6 @@ const BecomeGuide = () => {
             onChange={onChange}
             icon={peopleIcon.src}
             label="name*"
-            required
-          />
-          <TextField
-            name="surname"
-            type="text"
-            value={state.surname}
-            onChange={onChange}
-            icon={peopleIcon.src}
-            label="surname*"
             required
           />
           <TextField
@@ -114,18 +108,36 @@ const BecomeGuide = () => {
             label="phone number*"
             required
           />
+          <TextField
+            name="link"
+            type="text"
+            value={state.link}
+            onChange={onChange}
+            icon={phoneIcon.src}
+            label="link*"
+          />
           <textarea
             className="guide-request-description"
             value={state.message}
             onChange={onChange}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
-            placeholder={focused ? '' : 'describe yourself*'}
+            placeholder={focused ? '' : 'message*'}
             name="message"
-            required
           />
+          <div className="input-wrap" style={{ marginTop: '15px' }}>
+            <label className="form-label-avatar avatar" htmlFor="image">
+              Image
+            </label>
+            <FileInput
+              onChange={onFileChange}
+              name="image"
+              image={state.image}
+              className="form-control"
+            />
+          </div>
           <button type="submit" className="form-tour-btn">
-            {guideRequestLoading ? <ButtonLoader size={18} /> : 'Send'}
+            {partnerRequestLoading ? <ButtonLoader size={18} /> : 'Send'}
           </button>
         </form>
       </div>
@@ -133,4 +145,4 @@ const BecomeGuide = () => {
   );
 };
 
-export default BecomeGuide;
+export default BecomePartner;

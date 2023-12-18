@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Select, { MultiValue } from 'react-select';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { selectGuides } from '@/containers/guides/guidesSlice';
-import { fetchGuides } from '@/containers/guides/guidesThunk';
+import { selectAdminGuides } from '@/containers/guides/guidesSlice';
+import { fetchAdminGuides } from '@/containers/guides/guidesThunk';
 
 interface Props {
   name: string;
@@ -18,11 +18,11 @@ interface IOption {
 }
 
 const TextFieldSelect: React.FC<Props> = (props) => {
-  const guides = useAppSelector(selectGuides);
+  const guides = useAppSelector(selectAdminGuides);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchGuides());
+    dispatch(fetchAdminGuides());
   }, [dispatch]);
 
   const [options, setOptions] = useState<IOption[]>([]);

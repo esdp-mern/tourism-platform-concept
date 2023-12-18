@@ -3,11 +3,12 @@ import {
   ICreateGuide,
   IEditGuide,
   IEditProfile,
+  ISendGuideRequest,
+  ICreateGuideMutation,
   IGuide,
   IGuideFull,
   IGuideRequest,
-  ISendGuideRequest,
-  RegisterResponse,
+  ISendGuideRequestMutation,
   ValidationError,
 } from '@/type';
 import axiosApi from '@/axiosApi';
@@ -46,24 +47,24 @@ export const fetchGuideNameByFilter = createAsyncThunk<IGuideFull[], string>(
   },
 );
 
-export const becomeGuide = createAsyncThunk<IGuideRequest, ISendGuideRequest>(
-  'guides/sendRequest',
-  async (guideData: ISendGuideRequest) => {
-    try {
-      const request = await axiosApi.post('guideOrders', guideData);
-      return request.data;
-    } catch (e) {
-      throw e;
-    }
-  },
-);
+export const becomeGuide = createAsyncThunk<
+  IGuideRequest,
+  ISendGuideRequestMutation
+>('guides/sendRequest', async (guideData: ISendGuideRequestMutation) => {
+  try {
+    const request = await axiosApi.post('guideOrders', guideData);
+    return request.data;
+  } catch (e) {
+    throw e;
+  }
+});
 
-export const createGuide = createAsyncThunk<IGuide, ICreateGuide>(
+export const createGuide = createAsyncThunk<IGuide, ICreateGuideMutation>(
   'guides/createGuide',
-  async (guideData: ICreateGuide) => {
+  async (guideData: ICreateGuideMutation) => {
     try {
       const formData = new FormData();
-      const keys = Object.keys(guideData) as (keyof ICreateGuide)[];
+      const keys = Object.keys(guideData) as (keyof ICreateGuideMutation)[];
 
       for (const key of keys) {
         const value = guideData[key];
@@ -86,6 +87,38 @@ export const createGuide = createAsyncThunk<IGuide, ICreateGuide>(
     }
   },
 );
+
+export const fetchGuideOrders = createAsyncThunk<
+  IGuideRequest[],
+  void | string
+>('guides/fetchAllOrders', async () => {
+  const response = await axiosApi.get<IGuideRequest[]>('/guideOrders');
+  return response.data;
+});
+
+export const fetchOneGuideOrder = createAsyncThunk<IGuideRequest, string>(
+  'guides/fetchOneOrder',
+  async (id) => {
+    const response = await axiosApi.get(`/guideOrders/${id}`);
+    return response.data;
+  },
+);
+
+export const deleteGuideOrder = createAsyncThunk<
+  void,
+  string,
+  { rejectValue: ValidationError }
+>('guides/deleteOrder', async (id, { rejectWithValue }) => {
+  try {
+    await axiosApi.delete(`/guideOrders/${id}`);
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 400) {
+      return rejectWithValue(e.response.data);
+    }
+
+    throw e;
+  }
+});
 
 export const deleteGuide = createAsyncThunk<
   void,

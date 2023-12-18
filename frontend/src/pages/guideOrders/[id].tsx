@@ -1,31 +1,46 @@
 import React, { FormEvent, useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import TextField from '@/components/UI/TextField/TextField';
-import ButtonLoader from '@/components/Loaders/ButtonLoader';
-import PageLoader from '@/components/Loaders/PageLoader';
-import { useRouter } from 'next/router';
-import { AxiosError } from 'axios';
-import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
+import { wrapper } from '@/store/store';
 import {
-  addAlert,
-  selectUser,
-  selectUsers,
-} from '@/containers/users/usersSlice';
+  createGuide,
+  deleteGuideOrder,
+  fetchOneGuideOrder,
+} from '@/containers/guides/guidesThunk';
+import { InferGetServerSidePropsType, NextPage } from 'next';
+import { useParams } from 'next/navigation';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import {
+  selectCreateGuideLoading,
+  selectOneGuideOrder,
+} from '@/containers/guides/guidesSlice';
 import { setIsLightMode } from '@/containers/config/configSlice';
-import { ICreateGuideMutation, User } from '@/type';
+import { ICreateGuideMutation } from '@/type';
+import { useRouter } from 'next/router';
+import { addAlert, selectUser } from '@/containers/users/usersSlice';
+import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
+import { AxiosError } from 'axios';
+import { userRoles } from '@/constants';
+import Custom404 from '@/pages/404';
+import PageLoader from '@/components/Loaders/PageLoader';
+import TextField from '@/components/UI/TextField/TextField';
 import peopleIcon from '@/assets/images/people-icon.svg';
 import languageIcon from '@/assets/images/languages.svg';
 import globeIcon from '@/assets/images/globe.svg';
-import { getUsers } from '@/containers/users/usersThunk';
-import { createGuide } from '@/containers/guides/guidesThunk';
 import FileInput from '@/components/UI/FileInput/FileInput';
-import { selectCreateGuideLoading } from '@/containers/guides/guidesSlice';
-import { userRoles } from '@/constants';
-import Custom404 from '@/pages/404';
+import ButtonLoader from '@/components/Loaders/ButtonLoader';
+import { changeUserRole } from '@/containers/users/usersThunk';
 
-const CreateGuide = () => {
+const CreateGuide: NextPage<
+  InferGetServerSidePropsType<typeof getServerSideProps>
+> = () => {
+  const { id } = useParams() as {
+    id: string;
+  };
+
+  const order = useAppSelector(selectOneGuideOrder);
+
+  const userId = order?.user?._id || '';
   const initialState = {
-    user: '',
+    user: userId,
     description: '',
     languages: [],
     country: '',
@@ -34,45 +49,32 @@ const CreateGuide = () => {
   const dispatch = useAppDispatch();
   const createLoading = useAppSelector(selectCreateGuideLoading);
   const router = useRouter();
-  const users = useAppSelector(selectUsers);
   const user = useAppSelector(selectUser);
-  const [state, setSate] = useState<ICreateGuideMutation>(initialState);
   const [focused, setFocused] = useState(false);
-  const [userInputFocused, setUserInputFocused] = useState(false);
-  const [userId, setUserId] = useState('');
-  const [userFieldClassName, setUserFieldClassName] = useState('');
   const [currentLanguage, setCurrentLanguage] = useState('');
+  const [state, setState] = useState<ICreateGuideMutation>(initialState);
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
-    document.addEventListener('click', () => setUserInputFocused(false));
-    if (userId.length) {
-      setUserFieldClassName('text-field-input-success');
-    } else if (!userId.length && userInputFocused) {
-      setUserFieldClassName('text-field-input-error');
-    }
-  }, [dispatch, router, userId, userInputFocused]);
+    const timer = setTimeout(() => {
+      dispatch(fetchOneGuideOrder(id));
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [dispatch, id]);
 
   const onChange = async (e: IChangeEvent) => {
     const { name, value } = e.target;
-    if (name === 'user') {
-      setUserId('');
-      setUserFieldClassName('text-field-input-error');
-      if (value.length) {
-        await dispatch(getUsers(value)).unwrap();
-        setUserInputFocused(true);
-      } else {
-        setUserInputFocused(false);
-      }
-    }
-    setSate((prevState) => ({ ...prevState, [name]: value }));
-  };
 
+    setState((prevState) => {
+      return { ...prevState, [name]: value };
+    });
+  };
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, files } = e.target;
 
     if (files) {
-      setSate((prevState) => ({
+      setState((prevState) => ({
         ...prevState,
         [name]: files[0],
       }));
@@ -82,15 +84,21 @@ const CreateGuide = () => {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await dispatch(
-        createGuide({
-          ...state,
-          user: userId,
-        }),
-      ).unwrap();
-      dispatch(addAlert({ message: 'Request is sent', type: 'info' }));
-      setSate(initialState);
-      void router.push('/');
+      if (userId) {
+        await dispatch(
+          createGuide({
+            ...state,
+            user: userId,
+          }),
+        ).unwrap();
+        await dispatch(addAlert({ message: 'Guide is added', type: 'info' }));
+        setState(initialState);
+        await dispatch(deleteGuideOrder(id));
+        await dispatch(changeUserRole({ userId, newRole: userRoles.guid }));
+        void router.push('/admin/guideOrders/1');
+      } else {
+        dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+      }
     } catch (e) {
       if (e instanceof AxiosError) {
         dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
@@ -108,46 +116,16 @@ const CreateGuide = () => {
       <div className="create-guide become-guide">
         <form onSubmit={onSubmit} className="become-guide-form">
           <h2>Create a guide</h2>
-          <div
-            className="user-id-input"
-            onClick={(e) => {
-              e.stopPropagation();
-              setUserInputFocused(true);
-            }}
-          >
+          <div className="user-id-input" style={{ display: 'none' }}>
             <TextField
-              className={userFieldClassName}
               name="user"
               type="text"
-              value={state.user!}
+              value={userId}
               onChange={onChange}
               icon={peopleIcon.src}
               label="user*"
               required
             />
-            {userInputFocused && (
-              <div className="matched-users">
-                <div className="matched-users-inner">
-                  {users.map((user: User) => (
-                    <div
-                      className="matched-user"
-                      key={user._id}
-                      onClick={() => {
-                        setUserId(user._id);
-                        setSate((prevState) => ({
-                          ...prevState,
-                          user: user.username,
-                        }));
-                        setCurrentLanguage('');
-                      }}
-                    >
-                      <h4>{user.username}</h4>
-                      <span>{user.email}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
           <div className="languages-input">
             <div className="languages-top">
@@ -166,7 +144,7 @@ const CreateGuide = () => {
                 onClick={() => {
                   if (!currentLanguage.length) return;
                   setCurrentLanguage('');
-                  setSate((prevState) => ({
+                  setState((prevState) => ({
                     ...prevState,
                     languages: [...prevState.languages, currentLanguage],
                   }));
@@ -185,7 +163,7 @@ const CreateGuide = () => {
                   className="reset-languages"
                   type="button"
                   onClick={() =>
-                    setSate((prevState) => ({ ...prevState, languages: [] }))
+                    setState((prevState) => ({ ...prevState, languages: [] }))
                   }
                 >
                   Reset
@@ -233,5 +211,19 @@ const CreateGuide = () => {
     </div>
   );
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) =>
+    async ({ params }) => {
+      const id = params?.id;
+
+      if (!id || Array.isArray(id)) {
+        throw new Error('Param id must be a string');
+      }
+
+      await store.dispatch(fetchOneGuideOrder(id));
+      return { props: {} };
+    },
+);
 
 export default CreateGuide;
