@@ -1,5 +1,6 @@
+@userLogin
 Feature: Users
-  We have sign up page.
+  We have sign in page.
 
   Scenario: User sign in
     Given I am on sign in page
