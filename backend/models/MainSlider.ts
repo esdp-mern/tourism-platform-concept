@@ -5,10 +5,6 @@ const MainSliderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  toursAmount: {
-    type: Number,
-    required: true,
-  },
   image: {
     type: String,
     required: true,

@@ -302,13 +302,11 @@ export interface IMainSlider {
   _id: string;
   image: string;
   country: string;
-  toursAmount: string;
 }
 
 export interface IMainSliderMutation {
   image: File | null;
   country: string;
-  toursAmount: string;
 }
 
 export interface IAboutUsBlock {
