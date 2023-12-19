@@ -335,6 +335,7 @@ export interface IContactInfo {
 
 export interface IContacts {
   _id: string;
+  image: File | null;
   title: string;
   description: string;
   contact: IContactInfo[];
@@ -343,9 +344,12 @@ export interface IContacts {
 export interface IContactsMutation {
   title: string;
   description: string;
+  image: File | null;
   contact: IContactInfo[];
 }
-
+export interface IContactsImageMutation {
+  image: File | null;
+}
 export interface RatingOfGuide {
   _id: string;
   user: {

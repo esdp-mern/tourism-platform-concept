@@ -4,29 +4,29 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import {
   editContacts,
+  editContactsImage,
   fetchContacts,
 } from '@/containers/contacts/contactsThunk';
 import {
   selectContacts,
   selectEditContactsLoading,
-  selectFetchContactsLoading,
 } from '@/containers/contacts/contactsSlice';
 import { IContactInfo, IContactsMutation } from '@/type';
 import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
 import { addAlert, selectUser } from '@/containers/users/usersSlice';
 import { AxiosError } from 'axios';
-import { userRoles } from '@/constants';
+import { apiUrl, userRoles } from '@/constants';
 import TextField from '@/components/UI/TextField/TextField';
 import peopleIcon from '@/assets/images/people-icon.svg';
 import penIcon from '@/assets/images/pen-icon-green.svg';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import Image from 'next/image';
+import FileInput from '@/components/UI/FileInput/FileInput';
 
 const ContactUs = () => {
   const dispatch = useAppDispatch();
   const contacts = useAppSelector(selectContacts);
   const user = useAppSelector(selectUser);
-  const contactsLoading = useAppSelector(selectFetchContactsLoading);
   const editContactsLoading = useAppSelector(selectEditContactsLoading);
   const [editModalTitle, setEditModalTitle] = useState<boolean>(false);
   const [editModalInfo, setEditModalInfo] = useState<boolean>(false);
@@ -36,6 +36,7 @@ const ContactUs = () => {
   const [state, setState] = useState<IContactsMutation>({
     title: '',
     description: '',
+    image: null,
     contact: contactInfo,
   });
   const [selectedCountryIndex, setSelectedCountryIndex] = useState<
@@ -51,7 +52,10 @@ const ContactUs = () => {
 
   useEffect(() => {
     if (contacts) {
-      setState(contacts);
+      setState({
+        ...contacts,
+        image: null,
+      });
     }
   }, [contacts]);
 
@@ -69,6 +73,9 @@ const ContactUs = () => {
     e.preventDefault();
     try {
       state.contact = contactInfo;
+      state.image
+        ? await dispatch(editContactsImage({ image: state.image })).unwrap()
+        : null;
       await dispatch(editContacts(state)).unwrap();
       await dispatch(fetchContacts());
       setEditModalTitle(false);
@@ -84,8 +91,6 @@ const ContactUs = () => {
     e.preventDefault();
     try {
       const updatedContactInfo = [...contactInfo];
-
-      console.log(updatedContactInfo);
 
       await dispatch(
         editContacts({
@@ -134,12 +139,24 @@ const ContactUs = () => {
     setSelectedCountryIndex(updatedInfo.length - 1);
     setEditModalInfo(true);
   };
+
+  const changeFileValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, files } = e.target;
+
+    if (files) {
+      setState((prevState) => ({
+        ...prevState,
+        [name]: files[0],
+      }));
+    }
+  };
+
   return (
     <div className="contacts-page">
       <PageLoader />
       <div className="contacts-top">
         <img
-          src="https://livedemo00.template-help.com/wt_prod-19282/images/bg-image-4.jpg"
+          src={apiUrl + '/' + contacts?.image}
           alt="nature"
           className="contacts-main-img"
         />
@@ -176,7 +193,7 @@ const ContactUs = () => {
                 <div
                   className="contacts-card"
                   key={index}
-                  onClick={(e) => onClickCountryInfo(index)}
+                  onClick={() => onClickCountryInfo(index)}
                 >
                   {contact.country ? (
                     <span className="contacts-country">{contact.country}</span>
@@ -337,7 +354,7 @@ const ContactUs = () => {
           onClick={(e) => e.stopPropagation()}
         >
           <form onSubmit={onSubmit}>
-            <h2>Edit contact title</h2>
+            <h2>Edit contact info</h2>
             <TextField
               name="title"
               type="text"
@@ -356,6 +373,17 @@ const ContactUs = () => {
               label="Description"
               required
             />
+            <div className="input-wrap" style={{ padding: '20px 0' }}>
+              <label className="form-label-avatar avatar" htmlFor="image">
+                Image
+              </label>
+              <FileInput
+                onChange={changeFileValue}
+                name="image"
+                image={state.image}
+                className="form-control"
+              />
+            </div>
             <button
               type="submit"
               className="form-tour-btn"
