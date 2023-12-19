@@ -977,17 +977,14 @@ const run = async () => {
   await MainSlider.create(
     {
       country: 'Kyrgyzstan',
-      toursAmount: 13,
       image: 'fixtures/kyrgyzstan.jpeg',
     },
     {
       country: 'Kazakhstan',
-      toursAmount: 20,
       image: 'fixtures/kazakhstan.jpeg',
     },
     {
       country: 'Uzbekistan',
-      toursAmount: 32,
       image: 'fixtures/uzbekistan.jpeg',
     },
   );
