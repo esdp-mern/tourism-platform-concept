@@ -49,7 +49,10 @@ const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
           <img src={imgLink} alt={tour.name} className="tour-item-img" />
           <div className="tour-item-price">{tour.price.toString()} KGS</div>
           {tour.guides.length > 0 ? (
-            <div className="tour-item-guide-avatar">
+            <Link
+              href={`/guides/${tour.guides[0]._id}`}
+              className="tour-item-guide-avatar"
+            >
               <img
                 src={
                   tour.guides[0].user.avatar &&
@@ -59,7 +62,7 @@ const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
                 }
                 alt="guide"
               />
-            </div>
+            </Link>
           ) : null}
           {isAdmin && user && user.role === userRoles.admin ? (
             <div
