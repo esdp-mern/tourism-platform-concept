@@ -12,7 +12,7 @@ Feature: MainSlider Creation by Admin
     Then I go to the slider creation page
     When I enter form fields:
       | country | SPB      |
-    When I attach the file "images/image.png" to the "input#image" input
+    When I attach the file "images/image.jpeg" to the "input#image" input
     Then I click "Create slider" button
     Then I go to the home page
 
@@ -24,11 +24,9 @@ Feature: MainSlider Creation by Admin
     And I click the "Login" button
     Then I navigate to the home page
     And I click the "SPB" span
-    When I click the "Edit" button
+    When I click the "Edit" link
     When I navigate to the edit page
-    When I enter form fields:
-      | country | SPB9      |
-    When I attach the file "images/image.png" to the "input#image" input
+    When I attach the new file "images/image.jpeg" to the "input#image" input
     Then I click "Save slider" button
     Then I go to the home page
 

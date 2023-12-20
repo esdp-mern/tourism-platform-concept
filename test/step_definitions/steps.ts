@@ -149,8 +149,6 @@ When('I enter form fields:', (formData) => {
   });
 });
 When("I attach the file {string} to the {string} input", (filePath, inputSelector) => {
-  const relativePath = `../images/${filePath}`;
-  console.log(relativePath);
   I.attachFile(inputSelector, filePath);
 });
 
@@ -185,31 +183,21 @@ Then('I navigate to the home page',  () => {
 Then('I click the "SPB" span', () => {
   I.click('//span[contains(text(), "SPB")]');
 });
-When('I click the "Edit" button', async () => {
-  console.log('Trying to click "Edit" button');
-  await I.click('//button[contains(text(), "Edit")]');
-  console.log('Clicked "Edit" button');
-  I.wait(3)
+When('I click the "Edit" link', async () => {
+  I.click('//a[contains(text(), "Edit")]');
+  I.wait(2)
 });
 When('I navigate to the edit page', async () => {
   const currentUrl = await I.grabCurrentUrl();
-  console.log('Current URL:', currentUrl);
 
   const parts = currentUrl.split('/');
   const id = parts[parts.length - 1];
-  console.log('Navigating to edit page');
-  await I.amOnPage(`/slider/edit/${id}`);
-  I.wait(3);
-  console.log('Navigated to edit page');
+  I.amOnPage(`/slider/edit/${id}`);
+  I.wait(1);
 });
-When('I enter form fields:', (formData) => {
-  formData.rows.forEach((row) => {
-    const [fieldName, fieldValue] = row.cells;
-    I.fillField(fieldName.value, fieldValue.value);
-  });
-});
-When("I attach the file {string} to the {string} input", (filePath, inputSelector) => {
+When("I attach the new file {string} to the {string} input", (filePath, inputSelector) => {
   I.attachFile(inputSelector, filePath);
+  I.wait(1);
 });
 Then("I click {string} button", (text: string) => {
   I.click(`//button[contains(text(), '${text}')]`);
