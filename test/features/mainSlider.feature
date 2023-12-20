@@ -1,6 +1,7 @@
 @mainSlider
 
 Feature: MainSlider Creation by Admin
+
   Scenario: Admin creates a MainSlider
     Given I am on sign in page
     When I enter form fields:
@@ -11,7 +12,7 @@ Feature: MainSlider Creation by Admin
     Then I click "Add new slider" button
     Then I go to the slider creation page
     When I enter form fields:
-      | country | SPB      |
+      | country | SPB |
     When I attach the file "images/image.jpeg" to the "input#image" input
     Then I click "Create slider" button
     Then I go to the home page
