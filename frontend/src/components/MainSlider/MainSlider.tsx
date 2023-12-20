@@ -78,6 +78,10 @@ const MainSlider = () => {
       }
     }
   };
+
+  const onEdit = async (id: string) => {
+    router.push(`/slider/edit/${id}`).then((r) => r);
+  };
   const countriesSlider = () => {
     return (
       <div
@@ -104,15 +108,10 @@ const MainSlider = () => {
                   Delete
                 </button>
                 <button
+                  id="edit-slider"
                   className="country-slider-btns-edit"
                   type="button"
-                  onClick={() => {
-                    if (currentSlide && currentSlide._id) {
-                      router
-                        .push(`/slider/edit/${currentSlide._id}`)
-                        .then((r) => r);
-                    }
-                  }}
+                  onClick={() => onEdit(currentSlide?._id!)}
                 >
                   Edit
                 </button>
