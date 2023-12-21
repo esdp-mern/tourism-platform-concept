@@ -13,20 +13,14 @@ const PartnerItem = () => {
     dispatch(fetchPartners());
   }, [dispatch]);
   return (
-    <div className="about-page-partners-cards">
+    <div>
       <div className="about-page-guide-wrap">
         <h3 className="about-page-team-title">Meet Our Partners</h3>
         <Link href={`/partners/becomePartner`} className="become-partner">
           BECOME A PARTNER
         </Link>
       </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-        }}
-      >
+      <div className="about-page-partners-cards">
         {partners.map((partner) =>
           partner.link ? (
             <Link

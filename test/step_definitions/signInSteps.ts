@@ -1,7 +1,4 @@
 const { I } = inject();
-// Add in your custom step files
-
-Given("I have a defined step", () => {});
 
 Given("I am on sign in page", () => {
   I.amOnPage("/login");

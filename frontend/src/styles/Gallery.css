@@ -58,7 +58,6 @@
 
 .backdrop-gallery-open {
   animation: openGallery 0.5s linear;
-  padding-top: 150px;
 }
 
 .backdrop-gallery-btn {

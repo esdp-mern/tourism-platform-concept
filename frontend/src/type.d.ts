@@ -68,6 +68,14 @@ export interface IGuideFull extends IGuide {
   user: TConfidentialUser;
 }
 
+export interface ITourRoute {
+  coordinates: string;
+  icon: { src: string; type: string };
+  title: string;
+  strokeColor: string;
+  id: string;
+}
+
 export interface Tour {
   _id: string;
   guides: IGuide[];
@@ -86,6 +94,7 @@ export interface Tour {
   mainImage: string;
   price: number;
   isPublished: boolean;
+  routes: ITourRoute[][];
 }
 
 export interface TourFull extends Tour {
@@ -104,7 +113,7 @@ export interface ITourMutation {
   category: string[];
   name: string;
   description: string;
-  duration: string;
+  duration: number;
   plan: IPlan[];
   country: string;
   destination: string;
@@ -114,7 +123,8 @@ export interface ITourMutation {
   included: string[];
   galleryTour: File[] | null;
   mainImage: File | null;
-  price: string;
+  price: number;
+  routes: ITourRoute[][];
 }
 
 export interface ITourReview {
@@ -292,13 +302,11 @@ export interface IMainSlider {
   _id: string;
   image: string;
   country: string;
-  toursAmount: string;
 }
 
 export interface IMainSliderMutation {
   image: File | null;
   country: string;
-  toursAmount: string;
 }
 
 export interface IAboutUsBlock {
@@ -325,6 +333,7 @@ export interface IContactInfo {
 
 export interface IContacts {
   _id: string;
+  image: File | null;
   title: string;
   description: string;
   contact: IContactInfo[];
@@ -333,9 +342,12 @@ export interface IContacts {
 export interface IContactsMutation {
   title: string;
   description: string;
+  image: File | null;
   contact: IContactInfo[];
 }
-
+export interface IContactsImageMutation {
+  image: File | null;
+}
 export interface RatingOfGuide {
   _id: string;
   user: {
@@ -392,6 +404,13 @@ export interface ICreateGuide {
   image: File | null;
 }
 
+export interface IEditGuide {
+  id: string;
+  description: string;
+  country: string;
+  languages: string[];
+}
+
 export interface ICreateGuideMutation {
   user: string | null;
   description: string;
@@ -423,18 +442,18 @@ export interface IStatisticsAdmin {
 }
 
 export interface IPartnerOrder {
-    _id: string;
-    name: string;
-    number: string;
-    message: string;
-    image: string;
-    link: string;
+  _id: string;
+  name: string;
+  number: string;
+  message: string;
+  image: string;
+  link: string;
 }
 
 export interface IPartnerOrderMutation {
-    name: string;
-    number: string;
-    message: string;
-    link: string;
-    image: File | null;
+  name: string;
+  number: string;
+  message: string;
+  link: string;
+  image: File | null;
 }

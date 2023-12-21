@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IPlan, ITourMutation } from '@/type';
 import { useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import FileInput from '@/components/UI/FileInput/FileInput';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
   selectPostTourError,
   selectPostTourLoading,
@@ -12,6 +12,12 @@ import { editTour, postTour } from '@/containers/tours/toursThunk';
 import { useRouter } from 'next/router';
 import TextFieldGuide from '@/components/UI/TextField/components/TextFieldGuide';
 import FilesInput from '@/components/UI/FileInput/FilesInput';
+import { nanoid } from 'nanoid';
+import TextField from '@/components/UI/TextField/TextField';
+import invisibleIcon from '@/assets/images/invisible.svg';
+import { addAlert } from '@/containers/users/usersSlice';
+import SelectCategory from '@/components/SelectCategory/SelectCategory';
+import { mapMarkerCategories } from '@/constants';
 
 interface Props {
   existingTour?: ITourMutation;
@@ -19,12 +25,21 @@ interface Props {
   idTour?: string;
 }
 
+const colors = [
+  '#3391fc',
+  '#9b33fc',
+  '#8ef548',
+  '#ff5252',
+  '#fabc29',
+  '#cb50ff',
+];
+
 const initialState = {
   name: '',
   country: '',
   mainImage: null,
-  duration: '',
-  price: '',
+  duration: 0,
+  price: 0,
   description: '',
   destination: '',
   arrival: '',
@@ -35,41 +50,72 @@ const initialState = {
   galleryTour: null,
   plan: [],
   guides: [],
-};
+  routes: [
+    [
+      {
+        id: nanoid(),
+        coordinates: '',
+        title: '',
+        strokeColor: colors[0],
+        icon: { src: 'mapMarkers/default-map-marker.svg', type: 'default' },
+      },
+    ],
+  ],
+} as ITourMutation;
 
-const TourForm: React.FC<Props> = ({
-  isEdit,
-  existingTour = initialState,
-  idTour,
-}) => {
+const TourForm: React.FC<Props> = ({ isEdit, existingTour, idTour }) => {
   const dispatch = useAppDispatch();
   const error = useSelector(selectPostTourError);
   const loading = useAppSelector(selectPostTourLoading);
   const routers = useRouter();
 
-  const [state, setState] = useState<ITourMutation>(existingTour);
-
-  const [plan, setPlan] = useState<IPlan[]>(existingTour.plan || []);
-  const [category, setCategory] = useState<string[]>(
-    existingTour.category || [],
+  const [state, setState] = useState<ITourMutation>(
+    isEdit && existingTour ? existingTour : initialState,
   );
-  const [guide, setGuide] = useState<string[]>(existingTour.guides || []);
+
+  const [plan, setPlan] = useState<IPlan[]>(
+    (existingTour && existingTour.plan) || [],
+  );
+  const [category, setCategory] = useState<string[]>(
+    (existingTour && existingTour.category) || [],
+  );
+  const [guide, setGuide] = useState<string[]>(
+    (existingTour && existingTour.guides) || [],
+  );
   const [included, setIncluded] = useState<string[]>(
-    existingTour.included || [],
+    (existingTour && existingTour.included) || [],
   );
   const [galleryTour, setGalleryTour] = useState<File[]>(
-    existingTour.galleryTour || [],
+    (existingTour && existingTour.galleryTour) || [],
   );
+  const [markersInputSelected, setMarkersInputSelected] = useState({
+    routeIndex: 0,
+    checkpointId: '',
+  });
+  const [colorInputSelected, setColorInputSelected] = useState(-1);
+
+  useEffect(() => {
+    document.addEventListener('click', () => {
+      setMarkersInputSelected({
+        routeIndex: -1,
+        checkpointId: '',
+      });
+      setColorInputSelected(-1);
+    });
+  }, []);
 
   const submitFormHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      state.plan = plan;
-      state.category = category;
-      state.guides = guide;
-      state.included = included;
-      state.galleryTour = galleryTour;
+      setState((prevState) => ({
+        ...prevState,
+        plan: plan,
+        category: category,
+        guides: guide,
+        included: included,
+        galleryTour: galleryTour,
+      }));
       if (isEdit && idTour) {
         await dispatch(
           editTour({
@@ -144,6 +190,35 @@ const TourForm: React.FC<Props> = ({
       default:
         break;
     }
+  };
+
+  const onRoutePointInputChange = (
+    name: string,
+    value: string,
+    routeIndex: number,
+    checkpointId: string,
+  ) => {
+    setState((prevState) => {
+      const updatedRoutes = prevState.routes.map((route, index) => {
+        if (index === routeIndex) {
+          return route.map((point) => {
+            if (point.id === checkpointId) {
+              return {
+                ...point,
+                [name]: value,
+              };
+            }
+            return point;
+          });
+        }
+        return route;
+      });
+
+      return {
+        ...prevState,
+        routes: updatedRoutes,
+      };
+    });
   };
 
   const changeFileValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -232,6 +307,113 @@ const TourForm: React.FC<Props> = ({
       default:
         break;
     }
+  };
+
+  const addCheckpoint = (index: number) => {
+    const updatedRoutes = state.routes.map((route, i) => {
+      if (index === i) {
+        return [
+          ...route,
+          {
+            id: nanoid(),
+            coordinates: '',
+            title: '',
+            strokeColor: colors[0],
+            icon: { src: 'mapMarkers/default-map-marker.svg', type: 'default' },
+          },
+        ];
+      }
+      return route;
+    });
+
+    setState((prevState) => ({
+      ...prevState,
+      routes: updatedRoutes,
+    }));
+  };
+
+  const addRoute = () => {
+    const updatedRoutes = [...state.routes];
+    updatedRoutes.push([
+      {
+        id: nanoid(),
+        coordinates: '',
+        title: '',
+        strokeColor: colors[0],
+        icon: { src: 'mapMarkers/default-map-marker.svg', type: 'default' },
+      },
+    ]);
+    setState((prevState) => ({
+      ...prevState,
+      routes: updatedRoutes,
+    }));
+  };
+
+  const removeCheckpoint = (routeIndex: number, checkpointId: string) => {
+    if (state.routes.length === 1 && state.routes[0].length === 1) {
+      return dispatch(
+        addAlert({
+          message: 'At least one checkpoint must been provided!',
+          type: 'warning',
+        }),
+      );
+    }
+    let updatedRoutes = state.routes.map((route, index) => {
+      if (index === routeIndex) {
+        return route.filter((point) => point.id !== checkpointId);
+      }
+      return route;
+    });
+
+    setState((prevState) => ({
+      ...prevState,
+      routes: updatedRoutes.filter((route) => route.length > 0),
+    }));
+  };
+
+  const onMarkerCategorySelect = (
+    routeIndex: number,
+    checkpointId: string,
+    markerData: { src: string; type: string },
+  ) => {
+    setState((prevState) => {
+      const updatedRoutes = prevState.routes.map((route, index) => {
+        if (index === routeIndex) {
+          return route.map((point) => {
+            if (point.id === checkpointId) {
+              return {
+                ...point,
+                icon: markerData,
+              };
+            }
+            return point;
+          });
+        }
+        return route;
+      });
+
+      return {
+        ...prevState,
+        routes: updatedRoutes,
+      };
+    });
+  };
+
+  const onMarkerColorSelect = (routeIndex: number, markerColor: string) => {
+    const updatedRoutes = state.routes.map((route, index) => {
+      if (index === routeIndex) {
+        return route.map((point) => ({
+          ...point,
+          strokeColor: markerColor,
+        }));
+      }
+      return route;
+    });
+
+    setState((prevState) => ({
+      ...prevState,
+      routes: updatedRoutes,
+    }));
   };
 
   return (
@@ -589,6 +771,116 @@ const TourForm: React.FC<Props> = ({
               </div>
             </div>
           ))}
+        </div>
+        <div className="tour-routes">
+          <h5 className="form-tour-title">Tour routes:</h5>
+          <div className="tour-routes-inner">
+            {state.routes.map((route, index) => (
+              <div className="tour-route" key={index}>
+                <SelectCategory
+                  type="colors"
+                  colorValue={route[0].strokeColor}
+                  onColorSelect={onMarkerColorSelect}
+                  routeIndex={index}
+                  selected={colorInputSelected === index}
+                  onToggle={() => {
+                    setColorInputSelected(colorInputSelected >= 0 ? -1 : index);
+                    if (markersInputSelected) {
+                      setMarkersInputSelected({
+                        routeIndex: -1,
+                        checkpointId: '',
+                      });
+                    }
+                  }}
+                  colorCategories={colors}
+                  markerCategories={[]}
+                  onMarkerSelect={() => {}}
+                />
+                {route.map((point) => (
+                  <div className="tour-route-point" key={point.id}>
+                    <span
+                      className="remove-checkpoint"
+                      onClick={() =>
+                        removeCheckpoint(index, point.id ? point.id : '')
+                      }
+                    >
+                      ×
+                    </span>
+                    <TextField
+                      name="coordinates"
+                      type="text"
+                      value={point.coordinates}
+                      onChange={(e) =>
+                        onRoutePointInputChange(
+                          e.target.name,
+                          e.target.value,
+                          index,
+                          point.id ? point.id : '',
+                        )
+                      }
+                      icon={invisibleIcon.src}
+                      label="latitude"
+                      required
+                    />
+                    <TextField
+                      name="title"
+                      type="text"
+                      value={point.title}
+                      onChange={(e) =>
+                        onRoutePointInputChange(
+                          e.target.name,
+                          e.target.value,
+                          index,
+                          point.id ? point.id : '',
+                        )
+                      }
+                      icon={invisibleIcon.src}
+                      label="title"
+                      required
+                    />
+                    <SelectCategory
+                      type="markers"
+                      markerValue={point.icon}
+                      onMarkerSelect={onMarkerCategorySelect}
+                      onColorSelect={() => {}}
+                      routeIndex={index}
+                      checkpointId={point.id}
+                      selected={
+                        markersInputSelected.routeIndex === index &&
+                        markersInputSelected.checkpointId === point.id
+                      }
+                      onToggle={() => {
+                        setMarkersInputSelected({
+                          routeIndex:
+                            markersInputSelected.routeIndex >= 0 ? -1 : index,
+                          checkpointId: markersInputSelected.checkpointId.length
+                            ? ''
+                            : point.id,
+                        });
+                        setColorInputSelected(-1);
+                      }}
+                      markerCategories={mapMarkerCategories}
+                      colorCategories={[]}
+                    />
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  className="form-tour-btn-add"
+                  onClick={() => addCheckpoint(index)}
+                >
+                  Add new checkpoint
+                </button>
+              </div>
+            ))}
+          </div>
+          <button
+            type="button"
+            className="form-tour-btn-add"
+            onClick={addRoute}
+          >
+            Add new route
+          </button>
         </div>
         <button type="submit" className="form-tour-btn">
           {loading ? (

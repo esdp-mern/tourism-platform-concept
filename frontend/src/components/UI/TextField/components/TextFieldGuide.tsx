@@ -7,7 +7,7 @@ import { fetchAdminGuides } from '@/containers/guides/guidesThunk';
 interface Props {
   name: string;
   label?: string;
-  selectedGuideIds: string[]; // Массив выбранных айди гидов
+  selectedGuideIds: string[];
   onSelect: (selectedGuideIds: string[]) => void;
   isSubmit?: boolean;
 }

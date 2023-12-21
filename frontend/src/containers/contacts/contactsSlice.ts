@@ -4,6 +4,7 @@ import { HYDRATE } from 'next-redux-wrapper';
 import { RootState } from '@/store/store';
 import {
   editContacts,
+  editContactsImage,
   fetchContacts,
 } from '@/containers/contacts/contactsThunk';
 
@@ -11,12 +12,14 @@ interface guidesState {
   contacts: IContacts | null;
   fetchAllLoading: boolean;
   editContactsLoading: boolean;
+  editContactsImageLoading: boolean;
 }
 
 const initialState: guidesState = {
   contacts: null,
   fetchAllLoading: false,
   editContactsLoading: false,
+  editContactsImageLoading: false,
 };
 
 export const contactsSlice = createSlice({
@@ -50,6 +53,15 @@ export const contactsSlice = createSlice({
     });
     builder.addCase(editContacts.rejected, (state) => {
       state.editContactsLoading = false;
+    });
+    builder.addCase(editContactsImage.pending, (state) => {
+      state.editContactsImageLoading = true;
+    });
+    builder.addCase(editContactsImage.fulfilled, (state) => {
+      state.editContactsImageLoading = false;
+    });
+    builder.addCase(editContactsImage.rejected, (state) => {
+      state.editContactsImageLoading = false;
     });
   },
 });

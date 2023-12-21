@@ -97,25 +97,6 @@ const MainSliderForm: React.FC<Props> = ({
         )}
       </div>
       <div className="input-wrap">
-        <input
-          type="text"
-          className={
-            getFieldError('toursAmount') ? 'form-control-error' : 'form-control'
-          }
-          name="toursAmount"
-          id="toursAmount"
-          value={state.toursAmount}
-          onChange={inputChangeHandler}
-          required
-        />
-        <label htmlFor="toursAmount" className="form-label">
-          Tours amount:
-        </label>
-        {Boolean(getFieldError('toursAmount')) && (
-          <span className="error">{getFieldError('toursAmount')}</span>
-        )}
-      </div>
-      <div className="input-wrap">
         <label className="form-label-avatar avatar" htmlFor="image">
           Image
         </label>

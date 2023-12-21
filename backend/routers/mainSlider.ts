@@ -38,10 +38,8 @@ mainSliderRouter.post(
   imagesUpload.single('image'),
   async (req, res, next) => {
     try {
-      const toursAmount = Number(req.body.toursAmount);
       const slider = new MainSlider({
         country: req.body.country,
-        toursAmount,
         image: req.file ? 'images/' + req.file.filename : null,
       });
 
@@ -70,7 +68,6 @@ mainSliderRouter.put(
       }
 
       slider.country = req.body.country || slider.country;
-      slider.toursAmount = Number(req.body.toursAmount) || slider.toursAmount;
       slider.image = req.file ? 'images/' + req.file.filename : slider.image;
 
       await slider.save();

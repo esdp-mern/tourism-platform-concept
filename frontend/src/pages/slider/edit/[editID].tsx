@@ -43,7 +43,6 @@ const EditSlider: NextPage<
   if (slider && editID) {
     editingSlider = {
       country: slider.country,
-      toursAmount: slider.toursAmount,
       image: null,
     };
   }

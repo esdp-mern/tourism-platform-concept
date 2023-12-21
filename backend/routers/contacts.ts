@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import auth from '../middleware/auth';
 import permit from '../middleware/permit';
 import Contacts from '../models/ContactUs';
+import { imagesUpload } from '../multer';
 
 const contactsRouter = express.Router();
 
@@ -36,5 +37,33 @@ contactsRouter.put('/', auth, permit('admin'), async (req, res, next) => {
     return next(e);
   }
 });
+
+contactsRouter.patch(
+  '/',
+  auth,
+  permit('admin'),
+  imagesUpload.single('image'),
+  async (req, res, next) => {
+    try {
+      const existingContact = await Contacts.findOne();
+
+      if (!existingContact) {
+        return res.status(404).send('Contact not found');
+      }
+
+      existingContact.image = req.file
+        ? 'images/' + req.file.filename
+        : existingContact.image;
+
+      await existingContact.save();
+      return res.json(existingContact);
+    } catch (e) {
+      if (e instanceof mongoose.Error.ValidationError) {
+        return res.status(400).send(e.message);
+      }
+      return next(e);
+    }
+  },
+);
 
 export default contactsRouter;

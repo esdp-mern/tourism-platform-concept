@@ -20,6 +20,7 @@ import { fetchToursReviews } from '@/containers/reviews/reviewThunk';
 import Custom404 from '@/pages/404';
 import { fetchTourRating } from '@/containers/ratings/ratingThunk';
 import { setIsLightMode } from '@/containers/config/configSlice';
+import GoogleMap from '@/components/GoogleMap/GoogleMap';
 
 interface ITab {
   title: string;
@@ -139,6 +140,9 @@ const TourPage: NextPage<
         <>
           {currentTab === 'information' && <OneTourInformation />}
           {currentTab === 'plan' && <OneTourPlan />}
+          {currentTab === 'location' && (
+            <GoogleMap width="100%" height="500px" routes={tour.routes || []} />
+          )}
           {currentTab === 'gallery' && <Gallery />}
           {currentTab === 'reviews' && <OneTourReview />}
         </>
