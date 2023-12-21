@@ -5,6 +5,7 @@ import {
   fetchToursByFilter,
   fetchToursByPrice,
 } from '@/containers/tours/toursThunk';
+import magnifierIcon from '@/assets/images/magnifier.svg';
 
 const categoriesData = [
   { id: 'checkbox-1', label: 'history' },
@@ -30,7 +31,6 @@ const TourFilter = () => {
 
     setSelectedCategories(updatedCategories);
     if (!currentTab || !selectedCategories) return;
-    console.log(updatedCategories);
     if (updatedCategories.length) {
       await dispatch(
         fetchToursByFilter({
@@ -191,6 +191,10 @@ const TourFilter = () => {
             </div>
           ) : null}
         </li>
+        <button className="filter-btn">
+          <img src={magnifierIcon.src} alt="magnifier-icon" />
+          Search
+        </button>
       </ul>
     </section>
   );
