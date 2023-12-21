@@ -6,7 +6,7 @@ Feature: Users Registration
   Scenario: Successful user registration
     Given I am on the registration page
     When I enter registration form fields:
-      | username    | jain |
+      | username    | jain                 |
       | password    | qwerty1234           |
       | email       | new_user@example.com |
       | displayName | NewUser              |
@@ -16,7 +16,7 @@ Feature: Users Registration
   Scenario: Registration with existing username
     Given I am on the registration page
     When I enter registration form fields:
-      | username    | jain        |
+      | username    | jain                 |
       | password    | qwerty1234           |
       | email       | new_user@example.com |
       | displayName | NewUser              |

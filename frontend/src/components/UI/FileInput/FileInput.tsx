@@ -38,6 +38,7 @@ const FileInput: React.FC<Props> = ({ onChange, name, image, className }) => {
     <>
       <div className={'file-input ' + className}>
         <input
+          id={name}
           style={{ display: 'none' }}
           type="file"
           name={name}
