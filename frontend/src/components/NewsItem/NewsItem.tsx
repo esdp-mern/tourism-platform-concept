@@ -4,7 +4,6 @@ import { apiUrl, userRoles } from '@/constants';
 import { Fade } from 'react-awesome-reveal';
 import Link from 'next/link';
 import dayjs from 'dayjs';
-import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { selectUser } from '@/containers/users/usersSlice';
 import {
@@ -20,7 +19,6 @@ interface Props {
 }
 
 const NewsItem: React.FC<Props> = ({ news }) => {
-  const router = useRouter();
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const publishLoading = useAppSelector(selectNewsPublishLoading);
@@ -86,15 +84,9 @@ const NewsItem: React.FC<Props> = ({ news }) => {
                   ? 'Unpublish'
                   : 'Publish'}
             </button>
-            <button
-              type="button"
-              className="btn-tour-edit"
-              onClick={() => {
-                router.push(`/news/edit/${news._id}`).then((r) => r);
-              }}
-            >
+            <Link href={`/news/edit/${news._id}`} className="btn-tour-edit">
               Edit
-            </button>
+            </Link>
           </div>
         ) : null}
         <hr className="card-news-line" />

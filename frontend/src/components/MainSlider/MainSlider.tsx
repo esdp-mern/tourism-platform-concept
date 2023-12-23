@@ -7,6 +7,7 @@ import { IMainSlider } from '@/type';
 import { selectUser } from '@/containers/users/usersSlice';
 import { useRouter } from 'next/router';
 import { selectAllTours } from '@/containers/tours/toursSlice';
+import Link from 'next/link';
 
 const MainSlider = () => {
   const dispatch = useAppDispatch();
@@ -103,19 +104,13 @@ const MainSlider = () => {
                 >
                   Delete
                 </button>
-                <button
+                <Link
+                  href={'slider/' + 'edit/' + currentSlide?._id!}
+                  id="edit-slider"
                   className="country-slider-btns-edit"
-                  type="button"
-                  onClick={() => {
-                    if (currentSlide && currentSlide._id) {
-                      router
-                        .push(`/slider/edit/${currentSlide._id}`)
-                        .then((r) => r);
-                    }
-                  }}
                 >
                   Edit
-                </button>
+                </Link>
               </div>
             ) : null}
           </div>

@@ -1,4 +1,4 @@
-import { setHeadlessWhen, setCommonPlugins } from '@codeceptjs/configure';
+import { setHeadlessWhen, setCommonPlugins } from "@codeceptjs/configure";
 // turn on headless mode when running with HEADLESS=true environment variable
 // export HEADLESS=true && npx codeceptjs run
 setHeadlessWhen(process.env.HEADLESS);
@@ -7,23 +7,26 @@ setHeadlessWhen(process.env.HEADLESS);
 setCommonPlugins();
 
 export const config: CodeceptJS.MainConfig = {
-  tests: './*_test.ts',
-  output: './output',
+  tests: "./*_test.ts",
+  output: "./output",
   helpers: {
     Puppeteer: {
-      url: 'http://localhost:3000',
+      url: "http://localhost:3000",
       show: true,
-      windowSize: '1200x900'
-    }
+      windowSize: "1200x900",
+    },
   },
   include: {
-    I: './steps_file'
+    I: "./steps_file",
   },
-  "gherkin": {
-    "features": "./features/*feature",
-    "steps": [
-      "./step_definitions/steps.ts"
+  gherkin: {
+    features: "./features/*feature",
+    steps: [
+      "./step_definitions/mainSliderSteps.ts",
+      "./step_definitions/registrationSteps.ts",
+      "./step_definitions/signInSteps.ts",
+      "./step_definitions/newsSteps.ts"
     ],
   },
-  name: 'test'
-}
+  name: "test",
+};
