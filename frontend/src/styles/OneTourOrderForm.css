@@ -34,6 +34,7 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   line-height: 1.5;
+  color: #fff;
   background-color: #75c15b;
   width: 100%;
   margin-top: 55px;
@@ -51,10 +52,4 @@
   pointer-events: auto;
   cursor: not-allowed;
   background-color: #bbb;
-}
-
-.one-tour-order-form-nav-link {
-  color: #fff;
-  border: none;
-  text-decoration: none;
 }

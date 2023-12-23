@@ -263,6 +263,7 @@ export interface IOrder2 {
   phone?: string;
   datetime: string;
   status: string;
+  isSendEmail: boolean;
 }
 
 export interface IPartner {
