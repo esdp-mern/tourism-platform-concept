@@ -5,6 +5,7 @@ import permit from '../middleware/permit';
 import mongoose from 'mongoose';
 import Guide from '../models/Guide';
 import { imagesUpload } from '../multer';
+import { ILanguages } from '../type';
 
 const toursRouter = express.Router();
 
@@ -141,6 +142,7 @@ toursRouter.get('/all', async (req, res) => {
 
 toursRouter.get('/:id', async (req, res) => {
   try {
+    const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
     const tour = await Tour.findById(req.params.id).populate({
       path: 'guides',
       populate: {
@@ -153,16 +155,25 @@ toursRouter.get('/:id', async (req, res) => {
       return res.status(404).send('Not found!');
     }
 
+    const plan = tour.plan.map((planPoint) => {
+      if (planPoint.title && planPoint.planDescription) {
+        return {
+          title: planPoint.title[lang],
+          planDescription: planPoint.planDescription[lang],
+        };
+      }
+    });
+
     const tourReviews = {
       _id: tour._id,
       guides: tour.guides,
       name: tour.name,
       mainImage: tour.mainImage,
-      description: tour.description,
+      description: tour.description ? tour.description[lang] : tour.description,
       category: tour.category,
       price: tour.price,
       duration: tour.duration,
-      plan: tour.plan,
+      plan,
       destination: tour.destination,
       arrival: tour.arrival,
       departure: tour.departure,
@@ -189,6 +200,7 @@ toursRouter.post(
   ]),
   async (req, res, next) => {
     try {
+      const lang = req.get('lang') as 'en' | 'ru' | 'kg';
       let existGuide;
 
       if (req.body.guides) {
@@ -224,6 +236,22 @@ toursRouter.post(
             ].map((file) => 'images/' + file.filename)
           : [];
 
+      const parsedPlan = JSON.parse(req.body.plan);
+      const plan = parsedPlan.map(
+        (planPoint: { title: ILanguages; planDescription: ILanguages }) => {
+          return {
+            title: {
+              ...{ en: '', ru: '', kg: '' },
+              [lang]: planPoint.title,
+            },
+            planDescription: {
+              ...{ en: '', ru: '', kg: '' },
+              [lang]: planPoint.planDescription,
+            },
+          };
+        },
+      );
+
       const tour = new Tour({
         guides: existGuide,
         name: req.body.name,
@@ -232,7 +260,7 @@ toursRouter.post(
         category: JSON.parse(req.body.category),
         price: parseFloat(req.body.price),
         duration: parseFloat(req.body.duration),
-        plan: JSON.parse(req.body.plan),
+        plan,
         destination: req.body.destination,
         arrival: req.body.arrival,
         departure: req.body.departure,
@@ -263,8 +291,8 @@ toursRouter.post(
     ]),
     async (req, res, next) => {
       try {
+        const lang = req.get('lang') as 'en' | 'ru' | 'kg';
         const tourId = req.params.id;
-
         const existingTour = await Tour.findById(tourId);
 
         if (!existingTour) {
@@ -299,15 +327,49 @@ toursRouter.post(
               )
             : existingTour.galleryTour;
 
+        const parsedPlan = JSON.parse(req.body.plan);
+        const plan = parsedPlan.map(
+          (
+            planPoint: { title: ILanguages; planDescription: ILanguages },
+            index: number,
+          ) => {
+            const defaultTitle = existingTour.plan[index]
+              ? {
+                  ...existingTour.plan[index].title,
+                  [lang]: planPoint.title,
+                }
+              : { en: '', ru: '', kg: '' };
+            const defaultDescription = existingTour.plan[index]
+              ? {
+                  ...existingTour.plan[index].planDescription,
+                  [lang]: planPoint.planDescription,
+                }
+              : { en: '', ru: '', kg: '' };
+
+            return {
+              title: {
+                ...defaultTitle,
+                [lang]: planPoint.title,
+              },
+              planDescription: {
+                ...defaultDescription,
+                [lang]: planPoint.planDescription,
+              },
+            };
+          },
+        );
+
         existingTour.guides = existGuide || existingTour.guides;
         existingTour.name = req.body.name || existingTour.name;
         existingTour.mainImage = mainImage;
-        existingTour.description =
-          req.body.description || existingTour.description;
+        if (existingTour.description) {
+          existingTour.description[lang] =
+            req.body.description || existingTour.description[lang];
+        }
         existingTour.category = JSON.parse(req.body.category);
         existingTour.price = req.body.price || existingTour.price;
         existingTour.duration = req.body.duration || existingTour.duration;
-        existingTour.plan = JSON.parse(req.body.plan);
+        existingTour.plan = plan;
         existingTour.destination =
           req.body.destination || existingTour.destination;
         existingTour.arrival = req.body.arrival || existingTour.arrival;
@@ -319,7 +381,6 @@ toursRouter.post(
         existingTour.routes = JSON.parse(req.body.routes);
 
         await existingTour.save();
-
         return res.send(existingTour);
       } catch (e) {
         if (e instanceof mongoose.Error.ValidationError) {
