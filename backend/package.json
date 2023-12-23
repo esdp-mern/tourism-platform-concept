@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "ts-node fixtures.ts",
+    "rating": "ts-node rating.ts",
     "dev": "nodemon index.ts",
     "lint": "eslint *.ts {middleware,models,routers}/**/*.ts",
     "format:check": "prettier --check .",

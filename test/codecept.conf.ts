@@ -25,6 +25,7 @@ export const config: CodeceptJS.MainConfig = {
       "./step_definitions/mainSliderSteps.ts",
       "./step_definitions/registrationSteps.ts",
       "./step_definitions/signInSteps.ts",
+      "./step_definitions/newsSteps.ts"
     ],
   },
   name: "test",
