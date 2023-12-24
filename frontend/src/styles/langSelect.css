@@ -6,6 +6,7 @@
   transition: 0.2s;
 }
 
+.form-lang-open,
 .form-lang:hover {
   left: 0;
 }

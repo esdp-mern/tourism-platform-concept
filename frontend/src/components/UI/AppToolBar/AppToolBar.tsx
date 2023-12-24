@@ -85,7 +85,7 @@ const AppToolBar = () => {
         ref={toolBarRef}
       >
         <div
-          className="form-lang"
+          className={`form-lang ${langOptions ? 'form-lang-open' : ''}`}
           onClick={(e) => {
             e.stopPropagation();
             setLangOptions(!langOptions);

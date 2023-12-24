@@ -93,8 +93,12 @@ const OneTourInformation = () => {
             <table className="one-tour-inner-table">
               <tbody>
                 <tr>
-                  <td>Destination</td>
+                  <td>Country</td>
                   <td>{tour.country}</td>
+                </tr>
+                <tr>
+                  <td>Destination</td>
+                  <td>{tour.destination}</td>
                 </tr>
                 <tr>
                   <td>Arrival</td>
@@ -115,7 +119,7 @@ const OneTourInformation = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td>Departure</td>
+                  <td>Dress-code</td>
                   <td>{tour.dressCode}</td>
                 </tr>
                 <tr>
