@@ -5,6 +5,7 @@ import {
   fetchToursByFilter,
   fetchToursByPrice,
 } from '@/containers/tours/toursThunk';
+import { useParams } from 'next/navigation';
 
 const categoriesData = [
   { id: 'checkbox-1', label: 'history' },
@@ -15,6 +16,8 @@ const categoriesData = [
 ];
 
 const TourFilter = () => {
+  const params = useParams() as { pageNum: string };
+  const limitTours = 6;
   const [currentTab, setCurrentTab] = useState<
     'name' | 'categories' | 'min' | 'max' | null
   >(null);
@@ -22,6 +25,16 @@ const TourFilter = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  useEffect(() => {
+    if (params) {
+      setCurrentPage(parseInt(params.pageNum));
+    }
+  }, [params]);
+
+  const indexOfLastRecord = currentPage * limitTours;
+  const indexOfFirstRecord = indexOfLastRecord - limitTours;
 
   const toggleCategory = async (label: string) => {
     const updatedCategories = selectedCategories.includes(label)
@@ -36,18 +49,31 @@ const TourFilter = () => {
         fetchToursByFilter({
           type: 'categories',
           value: updatedCategories.join(','),
+          skip: indexOfFirstRecord,
+          limit: limitTours,
         }),
       );
       return;
     }
-    await dispatch(fetchTours());
+    await dispatch(
+      fetchTours({
+        skip: indexOfFirstRecord,
+        limit: limitTours,
+      }),
+    );
   };
 
   const filterByPrice = async (type: 'max' | 'min') => {
     setShowCategories(false);
     setCurrentTab(type);
     if (type && (type === 'min' || type === 'max')) {
-      await dispatch(fetchToursByPrice(type));
+      await dispatch(
+        fetchToursByPrice({
+          type,
+          skip: indexOfFirstRecord,
+          limit: limitTours,
+        }),
+      );
     }
   };
 
@@ -58,11 +84,21 @@ const TourFilter = () => {
     setSearchTerm(event.target.value);
     if (event.target.value.length) {
       await dispatch(
-        fetchToursByFilter({ type: 'name', value: event.target.value }),
+        fetchToursByFilter({
+          type: 'name',
+          value: event.target.value,
+          skip: indexOfFirstRecord,
+          limit: limitTours,
+        }),
       );
       return;
     }
-    await dispatch(fetchTours());
+    await dispatch(
+      fetchTours({
+        skip: indexOfFirstRecord,
+        limit: limitTours,
+      }),
+    );
   };
 
   const filterRef = useRef<HTMLDivElement | null>(null);

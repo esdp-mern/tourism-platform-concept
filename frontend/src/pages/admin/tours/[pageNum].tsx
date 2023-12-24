@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Pagination from '@/components/Pagination/Pagination';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchAdminTours, fetchTours } from '@/containers/tours/toursThunk';
-import { selectAllTours } from '@/containers/tours/toursSlice';
+import {
+  selectAllTours,
+  selectAllToursLength,
+} from '@/containers/tours/toursSlice';
 import TourItem from '@/components/TourListItem/TourListItem';
 import PageLoader from '@/components/Loaders/PageLoader';
 import { selectUser } from '@/containers/users/usersSlice';
@@ -13,8 +16,9 @@ import { setIsLightMode } from '@/containers/config/configSlice';
 const AllToursPage = () => {
   const dispatch = useAppDispatch();
   const tours = useAppSelector(selectAllTours);
+  const allToursLength = useAppSelector(selectAllToursLength);
   const user = useAppSelector(selectUser);
-  const [toursPerPage] = useState(6);
+  const toursPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
   const [currentTours, setCurrentTours] = useState<
     'all' | 'published' | 'nonPublished'
@@ -22,8 +26,7 @@ const AllToursPage = () => {
 
   const indexOfLastRecord = currentPage * toursPerPage;
   const indexOfFirstRecord = indexOfLastRecord - toursPerPage;
-  const currentRecords = tours.slice(indexOfFirstRecord, indexOfLastRecord);
-  const nPages = Math.ceil(tours.length / toursPerPage);
+  const nPages = Math.ceil(allToursLength / toursPerPage);
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -32,19 +35,33 @@ const AllToursPage = () => {
   useEffect(() => {
     switch (currentTours) {
       case 'all':
-        dispatch(fetchAdminTours(true));
-        break;
-      case 'nonPublished':
-        dispatch(fetchAdminTours());
+        dispatch(
+          fetchAdminTours({
+            all: true,
+            skip: indexOfFirstRecord,
+            limit: toursPerPage,
+          }),
+        );
         break;
       case 'published':
-        dispatch(fetchTours());
+        dispatch(fetchTours({ skip: indexOfFirstRecord, limit: toursPerPage }));
+        break;
+      case 'nonPublished':
+        dispatch(
+          fetchAdminTours({ skip: indexOfFirstRecord, limit: toursPerPage }),
+        );
         break;
       default:
-        dispatch(fetchAdminTours(true));
+        dispatch(
+          fetchAdminTours({
+            all: true,
+            skip: indexOfFirstRecord,
+            limit: toursPerPage,
+          }),
+        );
         break;
     }
-  }, [currentTours, dispatch]);
+  }, [currentTours, dispatch, currentPage]);
 
   if (!user || user.role !== userRoles.admin) {
     return <Custom404 errorType="tour" />;
@@ -90,7 +107,7 @@ const AllToursPage = () => {
             ) : (
               <div>
                 <div className="tours-admin-page">
-                  {currentRecords.map((tour) => (
+                  {tours.map((tour) => (
                     <TourItem tour={tour} key={tour._id} isAdmin />
                   ))}
                 </div>
