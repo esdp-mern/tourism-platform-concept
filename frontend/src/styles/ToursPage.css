@@ -4,7 +4,7 @@
 }
 
 .all-tours {
-  background-color: #f6f6f6;
+  background-color: #fff;
 }
 
 .tours-page {
@@ -12,7 +12,7 @@
   flex-wrap: wrap;
   gap: 40px 20px;
   justify-content: center;
-  padding: 150px 10px 0;
+  padding: 50px 10px 0;
 }
 
 .tours-page-title {
@@ -134,10 +134,6 @@
 }
 
 @media (max-width: 1020px) {
-  .tours-page {
-    padding-top: 100px;
-  }
-
   .tours-page-title {
     margin: 0;
     font-size: 36px;
