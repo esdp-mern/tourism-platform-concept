@@ -414,7 +414,7 @@ const run = async () => {
         included: ['Museum Tickets', 'Group Guide', 'Transport'],
         galleryTour: ['fixtures/issyk-kul.jpeg'],
         country: 'Kyrgyzstan',
-        isPublished: true,
+        isPublished: false,
         routes: [
           [
             {

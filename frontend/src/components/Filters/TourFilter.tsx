@@ -6,6 +6,7 @@ import {
   fetchToursByPrice,
 } from '@/containers/tours/toursThunk';
 import magnifierIcon from '@/assets/images/magnifier.svg';
+import { useParams } from 'next/navigation';
 
 const categoriesData = [
   { id: 'checkbox-1', label: 'history' },
@@ -18,28 +19,54 @@ const categoriesData = [
 type TCurrentTab = 'name' | 'categories' | 'min' | 'max';
 
 const TourFilter = () => {
+  const params = useParams() as { pageNum: string };
+  const limitTours = 6;
+
   const dispatch = useAppDispatch();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [currentTab, setCurrentTab] = useState<TCurrentTab | null>(null);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  useEffect(() => {
+    if (params) {
+      setCurrentPage(parseInt(params.pageNum));
+    }
+  }, [params]);
+
+  const indexOfLastRecord = currentPage * limitTours;
+  const indexOfFirstRecord = indexOfLastRecord - limitTours;
 
   const fetchByType = async () => {
     if ((currentTab === 'name' && searchTerm.length) || searchTerm.length) {
       dispatch(
-        fetchToursByFilter({ type: currentTab ?? 'name', value: searchTerm }),
+        fetchToursByFilter({
+          type: currentTab ?? 'name',
+          value: searchTerm,
+          skip: indexOfFirstRecord,
+          limit: limitTours,
+        }),
       );
     } else if (currentTab === 'min' || currentTab === 'max') {
-      dispatch(fetchToursByPrice(currentTab));
+      dispatch(
+        fetchToursByPrice({
+          type: currentTab,
+          skip: indexOfFirstRecord,
+          limit: limitTours,
+        }),
+      );
     } else if (currentTab === 'categories' && selectedCategories.length) {
       dispatch(
         fetchToursByFilter({
           type: currentTab,
           value: selectedCategories.join(','),
+          skip: indexOfFirstRecord,
+          limit: limitTours,
         }),
       );
     } else {
-      dispatch(fetchTours());
+      dispatch(fetchTours({ skip: indexOfFirstRecord, limit: limitTours }));
     }
   };
 
