@@ -10,7 +10,7 @@ const GuideInfo = () => {
   const guide = useAppSelector(selectOneGuide);
   const tours = useAppSelector(selectGuideTours);
 
-  if (!guide || !tours) return null;
+  if (!guide || !tours.length) return null;
 
   return (
     <Fade>

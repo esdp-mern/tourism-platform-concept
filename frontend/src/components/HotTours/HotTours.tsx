@@ -8,9 +8,13 @@ import { Tour } from '@/type';
 const HotTours = () => {
   const tours = useAppSelector(selectAllTours);
   const carouselRef = useRef<HTMLDivElement | null>(null);
-  const [carouselTours, setCarouselTours] = useState<Tour[]>(
-    tours.length ? [tours[0], tours[1], tours[2], tours[3]] : [],
-  );
+  const [carouselTours, setCarouselTours] = useState<Tour[]>([]);
+
+  useEffect(() => {
+    if (tours.length) {
+      setCarouselTours(tours.slice(0, 4));
+    }
+  }, [tours]);
 
   const slide = useCallback(
     (isNext: boolean) => {
