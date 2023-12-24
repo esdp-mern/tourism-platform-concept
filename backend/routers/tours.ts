@@ -84,6 +84,7 @@ toursRouter.get('/filterByMaxPrice', async (_, res) => {
 });
 toursRouter.get('/', async (req, res) => {
   try {
+    const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
     let tours;
 
     if (req.query.guide) {
@@ -97,7 +98,13 @@ toursRouter.get('/', async (req, res) => {
           select: 'username displayName role avatar email',
         },
       });
-      return res.send(tours);
+      const updatedTours = tours.map((tour) => {
+        return {
+          ...tour.toObject(),
+          name: tour.toObject().name?.[lang] || tour.toObject().name?.en,
+        };
+      });
+      return res.send(updatedTours);
     }
     tours = await Tour.find({ isPublished: true }).populate({
       path: 'guides',
@@ -106,7 +113,13 @@ toursRouter.get('/', async (req, res) => {
         select: 'username displayName role avatar email',
       },
     });
-    return res.send(tours);
+    const updatedTours = tours.map((tour) => {
+      return {
+        ...tour.toObject(),
+        name: tour.toObject().name?.[lang] || tour.toObject().name?.en,
+      };
+    });
+    return res.send(updatedTours);
   } catch (e) {
     return res.status(500).send('Error');
   }
@@ -114,6 +127,7 @@ toursRouter.get('/', async (req, res) => {
 
 toursRouter.get('/all', async (req, res) => {
   try {
+    const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
     let tours;
 
     if (req.query.true) {
@@ -124,7 +138,13 @@ toursRouter.get('/all', async (req, res) => {
           select: 'username displayName role avatar email',
         },
       });
-      return res.send(tours);
+      const updatedTours = tours.map((tour) => {
+        return {
+          ...tour.toObject(),
+          name: tour.toObject().name?.[lang] || tour.toObject().name?.en,
+        };
+      });
+      return res.send(updatedTours);
     }
 
     tours = await Tour.find({ isPublished: false }).populate({
@@ -134,7 +154,13 @@ toursRouter.get('/all', async (req, res) => {
         select: 'username displayName role avatar email',
       },
     });
-    return res.send(tours);
+    const updatedTours = tours.map((tour) => {
+      return {
+        ...tour.toObject(),
+        name: tour.toObject().name?.[lang] || tour.toObject().name?.en,
+      };
+    });
+    return res.send(updatedTours);
   } catch (e) {
     return res.status(500).send('Error');
   }
@@ -167,7 +193,7 @@ toursRouter.get('/:id', async (req, res) => {
     const tourReviews = {
       _id: tour._id,
       guides: tour.guides,
-      name: tour.name,
+      name: tour.name ? tour.name[lang] : tour.name,
       mainImage: tour.mainImage,
       description: tour.description ? tour.description[lang] : tour.description,
       category: tour.category,
@@ -256,7 +282,12 @@ toursRouter.post(
         guides: existGuide,
         name: req.body.name,
         mainImage: mainImage,
-        description: req.body.description,
+        description: {
+          en: '',
+          ru: '',
+          kg: '',
+          [lang]: req.body.description,
+        },
         category: JSON.parse(req.body.category),
         price: parseFloat(req.body.price),
         duration: parseFloat(req.body.duration),
@@ -360,7 +391,8 @@ toursRouter.post(
         );
 
         existingTour.guides = existGuide || existingTour.guides;
-        existingTour.name = req.body.name || existingTour.name;
+        existingTour.name =
+          { ...existingTour.name, [lang]: req.body.name } || existingTour.name;
         existingTour.mainImage = mainImage;
         if (existingTour.description) {
           existingTour.description[lang] =

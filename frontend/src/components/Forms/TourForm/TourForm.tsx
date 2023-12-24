@@ -9,20 +9,17 @@ import {
   selectPostTourError,
   selectPostTourLoading,
 } from '@/containers/tours/toursSlice';
-import { editTour, fetchTour, postTour } from '@/containers/tours/toursThunk';
+import { editTour, postTour } from '@/containers/tours/toursThunk';
 import { useRouter } from 'next/router';
 import TextFieldGuide from '@/components/UI/TextField/components/TextFieldGuide';
 import FilesInput from '@/components/UI/FileInput/FilesInput';
 import { nanoid } from 'nanoid';
 import TextField from '@/components/UI/TextField/TextField';
 import invisibleIcon from '@/assets/images/invisible.svg';
-import {
-  addAlert,
-  selectLanguage,
-  setLang,
-} from '@/containers/users/usersSlice';
+import { addAlert } from '@/containers/users/usersSlice';
 import SelectCategory from '@/components/SelectCategory/SelectCategory';
-import { apiUrl, mapMarkerCategories } from '@/constants';
+import { mapMarkerCategories } from '@/constants';
+import { selectAdminGuides } from '@/containers/guides/guidesSlice';
 
 interface Props {
   isEdit?: boolean;
@@ -37,11 +34,6 @@ const colors = [
   '#fabc29',
   '#cb50ff',
 ];
-const languages = {
-  en: '',
-  ru: '',
-  kg: '',
-};
 const initialState = {
   name: '',
   country: '',
@@ -75,8 +67,8 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
   const dispatch = useAppDispatch();
   const error = useSelector(selectPostTourError);
   const loading = useAppSelector(selectPostTourLoading);
-  const lang = useAppSelector(selectLanguage);
   const tour = useAppSelector(selectOneTour);
+  const guides = useAppSelector(selectAdminGuides);
   const routers = useRouter();
   const [state, setState] = useState<ITourMutation>(
     isEdit && tour
@@ -112,11 +104,9 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
     checkpointId: '',
   });
   const [colorInputSelected, setColorInputSelected] = useState(-1);
-  const [langOptions, setLangOptions] = useState(false);
 
   useEffect(() => {
     document.addEventListener('click', () => {
-      setLangOptions(false);
       setMarkersInputSelected({
         routeIndex: -1,
         checkpointId: '',
@@ -469,48 +459,11 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
     }));
   };
 
-  const onLangSwitch = (language: string) => {
-    dispatch(setLang(language));
-    dispatch(fetchTour(idTour || ''));
-  };
-
   return (
     <div>
       <form className="form-tour" onSubmit={submitFormHandler}>
         <h2 className="form-tour-title">
           {isEdit ? 'Edit Tour' : 'Create Tour'}
-          <div
-            className="form-lang"
-            onClick={(e) => {
-              e.stopPropagation();
-              setLangOptions(!langOptions);
-            }}
-          >
-            <span className="form-lang-value">
-              <img src={apiUrl + `/fixtures/${lang}.jpg`} alt={lang} />
-            </span>
-            <div
-              className={`form-lang-options ${
-                langOptions ? 'form-lang-options-open' : ''
-              }`}
-            >
-              {Object.keys(languages).map(
-                (language) =>
-                  language !== lang && (
-                    <span
-                      className="form-lang-option"
-                      onClick={() => onLangSwitch(language)}
-                      key={language}
-                    >
-                      <img
-                        src={apiUrl + `/fixtures/${language}.jpg`}
-                        alt={language}
-                      />
-                    </span>
-                  ),
-              )}
-            </div>
-          </div>
         </h2>
         <div className="input-tour-wrap">
           <input
@@ -887,7 +840,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
                   onMarkerSelect={() => {}}
                 />
                 {route.map((point) => (
-                  <div className="tour-route-point" key={point.id}>
+                  <div className="tour-route-point" key={nanoid()}>
                     <span
                       className="remove-checkpoint"
                       onClick={() =>

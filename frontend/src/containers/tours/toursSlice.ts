@@ -238,7 +238,6 @@ export const selectPostTourLoading = (state: RootState) =>
   state.tours.postTourLoading;
 export const selectPostTourError = (state: RootState) =>
   state.tours.postTourError;
-
 export const selectEditTourLoading = (state: RootState) =>
   state.tours.editLoading;
 export const selectDeleteTourLoading = (state: RootState) =>

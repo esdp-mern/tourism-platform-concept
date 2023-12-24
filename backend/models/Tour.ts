@@ -9,23 +9,18 @@ const TourSchema = new mongoose.Schema({
     },
   ],
   name: {
-    type: String,
-    required: true,
+    kg: String,
+    ru: String,
+    en: String,
   },
   mainImage: {
     type: String,
     required: true,
   },
   description: {
-    kg: {
-      type: String,
-    },
-    ru: {
-      type: String,
-    },
-    en: {
-      type: String,
-    },
+    kg: String,
+    ru: String,
+    en: String,
   },
   category: {
     type: [String],
@@ -43,26 +38,14 @@ const TourSchema = new mongoose.Schema({
     type: [
       {
         title: {
-          kg: {
-            type: String,
-          },
-          ru: {
-            type: String,
-          },
-          en: {
-            type: String,
-          },
+          kg: String,
+          ru: String,
+          en: String,
         },
         planDescription: {
-          kg: {
-            type: String,
-          },
-          ru: {
-            type: String,
-          },
-          en: {
-            type: String,
-          },
+          kg: String,
+          ru: String,
+          en: String,
         },
       },
     ],

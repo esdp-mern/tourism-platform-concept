@@ -2,16 +2,25 @@ import React, { useEffect, useRef, useState } from 'react';
 import NavLink from 'next/link';
 import UserMenu from './components/UserMenu';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { selectUser } from '@/containers/users/usersSlice';
+import {
+  selectLanguage,
+  selectUser,
+  setLang,
+} from '@/containers/users/usersSlice';
 import ToolBarMenu from '@/components/UI/AppToolBar/components/ToolBarMenu';
 import { usePathname } from 'next/navigation';
-import { fetchTours } from '@/containers/tours/toursThunk';
+import { fetchTour, fetchTours } from '@/containers/tours/toursThunk';
+import { apiUrl, languages } from '@/constants';
+import { selectOneTour } from '@/containers/tours/toursSlice';
 
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);
+  const lang = useAppSelector(selectLanguage);
+  const tour = useAppSelector(selectOneTour);
   const dispatch = useAppDispatch();
   const [navShow, setNavShow] = useState(false);
   const [menuShow, setMenuShow] = useState(false);
+  const [langOptions, setLangOptions] = useState(false);
   const pathname = usePathname();
 
   const { isLightMode } = useAppSelector((state) => state.config);
@@ -52,6 +61,7 @@ const AppToolBar = () => {
     document.addEventListener('click', () => {
       setNavShow(false);
       setMenuShow(false);
+      setLangOptions(false);
     });
 
     return () => {
@@ -59,6 +69,12 @@ const AppToolBar = () => {
       document.removeEventListener('scroll', setClassList);
     };
   }, [isLightMode, setClassList, setEventListener]);
+
+  const onLangSwitch = (language: string) => {
+    dispatch(setLang(language));
+    dispatch(fetchTour(tour?._id || ''));
+    dispatch(fetchTours());
+  };
 
   return (
     <>
@@ -68,6 +84,38 @@ const AppToolBar = () => {
         }`}
         ref={toolBarRef}
       >
+        <div
+          className="form-lang"
+          onClick={(e) => {
+            e.stopPropagation();
+            setLangOptions(!langOptions);
+          }}
+        >
+          <span className="form-lang-value">
+            <img src={apiUrl + `/fixtures/${lang}.jpg`} alt={lang} />
+          </span>
+          <div
+            className={`form-lang-options form-lang-options-${
+              langOptions ? 'open' : 'closed'
+            }`}
+          >
+            {Object.keys(languages).map(
+              (language) =>
+                language !== lang && (
+                  <span
+                    className="form-lang-option"
+                    onClick={() => onLangSwitch(language)}
+                    key={language}
+                  >
+                    <img
+                      src={apiUrl + `/fixtures/${language}.jpg`}
+                      alt={language}
+                    />
+                  </span>
+                ),
+            )}
+          </div>
+        </div>
         <div className="container">
           <div className="tool-bar">
             <div className="logo-wrap">

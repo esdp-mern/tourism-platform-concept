@@ -45,7 +45,7 @@ const initialState: UsersState = {
   editorModal: false,
   changeRoleLoading: false,
   patchLoading: false,
-  lang: 'kg',
+  lang: 'en',
 };
 
 const getFilteredUrl = (url: string) =>
