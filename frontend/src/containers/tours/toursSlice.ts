@@ -19,6 +19,7 @@ import { Tour, TourFull, ValidationError } from '@/type';
 
 interface ToursState {
   tours: Tour[];
+  allToursLength: number;
   tour: TourFull | null;
   fetchAllLoading: boolean;
   fetchAdminTourLoading: boolean;
@@ -40,6 +41,7 @@ interface ToursState {
 
 const initialState: ToursState = {
   tours: [],
+  allToursLength: 0,
   tour: null,
   fetchAllLoading: false,
   fetchAdminTourLoading: false,
@@ -81,7 +83,16 @@ export const toursSlice = createSlice({
     builder.addCase(fetchTours.pending, (state) => {
       state.fetchAllLoading = true;
     });
-    builder.addCase(fetchTours.fulfilled, (state, { payload: tours }) => {
+    builder.addCase(fetchTours.fulfilled, (state, { payload }) => {
+      let tours: Tour[];
+
+      if (payload instanceof Array) {
+        tours = payload;
+      } else {
+        tours = payload.tours;
+        state.allToursLength = payload.allToursLength;
+      }
+
       state.tours = tours;
       tours.length >= 4
         ? (state.hotTours = [tours[0], tours[1], tours[2], tours[3]])
@@ -123,8 +134,14 @@ export const toursSlice = createSlice({
     builder.addCase(fetchAdminTours.pending, (state) => {
       state.fetchAdminTourLoading = true;
     });
-    builder.addCase(fetchAdminTours.fulfilled, (state, { payload: tours }) => {
-      state.tours = tours;
+    builder.addCase(fetchAdminTours.fulfilled, (state, { payload }) => {
+      if (payload instanceof Array) {
+        state.tours = payload;
+      } else {
+        state.tours = payload.tours;
+        state.allToursLength = payload.allToursLength;
+      }
+
       state.fetchAdminTourLoading = false;
     });
     builder.addCase(fetchAdminTours.rejected, (state) => {
@@ -224,6 +241,8 @@ export const toursSlice = createSlice({
 export const { resetPostReviewError, showModal } = toursSlice.actions;
 export const toursReducer = toursSlice.reducer;
 export const selectAllTours = (state: RootState) => state.tours.tours;
+export const selectAllToursLength = (state: RootState) =>
+  state.tours.allToursLength;
 export const selectOneTour = (state: RootState) => state.tours.tour;
 export const selectFetchAllLoading = (state: RootState) =>
   state.tours.fetchAllLoading;
