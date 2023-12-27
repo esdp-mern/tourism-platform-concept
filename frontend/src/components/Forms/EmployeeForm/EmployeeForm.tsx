@@ -47,11 +47,11 @@ const EmployeeForm: React.FC<Props> = ({
         };
         await dispatch(editEmployees(obj)).unwrap();
         dispatch(addEmployee(state));
-        routers.push('/about').then((r) => r);
+        routers.push('/admin/employees/all').then((r) => r);
       } else {
         await dispatch(postEmployees(state)).unwrap();
       }
-      routers.push('/about').then((r) => r);
+      routers.push('/admin/employees/all').then((r) => r);
     } catch (e) {
       alert('Invalid field');
     }

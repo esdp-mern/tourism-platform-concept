@@ -12,6 +12,7 @@ import penIcon from '@/assets/images/pen-icon.svg';
 import { IAboutUs, IAboutUsBlock } from '@/type';
 import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
 import { userRoles } from '@/constants';
+import Link from 'next/link';
 
 const About = () => {
   const dispatch = useAppDispatch();
@@ -284,7 +285,18 @@ const About = () => {
         </div>
         <div className="container">
           <Fade>
-            <EmployeeItem />
+            <div className="about-page-team">
+              <h3 className="about-page-team-title">Meet Our Team</h3>
+              <p className="about-page-team-txt">
+                Duis aute irure dolor in reprehenderit in voluptate velit
+              </p>
+              {user && user.role === userRoles.admin && (
+                <Link href="/employees/create" className="about-page-team-link">
+                  Add new member
+                </Link>
+              )}
+              <EmployeeItem />
+            </div>
           </Fade>
         </div>
         <div className="about-page-guide">
