@@ -126,7 +126,7 @@ const OneTourOrderForm = () => {
       >
         <NavLink href="/" className="one-tour-order-form-nav-link">
           {orderButtonLoading
-            ? 'Booking...'
+            ? T('/oneTourPage', 'tour_order_form_button_loading')
             : T('/oneTourPage', 'tour_order_form_button')}
         </NavLink>
       </button>

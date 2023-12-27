@@ -126,8 +126,13 @@
   },
   "tour_order_form_button": {
     "en": "book this tour",
-    "ru": "Забронировать",
-    "kg": "Броньдоо"
+    "ru": "забронировать",
+    "kg": "броньдоо"
+  },
+  "tour_order_form_button_loading": {
+    "en": "booking...",
+    "ru": "бронирование...",
+    "kg": "броньдоо..."
   },
   "tour_order_form_phone": {
     "en": "Phone",
