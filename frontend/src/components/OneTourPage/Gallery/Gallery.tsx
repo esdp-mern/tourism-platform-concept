@@ -8,6 +8,7 @@ import {
 import { apiUrl } from '@/constants';
 import GalleryItem from '@/components/OneTourPage/Gallery/GalleryItem';
 import GalleryModal from '@/components/OneTourPage/Gallery/GalleryModal';
+import { T } from '@/store/translation';
 
 const Gallery = () => {
   const tour = useAppSelector(selectOneTour);
@@ -69,7 +70,7 @@ const Gallery = () => {
   return (
     <>
       <div className="one-tour-gallery">
-        <h2>Tour Gallery</h2>
+        <h2>{T('/oneTourPage', 'tour_gallery')}</h2>
         <div className="one-tour-photos">
           <GalleryItem tour={tour} onOpenModal={onOpenModal} />
         </div>

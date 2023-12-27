@@ -11,6 +11,7 @@ import emailIcon from '../../assets/images/email-icon.svg';
 import phoneIcon from '../../assets/images/phone-icon.svg';
 import NavLink from 'next/link';
 import { TextFieldPhone } from '@/components/UI/TextField/components/TextFieldPhone';
+import { T } from '@/store/translation';
 
 export interface IChangeEvent {
   target: { name: string; value: string };
@@ -69,7 +70,9 @@ const OneTourOrderForm = () => {
 
   return (
     <form className="one-tour-order-form" onSubmit={sendData}>
-      <h4 className="one-tour-order-form-title">Book Now</h4>
+      <h4 className="one-tour-order-form-title">
+        {T('/oneTourPage', 'tour_order_form_title')}
+      </h4>
       <div className="one-tour-order-form-inputs">
         <TextField
           name="guide"
@@ -77,7 +80,7 @@ const OneTourOrderForm = () => {
           value={state.guide}
           onChange={changeValue}
           icon={guideIcon.src}
-          label="Select guide"
+          label={T('/oneTourPage', 'tour_order_form_guide_select')}
           required
           isSubmit={isSubmit}
         />
@@ -87,7 +90,7 @@ const OneTourOrderForm = () => {
           value={state.date}
           onChange={changeValue}
           icon={calendarIcon.src}
-          label="Pick Up Date"
+          label={T('/oneTourPage', 'tour_order_form_date_select')}
           required
           isSubmit={isSubmit}
         />
@@ -109,7 +112,7 @@ const OneTourOrderForm = () => {
               onChange={changeValue}
               icon={phoneIcon.src}
               isSubmit={isSubmit}
-              label="Phone"
+              label={T('/oneTourPage', 'tour_order_form_phone')}
               required
             />
           </>
@@ -122,7 +125,9 @@ const OneTourOrderForm = () => {
         disabled={orderButtonLoading}
       >
         <NavLink href="/" className="one-tour-order-form-nav-link">
-          {orderButtonLoading ? 'Booking...' : 'Book this tour'}
+          {orderButtonLoading
+            ? 'Booking...'
+            : T('/oneTourPage', 'tour_order_form_button')}
         </NavLink>
       </button>
     </form>

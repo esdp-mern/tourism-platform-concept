@@ -3,6 +3,7 @@ import PhoneInputWithCountrySelect from 'react-phone-number-input';
 import React, { useEffect, useState } from 'react';
 import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
 import { E164Number } from 'libphonenumber-js';
+import { T } from '@/store/translation';
 
 interface Props {
   name: string;
@@ -38,7 +39,7 @@ export const TextFieldPhone: React.FC<Props> = (props) => {
   return (
     <div className="text-field">
       <PhoneInputWithCountrySelect
-        placeholder="Phone"
+        placeholder={T('/oneTourPage', 'tour_order_form_phone')}
         internationalIcon={internationalIcon}
         value={props.value}
         onChange={(e) => handleChange(e)}
