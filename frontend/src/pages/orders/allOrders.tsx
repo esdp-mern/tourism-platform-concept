@@ -9,6 +9,7 @@ import {
   changeOrderStatus,
   deleteOrder,
   fetchOrders,
+  sendOrderEmailToTheUser,
 } from '@/containers/orders/ordersThunk';
 import { IOrder2 } from '@/type';
 import PageLoader from '@/components/Loaders/PageLoader';
@@ -91,6 +92,17 @@ const AllOrders = () => {
     dragStartHandler('', '');
   };
 
+  const sendEmail = async (e: React.MouseEvent, order: IOrder2) => {
+    e.stopPropagation();
+
+    try {
+      await dispatch(sendOrderEmailToTheUser(order._id)).unwrap();
+      dispatch(fetchOrders());
+    } catch (e) {
+      // nothing
+    }
+  };
+
   return (
     <div className="container" onClick={() => dragStartHandler('', '')}>
       <PageLoader />
@@ -165,6 +177,12 @@ const AllOrders = () => {
                     >
                       &#215;
                     </span>
+                    {order.status === 'approved' && !order.isSendEmail && (
+                      <span
+                        className="send-email-order"
+                        onClick={(e) => sendEmail(e, order)}
+                      ></span>
+                    )}
                     <span className="order-datetime">
                       {dayjs(order.datetime).format('DD.MM.YY HH:MM') || '-'}
                     </span>

@@ -3,6 +3,9 @@ import Order from '../models/Order';
 import mongoose from 'mongoose';
 import auth from '../middleware/auth';
 import permit from '../middleware/permit';
+import nodemailer from 'nodemailer';
+import Tour from '../models/Tour';
+import config from '../config';
 
 const ordersRouter = express.Router();
 
@@ -109,5 +112,81 @@ ordersRouter.patch(
     }
   },
 );
+
+ordersRouter.post('/sendEmail/:id', async (req, res, next) => {
+  try {
+    const order = await Order.findById(req.params.id);
+
+    if (!order) {
+      return res.status(404).send('Order not found!');
+    }
+
+    if (order.status === 'approved') {
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: config.auth,
+      });
+
+      const blockStyle: string = `
+          max-width: 700px;
+          border: 3px solid #75c15b;
+          border-radius: 10px;
+          padding: 10px;
+          margin: 0;
+          font-family: JetBrains Mono, sans-serif;
+        `;
+
+      const hrStyle = `
+          width: 3px;
+          height: 30px;
+          background-color: #75c15b;
+          border: none;
+          margin: 0;
+          margin-left: 10%;
+        `;
+
+      const tour = await Tour.findById(order.tour);
+
+      let error: Error | null = null;
+
+      transporter.sendMail(
+        {
+          from: `Tourism Platform Concept <${config.auth.user}>`,
+          to: order.email,
+          subject: tour?.name ?? 'TPC',
+          html: `
+              <div>
+                <h2 style="${blockStyle}">Ваше заявление на бронирование тура было успешно одобрено!</h2>
+                <hr style="${hrStyle}">
+                <h2 style="${blockStyle}margin-left: 5%;">${order.price} сом</h2>
+              </div>
+            `,
+        },
+        (err) => {
+          if (err) {
+            error = err;
+          }
+        },
+      );
+
+      if (error) {
+        return res.status(500).send('Something went wrong!');
+      } else {
+        order.isSendEmail = true;
+        await order.save();
+        return res.send('The message was successfully delivered');
+      }
+    } else {
+      return res
+        .status(400)
+        .send('This order must have a status of "approved"');
+    }
+  } catch (e) {
+    if (e instanceof mongoose.Error.ValidationError) {
+      return res.status(400).send(e);
+    }
+    return next(e);
+  }
+});
 
 export default ordersRouter;

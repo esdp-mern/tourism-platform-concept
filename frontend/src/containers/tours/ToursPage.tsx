@@ -21,7 +21,7 @@ const ToursPage = () => {
   useEffect(() => {
     dispatch(setIsLightMode(true));
     dispatch(fetchPlatformReviews());
-    dispatch(fetchTours());
+    dispatch(fetchTours({ limit: 6 }));
   }, [dispatch]);
 
   return (
@@ -32,7 +32,7 @@ const ToursPage = () => {
         <div className="container">
           <h2 className="tours-page-title">Featured Tours</h2>
           <div className="tours-page">
-            {tours.slice(0, 6).map((tour) => (
+            {tours.map((tour) => (
               <TourListItem tour={tour} key={tour._id} />
             ))}
           </div>

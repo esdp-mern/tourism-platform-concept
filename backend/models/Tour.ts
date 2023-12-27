@@ -90,6 +90,10 @@ const TourSchema = new mongoose.Schema({
     required: true,
     default: false,
   },
+  rating: {
+    type: Number,
+    default: 5,
+  },
   routes: [],
 });
 

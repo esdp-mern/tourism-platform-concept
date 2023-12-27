@@ -32,6 +32,10 @@ const GuideSchema = new mongoose.Schema({
     required: true,
     default: false,
   },
+  rating: {
+    type: Number,
+    default: 5,
+  },
 });
 
 const Guide = mongoose.model('Guide', GuideSchema);

@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Pagination from '@/components/Pagination/Pagination';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchTours } from '@/containers/tours/toursThunk';
-import { selectAllTours } from '@/containers/tours/toursSlice';
+import {
+  selectAllTours,
+  selectAllToursLength,
+} from '@/containers/tours/toursSlice';
 import TourItem from '@/components/TourListItem/TourListItem';
 import PageLoader from '@/components/Loaders/PageLoader';
 import { setIsLightMode } from '@/containers/config/configSlice';
@@ -10,19 +13,26 @@ import TourFilter from '@/components/Filters/TourFilter';
 
 const AllToursPage = () => {
   const dispatch = useAppDispatch();
-  let tours = useAppSelector(selectAllTours);
-  const [toursPerPage] = useState(6);
+  const tours = useAppSelector(selectAllTours);
+  const allToursLength = useAppSelector(selectAllToursLength);
+
   const [currentPage, setCurrentPage] = useState(1);
+
+  const toursPerPage = 6;
 
   const indexOfLastRecord = currentPage * toursPerPage;
   const indexOfFirstRecord = indexOfLastRecord - toursPerPage;
-  const currentRecords = tours.slice(indexOfFirstRecord, indexOfLastRecord);
-  const nPages = Math.ceil(tours.length / toursPerPage);
+  const nPages = Math.ceil(allToursLength / toursPerPage);
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
-    dispatch(fetchTours);
-  }, [dispatch]);
+    dispatch(
+      fetchTours({
+        skip: indexOfFirstRecord,
+        limit: toursPerPage,
+      }),
+    );
+  }, [dispatch, currentPage]);
 
   const onSetCurrentPage = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -38,7 +48,7 @@ const AllToursPage = () => {
         <div>
           <div>
             <div className="tours-page">
-              {currentRecords.map((tour) => (
+              {tours.map((tour) => (
                 <TourItem tour={tour} key={tour._id} />
               ))}
             </div>

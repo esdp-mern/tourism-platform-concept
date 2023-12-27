@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IOrder, IOrderForm } from '@/type';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { selectOneTour } from '@/containers/tours/toursSlice';
@@ -9,9 +9,10 @@ import guideIcon from '../../assets/images/guide-icon.svg';
 import calendarIcon from '../../assets/images/calendar-order-icon.svg';
 import emailIcon from '../../assets/images/email-icon.svg';
 import phoneIcon from '../../assets/images/phone-icon.svg';
-import NavLink from 'next/link';
+import Link from 'next/link';
 import { TextFieldPhone } from '@/components/UI/TextField/components/TextFieldPhone';
 import { T } from '@/store/translation';
+import { useRouter } from 'next/router';
 
 export interface IChangeEvent {
   target: { name: string; value: string };
@@ -20,18 +21,25 @@ export interface IChangeEvent {
 const initialState: IOrderForm = {
   guide: '',
   date: '',
-  email: '',
-  phone: '',
 };
 
 const OneTourOrderForm = () => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const user = useAppSelector(selectUser);
   const tour = useAppSelector(selectOneTour);
   const { orderButtonLoading } = useAppSelector((state) => state.tours);
 
   const [state, setState] = useState<IOrderForm>(initialState);
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!user) {
+      setState((prevState) => ({ ...prevState, email: '', phone: '' }));
+    } else {
+      setState(initialState);
+    }
+  }, [user]);
 
   const changeValue = (e: IChangeEvent) => {
     const { name, value } = e.target;
@@ -49,6 +57,7 @@ const OneTourOrderForm = () => {
       (key: keyof IOrderForm) => state[key]?.length === 0,
     );
 
+    console.log(isNotValid);
     if (isNotValid || !tour) return;
 
     try {
@@ -60,9 +69,14 @@ const OneTourOrderForm = () => {
 
       if (user) {
         order.user = user._id;
+        order.email = user.email;
+        order.phone = user.phone;
       }
 
-      await dispatch(createOrder(order));
+      console.log(order);
+
+      await dispatch(createOrder(order)).unwrap();
+      void router.push('/');
     } catch (e) {
       // nothing
     }
