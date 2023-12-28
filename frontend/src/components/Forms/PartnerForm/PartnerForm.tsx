@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { INewsMutation, IPartnerMutation } from '@/type';
+import { IPartnerMutation } from '@/type';
 import { useAppDispatch } from '@/store/hooks';
 import { useSelector } from 'react-redux';
 import { selectPostTourError } from '@/containers/tours/toursSlice';
@@ -112,7 +112,7 @@ const PartnerForm: React.FC<Props> = ({ idPartner, editingPartner }) => {
       </div>
       <div className="form-wrap-btn">
         <button type="submit" className="form-btn">
-          Save slider
+          Save
         </button>
       </div>
     </form>
