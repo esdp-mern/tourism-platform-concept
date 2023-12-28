@@ -1,4 +1,4 @@
-import { IPartnerOrder, ValidationError } from '@/type';
+import { IPartner, IPartnerOrder, ValidationError } from '@/type';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import { RootState } from '@/store/store';
@@ -7,7 +7,10 @@ import {
   changeStatusPartnerOrder,
   createPartner,
   createPartnerOrder,
+  deletePartner,
   deletePartnerOrder,
+  editPartner,
+  fetchOnePartner,
   fetchPartnerOrders,
 } from '@/containers/partners/partnersThunk';
 
@@ -22,6 +25,10 @@ interface NewsState {
   changeStatusLoading: boolean;
   postPartnerLoading: boolean;
   postPartnerError: ValidationError | null;
+  editLoading: boolean;
+  deletePartnerLoading: boolean | string;
+  onePartner: IPartner | null;
+  fetchOnePartnerLoading: boolean;
 }
 
 const initialState: NewsState = {
@@ -35,6 +42,10 @@ const initialState: NewsState = {
   changeStatusLoading: false,
   postPartnerLoading: false,
   postPartnerError: null,
+  editLoading: false,
+  deletePartnerLoading: false,
+  onePartner: null,
+  fetchOnePartnerLoading: false,
 };
 
 export const partnersSlice = createSlice({
@@ -115,6 +126,35 @@ export const partnersSlice = createSlice({
       state.postPartnerLoading = false;
       state.postPartnerError = error || null;
     });
+    builder.addCase(fetchOnePartner.pending, (state) => {
+      state.fetchOnePartnerLoading = true;
+    });
+    builder.addCase(fetchOnePartner.fulfilled, (state, action) => {
+      state.fetchOnePartnerLoading = false;
+      state.onePartner = action.payload;
+    });
+    builder.addCase(fetchOnePartner.rejected, (state) => {
+      state.fetchOnePartnerLoading = false;
+    });
+    builder.addCase(editPartner.pending, (state) => {
+      state.editLoading = true;
+    });
+    builder.addCase(editPartner.fulfilled, (state) => {
+      state.editLoading = false;
+    });
+    builder.addCase(editPartner.rejected, (state) => {
+      state.editLoading = false;
+    });
+
+    builder.addCase(deletePartner.pending, (state, action) => {
+      state.deletePartnerLoading = action.meta.arg;
+    });
+    builder.addCase(deletePartner.fulfilled, (state) => {
+      state.deletePartnerLoading = false;
+    });
+    builder.addCase(deletePartner.rejected, (state) => {
+      state.deletePartnerLoading = false;
+    });
   },
 });
 
@@ -128,3 +168,5 @@ export const selectChangeStatusLoading = (state: RootState) =>
   state.partners.changeStatusLoading;
 export const selectCreatePartnerLoading = (state: RootState) =>
   state.partners.postPartnerLoading;
+
+export const selectOnePartner = (state: RootState) => state.partners.onePartner;

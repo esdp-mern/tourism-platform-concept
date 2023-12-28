@@ -4,7 +4,12 @@
   display: flex;
   justify-content: center;
 }
-
+.buttons-admin-partners{
+  margin: 40px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
 .tours-admin-page {
   display: flex;
   flex-wrap: wrap;
