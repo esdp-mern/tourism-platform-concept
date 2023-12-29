@@ -19,7 +19,7 @@ Then("I see the user's modal window.", () => {
     I.seeElement("//div[contains(@class, 'editor-modal-open')]");
 });
 
-When("I enter new user form fields:", (userData) => {
+When("I enter new form fields:", (userData) => {
     userData.rows.forEach((row) => {
         const [fieldName, fieldValue] = row.cells;
         I.clearField(fieldName.value);

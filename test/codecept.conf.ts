@@ -31,7 +31,8 @@ export const config: CodeceptJS.MainConfig = {
       "./step_definitions/newsSteps.ts",
       "./step_definitions/logoutSteps.ts",
       "./step_definitions/newsSteps.ts",
-      "./step_definitions/employeesSteps.ts"
+      "./step_definitions/employeesSteps.ts",
+      "./step_definitions/contactUsSteps.ts"
     ],
   },
   name: "test",
