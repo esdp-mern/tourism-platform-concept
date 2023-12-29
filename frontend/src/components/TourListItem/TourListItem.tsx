@@ -108,15 +108,9 @@ const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
                     ? 'Unpublish'
                     : 'Publish'}
               </button>
-              <button
-                type="button"
-                className="btn-tour-edit"
-                onClick={() => {
-                  router.push(`/tours/edit/${tour._id}`).then((r) => r);
-                }}
-              >
+              <Link href={`/tours/edit/${tour._id}`} className="btn-tour-edit">
                 Edit
-              </button>
+              </Link>
             </div>
           ) : null}
         </div>

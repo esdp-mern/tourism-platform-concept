@@ -1,34 +1,22 @@
 import React, { useState } from 'react';
-import { IEmployeeMutation } from '@/type';
+import { IPartnerMutation } from '@/type';
 import { useAppDispatch } from '@/store/hooks';
 import { useSelector } from 'react-redux';
 import { selectPostTourError } from '@/containers/tours/toursSlice';
 import { useRouter } from 'next/router';
-import { editEmployees, postEmployees } from '@/containers/about/aboutThunk';
+import { editPartner } from '@/containers/partners/partnersThunk';
 import FileInput from '@/components/UI/FileInput/FileInput';
-import { addEmployee } from '@/containers/about/aboutSlice';
 
 interface Props {
-  existingEmployee?: IEmployeeMutation;
-  isEdit?: boolean;
-  idEmployee?: string;
+  idPartner: string;
+  editingPartner: IPartnerMutation;
 }
 
-const initialState = {
-  name: '',
-  number: '',
-  role: '',
-  image: null,
-};
-const EmployeeForm: React.FC<Props> = ({
-  isEdit,
-  existingEmployee = initialState,
-  idEmployee,
-}) => {
+const PartnerForm: React.FC<Props> = ({ idPartner, editingPartner }) => {
   const dispatch = useAppDispatch();
   const error = useSelector(selectPostTourError);
   const routers = useRouter();
-  const [state, setState] = useState<IEmployeeMutation>(existingEmployee);
+  const [state, setState] = useState<IPartnerMutation>(editingPartner);
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -40,18 +28,14 @@ const EmployeeForm: React.FC<Props> = ({
   const submitFormHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      if (isEdit && idEmployee) {
+      if (idPartner) {
         const obj = {
-          id: idEmployee,
-          employeeMutation: state,
+          id: idPartner,
+          partnerMutation: state,
         };
-        await dispatch(editEmployees(obj)).unwrap();
-        dispatch(addEmployee(state));
-        routers.push('/admin/employees/all').then((r) => r);
-      } else {
-        await dispatch(postEmployees(state)).unwrap();
+        await dispatch(editPartner(obj)).unwrap();
+        routers.push('/admin/partners/all').then((r) => r);
       }
-      routers.push('/admin/employees/all').then((r) => r);
     } catch (e) {
       alert('Invalid field');
     }
@@ -77,10 +61,8 @@ const EmployeeForm: React.FC<Props> = ({
   };
 
   return (
-    <form className="form-employees" onSubmit={submitFormHandler}>
-      <h2 className="form-employees-title">
-        {isEdit ? 'Save Employee' : 'Create Employee'}
-      </h2>
+    <form className="form-news" onSubmit={submitFormHandler}>
+      <h2 className="form-slider-title">Save Slider</h2>
       <div className="input-wrap">
         <input
           type="text"
@@ -91,10 +73,9 @@ const EmployeeForm: React.FC<Props> = ({
           id="name"
           value={state.name}
           onChange={inputChangeHandler}
-          required
         />
         <label htmlFor="name" className="form-label">
-          Employee name:
+          Partner name:
         </label>
         {Boolean(getFieldError('name')) && (
           <span className="error">{getFieldError('name')}</span>
@@ -104,38 +85,18 @@ const EmployeeForm: React.FC<Props> = ({
         <input
           type="text"
           className={
-            getFieldError('number') ? 'form-control-error' : 'form-control'
+            getFieldError('link') ? 'form-control-error' : 'form-control'
           }
-          name="number"
-          id="number"
-          value={state.number}
+          name="link"
+          id="link"
+          value={state.link}
           onChange={inputChangeHandler}
-          required
         />
-        <label htmlFor="number" className="form-label">
-          Employee number:
+        <label htmlFor="link" className="form-label">
+          Partner link:
         </label>
-        {Boolean(getFieldError('number')) && (
-          <span className="error">{getFieldError('number')}</span>
-        )}
-      </div>
-      <div className="input-wrap">
-        <input
-          type="text"
-          className={
-            getFieldError('role') ? 'form-control-error' : 'form-control'
-          }
-          name="role"
-          id="role"
-          value={state.role}
-          onChange={inputChangeHandler}
-          required
-        />
-        <label htmlFor="role" className="form-label">
-          Employee role:
-        </label>
-        {Boolean(getFieldError('role')) && (
-          <span className="error">{getFieldError('role')}</span>
+        {Boolean(getFieldError('link')) && (
+          <span className="error">{getFieldError('link')}</span>
         )}
       </div>
       <div className="input-wrap">
@@ -151,11 +112,11 @@ const EmployeeForm: React.FC<Props> = ({
       </div>
       <div className="form-wrap-btn">
         <button type="submit" className="form-btn">
-          {isEdit ? 'Save employee' : 'Create employee'}
+          Save
         </button>
       </div>
     </form>
   );
 };
 
-export default EmployeeForm;
+export default PartnerForm;

@@ -10,17 +10,29 @@ const toursRouter = express.Router();
 
 toursRouter.get('/filterByName', async (req, res) => {
   try {
-    if (req.query.name) {
+    const queries = {
+      skip: parseInt(String(req.query.skip || 0)),
+      limit: parseInt(String(req.query.limit || 0)),
+    };
+
+    if (req.query.name && req.query.skip && req.query.limit) {
       const tours = await Tour.find({
         name: { $regex: req.query.name, $options: 'i' },
-      }).populate({
-        path: 'guides',
-        populate: {
-          path: 'user',
-          select: 'username displayName role avatar email',
-        },
-      });
+      })
+        .skip(queries.skip)
+        .limit(queries.limit)
+        .populate({
+          path: 'guides',
+          populate: {
+            path: 'user',
+            select: 'username displayName role avatar email',
+          },
+        });
       return res.send(tours);
+    } else {
+      return res
+        .status(400)
+        .send('query fields { name | skip | limit } are required');
     }
   } catch (e) {
     return res.status(500).send('Error');
@@ -29,65 +41,101 @@ toursRouter.get('/filterByName', async (req, res) => {
 
 toursRouter.get('/filterByCategory', async (req, res) => {
   try {
-    if (req.query.category) {
+    const queries = {
+      skip: parseInt(String(req.query.skip || 0)),
+      limit: parseInt(String(req.query.limit || 0)),
+    };
+
+    if (req.query.category && req.query.skip && req.query.limit) {
       const rawCategories = req.query.category as string;
       const categories = rawCategories.split(',') as string[];
 
-      const tours = await Tour.find({ category: { $in: categories } }).populate(
-        {
+      const tours = await Tour.find({ category: { $in: categories } })
+        .skip(queries.skip)
+        .limit(queries.limit)
+        .populate({
           path: 'guides',
           populate: {
             path: 'user',
             select: 'username displayName role avatar email',
           },
-        },
-      );
+        });
 
       return res.send(tours);
+    } else {
+      return res
+        .status(400)
+        .send('query fields { category | skip | limit } are required');
     }
   } catch (e) {
     return res.status(500).send('Error');
   }
 });
-toursRouter.get('/filterByMinPrice', async (_, res) => {
+toursRouter.get('/filterByMinPrice', async (req, res) => {
   try {
-    const tours = await Tour.find()
-      .populate({
-        path: 'guides',
-        populate: {
-          path: 'user',
-          select: 'username displayName role avatar email',
-        },
-      })
-      .sort({ price: 1 });
-    return res.send(tours);
+    const queries = {
+      skip: parseInt(String(req.query.skip || 0)),
+      limit: parseInt(String(req.query.limit || 0)),
+    };
+
+    if (req.query.skip && req.query.limit) {
+      const tours = await Tour.find()
+        .skip(queries.skip)
+        .limit(queries.limit)
+        .populate({
+          path: 'guides',
+          populate: {
+            path: 'user',
+            select: 'username displayName role avatar email',
+          },
+        })
+        .sort({ price: 1 });
+      return res.send(tours);
+    } else {
+      return res.status(400).send('query fields { skip | limit } are required');
+    }
   } catch (e) {
     return res.status(500).send('Error');
   }
 });
-toursRouter.get('/filterByMaxPrice', async (_, res) => {
+toursRouter.get('/filterByMaxPrice', async (req, res) => {
   try {
-    const tours = await Tour.find()
-      .sort({ price: -1 })
-      .populate({
-        path: 'guides',
-        populate: {
-          path: 'user',
-          select: 'username displayName role avatar email',
-        },
-      });
-    return res.send(tours);
+    const queries = {
+      skip: parseInt(String(req.query.skip || 0)),
+      limit: parseInt(String(req.query.limit || 0)),
+    };
+
+    if (req.query.skip && req.query.limit) {
+      const tours = await Tour.find()
+        .skip(queries.skip)
+        .limit(queries.limit)
+        .sort({ price: -1 })
+        .populate({
+          path: 'guides',
+          populate: {
+            path: 'user',
+            select: 'username displayName role avatar email',
+          },
+        });
+      return res.send(tours);
+    } else {
+      return res.status(400).send('query fields { skip | limit } are required');
+    }
   } catch (e) {
     return res.status(500).send('Error');
   }
 });
 toursRouter.get('/', async (req, res) => {
   try {
-    let tours;
+    const queries = {
+      guide: req.query.guide,
+      skip: parseInt(String(req.query.skip || 0)),
+      limit: parseInt(String(req.query.limit || 0)),
+    };
 
-    if (req.query.guide) {
-      tours = await Tour.find({
-        guides: req.query.guide,
+    if (queries.guide) {
+      const tours = await Tour.find({
+        guides: queries.guide,
         isPublished: true,
       }).populate({
         path: 'guides',
@@ -96,16 +144,30 @@ toursRouter.get('/', async (req, res) => {
           select: 'username displayName role avatar email',
         },
       });
+
       return res.send(tours);
     }
-    tours = await Tour.find({ isPublished: true }).populate({
-      path: 'guides',
-      populate: {
-        path: 'user',
-        select: 'username displayName role avatar email',
-      },
-    });
-    return res.send(tours);
+
+    if (req.query.skip && req.query.limit) {
+      const tours = await Tour.find({ isPublished: true })
+        .skip(queries.skip)
+        .limit(queries.limit)
+        .populate({
+          path: 'guides',
+          populate: {
+            path: 'user',
+            select: 'username displayName role avatar email',
+          },
+        });
+
+      const allToursLength = await Tour.countDocuments({
+        isPublished: true,
+      });
+
+      return res.send({ tours, allToursLength });
+    } else {
+      return res.status(400).send('query fields { skip | limit } are required');
+    }
   } catch (e) {
     return res.status(500).send('Error');
   }
@@ -113,27 +175,48 @@ toursRouter.get('/', async (req, res) => {
 
 toursRouter.get('/all', async (req, res) => {
   try {
-    let tours;
+    const queries = {
+      skip: parseInt(String(req.query.skip || 0)),
+      limit: parseInt(String(req.query.limit || 0)),
+    };
 
-    if (req.query.true) {
-      tours = await Tour.find().populate({
-        path: 'guides',
-        populate: {
-          path: 'user',
-          select: 'username displayName role avatar email',
-        },
+    if (req.query.skip && req.query.limit) {
+      if (req.query.all) {
+        const tours = await Tour.find()
+          .skip(queries.skip)
+          .limit(queries.limit)
+          .populate({
+            path: 'guides',
+            populate: {
+              path: 'user',
+              select: 'username displayName role avatar email',
+            },
+          });
+
+        const allToursLength = await Tour.countDocuments();
+
+        return res.send({ tours, allToursLength });
+      }
+
+      const tours = await Tour.find({ isPublished: false })
+        .skip(queries.skip)
+        .limit(queries.limit)
+        .populate({
+          path: 'guides',
+          populate: {
+            path: 'user',
+            select: 'username displayName role avatar email',
+          },
+        });
+
+      const allToursLength = await Tour.countDocuments({
+        isPublished: true,
       });
-      return res.send(tours);
-    }
 
-    tours = await Tour.find({ isPublished: false }).populate({
-      path: 'guides',
-      populate: {
-        path: 'user',
-        select: 'username displayName role avatar email',
-      },
-    });
-    return res.send(tours);
+      return res.send({ tours, allToursLength });
+    } else {
+      return res.status(400).send('query fields { skip | limit } are required');
+    }
   } catch (e) {
     return res.status(500).send('Error');
   }

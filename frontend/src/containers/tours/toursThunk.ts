@@ -9,55 +9,77 @@ import {
 } from '@/type';
 import axiosApi from '@/axiosApi';
 import { isAxiosError } from 'axios';
+import number from '@/components/Statisticks/Number';
 
-export const fetchTours = createAsyncThunk<Tour[], void | string>(
-  'tours/fetchAll',
-  async (guide) => {
-    if (guide) {
-      const response = await axiosApi.get<Tour[]>(`/tours/?guide=${guide}`);
-      return response.data;
+export const fetchTours = createAsyncThunk<
+  | {
+      tours: Tour[];
+      allToursLength: number;
     }
-    const response = await axiosApi.get<Tour[]>('/tours');
-    return response.data;
-  },
-);
-
-export const fetchToursByFilter = createAsyncThunk<
-  Tour[],
-  { type: string; value?: string | undefined }
->('tours/fetchByFilter', async (arg) => {
-  let url = '/tours';
-
-  if (arg.type === 'name') {
-    url = `/tours/filterByName?name=${arg.value}`;
-  } else if (arg.type === 'categories') {
-    url = `/tours/filterByCategory?category=${arg.value}`;
+  | Tour[],
+  {
+    guide?: string;
+    skip?: number;
+    limit?: number;
   }
+>('tours/fetchAll', async ({ guide, skip, limit }) => {
+  if (guide) {
+    const response = await axiosApi.get<Tour[]>(`/tours/?guide=${guide}`);
+    return response.data;
+  }
+  const response = await axiosApi.get<{
+    tours: Tour[];
+    allToursLength: number;
+  }>(`/tours?skip=${skip}&limit=${limit}`);
 
-  const response = await axiosApi<Tour[]>(url);
   return response.data;
 });
 
-export const fetchToursByPrice = createAsyncThunk<Tour[], string>(
-  'tours/fetchByPrice',
-  async (type) => {
-    const response = await axiosApi.get<Tour[]>(
-      `/tours/filterBy${type === 'max' ? 'Max' : 'Min'}Price`,
-    );
+export const fetchToursByFilter = createAsyncThunk<
+  Tour[],
+  { type: string; value?: string; skip?: number; limit?: number }
+>('tours/fetchByFilter', async ({ type, value, skip, limit }) => {
+  let url = '/tours';
+
+  if (type === 'name') {
+    url = `/tours/filterByName?name=${value}`;
+  } else if (type === 'categories') {
+    url = `/tours/filterByCategory?category=${value}`;
+  }
+
+  const response = await axiosApi<Tour[]>(`${url}&skip=${skip}&limit=${limit}`);
+  return response.data;
+});
+
+export const fetchToursByPrice = createAsyncThunk<
+  Tour[],
+  { type: string; skip?: number; limit?: number }
+>('tours/fetchByPrice', async ({ type, skip, limit }) => {
+  const response = await axiosApi.get<Tour[]>(
+    `/tours/filterBy${
+      type === 'max' ? 'Max' : 'Min'
+    }Price?skip=${skip}&limit=${limit}`,
+  );
+  return response.data;
+});
+
+export const fetchAdminTours = createAsyncThunk<
+  { tours: Tour[]; allToursLength: number },
+  { all?: boolean; skip?: number; limit?: number }
+>('tours/fetchAdminAll', async ({ all, skip, limit }) => {
+  if (all) {
+    const response = await axiosApi.get<{
+      tours: Tour[];
+      allToursLength: number;
+    }>(`/tours/all?all=true&skip=${skip}&limit=${limit}`);
     return response.data;
-  },
-);
-export const fetchAdminTours = createAsyncThunk<Tour[], void | boolean>(
-  'tours/fetchAdminAll',
-  async (all) => {
-    if (all) {
-      const response = await axiosApi.get<Tour[]>('/tours/all?true=all');
-      return response.data;
-    }
-    const response = await axiosApi.get<Tour[]>('/tours/all');
-    return response.data;
-  },
-);
+  }
+  const response = await axiosApi.get<{
+    tours: Tour[];
+    allToursLength: number;
+  }>(`/tours/all?skip=${skip}&limit=${limit}`);
+  return response.data;
+});
 
 export const fetchTour = createAsyncThunk<TourFull, string>(
   'tours/fetchOne',
