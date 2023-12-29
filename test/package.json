@@ -1,10 +1,10 @@
 {
   "dependencies": {
-    "codeceptjs": "^3.5.10",
-    "puppeteer": "^21.6.0"
+    "codeceptjs": "^3.4.1"
   },
   "devDependencies": {
     "@types/node": "^20.10.4",
+    "puppeteer": "^21.6.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   }

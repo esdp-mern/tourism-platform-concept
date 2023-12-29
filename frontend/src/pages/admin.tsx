@@ -125,7 +125,9 @@ const Admin = () => {
                   alt="circle"
                   className="card-img-absolute"
                 />
-                <h4 className="stats-admin-title">Partners</h4>
+                <Link href={`/admin/partners/all`} className="stats-admin-link">
+                  <h4 className="stats-admin-title">Partners</h4>
+                </Link>
                 <h2 className="stats-admin-info">
                   Current partners: {state?.partnersAll}
                 </h2>

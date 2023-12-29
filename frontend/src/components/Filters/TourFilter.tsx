@@ -5,6 +5,8 @@ import {
   fetchToursByFilter,
   fetchToursByPrice,
 } from '@/containers/tours/toursThunk';
+import magnifierIcon from '@/assets/images/magnifier.svg';
+import { useParams } from 'next/navigation';
 
 const categoriesData = [
   { id: 'checkbox-1', label: 'history' },
@@ -14,55 +16,66 @@ const categoriesData = [
   { id: 'checkbox-5', label: 'exotic' },
 ];
 
+type TCurrentTab = 'name' | 'categories' | 'min' | 'max';
+
 const TourFilter = () => {
-  const [currentTab, setCurrentTab] = useState<
-    'name' | 'categories' | 'min' | 'max' | null
-  >(null);
+  const params = useParams() as { pageNum: string };
+  const limitTours = 6;
+
   const dispatch = useAppDispatch();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [currentTab, setCurrentTab] = useState<TCurrentTab | null>(null);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  useEffect(() => {
+    if (params) {
+      setCurrentPage(parseInt(params.pageNum));
+    }
+  }, [params]);
+
+  const indexOfLastRecord = currentPage * limitTours;
+  const indexOfFirstRecord = indexOfLastRecord - limitTours;
+
+  const fetchByType = async () => {
+    if ((currentTab === 'name' && searchTerm.length) || searchTerm.length) {
+      dispatch(
+        fetchToursByFilter({
+          type: currentTab ?? 'name',
+          value: searchTerm,
+          skip: indexOfFirstRecord,
+          limit: limitTours,
+        }),
+      );
+    } else if (currentTab === 'min' || currentTab === 'max') {
+      dispatch(
+        fetchToursByPrice({
+          type: currentTab,
+          skip: indexOfFirstRecord,
+          limit: limitTours,
+        }),
+      );
+    } else if (currentTab === 'categories' && selectedCategories.length) {
+      dispatch(
+        fetchToursByFilter({
+          type: currentTab,
+          value: selectedCategories.join(','),
+          skip: indexOfFirstRecord,
+          limit: limitTours,
+        }),
+      );
+    } else {
+      dispatch(fetchTours({ skip: indexOfFirstRecord, limit: limitTours }));
+    }
+  };
 
   const toggleCategory = async (label: string) => {
     const updatedCategories = selectedCategories.includes(label)
-      ? selectedCategories.filter((label) => label !== label)
+      ? selectedCategories.filter((value) => value !== label)
       : [...selectedCategories, label];
 
     setSelectedCategories(updatedCategories);
-    if (!currentTab || !selectedCategories) return;
-    console.log(updatedCategories);
-    if (updatedCategories.length) {
-      await dispatch(
-        fetchToursByFilter({
-          type: 'categories',
-          value: updatedCategories.join(','),
-        }),
-      );
-      return;
-    }
-    await dispatch(fetchTours());
-  };
-
-  const filterByPrice = async (type: 'max' | 'min') => {
-    setShowCategories(false);
-    setCurrentTab(type);
-    if (type && (type === 'min' || type === 'max')) {
-      await dispatch(fetchToursByPrice(type));
-    }
-  };
-
-  const handleInputChange = async (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setCurrentTab('name');
-    setSearchTerm(event.target.value);
-    if (event.target.value.length) {
-      await dispatch(
-        fetchToursByFilter({ type: 'name', value: event.target.value }),
-      );
-      return;
-    }
-    await dispatch(fetchTours());
   };
 
   const filterRef = useRef<HTMLDivElement | null>(null);
@@ -90,15 +103,22 @@ const TourFilter = () => {
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, []);
+  }, [filterRef.current]);
+
+  const clearCategory = () => {
+    setSelectedCategories([]);
+    setShowCategories(false);
+  };
 
   return (
     <section className="section-filter" ref={filterRef}>
       <ul className="filters-list">
         <li
           className="tab-filter"
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             setCurrentTab('name');
+            clearCategory();
           }}
         >
           <button
@@ -107,11 +127,8 @@ const TourFilter = () => {
                 ? 'filter-input filter-active'
                 : 'filter-link'
             }`}
-            onClick={() => {
-              setCurrentTab('name');
-            }}
           >
-            <span className="icon-filter mdi mdi-border-color"></span>
+            <span className="icon-filter"></span>
             {currentTab === 'name' ? (
               <input
                 ref={inputRef}
@@ -121,30 +138,46 @@ const TourFilter = () => {
                   currentTab === 'name' ? 'filter-active' : ''
                 }`}
                 value={searchTerm}
-                onChange={handleInputChange}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
             ) : (
-              <span>{searchTerm ? searchTerm : 'name'}</span>
+              <span
+                style={{ textTransform: searchTerm ? 'initial' : 'uppercase' }}
+              >
+                {searchTerm || 'name'}
+              </span>
             )}
           </button>
         </li>
-        <li className="tab-filter" onClick={() => filterByPrice('min')}>
+        <li
+          className="tab-filter"
+          onClick={() => {
+            setCurrentTab('min');
+            clearCategory();
+          }}
+        >
           <button
             className={`filter-link ${
               currentTab === 'min' ? 'filter-active' : ''
             }`}
           >
-            <span className="icon-filter mdi mdi-arrow-up"> </span>
+            <span className="icon-filter"></span>
             <span>Price Low to High</span>
           </button>
         </li>
-        <li className="tab-filter" onClick={() => filterByPrice('max')}>
+        <li
+          className="tab-filter"
+          onClick={() => {
+            setCurrentTab('max');
+            clearCategory();
+          }}
+        >
           <button
             className={`filter-link ${
               currentTab === 'max' ? 'filter-active' : ''
             }`}
           >
-            <span className="icon-filter mdi mdi-arrow-down"></span>
+            <span className="icon-filter"></span>
             <span>Price High to Low</span>
           </button>
         </li>
@@ -158,7 +191,7 @@ const TourFilter = () => {
               setShowCategories(!showCategories);
             }}
           >
-            <span className="icon-filter mdi mdi-information-outline"></span>
+            <span className="icon-filter"></span>
             <span>Categories</span>
           </button>
 
@@ -191,6 +224,10 @@ const TourFilter = () => {
             </div>
           ) : null}
         </li>
+        <button className="filter-btn" onClick={fetchByType}>
+          <img src={magnifierIcon.src} alt="magnifier-icon" />
+          Search
+        </button>
       </ul>
     </section>
   );

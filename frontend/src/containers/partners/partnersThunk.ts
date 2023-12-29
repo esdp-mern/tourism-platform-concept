@@ -1,11 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
+  INews,
   IPartnerAccept,
   IPartnerMutation,
   IPartnerOrder,
   IPartnerOrderMutation,
-  ValidationError,
-} from '@/type';
+  ValidationError
+} from "@/type";
 import axiosApi from '@/axiosApi';
 import { isAxiosError } from 'axios';
 
@@ -118,6 +119,74 @@ export const acceptPartner = createAsyncThunk<
   try {
     const response = await axiosApi.post<IPartnerAccept>('/partners', rating);
     return response.data;
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 400) {
+      return rejectWithValue(e.response.data);
+    }
+
+    throw e;
+  }
+});
+
+export const fetchOnePartner = createAsyncThunk<INews, string>(
+  'partners/fetchOne',
+  async (id) => {
+    const response = await axiosApi.get(`/partners/${id}`);
+    return response.data;
+  },
+);
+
+interface updatePartners {
+  id: string;
+  partnerMutation: IPartnerMutation;
+}
+
+export const editPartner = createAsyncThunk<
+  void,
+  updatePartners,
+  { rejectValue: ValidationError }
+>('partners/createPartners', async (updatePartners, { rejectWithValue }) => {
+  try {
+    const partnerMutation = updatePartners.partnerMutation;
+    const formData = new FormData();
+    const keys = Object.keys(partnerMutation) as (keyof IPartnerMutation)[];
+
+    keys.forEach((key) => {
+      const value = partnerMutation[key];
+
+      if (value !== null) {
+        if (Array.isArray(value)) {
+          value.forEach((item) => {
+            if (item instanceof File) {
+              formData.append(key, item, item.name);
+            }
+          });
+          formData.append(key, JSON.stringify(value));
+        } else if (value instanceof File) {
+          formData.append(key, value, value.name);
+        } else {
+          formData.append(key, value as string);
+        }
+      }
+    });
+
+    await axiosApi.put(`/partners/${updatePartners.id}`, formData);
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 400) {
+      return rejectWithValue(e.response.data);
+    }
+
+    throw e;
+  }
+});
+
+export const deletePartner = createAsyncThunk<
+  void,
+  string,
+  { rejectValue: ValidationError }
+>('partners/delete', async (id, { rejectWithValue }) => {
+  try {
+    await axiosApi.delete(`/partners/${id}`);
   } catch (e) {
     if (isAxiosError(e) && e.response && e.response.status === 400) {
       return rejectWithValue(e.response.data);

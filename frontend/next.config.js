@@ -1,5 +1,6 @@
 module.exports = {
   reactStrictMode: true,
+  images: { domains: ['localhost'] },
   webpack: (config, { _ }) => {
     config.module.rules.push({
       test: /\.css$/,

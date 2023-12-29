@@ -29,6 +29,14 @@ export const changeOrderStatus = createAsyncThunk<
   }
 });
 
+export const sendOrderEmailToTheUser = createAsyncThunk<string, string>(
+  'orders/sendEmail',
+  async (orderId) => {
+    const { data } = await axiosApi.post(`orders/sendEmail/${orderId}`);
+    return data;
+  },
+);
+
 export const deleteOrder = createAsyncThunk<
   void,
   string,

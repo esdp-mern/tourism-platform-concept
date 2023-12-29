@@ -53,6 +53,10 @@ const OrderSchema = new mongoose.Schema({
     default: 'booked',
     enum: ['booked', 'being considered', 'approved'],
   },
+  isSendEmail: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Order = mongoose.model('Order', OrderSchema);

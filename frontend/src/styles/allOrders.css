@@ -36,6 +36,16 @@
   gap: 10px;
   flex-grow: 1;
   overflow-y: auto;
+  padding-right: 10px;
+}
+
+.order-items::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.order-items::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #222;
 }
 
 .order-item {
@@ -50,6 +60,7 @@
   box-sizing: border-box;
   font-size: 12px;
   transition: 0.2s;
+  cursor: grab;
 }
 
 .order-item:hover {
@@ -109,12 +120,32 @@
   opacity: 0.5;
 }
 
+.send-email-order,
 .remove-order {
+  width: 16px;
+  height: 16px;
   position: absolute;
   top: 5px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.send-email-order {
+  background-image: url('@/assets/images/envelope.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  right: 25px;
+}
+
+.remove-order {
   right: 4px;
   font-size: 28px;
   line-height: 14px;
+}
+
+.send-email-order:hover,
+.remove-order:hover {
+  scale: 1.1;
 }
 
 .order-status-loading {
