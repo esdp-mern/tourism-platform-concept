@@ -4,7 +4,12 @@
   display: flex;
   justify-content: center;
 }
-
+.buttons-admin-partners{
+  margin: 40px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
 .tours-admin-page {
   display: flex;
   flex-wrap: wrap;
@@ -20,6 +25,9 @@
   justify-content: center;
   padding: 20px 10px 0;
   margin-top: 100px;
+}
+.employees-admin-page{
+  margin: 100px 0;
 }
 @media (max-width: 440px) {
   .buttons-admin-tour {

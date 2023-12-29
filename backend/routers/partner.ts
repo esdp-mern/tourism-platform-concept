@@ -16,6 +16,20 @@ partnersRouter.get('/', async (req, res) => {
   }
 });
 
+partnersRouter.get('/:id', auth, permit('admin'), async (req, res) => {
+  try {
+    const partner = await Partner.findById(req.params.id);
+
+    if (!partner) {
+      return res.status(404).send('Partner not found');
+    }
+
+    return res.send(partner);
+  } catch (e) {
+    return res.status(500).send('Error');
+  }
+});
+
 partnersRouter.post(
   '/',
   auth,
@@ -61,7 +75,7 @@ partnersRouter.put(
         ? req.body.link
         : existingPartner.link;
       existingPartner.image = req.file
-        ? req.file.filename
+        ? 'images/' + req.file.filename
         : existingPartner.image;
 
       await existingPartner.save();
