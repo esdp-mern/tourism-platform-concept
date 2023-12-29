@@ -17,20 +17,21 @@ export const fetchTours = createAsyncThunk<
       allToursLength: number;
     }
   | Tour[],
-  {
-    guide?: string;
-    skip?: number;
-    limit?: number;
-  }
->('tours/fetchAll', async ({ guide, skip, limit }) => {
-  if (guide) {
-    const response = await axiosApi.get<Tour[]>(`/tours/?guide=${guide}`);
+  | {
+      guide?: string;
+      skip?: number;
+      limit?: number;
+    }
+  | undefined
+>('tours/fetchAll', async (arg) => {
+  if (arg?.guide) {
+    const response = await axiosApi.get<Tour[]>(`/tours/?guide=${arg.guide}`);
     return response.data;
   }
   const response = await axiosApi.get<{
     tours: Tour[];
     allToursLength: number;
-  }>(`/tours?skip=${skip}&limit=${limit}`);
+  }>(`/tours?skip=${arg?.skip}&limit=${arg?.limit}`);
 
   return response.data;
 });

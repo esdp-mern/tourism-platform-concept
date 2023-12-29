@@ -45,9 +45,10 @@ const TextField: React.FC<Props> = (props) => {
 
   const getFormat = (date: Date) => format(date, 'dd/MM/yyyy');
 
-  const inputClassNames = `text-field-input ${
-    isError ? 'text-field-input-error' : ''
-  }`;
+  const inputClassNames: string[] = ['text-field-input'];
+
+  if (isError) inputClassNames.push('text-field-input-error');
+  if (!props.icon) inputClassNames.push('text-field-input-no-icon');
 
   return (
     <div className="text-field">
@@ -56,7 +57,7 @@ const TextField: React.FC<Props> = (props) => {
           isFocus || (isDatePicker && selectedDate) || props.value
             ? 'text-field-label-hidden'
             : ''
-        }`}
+        } ${!props.icon ? 'text-field-label-no-icon' : ''}`}
       >
         {props.label}
       </label>
@@ -66,11 +67,11 @@ const TextField: React.FC<Props> = (props) => {
           label={props.label}
           value={props.value}
           onSelect={props.onChange}
-          className={inputClassNames}
+          className={inputClassNames.join(' ')}
         />
       ) : (
         <input
-          className={inputClassNames + (props.className || '')}
+          className={inputClassNames.join(' ') + (props.className || '')}
           style={props.style}
           type={isDatePicker ? 'text' : props.type}
           name={props.name}

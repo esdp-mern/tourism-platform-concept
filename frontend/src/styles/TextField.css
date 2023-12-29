@@ -236,6 +236,17 @@
   }
 }
 
+@media screen and (max-width: 600px) {
+  .text-field-input-no-icon {
+    padding: 8px 15px 8px 20px;
+    min-height: 45px;
+  }
+
+  .text-field-label-no-icon {
+    left: 20px;
+  }
+}
+
 @media (max-width: 475px) {
   .one-tour-order-form-title {
     margin-bottom: 20px;
