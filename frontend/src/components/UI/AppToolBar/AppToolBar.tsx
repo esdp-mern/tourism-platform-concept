@@ -29,7 +29,7 @@ const AppToolBar = () => {
 
   const showMenu = async () => {
     setMenuShow(false);
-    await dispatch(fetchTours);
+    await dispatch(fetchTours({}));
   };
 
   const closeNavMenu = () => setNavShow(false);
@@ -73,7 +73,7 @@ const AppToolBar = () => {
   const onLangSwitch = (language: string) => {
     dispatch(setLang(language));
     dispatch(fetchTour(tour?._id || ''));
-    dispatch(fetchTours());
+    dispatch(fetchTours({}));
   };
 
   return (
@@ -202,8 +202,8 @@ const AppToolBar = () => {
                 className={`nav-link ${
                   pathname === '/contactUs' ? 'active' : ''
                 }`}
-                onClick={() => {
-                  showMenu();
+                onClick={async () => {
+                  await showMenu();
                   closeNavMenu();
                 }}
               >
@@ -218,7 +218,7 @@ const AppToolBar = () => {
                 onClick={(e) => {
                   e.stopPropagation();
                   setMenuShow(!menuShow);
-                  dispatch(fetchTours());
+                  dispatch(fetchTours({}));
                 }}
               >
                 <span></span>

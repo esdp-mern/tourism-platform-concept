@@ -11,10 +11,7 @@ const HotToursToolbar = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    dispatch(fetchTours());
-    document.addEventListener('DOMContentLoaded', () => {
-      // setCurrentIndex(0);
-    });
+    dispatch(fetchTours({}));
   }, [dispatch]);
   const goToSlide = (index: number, e: React.MouseEvent) => {
     e.stopPropagation();

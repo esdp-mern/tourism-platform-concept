@@ -22,7 +22,6 @@ interface Props {
 }
 
 const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
-  const router = useRouter();
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const imgLink = apiUrl + '/' + tour.mainImage;
@@ -31,14 +30,14 @@ const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
   const onDelete = async () => {
     if (window.confirm('Are you sure you want to delete this tour?')) {
       await dispatch(deleteTour(tour._id));
-      dispatch(fetchTours());
+      dispatch(fetchTours({}));
     }
   };
 
   const onPublish = async () => {
     if (window.confirm('Are you sure you want to publish this tour?')) {
       await dispatch(publishTour(tour._id));
-      dispatch(fetchTours());
+      dispatch(fetchTours({}));
     }
   };
 

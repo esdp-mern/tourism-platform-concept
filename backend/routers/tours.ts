@@ -188,7 +188,7 @@ toursRouter.get('/', async (req, res) => {
             tour.toObject().country?.[lang] || tour.toObject().country?.en,
         };
       });
-      return res.send({ updatedTours, allToursLength });
+      return res.send({ tours: updatedTours, allToursLength });
     } else {
       return res.status(400).send('query fields { skip | limit } are required');
     }
