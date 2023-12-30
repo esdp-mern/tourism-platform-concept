@@ -225,3 +225,9 @@
     margin: 25px 0 15px;
   }
 }
+
+@media screen and (max-width: 420px) {
+  .footer-inner-two-txt {
+    text-align: center;
+  }
+}

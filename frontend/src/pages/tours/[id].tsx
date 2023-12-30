@@ -55,7 +55,6 @@ const TourPage: NextPage<
     }
     dispatch(setIsLightMode(false));
     dispatch(fetchTour(id));
-    dispatch(fetchTours({}));
     dispatch(fetchToursReviews(id));
     dispatch(fetchTourRating(id));
   }, [dispatch, postReviewError, id]);
