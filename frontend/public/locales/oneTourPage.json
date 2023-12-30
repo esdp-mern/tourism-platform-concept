@@ -166,12 +166,12 @@
   },
   "tour_video_preview": {
     "en": "video preview",
-    "ru": "просмотр видео",
-    "kg": "видео"
+    "ru": "Видео",
+    "kg": "Видео"
   },
   "tour_view_photos": {
     "en": "view photos",
-    "ru": "просмотр фото",
-    "kg": "сүрөттөр"
+    "ru": "Фото",
+    "kg": "Сүрөттөр"
   }
 }
