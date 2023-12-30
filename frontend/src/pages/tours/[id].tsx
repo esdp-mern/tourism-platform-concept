@@ -46,7 +46,6 @@ const TourPage: NextPage<
   const dispatch = useAppDispatch();
   const tour = useAppSelector(selectOneTour);
   const postReviewError = useAppSelector(selectPostReviewError);
-  const lang = useAppSelector(selectLanguage);
   const [currentTab, setCurrentTab] = useState<string>('information');
   const [adaptiveTabBtns, setAdaptiveTabBtns] = useState('');
 
@@ -59,7 +58,7 @@ const TourPage: NextPage<
     dispatch(fetchTours({}));
     dispatch(fetchToursReviews(id));
     dispatch(fetchTourRating(id));
-  }, [dispatch, postReviewError, id, lang]);
+  }, [dispatch, postReviewError, id]);
 
   if (!tour) return <Custom404 errorType="tour" />;
 
