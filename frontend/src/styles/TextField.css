@@ -178,7 +178,7 @@
 .day-picker {
   position: absolute;
   left: 50%;
-  transform: translate(-50%, 40px);
+  transform: translateX(-50%);
   display: flex;
   justify-content: center;
   background-color: #222;

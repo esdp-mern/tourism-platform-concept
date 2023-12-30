@@ -146,8 +146,15 @@ const TextField: React.FC<Props> = (props) => {
       )}
 
       {isDatePicker && (
-        <div className={`day-picker ${isFocus ? '' : 'day-picker-hide'}`}>
+        <div
+          onClick={() => setIsFocus(true)}
+          className={`day-picker ${isFocus ? '' : 'day-picker-hide'}`}
+        >
           <DayPicker
+            onDayClick={(_, __, e) => {
+              e.stopPropagation();
+              setIsFocus(false);
+            }}
             mode="single"
             showOutsideDays
             selected={selectedDate}
