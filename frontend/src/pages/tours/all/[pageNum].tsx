@@ -32,7 +32,7 @@ const AllToursPage = () => {
         limit: toursPerPage,
       }),
     );
-  }, [dispatch, currentPage]);
+  }, [dispatch, currentPage, indexOfFirstRecord]);
 
   const onSetCurrentPage = (pageNumber: number) => {
     setCurrentPage(pageNumber);

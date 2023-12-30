@@ -43,6 +43,11 @@
   outline: none;
 }
 
+.one-tour-order-form-btn a {
+  color: #fff;
+  text-decoration: none;
+}
+
 .one-tour-order-form-btn:hover,
 .one-tour-order-form-btn:active {
   background-color: #ffa133;

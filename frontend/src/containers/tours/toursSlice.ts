@@ -84,19 +84,24 @@ export const toursSlice = createSlice({
       state.fetchAllLoading = true;
     });
     builder.addCase(fetchTours.fulfilled, (state, { payload }) => {
-      let tours: Tour[];
-
       if (payload instanceof Array) {
-        tours = payload;
+        payload.length >= 4
+          ? (state.hotTours = [payload[0], payload[1], payload[2], payload[3]])
+          : (state.hotTours = []);
+        state.tours = payload;
       } else {
-        tours = payload.tours;
+        payload.tours.length >= 4
+          ? (state.hotTours = [
+              payload.tours[0],
+              payload.tours[1],
+              payload.tours[2],
+              payload.tours[3],
+            ])
+          : (state.hotTours = []);
         state.allToursLength = payload.allToursLength;
+        state.tours = payload.tours;
       }
 
-      state.tours = tours;
-      tours.length >= 4
-        ? (state.hotTours = [tours[0], tours[1], tours[2], tours[3]])
-        : (state.hotTours = []);
       state.fetchAllLoading = false;
     });
     builder.addCase(fetchTours.rejected, (state) => {
@@ -257,7 +262,6 @@ export const selectPostTourLoading = (state: RootState) =>
   state.tours.postTourLoading;
 export const selectPostTourError = (state: RootState) =>
   state.tours.postTourError;
-
 export const selectEditTourLoading = (state: RootState) =>
   state.tours.editLoading;
 export const selectDeleteTourLoading = (state: RootState) =>

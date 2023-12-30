@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import FileInput from '@/components/UI/FileInput/FileInput';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import {
+  selectOneTour,
   selectPostTourError,
   selectPostTourLoading,
 } from '@/containers/tours/toursSlice';
@@ -18,9 +19,9 @@ import invisibleIcon from '@/assets/images/invisible.svg';
 import { addAlert } from '@/containers/users/usersSlice';
 import SelectCategory from '@/components/SelectCategory/SelectCategory';
 import { mapMarkerCategories } from '@/constants';
+import { selectAdminGuides } from '@/containers/guides/guidesSlice';
 
 interface Props {
-  existingTour?: ITourMutation;
   isEdit?: boolean;
   idTour?: string;
 }
@@ -33,7 +34,6 @@ const colors = [
   '#fabc29',
   '#cb50ff',
 ];
-
 const initialState = {
   name: '',
   country: '',
@@ -63,30 +63,41 @@ const initialState = {
   ],
 } as ITourMutation;
 
-const TourForm: React.FC<Props> = ({ isEdit, existingTour, idTour }) => {
+const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
   const dispatch = useAppDispatch();
   const error = useSelector(selectPostTourError);
   const loading = useAppSelector(selectPostTourLoading);
+  const tour = useAppSelector(selectOneTour);
+  const guides = useAppSelector(selectAdminGuides);
   const routers = useRouter();
-
   const [state, setState] = useState<ITourMutation>(
-    isEdit && existingTour ? existingTour : initialState,
+    isEdit && tour
+      ? {
+          ...tour,
+          guides: tour.guides.map((guide) => {
+            return guide._id;
+          }),
+          mainImage: null,
+          galleryTour: [],
+        }
+      : initialState,
   );
-
-  const [plan, setPlan] = useState<IPlan[]>(
-    (existingTour && existingTour.plan) || [],
-  );
+  const [plan, setPlan] = useState<IPlan[]>((tour && tour.plan) || []);
   const [category, setCategory] = useState<string[]>(
-    (existingTour && existingTour.category) || [],
+    (tour && tour.category) || [],
   );
   const [guide, setGuide] = useState<string[]>(
-    (existingTour && existingTour.guides) || [],
+    (tour &&
+      tour.guides.map((guide) => {
+        return guide._id;
+      })) ||
+      [],
   );
   const [included, setIncluded] = useState<string[]>(
-    (existingTour && existingTour.included) || [],
+    (tour && tour.included) || [],
   );
   const [galleryTour, setGalleryTour] = useState<File[]>(
-    (existingTour && existingTour.galleryTour) || [],
+    (tour && tour.galleryTour) || [],
   );
   const [markersInputSelected, setMarkersInputSelected] = useState({
     routeIndex: 0,
@@ -102,31 +113,60 @@ const TourForm: React.FC<Props> = ({ isEdit, existingTour, idTour }) => {
       });
       setColorInputSelected(-1);
     });
-  }, []);
+
+    if (tour) {
+      const guides = tour.guides.map((guide) => {
+        return guide._id;
+      });
+
+      const editingTour = {
+        name: tour.name,
+        country: tour.country,
+        mainImage: null,
+        duration: tour.duration,
+        price: tour.price,
+        description: tour.description,
+        destination: tour.destination,
+        arrival: tour.arrival,
+        departure: tour.departure,
+        dressCode: tour.dressCode,
+        included: tour.included,
+        category: tour.category,
+        galleryTour: null,
+        plan: tour.plan,
+        guides: guides,
+        routes: tour.routes,
+      };
+      setState(editingTour);
+      setPlan(tour.plan);
+    }
+    if (!isEdit) {
+      setState(initialState);
+    }
+  }, [isEdit, tour]);
 
   const submitFormHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      setState((prevState) => ({
-        ...prevState,
-        plan: plan,
-        category: category,
-        guides: guide,
-        included: included,
-        galleryTour: galleryTour,
-      }));
       if (isEdit && idTour) {
         await dispatch(
           editTour({
             id: idTour,
-            tourMutation: state,
+            tourMutation: {
+              ...state,
+              plan: plan,
+              category: category,
+              guides: guide,
+              included: included,
+              galleryTour: galleryTour,
+            },
           }),
         ).unwrap();
       } else {
         await dispatch(postTour(state)).unwrap();
       }
-      routers.push('/').then((r) => r);
+      // routers.push('/').then((r) => r);
     } catch (e) {
       alert('Invalid field');
     }
@@ -374,7 +414,10 @@ const TourForm: React.FC<Props> = ({ isEdit, existingTour, idTour }) => {
   const onMarkerCategorySelect = (
     routeIndex: number,
     checkpointId: string,
-    markerData: { src: string; type: string },
+    markerData: {
+      src: string;
+      type: string;
+    },
   ) => {
     setState((prevState) => {
       const updatedRoutes = prevState.routes.map((route, index) => {
@@ -420,7 +463,7 @@ const TourForm: React.FC<Props> = ({ isEdit, existingTour, idTour }) => {
     <div>
       <form className="form-tour" onSubmit={submitFormHandler}>
         <h2 className="form-tour-title">
-          {isEdit ? 'Save Tour' : 'Create Tour'}
+          {isEdit ? 'Edit Tour' : 'Create Tour'}
         </h2>
         <div className="input-tour-wrap">
           <input
@@ -797,7 +840,7 @@ const TourForm: React.FC<Props> = ({ isEdit, existingTour, idTour }) => {
                   onMarkerSelect={() => {}}
                 />
                 {route.map((point) => (
-                  <div className="tour-route-point" key={point.id}>
+                  <div className="tour-route-point" key={nanoid()}>
                     <span
                       className="remove-checkpoint"
                       onClick={() =>

@@ -11,15 +11,21 @@ import emailIcon from '../../assets/images/email-icon.svg';
 import phoneIcon from '../../assets/images/phone-icon.svg';
 import Link from 'next/link';
 import { TextFieldPhone } from '@/components/UI/TextField/components/TextFieldPhone';
+import { T } from '@/store/translation';
 import { useRouter } from 'next/router';
 
 export interface IChangeEvent {
   target: { name: string; value: string };
 }
 
-const initialState: IOrderForm = {
+const authorizedUserFields = {
   guide: '',
   date: '',
+};
+const unAuthorizedUserFields = {
+  ...authorizedUserFields,
+  email: '',
+  phone: '',
 };
 
 const OneTourOrderForm = () => {
@@ -29,17 +35,10 @@ const OneTourOrderForm = () => {
   const tour = useAppSelector(selectOneTour);
   const { orderButtonLoading } = useAppSelector((state) => state.tours);
 
-  const [state, setState] = useState<IOrderForm>(initialState);
+  const [state, setState] = useState<IOrderForm>(
+    user ? authorizedUserFields : unAuthorizedUserFields,
+  );
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (!user) {
-      setState((prevState) => ({ ...prevState, email: '', phone: '' }));
-    } else {
-      setState(initialState);
-    }
-  }, [user]);
-
   const changeValue = (e: IChangeEvent) => {
     const { name, value } = e.target;
     setState((prevState) => ({ ...prevState, [name]: value }));
@@ -56,7 +55,6 @@ const OneTourOrderForm = () => {
       (key: keyof IOrderForm) => state[key]?.length === 0,
     );
 
-    console.log(isNotValid);
     if (isNotValid || !tour) return;
 
     try {
@@ -72,8 +70,6 @@ const OneTourOrderForm = () => {
         order.phone = user.phone;
       }
 
-      console.log(order);
-
       await dispatch(createOrder(order)).unwrap();
       void router.push('/');
     } catch (e) {
@@ -83,7 +79,9 @@ const OneTourOrderForm = () => {
 
   return (
     <form className="one-tour-order-form" onSubmit={sendData}>
-      <h4 className="one-tour-order-form-title">Book Now</h4>
+      <h4 className="one-tour-order-form-title">
+        {T('/oneTourPage', 'tour_order_form_title')}
+      </h4>
       <div className="one-tour-order-form-inputs">
         <TextField
           name="guide"
@@ -91,7 +89,7 @@ const OneTourOrderForm = () => {
           value={state.guide}
           onChange={changeValue}
           icon={guideIcon.src}
-          label="Select guide"
+          label={T('/oneTourPage', 'tour_order_form_guide_select')}
           required
           isSubmit={isSubmit}
         />
@@ -101,7 +99,7 @@ const OneTourOrderForm = () => {
           value={state.date}
           onChange={changeValue}
           icon={calendarIcon.src}
-          label="Pick Up Date"
+          label={T('/oneTourPage', 'tour_order_form_date_select')}
           required
           isSubmit={isSubmit}
         />
@@ -123,7 +121,7 @@ const OneTourOrderForm = () => {
               onChange={changeValue}
               icon={phoneIcon.src}
               isSubmit={isSubmit}
-              label="Phone"
+              label={T('/oneTourPage', 'tour_order_form_phone')}
               required
             />
           </>
@@ -135,7 +133,11 @@ const OneTourOrderForm = () => {
         className={`one-tour-order-form-btn`}
         disabled={orderButtonLoading}
       >
-        {orderButtonLoading ? 'Booking...' : 'Book this tour'}
+        <Link href="/" className="one-tour-order-form-nav-link">
+          {orderButtonLoading
+            ? T('/oneTourPage', 'tour_order_form_button_loading')
+            : T('/oneTourPage', 'tour_order_form_button')}
+        </Link>
       </button>
     </form>
   );

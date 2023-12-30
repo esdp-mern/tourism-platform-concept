@@ -55,11 +55,17 @@ import '@/styles/selectCategory.css';
 import '@/styles/profile.css';
 import '@/styles/UserOrder.css';
 import '@/styles/adminStats.css';
+import '@/styles/langSelect.css';
+import { useEffect } from 'react';
 
 export default function App({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
 
   addInterceptors(store);
+
+  useEffect(() => {
+    document.documentElement.scrollTop = 0;
+  }, []);
 
   return (
     <>

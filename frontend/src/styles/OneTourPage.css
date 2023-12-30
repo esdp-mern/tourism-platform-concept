@@ -237,16 +237,12 @@
   gap: 1px;
   padding: 0;
   z-index: 1;
+  transition: 0.2s;
 }
 
 .tour-tab-btns-open {
-  animation: open 0.2s linear;
   padding: 1px 0;
   height: auto;
-}
-
-.tour-tab-btns-closed {
-  animation: close 0.2s linear;
 }
 
 .tour-tab-btn {
@@ -356,33 +352,5 @@
 
   .one-tour-btn-one {
     background-position: 11% center;
-  }
-}
-
-@keyframes open {
-  0% {
-    padding: 0;
-    opacity: 0;
-    height: auto;
-  }
-  100% {
-    padding: 1px 0;
-    opacity: 1;
-    height: auto;
-  }
-}
-
-@keyframes close {
-  0% {
-    opacity: 1;
-    height: auto;
-  }
-  50% {
-    opacity: 0;
-    height: auto;
-  }
-  100% {
-    opacity: 0;
-    height: 0;
   }
 }

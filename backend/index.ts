@@ -46,7 +46,7 @@ app.use('/guideOrders', guideOrderRouter);
 app.use('/partnerOrders', partnerOrderRouter);
 app.use('/statistics', statisticsRouter);
 
-app.get('*', (_, res) => res.sendStatus(404));
+app.get('*', (req, res) => res.sendStatus(404));
 
 const run = async () => {
   mongoose.set('strictQuery', false);

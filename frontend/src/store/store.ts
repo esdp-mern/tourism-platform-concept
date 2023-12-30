@@ -29,9 +29,9 @@ import { CookieStorage } from 'redux-persist-cookie-storage';
 import Cookies from 'js-cookie';
 
 const usersPersistConfig = {
-  key: 'tourism-platform-concept:users',
+  key: 'tourism-platform-concept',
   storage: new CookieStorage(Cookies),
-  whitelist: ['user'],
+  whitelist: ['user', 'lang'],
 };
 
 const makeStore = () => {

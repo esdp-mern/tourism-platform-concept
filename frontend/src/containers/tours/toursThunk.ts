@@ -9,7 +9,6 @@ import {
 } from '@/type';
 import axiosApi from '@/axiosApi';
 import { isAxiosError } from 'axios';
-import number from '@/components/Statisticks/Number';
 
 export const fetchTours = createAsyncThunk<
   | {

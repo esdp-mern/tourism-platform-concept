@@ -133,27 +133,57 @@ const run = async () => {
     await Tour.create(
       {
         guides: [Artem._id, Andrey._id],
-        name: 'Explore Burana Tower',
+        name: {
+          en: 'Explore Burana Tower',
+          ru: 'Исследуйте башню Бурана',
+          kg: 'Бурана мунарасын изилдениз',
+        },
         mainImage: 'fixtures/burana.jpeg',
-        description:
-          "The Burana Tower is a large minaret in the Chuy Valley in northern Kyrgyzstan. It is located about 80 km east of the country's capital Bishkek, near the town of Tokmok. The tower, along with grave markers, some earthworks and the remnants of a castle and three mausoleums, is all that remains of the ancient city of Balasagun, which was established by the Karakhanids at the end of the 9th century. The tower was built in the 11th century and was used as a template for other minarets. An external staircase and steep, winding stairway inside the tower enables visitors to climb to the top. It is one of the oldest architectural constructions in Central Asia.",
+        description: {
+          en: "The Burana Tower is a large minaret in the Chuy Valley in northern Kyrgyzstan. It is located about 80 km east of the country's capital Bishkek, near the town of Tokmok. The tower, along with grave markers, some earthworks and the remnants of a castle and three mausoleums, is all that remains of the ancient city of Balasagun, which was established by the Karakhanids at the end of the 9th century. The tower was built in the 11th century and was used as a template for other minarets. An external staircase and steep, winding stairway inside the tower enables visitors to climb to the top. It is one of the oldest architectural constructions in Central Asia.",
+          ru: 'Башня Бурана — большой минарет в Чуйской долине на севере Киргизии. Он расположен примерно в 80 км к востоку от столицы страны Бишкека, недалеко от города Токмок. Башня вместе с надгробиями, некоторыми земляными валами, остатками замка и трех мавзолеев — это все, что осталось от древнего города Баласагун, основанного Караханидами в конце 9 века. Башня была построена в 11 веке и использовалась в качестве образца для других минаретов. Внешняя лестница и крутая винтовая лестница внутри башни позволяют посетителям подняться на вершину. Это одно из старейших архитектурных сооружений Центральной Азии.',
+          kg: 'Бурана мунарасы — Кыргызстандын түндүгүндөгү Чүй өрөөнүндөгү чоң мунара. Ал өлкөнүн борбору Бишкектен 80 км чыгыш тарапта, Токмок шаарына жакын жайгашкан. Мунара мүрзө белгилери, кээ бир жер жумуштары жана сепилдин жана үч күмбөздүн калдыктары менен бирге 9-кылымдын аягында Караханиддер тарабынан түптөлгөн байыркы Баласагун шаарынан калган нерсе. Мунара 11-кылымда курулган жана башка мунаралар үчүн шаблон катары колдонулган. Мунаранын ичиндеги тышкы тепкич жана тик, ийри-буйру тепкич зыяратчыларга чокуга чыгууга мүмкүнчүлүк берет. Бул Орто Азиядагы эң байыркы архитектуралык курулуштардын бири.',
+        },
         category: ['history', 'exotic'],
         price: 800,
         duration: 1,
         plan: [
           {
-            title: 'Visiting Burana Tower',
-            planDescription:
-              'In the morning you’ll be picked up from a hotel to start your exciting tour. We’ll head towards Burana Tower to the small town of Tokmok (80km from Bishkek). Your guide will show you the mausoleums and other buildings discovered by archaeologists during excavations, you will have a chance to climb to the top of the ancient tower, where there is a beautiful view of the Chui valley and the Tien-Shan mountains open.',
+            title: {
+              en: 'Visiting Burana Tower',
+              ru: 'Поход к башне Бурана',
+              kg: 'Бурана мунарасында сейилдөө',
+            },
+            planDescription: {
+              en: 'In the morning you’ll be picked up from a hotel to start your exciting tour. We’ll head towards Burana Tower to the small town of Tokmok (80km from Bishkek). Your guide will show you the mausoleums and other buildings discovered by archaeologists during excavations, you will have a chance to climb to the top of the ancient tower, where there is a beautiful view of the Chui valley and the Tien-Shan mountains open.',
+              ru: 'Утром вас заберут из отеля, чтобы начать захватывающий тур. Направимся в сторону башни Бурана в небольшой город Токмок (80 км от Бишкека). Ваш гид покажет вам мавзолеи и другие постройки, обнаруженные археологами при раскопках, у вас будет возможность подняться на вершину древней башни, откуда открывается прекрасный вид на Чуйскую долину и горы Тянь-Шаня.',
+              kg: 'Эртең менен сизди кызыктуу тур баштоо үчүн мейманканадан алып кетишет. Бурана мунарасын көздөй, Токмок шаарына (Бишкектен 80 км) карай бет алабыз. Сиздин гид археологдор тарабынан казуу иштеринин жүрүшүндө табылган күмбөздөрдү жана башка имараттарды көрсөтөт, сиз Чүй өрөөнүнүн жана Тянь-Шань тоолору ачык кооз көрүнүшү бар байыркы мунаранын чокусуна чыгууга мүмкүнчүлүк аласыз.',
+            },
           },
         ],
-        destination: 'Tokmak, Burana Tower',
-        arrival: 'Akhunbaev st. 75',
-        departure: '10 PM',
-        dressCode: 'Casual. Comfortable athletic clothing, hiking shoes.',
-        included: ['Museum Tickets', 'Group Guide', 'Transport'],
+        destination: {
+          en: 'Tokmak, Burana Tower',
+          ru: 'Токмак, Башня Бурана',
+          kg: 'Токмок, Бурана мунарасы',
+        },
+        arrival: {
+          en: 'Akhunbaev st. 75',
+          ru: 'Ахунбаева 75',
+          kg: 'Ахунбаев 75',
+        },
+        departure: { en: '10:00 PM', ru: '10:00 PM', kg: '10:00 PM' },
+        dressCode: {
+          en: 'Casual. Comfortable athletic clothing, hiking shoes.',
+          ru: 'Повседневный. Удобная спортивная одежда, походная обувь.',
+          kg: 'Күнүмдүк. Ыңгайлуу спорттук кийимдер, сейилдөө бут кийимдери.',
+        },
+        included: {
+          en: ['Museum Tickets', 'Group Guide', 'Transport'],
+          ru: ['Билеты в музей', 'Группа гидов', 'Транспорт'],
+          kg: ['Музейге билеттер', 'Гиддер тобу', 'Транспорт'],
+        },
         galleryTour: ['fixtures/burana.jpeg', 'fixtures/burana2.jpeg'],
-        country: 'Kyrgyzstan',
+        country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
         routes: [
           [
@@ -357,64 +387,133 @@ const run = async () => {
       },
       {
         guides: [Askar._id, Andrey._id],
-        name: 'Fairytale Canyon Skazka Tour',
+        name: {
+          en: 'Fairytale Canyon Skazka Tour',
+          ru: 'Тур по каньону Сказка',
+          kg: '"Сказка" капчыгайына саякат',
+        },
         mainImage: 'fixtures/canyon-skazka.jpeg',
-        description:
-          'Skazka (Fairy Tale) Canyon, located on the southern shore of Issyk-Kul Lake, is one of the most interesting and frequently visited natural places in Kyrgyzstan. It is located 120 kilometers from Balykchi and not far from the village of Tosor. The canyon is located in the gorge of the same name and is famous for its red clay rocks. The wind has been polishing natural and fabulous sculptures here for years. One of the most famous rocks is the "Chinese Wall". So it was nicknamed by the people due to its similarity to the famous architectural monument of China. Walking through the labyrinths of the canyon, you will feel like in a real fairy tale. No wonder the gorge is named that way. The rocks resemble castles, towers, monsters, giants, people and animals. And all this is created by nature, not by the hands of people.',
+        description: {
+          en: 'Skazka (Fairy Tale) Canyon, located on the southern shore of Issyk-Kul Lake, is one of the most interesting and frequently visited natural places in Kyrgyzstan. It is located 120 kilometers from Balykchi and not far from the village of Tosor. The canyon is located in the gorge of the same name and is famous for its red clay rocks. The wind has been polishing natural and fabulous sculptures here for years. One of the most famous rocks is the "Chinese Wall". So it was nicknamed by the people due to its similarity to the famous architectural monument of China. Walking through the labyrinths of the canyon, you will feel like in a real fairy tale. No wonder the gorge is named that way. The rocks resemble castles, towers, monsters, giants, people and animals. And all this is created by nature, not by the hands of people.',
+          ru: 'Каньон Сказка, расположенный на южном берегу озера Иссык-Куль, является одним из самых интересных и часто посещаемых природных мест Кыргызстана. Он расположен в 120 километрах от Балыкчи и недалеко от села Тосор. Каньон расположен в одноименном ущелье и славится своими скалами из красной глины. Ветер уже много лет полирует здесь природные и сказочные скульптуры. Одна из самых известных скал – «Китайская стена». Так его прозвали в народе из-за сходства со знаменитым архитектурным памятником Китая. Прогуливаясь по лабиринтам каньона, вы почувствуете себя в настоящей сказке. Недаром ущелье названо именно так. Скалы напоминают замки, башни, монстров, великанов, людей и животных. И все это создано природой, а не руками людей.',
+          kg: 'Ысык-Көлдүн түштүк жээгинде жайгашкан Сказка (Жомок) каньоны Кыргызстандын эң кызыктуу жана көп баруучу жаратылыш жерлеринин бири. Балыкчы шаарынан 120 чакырым алыстыкта, Тосор айылынан анча алыс эмес жерде жайгашкан. Каньон ушул эле аталыштагы капчыгайда жайгашкан жана кызыл чопо тектери менен белгилүү. Шамал бул жерде бир нече жылдар бою табигый жана жомоктогудай скульптураларды жылмалап турат. Атактуу аскалардын бири - "Кытай дубалы". Ошентип, Кытайдын атактуу архитектуралык эстелигине окшоштугунан улам эл тарабынан лакап атка ээ болгон. Каньондун лабиринттерин аралап жүрүп, өзүңүздү чыныгы жомоктогудай сезесиз. Капчыгайдын ушундай аталышы бекеринен эмес. Аскалар сепилдерге, мунараларга, желмогуздарга, алптарга, адамдарга жана жаныбарларга окшош. Ал эми мунун баарын адамдын колу эмес, табият жаратат.',
+        },
         category: ['history', 'popular', 'exotic'],
         price: 2000,
         duration: 1,
         plan: [
           {
-            title: 'Visiting Canyon Skazka',
-            planDescription:
-              'Moving along the south coast of Issyk-Kul lake from Karakol town, before you reach the small village named Kadji-Sai, you have an opportunity to get into the most beautiful mountain landscapes.\n' +
-              'Turning after Tosor village towards Terskey Ala-Too mountains and after passing about 4 km, we will notice how mountains part, and immediately, as if by the wave of a magic stick we will find ourselves in this valley of fairytales. In Russian, the word Skazka means “Fairy Tale” and the place is certainly a magical place, full of mystery and mysticism, sufficuent to stimulate the imagination of those with the inclination to stand, and stare, and wonder. ',
+            title: {
+              en: 'Visiting canyon "Skazka"',
+              ru: 'Поход к каньону "Сказка"',
+              kg: '"Сказка" капчыгайына саякат',
+            },
+            planDescription: {
+              en: 'Moving along the south coast of Issyk-Kul lake from Karakol town, before you reach the small village named Kadji-Sai, you have an opportunity to get into the most beautiful mountain landscapes.Turning after Tosor village towards Terskey Ala-Too mountains and after passing about 4 km, we will notice how mountains part, and immediately, as if by the wave of a magic stick we will find ourselves in this valley of fairytales. In Russian, the word Skazka means “Fairy Tale” and the place is certainly a magical place, full of mystery and mysticism, sufficuent to stimulate the imagination of those with the inclination to stand, and stare, and wonder.',
+              ru: 'Двигаясь вдоль южного побережья озера Иссык-Куль от города Каракол, не доезжая до небольшого села Каджи-Сай, у вас есть возможность попасть в красивейшие горные пейзажи. Повернув после села Тосор в сторону гор Терскей Ала-Тоо и после Пройдя около 4 км, мы заметим, как горы расходятся, и сразу, как по мановению волшебной палочки, мы попадаем в эту долину сказок. На русском слово «Сказка» означает «Сказка», и это место, безусловно, волшебное, полное тайн и мистицизма, достаточное для стимулирования воображения тех, кто склонен стоять, смотреть и удивляться.',
+              kg: 'Каракол шаарынан Ысык-Көлдүн түштүк жээгин бойлой жылып, Кажы-Сай деген чакан айылга жеткенге чейин сиз тоолордун эң кооз пейзаждарын көрүүгө мүмкүнчүлүк аласыз. 4 чакырымдай өтүп, тоолор кантип бөлүнгөнүн байкайбыз да, дароо сыйкырдуу таяктын толкуну менен ушул жомоктордун өрөөнүнө кирип калабыз. Орус тилинен которгондо Сказка деген сөз «Жомок» дегенди билдирет жана бул жер, албетте, сыйкырдуу жер, сырга жана мистикага толгон, туруп, тиктеп, таң калууга ыктагандардын элестетүүсүнө жетишерлик.',
+            },
           },
         ],
-        destination: 'Canyon Skazka',
-        arrival: 'Akhunbaev st. 75',
-        departure: '10 PM',
-        dressCode: 'Casual. Comfortable athletic clothing, hiking shoes.',
-        included: ['Lunch', 'Group Guide', 'Transport'],
+        destination: {
+          en: 'Canyon Skazka',
+          ru: 'Каньон Сказка',
+          kg: '"Сказка" капчыгайы',
+        },
+        arrival: {
+          en: 'Akhunbaev st. 75',
+          ru: 'Ахунбаева 75',
+          kg: 'Ахунбаев 75',
+        },
+        departure: { en: '10:00 PM', ru: '10:00 PM', kg: '10:00 PM' },
+        dressCode: {
+          en: 'Casual. Comfortable athletic clothing, hiking shoes.',
+          ru: 'Повседневный. Удобная спортивная одежда, походная обувь.',
+          kg: 'Күнүмдүк. Ыңгайлуу спорттук кийимдер, сейилдөө бут кийимдери.',
+        },
+        included: {
+          en: ['Lunch', 'Group Guide', 'Transport'],
+          ru: ['Обед', 'Группа гидов', 'Транспорт'],
+          kg: ['Түшкү тамак', 'Гиддер тобу', 'Транспорт'],
+        },
         galleryTour: ['fixtures/canyon-skazka.jpeg'],
-        country: 'Kyrgyzstan',
+        country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
       },
       {
         guides: [Artem._id, Askar._id],
-        name: 'Isskyl-Lake - the pearl of Kyrgyzstan',
+        name: {
+          en: 'Isskyl-Lake - the pearl of Kyrgyzstan',
+          ru: 'Иссык-Куль - жемчужина Кыргызстана',
+          kg: 'Ыссык-Көл - Кыргызстандын бермети',
+        },
         mainImage: 'fixtures/issyk-kul.jpeg',
-        description:
-          'Issyk-Kul tours is a journey to the second largest salt lake and sixth deepest lake in the world. Entitled Kyrgyz Baikal for its enormous size, Issyk-Kul does not freeze in winter. The combination of sea and mountainous climate, coniferous forests, thermal springs make Issyk-Kul the place, where your body and soul can rest. Issyk-Kul Lake is surrounded by many intersting sights, including Stone garden withpetroglyphs datingback to the 2000 B.C - 4th century A.D and the cultural center Ruh-Ordo with an old chapel to honor four confessions of the world.',
+        description: {
+          en: 'Issyk-Kul tours is a journey to the second largest salt lake and sixth deepest lake in the world. Entitled Kyrgyz Baikal for its enormous size, Issyk-Kul does not freeze in winter. The combination of sea and mountainous climate, coniferous forests, thermal springs make Issyk-Kul the place, where your body and soul can rest. Issyk-Kul Lake is surrounded by many intersting sights, including Stone garden withpetroglyphs datingback to the 2000 B.C - 4th century A.D and the cultural center Ruh-Ordo with an old chapel to honor four confessions of the world.',
+          ru: 'Туры на Иссык-Куль – это путешествие ко второму по величине соленому озеру и шестому по глубине озеру мира. Названный Киргизским Байкалом за свои огромные размеры, Иссык-Куль не замерзает зимой. Сочетание морского и горного климата, хвойных лесов, термальных источников делают Иссык-Куль местом, где можно отдохнуть душой и телом. Озеро Иссык-Куль окружено множеством интересных достопримечательностей, в том числе Каменным садом с петроглифами 2000 г. до н.э. – 4 веком н.э. и культурным центром Рух-Ордо со старинной часовней в честь четырех конфессий мира.',
+          kg: 'Ысык-Көл турлары дүйнөдөгү экинчи чоң туздуу көлгө жана тереңдиги боюнча алтынчы көлгө саякат. Эбегейсиз чоңдугу үчүн Кыргыз Байкалы деп аталган Ысык-Көл кышында тоңбойт. Деңиз менен тоолуу климаттын, ийне жалбырактуу токойлордун, термалдык булактардын айкалышы Ысык-Көлдү денеңиз менен жаныңыз эс ала турган жайга айландырат. Ысык-Көл көптөгөн кызыктуу жерлер менен курчалган, анын ичинде биздин заманга чейинки 2000-жылдан биздин замандын 4-кылымына таандык петроглифтери бар Таш бакча жана дүйнөнүн төрт конфессиясын даңазалоо үчүн эски часовнясы бар Рух-Ордо маданий борбору.',
+        },
         category: ['history', 'on budget'],
         price: 6000,
         duration: 3,
         plan: [
           {
-            title: 'From Bishkek to Chon Kemin',
-            planDescription:
-              'Pick-up in the morning in Bishkek (address to be confirmed). Leave the bustle of Bishkek behind and travel across to Kyrgyzstan to the incredible Chon-Kemin Valley, a protected region which is home to some of the most diverse flora and fauna in the country.After a short rest and check-in, enjoy a home-cooked lunch at the guesthouse terrace with a panoramic view of the surrounding mountains and village. Before dinner take a gentle stroll around the village and glean a fascinating insight into rural Kyrgyz life. Possible to do a hiking tour to Chon-Kemin area.',
+            title: {
+              en: 'From Bishkek to Chon Kemin',
+              ru: 'От Бишкека до Чон-Кемина',
+              kg: 'Бишкектен ЧОн-Кеминге чейин',
+            },
+            planDescription: {
+              en: 'Pick-up in the morning in Bishkek (address to be confirmed). Leave the bustle of Bishkek behind and travel across to Kyrgyzstan to the incredible Chon-Kemin Valley, a protected region which is home to some of the most diverse flora and fauna in the country.After a short rest and check-in, enjoy a home-cooked lunch at the guesthouse terrace with a panoramic view of the surrounding mountains and village. Before dinner take a gentle stroll around the village and glean a fascinating insight into rural Kyrgyz life. Possible to do a hiking tour to Chon-Kemin area.',
+              ru: 'Встреча утром в Бишкеке (адрес уточняется). Оставьте суету Бишкека позади и отправляйтесь в Кыргызстан, в невероятную Чон-Кеминскую долину, охраняемый регион, в котором обитает одна из самых разнообразных флоры и фауны в стране. После короткого отдыха и регистрации насладитесь домашним уютом. - приготовленный обед на террасе гостевого дома с панорамным видом на окружающие горы и деревню. Перед ужином прогуляйтесь по деревне и получите увлекательное представление о сельской жизни кыргызов. Возможна пешая экскурсия в район Чон-Кемина.',
+              kg: 'Эртең менен Бишкектен алып кетүү (дареги такталат). Бишкектин ызы-чуусун артта калтырып, Кыргызстанды аралап, укмуштуудай Чоң-Кемин өрөөнүнө саякаттаңыз, өлкөнүн эң ар түрдүү флора жана фаунасынын мекени болгон корголуучу аймак. Кыска эс алып, каттоодон өткөндөн кийин, үйүңүздөн ырахат алыңыз. - курчап турган тоолордун жана айылдын панорамалык көрүнүшү бар конок үйүнүн террасасында бышырылган түшкү тамак. Кечки тамактан мурун айылды кыдырып, кыргыздын элеттик жашоосу тууралуу кызыктуу маалымат алыңыз. Чоң-Кемин аймагына жөө саякат жасаса болот.',
+            },
           },
           {
-            title: 'From Chon Kemin to Karakol',
-            planDescription:
-              'After a nice village style breakfast at the guesthouse, depart to Karakol through the northern shore of the Issyk-Kul Lake. On the way, stop in Cholpon-Ata town. Visit open-air Museum of Petroglyphs (stone inscriptions) that contains more than 2000 petroglyphs dating from 800 BC to 1200 AD. Continue driving to Karakol. Evening free time in Karakol.  ',
+            title: {
+              en: 'From Chon Kemin to Karakol',
+              ru: 'От Чон Кемина до Каракола.',
+              kg: 'Чоң Кеминден Караколго чейин',
+            },
+            planDescription: {
+              en: 'After a nice village style breakfast at the guesthouse, depart to Karakol through the northern shore of the Issyk-Kul Lake. On the way, stop in Cholpon-Ata town. Visit open-air Museum of Petroglyphs (stone inscriptions) that contains more than 2000 petroglyphs dating from 800 BC to 1200 AD. Continue driving to Karakol. Evening free time in Karakol.',
+              ru: 'После хорошего деревенского завтрака в гостевом доме отправляйтесь в Каракол через северный берег озера Иссык-Куль. По пути остановка в городе Чолпон-Ата. Посетите Музей петроглифов (каменных надписей) под открытым небом, в котором хранится более 2000 петроглифов, датируемых периодом с 800 г. до н.э. по 1200 г. н.э. Продолжение пути в Каракол. Вечер свободное время в Караколе.',
+              kg: 'Конок үйүндө айыл стилиндеги жагымдуу эртең мененки тамактан кийин, Ысык-Көлдүн түндүк жээги аркылуу Караколго жөнөйбүз. Жолдо Чолпон-Ата шаарына токтойбуз. Биздин заманга чейинки 800-жылдан 1200-жылга чейинки 2000ден ашык петроглифтерди камтыган ачык асман алдындагы Петроглифтер музейине (таш жазуулар) барыңыз. Караколго чейин айдай бер. Каракол шаарында кечки бош убакыт.',
+            },
           },
           {
-            title: 'From Karakol to Jeti Oguz and back to Bishkek',
-            planDescription:
-              'After an early breakfast the guesthouse drive to Jety Oguz valley where shepherds share many legends about the beautiful, famous, red rocks known as «Seven Bulls» and «Broken Heart». At the base of the cliffs are flat mountain slopes, thickly overgrown with grass and pine trees. The “Broken Heart” rock, located at the entrance to the gorge, offers an especially romantic scene. In Bokonbaevo village, enjoy home-cooked lunch at a local Kyrgyz family’s house. Visit Fairy Tale Canyon with a short hiking tour for 1-2 hrs (weather dependant). Before evening arrive to Bishkek. Drop-off at final destination. End of services.',
+            title: {
+              en: 'From Karakol to Jeti Oguz and back to Bishkek',
+              ru: 'Из Каракола в Джети-Огуз и обратно в Бишкек.',
+              kg: 'Караколдон Жети-Өгүзгө жана кайра Бишкекке',
+            },
+            planDescription: {
+              en: 'After an early breakfast the guesthouse drive to Jety Oguz valley where shepherds share many legends about the beautiful, famous, red rocks known as «Seven Bulls» and «Broken Heart». At the base of the cliffs are flat mountain slopes, thickly overgrown with grass and pine trees. The “Broken Heart” rock, located at the entrance to the gorge, offers an especially romantic scene. In Bokonbaevo village, enjoy home-cooked lunch at a local Kyrgyz family’s house. Visit Fairy Tale Canyon with a short hiking tour for 1-2 hrs (weather dependant). Before evening arrive to Bishkek. Drop-off at final destination. End of services.',
+              ru: 'После раннего завтрака выезд в гостевой дом в долину Джеты-Огуз, где пастухи рассказывают множество легенд о красивых, знаменитых красных скалах, известных как «Семь быков» и «Разбитое сердце». У подножия скал лежат плоские горные склоны, густо поросшие травой и соснами. Особенно романтическую сцену представляет скала «Разбитое сердце», расположенная у входа в ущелье. В селе Боконбаево насладитесь домашним обедом в доме местной кыргызской семьи. Посетите Каньон Сказки, совершив короткую пешеходную экскурсию продолжительностью 1-2 часа (в зависимости от погоды). К вечеру прибытие в Бишкек. Высадка в конечном пункте назначения. Конец услуг.',
+              kg: 'Эртең мененки тамактан кийин конок үйү Жети-Өгүз өрөөнүнө жөнөйт, анда чабандар «Жети өгүз» жана «Сынган жүрөк» деп аталган кооз, атактуу, кызыл таштар жөнүндө көптөгөн уламыштарды айтып беришет. Аскалардын түбүндө чөп, карагайлар калың өскөн жалпак тоо капталдары жатат. Капчыгайдын кире беришинде жайгашкан "Сынган жүрөк" ташы өзгөчө романтикалык көрүнүштү тартуулайт. Бөкөнбаев айылында жергиликтүү кыргыз үй-бүлөлөрүнүн үйүндө даярдалган түшкү тамактан ырахат алыңыз. 1-2 саатка кыска жөө саякат менен Жомок каньонуна барыңыз (аба ырайына жараша). Кечке чейин Бишкекке келет. Акыркы көздөгөн жерге түшүрүү. Кызматтардын бүтүшү.',
+            },
           },
         ],
-        destination: 'Lake Issyk-Kul',
-        arrival: 'Akhunbaev st. 75',
-        departure: '11:30 PM',
-        dressCode: 'Casual. Comfortable athletic clothing, hiking shoes.',
+        destination: {
+          en: 'Lake Issyk-Kul',
+          ru: 'Озеро Иссык-Куль',
+          kg: 'Ысык-Кол',
+        },
+        arrival: {
+          en: 'Akhunbaev st. 75',
+          ru: 'Ахунбаева 75',
+          kg: 'Ахунбаев 75',
+        },
+        departure: { en: '11:30 PM', ru: '11:30 PM', kg: '11:30 PM' },
+        dressCode: {
+          en: 'Casual. Comfortable athletic clothing, hiking shoes.',
+          ru: 'Повседневный. Удобная спортивная одежда, походная обувь.',
+          kg: 'Күнүмдүк. Ыңгайлуу спорттук кийимдер, сейилдөө бут кийимдери.',
+        },
         included: ['Museum Tickets', 'Group Guide', 'Transport'],
         galleryTour: ['fixtures/issyk-kul.jpeg'],
-        country: 'Kyrgyzstan',
-        isPublished: false,
+        country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
+        isPublished: true,
         routes: [
           [
             {
@@ -554,133 +653,286 @@ const run = async () => {
       },
       {
         guides: [Andrey._id, Askar._id],
-        name: 'Tour around the Osh city',
+        name: {
+          en: 'Tour around the Osh city',
+          ru: 'Тур по городу Ош',
+          kg: 'Ош шаарына саякат',
+        },
         mainImage: 'fixtures/osh.jpeg',
-        description:
-          'Osh tour will introduce you one of the most ancient cities of Central Asia and the second largest city in Kyrgyzstan. The main sight of Osh is the mountain "Solomon\'s Throne" that had been the second Mecca for local Muslims. Legends have endowed the mountain with the might able to heal any disease. There is a museum-reserve inside the mountain consisting of artificial and natural caves. Another sight worth a visit is Shaid Tepa, the largest mosque in Kyrgyzstan.',
+        description: {
+          en: 'Osh tour will introduce you one of the most ancient cities of Central Asia and the second largest city in Kyrgyzstan. The main sight of Osh is the mountain Solomons Throne that had been the second Mecca for local Muslims. Legends have endowed the mountain with the might able to heal any disease. There is a museum-reserve inside the mountain consisting of artificial and natural caves. Another sight worth a visit is Shaid Tepa, the largest mosque in Kyrgyzstan.',
+          ru: 'Тур по Ошу познакомит вас с одним из древнейших городов Центральной Азии и вторым по величине городом Кыргызстана. Главной достопримечательностью Оша является гора Трон Соломона, которая была второй Меккой для местных мусульман. Легенды наделили гору силой, способной исцелить любую болезнь. Внутри горы находится музей-заповедник, состоящий из искусственных и естественных пещер. Еще одна достопримечательность, которую стоит посетить, — Шаид Тепа, крупнейшая мечеть Кыргызстана.',
+          kg: 'Ош туру сиздерди Борбордук Азиядагы эң байыркы шаарлардын бири жана Кыргызстандын экинчи чоң шаары менен тааныштырат. Оштун негизги көрүнүшү – жергиликтүү мусулмандар үчүн экинчи Мекке болгон Сулайман тактысы. Уламыштарда тоого ар кандай ооруну айыктыра турган күч берилген. Тоонун ичинде жасалма жана табигый үңкүрлөрдөн турган музей-корук бар. Барууга арзырлык дагы бир жай – Кыргызстандагы эң чоң мечит – Шайд Тепа.',
+        },
         category: ['vacation', 'popular'],
         price: 6900,
         duration: 3,
         plan: [
           {
-            title: 'From Bishkek to Osh',
-            planDescription:
-              'In the morning transfer to the airport in Bishkek to take a plane to Osh. Arrive in Osh and start the city tour. As legends say, Osh was founded by King Solomon ages ago and had an important position on trading routes of the Great Silk Road. Today you will visit Suleiman-Too (Solomon’s Mountain), museum, Osh bazaar – this market locates at the same place as in the times of Great Silk Road. Overnight in the guest house.',
+            title: {
+              en: 'From Bishkek to Osh',
+              ru: 'От Бишкека до Оша',
+              kg: 'Бишкектен Ошко чейин',
+            },
+            planDescription: {
+              en: 'In the morning transfer to the airport in Bishkek to take a plane to Osh. Arrive in Osh and start the city tour. As legends say, Osh was founded by King Solomon ages ago and had an important position on trading routes of the Great Silk Road. Today you will visit Suleiman-Too (Solomon’s Mountain), museum, Osh bazaar – this market locates at the same place as in the times of Great Silk Road. Overnight in the guest house.',
+              ru: 'Утром трансфер в аэропорт Бишкека для вылета на самолет в Ош. Прибытие в Ош и начало экскурсии по городу. Как гласят легенды, Ош был основан царем Соломоном много лет назад и занимал важное положение на торговых путях Великого Шелкового пути. Сегодня вы посетите Сулейман-Тоо (Соломонова гора), музей, Ошский базар – этот рынок находится на том же месте, что и во времена Великого Шелкового пути. Ночь в гостевом доме.',
+              kg: 'Эртең менен Бишкектин аэропортуна учуп, Ошко учакка түшүү. Ошко келип, шаарды кыдыруу. Уламыштарда айтылгандай, Ош кылымдар мурун Сулайман падыша тарабынан негизделген жана Улуу Жибек жолунун соода жолдорунда маанилүү позицияга ээ болгон. Бүгүн сиз Сулайман-Тоого, музейге, Ош базарына барасыз – бул базар Улуу Жибек Жолунун убагындагыдай эле жерде жайгашкан. Конок үйүндө түнөө.',
+            },
           },
           {
-            title: 'Exploring Osh',
-            planDescription:
-              'Whole day exploring Osh with our guide! Vizit best places, eat most tasty dishes etc.',
+            title: {
+              en: 'Exploring Osh',
+              ru: 'От Бишкека до Оша',
+              kg: 'Бишкектен Ошко чейин',
+            },
+            planDescription: {
+              en: 'Whole day exploring Osh with our guide! Vizit best places, eat most tasty dishes etc.',
+              ru: 'Целый день знакомства с Ошем с нашим гидом! Посещайте лучшие места, ешьте самые вкусные блюда и т. д.',
+              kg: 'Биздин гид менен бир күн бою Ошту изилдөө! Эң жакшы жерлерге барыңыз, эң даамдуу тамактарды жеңиз ж.б.',
+            },
           },
           {
-            title: 'From Osh back to Bishkek',
-            planDescription:
-              'Transfer to the airport (30 km). End of the tour.',
+            title: {
+              en: 'From Osh back to Bishkek',
+              ru: 'От Бишкека до Оша',
+              kg: 'Бишкектен Ошко чейин',
+            },
+            planDescription: {
+              en: 'Transfer to the airport (30 km). End of the tour.',
+              ru: 'Трансфер в аэропорт (30 км). Конец тура.',
+              kg: 'Аэропортко жеткирүү (30 км). Турдун аягы.',
+            },
           },
         ],
-        destination: 'Osh city',
-        arrival: 'Akhunbaev st. 75',
-        departure: '11 PM',
-        dressCode: 'Casual. Comfortable athletic clothing, hiking shoes.',
-        included: ['Group Guide', 'Transport', 'Guesthouse', 'Food'],
+        destination: { en: 'Osh city', ru: 'Город Ош', kg: 'Ош шаары' },
+        arrival: {
+          en: 'Akhunbaev st. 75',
+          ru: 'Ахунбаева 75',
+          kg: 'Ахунбаев 75',
+        },
+        departure: { en: '11:00 PM', ru: '11:00 PM', kg: '11:00 PM' },
+        dressCode: {
+          en: 'Casual. Comfortable athletic clothing, hiking shoes.',
+          ru: 'Повседневный. Удобная спортивная одежда, походная обувь.',
+          kg: 'Күнүмдүк. Ыңгайлуу спорттук кийимдер, сейилдөө бут кийимдери.',
+        },
+        included: {
+          en: ['Group Guide', 'Transport', 'Guesthouse', 'Food'],
+          ru: ['Группа гидов', 'Транспорт', 'Гостевой дом', 'Питание'],
+          kg: ['Гиддер тобу', 'Транспорт', 'Конок үй', 'Тамактануу'],
+        },
         galleryTour: ['fixtures/osh.jpeg'],
-        country: 'Kyrgyzstan',
+        country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
       },
       {
         guides: [Andrey._id, Artem._id],
-        name: 'Ancient Naryn town Tour',
+        name: {
+          en: 'Ancient Naryn town Tour',
+          ru: 'Тур по древнему городу Нарын',
+          kg: 'Байыркы Нарын шаарына саякат',
+        },
         mainImage: 'fixtures/naryn.jpeg',
-        description:
-          'Naryn town is the administrative center of the Naryn Region. The town is situated on the banks of the Naryn River (the main headwaters of the Syr Darya). Naryn is the main path of the Great Silk Road, today it connects China, via Torugart Pass. The population of the Naryn Region is 99% Kyrgyz',
+        description: {
+          en: 'Naryn town is the administrative center of the Naryn Region. The town is situated on the banks of the Naryn River (the main headwaters of the Syr Darya). Naryn is the main path of the Great Silk Road, today it connects China, via Torugart Pass. The population of the Naryn Region is 99% kyrgyz',
+          ru: 'Город Нарын является административным центром Нарынской области. Город расположен на берегу реки Нарын (главного истока Сырдарьи). Нарын – главный путь Великого Шелкового пути, сегодня он соединяет Китай через перевал Торугарт. Население Нарынской области на 99% состоит из кыргызов.',
+          kg: 'Нарын шаары - Нарын облусунун административдик борбору. Шаар Нарын дарыясынын (Сыр-Дарыянын негизги башы) жээгинде жайгашкан. Нарын – Улуу Жибек жолунун негизги жолу, бүгүнкү күндө Кытайды Торугарт ашуусу аркылуу байланыштырып турат. Нарын облусунун калкынын 99% кыргыздар',
+        },
         category: ['history', 'popular'],
         price: 4500,
         duration: 2,
         plan: [
           {
-            title: 'From Bishkek to Naryn',
-            planDescription:
-              'In the morning transfer to the Naryn city. Stay in the guesthouse, dinner.',
+            title: {
+              en: 'From Bishkek to Naryn',
+              ru: 'От Бишкека до Нарына',
+              kg: 'Бишкектен Нарынга чейин',
+            },
+            planDescription: {
+              en: 'In the morning transfer to the Naryn city. Stay in the guesthouse, dinner.',
+              ru: 'Утром переезд в город Нарын. Размещение в гостевом доме, ужин.',
+              kg: 'Эртең менен Нарын шаарына көчүү. Мейманканада бол, кечки тамак.',
+            },
           },
           {
-            title: 'Exploring Naryn',
-            planDescription:
-              'Whole morning exploring Naryn with our guide! After lunch, transfer back to Bishkek.',
+            title: {
+              en: 'Exploring Naryn',
+              ru: 'От Бишкека до Нарына',
+              kg: 'Бишкектен Нарынга чейин',
+            },
+            planDescription: {
+              en: 'Whole morning exploring Naryn with our guide! After lunch, transfer back to Bishkek.',
+              ru: 'Целое утро исследуем Нарын с нашим гидом! После обеда трансфер обратно в Бишкек.',
+              kg: 'Эртең менен биздин гид менен Нарынды кыдыруу! Түшкү тамактан кийин кайра Бишкекке жөнөйбүз.',
+            },
           },
         ],
-        destination: 'Naryn',
-        arrival: 'Akhunbaev st. 75',
-        departure: '11 PM',
-        dressCode: 'Casual. Comfortable athletic clothing, hiking shoes.',
-        included: ['Group Guide', 'Transport', 'Guesthouse', 'Food'],
+        destination: { en: 'Naryn', ru: 'Нарын', kg: 'Нарын' },
+        arrival: {
+          en: 'Akhunbaev st. 75',
+          ru: 'Ахунбаева 75',
+          kg: 'Ахунбаев 75',
+        },
+        departure: { en: '11:00 PM', ru: '11:00 PM', kg: '11:00 PM' },
+        dressCode: {
+          en: 'Casual. Comfortable athletic clothing, hiking shoes.',
+          ru: 'Повседневный. Удобная спортивная одежда, походная обувь.',
+          kg: 'Күнүмдүк. Ыңгайлуу спорттук кийимдер, сейилдөө бут кийимдери.',
+        },
+        included: {
+          en: ['Group Guide', 'Transport', 'Guesthouse', 'Food'],
+          ru: ['Группа гидов', 'Транспорт', 'Гостевой дом', 'Питание'],
+          kg: ['Гиддер тобу', 'Транспорт', 'Конок үй', 'Тамактануу'],
+        },
         galleryTour: ['fixtures/sary-chelek.jpeg', 'fixtures/naryn.jpeg'],
-        country: 'Kyrgyzstan',
+        country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
       },
       {
         guides: [Andrey._id, Artem._id],
-        name: 'Amazing Tour to the Sary-Chelek',
+        name: {
+          en: 'Amazing Tour to the Sary-Chelek',
+          ru: 'Удивительный тур по озеру Сары-Челек',
+          kg: 'Кереметтүү Сары-Челек көлүнө саякат',
+        },
         mainImage: 'fixtures/sary-chelek.jpeg',
-        description:
-          'Sary Chelek is located in the Jalal-Abad region in the west of Kyrgyzstan, tucked into the Western Tien Shan Mountains at the foot of the Chatkal Mountain Range. This alpine lake is the highlight of a larger area called Sary Chelek Nature Reserve which has been declared as a UNESCO Biosphere Reserve in 1978. The reserve has seven alpine lakes with Sary Chelek Lake being the largest one. Located at an altitude of 1887 meters and created by a landslide, the lake covers almost 500 hectares. The depth varies across the lake, with its deepest point at 245 meters.',
+        description: {
+          en: 'Sary Chelek is located in the Jalal-Abad region in the west of Kyrgyzstan, tucked into the Western Tien Shan Mountains at the foot of the Chatkal Mountain Range. This alpine lake is the highlight of a larger area called Sary Chelek Nature Reserve which has been declared as a UNESCO Biosphere Reserve in 1978. The reserve has seven alpine lakes with Sary Chelek Lake being the largest one. Located at an altitude of 1887 meters and created by a landslide, the lake covers almost 500 hectares. The depth varies across the lake, with its deepest point at 245 meters.',
+          ru: 'Сары-Челек расположен в Джалал-Абадской области на западе Кыргызстана, в горах Западного Тянь-Шаня, у подножия Чаткальского хребта. Это высокогорное озеро является изюминкой более крупной территории под названием природный заповедник Сары-Челек, которая была объявлена ​​​​биосферным заповедником ЮНЕСКО в 1978 году. В заповеднике есть семь высокогорных озер, из которых озеро Сары-Челек является самым большим. Расположенное на высоте 1887 метров и образовавшееся в результате оползня озеро занимает площадь почти 500 гектаров. Глубина озера варьируется, самая глубокая точка составляет 245 метров.',
+          kg: 'Сары Челек Кыргызстандын батышындагы Жалал-Абад облусунда, Чаткал тоо кыркаларынын этегинде Батыш Тянь-Шань тоолорунда жайгашкан. Бул альп көлү 1978-жылы ЮНЕСКОнун биосфералык резерваты деп жарыяланган Сары-Челек коругу деп аталган ири аймактын өзгөчөлүгү болуп саналат. Корукта жети альп көлү бар, алардын эң чоңу Сары Челек көлү. 1887 метр бийиктикте жайгашкан жана жер көчкүдөн пайда болгон көл дээрлик 500 гектар жерди ээлейт. Көлдүн тереңдиги ар кандай, эң терең жери 245 метр.',
+        },
         category: ['on budget'],
         price: 8700,
         duration: 3,
         plan: [
           {
-            title: 'From Bishkek to Jalal-Abad',
-            planDescription:
-              'At 8.00, meet your guide and driver. Start driving to Sary Chelek (from Bishkek - 685 km 10-12 hours). Arrival in Sary Chelek (Arkyt village) in the afternoon. Dinner and overnight in a home stay.',
+            title: {
+              en: 'From Bishkek to Jalal-Abad',
+              ru: 'От Бишкека до Джалал-Абада',
+              kg: 'Бишкектен Джалал-Абадка чейин',
+            },
+            planDescription: {
+              en: 'At 8.00, meet your guide and driver. Start driving to Sary Chelek (from Bishkek - 685 km 10-12 hours). Arrival in Sary Chelek (Arkyt village) in the afternoon. Dinner and overnight in a home stay.',
+              ru: 'В 8.00 встреча с гидом и водителем. Начало поездки в Сары-Челек (из Бишкека – 685 км, 10-12 часов). Прибытие в Сары-Челек (село Аркыт) во второй половине дня. Ужин и ночевка в гостевом доме.',
+              kg: 'Саат 8.00дө гид жана айдоочуңуз менен жолугушуңуз. Сары Челекке (Бишкектен – 685 км 10-12 саат) айдап баштаңыз. Түштөн кийин Сары Челекке (Аркыт айылы) келүү. Кечки тамак жана түнүү үйдө болуу.',
+            },
           },
           {
-            title: 'Free day in Sary-Chelek',
-            planDescription:
-              'Free day in Sary Chelek. After breakfast transfer from Arkyt village to Sary Chelek lake (15 km, 30 minutes). Picnic for lunch. Transfer back to Arkyt village. Dinner and overnight in a home stay.',
+            title: {
+              en: 'Free day in Sary-Chelek',
+              ru: 'От Бишкека до Джалал-Абада',
+              kg: 'Бишкектен Джалал-Абадка чейин',
+            },
+            planDescription: {
+              en: 'Free day in Sary Chelek. After breakfast transfer from Arkyt village to Sary Chelek lake (15 km, 30 minutes). Picnic for lunch. Transfer back to Arkyt village. Dinner and overnight in a home stay.',
+              ru: 'Свободный день в Сары-Челеке. После завтрака трансфер из села Аркыт к озеру Сары Челек (15 км, 30 минут). Пикник на обед. Возвращение в село Аркыт. Ужин и ночевка в гостевом доме.',
+              kg: 'Сары Челектеги бош күн. Эртең мененки тамактан кийин Аркыт айылынан Сары Челек көлүнө (15 км, 30 мүнөт) көчүү. Түшкү тамакка пикник. Аркыт айылына кайтуу. Кечки тамак жана түнүү үйдө болуу.',
+            },
           },
           {
-            title: 'From Jalal-Abad back to Bishkek',
-            planDescription:
-              'After breakfast transfer back to Bishkek. End of the tour.',
+            title: {
+              en: 'From Jalal-Abad back to Bishkek',
+              ru: 'От Бишкека до Джалал-Абада',
+              kg: 'Бишкектен Джалал-Абадка чейин',
+            },
+            planDescription: {
+              en: 'After breakfast transfer back to Bishkek. End of the tour.',
+              ru: 'После завтрака трансфер обратно в Бишкек. Конец тура.',
+              kg: 'Эртең мененки тамактан кийин Бишкекке кайтабыз. Турдун аягы.',
+            },
           },
         ],
-        destination: 'Jalal-Abad, Sary-Chelek',
-        arrival: 'Akhunbaev st. 75',
-        departure: '11 PM',
-        dressCode: 'Casual. Comfortable athletic clothing, hiking shoes.',
-        included: ['Group Guide', 'Transport', 'Guesthouse', 'Food'],
+        destination: {
+          en: 'Jalal-Abad, Sary-Chelek',
+          ru: 'Джалал-Абад, Сары-Челек',
+          kg: 'Жалал-Абад, Сары-Челек',
+        },
+        arrival: {
+          en: 'Akhunbaev st. 75',
+          ru: 'Ахунбаева 75',
+          kg: 'Ахунбаев 75',
+        },
+        departure: { en: '11:00 PM', ru: '11:00 PM', kg: '11:00 PM' },
+        dressCode: {
+          en: 'Casual. Comfortable athletic clothing, hiking shoes.',
+          ru: 'Повседневный. Удобная спортивная одежда, походная обувь.',
+          kg: 'Күнүмдүк. Ыңгайлуу спорттук кийимдер, сейилдөө бут кийимдери.',
+        },
+        included: {
+          en: ['Group Guide', 'Transport', 'Guesthouse', 'Food'],
+          ru: ['Группа гидов', 'Транспорт', 'Гостевой дом', 'Питание'],
+          kg: ['Гиддер тобу', 'Транспорт', 'Конок үй', 'Тамактануу'],
+        },
         galleryTour: ['fixtures/sary-chelek.jpeg'],
-        country: 'Kyrgyzstan',
+        country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
       },
       {
         guides: [Andrey._id, Artem._id],
-        name: 'Fascinating Ala-Kul Tour',
+        name: {
+          en: 'Fascinating Ala-Kul Tour',
+          ru: 'Тур по очаравательному озеру Ала-Куль',
+          kg: 'Кереметтүү Ала-Көлгө саякат',
+        },
         mainImage: 'fixtures/ala-kul.jpeg',
-        description:
-          'Ala Kul lake is located at an altitude of 3500 m, 20 kilometers south of the city of Karakol. The best time to visit Ala Kul lake is between early July and the end of September.  The trail to Ala Kul is well-marked, and you will find other hikers along during the hiking season, so you can hike to Ala Kul alone too.',
+        description: {
+          en: 'Ala Kul lake is located at an altitude of 3500 m, 20 kilometers south of the city of Karakol. The best time to visit Ala Kul lake is between early July and the end of September.  The trail to Ala Kul is well-marked, and you will find other hikers along during the hiking season, so you can hike to Ala Kul alone too.',
+          ru: 'Озеро Ала-Куль расположено на высоте 3500 м, в 20 километрах к югу от города Каракол. Лучшее время для посещения озера Ала-Куль – с начала июля до конца сентября. Тропа к Ала-Кулю хорошо обозначена, и во время туристического сезона вы встретите других туристов, так что вы также можете отправиться в поход на Ала-Куль в одиночку.',
+          kg: 'Ала-Көл көлү 3500 м бийиктикте, Каракол шаарынан 20 км түштүктө жайгашкан. Ала-Көлгө баруунун эң жакшы мезгили - июлдун башынан сентябрдын аягына чейин. Ала-Көлгө баруучу жол жакшы белгиленет жана жөө жүрүү мезгилинде сиз башка саякатчыларды таба аласыз, ошондуктан сиз Ала-Көлгө жалгыз чыгыңыз.',
+        },
         category: ['history'],
         price: 3500,
         duration: 2,
         plan: [
           {
-            title: 'From Bishkek to Karakol',
-            planDescription:
-              'In the morning you’ll be picked up from destination and go to Karakol. The trek starts from Karakol town. First, you need to get to the entrance of Karakol National Park. Then you need to walk along the old road toward the Sirota bridge for about 3 hours or 10 km. Here the difficult part of the trail begins. You need to walk through the forest up towards Ala Kul. The trail is clearly visible, you just need to follow the trail. After climbing for about + 500 m, you will arrive at the Sirota Camp. There is usually a tent camp in Sirota. You can overnight at the campsite if you don’t have a tent. ',
+            title: {
+              en: 'From Bishkek to Karakol',
+              ru: 'От Бишкека до Каракола',
+              kg: 'Бишкектен Караколго чейин',
+            },
+            planDescription: {
+              en: 'In the morning you’ll be picked up from destination and go to Karakol. The trek starts from Karakol town. First, you need to get to the entrance of Karakol National Park. Then you need to walk along the old road toward the Sirota bridge for about 3 hours or 10 km. Here the difficult part of the trail begins. You need to walk through the forest up towards Ala Kul. The trail is clearly visible, you just need to follow the trail. After climbing for about + 500 m, you will arrive at the Sirota Camp. There is usually a tent camp in Sirota. You can overnight at the campsite if you don’t have a tent.',
+              ru: '*Утром вас заберут из пункта назначения и отправят в Каракол. Трек начинается из города Каракол. Сначала вам нужно добраться до входа в Каракольский национальный парк. Далее нужно идти по старой дороге в сторону моста Сирота около 3 часов или 10 км. Здесь начинается трудная часть пути. Вам нужно пройти через лес в сторону Ала-Куля. Тропа хорошо видна, нужно просто идти по ней. Поднявшись примерно на +500 м, вы прибудете в лагерь Сирота. В Сироте обычно есть палаточный лагерь. Если у вас нет палатки, вы можете переночевать в кемпинге.',
+              kg: 'Эртең менен бара турган жерден алып, Караколго кетесиң. Жөө жүрүш Каракол шаарынан башталат. Алгач Каракол улуттук паркынын кире беришине жетишиңиз керек. Андан кийин сиз Сирота көпүрөсүн көздөй эски жол менен 3 саат же 10 км басышыңыз керек. Бул жерден жолдун татаал бөлүгү башталат. Токойду аралап Ала-Көлдү көздөй басып өтүш керек. Из даана көрүнүп турат, жөн гана из менен жүрүш керек. Болжол менен + 500 м бийиктикке чыккандан кийин Сирота лагерине жетесиз. Сиротада көбүнчө чатыр лагери бар. Чатырыңыз жок болсо, лагерде түнө аласыз.',
+            },
           },
           {
-            title:
-              'From Altyn Arashan to AkSuu - Karakol Town - back to Bishkek',
-            planDescription:
-              'On the second day you will goo to Aksuu, relax there, go to Karakol and back to Bishkek.',
+            title: {
+              en: 'From Altyn Arashan to AkSuu - Karakol Town - back to Bishkek',
+              ru: 'От Бишкека до Каракола',
+              kg: 'Бишкектен Караколго чейин',
+            },
+            planDescription: {
+              en: 'On the second day you will goo to Aksuu, relax there, go to Karakol and back to Bishkek.',
+              ru: 'На второй день вы поедете в Аксуу, отдохнете там, поедете в Каракол и вернетесь в Бишкек.',
+              kg: 'Экинчи күнү Аксууга барып, ошол жактан эс алып, Караколго барып, кайра Бишкекке кетесиң.',
+            },
           },
         ],
-        destination: 'Karakol, Ala-Kul',
-        arrival: 'Akhunbaev st. 75',
-        departure: '11 PM',
-        dressCode: 'Casual. Comfortable athletic clothing, hiking shoes.',
-        included: ['Museum Tickets', 'Group Guide', 'Transport', 'Tents'],
+        destination: {
+          en: 'Karakol, Ala-Kul',
+          ru: 'Каракол, Ала-Куль',
+          kg: 'Каракол, Ала-Көл',
+        },
+        arrival: {
+          en: 'Akhunbaev st. 75',
+          ru: 'Ахунбаева 75',
+          kg: 'Ахунбаев 75',
+        },
+        departure: { en: '11:00 PM', ru: '11:00 PM', kg: '11:00 PM' },
+        dressCode: {
+          en: 'Casual. Comfortable athletic clothing, hiking shoes.',
+          ru: 'Повседневный. Удобная спортивная одежда, походная обувь.',
+          kg: 'Күнүмдүк. Ыңгайлуу спорттук кийимдер, сейилдөө бут кийимдери.',
+        },
+        included: {
+          en: ['Museum Tickets', 'Group Guide', 'Transport', 'Tents'],
+          ru: ['Билеты в музей', 'Группа гидов', 'Транспорт', 'Палатки'],
+          kg: ['Музейге билеттер', 'Гиддер тобу', 'Транспорт', 'Чатырлар'],
+        },
         galleryTour: ['fixtures/ala-kul.jpeg'],
-        country: 'Kyrgyzstan',
+        country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
       },
     );

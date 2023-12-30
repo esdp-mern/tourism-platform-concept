@@ -11,7 +11,7 @@ const Home = () => {
 };
 
 Home.getInitialProps = wrapper.getInitialPageProps((store) => async () => {
-  await store.dispatch(fetchTours());
+  await store.dispatch(fetchTours({}));
   return { props: { name: 'tours' } };
 });
 
