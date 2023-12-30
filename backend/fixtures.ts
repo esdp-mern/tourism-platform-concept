@@ -1137,12 +1137,12 @@ const run = async () => {
 
   await PlatformReview.create(
     {
-      user: user3._id,
+      user: user1._id,
       comment: 'Good!',
       date: '2024-08-05T17:11:22.353Z',
     },
     {
-      user: user3._id,
+      user: user2._id,
       comment: 'Pretty nice!',
       date: '2023-11-01T17:11:22.353Z',
     },
