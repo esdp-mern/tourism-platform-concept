@@ -52,9 +52,9 @@ ordersRouter.post('/', async (req, res, next) => {
       tour: req.body.tour,
       price: req.body.price,
       date: req.body.date,
-      user: req.body.user || null,
-      email: req.body.email || null,
-      phone: req.body.phone || null,
+      user: req.body.user,
+      email: req.body.email,
+      phone: req.body.phone,
     });
 
     await order.save();

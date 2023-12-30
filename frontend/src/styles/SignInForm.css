@@ -17,6 +17,7 @@
 }
 
 .form-title {
+  text-align: center;
   font-size: 2rem;
   letter-spacing: 2px;
   font-family: 'Montserrat', sans-serif;

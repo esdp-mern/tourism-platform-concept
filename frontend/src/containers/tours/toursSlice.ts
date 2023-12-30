@@ -29,6 +29,7 @@ interface ToursState {
   tourReviews: [];
   postReviewError: ValidationError | null;
   postReviewLoading: boolean;
+  orderError: ValidationError | null;
   orderButtonLoading: boolean;
   editLoading: boolean;
   deleteLoading: boolean | string;
@@ -51,6 +52,7 @@ const initialState: ToursState = {
   tourReviews: [],
   postReviewError: null,
   postReviewLoading: false,
+  orderError: null,
   orderButtonLoading: false,
   editLoading: false,
   deleteLoading: false,
@@ -70,6 +72,9 @@ export const toursSlice = createSlice({
     },
     showModal: (state, action) => {
       state.modal = action.payload;
+    },
+    clearOrderError: (state) => {
+      state.orderError = null;
     },
   },
   extraReducers: (builder) => {
@@ -177,8 +182,9 @@ export const toursSlice = createSlice({
     builder.addCase(createOrder.fulfilled, (state) => {
       state.orderButtonLoading = false;
     });
-    builder.addCase(createOrder.rejected, (state) => {
+    builder.addCase(createOrder.rejected, (state, { payload: error }) => {
       state.orderButtonLoading = false;
+      state.orderError = error || null;
     });
     builder.addCase(postTour.pending, (state) => {
       state.postTourLoading = true;
@@ -238,7 +244,8 @@ export const toursSlice = createSlice({
   },
 });
 
-export const { resetPostReviewError, showModal } = toursSlice.actions;
+export const { resetPostReviewError, showModal, clearOrderError } =
+  toursSlice.actions;
 export const toursReducer = toursSlice.reducer;
 export const selectAllTours = (state: RootState) => state.tours.tours;
 export const selectAllToursLength = (state: RootState) =>
@@ -253,6 +260,7 @@ export const selectPostReviewError = (state: RootState) =>
 export const selectPostReviewLoading = (state: RootState) =>
   state.tours.postReviewLoading;
 export const selectTourReviews = (state: RootState) => state.tours.tourReviews;
+export const selectOrderError = (state: RootState) => state.tours.orderError;
 export const selectPostTourLoading = (state: RootState) =>
   state.tours.postTourLoading;
 export const selectPostTourError = (state: RootState) =>

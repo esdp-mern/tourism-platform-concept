@@ -35,7 +35,6 @@
 }
 
 .input-phone-number input:focus {
-  padding: 11px 19px 11px 40px;
   font-family: 'Montserrat Regular', serif;
   font-size: 18px;
   border: 0;
@@ -43,7 +42,6 @@
   transition: all 0.3s ease-in-out;
   background-color: transparent;
   outline: 0;
-  min-height: 60px;
 }
 
 .PhoneInputCountryIcon {
@@ -80,12 +78,15 @@
   transform: translateY(-50%);
 }
 
+.PhoneInputInput {
+  padding-left: 40px;
+}
+
 .PhoneInputInput:focus-visible::placeholder {
   opacity: 0;
 }
 
 .PhoneInputInput:focus-visible {
-  padding: 11px 19px 11px 40px;
   font-family: 'Montserrat Regular', serif;
   font-size: 18px;
   border: 0;
@@ -93,7 +94,6 @@
   transition: all 0.3s ease-in-out;
   background-color: transparent;
   outline: 0;
-  min-height: 60px;
 }
 
 .PhoneInputInput::placeholder {
@@ -109,7 +109,6 @@
 }
 
 .PhoneInputInput {
-  padding: 11px 19px 11px 40px;
   font-family: 'Montserrat Regular', serif;
   font-size: 18px;
   border: 0;

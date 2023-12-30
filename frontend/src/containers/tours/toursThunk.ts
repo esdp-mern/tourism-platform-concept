@@ -9,7 +9,7 @@ import {
 } from '@/type';
 import axiosApi from '@/axiosApi';
 import { isAxiosError } from 'axios';
-import number from '@/components/Statisticks/Number';
+import number from '@/components/Statistics/Number';
 
 export const fetchTours = createAsyncThunk<
   | {
@@ -116,12 +116,21 @@ export const tourReview = createAsyncThunk<
   }
 });
 
-export const createOrder = createAsyncThunk<void, IOrder>(
-  'orders/createOne',
-  async (order) => {
+export const createOrder = createAsyncThunk<
+  void,
+  IOrder,
+  { rejectValue: ValidationError }
+>('orders/createOne', async (order, { rejectWithValue }) => {
+  try {
     await axiosApi.post('/orders', order);
-  },
-);
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 400) {
+      return rejectWithValue(e.response.data);
+    }
+
+    throw e;
+  }
+});
 
 export const postTour = createAsyncThunk<
   void,
