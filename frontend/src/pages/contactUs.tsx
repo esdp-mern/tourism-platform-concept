@@ -165,9 +165,11 @@ const ContactUs = () => {
           <p className="contacts-top-title">
             {contacts && contacts.title ? contacts.title : 'Contact Us'}
             {admin && (
-              <span
+              <button
                 className="icon-container-edit-contacts"
                 onClick={() => setEditModalTitle(true)}
+                style={{ background: 'none' }}
+                name="main"
               >
                 <Image
                   src={penIcon}
@@ -176,7 +178,7 @@ const ContactUs = () => {
                   height={20}
                   className="icon-edit"
                 />
-              </span>
+              </button>
             )}
           </p>
           {contacts && contacts.description ? (
@@ -299,6 +301,7 @@ const ContactUs = () => {
                                 return updatedInfo;
                               });
                             }}
+                            name="delete-contact-info"
                           >
                             Delete
                           </button>
@@ -306,6 +309,7 @@ const ContactUs = () => {
                             type="submit"
                             className="form-tour-btn"
                             style={{ margin: 0 }}
+                            name="contacts-title-edit-btn"
                           >
                             {editContactsLoading ? (
                               <ButtonLoader size={18} />
@@ -388,6 +392,7 @@ const ContactUs = () => {
               type="submit"
               className="form-tour-btn"
               style={{ margin: 0 }}
+              name="contacts-title-edit-btn"
             >
               {editContactsLoading ? <ButtonLoader size={18} /> : 'Save'}
             </button>
