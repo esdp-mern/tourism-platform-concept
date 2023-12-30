@@ -819,7 +819,7 @@ const TourForm: React.FC<Props> = ({ isEdit, existingTour, idTour }) => {
                         )
                       }
                       icon={invisibleIcon.src}
-                      label="latitude"
+                      label="coordinates"
                       required
                     />
                     <TextField

@@ -13,6 +13,8 @@ interface Props {
   icon: string;
   className?: string;
   label?: string;
+  errorMessage?: string;
+  errorMessageSize?: string | number;
   required?: boolean;
   isSubmit?: boolean;
   style?: React.CSSProperties;
@@ -26,6 +28,7 @@ const TextField: React.FC<Props> = (props) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
+    if (props.errorMessage) setIsError(true);
     if (props.isSubmit !== undefined) {
       setIsError(!!(props.required && props.isSubmit && !props.value));
     }
@@ -47,11 +50,13 @@ const TextField: React.FC<Props> = (props) => {
 
   const inputClassNames: string[] = ['text-field-input'];
 
-  if (isError) inputClassNames.push('text-field-input-error');
+  if (isError && props.errorMessage) {
+    inputClassNames.push('text-field-input-error');
+  }
   if (!props.icon) inputClassNames.push('text-field-input-no-icon');
 
   return (
-    <div className="text-field">
+    <div className="text-field" style={props.style}>
       <label
         className={`text-field-label ${
           isFocus || (isDatePicker && selectedDate) || props.value
@@ -72,7 +77,6 @@ const TextField: React.FC<Props> = (props) => {
       ) : (
         <input
           className={inputClassNames.join(' ') + (props.className || '')}
-          style={props.style}
           type={isDatePicker ? 'text' : props.type}
           name={props.name}
           value={
@@ -82,7 +86,8 @@ const TextField: React.FC<Props> = (props) => {
                 : ''
               : props.value
           }
-          onChange={(e) =>
+          onChange={(e) => {
+            setIsError(false);
             props.onChange(
               isDatePicker
                 ? {
@@ -92,8 +97,8 @@ const TextField: React.FC<Props> = (props) => {
                     },
                   }
                 : e,
-            )
-          }
+            );
+          }}
           ref={inputRef}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
@@ -101,8 +106,15 @@ const TextField: React.FC<Props> = (props) => {
         />
       )}
       <img className="text-field-img" src={props.icon} alt="img" />
-      {isError && (
-        <span className="text-field-span">The text field is required.</span>
+      {(isError || props.errorMessage) && (
+        <span
+          className="text-field-span"
+          style={{ fontSize: props.errorMessageSize }}
+        >
+          {props.errorMessage?.includes('required')
+            ? 'The text field is required.'
+            : props.errorMessage}
+        </span>
       )}
 
       {isDatePicker && (

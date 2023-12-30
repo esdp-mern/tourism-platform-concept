@@ -17,7 +17,7 @@
 }
 
 .form-title {
-  font-size: 26px;
+  font-size: 2rem;
   letter-spacing: 2px;
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
@@ -30,15 +30,15 @@
   margin-bottom: 30px;
 }
 
+.input-wrap-avatar {
+  margin-top: 19px;
+}
+
 .google-wrap {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-}
-
-.btn-wrap {
-  width: 480px;
 }
 
 .form-label {
@@ -84,22 +84,10 @@
   padding-left: 30px;
 }
 
-.email {
-  background: url('../assets/images/email-icon.svg') no-repeat center left;
-  background-size: 18px;
-  padding-left: 30px;
-}
-
 .avatar {
   background: url('../assets/images/photo-icon.svg') no-repeat;
-  background-size: 18px;
-  padding-left: 30px;
-}
-
-.name {
-  background: url('../assets/images/pen-icon.svg') no-repeat center left;
-  background-size: 18px;
-  padding-left: 30px;
+  background-size: 24px;
+  padding-left: 40px;
 }
 
 .form-control:focus {
@@ -136,6 +124,7 @@
 .form-wrap-btn {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 30px;
 }
 
 .form-btn {
@@ -189,7 +178,8 @@
 }
 
 .form-label-avatar {
-  padding-left: 30px;
+  padding-left: 40px;
+  font-size: 18px;
 }
 
 @media (max-width: 520px) {

@@ -76,6 +76,10 @@ export const usersSlice = createSlice({
     setEditorModal: (state) => {
       state.editorModal = !state.editorModal;
     },
+    clearError: (state) => {
+      state.signInError = null;
+      state.signUpError = null;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(signUp.pending, (state) => {
@@ -205,8 +209,13 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { addAlert, disableAlert, resetSignInError, setEditorModal } =
-  usersSlice.actions;
+export const {
+  addAlert,
+  disableAlert,
+  resetSignInError,
+  setEditorModal,
+  clearError,
+} = usersSlice.actions;
 export const selectUser = (state: RootState) => state.users.user;
 export const selectSignUpLoading = (state: RootState) =>
   state.users.registerLoading;
