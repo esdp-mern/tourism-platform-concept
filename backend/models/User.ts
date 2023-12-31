@@ -42,6 +42,7 @@ const UserSchema = new mongoose.Schema({
   },
   email: {
     type: String,
+    unique: true,
     required: true,
   },
   role: {
@@ -57,6 +58,10 @@ const UserSchema = new mongoose.Schema({
   avatar: String,
   googleID: String,
   appleID: String,
+  verified: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 UserSchema.pre('save', async function (next) {

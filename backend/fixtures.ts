@@ -57,7 +57,7 @@ const run = async () => {
     },
     {
       username: 'guide2',
-      email: 'guide@gmail.com',
+      email: 'guide2@gmail.com',
       displayName: 'Guide2',
       password: 'qwerty1234',
       role: 'guid',
@@ -66,7 +66,7 @@ const run = async () => {
     },
     {
       username: 'guide3',
-      email: 'guide@gmail.com',
+      email: 'guide3@gmail.com',
       displayName: 'Guide3',
       password: 'qwerty1234',
       role: 'guid',

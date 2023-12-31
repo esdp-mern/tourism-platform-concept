@@ -11,6 +11,7 @@ export interface IUser {
   avatar?: string;
   appleID?: string;
   googleID?: string;
+  verified: boolean;
 }
 
 export interface ITourReview {

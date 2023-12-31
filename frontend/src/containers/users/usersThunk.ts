@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   GlobalError,
   IEditProfile,
+  RegisterMessage,
   RegisterMutation,
   RegisterResponse,
   signInMutation,
@@ -25,7 +26,7 @@ export const getUsers = createAsyncThunk<User[], string>(
 );
 
 export const signUp = createAsyncThunk<
-  RegisterResponse,
+  RegisterMessage,
   RegisterMutation,
   { rejectValue: ValidationError }
 >(
@@ -43,11 +44,7 @@ export const signUp = createAsyncThunk<
         }
       });
 
-      const { data } = await axiosApi.post<RegisterResponse>(
-        '/users',
-        formData,
-      );
-
+      const { data } = await axiosApi.post<RegisterMessage>('/users', formData);
       return data;
     } catch (e) {
       if (isAxiosError(e) && e.response && e.response.status === 400) {
