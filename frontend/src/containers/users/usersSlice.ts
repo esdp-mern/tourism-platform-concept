@@ -87,12 +87,6 @@ export const usersSlice = createSlice({
     builder.addCase(signUp.fulfilled, (state, { payload: message }) => {
       state.registerLoading = false;
       state.registerMessage = message;
-      // const userData = userResponse.user;
-      //
-      // state.user = {
-      //   ...userData,
-      //   avatar: userData.avatar ? getFilteredUrl(userData.avatar) : null,
-      // };
     });
     builder.addCase(signUp.rejected, (state, { payload: error }) => {
       state.registerLoading = false;
