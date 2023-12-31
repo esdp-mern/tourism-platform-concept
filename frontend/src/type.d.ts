@@ -458,3 +458,7 @@ export interface IPartnerOrderMutation {
   link: string;
   image: File | null;
 }
+
+export interface RegisterMessage {
+  message: string;
+}
