@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import config from './config';
 import usersRouter from './routers/users';
 import toursRouter from './routers/tours';
@@ -26,6 +27,7 @@ const port = 8000;
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.static('public'));
 app.use('/users', usersRouter);
 app.use('/tours', toursRouter);
