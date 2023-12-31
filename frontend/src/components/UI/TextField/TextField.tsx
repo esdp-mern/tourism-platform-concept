@@ -1,34 +1,35 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
-import TextFieldSelect from '@/components/UI/TextField/components/TextFieldSelect/TextFieldSelect';
-import { format } from 'date-fns';
 import { DayPicker } from 'react-day-picker';
+import { format } from 'date-fns';
+import TextFieldSelect from '@/components/UI/TextField/components/TextFieldSelect/TextFieldSelect';
+import PhoneInputWithCountrySelect from 'react-phone-number-input';
+import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
+import 'react-phone-number-input/style.css';
 import 'react-day-picker/dist/style.css';
+import { T } from '@/store/translation';
 
 interface Props {
   name: string;
-  type: React.HTMLInputTypeAttribute | 'select';
+  type: React.HTMLInputTypeAttribute | 'select' | 'phone';
   value: string;
   onChange: (e: IChangeEvent) => void;
-  icon: string;
+  icon?: string;
   className?: string;
   label?: string;
+  errorMessage?: string;
+  errorMessageSize?: string | number;
   required?: boolean;
-  isSubmit?: boolean;
   style?: React.CSSProperties;
+  setErrorMessage?: (message: string) => void;
 }
 
 const TextField: React.FC<Props> = (props) => {
   const [isFocus, setIsFocus] = useState<boolean>(false);
-  const [isError, setIsError] = useState<boolean>(false);
   const [prevSelectedDate, setPrevSelectedDate] = useState<Date>();
   const [selectedDate, setSelectedDate] = useState<Date>();
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    if (props.isSubmit !== undefined) {
-      setIsError(!!(props.required && props.isSubmit && !props.value));
-    }
     if (inputRef.current && selectedDate && prevSelectedDate !== selectedDate) {
       props.onChange({
         target: {
@@ -42,36 +43,65 @@ const TextField: React.FC<Props> = (props) => {
 
   const isDatePicker = props.type === 'date';
   const isSelect = props.type === 'select';
+  const isPhone = props.type === 'phone';
 
   const getFormat = (date: Date) => format(date, 'dd/MM/yyyy');
 
-  const inputClassNames = `text-field-input ${
-    isError ? 'text-field-input-error' : ''
-  }`;
+  const inputClassNames: string[] = ['text-field-input'];
+
+  useEffect(() => {
+    const phoneInputsRef = document.getElementsByClassName(
+      'PhoneInputInput',
+    ) as HTMLCollectionOf<HTMLInputElement>;
+
+    if (phoneInputsRef[0]) {
+      phoneInputsRef[0].style.borderColor =
+        isPhone && props.errorMessage ? '#f5543f' : '#c4c4c4';
+    }
+  }, [props]);
+
+  if (props.errorMessage) inputClassNames.push('text-field-input-error');
+  if (!props.icon) inputClassNames.push('text-field-input-no-icon');
 
   return (
-    <div className="text-field">
-      <label
-        className={`text-field-label ${
-          isFocus || (isDatePicker && selectedDate) || props.value
-            ? 'text-field-label-hidden'
-            : ''
-        }`}
-      >
-        {props.label}
-      </label>
+    <div className="text-field" style={props.style}>
+      {!isPhone && (
+        <label
+          className={`text-field-label ${
+            isFocus || (isDatePicker && selectedDate) || props.value
+              ? 'text-field-label-hidden'
+              : ''
+          } ${!props.icon ? 'text-field-label-no-icon' : ''}`}
+        >
+          {props.label}
+        </label>
+      )}
       {isSelect ? (
         <TextFieldSelect
           name={props.name}
           label={props.label}
           value={props.value}
           onSelect={props.onChange}
-          className={inputClassNames}
+          className={inputClassNames.join(' ')}
+        />
+      ) : isPhone ? (
+        <PhoneInputWithCountrySelect
+          placeholder={T('/oneTourPage', 'tour_order_form_phone')}
+          value={props.value}
+          onChange={(e) => {
+            if (e) {
+              props.onChange({
+                target: { name: props.name, value: e },
+              });
+            }
+          }}
+          autoComplete="off"
+          className="input-phone-number"
+          international
         />
       ) : (
         <input
-          className={inputClassNames + (props.className || '')}
-          style={props.style}
+          className={inputClassNames.join(' ') + (props.className || '')}
           type={isDatePicker ? 'text' : props.type}
           name={props.name}
           value={
@@ -81,7 +111,7 @@ const TextField: React.FC<Props> = (props) => {
                 : ''
               : props.value
           }
-          onChange={(e) =>
+          onChange={(e) => {
             props.onChange(
               isDatePicker
                 ? {
@@ -91,22 +121,40 @@ const TextField: React.FC<Props> = (props) => {
                     },
                   }
                 : e,
-            )
-          }
+            );
+          }}
+          style={{ fontSize: props.type === 'password' ? 26 : 18 }}
           ref={inputRef}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
           autoComplete="off"
         />
       )}
-      <img className="text-field-img" src={props.icon} alt="img" />
-      {isError && (
-        <span className="text-field-span">The text field is required.</span>
+      {props.icon && (
+        <img className="text-field-img" src={props.icon} alt="img" />
+      )}
+      {props.errorMessage && (
+        <span
+          className="text-field-span"
+          style={{ fontSize: props.errorMessageSize }}
+        >
+          {props.required &&
+          (props.errorMessage?.includes('required') || isSelect)
+            ? 'The text field is required.'
+            : props.errorMessage}
+        </span>
       )}
 
       {isDatePicker && (
-        <div className={`day-picker ${isFocus ? '' : 'day-picker-hide'}`}>
+        <div
+          onClick={() => setIsFocus(true)}
+          className={`day-picker ${isFocus ? '' : 'day-picker-hide'}`}
+        >
           <DayPicker
+            onDayClick={(_, __, e) => {
+              e.stopPropagation();
+              setIsFocus(false);
+            }}
             mode="single"
             showOutsideDays
             selected={selectedDate}

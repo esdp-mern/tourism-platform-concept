@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
   addAlert,
   selectRegisterMessage,
+  clearError,
   selectSignUpError,
   selectSignUpLoading,
   selectUser,
@@ -14,6 +15,13 @@ import { useRouter } from 'next/router';
 import FileInput from '@/components/UI/FileInput/FileInput';
 import Link from 'next/link';
 import PageLoader from '@/components/Loaders/PageLoader';
+import TextField from '@/components/UI/TextField/TextField';
+import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
+import peopleIcon from '@/assets/images/people-icon.svg';
+import keyIcon from '@/assets/images/key.png';
+import emailIcon from '@/assets/images/email-icon.svg';
+import phoneIcon from '@/assets/images/phone-icon.svg';
+import penIcon from '@/assets/images/pen-icon.svg';
 
 const initialState: RegisterMutation = {
   username: '',
@@ -38,12 +46,14 @@ const SignUpForm = () => {
     }
   }, [user, router]);
 
-  const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const inputChangeHandler = (event: IChangeEvent) => {
     const { name, value } = event.target;
 
     setState((prevState) => {
       return { ...prevState, [name]: value };
     });
+
+    dispatch(clearError());
   };
 
   const changeFileValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,86 +86,37 @@ const SignUpForm = () => {
     }
   };
 
+  const getTextField = (
+    name: keyof Omit<RegisterMutation, 'avatar'>,
+    label: string,
+    icon: string,
+    type?: React.HTMLInputTypeAttribute,
+  ) => (
+    <TextField
+      name={name}
+      label={label}
+      type={type || 'text'}
+      value={state[name]}
+      onChange={inputChangeHandler}
+      icon={icon}
+      errorMessage={getFieldError(name)}
+      errorMessageSize={12}
+      style={{ marginBottom: 10 }}
+      required
+    />
+  );
+
   return (
     <div className="form-block">
       <PageLoader />
       <form className="form" onSubmit={submitFormHandler}>
         <h2 className="form-title">Register Form</h2>
-        <div className="input-wrap">
-          {Boolean(getFieldError('username')) && (
-            <span className="error">{getFieldError('username')}</span>
-          )}
-          <input
-            autoComplete="off"
-            type="text"
-            className={
-              getFieldError('username')
-                ? 'form-control-error username'
-                : 'form-control username'
-            }
-            name="username"
-            id="username"
-            value={state.username}
-            onChange={inputChangeHandler}
-            required
-          />
-          <label htmlFor="username" className="form-label">
-            Username
-          </label>
-        </div>
-        <div className="input-wrap">
-          {Boolean(getFieldError('password')) && (
-            <span className="error">{getFieldError('password')}</span>
-          )}
-          <input
-            autoComplete="off"
-            type="password"
-            className={
-              getFieldError('password')
-                ? 'form-control-error password'
-                : 'form-control password'
-            }
-            name="password"
-            id="password"
-            value={state.password}
-            onChange={inputChangeHandler}
-            required
-          />
-          <label htmlFor="password" className="form-label">
-            Password
-          </label>
-        </div>
-        <div className="input-wrap">
-          <input
-            autoComplete="off"
-            type="text"
-            className="form-control name"
-            name="displayName"
-            id="displayName"
-            value={state.displayName}
-            onChange={inputChangeHandler}
-            required
-          />
-          <label htmlFor="displayName" className="form-label">
-            Name
-          </label>
-        </div>
-        <div className="input-wrap">
-          <input
-            autoComplete="off"
-            type="text"
-            className="form-control email"
-            name="email"
-            id="email"
-            value={state.email}
-            onChange={inputChangeHandler}
-            required
-          />
-          <label htmlFor="email" className="form-label">
-            Email
-          </label>
-        </div>
-        <div className="input-wrap">
+        {getTextField('username', 'Username', peopleIcon.src)}
+        {getTextField('password', 'Password', keyIcon.src, 'password')}
+        {getTextField('displayName', 'Name', penIcon.src)}
+        {getTextField('email', 'Email', emailIcon.src, 'email')}
+
+        <div className="input-wrap input-wrap-avatar">
           <label className="form-label-avatar avatar">Avatar</label>
           <FileInput
             onChange={changeFileValue}

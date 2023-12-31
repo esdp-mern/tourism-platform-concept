@@ -6,7 +6,16 @@ const platformReviewRouter = express.Router();
 
 platformReviewRouter.get('/', async (req, res) => {
   try {
-    const reviews = await PlatformReview.find().populate('user', 'displayName');
+    if (req.query.limit) {
+      const reviews = await PlatformReview.find()
+        .populate('user', 'displayName avatar')
+        .sort({ date: -1 })
+        .limit(4);
+      return res.send(reviews);
+    }
+    const reviews = await PlatformReview.find()
+      .populate('user', 'displayName avatar')
+      .sort({ date: -1 });
     return res.send(reviews);
   } catch (e) {
     return res.status(500).send(e);

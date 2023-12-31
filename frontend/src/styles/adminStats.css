@@ -94,7 +94,7 @@
 }
 
 .bg-gradient-partner-orders {
-    background: linear-gradient(to right, #3498db, #e74c3c 99%) !important;
+  background: linear-gradient(to right, #3498db, #e74c3c 99%) !important;
 }
 
 @media (min-width: 768px) {

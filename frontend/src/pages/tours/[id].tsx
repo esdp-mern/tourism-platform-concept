@@ -21,6 +21,8 @@ import Custom404 from '@/pages/404';
 import { fetchTourRating } from '@/containers/ratings/ratingThunk';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import GoogleMap from '@/components/GoogleMap/GoogleMap';
+import { selectLanguage } from '@/containers/users/usersSlice';
+import { T } from '@/store/translation';
 
 interface ITab {
   title: string;
@@ -53,7 +55,6 @@ const TourPage: NextPage<
     }
     dispatch(setIsLightMode(false));
     dispatch(fetchTour(id));
-    dispatch(fetchTours());
     dispatch(fetchToursReviews(id));
     dispatch(fetchTourRating(id));
   }, [dispatch, postReviewError, id]);
@@ -95,12 +96,16 @@ const TourPage: NextPage<
           <div className="one-tour-top-line"></div>
           <h2 className="one-tour-top-title">{tour.name}</h2>
           <div className="one-tour-btns">
-            <button className="one-tour-btn-one">Video Preview</button>
-            <button className="one-tour-btn-two">View photos</button>
+            <button className="one-tour-btn-one">
+              {T('/oneTourPage', `tour_video_preview`)}
+            </button>
+            <button className="one-tour-btn-two">
+              {T('/oneTourPage', `tour_view_photos`)}
+            </button>
           </div>
         </div>
         <div className="one-tour-slider-btns">
-          {TABS.map(({ title, name }) => (
+          {TABS.map(({ name }) => (
             <button
               name={name}
               onClick={toggleTab}
@@ -111,7 +116,7 @@ const TourPage: NextPage<
               }
               key={`${name}-tab`}
             >
-              <span>{title}</span>
+              <span>{T('/oneTourPage', `tour_tab_${name}`)}</span>
             </button>
           ))}
         </div>
@@ -123,14 +128,14 @@ const TourPage: NextPage<
             <span>Navigation</span>
           </button>
           <div className={`tour-tab-btns tour-tab-btns-${adaptiveTabBtns}`}>
-            {TABS.map(({ title, name }) => (
+            {TABS.map(({ name }) => (
               <button
                 name={name}
                 onClick={toggleTab}
                 className={`tour-tab-btn tour-tab-btn-${name}`}
                 key={`${name}-tab`}
               >
-                <span>{title}</span>
+                <span>{T('/oneTourPage', `tour_tab_${name}`)}</span>
               </button>
             ))}
           </div>

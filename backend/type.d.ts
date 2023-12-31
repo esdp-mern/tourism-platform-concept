@@ -60,3 +60,9 @@ export interface ITourPoint {
   title: string;
   strokeColor: string;
 }
+
+export interface ILanguages {
+  en: string;
+  ru: string;
+  kg: string;
+}

@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { signInMutation } from '@/type';
+import { RegisterMutation, signInMutation } from '@/type';
 import { GoogleLogin } from '@react-oauth/google';
 import { AxiosError } from 'axios';
 import { googleLogin, signIn } from '@/containers/users/usersThunk';
 import {
   addAlert,
+  selectSignInError,
   selectSignInLoading,
   selectUser,
 } from '@/containers/users/usersSlice';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import PageLoader from '@/components/Loaders/PageLoader';
 import Link from 'next/link';
+import TextField from '@/components/UI/TextField/TextField';
+import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
+import peopleIcon from '@/assets/images/people-icon.svg';
+import keyIcon from '@/assets/images/key.png';
 
 const SignInForm = () => {
   const dispatch = useAppDispatch();
+  const error = useAppSelector(selectSignInError);
   const router = useRouter();
   const [state, setState] = useState<signInMutation>({
     username: '',
@@ -30,7 +36,7 @@ const SignInForm = () => {
     }
   }, [user, router]);
 
-  const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const inputChangeHandler = (event: IChangeEvent) => {
     const { name, value } = event.target;
 
     setState((prevState) => {
@@ -63,6 +69,34 @@ const SignInForm = () => {
     }
   };
 
+  const getFieldError = (fieldName: string) => {
+    try {
+      return error?.errors[fieldName].message;
+    } catch {
+      return undefined;
+    }
+  };
+
+  const getTextField = (
+    name: keyof signInMutation,
+    label: string,
+    icon: string,
+    type?: React.HTMLInputTypeAttribute,
+  ) => (
+    <TextField
+      name={name}
+      label={label}
+      type={type || 'text'}
+      value={state[name]}
+      onChange={inputChangeHandler}
+      icon={icon}
+      errorMessage={getFieldError(name)}
+      errorMessageSize={12}
+      style={{ marginBottom: 10 }}
+      required
+    />
+  );
+
   return (
     <div className="form-block">
       <PageLoader />
@@ -80,36 +114,10 @@ const SignInForm = () => {
             }}
           />
         </div>
-        <div className="input-wrap">
-          <input
-            autoComplete="off"
-            type="text"
-            className="form-control username"
-            name="username"
-            id="username"
-            value={state.username}
-            onChange={inputChangeHandler}
-            required
-          />
-          <label htmlFor="username" className="form-label">
-            Username
-          </label>
-        </div>
-        <div className="input-wrap">
-          <input
-            autoComplete="off"
-            type="password"
-            className="form-control password"
-            name="password"
-            id="password"
-            value={state.password}
-            onChange={inputChangeHandler}
-            required
-          />
-          <label htmlFor="password" className="form-label">
-            Password
-          </label>
-        </div>
+
+        {getTextField('username', 'Username', peopleIcon.src)}
+        {getTextField('password', 'Password', keyIcon.src, 'password')}
+
         <div className="form-wrap-btn">
           <button className="form-btn" type="submit" disabled={signInLoading}>
             {signInLoading ? <ButtonLoader size={18} /> : 'Login'}

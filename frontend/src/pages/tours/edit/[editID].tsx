@@ -34,39 +34,10 @@ const EditTour: NextPage<
     return <Custom404 errorType="tour" />;
   }
 
-  let editingTour;
-
-  if (tour) {
-    const guides = tour.guides.map((guide) => {
-      return guide._id;
-    });
-
-    editingTour = {
-      name: tour.name,
-      country: tour.country,
-      mainImage: null,
-      duration: tour.duration,
-      price: tour.price,
-      description: tour.description,
-      destination: tour.destination,
-      arrival: tour.arrival,
-      departure: tour.departure,
-      dressCode: tour.dressCode,
-      included: tour.included,
-      category: tour.category,
-      galleryTour: null,
-      plan: tour.plan,
-      guides: guides,
-      routes: tour.routes,
-    };
-  }
-
   return (
     <div className="container sign-up-page">
       <PageLoader />
-      {editingTour && (
-        <TourForm isEdit existingTour={editingTour} idTour={tour?._id} />
-      )}
+      <TourForm isEdit idTour={tour?._id} />
     </div>
   );
 };

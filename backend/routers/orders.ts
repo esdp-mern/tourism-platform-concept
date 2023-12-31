@@ -52,9 +52,9 @@ ordersRouter.post('/', async (req, res, next) => {
       tour: req.body.tour,
       price: req.body.price,
       date: req.body.date,
-      user: req.body.user || null,
-      email: req.body.email || null,
-      phone: req.body.phone || null,
+      user: req.body.user,
+      email: req.body.email,
+      phone: req.body.phone,
     });
 
     await order.save();
@@ -146,6 +146,7 @@ ordersRouter.post('/sendEmail/:id', async (req, res, next) => {
         `;
 
       const tour = await Tour.findById(order.tour);
+      const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
 
       let error: Error | null = null;
 
@@ -153,7 +154,7 @@ ordersRouter.post('/sendEmail/:id', async (req, res, next) => {
         {
           from: `Tourism Platform Concept <${config.auth.user}>`,
           to: order.email,
-          subject: tour?.name ?? 'TPC',
+          subject: tour && tour.name ? tour.name[lang] : 'TPC',
           html: `
               <div>
                 <h2 style="${blockStyle}">Ваше заявление на бронирование тура было успешно одобрено!</h2>

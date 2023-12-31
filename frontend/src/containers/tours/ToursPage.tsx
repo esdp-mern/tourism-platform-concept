@@ -10,7 +10,7 @@ import HotTours from '@/components/HotTours/HotTours';
 import ReviewsMain from '@/components/ReviewsMain/ReviewsMain';
 import { fetchPlatformReviews } from '@/containers/reviews/reviewThunk';
 import { selectPlatformReviews } from '@/containers/reviews/reviewSlice';
-import Statistics from '@/components/Statisticks/Statistics';
+import Statistics from '@/components/Statistics/Statistics';
 import { setIsLightMode } from '@/containers/config/configSlice';
 
 const ToursPage = () => {
@@ -21,7 +21,7 @@ const ToursPage = () => {
   useEffect(() => {
     dispatch(setIsLightMode(true));
     dispatch(fetchPlatformReviews());
-    dispatch(fetchTours({ limit: 6 }));
+    dispatch(fetchTours());
   }, [dispatch]);
 
   return (

@@ -16,9 +16,6 @@ const Footer = () => {
                 <Link href="/about" className="footer-inner-top-link">
                   About
                 </Link>
-                <Link href="/reviews" className="footer-inner-top-link">
-                  Customer Reviews
-                </Link>
                 <Link
                   href={user ? '/guides/becomeGuide' : '/login'}
                   className="footer-inner-top-link"
@@ -27,7 +24,7 @@ const Footer = () => {
                 </Link>
               </div>
               <div>
-                <Link href="/contacts" className="footer-inner-top-link">
+                <Link href="/contactUs" className="footer-inner-top-link">
                   Contacts
                 </Link>
                 <Link href="/news/all/1" className="footer-inner-top-link">
@@ -55,32 +52,8 @@ const Footer = () => {
             <div>
               <ul className="footer-list-links">
                 <li>
-                  <Link
-                    href="/tours/all/[pageNum]"
-                    className="footer-list-link"
-                  >
+                  <Link href="/tours/all/1" className="footer-list-link">
                     Tours
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/destinations" className="footer-list-link">
-                    Destinations
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/tours/all/[pageNum]"
-                    className="footer-list-link"
-                  >
-                    Travel Insurance
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/tours/all/[pageNum]"
-                    className="footer-list-link"
-                  >
-                    Help
                   </Link>
                 </li>
               </ul>
@@ -91,7 +64,7 @@ const Footer = () => {
       <div className="footer-inner-two">
         <div className="container">
           <div className="footer-inner-two-txt">
-            © 2023 Sunway. All rights reserved.
+            © 2023 Tourism Concept. All rights reserved.
             <span>ㅤPrivacy Policy</span>
           </div>
         </div>

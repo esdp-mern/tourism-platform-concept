@@ -29,6 +29,7 @@ interface UsersState {
   editorModal: boolean;
   changeRoleLoading: boolean;
   patchLoading: boolean;
+  lang: string;
 }
 
 const initialState: UsersState = {
@@ -46,6 +47,7 @@ const initialState: UsersState = {
   editorModal: false,
   changeRoleLoading: false,
   patchLoading: false,
+  lang: 'en',
 };
 
 const getFilteredUrl = (url: string) =>
@@ -77,6 +79,13 @@ export const usersSlice = createSlice({
     },
     setEditorModal: (state) => {
       state.editorModal = !state.editorModal;
+    },
+    setLang: (state, action) => {
+      state.lang = action.payload;
+    },
+    clearError: (state) => {
+      state.signInError = null;
+      state.signUpError = null;
     },
   },
   extraReducers: (builder) => {
@@ -202,8 +211,14 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { addAlert, disableAlert, resetSignInError, setEditorModal } =
-  usersSlice.actions;
+export const {
+  addAlert,
+  disableAlert,
+  resetSignInError,
+  setEditorModal,
+  setLang,
+  clearError,
+} = usersSlice.actions;
 export const selectUser = (state: RootState) => state.users.user;
 export const selectSignUpLoading = (state: RootState) =>
   state.users.registerLoading;
@@ -225,3 +240,4 @@ export const selectPatchLoading = (state: RootState) =>
   state.users.patchLoading;
 export const selectRegisterMessage = (state: RootState) =>
   state.users.registerMessage;
+export const selectLanguage = (state: RootState) => state.users.lang;

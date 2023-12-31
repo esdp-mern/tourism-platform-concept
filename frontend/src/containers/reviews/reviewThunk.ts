@@ -39,13 +39,15 @@ export const fetchGuideReviews = createAsyncThunk<
   }
 });
 
-export const fetchPlatformReviews = createAsyncThunk<ReviewOfPlatform[]>(
-  'platformReview/fetchAll',
-  async () => {
-    const response = await axiosApi.get<ReviewOfPlatform[]>(`/platformReviews`);
-    return response.data;
-  },
-);
+export const fetchPlatformReviews = createAsyncThunk<
+  ReviewOfPlatform[],
+  boolean | undefined
+>('platformReview/fetchAll', async (limit?: boolean) => {
+  const response = await axiosApi.get<ReviewOfPlatform[]>(
+    `/platformReviews${limit ? '?limit=limit' : ''}`,
+  );
+  return response.data;
+});
 
 export const createGuideReview = createAsyncThunk<
   IPostGuideReview,

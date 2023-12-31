@@ -48,7 +48,7 @@ const GuideFilter = () => {
     } else {
       await dispatch(fetchAdminGuides());
     }
-    await dispatch(fetchTours());
+    await dispatch(fetchTours({}));
   };
 
   return (

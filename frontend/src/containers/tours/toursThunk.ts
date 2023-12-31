@@ -9,7 +9,7 @@ import {
 } from '@/type';
 import axiosApi from '@/axiosApi';
 import { isAxiosError } from 'axios';
-import number from '@/components/Statisticks/Number';
+import { LIMIT } from '@/constants';
 
 export const fetchTours = createAsyncThunk<
   | {
@@ -17,20 +17,21 @@ export const fetchTours = createAsyncThunk<
       allToursLength: number;
     }
   | Tour[],
-  {
-    guide?: string;
-    skip?: number;
-    limit?: number;
-  }
->('tours/fetchAll', async ({ guide, skip, limit }) => {
-  if (guide) {
-    const response = await axiosApi.get<Tour[]>(`/tours/?guide=${guide}`);
+  | {
+      guide?: string;
+      skip?: number;
+      limit?: number;
+    }
+  | undefined
+>('tours/fetchAll', async (arg) => {
+  if (arg?.guide) {
+    const response = await axiosApi.get<Tour[]>(`/tours/?guide=${arg.guide}`);
     return response.data;
   }
   const response = await axiosApi.get<{
     tours: Tour[];
     allToursLength: number;
-  }>(`/tours?skip=${skip}&limit=${limit}`);
+  }>(`/tours?skip=${arg?.skip}&limit=${arg?.limit ?? LIMIT}`);
 
   return response.data;
 });
@@ -47,7 +48,9 @@ export const fetchToursByFilter = createAsyncThunk<
     url = `/tours/filterByCategory?category=${value}`;
   }
 
-  const response = await axiosApi<Tour[]>(`${url}&skip=${skip}&limit=${limit}`);
+  const response = await axiosApi<Tour[]>(
+    `${url}&skip=${skip}&limit=${limit ?? LIMIT}`,
+  );
   return response.data;
 });
 
@@ -56,9 +59,9 @@ export const fetchToursByPrice = createAsyncThunk<
   { type: string; skip?: number; limit?: number }
 >('tours/fetchByPrice', async ({ type, skip, limit }) => {
   const response = await axiosApi.get<Tour[]>(
-    `/tours/filterBy${
-      type === 'max' ? 'Max' : 'Min'
-    }Price?skip=${skip}&limit=${limit}`,
+    `/tours/filterBy${type === 'max' ? 'Max' : 'Min'}Price?skip=${skip}&limit=${
+      limit ?? LIMIT
+    }`,
   );
   return response.data;
 });
@@ -77,7 +80,7 @@ export const fetchAdminTours = createAsyncThunk<
   const response = await axiosApi.get<{
     tours: Tour[];
     allToursLength: number;
-  }>(`/tours/all?skip=${skip}&limit=${limit}`);
+  }>(`/tours/all?skip=${skip}&limit=${limit ?? LIMIT}`);
   return response.data;
 });
 
@@ -115,12 +118,21 @@ export const tourReview = createAsyncThunk<
   }
 });
 
-export const createOrder = createAsyncThunk<void, IOrder>(
-  'orders/createOne',
-  async (order) => {
+export const createOrder = createAsyncThunk<
+  void,
+  IOrder,
+  { rejectValue: ValidationError }
+>('orders/createOne', async (order, { rejectWithValue }) => {
+  try {
     await axiosApi.post('/orders', order);
-  },
-);
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 400) {
+      return rejectWithValue(e.response.data);
+    }
+
+    throw e;
+  }
+});
 
 export const postTour = createAsyncThunk<
   void,

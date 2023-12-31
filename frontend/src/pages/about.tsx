@@ -11,8 +11,12 @@ import waveIcon from '@/assets/images/wave-icon.svg';
 import penIcon from '@/assets/images/pen-icon.svg';
 import { IAboutUs, IAboutUsBlock } from '@/type';
 import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
-import { userRoles } from '@/constants';
+import { apiUrl, userRoles } from '@/constants';
 import Link from 'next/link';
+import { selectPlatformReviews } from '@/containers/reviews/reviewSlice';
+import { fetchPlatformReviews } from '@/containers/reviews/reviewThunk';
+import Image from 'next/image';
+import dayjs from 'dayjs';
 
 const About = () => {
   const dispatch = useAppDispatch();
@@ -22,9 +26,11 @@ const About = () => {
   const { user } = useAppSelector((state) => state.users);
   const [sectionName, setSectionName] = useState<string>('');
   const [editBlock, setEditBlock] = useState<IAboutUsBlock | null>(null);
+  const reviews = useAppSelector(selectPlatformReviews);
 
   useEffect(() => {
     dispatch(fetchAboutUs());
+    dispatch(fetchPlatformReviews(true));
     dispatch(setIsLightMode(false));
   }, [dispatch]);
 
@@ -203,82 +209,36 @@ const About = () => {
                 <div>{about.review.description}</div>
               </div>
               <div className="about-page-clients-cards">
-                <div className="about-page-clients-card">
-                  <div className="about-page-clients-card-top">
-                    <img
-                      className="about-page-clients-card-img"
-                      src="https://livedemo00.template-help.com/wt_prod-19282/images/testimonials-1-84x84.jpg"
-                      alt="review-photo"
-                    />
-                    <h5 className="about-page-clients-card-title">
-                      Jane Smith
-                    </h5>
-                  </div>
-                  <div className="about-page-clients-card-txt">
-                    I wanted to thank you very much for planning the trip to
-                    France for my sister and me. It was amazing!
-                  </div>
-                  <div className="about-page-clients-card-date">
-                    Mar 21, 2021
-                  </div>
-                </div>
-                <div className="about-page-clients-card">
-                  <div className="about-page-clients-card-top">
-                    <img
-                      className="about-page-clients-card-img"
-                      src="https://livedemo00.template-help.com/wt_prod-19282/images/testimonials-2-84x84.jpg"
-                      alt="review-photo"
-                    />
-                    <h5 className="about-page-clients-card-title">
-                      Peter McMillan
-                    </h5>
-                  </div>
-                  <div className="about-page-clients-card-txt">
-                    We had a marvelous time in our travels to Madagascar and
-                    Zimbabwe, we had just wonderful experiences.
-                  </div>
-                  <div className="about-page-clients-card-date">
-                    Mar 21, 2021
-                  </div>
-                </div>
-                <div className="about-page-clients-card">
-                  <div className="about-page-clients-card-top">
-                    <img
-                      className="about-page-clients-card-img"
-                      src="https://livedemo00.template-help.com/wt_prod-19282/images/testimonials-3-84x84.jpg"
-                      alt="review-photo"
-                    />
-                    <h5 className="about-page-clients-card-title">
-                      Samantha Lee
-                    </h5>
-                  </div>
-                  <div className="about-page-clients-card-txt">
-                    The trip you put together for us in Italy went splendid.
-                    Each touch point, each adventure, felt like you planned it.
-                  </div>
-                  <div className="about-page-clients-card-date">
-                    Mar 21, 2021
-                  </div>
-                </div>
-                <div className="about-page-clients-card">
-                  <div className="about-page-clients-card-top">
-                    <img
-                      className="about-page-clients-card-img"
-                      src="https://livedemo00.template-help.com/wt_prod-19282/images/testimonials-4-84x84.jpg"
-                      alt="review-photo"
-                    />
-                    <h5 className="about-page-clients-card-title">
-                      Kate Wilson
-                    </h5>
-                  </div>
-                  <div className="about-page-clients-card-txt">
-                    This is probably the most incredible travel agency I think I
-                    have ever used. Thank you for a great tour!
-                  </div>
-                  <div className="about-page-clients-card-date">
-                    Mar 21, 2021
-                  </div>
-                </div>
+                {reviews.map((review) => {
+                  if (review) {
+                    const avatar = apiUrl + '/' + review.user.avatar;
+                    console.log(avatar);
+                    return (
+                      <div className="about-page-clients-card" key={review._id}>
+                        <div className="about-page-clients-card-top">
+                          <Image
+                            className="about-page-clients-card-img"
+                            src={avatar}
+                            alt="review-photo"
+                            width={100}
+                            height={100}
+                          />
+                          <h5 className="about-page-clients-card-title">
+                            {review.user.displayName}
+                          </h5>
+                        </div>
+                        <div className="about-page-clients-card-txt">
+                          {review.comment}
+                        </div>
+                        <div className="about-page-clients-card-date">
+                          {dayjs(review.date).format('MMM DD, YYYY')}
+                        </div>
+                      </div>
+                    );
+                  } else {
+                    return null;
+                  }
+                })}
               </div>
             </Fade>
           </div>
