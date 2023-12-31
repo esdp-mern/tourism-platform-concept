@@ -10,13 +10,14 @@ import {
   signUp,
 } from './usersThunk';
 import { RootState } from '@/store/store';
-import { IAlert, User, ValidationError } from '@/type';
+import { IAlert, RegisterMessage, User, ValidationError } from '@/type';
 import { apiUrl } from '@/constants';
 import { nanoid } from 'nanoid';
 
 interface UsersState {
   user: User | null;
   users: User[];
+  registerMessage: RegisterMessage | null;
   usersLoading: boolean;
   registerLoading: boolean;
   signUpError: ValidationError | null;
@@ -33,6 +34,7 @@ interface UsersState {
 const initialState: UsersState = {
   user: null,
   users: [],
+  registerMessage: null,
   usersLoading: false,
   registerLoading: false,
   signUpError: null,
@@ -82,14 +84,15 @@ export const usersSlice = createSlice({
       state.registerLoading = true;
       state.signUpError = null;
     });
-    builder.addCase(signUp.fulfilled, (state, { payload: userResponse }) => {
+    builder.addCase(signUp.fulfilled, (state, { payload: message }) => {
       state.registerLoading = false;
-      const userData = userResponse.user;
-
-      state.user = {
-        ...userData,
-        avatar: userData.avatar ? getFilteredUrl(userData.avatar) : null,
-      };
+      state.registerMessage = message;
+      // const userData = userResponse.user;
+      //
+      // state.user = {
+      //   ...userData,
+      //   avatar: userData.avatar ? getFilteredUrl(userData.avatar) : null,
+      // };
     });
     builder.addCase(signUp.rejected, (state, { payload: error }) => {
       state.registerLoading = false;
@@ -226,3 +229,5 @@ export const selectChangeRoleLoading = (state: RootState) =>
   state.users.changeRoleLoading;
 export const selectPatchLoading = (state: RootState) =>
   state.users.patchLoading;
+export const selectRegisterMessage = (state: RootState) =>
+  state.users.registerMessage;

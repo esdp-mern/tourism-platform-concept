@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
   addAlert,
+  selectRegisterMessage,
   selectSignUpError,
   selectSignUpLoading,
   selectUser,
@@ -29,6 +30,7 @@ const SignUpForm = () => {
   const error = useSelector(selectSignUpError);
   const signUpLoading = useAppSelector(selectSignUpLoading);
   const user = useAppSelector(selectUser);
+  const message = useAppSelector(selectRegisterMessage);
 
   useEffect(() => {
     if (user) {
@@ -68,7 +70,7 @@ const SignUpForm = () => {
     try {
       await dispatch(signUp(state)).unwrap();
       await router.push('/');
-      dispatch(addAlert({ message: 'You have signed in!', type: 'info' }));
+      dispatch(addAlert({ message: message.message, type: 'info' }));
     } catch (e) {
       dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
     }
