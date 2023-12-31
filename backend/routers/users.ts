@@ -7,9 +7,18 @@ import { OAuth2Client } from 'google-auth-library';
 import config from '../config';
 import { imagesUpload } from '../multer';
 import permit from '../middleware/permit';
+import nodemailer from 'nodemailer';
+import Token from '../models/Token';
+import jwt from 'jsonwebtoken';
+
+interface IDecodedToken {
+  email: string;
+  token: string;
+}
 
 const usersRouter = express.Router();
 const client = new OAuth2Client(config.google.clientId);
+const secret = process.env.SECRET_KEY!;
 
 usersRouter.get('/', async (req, res, next) => {
   try {
@@ -28,6 +37,12 @@ usersRouter.get('/', async (req, res, next) => {
 
 usersRouter.post('/', imagesUpload.single('avatar'), async (req, res, next) => {
   try {
+    const email = await User.findOne({ email: req.body.email });
+
+    if (email) {
+      return res.status(400).send('User with this email already exists');
+    }
+
     const user = new User({
       username: req.body.username,
       password: req.body.password,
@@ -37,14 +52,92 @@ usersRouter.post('/', imagesUpload.single('avatar'), async (req, res, next) => {
     });
 
     user.generateToken();
+
+    const confirmationToken = jwt.sign({ email: user.email }, secret);
+
+    const token = new Token({
+      userId: user._id,
+      token: confirmationToken,
+    });
+
+    await token.save();
     await user.save();
 
-    const answer = {
-      user,
-      message: 'You registered new user!',
-    };
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.TRANSPORT_AUTH_USER,
+        pass: process.env.TRANSPORT_AUTH_PASS,
+      },
+    });
 
-    return res.send(answer);
+    const link = `http://localhost:8000/users/confirm/${token.token}`;
+
+    await transporter.sendMail(
+      {
+        from: process.env.TRANSPORT_AUTH_USER,
+        to: user.email,
+        subject: 'Account verification',
+        html: `
+          <div>
+            <h1>To confirm your registration, follow the link:</h1>
+            <a href=${link}>${link}</a>
+          </div>`,
+      },
+      (error) => {
+        if (error) {
+          return res.status(500).send({
+            message: 'Error when sending an email with a confirmation link',
+          });
+        }
+        res.status(200).send({
+          message:
+            'An email with a confirmation link has been sent. Please check your email.',
+        });
+      },
+    );
+  } catch (e) {
+    if (e instanceof mongoose.Error.ValidationError) {
+      return res.status(400).send(e);
+    }
+    return next(e);
+  }
+});
+
+usersRouter.get('/confirm/:token', async (req, res, next) => {
+  try {
+    const { token } = req.params;
+
+    if (!token) {
+      return res.status(400).send('Wrong token!');
+    }
+
+    const decoded = jwt.verify(token as string, secret) as IDecodedToken;
+
+    const user = await User.findOne({ email: decoded.email });
+
+    if (!user) return res.status(400).send('Invalid confirmation token user');
+
+    const confirmToken = await Token.findOne({ userId: user._id });
+
+    if (!confirmToken) {
+      return res.status(400).send('Confirmation token is not defined');
+    }
+
+    if (user.verified || confirmToken.token !== token) {
+      return res.status(400).send('Invalid confirmation token');
+    }
+
+    user.verified = true;
+    await user.save();
+
+    res.cookie('persist%3Atourism-platform-concept%3Ausers', user, {
+      httpOnly: true,
+    });
+    res.redirect(`${process.env.CLIENT_URL}`);
   } catch (e) {
     if (e instanceof mongoose.Error.ValidationError) {
       return res.status(400).send(e);
@@ -131,6 +224,7 @@ usersRouter.post('/google', async (req, res, next) => {
         displayName,
         googleID: id,
         avatar,
+        verified: true,
       });
     }
 
