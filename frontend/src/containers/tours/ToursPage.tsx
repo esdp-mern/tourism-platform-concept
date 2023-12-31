@@ -10,7 +10,7 @@ import HotTours from '@/components/HotTours/HotTours';
 import ReviewsMain from '@/components/ReviewsMain/ReviewsMain';
 import { fetchPlatformReviews } from '@/containers/reviews/reviewThunk';
 import { selectPlatformReviews } from '@/containers/reviews/reviewSlice';
-import Statistics from '@/components/Statisticks/Statistics';
+import Statistics from '@/components/Statistics/Statistics';
 import { setIsLightMode } from '@/containers/config/configSlice';
 
 const ToursPage = () => {

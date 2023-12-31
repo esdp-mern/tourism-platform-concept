@@ -985,6 +985,7 @@ const run = async () => {
   await Order.create(
     {
       user: user3._id,
+      email: user3.email,
       guide: Andrey._id,
       tour: Naryn._id,
       price: Naryn.price,
@@ -994,6 +995,7 @@ const run = async () => {
     },
     {
       guide: Artem._id,
+      email: 'jojojojojo@gmail.com',
       tour: Osh._id,
       price: Osh.price,
       date: '2023-11-08T15:14:05.760Z',
@@ -1003,6 +1005,7 @@ const run = async () => {
     },
     {
       user: user1._id,
+      email: user1.email,
       guide: Andrey._id,
       tour: Naryn._id,
       price: Naryn.price,
@@ -1012,13 +1015,13 @@ const run = async () => {
     },
     {
       guide: Artem._id,
+      email: 'brzzkv@gmail.com',
       tour: Osh._id,
       price: Osh.price,
       date: '2023-11-08T15:14:05.760Z',
       datetime: '2023-11-22T08:20:12.051Z',
       status: 'being considered',
       phone: '+996 707 777 404',
-      email: 'brzzkv@gmail.com',
     },
   );
 

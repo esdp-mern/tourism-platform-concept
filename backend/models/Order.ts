@@ -41,7 +41,10 @@ const OrderSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  email: String,
+  email: {
+    type: String,
+    required: true,
+  },
   phone: String,
   datetime: {
     type: String,

@@ -81,6 +81,10 @@ export const usersSlice = createSlice({
     setLang: (state, action) => {
       state.lang = action.payload;
     },
+    clearError: (state) => {
+      state.signInError = null;
+      state.signUpError = null;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(signUp.pending, (state) => {
@@ -216,6 +220,7 @@ export const {
   resetSignInError,
   setEditorModal,
   setLang,
+  clearError,
 } = usersSlice.actions;
 export const selectUser = (state: RootState) => state.users.user;
 export const selectSignUpLoading = (state: RootState) =>
