@@ -21,7 +21,7 @@ const ToursPage = () => {
   useEffect(() => {
     dispatch(setIsLightMode(true));
     dispatch(fetchPlatformReviews());
-    dispatch(fetchTours({ limit: 6 }));
+    dispatch(fetchTours());
   }, [dispatch]);
 
   return (

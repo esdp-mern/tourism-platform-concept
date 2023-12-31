@@ -840,7 +840,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
                   onMarkerSelect={() => {}}
                 />
                 {route.map((point) => (
-                  <div className="tour-route-point" key={nanoid()}>
+                  <div className="tour-route-point" key={point.id}>
                     <span
                       className="remove-checkpoint"
                       onClick={() =>
@@ -867,6 +867,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
                     />
                     <TextField
                       name="title"
+                      label="title"
                       type="text"
                       value={point.title}
                       onChange={(e) =>
@@ -878,7 +879,6 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
                         )
                       }
                       icon={invisibleIcon.src}
-                      label="title"
                       required
                     />
                     <SelectCategory
