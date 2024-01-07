@@ -164,3 +164,48 @@ Then("I stay on the tours admin page", () => {
   I.amOnPage("/admin/tours/1");
   I.wait(2);
 });
+
+Then("I go to the prev page", () => {
+  I.executeScript("window.history.back();");
+  I.wait(2);
+});
+
+When("I'm on the page of one tour", async () => {
+  I.click('//button[@name="information"]');
+  const title = await I.grabTextFrom('//h2[@class="one-tour-top-title"]');
+  I.see(title);
+  I.wait(1);
+});
+
+When('I click the {string} tour', (number: string) => {
+  I.click(`(//div[@class="tour-item"])[${number}]`);
+  I.wait(5);
+});
+
+When("I check tour plan", async () => {
+  I.click('//button[@name="plan"]');
+  I.click(`(//div[@class="plan-day"])[1]`);
+  I.wait(1);
+});
+
+When("I check tour location", async () => {
+  I.click('//button[@name="location"]');
+  I.wait(3);
+});
+
+When("I check tour gallery", async () => {
+  I.click('//button[@name="gallery"]');
+  let numberOfPhotos = await I.grabNumberOfVisibleElements(`//div[@class="one-tour-photo"]`);
+  if (numberOfPhotos > 0) {
+    I.click(`(//div[@class="one-tour-photo"])[1]`);
+    I.wait(5);
+    I.click("//div[@class='backdrop-gallery-btn']");
+    I.wait(1);
+  }
+});
+
+When("I check tour reviews", async () => {
+  I.click('//button[@name="reviews"]');
+  I.wait(4);
+  I.seeElement("//div[@class='one-tour-reviews']")
+});
