@@ -2,7 +2,11 @@ import mongoose from 'mongoose';
 
 const NewsSchema = new mongoose.Schema({
   title: {
-    type: String,
+    type: {
+      en: String,
+      ru: String,
+      kg: String,
+    },
     required: true,
   },
   date: {

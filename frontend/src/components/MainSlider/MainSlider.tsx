@@ -8,6 +8,7 @@ import { selectUser } from '@/containers/users/usersSlice';
 import { useRouter } from 'next/router';
 import { selectAllTours } from '@/containers/tours/toursSlice';
 import Link from 'next/link';
+import { clearInterval } from 'timers';
 
 const MainSlider = () => {
   const dispatch = useAppDispatch();
@@ -22,11 +23,9 @@ const MainSlider = () => {
   const [currentWidth, setCurrentWidth] = useState(0);
 
   const sliderPages = useMemo(() => sliders, [sliders]);
-  useEffect(() => {
-    dispatch(fetchSliders());
-  }, [dispatch]);
 
   useEffect(() => {
+    dispatch(fetchSliders());
     setCurrentWidth(window.innerWidth);
     window.addEventListener('resize', () => setCurrentWidth(window.innerWidth));
     setCurrentSlide(sliderPages[0]);
@@ -69,8 +68,6 @@ const MainSlider = () => {
     );
   };
 
-  const link = apiUrl + '/' + currentSlide?.image;
-
   const onDelete = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this slider?')) {
       if (id) {
@@ -83,7 +80,12 @@ const MainSlider = () => {
     return (
       <div
         className={`countries-slider `}
-        style={{ backgroundImage: `url(${link})` }}
+        style={{
+          backgroundImage:
+            currentSlide && currentSlide.image
+              ? `url(${apiUrl + '/' + currentSlide.image})`
+              : 'none',
+        }}
       >
         <div
           className="country-slider"
