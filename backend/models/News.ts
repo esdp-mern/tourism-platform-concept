@@ -14,7 +14,11 @@ const NewsSchema = new mongoose.Schema({
     default: () => new Date().toISOString(),
   },
   description: {
-    type: String,
+    type: {
+      en: String,
+      ru: String,
+      kg: String,
+    },
     required: true,
   },
   images: {

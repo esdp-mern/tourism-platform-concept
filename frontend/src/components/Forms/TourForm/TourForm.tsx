@@ -839,8 +839,8 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
                   markerCategories={[]}
                   onMarkerSelect={() => {}}
                 />
-                {route.map((point) => (
-                  <div className="tour-route-point" key={point.id}>
+                {route.map((point, index) => (
+                  <div className="tour-route-point" key={index}>
                     <span
                       className="remove-checkpoint"
                       onClick={() =>

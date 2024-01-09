@@ -10,13 +10,11 @@ import { selectUser } from '@/containers/users/usersSlice';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import { userRoles } from '@/constants';
 import Custom404 from '@/pages/404';
-import { selectOneNews } from '@/containers/news/newsSlice';
 
 const EditNews: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = () => {
   const dispatch = useAppDispatch();
-  const news = useAppSelector(selectOneNews);
   const { editID } = useParams() as {
     editID: string;
   };
@@ -25,32 +23,16 @@ const EditNews: NextPage<
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
-    if (editID) {
-      dispatch(fetchOneNews(editID));
-    }
-  }, [editID, dispatch]);
+  }, [dispatch]);
 
   if (!user || user.role !== userRoles.admin) {
     return <Custom404 errorType="tour" />;
   }
 
-  let editingNews;
-
-  if (news) {
-    editingNews = {
-      title: news.title,
-      category: news.category,
-      description: news.description,
-      images: null,
-    };
-  }
-
   return (
     <div className="container sign-up-page">
       <PageLoader />
-      {editingNews && (
-        <NewsForm isEdit existingNews={editingNews} idNews={news?._id} />
-      )}
+      <NewsForm isEdit idNews={editID} />
     </div>
   );
 };

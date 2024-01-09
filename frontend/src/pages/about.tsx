@@ -212,7 +212,6 @@ const About = () => {
                 {reviews.map((review) => {
                   if (review) {
                     const avatar = apiUrl + '/' + review.user.avatar;
-                    console.log(avatar);
                     return (
                       <div className="about-page-clients-card" key={review._id}>
                         <div className="about-page-clients-card-top">
