@@ -20,7 +20,6 @@ When("I click {string} button", (text: string) => {
 });
 
 When('I click "Save" button', async () => {
-    // Wait for the "Save" button to be clickable
     I.waitForClickable('//button[contains(text(), "Save")]', 10);
     I.click('//button[contains(text(), "Save")]');
     I.wait(3);
