@@ -164,3 +164,57 @@ Then("I stay on the tours admin page", () => {
   I.amOnPage("/admin/tours/1");
   I.wait(2);
 });
+
+When('I am on home page', async () => {
+  I.amOnPage("/");
+  I.wait(2);
+});
+
+When("I click the first tour link", async () => {
+  I.click('//a[@class="tour-item-top"][1]');
+  I.wait(2);
+});
+
+When("I navigate to the one tour page", async () => {
+  const currentUrl = await I.grabCurrentUrl();
+
+  const parts = currentUrl.split("/");
+  const id = parts[parts.length - 1];
+  I.amOnPage(`/tours/${id}`);
+  I.wait(1);
+});
+
+When("I click the select", () => {
+  // I.click('//div[@class=" css-1jqq78o-placeholder"]');
+  I.click('//div[contains(text(), "Select guide")]');
+  // I.click('#react-select-3-input');
+  // I.click('//input[@class="react-select__input"]');
+
+  // I.waitForVisible('//div[@class=" css-1nmdiq5-menu"]', 5);
+  // I.click('//div[@class=" css-1nmdiq5-menu"] > :first-child');
+  I.waitForVisible('//div[@class="react-select__option"][1]', 5);
+  I.click('//div[@class="react-select__option"][1]');
+
+  I.wait(2);
+});
+
+// When("I choose first option", () => {
+//   I.waitForVisible('//div[@class="css-1nmdiq5-menu"] > :first-child', 5);
+//   I.click('//div[@class="css-1nmdiq5-menu"] > :first-child');
+//   I.wait(2);
+// });
+When("I enter tour form fields:", (userData) => {
+  userData.rows.forEach((row) => {
+    const [fieldName, fieldValue] = row.cells;
+    I.fillField(fieldName.value, fieldValue.value);
+  });
+});
+
+When("I click {string} button", (text: string) => {
+  I.click('//button[@class="one-tour-order-form-btn"]');
+});
+
+Then("I go back to the home page", () => {
+  I.amOnPage("/");
+  I.wait(2);
+});

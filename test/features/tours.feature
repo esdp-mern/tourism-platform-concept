@@ -51,3 +51,16 @@ Feature: Tours Creation by Admin
     Then I see the confirmation alert "Are you sure you want to delete this tour?"
     Then I confirm the deletion by clicking "ok" in the confirmation alert
     Then I stay on the tours admin page
+
+  Scenario: Anonymous user orders tour
+    Given I am on home page
+    When I click the first tour link
+    Then I navigate to the one tour page
+    When I click the select
+#    When I choose first option
+    When I enter tour form fields:
+      | date | 01/01/2024 |
+      | email | user@gmail.com |
+      | tel | +996 700 800 800 |
+    Then I click "Book this tour" button
+    Then I go back to the home page
