@@ -7,6 +7,7 @@ import {
 } from '@/containers/tours/toursThunk';
 import magnifierIcon from '@/assets/images/magnifier.svg';
 import { useParams } from 'next/navigation';
+import Image from 'next/image';
 
 const categoriesData = [
   { id: 'checkbox-1', label: 'history' },
@@ -225,7 +226,12 @@ const TourFilter = () => {
           ) : null}
         </li>
         <button className="filter-btn" onClick={fetchByType}>
-          <img src={magnifierIcon.src} alt="magnifier-icon" />
+          <Image
+            width={16}
+            height={16}
+            src={magnifierIcon.src}
+            alt="magnifier-icon"
+          />
           Search
         </button>
       </ul>

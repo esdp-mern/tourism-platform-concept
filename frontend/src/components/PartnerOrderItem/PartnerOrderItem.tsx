@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { IPartnerAccept } from '@/type';
 import { AxiosError } from 'axios';
+import Image from 'next/image';
 
 interface Props {
   id: string;
@@ -86,9 +87,10 @@ const PartnerOrderItem: React.FC<Props> = ({
           {number}
         </p>
         {image && (
-          <img
+          <Image
+            width={80}
+            height={80}
             src={apiUrl + '/images/' + image}
-            style={{ width: '80px', height: '80px' }}
             alt={name}
           />
         )}

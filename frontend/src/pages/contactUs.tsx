@@ -155,7 +155,8 @@ const ContactUs = () => {
     <div className="contacts-page">
       <PageLoader />
       <div className="contacts-top">
-        <img
+        <Image
+          fill
           src={apiUrl + '/' + contacts?.image}
           alt="nature"
           className="contacts-main-img"

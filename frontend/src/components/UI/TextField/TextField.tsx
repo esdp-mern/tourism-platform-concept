@@ -7,6 +7,7 @@ import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
 import 'react-phone-number-input/style.css';
 import 'react-day-picker/dist/style.css';
 import { T } from '@/store/translation';
+import Image from 'next/image';
 
 interface Props {
   name: string;
@@ -131,7 +132,13 @@ const TextField: React.FC<Props> = (props) => {
         />
       )}
       {props.icon && (
-        <img className="text-field-img" src={props.icon} alt="img" />
+        <Image
+          width={24}
+          height={24}
+          className="text-field-img"
+          src={props.icon}
+          alt="img"
+        />
       )}
       {props.errorMessage && (
         <span

@@ -13,6 +13,8 @@ import GuideReviews from '@/components/OneGuidePage/GuideReviews/GuideReviews';
 import { fetchGuideReviews } from '@/containers/reviews/reviewThunk';
 import { fetchToursGuide } from '@/containers/tours/toursThunk';
 import { fetchGuideRating } from '@/containers/ratings/ratingThunk';
+import Image from 'next/image';
+import bgImage from '@/assets/images/bg-image-1.jpg';
 
 interface IGuidePageTabs {
   name: string;
@@ -53,10 +55,11 @@ const OneGuidePage: NextPage<
     <div>
       <PageLoader />
       <div className="guide-page_top">
-        <img
-          alt="mountains"
-          src="https://livedemo00.template-help.com/wt_prod-19282/images/bg-image-1.jpg"
+        <Image
+          fill
           className="guide-page_img"
+          src={bgImage.src}
+          alt="mountains"
         />
         <div className="guide-page_top-info">
           <div className="guide-page_top-line"></div>

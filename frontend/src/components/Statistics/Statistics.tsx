@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Fade } from 'react-awesome-reveal';
 import Number from '@/components/Statistics/Number';
 import magnifierIcon from '@/assets/images/magnifier.svg';
+import Image from 'next/image';
 
 const Statistics = () => {
   const targetElementRef = useRef<HTMLDivElement>(null);
@@ -52,10 +53,6 @@ const Statistics = () => {
                 </p>
               </div>
             </div>
-            <button className="statistics-btn">
-              <img src={magnifierIcon.src} alt="magnifier-icon" />
-              Search
-            </button>
           </div>
           <Fade>
             <div className="statistics-num">

@@ -12,6 +12,7 @@ import { usePathname } from 'next/navigation';
 import { fetchTour, fetchTours } from '@/containers/tours/toursThunk';
 import { apiUrl, languages } from '@/constants';
 import { selectOneTour } from '@/containers/tours/toursSlice';
+import Image from 'next/image';
 
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);
@@ -92,7 +93,12 @@ const AppToolBar = () => {
           }}
         >
           <span className="form-lang-value">
-            <img src={apiUrl + `/fixtures/${lang}.jpg`} alt={lang} />
+            <Image
+              width={100}
+              height={40}
+              src={apiUrl + `/fixtures/${lang}.jpg`}
+              alt={lang}
+            />
           </span>
           <div
             className={`form-lang-options form-lang-options-${
@@ -107,7 +113,9 @@ const AppToolBar = () => {
                     onClick={() => onLangSwitch(language)}
                     key={language}
                   >
-                    <img
+                    <Image
+                      width={100}
+                      height={40}
                       src={apiUrl + `/fixtures/${language}.jpg`}
                       alt={language}
                     />

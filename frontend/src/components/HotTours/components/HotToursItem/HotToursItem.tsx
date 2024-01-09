@@ -2,6 +2,7 @@ import React from 'react';
 import { Tour } from '@/type';
 import { apiUrl } from '@/constants';
 import NavLink from 'next/link';
+import Image from 'next/image';
 
 interface Props {
   tour: Tour;
@@ -11,7 +12,7 @@ const HotToursItem: React.FC<Props> = ({ tour }) => {
   return (
     <div className="hot-tours-item">
       <NavLink href={`/tours/${tour._id}`} className="hot-tours-item-preview">
-        <img src={apiUrl + '/' + tour.mainImage} alt="..." />
+        <Image fill src={apiUrl + '/' + tour.mainImage} alt="..." />
         <div className="hot-tours-item-badge">-30%</div>
       </NavLink>
       <div className="hot-tours-item-info">

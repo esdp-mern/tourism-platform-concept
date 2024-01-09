@@ -4,6 +4,7 @@ import { selectAllTours } from '@/containers/tours/toursSlice';
 import HotToursItem from '@/components/HotTours/components/HotToursItem/HotToursItem';
 import arrowRightIcon from '@/assets/images/arrow-right.svg';
 import { Tour } from '@/type';
+import Image from 'next/image';
 
 const HotTours = () => {
   const tours = useAppSelector(selectAllTours);
@@ -97,13 +98,17 @@ const HotTours = () => {
               className="hot-tours-carousel-buttons-next"
               onClick={() => slide(true)}
             >
-              <img src={arrowRightIcon.src} alt="arrow-right-icon" />
+              <div>
+                <Image fill src={arrowRightIcon.src} alt="arrow-right-icon" />
+              </div>
             </button>
             <button
               className="hot-tours-carousel-buttons-prev"
               onClick={() => slide(false)}
             >
-              <img src={arrowRightIcon.src} alt="arrow-left-icon" />
+              <div>
+                <Image fill src={arrowRightIcon.src} alt="arrow-left-icon" />
+              </div>
             </button>
           </div>
         </div>

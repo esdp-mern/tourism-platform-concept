@@ -3,13 +3,14 @@ import { showModal } from '@/containers/tours/toursSlice';
 import { apiUrl } from '@/constants';
 import { useAppDispatch } from '@/store/hooks';
 import { TourFull } from '@/type';
+import Image from 'next/image';
 
 interface Props {
   tour: TourFull | null;
   currentImg: string;
   onLeftClick: (e: React.MouseEvent) => void;
   onRightClick: (e: React.MouseEvent) => void;
-  onGalleryImgsClick: (e: React.MouseEvent) => void;
+  onGalleryImgsClick: (src: string) => void;
 }
 
 const GalleryModal: React.FC<Props> = ({
@@ -43,10 +44,14 @@ const GalleryModal: React.FC<Props> = ({
             </svg>
           </div>
         ) : null}
-        <img
+        <Image
+          width={800}
+          height={0}
+          quality={100}
+          priority
+          className="modal-img"
           src={currentImg}
           alt={currentImg}
-          className="modal-img"
           onClick={(e) => e.stopPropagation()}
         />
         {tour && tour?.galleryTour.length > 1 ? (
@@ -66,17 +71,20 @@ const GalleryModal: React.FC<Props> = ({
       <div className="backdrop-gallery-inner">
         {tour && tour?.galleryTour.length > 1
           ? tour?.galleryTour.map((img, index) => (
-              <img
+              <div
+                key={index}
                 className={
                   currentImg === apiUrl + '/' + img
                     ? 'backdrop-gallery-img-current'
                     : ''
                 }
-                src={apiUrl + '/' + img}
-                alt={img}
-                key={index}
-                onClick={(e) => onGalleryImgsClick(e)}
-              />
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onGalleryImgsClick(apiUrl + '/' + img);
+                }}
+              >
+                <Image fill src={apiUrl + '/' + img} alt={img} />
+              </div>
             ))
           : null}
       </div>

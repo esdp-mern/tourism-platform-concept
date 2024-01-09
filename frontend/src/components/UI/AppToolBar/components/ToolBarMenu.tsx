@@ -12,6 +12,7 @@ import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import { logout } from '@/containers/users/usersThunk';
 import HotToursToolbar from '@/components/HotTours/HotToursToolbar';
 import EditorModal from '@/components/EditProfile/EditorModal';
+import Image from 'next/image';
 
 interface IProps {
   show: boolean;
@@ -43,7 +44,9 @@ const ToolBarMenu: React.FC<IProps> = ({ show, onClick }) => {
         {user && (
           <div className="profile-preview">
             <div className="profile-preview-avatar-and-name">
-              <img
+              <Image
+                width={40}
+                height={40}
                 src={user.avatar}
                 className="profile-preview-avatar"
                 alt="profile-img"

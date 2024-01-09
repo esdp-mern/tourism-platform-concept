@@ -241,6 +241,7 @@
 
 .about-page-top {
   position: relative;
+  height: 500px;
   z-index: 1;
 }
 
@@ -248,7 +249,8 @@
   position: absolute;
   top: -60px;
   width: 100%;
-  height: 500px;
+  height: 100%;
+  object-fit: cover;
   filter: brightness(85%);
 }
 
@@ -307,7 +309,7 @@
   position: relative;
   display: flex;
   justify-content: space-between;
-  padding-top: 500px;
+  padding-top: 70px;
 }
 
 .about-page-tours-left {

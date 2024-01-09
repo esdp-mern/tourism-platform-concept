@@ -65,7 +65,7 @@ const About = () => {
     <form className="about-page-edit-modal" onSubmit={sendData}>
       <div className="about-page-edit-modal-header">
         <h2>Edit</h2>
-        <img src={penIcon.src} alt="pen-icon" />
+        <Image width={25} height={25} src={penIcon.src} alt="pen-icon" />
       </div>
 
       <div className="about-page-edit-modal-text-fields">
@@ -118,7 +118,7 @@ const About = () => {
       user &&
       user.role === userRoles.admin && (
         <button className="about-page-edit-btn" name={name} onClick={onClick}>
-          <img src={penIcon.src} alt="" />
+          <Image fill src={penIcon.src} alt="" />
         </button>
       )
     );
@@ -136,14 +136,21 @@ const About = () => {
         )}
         {modal}
         <div className="about-page-top">
-          <img
-            alt="mountains"
-            src={about.main.image}
-            className="about-page-img"
-          />
+          {about.main.image && (
+            <Image
+              fill
+              className="about-page-img"
+              src={about.main.image}
+              alt="mountains"
+            />
+          )}
           <div className="about-page-top-info">
             <div className="about-page-top-line">
-              <img src={'http://localhost:3000' + waveIcon.src} alt="img" />
+              <Image
+                fill
+                src={'http://localhost:3000' + waveIcon.src}
+                alt="img"
+              />
             </div>
             <h2 className="about-page-top-title">
               {about.main.title}
@@ -166,11 +173,15 @@ const About = () => {
                 <button className="about-page-tours-btn">Book now</button>
               </div>
               <div className="about-page-tours-img-wrap">
-                <img
-                  src={about.offer.image}
-                  alt="coconout"
-                  className="about-page-tours-img"
-                />
+                {about.offer.image && (
+                  <Image
+                    width={450}
+                    height={500}
+                    src={about.offer.image}
+                    alt="coconut"
+                    className="about-page-tours-img"
+                  />
+                )}
               </div>
             </div>
           </Fade>
@@ -180,9 +191,11 @@ const About = () => {
             <div className="about-page-advantages">
               {about.posts.map((post, index) => (
                 <div key={post._id} className="about-page-advantages-card">
-                  <img
-                    src={post.image}
+                  <Image
+                    width={50}
+                    height={50}
                     className="about-page-advantages-image"
+                    src={post.image!}
                     alt="post-img"
                   />
                   <h4 className="about-page-advantages-title">
@@ -212,7 +225,7 @@ const About = () => {
                 {reviews.map((review) => {
                   if (review) {
                     const avatar = apiUrl + '/' + review.user.avatar;
-                    console.log(avatar);
+
                     return (
                       <div className="about-page-clients-card" key={review._id}>
                         <div className="about-page-clients-card-top">

@@ -15,6 +15,7 @@ import {
   selectTourPublishLoading,
 } from '@/containers/tours/toursSlice';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 interface Props {
   tour: Tour;
@@ -37,7 +38,7 @@ const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
   const onPublish = async () => {
     if (window.confirm('Are you sure you want to publish this tour?')) {
       await dispatch(publishTour(tour._id));
-      dispatch(fetchTours({}));
+      dispatch(fetchTours());
     }
   };
 
@@ -45,7 +46,7 @@ const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
     <Fade>
       <div className="tour-item">
         <Link href={`/tours/${tour._id}`} className="tour-item-top">
-          <img src={imgLink} alt={tour.name} className="tour-item-img" />
+          <Image fill src={imgLink} alt={tour.name} className="tour-item-img" />
           <div className="tour-item-price">{`${tour.price}`} KGS</div>
           {isAdmin && user && user.role === userRoles.admin ? (
             <div
@@ -62,7 +63,8 @@ const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
             href={`/guides/${tour.guides[0]._id}`}
             className="tour-item-guide-avatar"
           >
-            <img
+            <Image
+              fill
               src={
                 tour.guides[0].user.avatar &&
                 tour.guides[0].user.avatar.startsWith('http')

@@ -198,8 +198,8 @@
 
 .one-news-main-imgs img {
   width: 200px;
-  transition: 0.5s all ease-in-out;
   height: 200px;
+  transition: 0.5s all ease-in-out;
   object-fit: contain;
 }
 
@@ -247,6 +247,7 @@
   height: 100px;
   border-radius: 10px;
   margin-right: 30px;
+  object-fit: cover;
 }
 
 .one-news-main-right-related-cards-link {
