@@ -28,6 +28,7 @@ export const editAboutUsBlock = createAsyncThunk<
   IAboutUs,
   IEditAboutUsBLockSubmit
 >('about/editAboutUsBlock', async (block) => {
+  console.log(block.section);
   const { data } = await axiosApi.put<IAboutUs>(
     `/aboutUs/${block.sectionName}${
       block.sectionName === 'posts' ? `?postId=${block.section._id}` : ''

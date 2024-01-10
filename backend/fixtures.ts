@@ -1318,47 +1318,96 @@ const run = async () => {
 
   await AboutUs.create({
     main: {
-      title: 'About',
-      description:
-        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
+      title: {
+        en: 'About',
+        ru: 'О нас',
+        kg: 'Биз жөнүндө',
+      },
+      description: {
+        en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
+        ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
+        kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+      },
       image: 'fixtures/about-us-bg.jpg',
     },
     offer: {
-      title: 'Fastest Way to Book over 450 Great Tours',
-      description:
-        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+      title: {
+        en: 'Fastest Way to Book over 450 Great Tours',
+        ru: 'Самый быстрый способ забронировать более 450 отличных туров',
+        kg: '450дөн ашык улуу турларды брондоонун эң тез жолу',
+      },
+      description: {
+        en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
+        ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
+        kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+      },
       image: 'fixtures/horses.png',
     },
     posts: [
       {
-        title: 'Save Money',
-        description:
-          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        title: {
+          en: 'Save Money',
+          ru: 'Экономьте деньги',
+          kg: 'Акчаны үнөмдөңүз',
+        },
+        description: {
+          en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
+          ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
+          kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+        },
         image: 'fixtures/money-icon.svg',
       },
       {
-        title: 'Get Support',
-        description:
-          'Lura, capio, et diatria. Mori recte ducunt ad alter plasmator. Experimentum sapienter ducunt ad audax.',
+        title: {
+          en: 'Get Support',
+          ru: 'Наша поддержка',
+          kg: 'Биздин жардам',
+        },
+        description: {
+          en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
+          ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
+          kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+        },
         image: 'fixtures/support-icon.svg',
       },
       {
-        title: 'Travel Safety',
-        description:
-          'Indexs ortum! Classiss sunt solitudos de altus adgium. Castus, regius triticums superbe anhelare.',
+        title: {
+          en: 'Travel Safety',
+          ru: 'Безопасность',
+          kg: 'Коопсуздук',
+        },
+        description: {
+          en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
+          ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
+          kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+        },
         image: 'fixtures/safety-icon.svg',
       },
       {
-        title: 'Book Easily',
-        description:
-          'Cur nixus mori? Pol. Sunt hippotoxotaes convertam festus, brevis buboes. Brevis terror nunquam amors.',
+        title: {
+          en: 'Book Easily',
+          ru: 'Бронируйте легко',
+          kg: 'Оңой ээлөө',
+        },
+        description: {
+          en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
+          ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
+          kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+        },
         image: 'fixtures/sun-icon.svg',
       },
     ],
     review: {
-      title: 'What Clients Say About Us',
-      description:
-        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+      title: {
+        en: 'What Clients Say About Us',
+        ru: 'Что говорят о нас клиенты',
+        kg: 'Кардарлар биз жөнүндө',
+      },
+      description: {
+        en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
+        ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
+        kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+      },
     },
   });
 

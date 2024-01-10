@@ -17,6 +17,9 @@ import { selectPlatformReviews } from '@/containers/reviews/reviewSlice';
 import { fetchPlatformReviews } from '@/containers/reviews/reviewThunk';
 import Image from 'next/image';
 import dayjs from 'dayjs';
+require(`dayjs/locale/ru`);
+require(`dayjs/locale/en`);
+import { selectLanguage } from '@/containers/users/usersSlice';
 
 const About = () => {
   const dispatch = useAppDispatch();
@@ -24,9 +27,10 @@ const About = () => {
     (state) => state.about,
   );
   const { user } = useAppSelector((state) => state.users);
+  const reviews = useAppSelector(selectPlatformReviews);
+  const lang = useAppSelector(selectLanguage);
   const [sectionName, setSectionName] = useState<string>('');
   const [editBlock, setEditBlock] = useState<IAboutUsBlock | null>(null);
-  const reviews = useAppSelector(selectPlatformReviews);
 
   useEffect(() => {
     dispatch(fetchAboutUs());
@@ -56,6 +60,7 @@ const About = () => {
       ).unwrap();
       setSectionName('');
       setEditBlock(null);
+      dispatch(fetchAboutUs());
     } catch {
       // nothing
     }
@@ -230,7 +235,9 @@ const About = () => {
                           {review.comment}
                         </div>
                         <div className="about-page-clients-card-date">
-                          {dayjs(review.date).format('MMM DD, YYYY')}
+                          {dayjs(review.date)
+                            .locale(lang === 'kg' ? 'ru' : lang)
+                            .format('MMM DD, YYYY')}
                         </div>
                       </div>
                     );
