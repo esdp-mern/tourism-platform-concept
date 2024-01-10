@@ -12,6 +12,7 @@ import { fetchTour } from '@/containers/tours/toursThunk';
 import { INews } from '@/type';
 import Link from 'next/link';
 import { setIsLightMode } from '@/containers/config/configSlice';
+import { T } from '@/store/translation';
 
 const OneNews: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -69,7 +70,7 @@ const OneNews: NextPage<
         />
         <div className="news-top-info">
           <div className="news-top-line"></div>
-          <h2 className="news-top-title">{oneNews.title}</h2>
+          <h2 className="news-top-title">{oneNews.title || '-'}</h2>
         </div>
       </div>
       <div className="container">
@@ -80,11 +81,11 @@ const OneNews: NextPage<
                 {dayjs(oneNews.date).format('DD.MM.YYYY')}
               </div>
               <div className="one-news-main-info-category">
-                Category: {oneNews.category[0]}
+                {T('/news', `category`)}:{oneNews.category.join(', ')}
               </div>
             </div>
             <div className="one-news-main-description">
-              {oneNews.description}
+              {oneNews.description || '-'}
             </div>
             <div className="one-news-main-imgs">
               {oneNews.images.map((newsImg) => (
@@ -94,7 +95,9 @@ const OneNews: NextPage<
           </div>
           <div className="one-news-main-right">
             <div className="one-news-categories">
-              <h2 className="one-news-main-right-title">Categories</h2>
+              <h2 className="one-news-main-right-title">
+                {T('/news', `categories`)}
+              </h2>
               <div>
                 <div className="one-news-main-right-categories">Places</div>
                 <div className="one-news-main-right-categories">Animals</div>
@@ -103,8 +106,14 @@ const OneNews: NextPage<
               </div>
             </div>
             <div className="one-news-related">
-              <h2 className="one-news-main-right-related">Related news</h2>
-              {arr.length === 0 ? <div>No related news</div> : items}
+              <h2 className="one-news-main-right-related">
+                {T('/news', `relatedNews`)}
+              </h2>
+              {arr.length === 0 ? (
+                <div>{T('/news', `noRelatedNews`)}</div>
+              ) : (
+                items
+              )}
             </div>
           </div>
         </div>

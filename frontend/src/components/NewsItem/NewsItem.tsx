@@ -13,6 +13,7 @@ import {
 } from '@/containers/news/newsThunk';
 import { selectDeleteTourLoading } from '@/containers/tours/toursSlice';
 import { selectNewsPublishLoading } from '@/containers/news/newsSlice';
+import { T } from '@/store/translation';
 
 interface Props {
   news: INews;
@@ -32,7 +33,13 @@ const NewsItem: React.FC<Props> = ({ news }) => {
   };
 
   const onPublish = async () => {
-    if (window.confirm('Are you sure you want to publish this news?')) {
+    if (
+      window.confirm(
+        `Are you sure you want to ${
+          news.isPublished ? 'un' : ''
+        }publish this news?`,
+      )
+    ) {
       await dispatch(publishNews(news._id));
       dispatch(fetchNews());
     }
@@ -50,7 +57,9 @@ const NewsItem: React.FC<Props> = ({ news }) => {
                   news.isPublished ? 'published-tour' : 'unpublished-tour'
                 } tour-info-publish`}
               >
-                {news.isPublished ? 'published' : 'unpublished'}
+                {news.isPublished
+                  ? T('/news', `published`)
+                  : T('/news', `unpublished`)}
               </div>
             ) : null}
           </div>
@@ -67,8 +76,8 @@ const NewsItem: React.FC<Props> = ({ news }) => {
               disabled={deleteLoading ? deleteLoading === news._id : false}
             >
               {deleteLoading && deleteLoading === news._id
-                ? 'deleting...'
-                : 'Delete'}
+                ? T('/news', `deleteLoading`)
+                : T('/news', `delete`)}
             </button>
             <button
               className="btn-publish-tour"
@@ -78,20 +87,20 @@ const NewsItem: React.FC<Props> = ({ news }) => {
             >
               {publishLoading && publishLoading === news._id
                 ? news.isPublished
-                  ? 'unpublishing...'
-                  : 'publishing...'
+                  ? T('/news', `unpublishLoading`)
+                  : T('/news', `publishLoading`)
                 : news.isPublished
-                  ? 'Unpublish'
-                  : 'Publish'}
+                  ? T('/news', `unpublish`)
+                  : T('/news', `publish`)}
             </button>
             <Link href={`/news/edit/${news._id}`} className="btn-tour-edit">
-              Edit
+              {T('/news', `edit`)}
             </Link>
           </div>
         ) : null}
         <hr className="card-news-line" />
         <Link href={`/news/${news._id}`} className="news-item-link">
-          <div className="one-news-title">{news.title}</div>
+          <div className="one-news-title">{news.title || '-'}</div>
         </Link>
       </div>
     </Fade>

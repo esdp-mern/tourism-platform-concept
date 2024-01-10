@@ -19,7 +19,6 @@ import invisibleIcon from '@/assets/images/invisible.svg';
 import { addAlert } from '@/containers/users/usersSlice';
 import SelectCategory from '@/components/SelectCategory/SelectCategory';
 import { mapMarkerCategories } from '@/constants';
-import { selectAdminGuides } from '@/containers/guides/guidesSlice';
 
 interface Props {
   isEdit?: boolean;
@@ -68,7 +67,6 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
   const error = useSelector(selectPostTourError);
   const loading = useAppSelector(selectPostTourLoading);
   const tour = useAppSelector(selectOneTour);
-  const guides = useAppSelector(selectAdminGuides);
   const routers = useRouter();
   const [state, setState] = useState<ITourMutation>(
     isEdit && tour
@@ -166,7 +164,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
       } else {
         await dispatch(postTour(state)).unwrap();
       }
-      // routers.push('/').then((r) => r);
+      routers.push('/').then((r) => r);
     } catch (e) {
       alert('Invalid field');
     }

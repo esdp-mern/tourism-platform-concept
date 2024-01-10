@@ -1,0 +1,122 @@
+{
+  "allNewsTitle": {
+    "en": "Tourism news",
+    "ru": "Новости туризма",
+    "kg": "Туризм жаңылыктары"
+  },
+  "allNewsDescription": {
+    "en": "Here you can find interesting news about tourism in Central Asia!",
+    "ru": "Здесь вы найдете интересные новости о туризме в Центральной Азии!",
+    "kg": "Бул жерден сиз Борбордук Азиядагы туризм тууралуу кызыктуу жаңылыктарды таба аласыз!"
+  },
+  "createNews": {
+    "en": "create news",
+    "ru": "создать новость",
+    "kg": "жаңы кабар"
+  },
+  "published": {
+    "en": "published",
+    "ru": "опубликован",
+    "kg": "жарыяланган"
+  },
+  "unpublished": {
+    "en": "unpublished",
+    "ru": "неопубликован",
+    "kg": "жарыяланбаган"
+  },
+  "delete": {
+    "en": "Delete",
+    "ru": "Удалить",
+    "kg": "Жок кылуу"
+  },
+  "deleteLoading": {
+    "en": "Deleting...",
+    "ru": "Удаление...",
+    "kg": "Жок кылуу..."
+  },
+  "unpublish": {
+    "en": "Unpublish",
+    "ru": "Отменить публикацию",
+    "kg": "Жарыялоодон чыгаруу"
+  },
+  "unpublishLoading": {
+    "en": "Unpublishing...",
+    "ru": "Отмена публикации...",
+    "kg": "Жарыялоодон чыгарууда..."
+  },
+  "publish": {
+    "en": "Publish",
+    "ru": "Опубликовать",
+    "kg": "Жарыялоо"
+  },
+  "publishLoading": {
+    "en": "Publishing...",
+    "ru": "Публикация...",
+    "kg": "Жарыялоодо..."
+  },
+  "unpublishAlert": {
+    "en": "Are you sure you want to unpublish this news?",
+    "ru": "Уверены в отмене публикации новости?",
+    "kg": "Кабарды жарыялоону жокко чыгарууну ырастаңыз"
+  },
+  "publishAlert": {
+    "en": "Are you sure you want to publish this news?",
+    "ru": "Уверены в публикации новости?",
+    "kg": "Кабарды жарыялоону ырастаңыз"
+  },
+  "edit": {
+    "en": "Edit",
+    "ru": "Редактировать",
+    "kg": "Өзгөртүү"
+  },
+  "formEditNews": {
+    "en": "Edit news",
+    "ru": "Редактировать новость",
+    "kg": "Кабарды өзгөртүү"
+  },
+  "formCreateNews": {
+    "en": "Create news",
+    "ru": "Создать новость",
+    "kg": "Кабар түзүү"
+  },
+  "formTitlePlaceholder": {
+    "en": "News title:",
+    "ru": "Название новости:",
+    "kg": "Кабардын аталышы:"
+  },
+  "formDescriptionPlaceholder": {
+    "en": "Description:",
+    "ru": "Описание:",
+    "kg": "Кабар жөнүндө:"
+  },
+  "formImagePlaceholder": {
+    "en": "New images:",
+    "ru": "Картинки:",
+    "kg": "Сүрөттөр:"
+  },
+  "browse": {
+    "en": "Browse",
+    "ru": "Загрузить",
+    "kg": "Жүктөө"
+  },
+  "categories": {
+    "en": "categories",
+    "ru": "категории",
+    "kg": "категорийлер"
+  },
+  "addCategory": {
+    "en": "Add category",
+    "ru": "Добавить категорий",
+    "kg": "Жаңы категорий"
+  },
+  "relatedNews": {
+    "en": "Related news",
+    "ru": "Похожие новости",
+    "kg": "Тиешелүү жаңылыктар"
+  },
+  "noRelatedNews": {
+    "en": "no Related news",
+    "ru": "Нет похожих новостей",
+    "kg": "Тиешелүү жаңылыктар жок"
+  }
+}

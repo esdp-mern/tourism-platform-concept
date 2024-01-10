@@ -9,6 +9,7 @@ import { setIsLightMode } from '@/containers/config/configSlice';
 import { selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
 import Link from 'next/link';
+import { T } from '@/store/translation';
 
 const AllNewsPage = () => {
   const dispatch = useAppDispatch();
@@ -38,17 +39,15 @@ const AllNewsPage = () => {
         <div className="news-top-bg" />
         <div className="news-top-info">
           <div className="news-top-line"></div>
-          <h2 className="news-top-title">Tourism news</h2>
-          <p className="news-top-txt">
-            Here you can find interesting news about tourism in Central Asia!
-          </p>
+          <h2 className="news-top-title">{T('/news', `allNewsTitle`)}</h2>
+          <p className="news-top-txt">{T('/news', `allNewsDescription`)}</p>
         </div>
       </div>
       <div className="container">
         <div className="news-main">
           {user && user.role === userRoles.admin ? (
             <Link href="/news/create" className="news-admin-create">
-              Create news
+              {T('/news', `createNews`)}
             </Link>
           ) : null}
           <div className="news-main-inner">

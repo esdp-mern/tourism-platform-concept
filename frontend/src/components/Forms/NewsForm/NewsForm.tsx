@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { editNews, fetchOneNews, postNews } from '@/containers/news/newsThunk';
 import FilesInput from '@/components/UI/FileInput/FilesInput';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
+import { T } from '@/store/translation';
 
 interface Props {
   isEdit?: boolean;
@@ -118,7 +119,7 @@ const NewsForm: React.FC<Props> = ({ isEdit, idNews }) => {
   return (
     <form className="form-news" onSubmit={submitFormHandler}>
       <h2 className="form-news-title">
-        {isEdit ? 'Save News' : 'Create News'}
+        {isEdit ? T('/news', `formEditNews`) : T('/news', `formCreateNews`)}
       </h2>
       <div className="input-news-wrap">
         <input
@@ -135,7 +136,7 @@ const NewsForm: React.FC<Props> = ({ isEdit, idNews }) => {
           required
         />
         <label htmlFor="title" className="form-news-label">
-          News title:
+          {T('/news', `formTitlePlaceholder`)}
         </label>
         {Boolean(getFieldError('title')) && (
           <span className="error-news">{getFieldError('title')}</span>
@@ -155,7 +156,7 @@ const NewsForm: React.FC<Props> = ({ isEdit, idNews }) => {
           required
         />
         <label htmlFor="description" className="form-news-label-two">
-          Description:
+          {T('/news', `formDescriptionPlaceholder`)}
         </label>
         {Boolean(getFieldError('description')) && (
           <span className="error-tour">{getFieldError('description')}</span>
@@ -171,17 +172,17 @@ const NewsForm: React.FC<Props> = ({ isEdit, idNews }) => {
           htmlFor="images"
           className="form-images-label form-news-label-image"
         >
-          News Images:
+          {T('/news', `formImagePlaceholder`)}
         </label>
       </div>
       <div className="form-news-included">
-        <h5 className="form-news-title">Categories:</h5>
+        <h5 className="form-news-title">{T('/news', `categories`)}:</h5>
         <button
           type="button"
           className="form-news-btn-add"
           onClick={() => addOneItem()}
         >
-          Add Category
+          {T('/news', `addCategory`)}
         </button>
         {category.map((category, index) => (
           <div key={index} style={{ display: 'flex', marginBottom: '10px' }}>
@@ -210,9 +211,9 @@ const NewsForm: React.FC<Props> = ({ isEdit, idNews }) => {
         {loading ? (
           <ButtonLoader size={18} />
         ) : isEdit ? (
-          'Save News'
+          T('/news', `formEditNews`)
         ) : (
-          'Create News'
+          T('/news', `formCreateNews`)
         )}
       </button>
     </form>
