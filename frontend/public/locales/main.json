@@ -1,0 +1,72 @@
+{
+  "main_title": {
+    "en": "Featured Tours",
+    "ru": "Рекомендуемые туры",
+    "kg": "Өзгөчөлөнгөн турлар"
+  },
+  "seeAll_btn": {
+    "en": "See all tours",
+    "ru": "Посмотреть все туры",
+    "kg": "Бардык турларды көрүү"
+  },
+  "statistics_title": {
+    "en": "Fastest Way to Book over 50 Great Tours",
+    "ru": "Быстрый способ забронировать более 50 прекрасных туров",
+    "kg": "50дөн ашык мыкты турларды брондоонун эң ылдам жолу"
+  },
+  "statistics_text": {
+    "en": "Our tour agency is the leading provider of cheap air tickets as well as amazing offers for tourists and people who like to explore the untraveled world paths. We can create the most unforgettable holiday for you, your family, and friends!",
+    "ru": "Наше турагентство является ведущим поставщиком дешевых авиабилетов, а также замечательных предложений для туристов и людей, которые любят исследовать неизведанные мировые тропы. Мы сможем создать самый незабываемый праздник для Вас, Вашей семьи и друзей!",
+    "kg": "Биздин туристтик агенттик – туристтер жана дүйнөнүн эң татаал жолдорун изилдөөнү жакшы көргөн адамдар үчүн арзан авиа билеттердин жана укмуштуудай сунуштардын алдыңкы провайдери. Биз сиз, үй-бүлөңүз жана досторуңуз үчүн эң унутулгус майрамды түзө алабыз!"
+  },
+  "statistics_one": {
+    "en": "Tours around Central Asia",
+    "ru": "Туры по Центральной Азии",
+    "kg": "Борбордук Азиядагы турлар"
+  },
+  "statistics_two": {
+    "en": "Booked tours",
+    "ru": "Забронированные туры",
+    "kg": "Брондолгон турлар"
+  },
+  "statistics_three": {
+    "en": "Site visitors",
+    "ru": "Посетители сайта",
+    "kg": "Сайттын коноктору"
+  },
+  "statistics_four": {
+    "en": "Reviews",
+    "ru": "Отзывы",
+    "kg": "Сын-пикирлер"
+  },
+  "statistics_btn": {
+    "en": "Search",
+    "ru": "Искать",
+    "kg": "Издөө"
+  },
+  "reviews": {
+    "en": "What Our Clients Say",
+    "ru": "Что Говорят Наши Клиенты",
+    "kg": "Биздин Кардарлар Эмне Дейт"
+  },
+  "hot_tours_text": {
+    "en": "We have picked some amazing last minute holiday offers for you to choose from. These offers won’t last too long so hurry and book yours today",
+    "ru": "Мы подобрали для вас несколько потрясающих предложений для отпуска в последнюю минуту. Эти предложения не продлятся слишком долго, поэтому поторопитесь и забронируйте свое сегодня",
+    "kg": "Сиз тандоо үчүн биз акыркы мүнөттөрдө эс алуу сунуштарын тандап алдык. Бул сунуштар көпкө созулбайт, андыктан сизди бүгүн заказ кылыңыз"
+  },
+  "hot_tours_offer": {
+    "en": "Offers",
+    "ru": "Предложения",
+    "kg": "Сунуштар"
+  },
+  "hot_tours_last": {
+    "en": "Last",
+    "ru": "Последняя",
+    "kg": "Акыркы"
+  },
+  "hot_tours_min": {
+    "en": "Minute",
+    "ru": "Минута",
+    "kg": "Мүнөт"
+  }
+}

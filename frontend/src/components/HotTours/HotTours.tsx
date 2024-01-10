@@ -4,6 +4,7 @@ import { selectAllTours } from '@/containers/tours/toursSlice';
 import HotToursItem from '@/components/HotTours/components/HotToursItem/HotToursItem';
 import arrowRightIcon from '@/assets/images/arrow-right.svg';
 import { Tour } from '@/type';
+import { T } from '@/store/translation';
 
 const HotTours = () => {
   const tours = useAppSelector(selectAllTours);
@@ -110,17 +111,13 @@ const HotTours = () => {
         <div className="hot-tours-info">
           <div>
             <h2>
-              Last
+              {T('/main', 'hot_tours_last')}
               <br />
-              Minute
+              {T('/main', 'hot_tours_min')}
             </h2>
-            <p>Offers</p>
+            <p>{T('/main', 'hot_tours_offer')}</p>
           </div>
-          <h4>
-            We have picked some amazing last minute holiday offers for you to
-            choose from. These offers won’t last too long so hurry and book
-            yours today!
-          </h4>
+          <h4>{T('/main', 'hot_tours_text')}!</h4>
         </div>
       </div>
     </div>

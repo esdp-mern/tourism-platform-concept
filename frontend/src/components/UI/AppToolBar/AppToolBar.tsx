@@ -12,6 +12,7 @@ import { usePathname } from 'next/navigation';
 import { fetchTour, fetchTours } from '@/containers/tours/toursThunk';
 import { apiUrl, languages } from '@/constants';
 import { selectOneTour } from '@/containers/tours/toursSlice';
+import { T } from '@/store/translation';
 
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);
@@ -149,7 +150,7 @@ const AppToolBar = () => {
                   closeNavMenu();
                 }}
               >
-                Home
+                {T('/navbar', 'home')}
               </NavLink>
               <NavLink
                 href="/tours/all/1"
@@ -161,7 +162,7 @@ const AppToolBar = () => {
                   closeNavMenu();
                 }}
               >
-                Tours
+                {T('/navbar', 'tours')}
               </NavLink>
               <NavLink
                 href="/about"
@@ -171,7 +172,7 @@ const AppToolBar = () => {
                   closeNavMenu();
                 }}
               >
-                About Us
+                {T('/navbar', 'about_us')}
               </NavLink>
               {user ? (
                 <UserMenu
@@ -195,7 +196,7 @@ const AppToolBar = () => {
                   closeNavMenu();
                 }}
               >
-                News
+                {T('/navbar', 'news')}
               </NavLink>
               <NavLink
                 href="/contactUs"
@@ -207,7 +208,7 @@ const AppToolBar = () => {
                   closeNavMenu();
                 }}
               >
-                Contact Us
+                {T('/navbar', 'contact_us')}
               </NavLink>
             </nav>
             <div className="user-menu">
@@ -224,7 +225,7 @@ const AppToolBar = () => {
                 <span></span>
                 <span></span>
                 <span></span>
-                <span>menu</span>
+                <span>{T('/navbar', 'menu')}</span>
               </button>
             </div>
           </div>
