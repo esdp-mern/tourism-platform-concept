@@ -94,7 +94,7 @@ const AppToolBar = () => {
         >
           <span className="form-lang-value">
             <Image
-              width={100}
+              width={40}
               height={40}
               src={apiUrl + `/fixtures/${lang}.jpg`}
               alt={lang}
@@ -114,7 +114,7 @@ const AppToolBar = () => {
                     key={language}
                   >
                     <Image
-                      width={100}
+                      width={40}
                       height={40}
                       src={apiUrl + `/fixtures/${language}.jpg`}
                       alt={language}

@@ -12,7 +12,7 @@ const HotToursItem: React.FC<Props> = ({ tour }) => {
   return (
     <div className="hot-tours-item">
       <NavLink href={`/tours/${tour._id}`} className="hot-tours-item-preview">
-        <Image fill src={apiUrl + '/' + tour.mainImage} alt="..." />
+        <Image fill sizes="" src={apiUrl + '/' + tour.mainImage} alt="..." />
         <div className="hot-tours-item-badge">-30%</div>
       </NavLink>
       <div className="hot-tours-item-info">

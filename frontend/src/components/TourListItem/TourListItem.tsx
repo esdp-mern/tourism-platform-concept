@@ -31,7 +31,7 @@ const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
   const onDelete = async () => {
     if (window.confirm('Are you sure you want to delete this tour?')) {
       await dispatch(deleteTour(tour._id));
-      dispatch(fetchTours({}));
+      dispatch(fetchTours());
     }
   };
 
