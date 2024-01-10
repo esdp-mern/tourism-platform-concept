@@ -399,44 +399,6 @@ const ContactUs = () => {
           </form>
         </div>
       </div>
-
-      <div className="container">
-        <form className="contact-form">
-          <h3 className="contact-form-title">Get in Touch</h3>
-          <div className="contacts-first-inputs">
-            <div className="contact-form-textarea">
-              <textarea
-                className="contact-form-input-name"
-                placeholder="Name"
-                required
-              />
-            </div>
-            <div className="contact-form-textarea">
-              <textarea
-                className="contact-form-input-phone"
-                placeholder="Phone"
-                required
-              />
-            </div>
-            <div className="contact-form-textarea">
-              <textarea
-                className="contact-form-input-email"
-                placeholder="Email"
-                required
-              />
-            </div>
-          </div>
-
-          <div className="contact-form-textarea">
-            <textarea
-              className="contact-form-input-message"
-              placeholder="Message"
-              required
-            />
-          </div>
-          <button type="submit">send</button>
-        </form>
-      </div>
     </div>
   );
 };
