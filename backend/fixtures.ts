@@ -18,6 +18,7 @@ import ContactUs from './models/ContactUs';
 import AboutUs from './models/AboutUs';
 import GuideOrder from './models/GuideOrder';
 import PartnerOrder from './models/PartnerOrder';
+import StatisticsInfo from './models/StatisticsInfo';
 
 const run = async () => {
   await mongoose.connect(config.db);
@@ -41,6 +42,7 @@ const run = async () => {
     await db.dropCollection('contacts');
     await db.dropCollection('guideorders');
     await db.dropCollection('partnerorders');
+    await db.dropCollection('statisticsinfo');
   } catch (e) {
     console.log('Collections were not present, skipping drop...');
   }
@@ -1358,6 +1360,14 @@ const run = async () => {
       message: 'I would like to be a partner with your company!',
     },
   );
+  await StatisticsInfo.create({
+    title: 'Fastest Way to Book over 50 Great Tours',
+    text1:
+      'Sunway provides a variety of great tours to travelers and customers throughout the world. We offer top deals at affordable prices!',
+    text2:
+      'Our tour agency is the leading provider of cheap air tickets as well as amazing offers for tourists and people who like to explore the untraveled world paths. We can create the most unforgettable holiday for you, your family, and friends!',
+  });
+
   await db.close();
 };
 
