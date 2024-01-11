@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
 import { deleteGuide, fetchAdminGuides } from '@/containers/guides/guidesThunk';
+import { T } from '@/store/translation';
 
 interface Props {
   id: string;
@@ -39,14 +40,15 @@ const GuideItem: React.FC<Props> = ({
       />
       <div className="guide-card__content">
         <h2 className="guide-card__name">{name}</h2>
-        <p className="guide-card__role">{role}</p>
         <p className="guide-card__description">{description}</p>
         <Link href={`/guides/${id}`} className="guide-card__link">
-          View More
+          {T('/about', `guideViewMore`)}
         </Link>
         {user && user.role === userRoles.admin ? (
           <div className="guide-card__btn">
-            <button onClick={() => onDelete(id)}>Delete</button>
+            <button onClick={() => onDelete(id)}>
+              {T('/about', `guideDelete`)}
+            </button>
           </div>
         ) : null}
       </div>

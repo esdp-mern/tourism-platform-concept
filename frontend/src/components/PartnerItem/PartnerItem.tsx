@@ -4,6 +4,7 @@ import { selectAllPartners } from '@/containers/about/aboutSlice';
 import { fetchPartners } from '@/containers/about/aboutThunk';
 import Link from 'next/link';
 import { apiUrl } from '@/constants';
+import { T } from '@/store/translation';
 
 const PartnerItem = () => {
   const dispatch = useAppDispatch();
@@ -15,9 +16,11 @@ const PartnerItem = () => {
   return (
     <div>
       <div className="about-page-guide-wrap">
-        <h3 className="about-page-team-title">Meet Our Partners</h3>
+        <h3 className="about-page-team-title">
+          {T('/about', `meetOurPartners`)}
+        </h3>
         <Link href={`/partners/becomePartner`} className="become-partner">
-          BECOME A PARTNER
+          {T('/about', `becomePartner`)}
         </Link>
       </div>
       <div className="about-page-partners-cards">

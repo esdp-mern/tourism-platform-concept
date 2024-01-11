@@ -115,9 +115,6 @@ aboutUsRouter.put(
           return res.status(404).send({ error: 'This post not found!' });
         }
 
-        // sectionKeys.forEach((key) => {
-        //   post[key] = req.body[key];
-        // });
         aboutUs.posts.map((post, index) => {
           if (post._id && post._id.toString() === queryPostId) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment

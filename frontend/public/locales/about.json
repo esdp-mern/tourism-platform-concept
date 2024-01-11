@@ -3,5 +3,60 @@
     "en": "Book now",
     "ru": "Забронировать тур",
     "kg": "Азыр"
+  },
+  "meetOurTeam": {
+    "en": "Meet our team",
+    "ru": "Наша команда",
+    "kg": "Биздин топ"
+  },
+  "meetOurTeamDescription": {
+    "en": "EN Duis aute irure dolor in reprehenderit in voluptate velit",
+    "ru": "RU Lorem ipsum dolor sit amet",
+    "kg": "KG Aut facere ipsum perferendis sapiente sequi"
+  },
+  "addNewMember": {
+    "en": "Add new member",
+    "ru": "Добавить нового члена команды",
+    "kg": "Жаңы мүчө кошуу"
+  },
+  "moderator": {
+    "en": "moderator",
+    "ru": "модератор",
+    "kg": "модератор"
+  },
+  "admin": {
+    "en": "admin",
+    "ru": "администратор",
+    "kg": "администратор"
+  },
+  "meetOurGuides": {
+    "en": "Meet our guides",
+    "ru": "Наши гиды",
+    "kg": "Биздин гиддер"
+  },
+  "meetOurGuidesDescription": {
+    "en": "EN Duis aute irure dolor in reprehenderit in voluptate velit",
+    "ru": "RU Lorem ipsum dolor sit amet",
+    "kg": "KG Aut facere ipsum perferendis sapiente sequi"
+  },
+  "guideViewMore": {
+    "en": "view more",
+    "ru": "подробнее",
+    "kg": "көбүрөөк маалымат"
+  },
+  "guideDelete": {
+    "en": "delete",
+    "ru": "удалить",
+    "kg": "жок кылуу"
+  },
+  "meetOurPartners": {
+    "en": "Meet out partners",
+    "ru": "Наши партнёры",
+    "kg": "Биздин өнөктөштөр"
+  },
+  "becomePartner": {
+    "en": "become a partner",
+    "ru": "стать партёром",
+    "kg": "өнөктөштөр болуу"
   }
 }
