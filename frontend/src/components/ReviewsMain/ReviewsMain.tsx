@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ReviewOfPlatform } from '@/type';
 import Image from 'next/image';
 import { apiUrl } from '@/constants';
+import { T } from '@/store/translation';
 
 interface Props {
   reviews: ReviewOfPlatform[];
@@ -24,7 +25,7 @@ const ReviewsMain: React.FC<Props> = ({ reviews }) => {
     <div className="reviews-main-page">
       <div className="container reviews-main-page-inner">
         <div className="reviews-main-page-content">
-          <h2 className="reviews-main-page-title">What Our Clients Say</h2>
+          <h2 className="reviews-main-page-title">{T('/main', 'reviews')}</h2>
           <div className="reviews-main-page-info">
             <div className="reviews-main-page-txt">
               {currentReview?.comment}

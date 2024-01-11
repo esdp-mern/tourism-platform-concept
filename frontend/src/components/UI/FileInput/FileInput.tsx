@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { T } from '@/store/translation';
 
 interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -49,7 +50,7 @@ const FileInput: React.FC<Props> = ({ onChange, name, image, className }) => {
         <h6 className="file-input-label">{filename}</h6>
       </div>
       <button type="button" onClick={activateInput} className="file-input-btn">
-        Browse
+        {T('/inputs', 'file_input_btn')}
       </button>
     </>
   );

@@ -12,6 +12,7 @@ import { fetchPlatformReviews } from '@/containers/reviews/reviewThunk';
 import { selectPlatformReviews } from '@/containers/reviews/reviewSlice';
 import Statistics from '@/components/Statistics/Statistics';
 import { setIsLightMode } from '@/containers/config/configSlice';
+import { T } from '@/store/translation';
 
 const ToursPage = () => {
   const tours = useAppSelector(selectAllTours);
@@ -30,7 +31,7 @@ const ToursPage = () => {
       <PageLoader />
       <div className="featured-tours">
         <div className="container">
-          <h2 className="tours-page-title">Featured Tours</h2>
+          <h2 className="tours-page-title">{T('/main', 'main_title')}</h2>
           <div className="tours-page">
             {tours.map((tour) => (
               <TourListItem tour={tour} key={tour._id} />
@@ -38,7 +39,7 @@ const ToursPage = () => {
           </div>
           <div className="tours-page-link">
             <Link href={`/tours/all/${1}`} className="tours-page-link-tours">
-              See all tours
+              {T('/main', 'seeAll_btn')}
             </Link>
           </div>
         </div>

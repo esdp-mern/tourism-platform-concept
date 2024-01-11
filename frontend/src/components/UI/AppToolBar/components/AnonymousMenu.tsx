@@ -1,5 +1,6 @@
 import React from 'react';
 import NavLink from 'next/link';
+import { T } from '@/store/translation';
 
 interface IProps {
   onClick: () => void;
@@ -14,14 +15,14 @@ const AnonymousMenu: React.FC<IProps> = ({ onClick, pathname }) => {
         className={`form-link ${pathname === '/login' ? 'active' : ''}`}
         onClick={onClick}
       >
-        Sign in
+        {T('/navbar', 'sign_in')}
       </NavLink>
       <NavLink
         href="/register"
         className={`form-link ${pathname === '/register' ? 'active' : ''}`}
         onClick={onClick}
       >
-        Sign up
+        {T('/navbar', 'sign_up')}
       </NavLink>
     </>
   );

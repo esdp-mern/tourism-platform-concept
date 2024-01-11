@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Fade } from 'react-awesome-reveal';
 import Number from '@/components/Statistics/Number';
+import { T } from '@/store/translation';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
   selectAdminStats,
@@ -48,10 +49,11 @@ const Statistics = () => {
         <div className="statistics">
           <div className="statistics-info">
             <div className="statistics-info-left">
-              <h2 className="statistics-title">{statsInfo?.title}</h2>
+              <h2 className="statistics-title">
+                {T('/main', 'statistics_title')}
+              </h2>
               <div className="statistics-txt" ref={targetElementRef}>
-                <p>{statsInfo?.text1}</p>
-                <p>{statsInfo?.text2}</p>
+                <p>{T('/main', 'statistics_text')}</p>
               </div>
             </div>
           </div>
@@ -64,7 +66,9 @@ const Statistics = () => {
                   )}
                   +
                 </h3>
-                <div className="statistics-num-txt">Guides</div>
+                <div className="statistics-num-txt">
+                  {T('/main', 'statistics_one')}
+                </div>
               </div>
               <div className="statistics-num-card">
                 <h3>
@@ -72,7 +76,9 @@ const Statistics = () => {
                     <Number value={stats!.ordersAll} duration={1500} />
                   )}
                 </h3>
-                <div className="statistics-num-txt">Booked tours</div>
+                <div className="statistics-num-txt">
+                  {T('/main', 'statistics_two')}
+                </div>
               </div>
               <div className="statistics-num-card">
                 <h3>
@@ -80,7 +86,9 @@ const Statistics = () => {
                     <Number value={stats!.toursAll} duration={1500} />
                   )}
                 </h3>
-                <div className="statistics-num-txt">Tours</div>
+                <div className="statistics-num-txt">
+                  {T('/main', 'statistics_three')}
+                </div>
               </div>
               <div className="statistics-num-card">
                 <h3>
@@ -88,7 +96,9 @@ const Statistics = () => {
                     <Number value={stats!.platFormReviews} duration={1500} />
                   )}
                 </h3>
-                <div className="statistics-num-txt">Reviews</div>
+                <div className="statistics-num-txt">
+                  {T('/main', 'statistics_four')}
+                </div>
               </div>
             </div>
           </Fade>
