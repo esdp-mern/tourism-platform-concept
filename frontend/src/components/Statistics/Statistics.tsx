@@ -1,14 +1,27 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Fade } from 'react-awesome-reveal';
 import Number from '@/components/Statistics/Number';
-import magnifierIcon from '@/assets/images/magnifier.svg';
 import { T } from '@/store/translation';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import {
+  selectAdminStats,
+  selectStatsInfo,
+} from '@/containers/statistics/statisticsSlice';
+import {
+  fetchStatisticsInfo,
+  fetchStatsAdmin,
+} from '@/containers/statistics/statisticsThunk';
 
 const Statistics = () => {
   const targetElementRef = useRef<HTMLDivElement>(null);
   const [isStatisticsVisible, setStatisticsVisible] = useState(false);
+  const dispatch = useAppDispatch();
+  const stats = useAppSelector(selectAdminStats);
+  const statsInfo = useAppSelector(selectStatsInfo);
 
   useEffect(() => {
+    dispatch(fetchStatsAdmin());
+    dispatch(fetchStatisticsInfo());
     const handleScroll = () => {
       if (targetElementRef.current) {
         const element = targetElementRef.current;
@@ -28,7 +41,7 @@ const Statistics = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [isStatisticsVisible]);
+  }, [isStatisticsVisible, dispatch]);
 
   return (
     <div className="statistics-main">
@@ -43,16 +56,14 @@ const Statistics = () => {
                 <p>{T('/main', 'statistics_text')}</p>
               </div>
             </div>
-            <button className="statistics-btn">
-              <img src={magnifierIcon.src} alt="magnifier-icon" />
-              {T('/main', 'statistics_btn')}
-            </button>
           </div>
           <Fade>
             <div className="statistics-num">
               <div className="statistics-num-card">
                 <h3>
-                  {isStatisticsVisible && <Number value={30} duration={1500} />}
+                  {isStatisticsVisible && (
+                    <Number value={stats!.guidesPublished} duration={1500} />
+                  )}
                   +
                 </h3>
                 <div className="statistics-num-txt">
@@ -62,7 +73,7 @@ const Statistics = () => {
               <div className="statistics-num-card">
                 <h3>
                   {isStatisticsVisible && (
-                    <Number value={109} duration={1500} />
+                    <Number value={stats!.ordersAll} duration={1500} />
                   )}
                 </h3>
                 <div className="statistics-num-txt">
@@ -72,7 +83,7 @@ const Statistics = () => {
               <div className="statistics-num-card">
                 <h3>
                   {isStatisticsVisible && (
-                    <Number value={468} duration={1500} />
+                    <Number value={stats!.toursAll} duration={1500} />
                   )}
                 </h3>
                 <div className="statistics-num-txt">
@@ -81,7 +92,9 @@ const Statistics = () => {
               </div>
               <div className="statistics-num-card">
                 <h3>
-                  {isStatisticsVisible && <Number value={70} duration={1500} />}
+                  {isStatisticsVisible && (
+                    <Number value={stats!.platFormReviews} duration={1500} />
+                  )}
                 </h3>
                 <div className="statistics-num-txt">
                   {T('/main', 'statistics_four')}
