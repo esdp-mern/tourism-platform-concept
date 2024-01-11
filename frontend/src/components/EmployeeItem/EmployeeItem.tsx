@@ -5,10 +5,9 @@ import { apiUrl, userRoles } from '@/constants';
 import { deleteEmployees, fetchEmployees } from '@/containers/about/aboutThunk';
 import Link from 'next/link';
 import { selectUser } from '@/containers/users/usersSlice';
-import { useRouter } from 'next/router';
+import { T } from '@/store/translation';
 
 const EmployeeItem = () => {
-  const router = useRouter();
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const employees = useAppSelector(selectAllEmployees);
@@ -33,7 +32,9 @@ const EmployeeItem = () => {
             src={apiUrl + '/' + empl.image}
             alt={empl.name}
           />
-          <div className="about-page-team-card-position">{empl.role}</div>
+          <div className="about-page-team-card-position">
+            {T('/about', `${empl.role}`)}
+          </div>
           <h6 className="about-page-team-card-title">{empl.name}</h6>
           <div className="about-page-team-card-phone">{empl.number}</div>
           {user && user.role === userRoles.admin ? (

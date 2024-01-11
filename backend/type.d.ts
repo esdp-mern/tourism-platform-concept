@@ -49,8 +49,8 @@ export interface IPartner {
 }
 
 export interface IAboutUsBlock {
-  title: string;
-  description?: string;
+  title: ILanguages;
+  description?: ILanguages;
   image?: string;
 }
 

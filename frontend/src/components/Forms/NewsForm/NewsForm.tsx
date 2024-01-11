@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { INewsMutation } from '@/type';
+import React, { useEffect, useState } from 'react';
+import { INews, INewsMutation } from '@/type';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useSelector } from 'react-redux';
 import {
@@ -7,12 +7,12 @@ import {
   selectPostTourLoading,
 } from '@/containers/tours/toursSlice';
 import { useRouter } from 'next/router';
-import { editNews, postNews } from '@/containers/news/newsThunk';
+import { editNews, fetchOneNews, postNews } from '@/containers/news/newsThunk';
 import FilesInput from '@/components/UI/FileInput/FilesInput';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
+import { T } from '@/store/translation';
 
 interface Props {
-  existingNews?: INewsMutation;
   isEdit?: boolean;
   idNews?: string;
 }
@@ -24,21 +24,22 @@ const initialState = {
   images: null,
 };
 
-const NewsForm: React.FC<Props> = ({
-  isEdit,
-  existingNews = initialState,
-  idNews,
-}) => {
+const NewsForm: React.FC<Props> = ({ isEdit, idNews }) => {
   const dispatch = useAppDispatch();
   const error = useSelector(selectPostTourError);
   const loading = useAppSelector(selectPostTourLoading);
   const routers = useRouter();
-  const [state, setState] = useState<INewsMutation>(existingNews);
+  const [state, setState] = useState<INewsMutation>(initialState);
+  const [images, setImages] = useState<File[]>(state.images || []);
+  const [category, setCategory] = useState<string[]>(state.category || []);
 
-  const [images, setImages] = useState<File[]>(existingNews.images || []);
-  const [category, setCategory] = useState<string[]>(
-    existingNews.category || [],
-  );
+  useEffect(() => {
+    if (idNews) {
+      dispatch(fetchOneNews(idNews)).then((res: { payload: INews }) =>
+        setState({ ...res.payload, images: null }),
+      );
+    }
+  }, [dispatch, idNews]);
 
   const inputChangeHandler = (
     event: React.ChangeEvent<
@@ -81,7 +82,7 @@ const NewsForm: React.FC<Props> = ({
   };
 
   const changeFileValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, files } = e.target;
+    const { files } = e.target;
 
     if (files) {
       setImages(Array.from(files));
@@ -106,7 +107,7 @@ const NewsForm: React.FC<Props> = ({
     >,
     index: number,
   ) => {
-    const { name, value } = event.target;
+    const { value } = event.target;
 
     setCategory((prevState) => {
       const updatedCategory = [...prevState];
@@ -118,7 +119,7 @@ const NewsForm: React.FC<Props> = ({
   return (
     <form className="form-news" onSubmit={submitFormHandler}>
       <h2 className="form-news-title">
-        {isEdit ? 'Save News' : 'Create News'}
+        {isEdit ? T('/news', `formEditNews`) : T('/news', `formCreateNews`)}
       </h2>
       <div className="input-news-wrap">
         <input
@@ -135,7 +136,7 @@ const NewsForm: React.FC<Props> = ({
           required
         />
         <label htmlFor="title" className="form-news-label">
-          News title:
+          {T('/news', `formTitlePlaceholder`)}
         </label>
         {Boolean(getFieldError('title')) && (
           <span className="error-news">{getFieldError('title')}</span>
@@ -155,7 +156,7 @@ const NewsForm: React.FC<Props> = ({
           required
         />
         <label htmlFor="description" className="form-news-label-two">
-          Description:
+          {T('/news', `formDescriptionPlaceholder`)}
         </label>
         {Boolean(getFieldError('description')) && (
           <span className="error-tour">{getFieldError('description')}</span>
@@ -171,17 +172,17 @@ const NewsForm: React.FC<Props> = ({
           htmlFor="images"
           className="form-images-label form-news-label-image"
         >
-          News Images:
+          {T('/news', `formImagePlaceholder`)}
         </label>
       </div>
       <div className="form-news-included">
-        <h5 className="form-news-title">Categories:</h5>
+        <h5 className="form-news-title">{T('/news', `categories`)}:</h5>
         <button
           type="button"
           className="form-news-btn-add"
           onClick={() => addOneItem()}
         >
-          Add Category
+          {T('/news', `addCategory`)}
         </button>
         {category.map((category, index) => (
           <div key={index} style={{ display: 'flex', marginBottom: '10px' }}>
@@ -210,9 +211,9 @@ const NewsForm: React.FC<Props> = ({
         {loading ? (
           <ButtonLoader size={18} />
         ) : isEdit ? (
-          'Save News'
+          T('/news', `formEditNews`)
         ) : (
-          'Create News'
+          T('/news', `formCreateNews`)
         )}
       </button>
     </form>

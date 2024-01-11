@@ -21,7 +21,6 @@ import Custom404 from '@/pages/404';
 import { fetchTourRating } from '@/containers/ratings/ratingThunk';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import GoogleMap from '@/components/GoogleMap/GoogleMap';
-import { selectLanguage } from '@/containers/users/usersSlice';
 import { T } from '@/store/translation';
 
 interface ITab {

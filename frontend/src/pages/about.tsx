@@ -18,15 +18,21 @@ import { fetchPlatformReviews } from '@/containers/reviews/reviewThunk';
 import Image from 'next/image';
 import dayjs from 'dayjs';
 
+require(`dayjs/locale/ru`);
+require(`dayjs/locale/en`);
+import { selectLanguage } from '@/containers/users/usersSlice';
+import { T } from '@/store/translation';
+
 const About = () => {
   const dispatch = useAppDispatch();
   const { about, editAboutUsBlockLoading } = useAppSelector(
     (state) => state.about,
   );
   const { user } = useAppSelector((state) => state.users);
+  const reviews = useAppSelector(selectPlatformReviews);
+  const lang = useAppSelector(selectLanguage);
   const [sectionName, setSectionName] = useState<string>('');
   const [editBlock, setEditBlock] = useState<IAboutUsBlock | null>(null);
-  const reviews = useAppSelector(selectPlatformReviews);
 
   useEffect(() => {
     dispatch(fetchAboutUs());
@@ -56,6 +62,7 @@ const About = () => {
       ).unwrap();
       setSectionName('');
       setEditBlock(null);
+      dispatch(fetchAboutUs());
     } catch {
       // nothing
     }
@@ -163,7 +170,9 @@ const About = () => {
                 <div className="about-page-tours-txt">
                   {about.offer.description}
                 </div>
-                <button className="about-page-tours-btn">Book now</button>
+                <button className="about-page-tours-btn">
+                  {T('/about', 'bookNow')}
+                </button>
               </div>
               <div className="about-page-tours-img-wrap">
                 <img
@@ -212,7 +221,6 @@ const About = () => {
                 {reviews.map((review) => {
                   if (review) {
                     const avatar = apiUrl + '/' + review.user.avatar;
-                    console.log(avatar);
                     return (
                       <div className="about-page-clients-card" key={review._id}>
                         <div className="about-page-clients-card-top">
@@ -231,7 +239,9 @@ const About = () => {
                           {review.comment}
                         </div>
                         <div className="about-page-clients-card-date">
-                          {dayjs(review.date).format('MMM DD, YYYY')}
+                          {dayjs(review.date)
+                            .locale(lang === 'kg' ? 'ru' : lang)
+                            .format('MMM DD, YYYY')}
                         </div>
                       </div>
                     );
@@ -246,13 +256,15 @@ const About = () => {
         <div className="container">
           <Fade>
             <div className="about-page-team">
-              <h3 className="about-page-team-title">Meet Our Team</h3>
+              <h3 className="about-page-team-title">
+                {T('/about', 'meetOurTeam')}
+              </h3>
               <p className="about-page-team-txt">
-                Duis aute irure dolor in reprehenderit in voluptate velit
+                {T('/about', 'meetOurTeamDescription')}
               </p>
               {user && user.role === userRoles.admin && (
                 <Link href="/employees/create" className="about-page-team-link">
-                  Add new member
+                  {T('/about', 'addNewMember')}
                 </Link>
               )}
               <EmployeeItem />
@@ -263,9 +275,11 @@ const About = () => {
           <div className="about-page-guide-wrap container">
             <Fade>
               <div className="about-page-guide-text-wrap">
-                <h3 className="about-page-team-title">Meat our guides</h3>
+                <h3 className="about-page-team-title">
+                  {T('/about', 'meetOurGuides')}
+                </h3>
                 <p className="about-page-team-txt">
-                  Duis aute irure dolor in reprehenderit in voluptate velit
+                  {T('/about', 'meetOurGuidesDescription')}
                 </p>
               </div>
               <div className="about-page-slider-wrap">
