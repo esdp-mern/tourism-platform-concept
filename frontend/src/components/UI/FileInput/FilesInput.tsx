@@ -57,7 +57,7 @@ const FileInput: React.FC<Props> = ({ onChange, name, image, className }) => {
         </div>
       </div>
       <button type="button" onClick={activateInput} className="file-input-btn">
-        {T('/news', `browse`)}
+        {T('/inputs', 'file_input_btn')}
       </button>
     </>
   );

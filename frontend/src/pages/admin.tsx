@@ -120,11 +120,13 @@ const Admin = () => {
           <div className="col-md-4 stretch-card">
             <div className="card bg-gradient-partners card-img-holder">
               <div className="card-body">
-                <Image
-                  src={circle}
-                  alt="circle"
-                  className="card-img-absolute"
-                />
+                <Link href={`/admin/partners/all`} className="stats-admin-link">
+                  <Image
+                    src={circle}
+                    alt="circle"
+                    className="card-img-absolute"
+                  />
+                </Link>
                 <Link href={`/admin/partners/all`} className="stats-admin-link">
                   <h4 className="stats-admin-title">Partners</h4>
                 </Link>
@@ -146,22 +148,32 @@ const Admin = () => {
                     alt="circle"
                     className="card-img-absolute"
                   />
-                  <h4 className="stats-admin-title">Partner orders</h4>
-                  <h2 className="stats-admin-info">
-                    Total partner orders: {state?.partnerOrdersAll}
-                  </h2>
                 </Link>
+                <Link
+                  href={`/admin/partnerOrders/1`}
+                  className="stats-admin-link"
+                >
+                  <h4 className="stats-admin-title">Partner orders</h4>
+                </Link>
+                <h2 className="stats-admin-info">
+                  Total partner orders: {state?.partnerOrdersAll}
+                </h2>
               </div>
             </div>
           </div>
           <div className="col-md-4 stretch-card">
             <div className="card bg-gradient-employee card-img-holder">
               <div className="card-body">
-                <Image
-                  src={circle}
-                  alt="circle"
-                  className="card-img-absolute"
-                />
+                <Link
+                  href={`/admin/employees/all`}
+                  className="stats-admin-link"
+                >
+                  <Image
+                    src={circle}
+                    alt="circle"
+                    className="card-img-absolute"
+                  />
+                </Link>
                 <Link
                   href={`/admin/employees/all`}
                   className="stats-admin-link"
@@ -204,11 +216,16 @@ const Admin = () => {
                     alt="circle"
                     className="card-img-absolute"
                   />
-                  <h4 className="stats-admin-title">Guide Orders</h4>
-                  <h2 className="stats-admin-info">
-                    Total orders: {state?.totalGuideOrders}
-                  </h2>
                 </Link>
+                <Link
+                  href={`/admin/guideOrders/1`}
+                  className="stats-admin-link"
+                >
+                  <h4 className="stats-admin-title">Guide Orders</h4>
+                </Link>
+                <h2 className="stats-admin-info">
+                  Total orders: {state?.totalGuideOrders}
+                </h2>
               </div>
             </div>
           </div>

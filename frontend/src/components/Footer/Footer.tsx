@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useAppSelector } from '@/store/hooks';
 import { selectUser } from '@/containers/users/usersSlice';
+import { T } from '@/store/translation';
 
 const Footer = () => {
   const user = useAppSelector(selectUser);
@@ -10,25 +11,25 @@ const Footer = () => {
       <div className="footer-inner">
         <div className="footer-inner-top container">
           <div className="footer-inner-top-1">
-            <h6 className="footer-title">Quick Links</h6>
+            <h6 className="footer-title">{T('/footer', 'links')}</h6>
             <div className="footer-inner-top-links">
               <div>
                 <Link href="/about" className="footer-inner-top-link">
-                  About
+                  {T('/footer', 'about_us')}
                 </Link>
                 <Link
                   href={user ? '/guides/becomeGuide' : '/login'}
                   className="footer-inner-top-link"
                 >
-                  Become a guide!
+                  {T('/footer', 'guide')}!
                 </Link>
               </div>
               <div>
                 <Link href="/contactUs" className="footer-inner-top-link">
-                  Contacts
+                  {T('/footer', 'contact_us')}
                 </Link>
                 <Link href="/news/all/1" className="footer-inner-top-link">
-                  Blog
+                  {T('/footer', 'news')}
                 </Link>
               </div>
             </div>
@@ -40,20 +41,18 @@ const Footer = () => {
             </div>
           </div>
           <div className="footer-inner-top-2">
-            <h6 className="footer-title">Get in touch</h6>
-            <div className="footer-address">
-              9 Valley St. Brooklyn, NY 11203
-            </div>
+            <h6 className="footer-title">{T('/footer', 'touch')}</h6>
+            <div className="footer-address">{T('/footer', 'address')}</div>
             <div className="footer-phone">1-800-346-6277</div>
             <div className="footer-email">info@demolink.org</div>
           </div>
           <div className="footer-inner-top-3">
-            <h6 className="footer-title">For travelers</h6>
+            <h6 className="footer-title">{T('/footer', 'travellers')}</h6>
             <div>
               <ul className="footer-list-links">
                 <li>
                   <Link href="/tours/all/1" className="footer-list-link">
-                    Tours
+                    {T('/footer', 'tours')}
                   </Link>
                 </li>
               </ul>
@@ -64,8 +63,8 @@ const Footer = () => {
       <div className="footer-inner-two">
         <div className="container">
           <div className="footer-inner-two-txt">
-            © 2023 Tourism Concept. All rights reserved.
-            <span>ㅤPrivacy Policy</span>
+            © 2023 Tourism Concept. {T('/footer', 'privacy_text')}.
+            <span>ㅤ{T('/footer', 'privacy')}</span>
           </div>
         </div>
       </div>
