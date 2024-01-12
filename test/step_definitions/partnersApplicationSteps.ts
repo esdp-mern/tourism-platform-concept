@@ -7,21 +7,13 @@ Then("I click {string} admin link", (text: string) => {
 });
 
 When("I'm looking for the right application and accept application", async () => {
-    let hasMorePages: boolean | number = true;
+    let partnerCards = await I.grabNumberOfVisibleElements("//div[@class='guide-card']");
 
-    while (hasMorePages) {
-        const isElementPresent = await I.grabNumberOfVisibleElements('.guide-card__name');
-        if (isElementPresent > 0) {
-            const elementText = await I.grabTextFrom('.guide-card__name');
-            if (elementText === 'Ak-Maral') {
-                I.click(`(//button[contains(text(), 'Accept')])[${isElementPresent}]`);
-                break;
-            }
-        }
-        hasMorePages = await I.grabNumberOfVisibleElements('.pagination-arrow.pagination-forward');
-        if (hasMorePages > 0) {
-            I.click('.pagination-arrow.pagination-forward');
-            I.wait(1);
+    for (let i = 1; i <= partnerCards; i++) {
+        let name = await I.grabTextFrom(`(//div[@class='guide-card'])[${i}]//h2`);
+        if (name === 'Ak-Maral') {
+            I.click(`(//div[@class='guide-card'])[${i}]//button[contains(text(), 'Accept')]`);
+            break;
         }
     }
 });

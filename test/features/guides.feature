@@ -23,9 +23,13 @@ Feature: Application to become a guide
       | username | admin       |
       | password | qwerty1234 |
     When I click "Login" button
+    Then I wait 2 sec
     Then I am on home page
+    Then I wait 4 sec
     When I click "Admin Page" link
+    Then I wait 4 sec
     Then I go to the admin page
+    Then I wait 4 sec
     When I click "Guide Orders" admin link
     Then I wait 5 sec
     Then I accept for the right guide application
