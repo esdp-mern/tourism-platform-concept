@@ -171,6 +171,7 @@ Then("I go to the prev page", () => {
 });
 
 When("I'm on the page of one tour", async () => {
+  I.wait(4);
   I.click('//button[@name="information"]');
   const title = await I.grabTextFrom('//h2[@class="one-tour-top-title"]');
   I.see(title);
