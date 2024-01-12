@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { RegisterMutation, signInMutation } from '@/type';
+import { signInMutation } from '@/type';
 import { GoogleLogin } from '@react-oauth/google';
 import { AxiosError } from 'axios';
 import { googleLogin, signIn } from '@/containers/users/usersThunk';

@@ -7,7 +7,7 @@ import {
   selectOneTour,
   selectPostReviewError,
 } from '@/containers/tours/toursSlice';
-import { fetchTour, fetchTours } from '@/containers/tours/toursThunk';
+import { fetchTour } from '@/containers/tours/toursThunk';
 import { useParams } from 'next/navigation';
 import { apiUrl } from '@/constants';
 import OneTourInformation from '@/components/OneTourPage/OneTourInformation/OneTourInformation';

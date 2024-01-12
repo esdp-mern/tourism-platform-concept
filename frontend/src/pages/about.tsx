@@ -17,11 +17,10 @@ import { selectPlatformReviews } from '@/containers/reviews/reviewSlice';
 import { fetchPlatformReviews } from '@/containers/reviews/reviewThunk';
 import Image from 'next/image';
 import dayjs from 'dayjs';
-
-require(`dayjs/locale/ru`);
-require(`dayjs/locale/en`);
 import { selectLanguage } from '@/containers/users/usersSlice';
 import { T } from '@/store/translation';
+require(`dayjs/locale/ru`);
+require(`dayjs/locale/en`);
 
 const About = () => {
   const dispatch = useAppDispatch();

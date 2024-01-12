@@ -57,9 +57,12 @@ import '@/styles/UserOrder.css';
 import '@/styles/adminStats.css';
 import '@/styles/langSelect.css';
 import { useEffect } from 'react';
+import { NextIntlClientProvider } from 'next-intl';
+import { useRouter } from 'next/router';
 
-export default function App({ Component, ...rest }: AppProps) {
+function App({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
+  const router = useRouter();
 
   addInterceptors(store);
 
@@ -69,20 +72,28 @@ export default function App({ Component, ...rest }: AppProps) {
 
   return (
     <>
-      <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-        <Provider store={store}>
-          <header>
-            <AppToolBar />
-          </header>
-          <main>
-            <Alerts />
-            <Component {...props.pageProps} />
-          </main>
-          <footer>
-            <Footer />
-          </footer>
-        </Provider>
-      </GoogleOAuthProvider>
+      <NextIntlClientProvider
+        locale={router.locale}
+        timeZone="Europe/Vienna"
+        messages={...props.pageProps.messages}
+      >
+        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+          <Provider store={store}>
+            <header>
+              <AppToolBar />
+            </header>
+            <main>
+              <Alerts />
+              <Component {...props.pageProps} />
+            </main>
+            <footer>
+              <Footer />
+            </footer>
+          </Provider>
+        </GoogleOAuthProvider>
+      </NextIntlClientProvider>
     </>
   );
 }
+
+export default App;

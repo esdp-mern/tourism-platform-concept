@@ -58,7 +58,7 @@ const TextField: React.FC<Props> = (props) => {
       phoneInputsRef[0].style.borderColor =
         isPhone && props.errorMessage ? '#f5543f' : '#c4c4c4';
     }
-  }, [props]);
+  }, [isPhone, props]);
 
   if (props.errorMessage) inputClassNames.push('text-field-input-error');
   if (!props.icon) inputClassNames.push('text-field-input-no-icon');

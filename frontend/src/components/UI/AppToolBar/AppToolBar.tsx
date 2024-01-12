@@ -8,14 +8,13 @@ import {
   setLang,
 } from '@/containers/users/usersSlice';
 import ToolBarMenu from '@/components/UI/AppToolBar/components/ToolBarMenu';
-import { useParams, usePathname } from 'next/navigation';
-import { fetchTour, fetchTours } from '@/containers/tours/toursThunk';
+import { usePathname } from 'next/navigation';
+import { fetchTours } from '@/containers/tours/toursThunk';
 import { apiUrl, languages } from '@/constants';
-import { selectOneTour } from '@/containers/tours/toursSlice';
 import { T } from '@/store/translation';
+import { useRouter } from 'next/router';
 
 const AppToolBar = () => {
-  const params = useParams() as { id: string; editID: string };
   const user = useAppSelector(selectUser);
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -23,6 +22,7 @@ const AppToolBar = () => {
   const [menuShow, setMenuShow] = useState(false);
   const [langOptions, setLangOptions] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
   const { isLightMode } = useAppSelector((state) => state.config);
 
@@ -56,6 +56,7 @@ const AppToolBar = () => {
   };
 
   useEffect(() => {
+    dispatch(setLang(router.locale));
     setEventListener();
     window.addEventListener('resize', setEventListener);
 
@@ -69,27 +70,18 @@ const AppToolBar = () => {
       window.removeEventListener('resize', setEventListener);
       document.removeEventListener('scroll', setClassList);
     };
-  }, [isLightMode, setClassList, setEventListener]);
+  }, [dispatch, isLightMode, router, setClassList, setEventListener]);
 
   const onLangSwitch = (language: string) => {
-    if (
-      pathname.includes('tours') &&
-      !pathname.includes('tours/all') &&
-      pathname !== '/' &&
-      !pathname.includes('admin/tours') &&
-      !pathname.includes('tours/edit')
-    ) {
-      dispatch(fetchTour(params.id));
-    } else if (pathname.includes('tours/edit')) {
-      dispatch(fetchTour(params.editID));
-    } else if (
-      pathname === '/' ||
-      pathname.includes('tours/all') ||
-      pathname.includes('admin/tours')
-    ) {
-      dispatch(fetchTours({}));
-    }
+    const href = {
+      pathname: router.pathname,
+      query: router.query,
+    };
+    void router.push(href, undefined, { locale: language });
     dispatch(setLang(language));
+    setTimeout(() => {
+      location.reload();
+    }, 200);
   };
 
   return (
@@ -100,7 +92,7 @@ const AppToolBar = () => {
         }`}
         ref={toolBarRef}
       >
-        {pathname && (pathname.includes('tours') || pathname === '/') && (
+        {
           <div
             className={`form-lang ${langOptions ? 'form-lang-open' : ''}`}
             onClick={(e) => {
@@ -133,7 +125,7 @@ const AppToolBar = () => {
               )}
             </div>
           </div>
-        )}
+        }
         <div className="container">
           <div className="tool-bar">
             <div className="logo-wrap">
@@ -163,7 +155,7 @@ const AppToolBar = () => {
                 href="/"
                 className={`nav-link ${pathname === '/' ? 'active' : ''}`}
                 onClick={() => {
-                  showMenu();
+                  void showMenu();
                   closeNavMenu();
                 }}
               >
@@ -175,7 +167,7 @@ const AppToolBar = () => {
                   pathname && pathname.includes('/tours/all') ? 'active' : ''
                 }`}
                 onClick={() => {
-                  showMenu();
+                  void showMenu();
                   closeNavMenu();
                 }}
               >
@@ -185,7 +177,7 @@ const AppToolBar = () => {
                 href="/about"
                 className={`nav-link ${pathname === '/about' ? 'active' : ''}`}
                 onClick={() => {
-                  showMenu();
+                  void showMenu();
                   closeNavMenu();
                 }}
               >
@@ -195,7 +187,7 @@ const AppToolBar = () => {
                 <UserMenu
                   user={user}
                   onClick={() => {
-                    showMenu();
+                    void showMenu();
                     closeNavMenu();
                   }}
                   pathname={pathname}
@@ -209,7 +201,7 @@ const AppToolBar = () => {
                   pathname && pathname.includes('/news/all') ? 'active' : ''
                 }`}
                 onClick={() => {
-                  showMenu();
+                  void showMenu();
                   closeNavMenu();
                 }}
               >

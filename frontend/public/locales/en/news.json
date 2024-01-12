@@ -1,0 +1,27 @@
+{
+  "news": {
+    "news_all_news_title": "Tourism news",
+    "news_all_news_description": "Here you can find interesting news about tourism in Central Asia!",
+    "news_all_create_news": "create news",
+    "news_all_published": "published",
+    "news_all_unpublished": "unpublished",
+    "news_all_delete": "delete",
+    "news_all_delete_loading": "deleting...",
+    "news_all_unpublish": "unpublish",
+    "news_all_unpublish_loading": "unpublishing...",
+    "news_all_publish": "publish",
+    "news_all_publish_loading": "publishing...",
+    "news_all_unpublish_alert": "Are you sure you want to unpublish this news?",
+    "news_all_publish_alert": "Are you sure you want to publish this news?",
+    "news_all_edit": "edit",
+    "news_create_form_edit_news": "Edit news",
+    "news_create_form_create_news": "Create news",
+    "news_create_form_title_placeholder": "news title",
+    "news_create_form_description_placeholder": "description",
+    "news_create_form_image_placeholder": "New images",
+    "news_create_add_category": "add category",
+    "news_categories": "categories",
+    "news_related_news": "related news",
+    "news_no_related_news": "no related news"
+  }
+}
