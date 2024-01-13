@@ -10,6 +10,7 @@ import img from '../assets/images/userImage.jpeg';
 import { fetchOrdersUser } from '@/containers/orders/ordersThunk';
 import UserOrders from '@/components/UserOrders/UserOrders';
 import GuideProfile from '@/components/GuideProfile/GuideProfile';
+import { GetServerSideProps } from 'next';
 
 const Profile = () => {
   const dispatch = useAppDispatch();
@@ -93,3 +94,12 @@ const Profile = () => {
 };
 
 export default Profile;
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

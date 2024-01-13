@@ -17,11 +17,12 @@ import { selectPlatformReviews } from '@/containers/reviews/reviewSlice';
 import { fetchPlatformReviews } from '@/containers/reviews/reviewThunk';
 import Image from 'next/image';
 import dayjs from 'dayjs';
+import { selectLanguage } from '@/containers/users/usersSlice';
+import { GetServerSideProps } from 'next';
+import { useTranslations } from 'next-intl';
 
 require(`dayjs/locale/ru`);
 require(`dayjs/locale/en`);
-import { selectLanguage } from '@/containers/users/usersSlice';
-import { T } from '@/store/translation';
 
 const About = () => {
   const dispatch = useAppDispatch();
@@ -33,6 +34,7 @@ const About = () => {
   const lang = useAppSelector(selectLanguage);
   const [sectionName, setSectionName] = useState<string>('');
   const [editBlock, setEditBlock] = useState<IAboutUsBlock | null>(null);
+  const t = useTranslations('about');
 
   useEffect(() => {
     dispatch(fetchAboutUs());
@@ -170,9 +172,7 @@ const About = () => {
                 <div className="about-page-tours-txt">
                   {about.offer.description}
                 </div>
-                <button className="about-page-tours-btn">
-                  {T('/about', 'bookNow')}
-                </button>
+                <button className="about-page-tours-btn">{t('bookNow')}</button>
               </div>
               <div className="about-page-tours-img-wrap">
                 <img
@@ -256,15 +256,13 @@ const About = () => {
         <div className="container">
           <Fade>
             <div className="about-page-team">
-              <h3 className="about-page-team-title">
-                {T('/about', 'meetOurTeam')}
-              </h3>
+              <h3 className="about-page-team-title">{t('meetOurTeam')}</h3>
               <p className="about-page-team-txt">
-                {T('/about', 'meetOurTeamDescription')}
+                {t('meetOurTeamDescription')}
               </p>
               {user && user.role === userRoles.admin && (
                 <Link href="/employees/create" className="about-page-team-link">
-                  {T('/about', 'addNewMember')}
+                  {t('addNewMember')}
                 </Link>
               )}
               <EmployeeItem />
@@ -275,11 +273,9 @@ const About = () => {
           <div className="about-page-guide-wrap container">
             <Fade>
               <div className="about-page-guide-text-wrap">
-                <h3 className="about-page-team-title">
-                  {T('/about', 'meetOurGuides')}
-                </h3>
+                <h3 className="about-page-team-title">{t('meetOurGuides')}</h3>
                 <p className="about-page-team-txt">
-                  {T('/about', 'meetOurGuidesDescription')}
+                  {t('meetOurGuidesDescription')}
                 </p>
               </div>
               <div className="about-page-slider-wrap">
@@ -301,3 +297,12 @@ const About = () => {
 };
 
 export default About;
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

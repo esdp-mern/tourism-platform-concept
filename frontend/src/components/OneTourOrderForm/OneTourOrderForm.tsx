@@ -13,8 +13,8 @@ import guideIcon from '@/assets/images/guide-icon.svg';
 import calendarIcon from '@/assets/images/calendar-order-icon.svg';
 import emailIcon from '@/assets/images/email-icon.svg';
 import Link from 'next/link';
-import { T } from '@/store/translation';
 import { useRouter } from 'next/router';
+import { useTranslations } from 'next-intl';
 
 export interface IChangeEvent {
   target: { name: string; value: string };
@@ -37,6 +37,7 @@ const OneTourOrderForm = () => {
   const user = useAppSelector(selectUser);
   const tour = useAppSelector(selectOneTour);
   const { orderButtonLoading } = useAppSelector((state) => state.tours);
+  const t = useTranslations('oneTour');
 
   const [state, setState] = useState<IOrderForm>(
     user ? authorizedUserFields : unAuthorizedUserFields,
@@ -105,7 +106,7 @@ const OneTourOrderForm = () => {
   return (
     <form className="one-tour-order-form" onSubmit={sendData}>
       <h4 className="one-tour-order-form-title">
-        {T('/oneTourPage', 'tour_order_form_title')}
+        {t('tour_order_form_title')}
       </h4>
       <div className="one-tour-order-form-inputs">
         {getTextField('guide', 'Select guide', guideIcon.src, 'select')}
@@ -125,8 +126,8 @@ const OneTourOrderForm = () => {
       >
         <Link href="/" className="one-tour-order-form-nav-link">
           {orderButtonLoading
-            ? T('/oneTourPage', 'tour_order_form_button_loading')
-            : T('/oneTourPage', 'tour_order_form_button')}
+            ? t('tour_order_form_button_loading')
+            : t('tour_order_form_button')}
         </Link>
       </button>
     </form>

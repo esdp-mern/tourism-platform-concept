@@ -1,9 +1,5 @@
 import React, { FormEvent, useEffect, useState } from 'react';
-import {
-  addAlert,
-  selectUser,
-  setEditorModal,
-} from '@/containers/users/usersSlice';
+import { addAlert, selectUser } from '@/containers/users/usersSlice';
 import TextField from '@/components/UI/TextField/TextField';
 import penIcon from '@/assets/images/pen-icon.svg';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';

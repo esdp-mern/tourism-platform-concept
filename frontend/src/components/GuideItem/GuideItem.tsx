@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
 import { deleteGuide, fetchAdminGuides } from '@/containers/guides/guidesThunk';
-import { T } from '@/store/translation';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   id: string;
@@ -23,6 +23,7 @@ const GuideItem: React.FC<Props> = ({
 }) => {
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
+  const t = useTranslations('about');
 
   const onDelete = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this guide?')) {
@@ -42,13 +43,11 @@ const GuideItem: React.FC<Props> = ({
         <h2 className="guide-card__name">{name}</h2>
         <p className="guide-card__description">{description}</p>
         <Link href={`/guides/${id}`} className="guide-card__link">
-          {T('/about', `guideViewMore`)}
+          {t(`guideViewMore`)}
         </Link>
         {user && user.role === userRoles.admin ? (
           <div className="guide-card__btn">
-            <button onClick={() => onDelete(id)}>
-              {T('/about', `guideDelete`)}
-            </button>
+            <button onClick={() => onDelete(id)}>{t(`guideDelete`)}</button>
           </div>
         ) : null}
       </div>

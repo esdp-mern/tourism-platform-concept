@@ -9,7 +9,8 @@ import { setIsLightMode } from '@/containers/config/configSlice';
 import { selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
 import Link from 'next/link';
-import { T } from '@/store/translation';
+import { useTranslations } from 'next-intl';
+import { GetServerSideProps } from 'next';
 
 const AllNewsPage = () => {
   const dispatch = useAppDispatch();
@@ -17,6 +18,7 @@ const AllNewsPage = () => {
   const user = useAppSelector(selectUser);
   const [newsPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
+  const t = useTranslations('news');
 
   const indexOfLastRecord = currentPage * newsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - newsPerPage;
@@ -39,15 +41,15 @@ const AllNewsPage = () => {
         <div className="news-top-bg" />
         <div className="news-top-info">
           <div className="news-top-line"></div>
-          <h2 className="news-top-title">{T('/news', `allNewsTitle`)}</h2>
-          <p className="news-top-txt">{T('/news', `allNewsDescription`)}</p>
+          <h2 className="news-top-title">{t('news_all_news_title')}</h2>
+          <p className="news-top-txt">{t('news_all_news_description')}</p>
         </div>
       </div>
       <div className="container">
         <div className="news-main">
           {user && user.role === userRoles.admin ? (
             <Link href="/news/create" className="news-admin-create">
-              {T('/news', `createNews`)}
+              {t('news_all_create_news')}
             </Link>
           ) : null}
           <div className="news-main-inner">
@@ -72,3 +74,12 @@ const AllNewsPage = () => {
 };
 
 export default AllNewsPage;
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

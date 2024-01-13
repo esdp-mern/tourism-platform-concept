@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { addAlert, selectUser } from '@/containers/users/usersSlice';
 import { tourReview } from '@/containers/tours/toursThunk';
 import { fetchToursReviews } from '@/containers/reviews/reviewThunk';
-import { T } from '@/store/translation';
+import { useTranslations } from 'next-intl';
 
 interface IPostReview {
   tour: string;
@@ -24,6 +24,7 @@ const NewReviewForm = () => {
   });
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
+  const t = useTranslations('oneTour');
 
   const onRatingClick = (number: number) => {
     setState((prevState) => ({
@@ -65,12 +66,10 @@ const NewReviewForm = () => {
 
   return (
     <Fade>
-      <h3 className="review-form-title">
-        {T('/oneTourPage', 'tour_review_form_title')}
-      </h3>
+      <h3 className="review-form-title">{t('tour_review_form_title')}</h3>
       <form className="review-form" onSubmit={onSubmit}>
         <div className="tour-rating-range">
-          <span>{T('/oneTourPage', 'tour_review_form_rating')}</span>
+          <span>{t('tour_review_form_rating')}</span>
           <div className="tour-rating-stars">
             <span
               className={`star-icon ${state.rating >= 1 && 'rated-star'}`}
@@ -107,16 +106,14 @@ const NewReviewForm = () => {
         <div className="review-form-textarea">
           <textarea
             className="review-form-input"
-            placeholder={T('/oneTourPage', 'tour_review_form_placeholder')}
+            placeholder={t('tour_review_form_placeholder')}
             onChange={onChange}
             value={state.comment}
             name="comment"
             required
           />
         </div>
-        <button type="submit">
-          {T('/oneTourPage', 'tour_review_form_button')}
-        </button>
+        <button type="submit">{t('tour_review_form_button')}</button>
       </form>
     </Fade>
   );

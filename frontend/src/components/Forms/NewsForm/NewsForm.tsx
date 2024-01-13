@@ -10,7 +10,8 @@ import { useRouter } from 'next/router';
 import { editNews, fetchOneNews, postNews } from '@/containers/news/newsThunk';
 import FilesInput from '@/components/UI/FileInput/FilesInput';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
-import { T } from '@/store/translation';
+import { setIsLightMode } from '@/containers/config/configSlice';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   isEdit?: boolean;
@@ -32,6 +33,7 @@ const NewsForm: React.FC<Props> = ({ isEdit, idNews }) => {
   const [state, setState] = useState<INewsMutation>(initialState);
   const [images, setImages] = useState<File[]>(state.images || []);
   const [category, setCategory] = useState<string[]>(state.category || []);
+  const t = useTranslations('news');
 
   useEffect(() => {
     if (idNews) {
@@ -39,6 +41,7 @@ const NewsForm: React.FC<Props> = ({ isEdit, idNews }) => {
         setState({ ...res.payload, images: null }),
       );
     }
+    dispatch(setIsLightMode(true));
   }, [dispatch, idNews]);
 
   const inputChangeHandler = (
@@ -119,7 +122,9 @@ const NewsForm: React.FC<Props> = ({ isEdit, idNews }) => {
   return (
     <form className="form-news" onSubmit={submitFormHandler}>
       <h2 className="form-news-title">
-        {isEdit ? T('/news', `formEditNews`) : T('/news', `formCreateNews`)}
+        {isEdit
+          ? t(`news_create_form_edit_news`)
+          : t(`news_create_form_create_news`)}
       </h2>
       <div className="input-news-wrap">
         <input
@@ -136,7 +141,7 @@ const NewsForm: React.FC<Props> = ({ isEdit, idNews }) => {
           required
         />
         <label htmlFor="title" className="form-news-label">
-          {T('/news', `formTitlePlaceholder`)}
+          {t(`news_create_form_title_placeholder`)}
         </label>
         {Boolean(getFieldError('title')) && (
           <span className="error-news">{getFieldError('title')}</span>
@@ -156,7 +161,7 @@ const NewsForm: React.FC<Props> = ({ isEdit, idNews }) => {
           required
         />
         <label htmlFor="description" className="form-news-label-two">
-          {T('/news', `formDescriptionPlaceholder`)}
+          {t(`news_create_form_description_placeholder`)}
         </label>
         {Boolean(getFieldError('description')) && (
           <span className="error-tour">{getFieldError('description')}</span>
@@ -172,17 +177,17 @@ const NewsForm: React.FC<Props> = ({ isEdit, idNews }) => {
           htmlFor="images"
           className="form-images-label form-news-label-image"
         >
-          {T('/news', `formImagePlaceholder`)}
+          {t('news_create_form_image_placeholder')}
         </label>
       </div>
       <div className="form-news-included">
-        <h5 className="form-news-title">{T('/news', `categories`)}:</h5>
+        <h5 className="form-news-title">{t('news_categories')}:</h5>
         <button
           type="button"
           className="form-news-btn-add"
           onClick={() => addOneItem()}
         >
-          {T('/news', `addCategory`)}
+          {t(`news_create_add_category`)}
         </button>
         {category.map((category, index) => (
           <div key={index} style={{ display: 'flex', marginBottom: '10px' }}>
@@ -196,7 +201,6 @@ const NewsForm: React.FC<Props> = ({ isEdit, idNews }) => {
               onChange={(event) => inputChangeHandlerMassive(event, index)}
               required
             />
-
             <button
               type="button"
               onClick={() => removeOneItem(index)}
@@ -211,9 +215,9 @@ const NewsForm: React.FC<Props> = ({ isEdit, idNews }) => {
         {loading ? (
           <ButtonLoader size={18} />
         ) : isEdit ? (
-          T('/news', `formEditNews`)
+          t(`news_create_form_edit_news`)
         ) : (
-          T('/news', `formCreateNews`)
+          t(`news_create_form_create_news`)
         )}
       </button>
     </form>

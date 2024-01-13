@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { T } from '@/store/translation';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -10,8 +10,8 @@ interface Props {
 
 const FileInput: React.FC<Props> = ({ onChange, name, image, className }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-
   const [filenames, setFilenames] = useState<string[]>([]);
+  const t = useTranslations('inputs');
 
   useEffect(() => {
     if (image === null) {
@@ -57,7 +57,7 @@ const FileInput: React.FC<Props> = ({ onChange, name, image, className }) => {
         </div>
       </div>
       <button type="button" onClick={activateInput} className="file-input-btn">
-        {T('/inputs', 'file_input_btn')}
+        {t('file_input_btn')}
       </button>
     </>
   );

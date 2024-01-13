@@ -12,7 +12,7 @@ import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import { logout } from '@/containers/users/usersThunk';
 import HotToursToolbar from '@/components/HotTours/HotToursToolbar';
 import EditorModal from '@/components/EditProfile/EditorModal';
-import { T } from '@/store/translation';
+import { useTranslations } from 'next-intl';
 
 interface IProps {
   show: boolean;
@@ -24,6 +24,7 @@ const ToolBarMenu: React.FC<IProps> = ({ show, onClick }) => {
   const user = useAppSelector(selectUser);
   const logoutLoading = useAppSelector(selectLogoutLoading);
   const pathname = usePathname();
+  const t = useTranslations('navbar');
 
   const userLogout = async () => {
     try {
@@ -34,8 +35,8 @@ const ToolBarMenu: React.FC<IProps> = ({ show, onClick }) => {
     }
   };
 
-  const editBtn = T('/navbar', 'edit_profile_btn');
-  const logoutBtn = T('/navbar', 'logout_btn');
+  const editBtn = t('edit_profile_btn');
+  const logoutBtn = t('logout_btn');
 
   return (
     <>
