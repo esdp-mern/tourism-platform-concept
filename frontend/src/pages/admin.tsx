@@ -10,6 +10,7 @@ import { selectAdminStats } from '@/containers/statistics/statisticsSlice';
 import { fetchStatsAdmin } from '@/containers/statistics/statisticsThunk';
 import Link from 'next/link';
 import Image from 'next/image';
+import { GetServerSideProps } from 'next';
 
 const Admin = () => {
   const routers = useRouter();
@@ -236,3 +237,12 @@ const Admin = () => {
 };
 
 export default Admin;
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

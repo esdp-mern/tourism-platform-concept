@@ -22,6 +22,7 @@ import penIcon from '@/assets/images/pen-icon-green.svg';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import Image from 'next/image';
 import FileInput from '@/components/UI/FileInput/FileInput';
+import { GetServerSideProps } from 'next';
 
 const ContactUs = () => {
   const dispatch = useAppDispatch();
@@ -404,3 +405,12 @@ const ContactUs = () => {
 };
 
 export default ContactUs;
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

@@ -1,5 +1,9 @@
 import React, { useEffect } from 'react';
-import { InferGetServerSidePropsType, NextPage } from 'next';
+import {
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage,
+} from 'next';
 import { wrapper } from '@/store/store';
 import { fetchOneNews } from '@/containers/news/newsThunk';
 import PageLoader from '@/components/Loaders/PageLoader';
@@ -51,3 +55,12 @@ export const getServerSideProps = wrapper.getServerSideProps(
     },
 );
 export default EditNews;
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

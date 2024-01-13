@@ -11,8 +11,8 @@ import ToolBarMenu from '@/components/UI/AppToolBar/components/ToolBarMenu';
 import { usePathname } from 'next/navigation';
 import { fetchTours } from '@/containers/tours/toursThunk';
 import { apiUrl, languages } from '@/constants';
-import { T } from '@/store/translation';
 import { useRouter } from 'next/router';
+import { useTranslations } from 'next-intl';
 
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);
@@ -23,6 +23,7 @@ const AppToolBar = () => {
   const [langOptions, setLangOptions] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const t = useTranslations('navbar');
 
   const { isLightMode } = useAppSelector((state) => state.config);
 
@@ -159,7 +160,7 @@ const AppToolBar = () => {
                   closeNavMenu();
                 }}
               >
-                {T('/navbar', 'home')}
+                {t('home')}
               </NavLink>
               <NavLink
                 href="/tours/all/1"
@@ -171,7 +172,7 @@ const AppToolBar = () => {
                   closeNavMenu();
                 }}
               >
-                {T('/navbar', 'tours')}
+                {t('tours')}
               </NavLink>
               <NavLink
                 href="/about"
@@ -181,7 +182,7 @@ const AppToolBar = () => {
                   closeNavMenu();
                 }}
               >
-                {T('/navbar', 'about_us')}
+                {t('about_us')}
               </NavLink>
               {user ? (
                 <UserMenu
@@ -205,7 +206,7 @@ const AppToolBar = () => {
                   closeNavMenu();
                 }}
               >
-                {T('/navbar', 'news')}
+                {t('news')}
               </NavLink>
               <NavLink
                 href="/contactUs"
@@ -217,7 +218,7 @@ const AppToolBar = () => {
                   closeNavMenu();
                 }}
               >
-                {T('/navbar', 'contact_us')}
+                {t('contact_us')}
               </NavLink>
             </nav>
             <div className="user-menu">
@@ -234,7 +235,7 @@ const AppToolBar = () => {
                 <span></span>
                 <span></span>
                 <span></span>
-                <span>{T('/navbar', 'menu')}</span>
+                <span>{t('menu')}</span>
               </button>
             </div>
           </div>

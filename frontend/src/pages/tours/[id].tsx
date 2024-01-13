@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { wrapper } from '@/store/store';
-import { InferGetServerSidePropsType, NextPage } from 'next';
+import {
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage,
+} from 'next';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
   resetPostReviewError,
@@ -21,7 +24,7 @@ import Custom404 from '@/pages/404';
 import { fetchTourRating } from '@/containers/ratings/ratingThunk';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import GoogleMap from '@/components/GoogleMap/GoogleMap';
-import { T } from '@/store/translation';
+import { useTranslations } from 'next-intl';
 
 interface ITab {
   title: string;
@@ -47,6 +50,7 @@ const TourPage: NextPage<
   const postReviewError = useAppSelector(selectPostReviewError);
   const [currentTab, setCurrentTab] = useState<string>('information');
   const [adaptiveTabBtns, setAdaptiveTabBtns] = useState('');
+  const t = useTranslations('oneTour');
 
   useEffect(() => {
     if (postReviewError) {
@@ -96,10 +100,10 @@ const TourPage: NextPage<
           <h2 className="one-tour-top-title">{tour.name}</h2>
           <div className="one-tour-btns">
             <button className="one-tour-btn-one">
-              {T('/oneTourPage', `tour_video_preview`)}
+              {t(`tour_video_preview`)}
             </button>
             <button className="one-tour-btn-two">
-              {T('/oneTourPage', `tour_view_photos`)}
+              {t(`tour_view_photos`)}
             </button>
           </div>
         </div>
@@ -115,7 +119,7 @@ const TourPage: NextPage<
               }
               key={`${name}-tab`}
             >
-              <span>{T('/oneTourPage', `tour_tab_${name}`)}</span>
+              <span>{t(`tour_tab_${name}`)}</span>
             </button>
           ))}
         </div>
@@ -134,7 +138,7 @@ const TourPage: NextPage<
                 className={`tour-tab-btn tour-tab-btn-${name}`}
                 key={`${name}-tab`}
               >
-                <span>{T('/oneTourPage', `tour_tab_${name}`)}</span>
+                <span>{t(`tour_tab_${name}`)}</span>
               </button>
             ))}
           </div>
@@ -156,17 +160,13 @@ const TourPage: NextPage<
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    async ({ params }) => {
-      const id = params?.id;
-
-      if (!id || Array.isArray(id)) {
-        throw new Error('Param id must be a string');
-      }
-
-      await store.dispatch(fetchTour(id));
-      return { props: {} };
-    },
-);
 export default TourPage;
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

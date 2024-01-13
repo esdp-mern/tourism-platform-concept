@@ -4,12 +4,13 @@ import { selectAllTours } from '@/containers/tours/toursSlice';
 import HotToursItem from '@/components/HotTours/components/HotToursItem/HotToursItem';
 import arrowRightIcon from '@/assets/images/arrow-right.svg';
 import { Tour } from '@/type';
-import { T } from '@/store/translation';
+import { useTranslations } from 'next-intl';
 
 const HotTours = () => {
   const tours = useAppSelector(selectAllTours);
   const carouselRef = useRef<HTMLDivElement | null>(null);
   const [carouselTours, setCarouselTours] = useState<Tour[]>([]);
+  const t = useTranslations('main');
 
   useEffect(() => {
     if (tours.length) {
@@ -111,13 +112,13 @@ const HotTours = () => {
         <div className="hot-tours-info">
           <div>
             <h2>
-              {T('/main', 'hot_tours_last')}
+              {t('hot_tours_last')}
               <br />
-              {T('/main', 'hot_tours_min')}
+              {t('hot_tours_min')}
             </h2>
-            <p>{T('/main', 'hot_tours_offer')}</p>
+            <p>{t('hot_tours_offer')}</p>
           </div>
-          <h4>{T('/main', 'hot_tours_text')}!</h4>
+          <h4>{t('hot_tours_text')}!</h4>
         </div>
       </div>
     </div>

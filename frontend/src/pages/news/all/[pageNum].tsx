@@ -77,8 +77,9 @@ export default AllNewsPage;
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: {
-      messages: (await import(`../../../../public/locales/${locale}/news.json`))
-        .default,
+      messages: (
+        await import(`../../../../public/locales/${locale}/translation.json`)
+      ).default,
     },
   };
 };

@@ -17,7 +17,7 @@ import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import { IEditProfile } from '@/type';
 import { editProfile } from '@/containers/users/usersThunk';
 import { AxiosError } from 'axios';
-import { T } from '@/store/translation';
+import { useTranslations } from 'next-intl';
 
 const EditorModal = () => {
   const dispatch = useAppDispatch();
@@ -31,6 +31,7 @@ const EditorModal = () => {
     email: '',
     avatar: null,
   });
+  const t = useTranslations('navbar');
 
   useEffect(() => {
     if (!user) return;
@@ -72,7 +73,7 @@ const EditorModal = () => {
     }
   };
 
-  const saveBtn = T('/navbar', 'edit_profile_save_btn');
+  const saveBtn = t('edit_profile_save_btn');
 
   return (
     <div
@@ -84,7 +85,7 @@ const EditorModal = () => {
     >
       <div className="editor-modal-inner" onClick={(e) => e.stopPropagation()}>
         <form onSubmit={onSubmit}>
-          <h2>{T('/navbar', 'edit_profile_btn')}</h2>
+          <h2>{t('edit_profile_btn')}</h2>
           <TextField
             name="username"
             type="text"
@@ -114,7 +115,7 @@ const EditorModal = () => {
           />
           <div className="input-wrap" style={{ marginTop: '15px' }}>
             <label className="form-label-avatar avatar" htmlFor="image">
-              {T('/navbar', 'edit_profile_image')}
+              {t('edit_profile_image')}
             </label>
             <FileInput
               onChange={onFileChange}

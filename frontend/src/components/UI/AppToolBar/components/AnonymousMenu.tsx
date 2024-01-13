@@ -1,6 +1,6 @@
 import React from 'react';
 import NavLink from 'next/link';
-import { T } from '@/store/translation';
+import { useTranslations } from 'next-intl';
 
 interface IProps {
   onClick: () => void;
@@ -8,6 +8,7 @@ interface IProps {
 }
 
 const AnonymousMenu: React.FC<IProps> = ({ onClick, pathname }) => {
+  const t = useTranslations('inputs');
   return (
     <>
       <NavLink
@@ -15,14 +16,14 @@ const AnonymousMenu: React.FC<IProps> = ({ onClick, pathname }) => {
         className={`form-link ${pathname === '/login' ? 'active' : ''}`}
         onClick={onClick}
       >
-        {T('/navbar', 'sign_in')}
+        {t('sign_in')}
       </NavLink>
       <NavLink
         href="/register"
         className={`form-link ${pathname === '/register' ? 'active' : ''}`}
         onClick={onClick}
       >
-        {T('/navbar', 'sign_up')}
+        {t('sign_up')}
       </NavLink>
     </>
   );

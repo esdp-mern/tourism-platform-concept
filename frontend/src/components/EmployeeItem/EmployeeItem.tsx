@@ -5,12 +5,13 @@ import { apiUrl, userRoles } from '@/constants';
 import { deleteEmployees, fetchEmployees } from '@/containers/about/aboutThunk';
 import Link from 'next/link';
 import { selectUser } from '@/containers/users/usersSlice';
-import { T } from '@/store/translation';
+import { useTranslations } from 'next-intl';
 
 const EmployeeItem = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const employees = useAppSelector(selectAllEmployees);
+  const t = useTranslations('about');
 
   useEffect(() => {
     dispatch(fetchEmployees());
@@ -33,7 +34,7 @@ const EmployeeItem = () => {
             alt={empl.name}
           />
           <div className="about-page-team-card-position">
-            {T('/about', `${empl.role}`)}
+            {t(`${empl.role}`)}
           </div>
           <h6 className="about-page-team-card-title">{empl.name}</h6>
           <div className="about-page-team-card-phone">{empl.number}</div>
