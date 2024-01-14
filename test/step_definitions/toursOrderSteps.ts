@@ -6,19 +6,11 @@ Given('I am on home page', async () => {
   I.wait(2);
 });
 
-When("I navigate to the tours all page", async () => {
-  I.amOnPage('/tours/all/1');
-  I.refreshPage();
-  I.wait(5);
-  I.click('//a[@class="tour-item-top"][1]');
-  I.wait(5);
-});
-
-When("I click the first tour link", async () => {
-  I.amOnPage('/');
-  I.wait(5);
-  I.click('//a[@class="tour-item-top"][1]');
+Given("I click the {string} tour", async (number: string) => {
+  const idAttribute = await I.grabAttributeFrom(`(//div[@class="tour-item"])[${number}]`, 'id');
   I.wait(3);
+  I.amOnPage(`/tours/${idAttribute}`);
+  I.wait(5);
 });
 
 When("I navigate to the one tour page", async () => {
@@ -85,9 +77,9 @@ When("I click {string} button", (text: string) => {
   I.click(`//button[contains(text(), '${text}')]`);
 });
 
-When("I click the first tour link", async () => {
-  I.click('//a[@class="tour-item-top"][1]');
-  I.wait(2);
+When("I click the {string} tour", (number: string) => {
+  I.click(`(//div[@class="tour-item"])[${number}]`);
+  I.wait(5);
 });
 
 When("I navigate to the one tour page", async () => {

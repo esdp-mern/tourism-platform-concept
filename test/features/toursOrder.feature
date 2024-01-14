@@ -4,8 +4,7 @@ Feature: Tours Order by User
 
   Scenario: Anonymous user orders tour
     Given I am on home page
-    When I navigate to the tours all page
-    When I click the first tour link
+    Given I click the "1" tour
     Then I navigate to the one tour page
     When I click the select
     When I choose date
@@ -22,7 +21,7 @@ Feature: Tours Order by User
       | username | user |
       | password | qwerty1234 |
     And I click the "Login" button
-    When I click the first tour link
+    When I click the "1" tour
     Then I navigate to the one tour page
     When I click the select
     When I choose date
