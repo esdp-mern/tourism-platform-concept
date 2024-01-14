@@ -1,6 +1,25 @@
 @toursPage
 
-Feature: Tours Creation by Admin
+Feature: Tours Features
+
+  Scenario: Switch to different tours
+    Given I am on home page
+    When I click "Tours" link
+    Then I go to the tours page
+    When I click the "1" tour
+    When I'm on the page of one tour
+    When I check tour plan
+    When I check tour location
+    When I check tour gallery
+    When I check tour reviews
+    Then I go to the prev page
+    When I click the "2" tour
+    When I'm on the page of one tour
+    When I check tour plan
+    When I check tour location
+    When I check tour gallery
+    When I check tour reviews
+
 
   Scenario: Admin creates a tours
     Given I am on sign in page

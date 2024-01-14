@@ -18,6 +18,7 @@ import ContactUs from './models/ContactUs';
 import AboutUs from './models/AboutUs';
 import GuideOrder from './models/GuideOrder';
 import PartnerOrder from './models/PartnerOrder';
+import StatisticsInfo from './models/StatisticsInfo';
 
 const run = async () => {
   await mongoose.connect(config.db);
@@ -41,6 +42,7 @@ const run = async () => {
     await db.dropCollection('contacts');
     await db.dropCollection('guideorders');
     await db.dropCollection('partnerorders');
+    await db.dropCollection('statisticsinfo');
   } catch (e) {
     console.log('Collections were not present, skipping drop...');
   }
@@ -1027,37 +1029,64 @@ const run = async () => {
 
   await News.create(
     {
-      title: '5 Amazing places in Issyk-Kul',
-      description:
-        'Located in the northeast of the country, Issyk-Kul borders with Kazakhstan on the northeast, with China on the southeast, with the Naryn region on the southwest, and with the Chuy region on the northwest. Within the borders of the Chui region, there is the famous Issyk-Kul lake that is one of the largest mountain lakes in the world which does not freeze even in the most severe winters. Issyk-Kul region is the most visited region of Kyrgyzstan where the main attraction of the region is Issyk-Kul Lake that is again one of the deepest and largest lakes in the world, located in the middle of the picturesque Tien Shan Mountains. Also in the Issyk-Kul region are the highest mountains of the country: the famous peak of Khan-Tengri and the highest point of Kyrgyzstan – the Pobeda Peak. That’s why Issyk-Kul is a pearl of Central Asia. But now it is time to find out some of the amazing places to visit in Issyk Kul. So, let get started. Here are the 5 Best Places to Visit in Issyk Kul: 1. Jeti Oguz Gorge, 2. Ak-Suu Gorge, 3. Tuz-Kol, 4. Ala-Kul Lake, 5. Sarychat-Eеrtash State Reserve',
+      title: {
+        en: '5 Amazing places in Issyk-Kul',
+        ru: '5 удивительных мест на Иссык-Куле',
+        kg: 'Ысык-Көлдөгү 5 укмуш жерлер',
+      },
+      description: {
+        en: 'Located in the northeast of the country, Issyk-Kul borders with Kazakhstan on the northeast, with China on the southeast, with the Naryn region on the southwest, and with the Chuy region on the northwest. Within the borders of the Chui region, there is the famous Issyk-Kul lake that is one of the largest mountain lakes in the world which does not freeze even in the most severe winters. Issyk-Kul region is the most visited region of Kyrgyzstan where the main attraction of the region is Issyk-Kul Lake that is again one of the deepest and largest lakes in the world, located in the middle of the picturesque Tien Shan Mountains. Also in the Issyk-Kul region are the highest mountains of the country: the famous peak of Khan-Tengri and the highest point of Kyrgyzstan – the Pobeda Peak. That’s why Issyk-Kul is a pearl of Central Asia. But now it is time to find out some of the amazing places to visit in Issyk Kul. So, let get started. Here are the 5 Best Places to Visit in Issyk Kul: 1. Jeti Oguz Gorge, 2. Ak-Suu Gorge, 3. Tuz-Kol, 4. Ala-Kul Lake, 5. Sarychat-Eеrtash State Reserve',
+        ru: 'Расположенный на северо-востоке страны, Иссык-Куль граничит с Казахстаном на северо-востоке, с Китаем на юго-востоке, с Нарынской областью на юго-западе и с Чуйской областью на северо-западе. В границах Чуйской области находится знаменитое озеро Иссык-Куль – одно из крупнейших горных озер мира, не замерзающее даже в самые суровые зимы. Иссык-Кульская область — самый посещаемый регион Кыргызстана, где главной достопримечательностью региона является озеро Иссык-Куль, одно из самых глубоких и больших озер в мире, расположенное посреди живописных гор Тянь-Шаня. Также в Иссык-Кульской области находятся самые высокие горы страны: знаменитая вершина Хан-Тенгри и высшая точка Кыргызстана – пик Победы. Именно поэтому Иссык-Куль – жемчужина Центральной Азии. Но теперь пришло время узнать некоторые удивительные места, которые стоит посетить на Иссык-Куле. Итак, приступим. Вот 5 лучших мест для посещения на Иссык-Куле: 1. Ущелье Джети-Огуз, 2. Ущелье Ак-Суу, 3. Туз-Куль, 4. Озеро Ала-Куль, 5. Сарычат-Эрташский государственный заповедник.',
+        kg: 'Өлкөнүн түндүк-чыгышында жайгашкан Ысык-Көл түндүк-чыгышта Казакстан, түштүк-чыгышта Кытай, түштүк-батышта Нарын облусу, түндүк-батышта Чүй облусу менен чектешет. Чүй облусунун чегинде дүйнөдөгү эң чоң тоо көлдөрүнүн бири болгон атактуу Ысык-Көл бар, ал эң катаал кышында да тоңбойт. Ысык-Көл облусу Кыргызстандын эң көп туристтерди тартуучу аймагы болуп саналат, анда аймактын негизги кооз жери – бул дүйнөдөгү эң терең жана эң чоң көлдөрдүн бири, кооз Тянь-Шань тоолорунун ортосунда жайгашкан Ысык-Көл. Ошондой эле Ысык-Көл облусунда өлкөнүн эң бийик тоолору: белгилүү Хан-Теңир чокусу жана Кыргызстандын эң бийик жери – Победа чокусу жайгашкан. Ошон үчүн Ысык-Көл Борбордук Азиянын бермети. Бирок азыр Ысык-Көлдүн укмуштуудай жерлерин табууга убакыт жетти. Ошентип, баштайлы. Бул жерде Ысык-Көлдөгү эң мыкты 5 жер: 1. Жети-Өгүз капчыгайы, 2. Ак-Суу капчыгайы, 3. Туз-Кол, 4. Ала-Көл, 5. Сарычат-Ээрташ мамлекеттик коругу',
+      },
       date: '2023-11-08T11:22:03.760Z',
       category: ['places'],
       images: ['fixtures/issyk-kul.jpeg'],
       isPublished: true,
     },
     {
-      title: 'Riding Horses in Ala-Archa: Personal Experience',
-      description:
-        'The horse is a national symbol of Kyrgyzstan and the animal is intrinsic to the country’s heritage. For thousands of years, the horse has bolstered life for Kyrgyz people and continues to do so. A known saying of the country is “every Kyrgyz man’s wings are his horse” and it’s said that Central Asians hunter-gatherers were the first to ride horses. These calm creatures have played a pivotal role in Kyrgyz agriculture, economy, defense and traditions. Even fermented horse milk is cherished – Westerners, make sure your stomach is as strong as steel before you dazzle your tastebuds… Kyrgyz people are expert horsemen and their national games champion their equestrian skills, such as Dead Goat Polo. Kyrgyzstan has a myriad of peaks, streams and prairie plains. Each region has its own throng of striking landscapes for you to delve into. Whenever I close my eyes and think of Kyrgyzstan, I’m transported to the image of a shepherd galloping across the plains with such care-free and vivacious spirit.',
+      title: {
+        en: 'Riding Horses in Ala-Archa: Personal Experience',
+        ru: 'Верховая езда в Ала-Арче',
+        kg: 'Ала-Арчада ат минүү',
+      },
+      description: {
+        en: 'The horse is a national symbol of Kyrgyzstan and the animal is intrinsic to the country’s heritage. For thousands of years, the horse has bolstered life for Kyrgyz people and continues to do so. A known saying of the country is “every Kyrgyz man’s wings are his horse” and it’s said that Central Asians hunter-gatherers were the first to ride horses. These calm creatures have played a pivotal role in Kyrgyz agriculture, economy, defense and traditions. Even fermented horse milk is cherished – Westerners, make sure your stomach is as strong as steel before you dazzle your tastebuds… Kyrgyz people are expert horsemen and their national games champion their equestrian skills, such as Dead Goat Polo. Kyrgyzstan has a myriad of peaks, streams and prairie plains. Each region has its own throng of striking landscapes for you to delve into. Whenever I close my eyes and think of Kyrgyzstan, I’m transported to the image of a shepherd galloping across the plains with such care-free and vivacious spirit.',
+        ru: 'Лошадь является национальным символом Кыргызстана и является неотъемлемой частью наследия страны. На протяжении тысячелетий лошадь поддерживала жизнь кыргызов и продолжает это делать. Известная поговорка в стране гласит: «Крылья каждого кыргыза – его лошадь», и говорят, что охотники-собиратели из Центральной Азии были первыми, кто начал ездить на лошадях. Эти спокойные существа сыграли ключевую роль в сельском хозяйстве, экономике, обороне и традициях Кыргызской Республики. Ценят даже ферментированное лошадиное молоко – жители Запада, прежде чем поразить вкусовые рецепторы, убедитесь, что ваш желудок крепок, как сталь… Кыргызы – искусные наездники, и их национальные игры развивают их навыки верховой езды, такие как поло с мертвым козлом. Кыргызстан имеет множество вершин, ручьев и прерийных равнин. В каждом регионе есть множество поразительных пейзажей, в которые вам стоит погрузиться. Всякий раз, когда я закрываю глаза и думаю о Кыргызстане, я вспоминаю образ пастуха, скачущего по равнине с таким беззаботным и жизнерадостным духом.',
+        kg: 'Жылкы Кыргызстандын улуттук символу, ал эми жаныбар өлкөнүн мурасы болуп саналат. Миңдеген жылдар бою жылкы кыргыздар үчүн тиричиликти бекемдеп келген жана улантууда. “Ар бир кыргыздын канаты – жылкысы” деген эл оозунда айтылып жүргөн кеп, Орто Азиянын мергенчилери атка биринчилерден болуп мингени айтылат. Бул бейпил жандыктар Кыргызстандын айыл чарбасында, экономикасында, коргонуусунда жана салт-санаасында чечүүчү роль ойногон. Жылкынын ачытылган сүтүн да баалашат – батыштыктар, даамыңды таң калтырардан мурун, курсагыңдын болоттой бекем болушун текшерип көр... Кыргыздар чабандестер жана улуттук оюндарында Өлгөн теке поло сыяктуу ат оюндарын даңазалайт. Кыргызстанда сансыз чокулар, суулар жана талаа түздүктөрү бар. Ар бир региондо сиз изилдей турган укмуштуудай пейзаждар бар. Көзүмдү жумуп, Кыргызстанды эстеген сайын, мени ушунчалык бейкапар жана сергек рух менен түздүктө чабып бара жаткан чабандын элеси келет.',
+      },
       date: '2023-11-08T11:22:03.760Z',
       category: ['animals'],
       images: ['fixtures/ala-archa.jpeg'],
       isPublished: true,
     },
     {
-      title:
-        'How to get from Almaty to Bishkek by public transport in 2023: best way to cross the Kazakhstan – Kyrgyzstan border',
-      description:
-        'To take the bus from Almaty to Bishkek, you’ll have to go to the Sayran Bus Station in Almaty. This bus station is located 7km west of the city center so you’ll first have to take a city bus or a taxi to get there. There are daily 5 buses from Almaty to Bishkek, at 8:00, 10:00, 12:00, 14:00, and 18:00. One ticket costs 2500 KZT during weekdays and 2700 KZT on weekends. Once you arrive at the bus station, go inside the building and ask for the bus to Bishkek. People will show you the little office where you can purchase your ticket. Once you’ve got your ticket, go through the first door near the office and turn right. The bus to Bishkek is on platform 1, the very last one on your right-hand side. The ride to the border takes about 4 hours. The driver always takes a 10-minute break halfway through the journey at “Cafe Eurasia” where you can go to the toilet (50KZT or 5 KGS) and buy some snacks. There are several borders between Kazakhstan and Kyrgyzstan. When you take the bus from Almaty to Bishkek, you’ll cross at the Korday border, which is located about 21 km from the city center of Bishkek. Once you arrive at the border, you’ll have to get off the bus and take all your luggage with you. Take note of the license plate number so you can easily find your bus back on the Kyrgyz side of the border. The time it will take you to go through the border depends on how many people there are. If there are a lot of people, you’ll see long and disorganized queues and you might experience a lot of pushing and shoving.',
+      title: {
+        en: 'How to get from Almaty to Bishkek by public transport in 2023: best way to cross the Kazakhstan – Kyrgyzstan border',
+        ru: 'Как добраться из Алматы в Бишкек на общественном транспорте в 2023 году: как лучше пересечь границу Казахстана и Кыргызстана',
+        kg: '2023-жылы Алматыдан Бишкекке коомдук транспорт менен кантип жетсе болот: Казакстан-Кыргызстан чек арасынан өтүүнүн эң жакшы жолу',
+      },
+      description: {
+        en: 'To take the bus from Almaty to Bishkek, you’ll have to go to the Sayran Bus Station in Almaty. This bus station is located 7km west of the city center so you’ll first have to take a city bus or a taxi to get there. There are daily 5 buses from Almaty to Bishkek, at 8:00, 10:00, 12:00, 14:00, and 18:00. One ticket costs 2500 KZT during weekdays and 2700 KZT on weekends. Once you arrive at the bus station, go inside the building and ask for the bus to Bishkek. People will show you the little office where you can purchase your ticket. Once you’ve got your ticket, go through the first door near the office and turn right. The bus to Bishkek is on platform 1, the very last one on your right-hand side. The ride to the border takes about 4 hours. The driver always takes a 10-minute break halfway through the journey at “Cafe Eurasia” where you can go to the toilet (50KZT or 5 KGS) and buy some snacks. There are several borders between Kazakhstan and Kyrgyzstan. When you take the bus from Almaty to Bishkek, you’ll cross at the Korday border, which is located about 21 km from the city center of Bishkek. Once you arrive at the border, you’ll have to get off the bus and take all your luggage with you. Take note of the license plate number so you can easily find your bus back on the Kyrgyz side of the border. The time it will take you to go through the border depends on how many people there are. If there are a lot of people, you’ll see long and disorganized queues and you might experience a lot of pushing and shoving.',
+        ru: 'Чтобы сесть на автобус из Алматы в Бишкек, вам придется доехать до автовокзала Сайран в Алматы. Этот автовокзал расположен в 7 км к западу от центра города, поэтому вам сначала придется сесть на городской автобус или такси, чтобы добраться туда. Из Алматы в Бишкек ежедневно ходят 5 автобусов в 8:00, 10:00, 12:00, 14:00 и 18:00. Один билет стоит 2500 тенге в будние дни и 2700 тенге в выходные. Прибыв на автовокзал, зайдите в здание и попросите автобус до Бишкека. Люди покажут вам небольшой офис, где можно купить билет. Получив билет, пройдите через первую дверь рядом с офисом и поверните направо. Автобус до Бишкека стоит на платформе 1, самой последней справа от вас. Дорога до границы занимает около 4 часов. В середине пути водитель всегда делает 10-минутный перерыв в «Кафе Евразия», где можно сходить в туалет (50 тенге или 5 сомов) и купить перекус. Между Казахстаном и Кыргызстаном существует несколько границ. Когда вы сядете на автобус из Алматы в Бишкек, вы пересечете границу Кордай, которая находится примерно в 21 км от центра Бишкека. По прибытии на границу вам придется выйти из автобуса и взять с собой весь багаж. Запишите номерной знак, чтобы вы могли легко найти свой автобус на киргизской стороне границы. Время, которое вам понадобится, чтобы пройти границу, зависит от количества людей. Если людей много, вы увидите длинные и неорганизованные очереди и можете столкнуться с толчками и толчками.',
+        kg: 'Алматыдан Бишкекке автобуска түшүү үчүн Алматыдагы Сайран автовокзалына барышыңыз керек. Бул автобекет шаардын борборунан 7 км батыш тарапта жайгашкан, андыктан ал жакка жетүү үчүн алгач шаардык автобуска же таксиге түшүшүңүз керек. Алматыдан Бишкекке күн сайын 5 автобус каттайт, саат 8:00, 10:00, 12:00, 14:00, 18:00. Бир билет иш күндөрү 2500 тенге, дем алыш күндөрү 2700 тенге турат. Автобекетке келгенден кийин имараттын ичине кирип, Бишкекке автобус сура. Адамдар сизге билет сатып ала турган кичинекей кеңсени көрсөтөт. Билетиңизди алгандан кийин кеңсенин жанындагы биринчи эшиктен өтүп, оңго буруңуз. Бишкекке бараткан автобус 1-платформада, эң акыркысы оң тарабыңызда. Чек арага чейин 4 саатка жакын жол жүрөт. Айдоочу ар дайым жолдун жарымында 10 мүнөттүк тыныгуу алат "Кафе Евразияда" сиз дааратканага (50 тг же 5 сом) барып, закускаларды сатып ала аласыз. Казакстан менен Кыргызстандын ортосунда бир нече чек ара бар. Алматыдан Бишкекке автобуска отуруп, Бишкектин борборунан 21 км алыстыкта жайгашкан Кордай чек арасынан өтөсүз. Чек арага келгенден кийин автобустан түшүп, бардык жүгүңдү өзүң менен алып барышың керек. Автобусуңузду чек аранын кыргыз тарабында оңой таап алышыңыз үчүн мамлекеттик номерге көңүл буруңуз. Чек арадан өтүүгө канча убакыт кетет, канча адам бар экенине жараша болот. Эгерде адамдар көп болсо, сиз узун жана уюшулган эмес кезектерди көрөсүз жана көп түртүп, түртүп башташыңыз мүмкүн.',
+      },
       date: '2023-11-08T11:22:03.760Z',
       category: ['borders'],
       images: ['fixtures/korday.jpeg'],
       isPublished: true,
     },
     {
-      title: '3 beautiful lakes in Kyrgyzstan',
-      description:
-        'Over 1900 alpine lakes rest within Kyrgyzstan’s stunning mountain peaks, like hidden gemstones scattered throughout the country. The diverse Kyrgyzstan landscape makes every lake unique, with varying elevation, size, surrounding terrain and weather.It would be difficult to write about each and every one as some are so tiny that they wouldn’t even show on a map. So here is selected 3 of the most beautiful and best lakes in Kyrgyzstan that will help give you detailed info about each, facts and Kygyz myths and legends connected to these Kyrgyzstan lakes. 3 stunning lakes in Kyrgyzstan: Kel-Suu (Kel Suu, also known as Kol Tetiri, translates to ‘coming water’ in Kyrgyz and relates to the fact that sometimes the water in the lake comes and goes, leaking into connected caves. This fascinating feature creates a somewhat magical and mysterious atmosphere and helps make this one of the most beautiful Kyrgyzstan lakes.),  Song-Kol lak (Lake Son-Kul or Song-Köl’s name translates to ‘‘following lake’. Situated in the northern Naryn Province, this is Kyrgyzstan’s second-largest alpine lake and the country’s largest freshwater lake.), Kol-Ukok lake (The caravans of the Silk Road once passed here whilst traveling through the Torugart pass to Chinese Kashgar. Kol-Ukok in Kyrgyz translates to ‘lake in a chest’ and is located in the Naryn region in the North-Eastern Terskey Ala-Too mountain range.).',
+      title: {
+        en: '3 beautiful lakes in Kyrgyzstan',
+        ru: '3 красивых озера Кыргызстана',
+        kg: 'Кыргызстандагы 3 кооз көл',
+      },
+      description: {
+        en: 'Over 1900 alpine lakes rest within Kyrgyzstan’s stunning mountain peaks, like hidden gemstones scattered throughout the country. The diverse Kyrgyzstan landscape makes every lake unique, with varying elevation, size, surrounding terrain and weather.It would be difficult to write about each and every one as some are so tiny that they wouldn’t even show on a map. So here is selected 3 of the most beautiful and best lakes in Kyrgyzstan that will help give you detailed info about each, facts and Kygyz myths and legends connected to these Kyrgyzstan lakes. 3 stunning lakes in Kyrgyzstan: Kel-Suu (Kel Suu, also known as Kol Tetiri, translates to ‘coming water’ in Kyrgyz and relates to the fact that sometimes the water in the lake comes and goes, leaking into connected caves. This fascinating feature creates a somewhat magical and mysterious atmosphere and helps make this one of the most beautiful Kyrgyzstan lakes.),  Song-Kol lak (Lake Son-Kul or Song-Köl’s name translates to ‘‘following lake’. Situated in the northern Naryn Province, this is Kyrgyzstan’s second-largest alpine lake and the country’s largest freshwater lake.), Kol-Ukok lake (The caravans of the Silk Road once passed here whilst traveling through the Torugart pass to Chinese Kashgar. Kol-Ukok in Kyrgyz translates to ‘lake in a chest’ and is located in the Naryn region in the North-Eastern Terskey Ala-Too mountain range.).',
+        ru: "Более 1900 альпийских озер расположены на потрясающих горных вершинах Кыргызстана, словно скрытые драгоценные камни, разбросанные по всей стране. Разнообразный ландшафт Кыргызстана делает каждое озеро уникальным: с разной высотой, размером, окружающим ландшафтом и погодой. Было бы сложно написать о каждом из них, поскольку некоторые из них настолько крошечные, что их даже невозможно отобразить на карте. Итак, здесь выбраны 3 самых красивых и лучших озера Кыргызстана, которые помогут вам получить подробную информацию о каждом, а также факты, а также кыргызские мифы и легенды, связанные с этими озерами Кыргызстана. 3 потрясающих озера в Кыргызстане: Кель-Суу (Кель-Суу, также известный как Кол Тетири, на кыргызском языке переводится как «приходящая вода» и связано с тем фактом, что иногда вода в озере приходит и уходит, просачиваясь в соединенные между собой пещеры. Это увлекательное зрелище особенность создает несколько волшебную и загадочную атмосферу и помогает сделать это озеро одним из самых красивых озер Кыргызстана.), Сон-Куль лак (озеро Сон-Куль или название Сон-Кёля переводится как «следующее озеро». Расположено в северной Нарынской области). , это второе по величине высокогорное озеро Кыргызстана и самое большое пресноводное озеро страны.), озеро Кол-Укок (Караваны Шелкового пути когда-то проходили здесь, путешествуя через перевал Торугарт в китайский Кашгар. Кол-Укок на кыргызском языке переводится как ' озеро в сундуке» и расположен в Нарынской области в северо-восточном хребте Терскей Ала-Тоо.).",
+        kg: '1900дөн ашуун альп көлдөрү Кыргызстандын укмуштуудай тоо чокуларында жайгашкан, алар бүт өлкө боюнча чачылган жашыруун асыл таштар сыяктуу. Кыргызстандын ар түрдүү ландшафттары ар бир көлдү уникалдуу кылат, анын бийиктиги, өлчөмү, курчап турган рельефи жана аба ырайы ар түрдүү. Алардын ар бири жөнүндө жазуу кыйынга турат, анткени кээ бирлери өтө кичинекей болгондуктан, алар картада да көрүнбөйт. Ошентип, бул жерде Кыргызстандын эң кооз жана эң мыкты 3 көлү тандалды, алар ар бири, фактылары жана Кыргызстандын бул көлдөрү менен байланышкан кыргыз мифтери жана уламыштары жөнүндө толук маалымат берүүгө жардам берет. Кыргызстандагы 3 кереметтүү көл: Кел-Суу (Кел Суу, ошондой эле Көл Тетири деген ат менен белгилүү, кыргызча «келүүчү суу» деп которулат жана кээде көлдөгү суу келип-кетип, бири-бирине туташкан үңкүрлөргө агып кетээрин билдирет. өзгөчөлүгү бир аз сыйкырдуу жана сырдуу атмосфераны жаратат жана аны Кыргызстандын эң кооз көлдөрүнүн бирине айлантууга жардам берет.), Соң-Көл көлү (Соң-Көл көлү же Соң-Көлдүн аталышы "арткы көл" деп которулат. Нарын облусунун түндүгүндө жайгашкан. , бул Кыргызстандын экинчи чоң альп көлү жана өлкөнүн эң чоң тузсуз көлү.), Көл-Үкөк көлү (Жибек Жолунун кербендери Торугарт ашуусу аркылуу Кытайдын Кашкарына бара жатып бул жерден өткөн. Көл-Үкөк кыргызча котормосу " көкүрөктөгү көл\' жана Нарын облусунда Түндүк-Чыгыш Тескей Ала-Тоо кыркаларында жайгашкан.).',
+      },
       date: '2023-11-08T11:22:03.760Z',
       category: ['places'],
       images: [
@@ -1068,27 +1097,48 @@ const run = async () => {
       isPublished: true,
     },
     {
-      title: 'The best things to do in Kyrgyzstan',
-      description:
-        'Kyrgyzstan is wonderful place! Here are some best things to do in Kyrgyzstan. Staying in a yurt camp is one of the best and most unique things to do in Kyrgyzstan when you want to learn more about the Central Asian nomadic culture. Kyrgyzstan has the most accessible nomadic culture in Central Asia. Nowadays many Kyrgyz people live a semi-nomadic way of life. During the period between early June and late September, you’ll find many yurt camps all around the country. The art of felt-making has always played an important role in the lives of the Kyrgyz people. The secrets of this handicraft were handed down from generation to generation. The felt, made from lamb wool, was primarily used to cover and decorate the yurts but this material was also used to make carpets, bags, toys, and clothes.',
+      title: {
+        en: 'The best things to do in Kyrgyzstan',
+        ru: 'Лучшие развлечения в Кыргызстане',
+        kg: 'Кыргызстанда кыла турган эң жакшы нерселер',
+      },
+      description: {
+        en: 'Kyrgyzstan is wonderful place! Here are some best things to do in Kyrgyzstan. Staying in a yurt camp is one of the best and most unique things to do in Kyrgyzstan when you want to learn more about the Central Asian nomadic culture. Kyrgyzstan has the most accessible nomadic culture in Central Asia. Nowadays many Kyrgyz people live a semi-nomadic way of life. During the period between early June and late September, you’ll find many yurt camps all around the country. The art of felt-making has always played an important role in the lives of the Kyrgyz people. The secrets of this handicraft were handed down from generation to generation. The felt, made from lamb wool, was primarily used to cover and decorate the yurts but this material was also used to make carpets, bags, toys, and clothes.',
+        ru: 'Кыргызстан – чудесное место! Вот несколько лучших занятий в Кыргызстане. Пребывание в юрточном лагере — одно из лучших и самых уникальных занятий в Кыргызстане, если вы хотите больше узнать о культуре кочевников Центральной Азии. Кыргызстан имеет самую доступную кочевую культуру в Центральной Азии. В настоящее время многие кыргызы ведут полукочевой образ жизни. В период с начала июня до конца сентября по всей стране вы найдете множество юрточных лагерей. Искусство изготовления войлока всегда играло важную роль в жизни кыргызского народа. Секреты этого ремесла передавались из поколения в поколение. Войлок из овечьей шерсти в основном использовался для покрытия и украшения юрт, но из этого материала также шили ковры, сумки, игрушки и одежду.',
+        kg: 'Кыргызстан керемет жер! Бул жерде Кыргызстанда жасала турган эң жакшы нерселер бар. Борбордук Азиянын көчмөндөрүнүн маданияты жөнүндө көбүрөөк билгиңиз келсе, Кыргызстанда жасала турган эң жакшы жана өзгөчө нерселердин бири боз үй лагеринде болуу. Кыргызстан Борбордук Азиядагы эң жеткиликтүү көчмөн маданиятына ээ. Бүгүнкү күндө көптөгөн кыргыздар жарым көчмөн турмушта жашашат. Июнь айынын башынан сентябрдын аягына чейинки мезгилде өлкөнүн бардык аймактарында көптөгөн боз үй лагерлерин таба аласыз. Кийиз жасоо өнөрү кыргыз элинин турмушунда дайыма чоң роль ойноп келген. Бул кол өнөрчүлүктүн сырлары муундан муунга өтүп келген. Койдун жүнүнөн жасалган кийиз негизинен боз үйлөрдү жабуу жана жасалгалоо үчүн колдонулган, бирок бул материалдан килем, баштык, оюнчук, кийим-кече жасалган.',
+      },
       date: '2023-11-08T11:22:03.760Z',
       category: ['places'],
       images: ['fixtures/yurt.jpeg'],
       isPublished: true,
     },
     {
-      title: 'What to wear hiking in Kyrgyzstan?',
-      description:
-        'Here’s the complete packing list for Kyrgyzstan (which can also be applied when traveling to Tajikistan and Kazakhstan. I also included some very important tips and advice that you need to take into consideration before you go trekking in the Central Asian mountains. When you go hiking for a few days in the remote Central Asian mountains, it’s crucial that you have the right trekking gear with you and that you pack wisely. To make sure you’re prepared and you don’t forget anything, I created a list of everything you need to pack and do when you’re planning on trekking in Central Asia. When it comes to packing for a trek, keep it as light as possible. Remember that you have to carry everything yourself and if you have ever done a 20 km hike that included climbing and ascending steep hills, you’ll know that there’s a big difference between carrying 10kg and hiking with 15kg on your back! The list: GPS, FISRT-AID KIT, SUNSCREEN, TENT, SLEEPING BAG, SPORT SHOES!',
+      title: {
+        en: 'What to wear hiking in Kyrgyzstan?',
+        ru: 'Что надеть в поход по Кыргызстану?',
+        kg: 'Кыргызстанда саякатка эмне кийиш керек?',
+      },
+      description: {
+        en: 'Here’s the complete packing list for Kyrgyzstan (which can also be applied when traveling to Tajikistan and Kazakhstan. I also included some very important tips and advice that you need to take into consideration before you go trekking in the Central Asian mountains. When you go hiking for a few days in the remote Central Asian mountains, it’s crucial that you have the right trekking gear with you and that you pack wisely. To make sure you’re prepared and you don’t forget anything, I created a list of everything you need to pack and do when you’re planning on trekking in Central Asia. When it comes to packing for a trek, keep it as light as possible. Remember that you have to carry everything yourself and if you have ever done a 20 km hike that included climbing and ascending steep hills, you’ll know that there’s a big difference between carrying 10kg and hiking with 15kg on your back! The list: GPS, FISRT-AID KIT, SUNSCREEN, TENT, SLEEPING BAG, SPORT SHOES!',
+        ru: 'Вот полный список вещей для Кыргызстана (который также можно использовать при поездке в Таджикистан и Казахстан. Я также включил несколько очень важных советов и рекомендаций, которые вам необходимо принять во внимание, прежде чем отправиться в поход в горы Центральной Азии. Когда вы отправляетесь в поход Чтобы провести несколько дней в отдаленных горах Центральной Азии, очень важно иметь с собой подходящее треккинговое снаряжение и тщательно собрать вещи. Чтобы убедиться, что вы готовы и ничего не забудете, я составил список всего, что вам нужно нужно собирать вещи и делать, когда вы планируете поход по Центральной Азии. Когда дело доходит до похода, держите его как можно более легким. Помните, что вам придется нести все самостоятельно, и если вы когда-либо совершали 20-километровый поход включая восхождение и восхождение на крутые холмы, вы поймете, что есть большая разница между переноской 10 кг и походом с 15 кг на спине!Список: GPS, АПТЕЧКА, СОЛНЦЕЗАЩИТНЫЙ КРЕМ, ПАЛАТКА, СПАЛЬНЫЙ МЕШОК, СПОРТИВНАЯ ОБУВЬ!',
+        kg: 'Бул жерде Кыргызстан үчүн таңгактардын толук тизмеси (бул Тажикстан менен Казакстанга саякаттоодо да колдонулушу мүмкүн. Мен ошондой эле Борбордук Азиянын тоолорунда треккингге барардан мурун эске алышыңыз керек болгон абдан маанилүү кеңештерди жана кеңештерди киргиздим. Төө саякатка чыкканда Орто Азиянын алыскы тоолорунда бир нече күн жүрсөңүз, жаныңызда туура треккинг шайманыңыз болушу жана таңгактарды кылдаттык менен жыйыңыз абдан маанилүү. Даяр болгонуңузду жана эч нерсени унутпашыңыз үчүн, мен сиз каалаган нерселердин тизмесин түздүм. Борбор Азияда треккингге чыгууну пландаштырып жатканыңызда жүктү жыйышыңыз жана эмне кылууңуз керек. Жөө жүрүшкө бара турган болсоңуз, аны мүмкүн болушунча жеңил кармаңыз. Баардык нерсени өзүңүз көтөрүшүңүз керек экенин унутпаңыз жана 20 км жөө басып жүргөн болсоңуз. 10 кг көтөрүү менен 15 кг белиңизде жөө басуунун ортосунда чоң айырма бар экенин билесиз!',
+      },
       date: '2023-11-08T11:22:03.760Z',
       category: ['clothes'],
       images: ['fixtures/hiking.jpeg'],
       isPublished: true,
     },
     {
-      title: 'Reasons why you should visit Kyrgyzstan?',
-      description:
-        'Kyrgyzstan is a country that captured our imagination from the very first time we entered its border from Kazakhstan. It has beautiful unspoiled mountains, crystal-clear mountain lakes,  a fascinating culture, and interesting traditions. We were amazed to see so many horses everywhere and that nomads are still living in yurts during the summer to follow the grazing of their cattle. Life in the countryside of Kyrgyzstan seemed so simple and quiet and this is something that immediately charmed us. When we first arrived in Kyrgyzstan, we still had the plan to hitchhike and sail around the whole world and we didn’t have the intention to stay in the country for very long. We had traveled all the way there on an overland journey from Europe and our goal was to reach South-East Asia as quickly as possible. After only three days in Kyrgyzstan, we decided we would be staying there for a while. What was just supposed to be a few months at first eventually became a whole year in this Central-Asian country. Now looking back, I’m so glad we took the decision to live and travel there for a longer time. There is an endless amount of things to do and plenty of beautiful places to discover in Kyrgyzstan. It’s a country where you can learn how to build yurts, walk around a fairy tale canyon and witness the perfect skills of eagle hunters. It’s also a very cheap destination and you can easily cross the border into Kazakhstan to renew your Kyrgyz visa. The nature of Kyrgyzstan has a wild untouched beauty that is rarely found anywhere else around the world. Reminiscing now this country where Cynthia and I lived and traveled for a year, it’s hard not to feel a certain nostalgia. I decided to write down the top reasons that made Kyrgyzstan so special to us and hopefully, this list will inspire you to visit the country one day as well.',
+      title: {
+        en: 'Reasons why you should visit Kyrgyzstan?',
+        ru: 'Причины, по которым вам следует посетить Кыргызстан',
+        kg: 'Кыргызстанга эмне үчүн барышыңыз керек?',
+      },
+      description: {
+        en: 'Kyrgyzstan is a country that captured our imagination from the very first time we entered its border from Kazakhstan. It has beautiful unspoiled mountains, crystal-clear mountain lakes,  a fascinating culture, and interesting traditions. We were amazed to see so many horses everywhere and that nomads are still living in yurts during the summer to follow the grazing of their cattle. Life in the countryside of Kyrgyzstan seemed so simple and quiet and this is something that immediately charmed us. When we first arrived in Kyrgyzstan, we still had the plan to hitchhike and sail around the whole world and we didn’t have the intention to stay in the country for very long. We had traveled all the way there on an overland journey from Europe and our goal was to reach South-East Asia as quickly as possible. After only three days in Kyrgyzstan, we decided we would be staying there for a while. What was just supposed to be a few months at first eventually became a whole year in this Central-Asian country. Now looking back, I’m so glad we took the decision to live and travel there for a longer time. There is an endless amount of things to do and plenty of beautiful places to discover in Kyrgyzstan. It’s a country where you can learn how to build yurts, walk around a fairy tale canyon and witness the perfect skills of eagle hunters. It’s also a very cheap destination and you can easily cross the border into Kazakhstan to renew your Kyrgyz visa. The nature of Kyrgyzstan has a wild untouched beauty that is rarely found anywhere else around the world. Reminiscing now this country where Cynthia and I lived and traveled for a year, it’s hard not to feel a certain nostalgia. I decided to write down the top reasons that made Kyrgyzstan so special to us and hopefully, this list will inspire you to visit the country one day as well.',
+        ru: 'Кыргызстан — страна, которая захватила наше воображение с самого первого момента, когда мы пересекли ее границу с Казахстаном. Здесь красивые нетронутые горы, кристально чистые горные озера, увлекательная культура и интересные традиции. Мы были поражены, увидев повсюду столько лошадей и что кочевники все еще летом живут в юртах, чтобы следить за выпасом своего скота. Жизнь в сельской местности Кыргызстана казалась такой простой и тихой, и это сразу нас очаровало. Когда мы впервые приехали в Кыргызстан, у нас еще были планы путешествовать автостопом и путешествовать по всему миру, и у нас не было намерения оставаться в стране надолго. Мы проделали весь этот путь по суше из Европы, и нашей целью было как можно быстрее добраться до Юго-Восточной Азии. Пробыв всего три дня в Кыргызстане, мы решили, что останемся там на некоторое время. То, что поначалу должно было длиться всего несколько месяцев, в этой центральноазиатской стране превратилось в целый год. Теперь, оглядываясь назад, я так рад, что мы приняли решение жить и путешествовать там подольше. В Кыргызстане есть бесконечное количество развлечений и множество красивых мест, которые можно открыть для себя. Это страна, где вы можете научиться строить юрты, прогуляться по сказочному каньону и стать свидетелем совершенства навыков охотников на орлов. Это также очень дешевое направление, и вы можете легко пересечь границу с Казахстаном, чтобы продлить свою кыргызскую визу. Природа Кыргызстана обладает дикой нетронутой красотой, которую редко встретишь где-либо еще в мире. Вспоминая сейчас эту страну, где мы с Синтией жили и путешествовали целый год, трудно не почувствовать определенную ностальгию. Я решил записать основные причины, которые сделали Кыргызстан таким особенным для нас, и, надеюсь, этот список вдохновит вас однажды посетить эту страну.',
+        kg: 'Кыргызстан Казакстандан чек арасына биринчи киргенден баштап эле биздин элестеттирип алган өлкө. Анын бузулбаган кооз тоолор, тунук тоо көлдөрү, кызыктуу маданияты жана кызыктуу салттары бар. Ар жерде мынчалык көп жылкыларды көрүп, көчмөндөрдүн жайкысын боз үйлөрдө жашап, малын ээрчип жүргөнүнө таң калдык. Кыргызстандын элет жеринде жашоо ушунчалык жөнөкөй жана тынч көрүндү жана бул бизди дароо эле таң калтырды. Кыргызстанга жаңы келгенде бизде автостоп менен бүткүл дүйнөнү кыдырып чыгуу планыбыз бар болчу жана өлкөдө көпкө калуу ниетибиз жок болчу. Биз Европадан кургактыктагы жол менен ал жакка чейин бардык жана биздин максат Түштүк-Чыгыш Азияга мүмкүн болушунча тезирээк жетүү болчу. Кыргызстанда үч гана күн болгондон кийин, биз ал жакта бир аз убакытка калууну чечтик. Башында бир нече ай деп эсептелген бул Борбор Азия мамлекетинде акыры бир жылга айланды. Азыр артка кылчайып, мен ал жерде узак убакытка жашоо жана саякат кылуу чечимин кабыл алганыбызга абдан кубанычтамын. Кыргызстанда жасала турган чексиз көп нерселер жана көптөгөн кооз жерлер бар. Бул жерде боз үй тигүүнү үйрөнүп, жомок капчыгайында сейилдеп, бүркүтчүлөрдүн мыкты чеберчилигине күбө боло аласыз. Бул ошондой эле өтө арзан багыт жана Кыргызстандын визасын жаңыртуу үчүн Казакстандын чек арасынан оңой эле өтүп кете аласыз. Кыргызстандын жаратылышы дүйнөнүн эч бир жеринде чанда кездешпеген жапайы кооздукка ээ. Синтия экөөбүз бир жыл жашап, саякаттап жүргөн бул өлкөнү азыр эстесек, кандайдыр бир ностальгияны сезбей коюу кыйын. Мен Кыргызстанды биз үчүн өзгөчө кылган негизги себептерди жазууну чечтим жана бул тизме сизди да бир күнү өлкөгө барууга шыктандырат деп ишенем.',
+      },
       date: '2023-11-08T11:22:03.760Z',
       category: ['places'],
       images: ['fixtures/reasons.jpeg'],
@@ -1270,47 +1320,96 @@ const run = async () => {
 
   await AboutUs.create({
     main: {
-      title: 'About',
-      description:
-        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
+      title: {
+        en: 'About',
+        ru: 'О нас',
+        kg: 'Биз жөнүндө',
+      },
+      description: {
+        en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
+        ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
+        kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+      },
       image: 'fixtures/about-us-bg.jpg',
     },
     offer: {
-      title: 'Fastest Way to Book over 450 Great Tours',
-      description:
-        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+      title: {
+        en: 'Fastest Way to Book over 450 Great Tours',
+        ru: 'Самый быстрый способ забронировать более 450 отличных туров',
+        kg: '450дөн ашык улуу турларды брондоонун эң тез жолу',
+      },
+      description: {
+        en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
+        ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
+        kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+      },
       image: 'fixtures/horses.png',
     },
     posts: [
       {
-        title: 'Save Money',
-        description:
-          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        title: {
+          en: 'Save Money',
+          ru: 'Экономьте деньги',
+          kg: 'Акчаны үнөмдөңүз',
+        },
+        description: {
+          en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
+          ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
+          kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+        },
         image: 'fixtures/money-icon.svg',
       },
       {
-        title: 'Get Support',
-        description:
-          'Lura, capio, et diatria. Mori recte ducunt ad alter plasmator. Experimentum sapienter ducunt ad audax.',
+        title: {
+          en: 'Get Support',
+          ru: 'Наша поддержка',
+          kg: 'Биздин жардам',
+        },
+        description: {
+          en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
+          ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
+          kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+        },
         image: 'fixtures/support-icon.svg',
       },
       {
-        title: 'Travel Safety',
-        description:
-          'Indexs ortum! Classiss sunt solitudos de altus adgium. Castus, regius triticums superbe anhelare.',
+        title: {
+          en: 'Travel Safety',
+          ru: 'Безопасность',
+          kg: 'Коопсуздук',
+        },
+        description: {
+          en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
+          ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
+          kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+        },
         image: 'fixtures/safety-icon.svg',
       },
       {
-        title: 'Book Easily',
-        description:
-          'Cur nixus mori? Pol. Sunt hippotoxotaes convertam festus, brevis buboes. Brevis terror nunquam amors.',
+        title: {
+          en: 'Book Easily',
+          ru: 'Бронируйте легко',
+          kg: 'Оңой ээлөө',
+        },
+        description: {
+          en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
+          ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
+          kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+        },
         image: 'fixtures/sun-icon.svg',
       },
     ],
     review: {
-      title: 'What Clients Say About Us',
-      description:
-        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+      title: {
+        en: 'What Clients Say About Us',
+        ru: 'Что говорят о нас клиенты',
+        kg: 'Кардарлар биз жөнүндө',
+      },
+      description: {
+        en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
+        ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
+        kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+      },
     },
   });
 
@@ -1358,6 +1457,14 @@ const run = async () => {
       message: 'I would like to be a partner with your company!',
     },
   );
+  await StatisticsInfo.create({
+    title: 'Fastest Way to Book over 50 Great Tours',
+    text1:
+      'Sunway provides a variety of great tours to travelers and customers throughout the world. We offer top deals at affordable prices!',
+    text2:
+      'Our tour agency is the leading provider of cheap air tickets as well as amazing offers for tourists and people who like to explore the untraveled world paths. We can create the most unforgettable holiday for you, your family, and friends!',
+  });
+
   await db.close();
 };
 

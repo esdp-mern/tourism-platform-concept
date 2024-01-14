@@ -56,7 +56,7 @@
 
 .tab-filter span {
   text-align: start;
-  text-wrap: nowrap;
+  white-space: nowrap;
 }
 
 .filter-link:hover {

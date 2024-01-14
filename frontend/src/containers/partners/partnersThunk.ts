@@ -5,8 +5,8 @@ import {
   IPartnerMutation,
   IPartnerOrder,
   IPartnerOrderMutation,
-  ValidationError
-} from "@/type";
+  ValidationError,
+} from '@/type';
 import axiosApi from '@/axiosApi';
 import { isAxiosError } from 'axios';
 

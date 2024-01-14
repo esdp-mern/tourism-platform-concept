@@ -2,6 +2,7 @@ import React from 'react';
 import { User } from '@/type';
 import NavLink from 'next/link';
 import { userRoles } from '@/constants';
+import { useTranslations } from 'next-intl';
 
 interface IProps {
   user: User;
@@ -10,6 +11,7 @@ interface IProps {
 }
 
 const UserMenu: React.FC<IProps> = ({ user, onClick, pathname }) => {
+  const t = useTranslations('navbar');
   return (
     <>
       <NavLink
@@ -19,7 +21,7 @@ const UserMenu: React.FC<IProps> = ({ user, onClick, pathname }) => {
         }`}
         onClick={onClick}
       >
-        My profile
+        {t('my_profile')}
       </NavLink>
       {user && user.role === userRoles.admin && (
         <NavLink
@@ -30,7 +32,7 @@ const UserMenu: React.FC<IProps> = ({ user, onClick, pathname }) => {
           }`}
           onClick={onClick}
         >
-          Admin Page
+          {t('admin_page')}
         </NavLink>
       )}
       {user && user.role === userRoles.moderator && (
@@ -42,7 +44,7 @@ const UserMenu: React.FC<IProps> = ({ user, onClick, pathname }) => {
           }`}
           onClick={onClick}
         >
-          Orders
+          {t('orders')}
         </NavLink>
       )}
     </>

@@ -2,10 +2,15 @@ import mongoose from 'mongoose';
 
 const BlockSchema = new mongoose.Schema({
   title: {
-    type: String,
-    required: true,
+    en: String,
+    ru: String,
+    kg: String,
   },
-  description: String,
+  description: {
+    en: String,
+    ru: String,
+    kg: String,
+  },
   image: String,
 });
 

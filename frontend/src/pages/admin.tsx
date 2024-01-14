@@ -10,6 +10,7 @@ import { selectAdminStats } from '@/containers/statistics/statisticsSlice';
 import { fetchStatsAdmin } from '@/containers/statistics/statisticsThunk';
 import Link from 'next/link';
 import Image from 'next/image';
+import { GetServerSideProps } from 'next';
 
 const Admin = () => {
   const routers = useRouter();
@@ -77,93 +78,112 @@ const Admin = () => {
           </div>
           <div className="col-md-4 stretch-card">
             <div className="card bg-gradient-news card-img-holder">
-              <Link href={`/admin/news/1`} className="stats-admin-link">
-                <div className="card-body">
+              <div className="card-body">
+                <Link href={`/admin/news/1`} className="stats-admin-link">
                   <Image
                     src={circle}
                     alt="circle"
                     className="card-img-absolute"
                   />
+                </Link>
+                <Link href={`/admin/news/1`} className="stats-admin-link">
                   <h4 className="stats-admin-title">News</h4>
-                  <h2 className="stats-admin-info">
-                    Total news: {state?.newsAll}
-                  </h2>
-                  <h6>Published news: {state?.newsPublished}</h6>
-                  <h6>Unpublished news: {state?.newsUnpublished}</h6>
-                </div>
-              </Link>
+                </Link>
+                <h2 className="stats-admin-info">
+                  Total news: {state?.newsAll}
+                </h2>
+                <h6>Published news: {state?.newsPublished}</h6>
+                <h6>Unpublished news: {state?.newsUnpublished}</h6>
+              </div>
             </div>
           </div>
           <div className="col-md-4 stretch-card">
             <div className="card bg-gradient-users card-img-holder">
-              <Link href={`/admin/allUsers/1`} className="stats-admin-link">
-                <div className="card-body">
+              <div className="card-body">
+                <Link href={`/admin/allUsers/1`} className="stats-admin-link">
                   <Image
                     src={circle}
                     alt="circle"
                     className="card-img-absolute"
                   />
+                </Link>
+                <Link href={`/admin/allUsers/1`} className="stats-admin-link">
                   <h4 className="stats-admin-title">Users</h4>
-                  <h2 className="stats-admin-info">
-                    Total users: {state?.users}
-                  </h2>
-                  <h6>Active moderators: {state?.usersModerators}</h6>
-                </div>
-              </Link>
+                </Link>
+                <h2 className="stats-admin-info">
+                  Total users: {state?.users}
+                </h2>
+                <h6>Active moderators: {state?.usersModerators}</h6>
+              </div>
             </div>
           </div>
           <div className="col-md-4 stretch-card">
             <div className="card bg-gradient-partners card-img-holder">
-              <Link href={`/admin/partners/all`} className="stats-admin-link">
-                <div className="card-body">
+              <div className="card-body">
+                <Link href={`/admin/partners/all`} className="stats-admin-link">
                   <Image
                     src={circle}
                     alt="circle"
                     className="card-img-absolute"
                   />
+                </Link>
+                <Link href={`/admin/partners/all`} className="stats-admin-link">
                   <h4 className="stats-admin-title">Partners</h4>
-                  <h2 className="stats-admin-info">
-                    Current partners: {state?.partnersAll}
-                  </h2>
-                </div>
-              </Link>
+                </Link>
+                <h2 className="stats-admin-info">
+                  Current partners: {state?.partnersAll}
+                </h2>
+              </div>
             </div>
           </div>
           <div className="col-md-4 stretch-card">
             <div className="card bg-gradient-partner-orders card-img-holder">
-              <Link
-                href={`/admin/partnerOrders/1`}
-                className="stats-admin-link"
-              >
-                <div className="card-body">
+              <div className="card-body">
+                <Link
+                  href={`/admin/partnerOrders/1`}
+                  className="stats-admin-link"
+                >
                   <Image
                     src={circle}
                     alt="circle"
                     className="card-img-absolute"
                   />
+                </Link>
+                <Link
+                  href={`/admin/partnerOrders/1`}
+                  className="stats-admin-link"
+                >
                   <h4 className="stats-admin-title">Partner orders</h4>
-                  <h2 className="stats-admin-info">
-                    Total partner orders: {state?.partnerOrdersAll}
-                  </h2>
-                </div>
-              </Link>
+                </Link>
+                <h2 className="stats-admin-info">
+                  Total partner orders: {state?.partnerOrdersAll}
+                </h2>
+              </div>
             </div>
           </div>
           <div className="col-md-4 stretch-card">
             <div className="card bg-gradient-employee card-img-holder">
-              <Link href={`/admin/employees/all`} className="stats-admin-link">
-                <div className="card-body">
+              <div className="card-body">
+                <Link
+                  href={`/admin/employees/all`}
+                  className="stats-admin-link"
+                >
                   <Image
                     src={circle}
                     alt="circle"
                     className="card-img-absolute"
                   />
+                </Link>
+                <Link
+                  href={`/admin/employees/all`}
+                  className="stats-admin-link"
+                >
                   <h4 className="stats-admin-title">Employees</h4>
-                  <h2 className="stats-admin-info">
-                    Employees: {state?.employeeAll}
-                  </h2>
-                </div>
-              </Link>
+                </Link>
+                <h2 className="stats-admin-info">
+                  Employees: {state?.employeeAll}
+                </h2>
+              </div>
             </div>
           </div>
           <div className="col-md-4 stretch-card">
@@ -186,19 +206,27 @@ const Admin = () => {
           </div>
           <div className="col-md-4 stretch-card">
             <div className="card bg-gradient-news card-img-holder">
-              <Link href={`/admin/guideOrders/1`} className="stats-admin-link">
-                <div className="card-body">
+              <div className="card-body">
+                <Link
+                  href={`/admin/guideOrders/1`}
+                  className="stats-admin-link"
+                >
                   <Image
                     src={circle}
                     alt="circle"
                     className="card-img-absolute"
                   />
+                </Link>
+                <Link
+                  href={`/admin/guideOrders/1`}
+                  className="stats-admin-link"
+                >
                   <h4 className="stats-admin-title">Guide Orders</h4>
-                  <h2 className="stats-admin-info">
-                    Total orders: {state?.totalGuideOrders}
-                  </h2>
-                </div>
-              </Link>
+                </Link>
+                <h2 className="stats-admin-info">
+                  Total orders: {state?.totalGuideOrders}
+                </h2>
+              </div>
             </div>
           </div>
         </div>
@@ -208,3 +236,12 @@ const Admin = () => {
 };
 
 export default Admin;
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

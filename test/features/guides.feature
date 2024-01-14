@@ -1,43 +1,48 @@
-@guidesApplication
+@guides
 
-Feature: Application to become a guide
-  Scenario: Application to become a guide by user
+Feature: Guides CRUD
+
+  Scenario: User sends a new guide request
     Given I am on sign in page
     When I enter form fields:
-      | username | user       |
+      | username | user |
       | password | qwerty1234 |
-    When I click "Login" button
-    Then I am on home page
-    Then I click "Become a guide!" link
-    Then I wait 8 sec
-    When I enter form fields:
-      | name | Rob      |
-      | surname | Stark |
-      | number | +996 777 777 777 |
-      | message | I want to be your guide. |
+    And I click "Login" button
+    Then I go to the guide request page
+    When I enter request form fields:
+      | name | Alex |
+      | surname | Folk |
+      | number | +996 700 800 800 |
+      | message | guide |
     Then I click "Send" button
+    Then I go to the home page
 
-  Scenario: Accept an application from a guide
+  Scenario: Admin creates new guide
     Given I am on sign in page
     When I enter form fields:
-      | username | admin       |
+      | username | admin      |
       | password | qwerty1234 |
-    When I click "Login" button
-    Then I wait 2 sec
-    Then I am on home page
-    Then I wait 4 sec
-    When I click "Admin Page" link
-    Then I wait 4 sec
-    Then I go to the admin page
-    Then I wait 4 sec
-    When I click "Guide Orders" admin link
-    Then I wait 5 sec
-    Then I accept for the right guide application
-    Then I wait 5 sec
-    Then I enter languages
-    When I enter form fields:
-      | country | Kyrgyzstan       |
-      | description | I nice guy! |
-    When I attach the new file "images/guide1.webp" to the "input#image" input
+    And I click "Login" button
+    Then I go to the guides order page
+    When I click the first "Accept" link
+    Then I go to the guide creation page
+    When I enter guides form fields:
+      | languages | english |
+      | country | Kyrgyzstan |
+      | description | new guide |
+    When I attach the guide file "images/image.jpeg" to the "input#image" input
+    When I click "Add" button
     Then I click "Send" button
-    Then I see "Guide is added" in alert.
+    Then I go back to the guides order page
+
+  Scenario: Admin deletes guide
+    Given I am on sign in page
+    When I enter form fields:
+      | username | admin      |
+      | password | qwerty1234 |
+    And I click "Login" button
+    Then I go to the guides page
+    When I click the first "Delete" button
+    Then I see the confirmation alert "Are you sure you want to delete this guide?"
+    Then I confirm the deletion by clicking "ok" in the confirmation alert
+    Then I stay at the guides page
