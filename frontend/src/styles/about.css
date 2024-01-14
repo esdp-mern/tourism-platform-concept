@@ -442,6 +442,7 @@
   width: 44%;
   margin-bottom: 20px;
   display: flex;
+  justify-content: space-between;
   flex-direction: column;
   padding: 40px 25px;
   background: #ffffff;
@@ -458,6 +459,8 @@
 .about-page-clients-card-img {
   border-radius: 50%;
   max-width: 84px;
+  max-height: 84px;
+  object-fit: cover;
 }
 
 .about-page-clients-card-title {
@@ -474,8 +477,14 @@
   font-size: 18px;
   color: #000000;
   line-height: 1.72222;
-  height: 100px;
+  min-height: 30px;
   margin-bottom: 10px;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .about-page-clients-card-date {

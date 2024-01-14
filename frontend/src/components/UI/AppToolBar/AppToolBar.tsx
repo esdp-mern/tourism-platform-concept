@@ -13,8 +13,9 @@ import { fetchTours } from '@/containers/tours/toursThunk';
 import { apiUrl, languages } from '@/constants';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
-import chevronRight from '@/assets/images/chevron-right.svg';
 import Image from 'next/image';
+import chevronRight from '@/assets/images/chevron-right.svg';
+import chevronRightLight from '@/assets/images/chevron-right-light.svg';
 
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);
@@ -262,7 +263,11 @@ const AppToolBar = () => {
                 className={scrollSide}
                 onClick={scrollNavSide}
               >
-                <Image fill src={chevronRight.src} alt="chevron" />
+                <Image
+                  fill
+                  src={isLightMode ? chevronRight.src : chevronRightLight.src}
+                  alt="chevron"
+                />
               </button>
             </div>
             <div className="user-menu">
