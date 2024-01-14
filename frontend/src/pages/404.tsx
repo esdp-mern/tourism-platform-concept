@@ -5,12 +5,16 @@ import PageLoader from '@/components/Loaders/PageLoader';
 import Link from 'next/link';
 import { useAppDispatch } from '@/store/hooks';
 import { setIsLightMode } from '@/containers/config/configSlice';
+import { useTranslations } from 'next-intl';
+import { GetServerSideProps } from 'next';
+
 export default function Custom404({
   errorType,
 }: {
   errorType?: 'guide' | 'tour';
 }) {
   const dispatch = useAppDispatch();
+  const t = useTranslations('404page');
 
   useEffect(() => {
     dispatch(setIsLightMode(false));
@@ -23,12 +27,11 @@ export default function Custom404({
         <Image src={image404} className="about-page-img" alt="error404" />
         <div className="error-page-top-info">
           <div className="about-page-top-line"></div>
-          <h2 className="about-page-top-title">Page not Found</h2>
+          <h2 className="about-page-top-title">{t('title')}</h2>
           <div className="about-page-top-txt">
-            Sorry, we couldn{"'"}t find the page you{"'"}re looking for. Let
-            {"'"}s get you back on track. You can go back to the {''}
+            {t('description')}
             <Link href="/" className="about-page-top-txt">
-              homepage
+              {t('link')}
             </Link>
             .
           </div>
@@ -39,12 +42,20 @@ export default function Custom404({
         <div className="container-error">
           <div className="text-group-1">
             <p className="text-xxl">404</p>
-            <h4 className="error-title">
-              Oops! That {!errorType ? 'page' : errorType} can{"'"}t be found
-            </h4>
+            <h4 className="error-title">{t('text')}</h4>
           </div>
         </div>
       </section>
     </div>
   );
 }
+
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};
