@@ -8,13 +8,14 @@ import {
 import { apiUrl } from '@/constants';
 import GalleryItem from '@/components/OneTourPage/Gallery/GalleryItem';
 import GalleryModal from '@/components/OneTourPage/Gallery/GalleryModal';
-import { T } from '@/store/translation';
+import { useTranslations } from 'next-intl';
 
 const Gallery = () => {
   const tour = useAppSelector(selectOneTour);
   const modal = useAppSelector(galleryModal);
   const dispatch = useAppDispatch();
   const [currentImg, setCurrentImg] = useState('');
+  const t = useTranslations('oneTour');
 
   const onOpenModal = (e: React.MouseEvent) => {
     const src = e.currentTarget.getAttribute('src')!;
@@ -64,7 +65,7 @@ const Gallery = () => {
   return (
     <>
       <div className="one-tour-gallery">
-        <h2>{T('/oneTourPage', 'tour_gallery')}</h2>
+        <h2>{t('tour_gallery')}</h2>
         <div className="one-tour-photos">
           <GalleryItem tour={tour} onOpenModal={onOpenModal} />
         </div>

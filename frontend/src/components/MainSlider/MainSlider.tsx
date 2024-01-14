@@ -69,8 +69,6 @@ const MainSlider = () => {
     );
   };
 
-  const link = apiUrl + '/' + currentSlide?.image;
-
   const onDelete = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this slider?')) {
       if (id) {
@@ -83,7 +81,12 @@ const MainSlider = () => {
     return (
       <div
         className={`countries-slider `}
-        style={{ backgroundImage: `url(${link})` }}
+        style={{
+          backgroundImage:
+            currentSlide && currentSlide.image
+              ? `url(${apiUrl + '/' + currentSlide.image})`
+              : 'none',
+        }}
       >
         <div
           className="country-slider"

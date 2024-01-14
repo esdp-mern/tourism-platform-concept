@@ -9,13 +9,14 @@ import { apiUrl } from '@/constants';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import GalleryItem from '@/components/OneTourPage/Gallery/GalleryItem';
 import GalleryModal from '@/components/OneTourPage/Gallery/GalleryModal';
-import { T } from '@/store/translation';
+import { useTranslations } from 'next-intl';
 
 const OneTourInformation = () => {
   const tour = useAppSelector(selectOneTour);
   const modal = useAppSelector(galleryModal);
   const dispatch = useAppDispatch();
   const [currentImg, setCurrentImg] = useState('');
+  const t = useTranslations('oneTour');
 
   if (!tour) return null;
 
@@ -71,38 +72,36 @@ const OneTourInformation = () => {
           <h3 className="one-tour-inner-title">{tour.name}</h3>
           <div className="one-tour-inner-price-wrap">
             <span className="one-tour-inner-price">{tour.price} KGS</span>
-            {T('/oneTourPage', 'per_person')}
+            {t('per_person')}
           </div>
           <div className="one-tour-inner-info">
             <div className="one-tour-inner-duration">
-              {tour.duration + ' ' + T('/oneTourPage', 'tour_duration')}
+              {tour.duration + ' ' + t('tour_duration')}
             </div>
-            <div className="one-tour-inner-featur">
-              {T('/oneTourPage', 'featured_tour')}
-            </div>
+            <div className="one-tour-inner-featur">{t('featured_tour')}</div>
           </div>
           <div className="one-tour-inner-txt">{tour.description}</div>
           <div className="one-tour-inner-box">
             <table className="one-tour-inner-table">
               <tbody>
                 <tr>
-                  <td>{T('/oneTourPage', 'tour_country')}</td>
+                  <td>{t('tour_country')}</td>
                   <td>{tour.country}</td>
                 </tr>
                 <tr>
-                  <td>{T('/oneTourPage', 'tour_destination')}</td>
+                  <td>{t('tour_destination')}</td>
                   <td>{tour.destination}</td>
                 </tr>
                 <tr>
-                  <td>{T('/oneTourPage', 'tour_arrival')}</td>
+                  <td>{t('tour_arrival')}</td>
                   <td>{tour.arrival}</td>
                 </tr>
                 <tr>
-                  <td>{T('/oneTourPage', 'tour_departure')}</td>
+                  <td>{t('tour_departure')}</td>
                   <td>{tour.departure}</td>
                 </tr>
                 <tr>
-                  <td>{T('/oneTourPage', 'tour_included')}</td>
+                  <td>{t('tour_included')}</td>
                   <td>
                     <ul className="one-tour-inner-table-list">
                       {tour.included.map((inc, id) => (
@@ -112,11 +111,11 @@ const OneTourInformation = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td>{T('/oneTourPage', 'tour_dressCode')}</td>
+                  <td>{t('tour_dressCode')}</td>
                   <td>{tour.dressCode}</td>
                 </tr>
                 <tr>
-                  <td>{T('/oneTourPage', 'tour_guides')}</td>
+                  <td>{t('tour_guides')}</td>
                   <td>
                     {tour.guides.length > 0 ? (
                       tour.guides.map((guide) => (
@@ -128,14 +127,14 @@ const OneTourInformation = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td>{T('/oneTourPage', 'tour_category')}</td>
+                  <td>{t('tour_category')}</td>
                   <td>{tour.category.join(', ')}</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div className="one-tour-inner-gallery">
-            <h3>{T('/oneTourPage', 'tour_gallery')}</h3>
+            <h3>{t('tour_gallery')}</h3>
             <div className="one-tour-inner-gallery2">
               <GalleryItem tour={tour} onOpenModal={onOpenModal} />
             </div>

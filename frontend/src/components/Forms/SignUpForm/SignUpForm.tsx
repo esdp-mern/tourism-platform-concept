@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
   addAlert,
-  selectRegisterMessage,
   clearError,
+  selectRegisterMessage,
   selectSignUpError,
   selectSignUpLoading,
   selectUser,
@@ -20,7 +20,6 @@ import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
 import peopleIcon from '@/assets/images/people-icon.svg';
 import keyIcon from '@/assets/images/key.png';
 import emailIcon from '@/assets/images/email-icon.svg';
-import phoneIcon from '@/assets/images/phone-icon.svg';
 import penIcon from '@/assets/images/pen-icon.svg';
 
 const initialState: RegisterMutation = {

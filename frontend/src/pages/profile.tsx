@@ -12,6 +12,7 @@ import UserOrders from '@/components/UserOrders/UserOrders';
 import GuideProfile from '@/components/GuideProfile/GuideProfile';
 import Image from 'next/image';
 import bgImage from '@/assets/images/bg-image-1.jpg';
+import { GetServerSideProps } from 'next';
 
 const Profile = () => {
   const dispatch = useAppDispatch();
@@ -96,3 +97,12 @@ const Profile = () => {
 };
 
 export default Profile;
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

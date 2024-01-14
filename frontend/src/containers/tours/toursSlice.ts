@@ -145,7 +145,7 @@ export const toursSlice = createSlice({
       state.fetchAdminTourLoading = true;
     });
     builder.addCase(fetchAdminTours.fulfilled, (state, { payload }) => {
-      if (payload instanceof Array) {
+      if (Array.isArray(payload)) {
         state.tours = payload;
       } else {
         state.tours = payload.tours;

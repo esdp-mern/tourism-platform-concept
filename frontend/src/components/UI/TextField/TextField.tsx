@@ -8,6 +8,7 @@ import 'react-phone-number-input/style.css';
 import 'react-day-picker/dist/style.css';
 import { T } from '@/store/translation';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   name: string;
@@ -29,6 +30,7 @@ const TextField: React.FC<Props> = (props) => {
   const [prevSelectedDate, setPrevSelectedDate] = useState<Date>();
   const [selectedDate, setSelectedDate] = useState<Date>();
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const t = useTranslations('oneTour');
 
   useEffect(() => {
     if (inputRef.current && selectedDate && prevSelectedDate !== selectedDate) {
@@ -59,7 +61,7 @@ const TextField: React.FC<Props> = (props) => {
       phoneInputsRef[0].style.borderColor =
         isPhone && props.errorMessage ? '#f5543f' : '#c4c4c4';
     }
-  }, [props]);
+  }, [isPhone, props]);
 
   if (props.errorMessage) inputClassNames.push('text-field-input-error');
   if (!props.icon) inputClassNames.push('text-field-input-no-icon');
@@ -87,7 +89,7 @@ const TextField: React.FC<Props> = (props) => {
         />
       ) : isPhone ? (
         <PhoneInputWithCountrySelect
-          placeholder={T('/oneTourPage', 'tour_order_form_phone')}
+          placeholder={t('tour_order_form_phone')}
           value={props.value}
           onChange={(e) => {
             if (e) {

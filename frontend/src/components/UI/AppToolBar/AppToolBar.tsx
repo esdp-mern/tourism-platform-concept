@@ -13,6 +13,8 @@ import { fetchTour, fetchTours } from '@/containers/tours/toursThunk';
 import { apiUrl, languages } from '@/constants';
 import { selectOneTour } from '@/containers/tours/toursSlice';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useTranslations } from 'next-intl';
 
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);

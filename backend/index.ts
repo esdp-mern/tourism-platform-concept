@@ -21,6 +21,7 @@ import aboutUsRouter from './routers/aboutUs';
 import guideOrderRouter from './routers/guideOrder';
 import partnerOrderRouter from './routers/partnerOrder';
 import statisticsRouter from './routers/statistics';
+import statisticsInfoRouter from './routers/statisticsInfo';
 
 const app = express();
 const port = 8000;
@@ -47,6 +48,7 @@ app.use('/contacts', contactsRouter);
 app.use('/guideOrders', guideOrderRouter);
 app.use('/partnerOrders', partnerOrderRouter);
 app.use('/statistics', statisticsRouter);
+app.use('/statisticsInfo', statisticsInfoRouter);
 
 app.get('*', (req, res) => res.sendStatus(404));
 

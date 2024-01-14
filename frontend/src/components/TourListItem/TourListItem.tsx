@@ -44,7 +44,7 @@ const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
 
   return (
     <Fade>
-      <div className="tour-item">
+      <div className="tour-item" id={tour._id}>
         <Link href={`/tours/${tour._id}`} className="tour-item-top">
           <Image fill src={imgLink} alt={tour.name} className="tour-item-img" />
           <div className="tour-item-price">{`${tour.price}`} KGS</div>
