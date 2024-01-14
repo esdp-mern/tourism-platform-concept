@@ -9,10 +9,9 @@ import {
 } from '@/containers/users/usersSlice';
 import ToolBarMenu from '@/components/UI/AppToolBar/components/ToolBarMenu';
 import { usePathname } from 'next/navigation';
-import { fetchTours } from '@/containers/tours/toursThunk';
+import { fetchTour, fetchTours } from '@/containers/tours/toursThunk';
 import { apiUrl, languages } from '@/constants';
-import { useRouter } from 'next/router';
-import { useTranslations } from 'next-intl';
+import { selectOneTour } from '@/containers/tours/toursSlice';
 import Image from 'next/image';
 import chevronRight from '@/assets/images/chevron-right.svg';
 import chevronRightLight from '@/assets/images/chevron-right-light.svg';
@@ -20,6 +19,7 @@ import chevronRightLight from '@/assets/images/chevron-right-light.svg';
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);
   const lang = useAppSelector(selectLanguage);
+  const tour = useAppSelector(selectOneTour);
   const dispatch = useAppDispatch();
   const [navShow, setNavShow] = useState(false);
   const [menuShow, setMenuShow] = useState(false);
@@ -28,8 +28,6 @@ const AppToolBar = () => {
     'scroll-right',
   );
   const pathname = usePathname();
-  const router = useRouter();
-  const t = useTranslations('navbar');
 
   const { isLightMode } = useAppSelector((state) => state.config);
 
@@ -64,7 +62,6 @@ const AppToolBar = () => {
   };
 
   useEffect(() => {
-    dispatch(setLang(router.locale));
     setEventListener();
     window.addEventListener('resize', setEventListener);
 
@@ -78,18 +75,12 @@ const AppToolBar = () => {
       window.removeEventListener('resize', setEventListener);
       document.removeEventListener('scroll', setClassList);
     };
-  }, [dispatch, isLightMode, router, setClassList, setEventListener]);
+  }, [isLightMode, setClassList, setEventListener]);
 
   const onLangSwitch = (language: string) => {
-    const href = {
-      pathname: router.pathname,
-      query: router.query,
-    };
-    void router.push(href, undefined, { locale: language });
     dispatch(setLang(language));
-    setTimeout(() => {
-      location.reload();
-    }, 200);
+    dispatch(fetchTour(tour?._id || ''));
+    dispatch(fetchTours());
   };
 
   const scrollNavSide = () => {
@@ -106,14 +97,30 @@ const AppToolBar = () => {
 
   const scrollSideRef = useRef<HTMLButtonElement | null>(null);
 
+  const setResizeEventListenerForScrollSide = () => {
+    if (!scrollSideRef.current) return;
+
+    if (window.screen.width <= 992) {
+      scrollSideRef.current.style.display = 'none';
+    } else {
+      scrollSideRef.current.style.display = 'block';
+    }
+  };
+
   useEffect(() => {
     if (!scrollSideRef.current) return;
+
+    window.addEventListener('resize', setResizeEventListenerForScrollSide);
 
     if (navRef.current && navRef.current.scrollWidth <= 700) {
       scrollSideRef.current.style.display = 'none';
     } else {
       scrollSideRef.current.style.display = 'block';
     }
+
+    return () => {
+      window.removeEventListener('resize', setResizeEventListenerForScrollSide);
+    };
   }, [navRef.current, scrollSideRef.current]);
 
   return (
@@ -124,40 +131,45 @@ const AppToolBar = () => {
         }`}
         ref={toolBarRef}
       >
-        {
+        <div
+          className={`form-lang ${langOptions ? 'form-lang-open' : ''}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            setLangOptions(!langOptions);
+          }}
+        >
+          <span className="form-lang-value">
+            <Image
+              width={40}
+              height={40}
+              src={apiUrl + `/fixtures/${lang}.jpg`}
+              alt={lang}
+            />
+          </span>
           <div
-            className={`form-lang ${langOptions ? 'form-lang-open' : ''}`}
-            onClick={(e) => {
-              e.stopPropagation();
-              setLangOptions(!langOptions);
-            }}
+            className={`form-lang-options form-lang-options-${
+              langOptions ? 'open' : 'closed'
+            }`}
           >
-            <span className="form-lang-value">
-              <img src={apiUrl + `/fixtures/${lang}.jpg`} alt={lang} />
-            </span>
-            <div
-              className={`form-lang-options form-lang-options-${
-                langOptions ? 'open' : 'closed'
-              }`}
-            >
-              {Object.keys(languages).map(
-                (language) =>
-                  language !== lang && (
-                    <span
-                      className="form-lang-option"
-                      onClick={() => onLangSwitch(language)}
-                      key={language}
-                    >
-                      <img
-                        src={apiUrl + `/fixtures/${language}.jpg`}
-                        alt={language}
-                      />
-                    </span>
-                  ),
-              )}
-            </div>
+            {Object.keys(languages).map(
+              (language) =>
+                language !== lang && (
+                  <span
+                    className="form-lang-option"
+                    onClick={() => onLangSwitch(language)}
+                    key={language}
+                  >
+                    <Image
+                      width={40}
+                      height={40}
+                      src={apiUrl + `/fixtures/${language}.jpg`}
+                      alt={language}
+                    />
+                  </span>
+                ),
+            )}
           </div>
-        }
+        </div>
         <div className="container">
           <div className="tool-bar">
             <div className="logo-wrap">
@@ -190,11 +202,11 @@ const AppToolBar = () => {
                   href="/"
                   className={`nav-link ${pathname === '/' ? 'active' : ''}`}
                   onClick={() => {
-                    void showMenu();
+                    showMenu();
                     closeNavMenu();
                   }}
                 >
-                  {t('home')}
+                  Home
                 </NavLink>
                 <NavLink
                   href="/tours/all/1"
@@ -202,11 +214,11 @@ const AppToolBar = () => {
                     pathname && pathname.includes('/tours/all') ? 'active' : ''
                   }`}
                   onClick={() => {
-                    void showMenu();
+                    showMenu();
                     closeNavMenu();
                   }}
                 >
-                  {t('tours')}
+                  Tours
                 </NavLink>
                 <NavLink
                   href="/about"
@@ -214,17 +226,17 @@ const AppToolBar = () => {
                     pathname === '/about' ? 'active' : ''
                   }`}
                   onClick={() => {
-                    void showMenu();
+                    showMenu();
                     closeNavMenu();
                   }}
                 >
-                  {t('about_us')}
+                  About Us
                 </NavLink>
                 {user ? (
                   <UserMenu
                     user={user}
                     onClick={() => {
-                      void showMenu();
+                      showMenu();
                       closeNavMenu();
                     }}
                     pathname={pathname}
@@ -238,11 +250,11 @@ const AppToolBar = () => {
                     pathname && pathname.includes('/news/all') ? 'active' : ''
                   }`}
                   onClick={() => {
-                    void showMenu();
+                    showMenu();
                     closeNavMenu();
                   }}
                 >
-                  {t('news')}
+                  News
                 </NavLink>
                 <NavLink
                   id="nav-last-link"
@@ -255,7 +267,7 @@ const AppToolBar = () => {
                     closeNavMenu();
                   }}
                 >
-                  {t('contact_us')}
+                  Contact Us
                 </NavLink>
               </nav>
               <button
@@ -284,7 +296,7 @@ const AppToolBar = () => {
                 <span></span>
                 <span></span>
                 <span></span>
-                <span>{t('menu')}</span>
+                <span>menu</span>
               </button>
             </div>
           </div>
