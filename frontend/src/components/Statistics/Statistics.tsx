@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Fade } from 'react-awesome-reveal';
 import Number from '@/components/Statistics/Number';
+import magnifierIcon from '@/assets/images/magnifier.svg';
+import Image from 'next/image';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { selectAdminStats } from '@/containers/statistics/statisticsSlice';
 import {

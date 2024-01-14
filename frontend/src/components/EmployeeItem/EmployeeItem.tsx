@@ -5,6 +5,8 @@ import { apiUrl, userRoles } from '@/constants';
 import { deleteEmployees, fetchEmployees } from '@/containers/about/aboutThunk';
 import Link from 'next/link';
 import { selectUser } from '@/containers/users/usersSlice';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 const EmployeeItem = () => {
@@ -28,8 +30,10 @@ const EmployeeItem = () => {
     <div className="about-page-team-cards">
       {employees.map((empl) => (
         <div className="about-page-team-card" key={empl._id}>
-          <img
+          <Image
             className="about-page-team-card-img"
+            width={280}
+            height={200}
             src={apiUrl + '/' + empl.image}
             alt={empl.name}
           />

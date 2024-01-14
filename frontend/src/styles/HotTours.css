@@ -175,13 +175,17 @@
   cursor: pointer;
 }
 
+.hot-tours-carousel-buttons button div {
+  position: relative;
+  width: 20px;
+  height: 16px;
+}
+
 .hot-tours-carousel-buttons button:hover img {
   opacity: 1;
 }
 
 .hot-tours-carousel-buttons button img {
-  width: 20px;
-  height: 16px;
   opacity: 0.4;
   transition: 0.22s;
 }
@@ -382,7 +386,7 @@
     height: 45px;
   }
 
-  .hot-tours-carousel-buttons button img {
+  .hot-tours-carousel-buttons button div {
     width: 16px;
   }
 
@@ -432,7 +436,7 @@
     height: 50px;
   }
 
-  .hot-tours-carousel-buttons button img {
+  .hot-tours-carousel-buttons button div {
     width: 18px;
   }
 

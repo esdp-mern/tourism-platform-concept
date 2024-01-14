@@ -14,6 +14,7 @@ import dayjs from 'dayjs';
 import { INews } from '@/type';
 import Link from 'next/link';
 import { setIsLightMode } from '@/containers/config/configSlice';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 const OneNews: NextPage<
@@ -49,7 +50,12 @@ const OneNews: NextPage<
   const items = arr.map((news) => (
     <div key={news.title} className="one-news-main-right-related-cards">
       <div>
-        <img src={apiUrl + '/' + news.images[0]} alt={news.title} />
+        <Image
+          width={100}
+          height={100}
+          src={apiUrl + '/' + news.images[0]}
+          alt={news.title}
+        />
       </div>
       <Link
         href={`/news/${news._id}`}
@@ -66,7 +72,8 @@ const OneNews: NextPage<
     <div className="one-news-page">
       <PageLoader />
       <div className="news-top">
-        <img
+        <Image
+          fill
           src={apiUrl + '/' + oneNews.images[0]}
           className="news-main-img"
           alt={oneNews.title}
@@ -92,7 +99,13 @@ const OneNews: NextPage<
             </div>
             <div className="one-news-main-imgs">
               {oneNews.images.map((newsImg) => (
-                <img src={apiUrl + '/' + newsImg} key={newsImg} alt={newsImg} />
+                <Image
+                  width={200}
+                  height={200}
+                  src={apiUrl + '/' + newsImg}
+                  key={newsImg}
+                  alt={newsImg}
+                />
               ))}
             </div>
           </div>

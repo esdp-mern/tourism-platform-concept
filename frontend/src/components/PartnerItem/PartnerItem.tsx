@@ -4,6 +4,7 @@ import { selectAllPartners } from '@/containers/about/aboutSlice';
 import { fetchPartners } from '@/containers/about/aboutThunk';
 import Link from 'next/link';
 import { apiUrl } from '@/constants';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 const PartnerItem = () => {
@@ -32,7 +33,12 @@ const PartnerItem = () => {
             >
               <div className="about-page-partners-card">
                 {partner.image || (partner.image && partner.name) ? (
-                  <img src={apiUrl + '/' + partner.image} alt={partner._id} />
+                  <Image
+                    width={200}
+                    height={200}
+                    src={apiUrl + '/' + partner.image}
+                    alt={partner._id}
+                  />
                 ) : (
                   partner.name
                 )}
@@ -41,7 +47,12 @@ const PartnerItem = () => {
           ) : (
             <div className="about-page-partners-card" key={partner._id}>
               {partner.image || (partner.image && partner.name) ? (
-                <img src={apiUrl + '/' + partner.image} alt={partner._id} />
+                <Image
+                  width={200}
+                  height={200}
+                  src={apiUrl + '/' + partner.image}
+                  alt={partner._id}
+                />
               ) : (
                 partner.name
               )}

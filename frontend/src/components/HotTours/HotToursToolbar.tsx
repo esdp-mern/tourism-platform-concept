@@ -4,6 +4,7 @@ import { selectHotTours } from '@/containers/tours/toursSlice';
 import { apiUrl } from '@/constants';
 import { fetchTours } from '@/containers/tours/toursThunk';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const HotToursToolbar = () => {
   const carouselTours = useAppSelector(selectHotTours);
@@ -31,7 +32,8 @@ const HotToursToolbar = () => {
               }`}
               key={tour._id}
             >
-              <img
+              <Image
+                fill
                 src={apiUrl + '/' + tour.mainImage}
                 alt="..."
                 className="hot-tour-toolbar-img"
