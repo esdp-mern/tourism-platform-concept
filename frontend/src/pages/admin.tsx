@@ -33,48 +33,47 @@ const Admin = () => {
         <div className="row">
           <div className="col-md-4 stretch-card">
             <div className="card bg-gradient-tours card-img-holder">
-              <div className="card-body">
-                <Link href={`/admin/tours/1`} className="stats-admin-link">
+              <Link href={`/admin/tours/1`} className="stats-admin-link">
+                <div className="card-body">
                   <Image
                     src={circle}
                     alt="circle"
                     className="card-img-absolute"
                   />
-                </Link>
-                <Link href={`/admin/tours/1`} className="stats-admin-link">
                   <h4 className="stats-admin-title">Tours </h4>
-                </Link>
-                <h2 className="stats-admin-info">
-                  Total tours: {state?.toursAll}
-                </h2>
-                <h6>Published tours: {state?.toursPublished}</h6>
-                <h6>Unpublished tours: {state?.toursUnpublished}</h6>
-
-                <Link href={`/tours/create`} className="btn-create-tour">
-                  Create Tour
-                </Link>
-              </div>
+                  <h2 className="stats-admin-info">
+                    Total tours: {state?.toursAll}
+                  </h2>
+                  <h6>Published tours: {state?.toursPublished}</h6>
+                  <h6>Unpublished tours: {state?.toursUnpublished}</h6>
+                </div>
+              </Link>
+              <Link
+                href={`/tours/create`}
+                className="btn-create-tour"
+                style={{ zIndex: 1 }}
+              >
+                Create Tour
+              </Link>
             </div>
           </div>
           <div className="col-md-4 stretch-card">
             <div className="card bg-gradient-guides card-img-holder">
-              <div className="card-body">
-                <Link href={`/admin/guides/1`} className="stats-admin-link">
+              <Link href={`/admin/guides/1`} className="stats-admin-link">
+                <div className="card-body">
                   <Image
                     src={circle}
                     alt="circle"
                     className="card-img-absolute"
                   />
-                </Link>
-                <Link href={`/admin/guides/1`} className="stats-admin-link">
                   <h4 className="stats-admin-title">Guides</h4>
-                </Link>
-                <h2 className="stats-admin-info">
-                  Current guides: {state?.guidesAll}
-                </h2>
-                <h6>Active guides: {state?.guidesPublished}</h6>
-                <h6>Non active guides: {state?.guidesUnpublished}</h6>
-              </div>
+                  <h2 className="stats-admin-info">
+                    Current guides: {state?.guidesAll}
+                  </h2>
+                  <h6>Active guides: {state?.guidesPublished}</h6>
+                  <h6>Non active guides: {state?.guidesUnpublished}</h6>
+                </div>
+              </Link>
             </div>
           </div>
           <div className="col-md-4 stretch-card">

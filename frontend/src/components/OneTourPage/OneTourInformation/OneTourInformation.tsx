@@ -25,12 +25,6 @@ const OneTourInformation = () => {
     setCurrentImg(src);
     dispatch(showModal(true));
   };
-
-  const onGalleryImgsClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    const src = e.currentTarget.getAttribute('src')!;
-    setCurrentImg(src);
-  };
   const onLeftClick = (e: React.MouseEvent) => {
     e.stopPropagation();
 
@@ -153,7 +147,7 @@ const OneTourInformation = () => {
           currentImg={currentImg}
           onLeftClick={onLeftClick}
           onRightClick={onRightClick}
-          onGalleryImgsClick={onGalleryImgsClick}
+          onGalleryImgsClick={setCurrentImg}
         />
       ) : null}
     </>

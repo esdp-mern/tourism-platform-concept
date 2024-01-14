@@ -1,4 +1,5 @@
 .guide-card {
+  position: relative;
   border: 1px solid #ddd;
   border-radius: 12px;
   overflow: hidden;
@@ -7,9 +8,12 @@
 }
 
 .guide-card__image {
-  display: block;
+  position: relative;
   width: 100%;
   height: 200px;
+}
+
+.guide-card__image img {
   object-fit: cover;
 }
 

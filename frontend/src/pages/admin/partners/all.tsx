@@ -9,6 +9,7 @@ import { apiUrl, userRoles } from '@/constants';
 import { deletePartner } from '@/containers/partners/partnersThunk';
 import Custom404 from '@/pages/404';
 import { selectUser } from '@/containers/users/usersSlice';
+import Image from 'next/image';
 
 const Partners = () => {
   const dispatch = useAppDispatch();
@@ -46,7 +47,9 @@ const Partners = () => {
                   <div key={partner._id} className="partners-admin-card">
                     <div className="about-page-partners-card">
                       {partner.image || (partner.image && partner.name) ? (
-                        <img
+                        <Image
+                          width={200}
+                          height={200}
                           src={apiUrl + '/' + partner.image}
                           alt={partner._id}
                         />
@@ -73,7 +76,9 @@ const Partners = () => {
                   <div key={partner._id} className="partners-admin-card">
                     <div className="about-page-partners-card" key={partner._id}>
                       {partner.image || (partner.image && partner.name) ? (
-                        <img
+                        <Image
+                          width={200}
+                          height={200}
                           src={apiUrl + '/' + partner.image}
                           alt={partner._id}
                         />

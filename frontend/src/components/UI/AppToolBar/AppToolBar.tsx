@@ -201,10 +201,10 @@ const AppToolBar = () => {
                   id="nav-first-link"
                   href="/"
                   className={`nav-link ${pathname === '/' ? 'active' : ''}`}
-                  onClick={() => {
-                    showMenu();
-                    closeNavMenu();
-                  }}
+                onClick={() => {
+                  showMenu();
+                  closeNavMenu();
+                }}
                 >
                   Home
                 </NavLink>

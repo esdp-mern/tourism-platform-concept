@@ -13,6 +13,7 @@ import {
 } from '@/containers/news/newsThunk';
 import { selectDeleteTourLoading } from '@/containers/tours/toursSlice';
 import { selectNewsPublishLoading } from '@/containers/news/newsSlice';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 interface Props {
@@ -51,7 +52,7 @@ const NewsItem: React.FC<Props> = ({ news }) => {
       <div className="card-news-img">
         <Link href={`/news/${news._id}`}>
           <div className="card-news-img-wrap">
-            <img src={apiUrl + '/' + news.images[0]} alt={news.title} />
+            <Image fill src={apiUrl + '/' + news.images[0]} alt={news.title} />
             {user && user.role === userRoles.admin ? (
               <div
                 className={`${
