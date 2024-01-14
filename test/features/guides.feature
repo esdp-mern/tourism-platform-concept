@@ -1,6 +1,5 @@
 @guides
 
-
 Feature: Guides CRUD
 
   Scenario: User sends a new guide request
@@ -47,4 +46,3 @@ Feature: Guides CRUD
     Then I see the confirmation alert "Are you sure you want to delete this guide?"
     Then I confirm the deletion by clicking "ok" in the confirmation alert
     Then I stay at the guides page
-
