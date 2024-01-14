@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   IPostGuideRating,
-  ITourReview,
   RatingOfGuide,
   RatingOfTour,
   ValidationError,

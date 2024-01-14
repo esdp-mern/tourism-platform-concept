@@ -9,8 +9,16 @@ const newsRouter = express.Router();
 
 newsRouter.get('/', async (req, res) => {
   try {
-    const news = await News.find({ isPublished: true });
-    return res.send(news);
+    const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
+    const news = await News.find();
+
+    const localizedNews = news.map((item) => {
+      return {
+        ...item.toObject(),
+        title: item.toObject().title?.[lang],
+      };
+    });
+    return res.send(localizedNews);
   } catch (e) {
     return res.status(500).send('Error');
   }
@@ -18,14 +26,25 @@ newsRouter.get('/', async (req, res) => {
 
 newsRouter.get('/all', async (req, res) => {
   try {
-    let news;
-
+    const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
     if (req.query.true) {
-      news = await News.find();
-      return res.send(news);
+      const news = await News.find();
+      const localizedNews = news.map((item) => {
+        return {
+          ...item.toObject(),
+          title: item.toObject().title?.[lang],
+        };
+      });
+      return res.send(localizedNews);
     }
-    news = await News.find({ isPublished: false });
-    return res.send(news);
+    const news = await News.find({ isPublished: false });
+    const localizedNews = news.map((item) => {
+      return {
+        ...item.toObject(),
+        title: item.toObject().title?.[lang] || item.toObject().title.en,
+      };
+    });
+    return res.send(localizedNews);
   } catch (e) {
     return res.status(500).send('Error');
   }
@@ -34,11 +53,19 @@ newsRouter.get('/all', async (req, res) => {
 newsRouter.get('/:id', async (req, res) => {
   try {
     const oneNews = await News.findById(req.params.id);
+    const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
 
     if (!oneNews) {
       return res.status(404).send('Not found!');
     }
-    return res.send(oneNews);
+
+    const localizedNews = {
+      ...oneNews.toObject(),
+      title: oneNews.toObject().title?.[lang],
+      description: oneNews.toObject().description?.[lang],
+    };
+
+    return res.send(localizedNews);
   } catch (e) {
     return res.status(500).send('Error');
   }
@@ -56,6 +83,7 @@ newsRouter.post(
   ]),
   async (req, res, next) => {
     try {
+      const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
       const images =
         req.files && 'images' in req.files
           ? (req.files as { [fieldname: string]: Express.Multer.File[] })[
@@ -65,8 +93,18 @@ newsRouter.post(
 
       const category = req.body.category ? req.body.category : [];
       const news = new News({
-        title: req.body.title,
-        description: req.body.description,
+        title: {
+          en: '',
+          ru: '',
+          kg: '',
+          [`${lang}`]: req.body.title,
+        },
+        description: {
+          en: '',
+          ru: '',
+          kg: '',
+          [`${lang}`]: req.body.description,
+        },
         images,
         category,
       });
@@ -94,6 +132,7 @@ newsRouter.put(
   ]),
   async (req, res, next) => {
     try {
+      const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
       const newsId = req.params.id;
       const news = await News.findById(newsId);
 
@@ -110,13 +149,11 @@ newsRouter.put(
             )
           : news.images;
 
-      news.title = req.body.title || news.title;
+      news.title[lang] = req.body.title || news.title[lang];
       news.images = images;
-      news.description = req.body.description || news.description;
+      news.description[lang] = req.body.description || news.description[lang];
       news.category = category;
       await news.save();
-
-      console.log(req.body);
 
       return res.send(news);
     } catch (e) {

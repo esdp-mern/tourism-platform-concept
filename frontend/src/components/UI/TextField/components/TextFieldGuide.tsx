@@ -36,7 +36,7 @@ const TextFieldSelect: React.FC<Props> = (props) => {
         })),
       );
     }
-  }, [guides]);
+  }, [guides, options.length]);
 
   // @ts-ignore
   const handleSelectChange = (selectedOptions: MultiValue<IOption, true>) => {

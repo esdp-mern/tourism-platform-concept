@@ -103,7 +103,7 @@ const TourFilter = () => {
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [filterRef.current]);
+  }, []);
 
   const clearCategory = () => {
     setSelectedCategories([]);

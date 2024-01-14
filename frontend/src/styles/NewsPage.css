@@ -76,6 +76,7 @@
   color: #fff;
   width: 115px;
   background: #75c15b;
+  text-align: center;
 }
 
 .news-admin-create:hover {
@@ -162,6 +163,8 @@
 }
 
 .one-news-main-info-date {
+  display: flex;
+  align-items: center;
   margin-right: 50px;
   background-image: url('../assets/images/calendar-order-icon.svg');
   background-repeat: no-repeat;
@@ -174,7 +177,7 @@
   background-image: url('../assets/images/info-icon.svg');
   background-repeat: no-repeat;
   background-position: left center;
-  background-size: 12%;
+  background-size: 24px;
   padding-left: 35px;
 }
 
@@ -286,6 +289,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  gap: 10px;
   flex-wrap: wrap;
 }
 

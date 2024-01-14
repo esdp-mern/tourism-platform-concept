@@ -12,6 +12,7 @@ import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import { logout } from '@/containers/users/usersThunk';
 import HotToursToolbar from '@/components/HotTours/HotToursToolbar';
 import EditorModal from '@/components/EditProfile/EditorModal';
+import { useTranslations } from 'next-intl';
 
 interface IProps {
   show: boolean;
@@ -23,6 +24,7 @@ const ToolBarMenu: React.FC<IProps> = ({ show, onClick }) => {
   const user = useAppSelector(selectUser);
   const logoutLoading = useAppSelector(selectLogoutLoading);
   const pathname = usePathname();
+  const t = useTranslations('navbar');
 
   const userLogout = async () => {
     try {
@@ -32,6 +34,9 @@ const ToolBarMenu: React.FC<IProps> = ({ show, onClick }) => {
       dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
     }
   };
+
+  const editBtn = t('edit_profile_btn');
+  const logoutBtn = t('logout_btn');
 
   return (
     <>
@@ -61,14 +66,14 @@ const ToolBarMenu: React.FC<IProps> = ({ show, onClick }) => {
                   onClick();
                 }}
               >
-                {logoutLoading ? <ButtonLoader size={16} /> : 'Edit profile'}
+                {logoutLoading ? <ButtonLoader size={16} /> : `${editBtn}`}
               </button>
               <button
                 className="logout"
                 onClick={userLogout}
                 disabled={logoutLoading}
               >
-                {logoutLoading ? <ButtonLoader size={16} /> : 'Logout'}
+                {logoutLoading ? <ButtonLoader size={16} /> : `${logoutBtn}`}
               </button>
             </div>
           </div>

@@ -101,8 +101,6 @@ export const aboutSlice = createSlice({
     builder.addCase(editAboutUsBlock.fulfilled, (state, { payload }) => {
       state.editAboutUsBlockLoading = false;
       setImages(payload);
-
-      state.about = payload;
     });
     builder.addCase(editAboutUsBlock.rejected, (state) => {
       state.editAboutUsBlockLoading = false;

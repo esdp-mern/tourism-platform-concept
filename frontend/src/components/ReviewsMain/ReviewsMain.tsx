@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ReviewOfPlatform } from '@/type';
 import Image from 'next/image';
 import { apiUrl } from '@/constants';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   reviews: ReviewOfPlatform[];
@@ -12,6 +13,7 @@ const ReviewsMain: React.FC<Props> = ({ reviews }) => {
     null,
   );
   const [currentWidth, setCurrentWidth] = useState(0);
+  const t = useTranslations('main');
 
   useEffect(() => {
     setCurrentWidth(window.innerWidth);
@@ -24,7 +26,7 @@ const ReviewsMain: React.FC<Props> = ({ reviews }) => {
     <div className="reviews-main-page">
       <div className="container reviews-main-page-inner">
         <div className="reviews-main-page-content">
-          <h2 className="reviews-main-page-title">What Our Clients Say</h2>
+          <h2 className="reviews-main-page-title">{t('reviews')}</h2>
           <div className="reviews-main-page-info">
             <div className="reviews-main-page-txt">
               {currentReview?.comment}
