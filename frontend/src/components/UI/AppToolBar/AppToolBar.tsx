@@ -103,7 +103,7 @@ const AppToolBar = () => {
     }
   };
 
-  const scrollSideRef = useRef<HTMLElement | null>(null);
+  const scrollSideRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     if (!scrollSideRef.current) return;

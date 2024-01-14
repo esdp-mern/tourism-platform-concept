@@ -231,7 +231,7 @@ toursRouter.get('/all', async (req, res) => {
               tour.toObject().country?.[lang] || tour.toObject().country?.en,
           };
         });
-        return res.send({ updatedTours, allToursLength });
+        return res.send({ tours: updatedTours, allToursLength });
       }
 
       const tours = await Tour.find({ isPublished: false })
