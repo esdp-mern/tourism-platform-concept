@@ -11,8 +11,18 @@ import waveIcon from '@/assets/images/wave-icon.svg';
 import penIcon from '@/assets/images/pen-icon.svg';
 import { IAboutUs, IAboutUsBlock } from '@/type';
 import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
-import { userRoles } from '@/constants';
+import { apiUrl, userRoles } from '@/constants';
 import Link from 'next/link';
+import { selectPlatformReviews } from '@/containers/reviews/reviewSlice';
+import { fetchPlatformReviews } from '@/containers/reviews/reviewThunk';
+import Image from 'next/image';
+import dayjs from 'dayjs';
+import { selectLanguage } from '@/containers/users/usersSlice';
+import { GetServerSideProps } from 'next';
+import { useTranslations } from 'next-intl';
+
+require(`dayjs/locale/ru`);
+require(`dayjs/locale/en`);
 
 const About = () => {
   const dispatch = useAppDispatch();
@@ -20,11 +30,15 @@ const About = () => {
     (state) => state.about,
   );
   const { user } = useAppSelector((state) => state.users);
+  const reviews = useAppSelector(selectPlatformReviews);
+  const lang = useAppSelector(selectLanguage);
   const [sectionName, setSectionName] = useState<string>('');
   const [editBlock, setEditBlock] = useState<IAboutUsBlock | null>(null);
+  const t = useTranslations('about');
 
   useEffect(() => {
     dispatch(fetchAboutUs());
+    dispatch(fetchPlatformReviews(true));
     dispatch(setIsLightMode(false));
   }, [dispatch]);
 
@@ -50,6 +64,7 @@ const About = () => {
       ).unwrap();
       setSectionName('');
       setEditBlock(null);
+      dispatch(fetchAboutUs());
     } catch {
       // nothing
     }
@@ -59,7 +74,7 @@ const About = () => {
     <form className="about-page-edit-modal" onSubmit={sendData}>
       <div className="about-page-edit-modal-header">
         <h2>Edit</h2>
-        <img src={penIcon.src} alt="pen-icon" />
+        <Image width={25} height={25} src={penIcon.src} alt="pen-icon" />
       </div>
 
       <div className="about-page-edit-modal-text-fields">
@@ -112,7 +127,7 @@ const About = () => {
       user &&
       user.role === userRoles.admin && (
         <button className="about-page-edit-btn" name={name} onClick={onClick}>
-          <img src={penIcon.src} alt="" />
+          <Image fill src={penIcon.src} alt="" />
         </button>
       )
     );
@@ -130,14 +145,21 @@ const About = () => {
         )}
         {modal}
         <div className="about-page-top">
-          <img
-            alt="mountains"
-            src={about.main.image}
-            className="about-page-img"
-          />
+          {about.main.image && (
+            <Image
+              fill
+              className="about-page-img"
+              src={about.main.image}
+              alt="mountains"
+            />
+          )}
           <div className="about-page-top-info">
             <div className="about-page-top-line">
-              <img src={'http://localhost:3000' + waveIcon.src} alt="img" />
+              <Image
+                fill
+                src={'http://localhost:3000' + waveIcon.src}
+                alt="img"
+              />
             </div>
             <h2 className="about-page-top-title">
               {about.main.title}
@@ -157,14 +179,18 @@ const About = () => {
                 <div className="about-page-tours-txt">
                   {about.offer.description}
                 </div>
-                <button className="about-page-tours-btn">Book now</button>
+                <button className="about-page-tours-btn">{t('bookNow')}</button>
               </div>
               <div className="about-page-tours-img-wrap">
-                <img
-                  src={about.offer.image}
-                  alt="coconout"
-                  className="about-page-tours-img"
-                />
+                {about.offer.image && (
+                  <Image
+                    width={450}
+                    height={500}
+                    src={about.offer.image}
+                    alt="coconut"
+                    className="about-page-tours-img"
+                  />
+                )}
               </div>
             </div>
           </Fade>
@@ -174,9 +200,11 @@ const About = () => {
             <div className="about-page-advantages">
               {about.posts.map((post, index) => (
                 <div key={post._id} className="about-page-advantages-card">
-                  <img
-                    src={post.image}
+                  <Image
+                    width={50}
+                    height={50}
                     className="about-page-advantages-image"
+                    src={post.image!}
                     alt="post-img"
                   />
                   <h4 className="about-page-advantages-title">
@@ -203,82 +231,38 @@ const About = () => {
                 <div>{about.review.description}</div>
               </div>
               <div className="about-page-clients-cards">
-                <div className="about-page-clients-card">
-                  <div className="about-page-clients-card-top">
-                    <img
-                      className="about-page-clients-card-img"
-                      src="https://livedemo00.template-help.com/wt_prod-19282/images/testimonials-1-84x84.jpg"
-                      alt="review-photo"
-                    />
-                    <h5 className="about-page-clients-card-title">
-                      Jane Smith
-                    </h5>
-                  </div>
-                  <div className="about-page-clients-card-txt">
-                    I wanted to thank you very much for planning the trip to
-                    France for my sister and me. It was amazing!
-                  </div>
-                  <div className="about-page-clients-card-date">
-                    Mar 21, 2021
-                  </div>
-                </div>
-                <div className="about-page-clients-card">
-                  <div className="about-page-clients-card-top">
-                    <img
-                      className="about-page-clients-card-img"
-                      src="https://livedemo00.template-help.com/wt_prod-19282/images/testimonials-2-84x84.jpg"
-                      alt="review-photo"
-                    />
-                    <h5 className="about-page-clients-card-title">
-                      Peter McMillan
-                    </h5>
-                  </div>
-                  <div className="about-page-clients-card-txt">
-                    We had a marvelous time in our travels to Madagascar and
-                    Zimbabwe, we had just wonderful experiences.
-                  </div>
-                  <div className="about-page-clients-card-date">
-                    Mar 21, 2021
-                  </div>
-                </div>
-                <div className="about-page-clients-card">
-                  <div className="about-page-clients-card-top">
-                    <img
-                      className="about-page-clients-card-img"
-                      src="https://livedemo00.template-help.com/wt_prod-19282/images/testimonials-3-84x84.jpg"
-                      alt="review-photo"
-                    />
-                    <h5 className="about-page-clients-card-title">
-                      Samantha Lee
-                    </h5>
-                  </div>
-                  <div className="about-page-clients-card-txt">
-                    The trip you put together for us in Italy went splendid.
-                    Each touch point, each adventure, felt like you planned it.
-                  </div>
-                  <div className="about-page-clients-card-date">
-                    Mar 21, 2021
-                  </div>
-                </div>
-                <div className="about-page-clients-card">
-                  <div className="about-page-clients-card-top">
-                    <img
-                      className="about-page-clients-card-img"
-                      src="https://livedemo00.template-help.com/wt_prod-19282/images/testimonials-4-84x84.jpg"
-                      alt="review-photo"
-                    />
-                    <h5 className="about-page-clients-card-title">
-                      Kate Wilson
-                    </h5>
-                  </div>
-                  <div className="about-page-clients-card-txt">
-                    This is probably the most incredible travel agency I think I
-                    have ever used. Thank you for a great tour!
-                  </div>
-                  <div className="about-page-clients-card-date">
-                    Mar 21, 2021
-                  </div>
-                </div>
+                {reviews.map((review) => {
+                  if (review) {
+                    const avatar = apiUrl + '/' + review.user.avatar;
+
+                    return (
+                      <div className="about-page-clients-card" key={review._id}>
+                        <div className="about-page-clients-card-top">
+                          <Image
+                            className="about-page-clients-card-img"
+                            src={avatar}
+                            alt="review-photo"
+                            width={100}
+                            height={100}
+                          />
+                          <h5 className="about-page-clients-card-title">
+                            {review.user.displayName}
+                          </h5>
+                        </div>
+                        <div className="about-page-clients-card-txt">
+                          {review.comment}
+                        </div>
+                        <div className="about-page-clients-card-date">
+                          {dayjs(review.date)
+                            .locale(lang === 'kg' ? 'ru' : lang)
+                            .format('MMM DD, YYYY')}
+                        </div>
+                      </div>
+                    );
+                  } else {
+                    return null;
+                  }
+                })}
               </div>
             </Fade>
           </div>
@@ -286,13 +270,13 @@ const About = () => {
         <div className="container">
           <Fade>
             <div className="about-page-team">
-              <h3 className="about-page-team-title">Meet Our Team</h3>
+              <h3 className="about-page-team-title">{t('meetOurTeam')}</h3>
               <p className="about-page-team-txt">
-                Duis aute irure dolor in reprehenderit in voluptate velit
+                {t('meetOurTeamDescription')}
               </p>
               {user && user.role === userRoles.admin && (
                 <Link href="/employees/create" className="about-page-team-link">
-                  Add new member
+                  {t('addNewMember')}
                 </Link>
               )}
               <EmployeeItem />
@@ -303,9 +287,9 @@ const About = () => {
           <div className="about-page-guide-wrap container">
             <Fade>
               <div className="about-page-guide-text-wrap">
-                <h3 className="about-page-team-title">Meat our guides</h3>
+                <h3 className="about-page-team-title">{t('meetOurGuides')}</h3>
                 <p className="about-page-team-txt">
-                  Duis aute irure dolor in reprehenderit in voluptate velit
+                  {t('meetOurGuidesDescription')}
                 </p>
               </div>
               <div className="about-page-slider-wrap">
@@ -327,3 +311,12 @@ const About = () => {
 };
 
 export default About;
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

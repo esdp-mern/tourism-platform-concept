@@ -6,12 +6,14 @@ import { deleteEmployees, fetchEmployees } from '@/containers/about/aboutThunk';
 import Link from 'next/link';
 import { selectUser } from '@/containers/users/usersSlice';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 const EmployeeItem = () => {
-  const router = useRouter();
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const employees = useAppSelector(selectAllEmployees);
+  const t = useTranslations('about');
 
   useEffect(() => {
     dispatch(fetchEmployees());
@@ -28,12 +30,16 @@ const EmployeeItem = () => {
     <div className="about-page-team-cards">
       {employees.map((empl) => (
         <div className="about-page-team-card" key={empl._id}>
-          <img
+          <Image
             className="about-page-team-card-img"
+            width={280}
+            height={200}
             src={apiUrl + '/' + empl.image}
             alt={empl.name}
           />
-          <div className="about-page-team-card-position">{empl.role}</div>
+          <div className="about-page-team-card-position">
+            {t(`${empl.role}`)}
+          </div>
           <h6 className="about-page-team-card-title">{empl.name}</h6>
           <div className="about-page-team-card-phone">{empl.number}</div>
           {user && user.role === userRoles.admin ? (

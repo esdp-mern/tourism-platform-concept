@@ -15,6 +15,7 @@ import {
   selectTourPublishLoading,
 } from '@/containers/tours/toursSlice';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 interface Props {
   tour: Tour;
@@ -22,7 +23,6 @@ interface Props {
 }
 
 const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
-  const router = useRouter();
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const imgLink = apiUrl + '/' + tour.mainImage;
@@ -44,10 +44,10 @@ const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
 
   return (
     <Fade>
-      <div className="tour-item">
+      <div className="tour-item" id={tour._id}>
         <Link href={`/tours/${tour._id}`} className="tour-item-top">
-          <img src={imgLink} alt={tour.name} className="tour-item-img" />
-          <div className="tour-item-price">{tour.price.toString()} KGS</div>
+          <Image fill src={imgLink} alt={tour.name} className="tour-item-img" />
+          <div className="tour-item-price">{`${tour.price}`} KGS</div>
           {isAdmin && user && user.role === userRoles.admin ? (
             <div
               className={`${
@@ -58,12 +58,13 @@ const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
             </div>
           ) : null}
         </Link>
-        {tour.guides.length > 0 ? (
+        {tour.guides && tour.guides.length > 0 ? (
           <Link
             href={`/guides/${tour.guides[0]._id}`}
             className="tour-item-guide-avatar"
           >
-            <img
+            <Image
+              fill
               src={
                 tour.guides[0].user.avatar &&
                 tour.guides[0].user.avatar.startsWith('http')

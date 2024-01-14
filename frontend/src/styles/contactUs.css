@@ -1,12 +1,13 @@
 .contacts-top {
   position: relative;
+  height: 500px;
 }
 
 .contacts-main-img {
   position: absolute;
   top: -60px;
   width: 100%;
-  height: 500px;
+  object-fit: cover;
   filter: brightness(85%);
 }
 
@@ -57,7 +58,7 @@
 }
 
 .contacts-page-location {
-  padding: 523px 0 65px 0;
+  padding: 70px 0 65px 0;
   background-color: #f6f6f6;
 }
 
@@ -255,7 +256,7 @@ textarea::placeholder {
   }
 
   .contacts-page-location {
-    padding-top: 440px;
+    padding-top: 50px;
   }
 
   .contacts-country {

@@ -5,6 +5,7 @@ import permit from '../middleware/permit';
 import mongoose from 'mongoose';
 import Guide from '../models/Guide';
 import { imagesUpload } from '../multer';
+import { ILanguages } from '../type';
 
 const toursRouter = express.Router();
 
@@ -127,6 +128,7 @@ toursRouter.get('/filterByMaxPrice', async (req, res) => {
 });
 toursRouter.get('/', async (req, res) => {
   try {
+    const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
     const queries = {
       guide: req.query.guide,
       skip: parseInt(String(req.query.skip || 0)),
@@ -145,7 +147,18 @@ toursRouter.get('/', async (req, res) => {
         },
       });
 
-      return res.send(tours);
+      const updatedTours = tours.map((tour) => {
+        return {
+          ...tour.toObject(),
+          name: tour.toObject().name?.[lang] || tour.toObject().name?.en,
+          destination:
+            tour.toObject().destination?.[lang] ||
+            tour.toObject().destination?.en,
+          country:
+            tour.toObject().country?.[lang] || tour.toObject().country?.en,
+        };
+      });
+      return res.send(updatedTours);
     }
 
     if (req.query.skip && req.query.limit) {
@@ -164,7 +177,18 @@ toursRouter.get('/', async (req, res) => {
         isPublished: true,
       });
 
-      return res.send({ tours, allToursLength });
+      const updatedTours = tours.map((tour) => {
+        return {
+          ...tour.toObject(),
+          name: tour.toObject().name?.[lang] || tour.toObject().name?.en,
+          destination:
+            tour.toObject().destination?.[lang] ||
+            tour.toObject().destination?.en,
+          country:
+            tour.toObject().country?.[lang] || tour.toObject().country?.en,
+        };
+      });
+      return res.send({ tours: updatedTours, allToursLength });
     } else {
       return res.status(400).send('query fields { skip | limit } are required');
     }
@@ -175,6 +199,7 @@ toursRouter.get('/', async (req, res) => {
 
 toursRouter.get('/all', async (req, res) => {
   try {
+    const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
     const queries = {
       skip: parseInt(String(req.query.skip || 0)),
       limit: parseInt(String(req.query.limit || 0)),
@@ -195,7 +220,18 @@ toursRouter.get('/all', async (req, res) => {
 
         const allToursLength = await Tour.countDocuments();
 
-        return res.send({ tours, allToursLength });
+        const updatedTours = tours.map((tour) => {
+          return {
+            ...tour.toObject(),
+            name: tour.toObject().name?.[lang] || tour.toObject().name?.en,
+            destination:
+              tour.toObject().destination?.[lang] ||
+              tour.toObject().destination?.en,
+            country:
+              tour.toObject().country?.[lang] || tour.toObject().country?.en,
+          };
+        });
+        return res.send({ updatedTours, allToursLength });
       }
 
       const tours = await Tour.find({ isPublished: false })
@@ -213,7 +249,18 @@ toursRouter.get('/all', async (req, res) => {
         isPublished: true,
       });
 
-      return res.send({ tours, allToursLength });
+      const updatedTours = tours.map((tour) => {
+        return {
+          ...tour.toObject(),
+          name: tour.toObject().name?.[lang] || tour.toObject().name?.en,
+          destination:
+            tour.toObject().destination?.[lang] ||
+            tour.toObject().destination?.en,
+          country:
+            tour.toObject().country?.[lang] || tour.toObject().country?.en,
+        };
+      });
+      return res.send({ updatedTours, allToursLength });
     } else {
       return res.status(400).send('query fields { skip | limit } are required');
     }
@@ -224,6 +271,7 @@ toursRouter.get('/all', async (req, res) => {
 
 toursRouter.get('/:id', async (req, res) => {
   try {
+    const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
     const tour = await Tour.findById(req.params.id).populate({
       path: 'guides',
       populate: {
@@ -236,22 +284,31 @@ toursRouter.get('/:id', async (req, res) => {
       return res.status(404).send('Not found!');
     }
 
+    const plan = tour.plan.map((planPoint) => {
+      if (planPoint.title && planPoint.planDescription) {
+        return {
+          title: planPoint.title[lang],
+          planDescription: planPoint.planDescription[lang],
+        };
+      }
+    });
+
     const tourReviews = {
       _id: tour._id,
       guides: tour.guides,
-      name: tour.name,
+      name: tour.name ? tour.name[lang] : tour.name,
       mainImage: tour.mainImage,
-      description: tour.description,
+      description: tour.description ? tour.description[lang] : tour.description,
       category: tour.category,
       price: tour.price,
       duration: tour.duration,
-      plan: tour.plan,
-      destination: tour.destination,
-      arrival: tour.arrival,
-      departure: tour.departure,
-      dressCode: tour.dressCode,
-      included: tour.included,
-      country: tour.country,
+      plan,
+      destination: tour.destination ? tour.destination[lang] : tour.destination,
+      arrival: tour.arrival ? tour.arrival[lang] : tour.arrival,
+      departure: tour.departure ? tour.departure[lang] : tour.departure,
+      dressCode: tour.dressCode ? tour.dressCode[lang] : tour.dressCode,
+      included: tour.included ? tour.included[lang] : tour.included,
+      country: tour.country ? tour.country[lang] : tour.country,
       galleryTour: tour.galleryTour,
       isPublished: tour.isPublished,
       routes: tour.routes,
@@ -272,6 +329,7 @@ toursRouter.post(
   ]),
   async (req, res, next) => {
     try {
+      const lang = req.get('lang') as 'en' | 'ru' | 'kg';
       let existGuide;
 
       if (req.body.guides) {
@@ -307,22 +365,78 @@ toursRouter.post(
             ].map((file) => 'images/' + file.filename)
           : [];
 
+      const parsedPlan = JSON.parse(req.body.plan);
+      const plan = parsedPlan.map(
+        (planPoint: { title: ILanguages; planDescription: ILanguages }) => {
+          return {
+            title: {
+              ...{ en: '', ru: '', kg: '' },
+              [lang]: planPoint.title,
+            },
+            planDescription: {
+              ...{ en: '', ru: '', kg: '' },
+              [lang]: planPoint.planDescription,
+            },
+          };
+        },
+      );
+
       const tour = new Tour({
         guides: existGuide,
-        name: req.body.name,
+        name: {
+          en: '',
+          ru: '',
+          kg: '',
+          [lang]: req.body.name,
+        },
         mainImage: mainImage,
-        description: req.body.description,
+        description: {
+          en: '',
+          ru: '',
+          kg: '',
+          [lang]: req.body.description,
+        },
         category: JSON.parse(req.body.category),
         price: parseFloat(req.body.price),
         duration: parseFloat(req.body.duration),
-        plan: JSON.parse(req.body.plan),
-        destination: req.body.destination,
-        arrival: req.body.arrival,
-        departure: req.body.departure,
-        dressCode: req.body.dressCode,
-        included: JSON.parse(req.body.included),
+        plan,
+        destination: {
+          en: '',
+          ru: '',
+          kg: '',
+          [lang]: req.body.destination,
+        },
+        arrival: {
+          en: '',
+          ru: '',
+          kg: '',
+          [lang]: req.body.arrival,
+        },
+        departure: {
+          en: '',
+          ru: '',
+          kg: '',
+          [lang]: req.body.departure,
+        },
+        dressCode: {
+          en: '',
+          ru: '',
+          kg: '',
+          [lang]: req.body.dressCode,
+        },
+        included: {
+          en: [],
+          ru: [],
+          kg: [],
+          [lang]: JSON.parse(req.body.included),
+        },
         galleryTour: gallery,
-        country: req.body.country,
+        country: {
+          en: '',
+          ru: '',
+          kg: '',
+          [lang]: req.body.country,
+        },
         routes: JSON.parse(req.body.routes),
       });
 
@@ -346,8 +460,8 @@ toursRouter.post(
     ]),
     async (req, res, next) => {
       try {
+        const lang = req.get('lang') as 'en' | 'ru' | 'kg';
         const tourId = req.params.id;
-
         const existingTour = await Tour.findById(tourId);
 
         if (!existingTour) {
@@ -382,27 +496,74 @@ toursRouter.post(
               )
             : existingTour.galleryTour;
 
+        const parsedPlan = JSON.parse(req.body.plan);
+        const plan = parsedPlan.map(
+          (
+            planPoint: { title: ILanguages; planDescription: ILanguages },
+            index: number,
+          ) => {
+            const defaultTitle = existingTour.plan[index]
+              ? {
+                  ...existingTour.plan[index].title,
+                  [lang]: planPoint.title,
+                }
+              : { en: '', ru: '', kg: '' };
+            const defaultDescription = existingTour.plan[index]
+              ? {
+                  ...existingTour.plan[index].planDescription,
+                  [lang]: planPoint.planDescription,
+                }
+              : { en: '', ru: '', kg: '' };
+
+            return {
+              title: {
+                ...defaultTitle,
+                [lang]: planPoint.title,
+              },
+              planDescription: {
+                ...defaultDescription,
+                [lang]: planPoint.planDescription,
+              },
+            };
+          },
+        );
+
         existingTour.guides = existGuide || existingTour.guides;
-        existingTour.name = req.body.name || existingTour.name;
+        existingTour.name =
+          { ...existingTour.name, [lang]: req.body.name } || existingTour.name;
         existingTour.mainImage = mainImage;
-        existingTour.description =
-          req.body.description || existingTour.description;
+        if (existingTour.description) {
+          existingTour.description[lang] =
+            req.body.description || existingTour.description[lang];
+        }
         existingTour.category = JSON.parse(req.body.category);
         existingTour.price = req.body.price || existingTour.price;
         existingTour.duration = req.body.duration || existingTour.duration;
-        existingTour.plan = JSON.parse(req.body.plan);
+        existingTour.plan = plan;
         existingTour.destination =
-          req.body.destination || existingTour.destination;
-        existingTour.arrival = req.body.arrival || existingTour.arrival;
-        existingTour.departure = req.body.departure || existingTour.departure;
-        existingTour.dressCode = req.body.dressCode || existingTour.dressCode;
-        existingTour.included = JSON.parse(req.body.included);
+          { ...existingTour.destination, [lang]: req.body.destination } ||
+          existingTour.destination;
+        existingTour.arrival =
+          { ...existingTour.arrival, [lang]: req.body.arrival } ||
+          existingTour.arrival;
+        existingTour.departure =
+          { ...existingTour.departure, [lang]: req.body.departure } ||
+          existingTour.departure;
+        existingTour.dressCode =
+          { ...existingTour.dressCode, [lang]: req.body.dressCode } ||
+          existingTour.dressCode;
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        existingTour.included =
+          { ...existingTour.included, [lang]: JSON.parse(req.body.included) } ||
+          existingTour.included;
         existingTour.galleryTour = gallery;
-        existingTour.country = req.body.country || existingTour.country;
+        existingTour.country =
+          { ...existingTour.country, [lang]: req.body.country } ||
+          existingTour.country;
         existingTour.routes = JSON.parse(req.body.routes);
 
         await existingTour.save();
-
         return res.send(existingTour);
       } catch (e) {
         if (e instanceof mongoose.Error.ValidationError) {

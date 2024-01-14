@@ -346,9 +346,11 @@ export interface IContactsMutation {
   image: File | null;
   contact: IContactInfo[];
 }
+
 export interface IContactsImageMutation {
   image: File | null;
 }
+
 export interface RatingOfGuide {
   _id: string;
   user: {
@@ -440,6 +442,7 @@ export interface IStatisticsAdmin {
   ordersApproved: number;
   partnerOrdersAll: number;
   totalGuideOrders: number;
+  platFormReviews: number;
 }
 
 export interface IPartnerOrder {
@@ -457,4 +460,14 @@ export interface IPartnerOrderMutation {
   message: string;
   link: string;
   image: File | null;
+}
+
+export interface RegisterMessage {
+  message: string;
+}
+
+export interface StatisticsInfo {
+  title: string;
+  text1: string;
+  text2: string;
 }

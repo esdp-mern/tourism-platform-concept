@@ -8,6 +8,7 @@ import Employee from '../models/Employee';
 import Partner from '../models/Partner';
 import PartnerOrder from '../models/PartnerOrder';
 import GuideOrder from '../models/GuideOrder';
+import PlatformReview from '../models/PlatformReview';
 
 const statisticsRouter = express.Router();
 
@@ -33,6 +34,7 @@ statisticsRouter.get('/', async (req, res) => {
       ordersApproved,
       partnerOrdersAll,
       totalGuideOrders,
+      platFormReviews,
     ] = await Promise.all([
       Tour.countDocuments({ isPublished: true }),
       Tour.countDocuments({ isPublished: false }),
@@ -53,6 +55,7 @@ statisticsRouter.get('/', async (req, res) => {
       Order.countDocuments({ status: 'approved' }),
       PartnerOrder.countDocuments(),
       GuideOrder.countDocuments(),
+      PlatformReview.countDocuments(),
     ]);
 
     const newStats = {
@@ -75,6 +78,7 @@ statisticsRouter.get('/', async (req, res) => {
       ordersApproved,
       partnerOrdersAll,
       totalGuideOrders,
+      platFormReviews,
     };
 
     return res.send(newStats);

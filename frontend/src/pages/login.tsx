@@ -7,6 +7,7 @@ import {
   selectSignInError,
 } from '@/containers/users/usersSlice';
 import { setIsLightMode } from '@/containers/config/configSlice';
+import { GetServerSideProps } from 'next';
 
 const Login = () => {
   const dispatch = useAppDispatch();
@@ -28,3 +29,12 @@ const Login = () => {
 };
 
 export default Login;
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

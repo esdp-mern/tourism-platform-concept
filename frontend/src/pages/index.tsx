@@ -1,6 +1,5 @@
-import { wrapper } from '@/store/store';
-import { fetchTours } from '@/containers/tours/toursThunk';
 import ToursPage from '@/containers/tours/ToursPage';
+import { GetServerSideProps } from 'next';
 
 const Home = () => {
   return (
@@ -10,9 +9,13 @@ const Home = () => {
   );
 };
 
-Home.getInitialProps = wrapper.getInitialPageProps((store) => async () => {
-  await store.dispatch(fetchTours());
-  return { props: { name: 'tours' } };
-});
-
 export default Home;
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

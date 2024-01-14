@@ -4,6 +4,7 @@ import { selectHotTours } from '@/containers/tours/toursSlice';
 import { apiUrl } from '@/constants';
 import { fetchTours } from '@/containers/tours/toursThunk';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const HotToursToolbar = () => {
   const carouselTours = useAppSelector(selectHotTours);
@@ -11,10 +12,7 @@ const HotToursToolbar = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    dispatch(fetchTours());
-    document.addEventListener('DOMContentLoaded', () => {
-      // setCurrentIndex(0);
-    });
+    dispatch(fetchTours({}));
   }, [dispatch]);
   const goToSlide = (index: number, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -34,7 +32,8 @@ const HotToursToolbar = () => {
               }`}
               key={tour._id}
             >
-              <img
+              <Image
+                fill
                 src={apiUrl + '/' + tour.mainImage}
                 alt="..."
                 className="hot-tour-toolbar-img"

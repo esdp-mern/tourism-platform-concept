@@ -13,6 +13,8 @@ import {
 } from '@/containers/news/newsThunk';
 import { selectDeleteTourLoading } from '@/containers/tours/toursSlice';
 import { selectNewsPublishLoading } from '@/containers/news/newsSlice';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   news: INews;
@@ -23,6 +25,7 @@ const NewsItem: React.FC<Props> = ({ news }) => {
   const user = useAppSelector(selectUser);
   const publishLoading = useAppSelector(selectNewsPublishLoading);
   const deleteLoading = useAppSelector(selectDeleteTourLoading);
+  const t = useTranslations('news');
 
   const onDelete = async () => {
     if (window.confirm('Are you sure you want to delete this news?')) {
@@ -32,7 +35,13 @@ const NewsItem: React.FC<Props> = ({ news }) => {
   };
 
   const onPublish = async () => {
-    if (window.confirm('Are you sure you want to publish this news?')) {
+    if (
+      window.confirm(
+        `Are you sure you want to ${
+          news.isPublished ? 'un' : ''
+        }publish this news?`,
+      )
+    ) {
       await dispatch(publishNews(news._id));
       dispatch(fetchNews());
     }
@@ -43,14 +52,16 @@ const NewsItem: React.FC<Props> = ({ news }) => {
       <div className="card-news-img">
         <Link href={`/news/${news._id}`}>
           <div className="card-news-img-wrap">
-            <img src={apiUrl + '/' + news.images[0]} alt={news.title} />
+            <Image fill src={apiUrl + '/' + news.images[0]} alt={news.title} />
             {user && user.role === userRoles.admin ? (
               <div
                 className={`${
                   news.isPublished ? 'published-tour' : 'unpublished-tour'
                 } tour-info-publish`}
               >
-                {news.isPublished ? 'published' : 'unpublished'}
+                {news.isPublished
+                  ? t('news_all_published')
+                  : t('news_all_unpublished')}
               </div>
             ) : null}
           </div>
@@ -67,8 +78,8 @@ const NewsItem: React.FC<Props> = ({ news }) => {
               disabled={deleteLoading ? deleteLoading === news._id : false}
             >
               {deleteLoading && deleteLoading === news._id
-                ? 'deleting...'
-                : 'Delete'}
+                ? t('news_all_delete_loading')
+                : t('news_all_delete')}
             </button>
             <button
               className="btn-publish-tour"
@@ -78,20 +89,20 @@ const NewsItem: React.FC<Props> = ({ news }) => {
             >
               {publishLoading && publishLoading === news._id
                 ? news.isPublished
-                  ? 'unpublishing...'
-                  : 'publishing...'
+                  ? t('news_all_unpublish_loading')
+                  : t('news_all_publish_loading')
                 : news.isPublished
-                  ? 'Unpublish'
-                  : 'Publish'}
+                  ? t('news_all_delete')
+                  : t('news_all_publish_loading')}
             </button>
             <Link href={`/news/edit/${news._id}`} className="btn-tour-edit">
-              Edit
+              {t('news_all_edit')}
             </Link>
           </div>
         ) : null}
         <hr className="card-news-line" />
         <Link href={`/news/${news._id}`} className="news-item-link">
-          <div className="one-news-title">{news.title}</div>
+          <div className="one-news-title">{news.title || '-'}</div>
         </Link>
       </div>
     </Fade>

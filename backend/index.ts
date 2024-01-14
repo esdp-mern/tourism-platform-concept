@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import config from './config';
 import usersRouter from './routers/users';
 import toursRouter from './routers/tours';
@@ -20,12 +21,14 @@ import aboutUsRouter from './routers/aboutUs';
 import guideOrderRouter from './routers/guideOrder';
 import partnerOrderRouter from './routers/partnerOrder';
 import statisticsRouter from './routers/statistics';
+import statisticsInfoRouter from './routers/statisticsInfo';
 
 const app = express();
 const port = 8000;
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.static('public'));
 app.use('/users', usersRouter);
 app.use('/tours', toursRouter);
@@ -45,8 +48,9 @@ app.use('/contacts', contactsRouter);
 app.use('/guideOrders', guideOrderRouter);
 app.use('/partnerOrders', partnerOrderRouter);
 app.use('/statistics', statisticsRouter);
+app.use('/statisticsInfo', statisticsInfoRouter);
 
-app.get('*', (_, res) => res.sendStatus(404));
+app.get('*', (req, res) => res.sendStatus(404));
 
 const run = async () => {
   mongoose.set('strictQuery', false);

@@ -9,16 +9,18 @@ const TourSchema = new mongoose.Schema({
     },
   ],
   name: {
-    type: String,
-    required: true,
+    kg: String,
+    ru: String,
+    en: String,
   },
   mainImage: {
     type: String,
     required: true,
   },
   description: {
-    type: String,
-    required: true,
+    kg: String,
+    ru: String,
+    en: String,
   },
   category: {
     type: [String],
@@ -33,36 +35,55 @@ const TourSchema = new mongoose.Schema({
     required: true,
   },
   plan: {
-    type: [{ title: String, planDescription: String }],
+    type: [
+      {
+        title: {
+          kg: String,
+          ru: String,
+          en: String,
+        },
+        planDescription: {
+          kg: String,
+          ru: String,
+          en: String,
+        },
+      },
+    ],
     required: true,
   },
   destination: {
-    type: String,
-    required: true,
+    en: String,
+    ru: String,
+    kg: String,
   },
   arrival: {
-    type: String,
-    required: true,
+    en: String,
+    ru: String,
+    kg: String,
   },
   departure: {
-    type: String,
-    required: true,
+    en: String,
+    ru: String,
+    kg: String,
   },
   dressCode: {
-    type: String,
-    required: true,
+    en: String,
+    ru: String,
+    kg: String,
   },
   included: {
-    type: [String],
-    required: true,
+    en: [String],
+    ru: [String],
+    kg: [String],
   },
   galleryTour: {
     type: [String],
     required: true,
   },
   country: {
-    type: String,
-    required: true,
+    en: String,
+    ru: String,
+    kg: String,
   },
   isPublished: {
     type: Boolean,

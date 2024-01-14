@@ -4,11 +4,14 @@ import { selectAllTours } from '@/containers/tours/toursSlice';
 import HotToursItem from '@/components/HotTours/components/HotToursItem/HotToursItem';
 import arrowRightIcon from '@/assets/images/arrow-right.svg';
 import { Tour } from '@/type';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 const HotTours = () => {
   const tours = useAppSelector(selectAllTours);
   const carouselRef = useRef<HTMLDivElement | null>(null);
   const [carouselTours, setCarouselTours] = useState<Tour[]>([]);
+  const t = useTranslations('main');
 
   useEffect(() => {
     if (tours.length) {
@@ -97,30 +100,30 @@ const HotTours = () => {
               className="hot-tours-carousel-buttons-next"
               onClick={() => slide(true)}
             >
-              <img src={arrowRightIcon.src} alt="arrow-right-icon" />
+              <div>
+                <Image fill src={arrowRightIcon.src} alt="arrow-right-icon" />
+              </div>
             </button>
             <button
               className="hot-tours-carousel-buttons-prev"
               onClick={() => slide(false)}
             >
-              <img src={arrowRightIcon.src} alt="arrow-left-icon" />
+              <div>
+                <Image fill src={arrowRightIcon.src} alt="arrow-left-icon" />
+              </div>
             </button>
           </div>
         </div>
         <div className="hot-tours-info">
           <div>
             <h2>
-              Last
+              {t('hot_tours_last')}
               <br />
-              Minute
+              {t('hot_tours_min')}
             </h2>
-            <p>Offers</p>
+            <p>{t('hot_tours_offer')}</p>
           </div>
-          <h4>
-            We have picked some amazing last minute holiday offers for you to
-            choose from. These offers won’t last too long so hurry and book
-            yours today!
-          </h4>
+          <h4>{t('hot_tours_text')}!</h4>
         </div>
       </div>
     </div>

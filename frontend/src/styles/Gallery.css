@@ -15,6 +15,8 @@
 }
 .one-tour-photo {
   position: relative;
+  width: 250px;
+  height: 250px;
   cursor: pointer;
 }
 .one-tour-photo img {
@@ -40,8 +42,6 @@
 }
 
 .gallery-imgs {
-  width: 250px;
-  height: 250px;
   object-fit: cover;
 }
 .backdrop-gallery {
@@ -79,7 +79,6 @@
 }
 
 .modal-img {
-  width: 100vh;
   height: auto;
   animation: switchImage 0.5s linear;
   object-fit: cover;
@@ -90,7 +89,8 @@
   align-items: center;
   margin-top: 20px;
 }
-.backdrop-gallery-inner img {
+.backdrop-gallery-inner div {
+  position: relative;
   display: block;
   width: 100px;
   height: 100px;
@@ -148,7 +148,7 @@
   }
 }
 @media (max-width: 768px) {
-  .gallery-imgs {
+  .one-tour-photos {
     width: 180px;
     height: 180px;
   }
@@ -179,7 +179,7 @@
     width: 400px;
     position: relative;
   }
-  .backdrop-gallery-inner img {
+  .backdrop-gallery-inner div {
     width: 80px;
     height: 80px;
   }

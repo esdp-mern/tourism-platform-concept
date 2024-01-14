@@ -16,7 +16,15 @@ export const mapMarkerCategories = [
   { src: 'mapMarkers/hotel-map-marker.svg', type: 'hotel' },
 ];
 
+export const languages = {
+  en: '',
+  ru: '',
+  kg: '',
+};
+
 export const GOOGLE_CLIENT_ID =
   '302661332601-7q2hnutfbgkh7jlojlkf5flaut32d71q.apps.googleusercontent.com';
 
 export const boardNames = ['booked', 'being considered', 'approved'];
+
+export const LIMIT = 6;

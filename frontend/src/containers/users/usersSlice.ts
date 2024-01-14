@@ -10,13 +10,14 @@ import {
   signUp,
 } from './usersThunk';
 import { RootState } from '@/store/store';
-import { IAlert, User, ValidationError } from '@/type';
+import { IAlert, RegisterMessage, User, ValidationError } from '@/type';
 import { apiUrl } from '@/constants';
 import { nanoid } from 'nanoid';
 
 interface UsersState {
   user: User | null;
   users: User[];
+  registerMessage: RegisterMessage | null;
   usersLoading: boolean;
   registerLoading: boolean;
   signUpError: ValidationError | null;
@@ -28,11 +29,13 @@ interface UsersState {
   editorModal: boolean;
   changeRoleLoading: boolean;
   patchLoading: boolean;
+  lang: string;
 }
 
 const initialState: UsersState = {
   user: null,
   users: [],
+  registerMessage: null,
   usersLoading: false,
   registerLoading: false,
   signUpError: null,
@@ -44,6 +47,7 @@ const initialState: UsersState = {
   editorModal: false,
   changeRoleLoading: false,
   patchLoading: false,
+  lang: 'en',
 };
 
 const getFilteredUrl = (url: string) =>
@@ -76,20 +80,22 @@ export const usersSlice = createSlice({
     setEditorModal: (state) => {
       state.editorModal = !state.editorModal;
     },
+    setLang: (state, action) => {
+      state.lang = action.payload;
+    },
+    clearError: (state) => {
+      state.signInError = null;
+      state.signUpError = null;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(signUp.pending, (state) => {
       state.registerLoading = true;
       state.signUpError = null;
     });
-    builder.addCase(signUp.fulfilled, (state, { payload: userResponse }) => {
+    builder.addCase(signUp.fulfilled, (state, { payload: message }) => {
       state.registerLoading = false;
-      const userData = userResponse.user;
-
-      state.user = {
-        ...userData,
-        avatar: userData.avatar ? getFilteredUrl(userData.avatar) : null,
-      };
+      state.registerMessage = message;
     });
     builder.addCase(signUp.rejected, (state, { payload: error }) => {
       state.registerLoading = false;
@@ -205,8 +211,14 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { addAlert, disableAlert, resetSignInError, setEditorModal } =
-  usersSlice.actions;
+export const {
+  addAlert,
+  disableAlert,
+  resetSignInError,
+  setEditorModal,
+  setLang,
+  clearError,
+} = usersSlice.actions;
 export const selectUser = (state: RootState) => state.users.user;
 export const selectSignUpLoading = (state: RootState) =>
   state.users.registerLoading;
@@ -226,3 +238,6 @@ export const selectChangeRoleLoading = (state: RootState) =>
   state.users.changeRoleLoading;
 export const selectPatchLoading = (state: RootState) =>
   state.users.patchLoading;
+export const selectRegisterMessage = (state: RootState) =>
+  state.users.registerMessage;
+export const selectLanguage = (state: RootState) => state.users.lang;

@@ -2,16 +2,28 @@ import React, { useEffect, useRef, useState } from 'react';
 import NavLink from 'next/link';
 import UserMenu from './components/UserMenu';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { selectUser } from '@/containers/users/usersSlice';
+import {
+  selectLanguage,
+  selectUser,
+  setLang,
+} from '@/containers/users/usersSlice';
 import ToolBarMenu from '@/components/UI/AppToolBar/components/ToolBarMenu';
 import { usePathname } from 'next/navigation';
-import { fetchTours } from '@/containers/tours/toursThunk';
+import { fetchTour, fetchTours } from '@/containers/tours/toursThunk';
+import { apiUrl, languages } from '@/constants';
+import { selectOneTour } from '@/containers/tours/toursSlice';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useTranslations } from 'next-intl';
 
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);
+  const lang = useAppSelector(selectLanguage);
+  const tour = useAppSelector(selectOneTour);
   const dispatch = useAppDispatch();
   const [navShow, setNavShow] = useState(false);
   const [menuShow, setMenuShow] = useState(false);
+  const [langOptions, setLangOptions] = useState(false);
   const pathname = usePathname();
 
   const { isLightMode } = useAppSelector((state) => state.config);
@@ -20,7 +32,7 @@ const AppToolBar = () => {
 
   const showMenu = async () => {
     setMenuShow(false);
-    await dispatch(fetchTours);
+    await dispatch(fetchTours({}));
   };
 
   const closeNavMenu = () => setNavShow(false);
@@ -52,6 +64,7 @@ const AppToolBar = () => {
     document.addEventListener('click', () => {
       setNavShow(false);
       setMenuShow(false);
+      setLangOptions(false);
     });
 
     return () => {
@@ -59,6 +72,12 @@ const AppToolBar = () => {
       document.removeEventListener('scroll', setClassList);
     };
   }, [isLightMode, setClassList, setEventListener]);
+
+  const onLangSwitch = (language: string) => {
+    dispatch(setLang(language));
+    dispatch(fetchTour(tour?._id || ''));
+    dispatch(fetchTours({}));
+  };
 
   return (
     <>
@@ -68,6 +87,45 @@ const AppToolBar = () => {
         }`}
         ref={toolBarRef}
       >
+        <div
+          className={`form-lang ${langOptions ? 'form-lang-open' : ''}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            setLangOptions(!langOptions);
+          }}
+        >
+          <span className="form-lang-value">
+            <Image
+              width={40}
+              height={40}
+              src={apiUrl + `/fixtures/${lang}.jpg`}
+              alt={lang}
+            />
+          </span>
+          <div
+            className={`form-lang-options form-lang-options-${
+              langOptions ? 'open' : 'closed'
+            }`}
+          >
+            {Object.keys(languages).map(
+              (language) =>
+                language !== lang && (
+                  <span
+                    className="form-lang-option"
+                    onClick={() => onLangSwitch(language)}
+                    key={language}
+                  >
+                    <Image
+                      width={40}
+                      height={40}
+                      src={apiUrl + `/fixtures/${language}.jpg`}
+                      alt={language}
+                    />
+                  </span>
+                ),
+            )}
+          </div>
+        </div>
         <div className="container">
           <div className="tool-bar">
             <div className="logo-wrap">
@@ -154,8 +212,8 @@ const AppToolBar = () => {
                 className={`nav-link ${
                   pathname === '/contactUs' ? 'active' : ''
                 }`}
-                onClick={() => {
-                  showMenu();
+                onClick={async () => {
+                  await showMenu();
                   closeNavMenu();
                 }}
               >
@@ -170,7 +228,7 @@ const AppToolBar = () => {
                 onClick={(e) => {
                   e.stopPropagation();
                   setMenuShow(!menuShow);
-                  dispatch(fetchTours());
+                  dispatch(fetchTours({}));
                 }}
               >
                 <span></span>

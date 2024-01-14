@@ -180,6 +180,7 @@
   height: 92px;
   border-radius: 10px;
   transition: 0.1s;
+  object-fit: cover;
 }
 
 .reviews-main-page-img:hover {

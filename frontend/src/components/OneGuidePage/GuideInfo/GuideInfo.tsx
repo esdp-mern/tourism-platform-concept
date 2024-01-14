@@ -5,6 +5,7 @@ import { selectOneGuide } from '@/containers/guides/guidesSlice';
 import { apiUrl } from '@/constants';
 import { selectGuideTours } from '@/containers/tours/toursSlice';
 import TourListItem from '@/components/TourListItem/TourListItem';
+import Image from 'next/image';
 
 const GuideInfo = () => {
   const guide = useAppSelector(selectOneGuide);
@@ -17,7 +18,9 @@ const GuideInfo = () => {
       <div className="guide-page_guide-info">
         <div className="guide-page_info-title-wrap">
           <div className="guide-page_avatar-wrap">
-            <img
+            <Image
+              width={145}
+              height={145}
               className="guide-page_avatar"
               src={apiUrl + '/' + guide.user.avatar}
               alt={guide.user.displayName}

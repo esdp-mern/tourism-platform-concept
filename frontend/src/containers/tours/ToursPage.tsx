@@ -10,18 +10,20 @@ import HotTours from '@/components/HotTours/HotTours';
 import ReviewsMain from '@/components/ReviewsMain/ReviewsMain';
 import { fetchPlatformReviews } from '@/containers/reviews/reviewThunk';
 import { selectPlatformReviews } from '@/containers/reviews/reviewSlice';
-import Statistics from '@/components/Statisticks/Statistics';
+import Statistics from '@/components/Statistics/Statistics';
 import { setIsLightMode } from '@/containers/config/configSlice';
+import { useTranslations } from 'next-intl';
 
 const ToursPage = () => {
   const tours = useAppSelector(selectAllTours);
   const dispatch = useAppDispatch();
   const reviews = useAppSelector(selectPlatformReviews);
+  const t = useTranslations('main');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
     dispatch(fetchPlatformReviews());
-    dispatch(fetchTours({ limit: 6 }));
+    dispatch(fetchTours());
   }, [dispatch]);
 
   return (
@@ -30,7 +32,7 @@ const ToursPage = () => {
       <PageLoader />
       <div className="featured-tours">
         <div className="container">
-          <h2 className="tours-page-title">Featured Tours</h2>
+          <h2 className="tours-page-title">{t('main_title')}</h2>
           <div className="tours-page">
             {tours.map((tour) => (
               <TourListItem tour={tour} key={tour._id} />
@@ -38,7 +40,7 @@ const ToursPage = () => {
           </div>
           <div className="tours-page-link">
             <Link href={`/tours/all/${1}`} className="tours-page-link-tours">
-              See all tours
+              {t('seeAll_btn')}
             </Link>
           </div>
         </div>

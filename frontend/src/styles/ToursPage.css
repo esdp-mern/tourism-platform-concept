@@ -134,6 +134,9 @@
 }
 
 @media (max-width: 1020px) {
+  .tours-page {
+    padding-top: 50px;
+  }
   .tours-page-title {
     margin: 0;
     font-size: 36px;

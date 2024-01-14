@@ -11,6 +11,7 @@ export interface IUser {
   avatar?: string;
   appleID?: string;
   googleID?: string;
+  verified: boolean;
 }
 
 export interface ITourReview {
@@ -48,8 +49,8 @@ export interface IPartner {
 }
 
 export interface IAboutUsBlock {
-  title: string;
-  description?: string;
+  title: ILanguages;
+  description?: ILanguages;
   image?: string;
 }
 
@@ -58,4 +59,10 @@ export interface ITourPoint {
   icon: string;
   title: string;
   strokeColor: string;
+}
+
+export interface ILanguages {
+  en: string;
+  ru: string;
+  kg: string;
 }

@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { wrapper } from '@/store/store';
-import { InferGetServerSidePropsType, NextPage } from 'next';
+import {
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage,
+} from 'next';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
   resetPostReviewError,
   selectOneTour,
   selectPostReviewError,
 } from '@/containers/tours/toursSlice';
-import { fetchTour, fetchTours } from '@/containers/tours/toursThunk';
+import { fetchTour } from '@/containers/tours/toursThunk';
 import { useParams } from 'next/navigation';
 import { apiUrl } from '@/constants';
 import OneTourInformation from '@/components/OneTourPage/OneTourInformation/OneTourInformation';
@@ -21,6 +24,7 @@ import Custom404 from '@/pages/404';
 import { fetchTourRating } from '@/containers/ratings/ratingThunk';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import GoogleMap from '@/components/GoogleMap/GoogleMap';
+import { useTranslations } from 'next-intl';
 
 interface ITab {
   title: string;
@@ -46,6 +50,7 @@ const TourPage: NextPage<
   const postReviewError = useAppSelector(selectPostReviewError);
   const [currentTab, setCurrentTab] = useState<string>('information');
   const [adaptiveTabBtns, setAdaptiveTabBtns] = useState('');
+  const t = useTranslations('oneTour');
 
   useEffect(() => {
     if (postReviewError) {
@@ -53,7 +58,6 @@ const TourPage: NextPage<
     }
     dispatch(setIsLightMode(false));
     dispatch(fetchTour(id));
-    dispatch(fetchTours());
     dispatch(fetchToursReviews(id));
     dispatch(fetchTourRating(id));
   }, [dispatch, postReviewError, id]);
@@ -95,12 +99,16 @@ const TourPage: NextPage<
           <div className="one-tour-top-line"></div>
           <h2 className="one-tour-top-title">{tour.name}</h2>
           <div className="one-tour-btns">
-            <button className="one-tour-btn-one">Video Preview</button>
-            <button className="one-tour-btn-two">View photos</button>
+            <button className="one-tour-btn-one">
+              {t(`tour_video_preview`)}
+            </button>
+            <button className="one-tour-btn-two">
+              {t(`tour_view_photos`)}
+            </button>
           </div>
         </div>
         <div className="one-tour-slider-btns">
-          {TABS.map(({ title, name }) => (
+          {TABS.map(({ name }) => (
             <button
               name={name}
               onClick={toggleTab}
@@ -111,7 +119,7 @@ const TourPage: NextPage<
               }
               key={`${name}-tab`}
             >
-              <span>{title}</span>
+              <span>{t(`tour_tab_${name}`)}</span>
             </button>
           ))}
         </div>
@@ -123,14 +131,14 @@ const TourPage: NextPage<
             <span>Navigation</span>
           </button>
           <div className={`tour-tab-btns tour-tab-btns-${adaptiveTabBtns}`}>
-            {TABS.map(({ title, name }) => (
+            {TABS.map(({ name }) => (
               <button
                 name={name}
                 onClick={toggleTab}
                 className={`tour-tab-btn tour-tab-btn-${name}`}
                 key={`${name}-tab`}
               >
-                <span>{title}</span>
+                <span>{t(`tour_tab_${name}`)}</span>
               </button>
             ))}
           </div>
@@ -152,17 +160,13 @@ const TourPage: NextPage<
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    async ({ params }) => {
-      const id = params?.id;
-
-      if (!id || Array.isArray(id)) {
-        throw new Error('Param id must be a string');
-      }
-
-      await store.dispatch(fetchTour(id));
-      return { props: {} };
-    },
-);
 export default TourPage;
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

@@ -6,12 +6,14 @@ import { selectToursReviews } from '@/containers/reviews/reviewSlice';
 import NewReviewForm from '@/components/NewReviewForm/NewReviewForm';
 import { selectUser } from '@/containers/users/usersSlice';
 import { selectToursRating } from '@/containers/ratings/ratingSlice';
+import { useTranslations } from 'next-intl';
 
 const OneTourReview = () => {
   const toursReviews = useAppSelector(selectToursReviews);
   const user = useAppSelector(selectUser);
   const toursRatings = useAppSelector(selectToursRating);
   let reviewTotal = '';
+  const t = useTranslations('oneTour');
 
   const calculateAverageRating = () => {
     if (toursReviews.length === 0) {
@@ -24,17 +26,17 @@ const OneTourReview = () => {
     );
 
     if (sum / toursRatings.length === 5) {
-      reviewTotal = 'Super';
+      reviewTotal = t('tour_rating_super');
     } else if (sum / toursRatings.length >= 4) {
-      reviewTotal = 'Good';
+      reviewTotal = t('tour_rating_good');
     } else if (sum / toursRatings.length >= 3) {
-      reviewTotal = 'Normal';
+      reviewTotal = t('tour_rating_normal');
     } else if (sum / toursRatings.length >= 2) {
-      reviewTotal = 'Bad';
+      reviewTotal = t('tour_rating_bad');
     } else if (sum / toursRatings.length >= 1) {
-      reviewTotal = 'Very bad';
+      reviewTotal = t('tour_rating_very_bad');
     } else {
-      reviewTotal = 'Not rated';
+      reviewTotal = t('tour_not_rated');
     }
     return sum / toursRatings.length;
   };

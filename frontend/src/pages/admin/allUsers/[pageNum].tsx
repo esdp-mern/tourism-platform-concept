@@ -8,6 +8,7 @@ import { apiUrl, userRoles } from '@/constants';
 import PageLoader from '@/components/Loaders/PageLoader';
 import Custom404 from '@/pages/404';
 import Pagination from '@/components/Pagination/Pagination';
+import Image from 'next/image';
 
 const PageNum = () => {
   const dispatch = useAppDispatch();
@@ -46,7 +47,8 @@ const PageNum = () => {
         {currentRecords.map((user: User) => (
           <div className="user-card" key={user._id}>
             <div className="user-card-top">
-              <img
+              <Image
+                fill
                 src={
                   (user.avatar?.slice(0, 5) === 'https' ? '' : `${apiUrl}/`) +
                   user.avatar

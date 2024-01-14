@@ -23,7 +23,7 @@ Feature: Users logout and editing
     Then the user menu should be visible
     When I click "Edit profile" button
     Then I see the user's modal window.
-    When I enter new user form fields:
+    When I enter new form fields:
       | displayName | Christian |
       | email | chris@gmail.com |
     Then I click "Save" button
@@ -40,7 +40,7 @@ Feature: Users logout and editing
     Then I go to the profile page
     When I click edit profile button
     Then I see the user's modal window.
-    When I enter new user form fields:
+    When I enter new form fields:
       | displayName | John |
       | email | john@gmail.com |
     Then I click "Save" button

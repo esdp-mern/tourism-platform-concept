@@ -22,6 +22,7 @@ import penIcon from '@/assets/images/pen-icon-green.svg';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import Image from 'next/image';
 import FileInput from '@/components/UI/FileInput/FileInput';
+import { GetServerSideProps } from 'next';
 
 const ContactUs = () => {
   const dispatch = useAppDispatch();
@@ -155,7 +156,8 @@ const ContactUs = () => {
     <div className="contacts-page">
       <PageLoader />
       <div className="contacts-top">
-        <img
+        <Image
+          fill
           src={apiUrl + '/' + contacts?.image}
           alt="nature"
           className="contacts-main-img"
@@ -165,9 +167,11 @@ const ContactUs = () => {
           <p className="contacts-top-title">
             {contacts && contacts.title ? contacts.title : 'Contact Us'}
             {admin && (
-              <span
+              <button
                 className="icon-container-edit-contacts"
                 onClick={() => setEditModalTitle(true)}
+                style={{ background: 'none' }}
+                name="main"
               >
                 <Image
                   src={penIcon}
@@ -176,7 +180,7 @@ const ContactUs = () => {
                   height={20}
                   className="icon-edit"
                 />
-              </span>
+              </button>
             )}
           </p>
           {contacts && contacts.description ? (
@@ -299,6 +303,7 @@ const ContactUs = () => {
                                 return updatedInfo;
                               });
                             }}
+                            name="delete-contact-info"
                           >
                             Delete
                           </button>
@@ -306,6 +311,7 @@ const ContactUs = () => {
                             type="submit"
                             className="form-tour-btn"
                             style={{ margin: 0 }}
+                            name="contacts-title-edit-btn"
                           >
                             {editContactsLoading ? (
                               <ButtonLoader size={18} />
@@ -388,52 +394,24 @@ const ContactUs = () => {
               type="submit"
               className="form-tour-btn"
               style={{ margin: 0 }}
+              name="contacts-title-edit-btn"
             >
               {editContactsLoading ? <ButtonLoader size={18} /> : 'Save'}
             </button>
           </form>
         </div>
       </div>
-
-      <div className="container">
-        <form className="contact-form">
-          <h3 className="contact-form-title">Get in Touch</h3>
-          <div className="contacts-first-inputs">
-            <div className="contact-form-textarea">
-              <textarea
-                className="contact-form-input-name"
-                placeholder="Name"
-                required
-              />
-            </div>
-            <div className="contact-form-textarea">
-              <textarea
-                className="contact-form-input-phone"
-                placeholder="Phone"
-                required
-              />
-            </div>
-            <div className="contact-form-textarea">
-              <textarea
-                className="contact-form-input-email"
-                placeholder="Email"
-                required
-              />
-            </div>
-          </div>
-
-          <div className="contact-form-textarea">
-            <textarea
-              className="contact-form-input-message"
-              placeholder="Message"
-              required
-            />
-          </div>
-          <button type="submit">send</button>
-        </form>
-      </div>
     </div>
   );
 };
 
 export default ContactUs;
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

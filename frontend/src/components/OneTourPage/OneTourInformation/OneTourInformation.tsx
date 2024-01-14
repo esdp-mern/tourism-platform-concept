@@ -9,31 +9,21 @@ import { apiUrl } from '@/constants';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import GalleryItem from '@/components/OneTourPage/Gallery/GalleryItem';
 import GalleryModal from '@/components/OneTourPage/Gallery/GalleryModal';
+import { useTranslations } from 'next-intl';
 
 const OneTourInformation = () => {
   const tour = useAppSelector(selectOneTour);
   const modal = useAppSelector(galleryModal);
   const dispatch = useAppDispatch();
   const [currentImg, setCurrentImg] = useState('');
-
-  const getSpan = (value: string) => <span>{value}</span>;
+  const t = useTranslations('oneTour');
 
   if (!tour) return null;
-
-  const duration = getSpan(
-    `${tour.duration} Day${tour.duration > 1 ? 's' : ''}`,
-  );
 
   const onOpenModal = (e: React.MouseEvent) => {
     const src = e.currentTarget.getAttribute('src')!;
     setCurrentImg(src);
     dispatch(showModal(true));
-  };
-
-  const onGalleryImgsClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    const src = e.currentTarget.getAttribute('src')!;
-    setCurrentImg(src);
   };
   const onLeftClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -82,30 +72,36 @@ const OneTourInformation = () => {
           <h3 className="one-tour-inner-title">{tour.name}</h3>
           <div className="one-tour-inner-price-wrap">
             <span className="one-tour-inner-price">{tour.price} KGS</span>
-            per person
+            {t('per_person')}
           </div>
           <div className="one-tour-inner-info">
-            <div className="one-tour-inner-duration">{duration}</div>
-            <div className="one-tour-inner-featur">Featured Tour</div>
+            <div className="one-tour-inner-duration">
+              {tour.duration + ' ' + t('tour_duration')}
+            </div>
+            <div className="one-tour-inner-featur">{t('featured_tour')}</div>
           </div>
           <div className="one-tour-inner-txt">{tour.description}</div>
           <div className="one-tour-inner-box">
             <table className="one-tour-inner-table">
               <tbody>
                 <tr>
-                  <td>Destination</td>
+                  <td>{t('tour_country')}</td>
                   <td>{tour.country}</td>
                 </tr>
                 <tr>
-                  <td>Arrival</td>
+                  <td>{t('tour_destination')}</td>
+                  <td>{tour.destination}</td>
+                </tr>
+                <tr>
+                  <td>{t('tour_arrival')}</td>
                   <td>{tour.arrival}</td>
                 </tr>
                 <tr>
-                  <td>Departure</td>
+                  <td>{t('tour_departure')}</td>
                   <td>{tour.departure}</td>
                 </tr>
                 <tr>
-                  <td>What is Included</td>
+                  <td>{t('tour_included')}</td>
                   <td>
                     <ul className="one-tour-inner-table-list">
                       {tour.included.map((inc, id) => (
@@ -115,30 +111,30 @@ const OneTourInformation = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td>Departure</td>
+                  <td>{t('tour_dressCode')}</td>
                   <td>{tour.dressCode}</td>
                 </tr>
                 <tr>
-                  <td>Guides</td>
+                  <td>{t('tour_guides')}</td>
                   <td>
                     {tour.guides.length > 0 ? (
                       tour.guides.map((guide) => (
                         <div key={guide._id}>{guide.user.displayName}</div>
                       ))
                     ) : (
-                      <div>No guide for this tour</div>
+                      <div>-</div>
                     )}
                   </td>
                 </tr>
                 <tr>
-                  <td>Category</td>
+                  <td>{t('tour_category')}</td>
                   <td>{tour.category.join(', ')}</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div className="one-tour-inner-gallery">
-            <h3>Tour Gallery</h3>
+            <h3>{t('tour_gallery')}</h3>
             <div className="one-tour-inner-gallery2">
               <GalleryItem tour={tour} onOpenModal={onOpenModal} />
             </div>
@@ -151,7 +147,7 @@ const OneTourInformation = () => {
           currentImg={currentImg}
           onLeftClick={onLeftClick}
           onRightClick={onRightClick}
-          onGalleryImgsClick={onGalleryImgsClick}
+          onGalleryImgsClick={setCurrentImg}
         />
       ) : null}
     </>

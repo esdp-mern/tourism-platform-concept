@@ -44,9 +44,9 @@
   }
 }
 
-@media (max-width: 470px) {
+@media (max-width: 500px) {
   .editor-modal-inner {
-    width: 300px;
+    width: 80%;
     padding: 10px 20px;
   }
 }

@@ -1,4 +1,9 @@
+/** @type {import('next').NextConfig} */
 module.exports = {
+  i18n: {
+    locales: ['en', 'ru', 'kg'],
+    defaultLocale: 'en',
+  },
   reactStrictMode: true,
   images: { domains: ['localhost'] },
   webpack: (config, { _ }) => {

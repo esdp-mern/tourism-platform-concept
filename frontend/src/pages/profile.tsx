@@ -10,6 +10,9 @@ import img from '../assets/images/userImage.jpeg';
 import { fetchOrdersUser } from '@/containers/orders/ordersThunk';
 import UserOrders from '@/components/UserOrders/UserOrders';
 import GuideProfile from '@/components/GuideProfile/GuideProfile';
+import Image from 'next/image';
+import bgImage from '@/assets/images/bg-image-1.jpg';
+import { GetServerSideProps } from 'next';
 
 const Profile = () => {
   const dispatch = useAppDispatch();
@@ -45,10 +48,11 @@ const Profile = () => {
     <div>
       <PageLoader />
       <div className="profile-page_top">
-        <img
-          alt="mountains"
-          src="https://livedemo00.template-help.com/wt_prod-19282/images/bg-image-1.jpg"
+        <Image
+          fill
           className="profile-page_main-img"
+          src={bgImage.src}
+          alt="mountains"
         />
         <div className="profile-page_top-info">
           <div className="profile-page_top-line"></div>
@@ -58,7 +62,7 @@ const Profile = () => {
       <div className="page-profile container">
         <div className="profile-page_profile">
           <div className="profile-page_img-wrap">
-            <img className="profile-page_img" src={image} alt="img" />
+            <Image fill className="profile-page_img" src={image} alt="img" />
           </div>
           <div>
             <h4 className="profile-page_name">Name : {user.displayName}</h4>
@@ -93,3 +97,12 @@ const Profile = () => {
 };
 
 export default Profile;
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};
