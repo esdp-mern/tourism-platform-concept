@@ -30,6 +30,10 @@ const TourSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  discountPrice: {
+    type: Number,
+    default: null,
+  },
   duration: {
     type: Number,
     required: true,

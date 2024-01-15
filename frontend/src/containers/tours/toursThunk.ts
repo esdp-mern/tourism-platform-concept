@@ -36,6 +36,25 @@ export const fetchTours = createAsyncThunk<
   return response.data;
 });
 
+export const fetchToursWithDiscountPrice = createAsyncThunk<
+  Tour[],
+  { skip: number; limit: number } | undefined
+>('tours/fetchToursWithDiscountPrice', async (arg) => {
+  if (arg) {
+    const { data } = await axiosApi.get<Tour[]>(
+      `/tours/toursWithDiscountPrice?skip=${arg.skip}&limit=${arg.limit}`,
+    );
+
+    return data;
+  } else {
+    const { data } = await axiosApi.get<Tour[]>(
+      '/tours/toursWithDiscountPrice',
+    );
+
+    return data;
+  }
+});
+
 export const fetchToursByFilter = createAsyncThunk<
   Tour[],
   { type: string; value?: string; skip?: number; limit?: number }

@@ -9,6 +9,42 @@ import { ILanguages } from '../type';
 
 const toursRouter = express.Router();
 
+toursRouter.get('/toursWithDiscountPrice', async (req, res) => {
+  try {
+    const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
+
+    const queries = {
+      skip: parseInt(String(req.query.skip || 0)),
+      limit: parseInt(String(req.query.limit || 0)),
+    };
+
+    let tours;
+
+    if (req.query.skip && req.query.limit) {
+      tours = await Tour.find({ discountPrice: { $ne: null } })
+        .skip(queries.skip)
+        .limit(queries.limit);
+    } else {
+      tours = await Tour.find({ discountPrice: { $ne: null } });
+    }
+
+    const updatedTours = tours.map((tour) => {
+      return {
+        ...tour.toObject(),
+        name: tour.toObject().name?.[lang] || tour.toObject().name?.en,
+        destination:
+          tour.toObject().destination?.[lang] ||
+          tour.toObject().destination?.en,
+        country: tour.toObject().country?.[lang] || tour.toObject().country?.en,
+      };
+    });
+
+    return res.send(updatedTours);
+  } catch (e) {
+    return res.status(500).send('Error');
+  }
+});
+
 toursRouter.get('/filterByName', async (req, res) => {
   try {
     const queries = {
@@ -301,6 +337,7 @@ toursRouter.get('/:id', async (req, res) => {
       description: tour.description ? tour.description[lang] : tour.description,
       category: tour.category,
       price: tour.price,
+      discountPrice: tour.discountPrice,
       duration: tour.duration,
       plan,
       destination: tour.destination ? tour.destination[lang] : tour.destination,
@@ -538,6 +575,8 @@ toursRouter.post(
         }
         existingTour.category = JSON.parse(req.body.category);
         existingTour.price = req.body.price || existingTour.price;
+        existingTour.discountPrice =
+          req.body.discountPrice || existingTour.discountPrice;
         existingTour.duration = req.body.duration || existingTour.duration;
         existingTour.plan = plan;
         existingTour.destination =

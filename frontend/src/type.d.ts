@@ -93,6 +93,7 @@ export interface Tour {
   galleryTour: [];
   mainImage: string;
   price: number;
+  discountPrice: number;
   isPublished: boolean;
   routes: ITourRoute[][];
 }
@@ -124,6 +125,7 @@ export interface ITourMutation {
   galleryTour: File[] | null;
   mainImage: File | null;
   price: number;
+  discountPrice: number;
   routes: ITourRoute[][];
 }
 

@@ -148,6 +148,7 @@ const run = async () => {
         },
         category: ['history', 'exotic'],
         price: 800,
+        discountPrice: 499,
         duration: 1,
         plan: [
           {
@@ -402,6 +403,7 @@ const run = async () => {
         },
         category: ['history', 'popular', 'exotic'],
         price: 2000,
+        discountPrice: 1500,
         duration: 1,
         plan: [
           {
@@ -457,6 +459,7 @@ const run = async () => {
         },
         category: ['history', 'on budget'],
         price: 6000,
+        discountPrice: 4999,
         duration: 3,
         plan: [
           {
@@ -668,6 +671,7 @@ const run = async () => {
         },
         category: ['vacation', 'popular'],
         price: 6900,
+        discountPrice: 6000,
         duration: 3,
         plan: [
           {

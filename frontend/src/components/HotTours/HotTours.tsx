@@ -1,27 +1,30 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useAppSelector } from '@/store/hooks';
-import { selectAllTours } from '@/containers/tours/toursSlice';
+import React, { useCallback, useEffect, useRef } from 'react';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import {
+  selectToursWithDiscountTours,
+  setToursWithDiscountPrice,
+} from '@/containers/tours/toursSlice';
 import HotToursItem from '@/components/HotTours/components/HotToursItem/HotToursItem';
 import arrowRightIcon from '@/assets/images/arrow-right.svg';
-import { Tour } from '@/type';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { fetchToursWithDiscountPrice } from '@/containers/tours/toursThunk';
 
 const HotTours = () => {
-  const tours = useAppSelector(selectAllTours);
+  const dispatch = useAppDispatch();
+  const tours = useAppSelector(selectToursWithDiscountTours);
+
   const carouselRef = useRef<HTMLDivElement | null>(null);
-  const [carouselTours, setCarouselTours] = useState<Tour[]>([]);
+
   const t = useTranslations('main');
 
   useEffect(() => {
-    if (tours.length) {
-      setCarouselTours(tours.slice(0, 4));
-    }
-  }, [tours]);
+    dispatch(fetchToursWithDiscountPrice());
+  }, []);
 
   const slide = useCallback(
     (isNext: boolean) => {
-      if (!carouselRef.current || !carouselTours.length) return;
+      if (!carouselRef.current || !tours.length) return;
 
       const ms = 250;
 
@@ -34,44 +37,21 @@ const HotTours = () => {
 
       setTimeout(() => {
         if (!carouselRef.current) return;
+
         carouselRef.current.style.cssText = `
             transition: none;
             transform: translateX(0);
           `;
 
-        setCarouselTours((prevState) => {
-          const newState = [...prevState];
+        const newState = [...tours];
 
-          const lastOrFirstCarouselTour =
-            newState[isNext ? newState.length - 1 : 0];
+        if (isNext) newState.push(newState.shift()!);
+        else newState.unshift(newState.pop()!);
 
-          if (isNext) {
-            newState.shift();
-          } else {
-            newState.pop();
-          }
-
-          let lastOrFirstTour = tours.findIndex(
-            (tour) => tour._id === lastOrFirstCarouselTour._id,
-          );
-
-          if (isNext) {
-            if (lastOrFirstTour === tours.length - 1) {
-              lastOrFirstTour = -1;
-            }
-            newState.push(tours[lastOrFirstTour + 1]);
-          } else {
-            if (lastOrFirstTour === 0) {
-              lastOrFirstTour = tours.length - 1;
-            }
-            newState.unshift(tours[lastOrFirstTour - 1]);
-          }
-
-          return newState;
-        });
+        dispatch(setToursWithDiscountPrice(newState));
       }, ms);
     },
-    [carouselTours.length, tours],
+    [tours.length, tours],
   );
 
   useEffect(() => {
@@ -89,7 +69,7 @@ const HotTours = () => {
           <div className="hot-tours-carousel-inner-wrapper">
             <div className="hot-tours-carousel-inner">
               <div className="hot-tours-carousel-inner-items" ref={carouselRef}>
-                {carouselTours.map((tour) => (
+                {tours.map((tour) => (
                   <HotToursItem tour={tour} key={`hot-tour-${tour._id}`} />
                 ))}
               </div>
