@@ -13,7 +13,7 @@ Feature: Application to become a partner
     Then I wait 3 sec
     Then I go to the about us page
     Then I wait 3 sec
-    Then I click "BECOME A PARTNER" link
+    Then I click "become a partner" link
     Then I wait 3 sec
     When I enter form fields:
       | name | Ak-Maral       |

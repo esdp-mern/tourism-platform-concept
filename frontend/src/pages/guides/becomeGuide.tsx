@@ -14,6 +14,7 @@ import peopleIcon from '@/assets/images/people-icon.svg';
 import phoneIcon from '@/assets/images/phone-icon.svg';
 import { selectGuideRequestLoading } from '@/containers/guides/guidesSlice';
 import Custom404 from '@/pages/404';
+import { GetServerSideProps } from 'next';
 
 const BecomeGuide = () => {
   const user = useAppSelector(selectUser);
@@ -134,3 +135,12 @@ const BecomeGuide = () => {
 };
 
 export default BecomeGuide;
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

@@ -5,7 +5,7 @@ import {
   deleteGuideOrder,
   fetchOneGuideOrder,
 } from '@/containers/guides/guidesThunk';
-import { InferGetServerSidePropsType, NextPage } from 'next';
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
 import { useParams } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
@@ -212,18 +212,13 @@ const CreateGuide: NextPage<
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    async ({ params }) => {
-      const id = params?.id;
-
-      if (!id || Array.isArray(id)) {
-        throw new Error('Param id must be a string');
-      }
-
-      await store.dispatch(fetchOneGuideOrder(id));
-      return { props: {} };
-    },
-);
-
 export default CreateGuide;
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

@@ -22,6 +22,7 @@ import FileInput from '@/components/UI/FileInput/FileInput';
 import { selectCreateGuideLoading } from '@/containers/guides/guidesSlice';
 import { userRoles } from '@/constants';
 import Custom404 from '@/pages/404';
+import { GetServerSideProps } from 'next';
 
 const CreateGuide = () => {
   const initialState = {
@@ -235,3 +236,12 @@ const CreateGuide = () => {
 };
 
 export default CreateGuide;
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

@@ -9,6 +9,7 @@ import { setIsLightMode } from '@/containers/config/configSlice';
 import { selectAllPartnerOrders } from '@/containers/partners/partnersSlice';
 import { fetchPartnerOrders } from '@/containers/partners/partnersThunk';
 import PartnerOrderItem from '@/components/PartnerOrderItem/PartnerOrderItem';
+import { GetServerSideProps } from 'next';
 
 const AllPartnerOrdersPage = () => {
   const dispatch = useAppDispatch();
@@ -82,3 +83,12 @@ const AllPartnerOrdersPage = () => {
 };
 
 export default AllPartnerOrdersPage;
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

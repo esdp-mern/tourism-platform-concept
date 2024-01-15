@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { InferGetServerSidePropsType, NextPage } from 'next';
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useParams } from 'next/navigation';
 import { selectUser } from '@/containers/users/usersSlice';
@@ -57,17 +57,13 @@ const EditPartner: NextPage<
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    async ({ params }) => {
-      const editID = params?.editID;
-
-      if (!editID || Array.isArray(editID)) {
-        throw new Error('Param id must be a string');
-      }
-
-      await store.dispatch(fetchOnePartner(editID));
-      return { props: {} };
-    },
-);
 export default EditPartner;
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

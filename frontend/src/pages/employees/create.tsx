@@ -6,6 +6,7 @@ import { setIsLightMode } from '@/containers/config/configSlice';
 import { selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
 import Custom404 from '@/pages/404';
+import { GetServerSideProps } from 'next';
 
 const NewEmployee = () => {
   const dispatch = useAppDispatch();
@@ -31,3 +32,12 @@ const NewEmployee = () => {
 };
 
 export default NewEmployee;
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};
