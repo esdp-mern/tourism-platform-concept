@@ -250,7 +250,7 @@ const About = () => {
                           </h5>
                         </div>
                         <div className="about-page-clients-card-txt">
-                          {review.comment}
+                          {review.comment}looeroeoreoroereroeoreroeorlooeroeoreoroereroeoreroeorlooeroeoreoroereroeoreroeorlooeroeoreoroereroeoreroeorlooeroeoreoroereroeoreroeorlooeroeoreoroereroeoreroeorlooeroeoreoroereroeoreroeor
                         </div>
                         <div className="about-page-clients-card-date">
                           {dayjs(review.date)
