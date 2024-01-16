@@ -97,6 +97,10 @@ const OneTourInformation = () => {
                   <td>{tour.arrival}</td>
                 </tr>
                 <tr>
+                  <td>{t('tour_date')}</td>
+                  <td>{tour.date}</td>
+                </tr>
+                <tr>
                   <td>{t('tour_departure')}</td>
                   <td>{tour.departure}</td>
                 </tr>

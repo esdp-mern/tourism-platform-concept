@@ -18,7 +18,6 @@
 }
 
 .input-filter-name {
-  text-align: center;
   width: 20px;
   margin: 0 auto;
   background: none;
@@ -31,7 +30,6 @@
   border: 0;
   background: none;
   text-transform: uppercase;
-  text-align: center;
 }
 
 .input-filter-name:focus {
@@ -54,6 +52,25 @@
   border-color: #c4c4c4;
 }
 
+.tab-filter .text-field {
+  margin-left: 16px;
+  font-size: 16px;
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+.tab-filter .text-field .text-field-label {
+  font-size: 16px !important;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #808080;
+}
+
+.tab-filter .text-field input {
+  border-bottom: 0;
+  min-height: 59px;
+}
+
 .tab-filter span {
   text-align: start;
   white-space: nowrap;
@@ -66,7 +83,6 @@
 
 .filter-link {
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 4px;
   width: 100%;
@@ -100,6 +116,7 @@
 .filter-active {
   color: #000000;
   background: #f6f6f6;
+  padding-left: 16px !important;
 }
 
 .icon-filter {

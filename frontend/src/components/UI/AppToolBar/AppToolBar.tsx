@@ -9,9 +9,8 @@ import {
 } from '@/containers/users/usersSlice';
 import ToolBarMenu from '@/components/UI/AppToolBar/components/ToolBarMenu';
 import { usePathname } from 'next/navigation';
-import { fetchTour, fetchTours } from '@/containers/tours/toursThunk';
+import { fetchTours } from '@/containers/tours/toursThunk';
 import { apiUrl, languages } from '@/constants';
-import { selectOneTour } from '@/containers/tours/toursSlice';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
@@ -19,12 +18,13 @@ import { useTranslations } from 'next-intl';
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);
   const lang = useAppSelector(selectLanguage);
-  const tour = useAppSelector(selectOneTour);
   const dispatch = useAppDispatch();
   const [navShow, setNavShow] = useState(false);
   const [menuShow, setMenuShow] = useState(false);
   const [langOptions, setLangOptions] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+  const t = useTranslations('navbar');
 
   const { isLightMode } = useAppSelector((state) => state.config);
 
@@ -59,6 +59,8 @@ const AppToolBar = () => {
 
   useEffect(() => {
     setEventListener();
+    const { locale } = router;
+    dispatch(setLang(locale || 'en'));
     window.addEventListener('resize', setEventListener);
 
     document.addEventListener('click', () => {
@@ -71,12 +73,18 @@ const AppToolBar = () => {
       window.removeEventListener('resize', setEventListener);
       document.removeEventListener('scroll', setClassList);
     };
-  }, [isLightMode, setClassList, setEventListener]);
+  }, [dispatch, isLightMode, router, setClassList, setEventListener]);
 
   const onLangSwitch = (language: string) => {
+    const href = {
+      pathname: router.pathname,
+      query: router.query,
+    };
+    void router.push(href, undefined, { locale: language });
     dispatch(setLang(language));
-    dispatch(fetchTour(tour?._id || ''));
-    dispatch(fetchTours({}));
+    setTimeout(() => {
+      location.reload();
+    }, 200);
   };
 
   return (
@@ -155,11 +163,11 @@ const AppToolBar = () => {
                 href="/"
                 className={`nav-link ${pathname === '/' ? 'active' : ''}`}
                 onClick={() => {
-                  showMenu();
+                  void showMenu();
                   closeNavMenu();
                 }}
               >
-                Home
+                {t('home')}
               </NavLink>
               <NavLink
                 href="/tours/all/1"
@@ -167,27 +175,27 @@ const AppToolBar = () => {
                   pathname && pathname.includes('/tours/all') ? 'active' : ''
                 }`}
                 onClick={() => {
-                  showMenu();
+                  void showMenu();
                   closeNavMenu();
                 }}
               >
-                Tours
+                {t('tours')}
               </NavLink>
               <NavLink
                 href="/about"
                 className={`nav-link ${pathname === '/about' ? 'active' : ''}`}
                 onClick={() => {
-                  showMenu();
+                  void showMenu();
                   closeNavMenu();
                 }}
               >
-                About Us
+                {t('about_us')}
               </NavLink>
               {user ? (
                 <UserMenu
                   user={user}
                   onClick={() => {
-                    showMenu();
+                    void showMenu();
                     closeNavMenu();
                   }}
                   pathname={pathname}
@@ -201,11 +209,11 @@ const AppToolBar = () => {
                   pathname && pathname.includes('/news/all') ? 'active' : ''
                 }`}
                 onClick={() => {
-                  showMenu();
+                  void showMenu();
                   closeNavMenu();
                 }}
               >
-                News
+                {t('news')}
               </NavLink>
               <NavLink
                 href="/contactUs"
@@ -217,7 +225,7 @@ const AppToolBar = () => {
                   closeNavMenu();
                 }}
               >
-                Contact Us
+                {t('contact_us')}
               </NavLink>
             </nav>
             <div className="user-menu">
@@ -234,7 +242,7 @@ const AppToolBar = () => {
                 <span></span>
                 <span></span>
                 <span></span>
-                <span>menu</span>
+                <span>{t('menu')}</span>
               </button>
             </div>
           </div>

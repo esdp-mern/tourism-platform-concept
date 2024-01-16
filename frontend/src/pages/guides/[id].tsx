@@ -1,11 +1,10 @@
-import { wrapper } from '@/store/store';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { selectOneGuide } from '@/containers/guides/guidesSlice';
 import React, { useEffect, useState } from 'react';
 import { fetchGuide } from '@/containers/guides/guidesThunk';
 import { useParams } from 'next/navigation';
 import { setIsLightMode } from '@/containers/config/configSlice';
-import { InferGetServerSidePropsType, NextPage } from 'next';
+import { GetServerSideProps } from 'next';
 import PageLoader from '@/components/Loaders/PageLoader';
 import Custom404 from '@/pages/404';
 import GuideInfo from '@/components/OneGuidePage/GuideInfo/GuideInfo';
@@ -26,9 +25,7 @@ const GuidePageTabs: IGuidePageTabs[] = [
   { title: 'Reviews', name: 'reviews' },
 ];
 
-const OneGuidePage: NextPage<
-  InferGetServerSidePropsType<typeof getServerSideProps>
-> = () => {
+const OneGuidePage = () => {
   const dispatch = useAppDispatch();
   const guide = useAppSelector(selectOneGuide);
   const { id } = useParams() as {
@@ -90,18 +87,13 @@ const OneGuidePage: NextPage<
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    async ({ params }) => {
-      const id = params?.id;
-
-      if (!id || Array.isArray(id)) {
-        throw new Error('Param id must be a string');
-      }
-
-      await store.dispatch(fetchGuide(id));
-      return { props: {} };
-    },
-);
-
 export default OneGuidePage;
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};
