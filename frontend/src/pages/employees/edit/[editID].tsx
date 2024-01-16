@@ -1,5 +1,9 @@
 import React, { useEffect } from 'react';
-import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
+import {
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage,
+} from 'next';
 import { wrapper } from '@/store/store';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useParams } from 'next/navigation';

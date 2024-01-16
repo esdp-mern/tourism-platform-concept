@@ -5,7 +5,11 @@ import {
   deleteGuideOrder,
   fetchOneGuideOrder,
 } from '@/containers/guides/guidesThunk';
-import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
+import {
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage,
+} from 'next';
 import { useParams } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {

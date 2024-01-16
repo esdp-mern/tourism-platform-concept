@@ -31,40 +31,32 @@ export const fetchTours = createAsyncThunk<
   const response = await axiosApi.get<{
     tours: Tour[];
     allToursLength: number;
-  }>(`/tours?skip=${arg?.skip}&limit=${arg?.limit ?? LIMIT}`);
+  }>(`/tours?skip=${arg?.skip || 0}&limit=${arg?.limit ?? LIMIT}`);
 
   return response.data;
 });
 
 export const fetchToursByFilter = createAsyncThunk<
   Tour[],
-  { type: string; value?: string; skip?: number; limit?: number }
->('tours/fetchByFilter', async ({ type, value, skip, limit }) => {
-  let url = '/tours';
-
-  if (type === 'name') {
-    url = `/tours/filterByName?name=${value}`;
-  } else if (type === 'categories') {
-    url = `/tours/filterByCategory?category=${value}`;
+  {
+    date?: string;
+    location?: string;
+    categories: string[];
+    skip?: number;
+    limit?: number;
   }
-
-  const response = await axiosApi<Tour[]>(
-    `${url}&skip=${skip}&limit=${limit ?? LIMIT}`,
-  );
-  return response.data;
-});
-
-export const fetchToursByPrice = createAsyncThunk<
-  Tour[],
-  { type: string; skip?: number; limit?: number }
->('tours/fetchByPrice', async ({ type, skip, limit }) => {
-  const response = await axiosApi.get<Tour[]>(
-    `/tours/filterBy${type === 'max' ? 'Max' : 'Min'}Price?skip=${skip}&limit=${
-      limit ?? LIMIT
-    }`,
-  );
-  return response.data;
-});
+>(
+  'tours/fetchByFilter',
+  async ({ date, location, categories, skip, limit }) => {
+    const url = `/tours/filter?location=${location}&date=${date}&category=${categories.join(
+      ',',
+    )}`;
+    const response = await axiosApi<Tour[]>(
+      `${url}&skip=${skip}&limit=${limit ?? LIMIT}`,
+    );
+    return response.data;
+  },
+);
 
 export const fetchAdminTours = createAsyncThunk<
   { tours: Tour[]; allToursLength: number },
