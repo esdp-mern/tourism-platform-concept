@@ -1,11 +1,11 @@
 import express from 'express';
-import Tour from '../models/Tour';
+import Tour, { ITourMethods } from '../models/Tour';
 import auth from '../middleware/auth';
 import permit from '../middleware/permit';
-import mongoose from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
 import Guide from '../models/Guide';
 import { imagesUpload } from '../multer';
-import { ILanguages } from '../type';
+import { IGuide, ILanguages } from '../type';
 
 const toursRouter = express.Router();
 
@@ -308,13 +308,13 @@ toursRouter.get('/all', async (req, res) => {
 toursRouter.get('/:id', async (req, res) => {
   try {
     const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
-    const tour = await Tour.findById(req.params.id).populate({
+    const tour = (await Tour.findById(req.params.id).populate({
       path: 'guides',
       populate: {
         path: 'user',
         select: 'username displayName role avatar email',
       },
-    });
+    })) as HydratedDocument<ITourMethods>;
 
     if (!tour) {
       return res.status(404).send('Not found!');
@@ -486,132 +486,140 @@ toursRouter.post(
       return next(e);
     }
   },
+);
 
-  toursRouter.put(
-    '/:id',
-    auth,
-    permit('admin'),
-    imagesUpload.fields([
-      { name: 'mainImage', maxCount: 1 },
-      { name: 'galleryTour', maxCount: 10 },
-    ]),
-    async (req, res, next) => {
-      try {
-        const lang = req.get('lang') as 'en' | 'ru' | 'kg';
-        const tourId = req.params.id;
-        const existingTour = await Tour.findById(tourId);
+toursRouter.put(
+  '/:id',
+  auth,
+  permit('admin'),
+  imagesUpload.fields([
+    { name: 'mainImage', maxCount: 1 },
+    { name: 'galleryTour', maxCount: 10 },
+  ]),
+  async (req, res, next) => {
+    try {
+      const lang = req.get('lang') as 'en' | 'ru' | 'kg';
+      const tourId = req.params.id;
+      const existingTour = (await Tour.findById(
+        tourId,
+      )) as HydratedDocument<ITourMethods>;
 
-        if (!existingTour) {
-          return res.status(404).send('Tour not found');
-        }
-
-        let existGuide;
-
-        if (req.body.guides) {
-          const guides = JSON.parse(req.body.guides);
-
-          existGuide = await Promise.all(
-            guides.map(async (guideId: string) => {
-              const guide = await Guide.findById(guideId);
-
-              if (guide) {
-                return guide._id;
-              }
-            }),
-          );
-        }
-
-        const mainImage =
-          req.files && 'mainImage' in req.files
-            ? 'images/' + req.files['mainImage'][0].filename
-            : existingTour.mainImage;
-
-        const gallery =
-          req.files && 'galleryTour' in req.files
-            ? req.files['galleryTour'].map(
-                (file: Express.Multer.File) => 'images/' + file.filename,
-              )
-            : existingTour.galleryTour;
-
-        const parsedPlan = JSON.parse(req.body.plan);
-        const plan = parsedPlan.map(
-          (
-            planPoint: { title: ILanguages; planDescription: ILanguages },
-            index: number,
-          ) => {
-            const defaultTitle = existingTour.plan[index]
-              ? {
-                  ...existingTour.plan[index].title,
-                  [lang]: planPoint.title,
-                }
-              : { en: '', ru: '', kg: '' };
-            const defaultDescription = existingTour.plan[index]
-              ? {
-                  ...existingTour.plan[index].planDescription,
-                  [lang]: planPoint.planDescription,
-                }
-              : { en: '', ru: '', kg: '' };
-
-            return {
-              title: {
-                ...defaultTitle,
-                [lang]: planPoint.title,
-              },
-              planDescription: {
-                ...defaultDescription,
-                [lang]: planPoint.planDescription,
-              },
-            };
-          },
-        );
-
-        existingTour.guides = existGuide || existingTour.guides;
-        existingTour.name =
-          { ...existingTour.name, [lang]: req.body.name } || existingTour.name;
-        existingTour.mainImage = mainImage;
-        if (existingTour.description) {
-          existingTour.description[lang] =
-            req.body.description || existingTour.description[lang];
-        }
-        existingTour.category = JSON.parse(req.body.category);
-        existingTour.price = req.body.price || existingTour.price;
-        existingTour.discountPrice =
-          req.body.discountPrice || existingTour.discountPrice;
-        existingTour.duration = req.body.duration || existingTour.duration;
-        existingTour.plan = plan;
-        existingTour.destination =
-          { ...existingTour.destination, [lang]: req.body.destination } ||
-          existingTour.destination;
-        existingTour.arrival =
-          { ...existingTour.arrival, [lang]: req.body.arrival } ||
-          existingTour.arrival;
-        existingTour.departure =
-          { ...existingTour.departure, [lang]: req.body.departure } ||
-          existingTour.departure;
-        existingTour.dressCode =
-          { ...existingTour.dressCode, [lang]: req.body.dressCode } ||
-          existingTour.dressCode;
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        existingTour.included =
-          { ...existingTour.included, [lang]: JSON.parse(req.body.included) } ||
-          existingTour.included;
-        existingTour.galleryTour = gallery;
-        existingTour.country =
-          { ...existingTour.country, [lang]: req.body.country } ||
-          existingTour.country;
-        existingTour.routes = JSON.parse(req.body.routes);
-
-        await existingTour.save();
-        return res.send(existingTour);
-      } catch (e) {
-        if (e instanceof mongoose.Error.ValidationError) {
-          return res.status(400).send(e);
-        }
-        return next(e);
+      if (!existingTour) {
+        return res.status(404).send('Tour not found');
       }
-    },
-  ),
+
+      if (existingTour.checkDiscountPrice(req.body.discountPrice)) {
+        return res
+          .status(400)
+          .send(
+            'DiscountPrice should be greater than or equal to the regular price',
+          );
+      }
+
+      let existGuide: IGuide[] = [];
+
+      if (req.body.guides) {
+        const guides = JSON.parse(req.body.guides);
+
+        existGuide = await Promise.all(
+          guides.map(async (guideId: string) => {
+            const guide = await Guide.findById(guideId);
+
+            if (guide) {
+              return guide._id;
+            }
+          }),
+        );
+      }
+
+      const mainImage =
+        req.files && 'mainImage' in req.files
+          ? 'images/' + req.files['mainImage'][0].filename
+          : existingTour.mainImage;
+
+      const gallery =
+        req.files && 'galleryTour' in req.files
+          ? req.files['galleryTour'].map(
+              (file: Express.Multer.File) => 'images/' + file.filename,
+            )
+          : existingTour.galleryTour;
+
+      const parsedPlan = JSON.parse(req.body.plan);
+      const plan = parsedPlan.map(
+        (
+          planPoint: { title: ILanguages; planDescription: ILanguages },
+          index: number,
+        ) => {
+          const defaultTitle = existingTour.plan[index]
+            ? {
+                ...existingTour.plan[index].title,
+                [lang]: planPoint.title,
+              }
+            : { en: '', ru: '', kg: '' };
+          const defaultDescription = existingTour.plan[index]
+            ? {
+                ...existingTour.plan[index].planDescription,
+                [lang]: planPoint.planDescription,
+              }
+            : { en: '', ru: '', kg: '' };
+
+          return {
+            title: {
+              ...defaultTitle,
+              [lang]: planPoint.title,
+            },
+            planDescription: {
+              ...defaultDescription,
+              [lang]: planPoint.planDescription,
+            },
+          };
+        },
+      );
+
+      existingTour.guides = existGuide || existingTour.guides;
+      existingTour.name =
+        { ...existingTour.name, [lang]: req.body.name } || existingTour.name;
+      existingTour.mainImage = mainImage;
+      if (existingTour.description) {
+        existingTour.description[lang] =
+          req.body.description || existingTour.description[lang];
+      }
+      existingTour.category = JSON.parse(req.body.category);
+      existingTour.price = req.body.price || existingTour.price;
+      existingTour.discountPrice =
+        req.body.discountPrice || existingTour.discountPrice;
+      existingTour.duration = req.body.duration || existingTour.duration;
+      existingTour.plan = plan;
+      existingTour.destination =
+        { ...existingTour.destination, [lang]: req.body.destination } ||
+        existingTour.destination;
+      existingTour.arrival =
+        { ...existingTour.arrival, [lang]: req.body.arrival } ||
+        existingTour.arrival;
+      existingTour.departure =
+        { ...existingTour.departure, [lang]: req.body.departure } ||
+        existingTour.departure;
+      existingTour.dressCode =
+        { ...existingTour.dressCode, [lang]: req.body.dressCode } ||
+        existingTour.dressCode;
+      existingTour.included =
+        { ...existingTour.included, [lang]: JSON.parse(req.body.included) } ||
+        existingTour.included;
+      existingTour.galleryTour = gallery;
+      existingTour.country =
+        { ...existingTour.country, [lang]: req.body.country } ||
+        existingTour.country;
+      existingTour.routes = JSON.parse(req.body.routes);
+
+      await existingTour.save();
+      return res.send(existingTour);
+    } catch (e) {
+      if (e instanceof mongoose.Error.ValidationError) {
+        return res.status(400).send(e);
+      }
+      return next(e);
+    }
+  },
 );
 
 toursRouter.delete('/:id', auth, permit('admin'), async (req, res, next) => {

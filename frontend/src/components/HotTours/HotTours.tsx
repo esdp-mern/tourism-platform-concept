@@ -1,14 +1,11 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import {
-  selectToursWithDiscountTours,
-  setToursWithDiscountPrice,
-} from '@/containers/tours/toursSlice';
+import { selectToursWithDiscountTours } from '@/containers/tours/toursSlice';
 import HotToursItem from '@/components/HotTours/components/HotToursItem/HotToursItem';
 import arrowRightIcon from '@/assets/images/arrow-right.svg';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { fetchToursWithDiscountPrice } from '@/containers/tours/toursThunk';
+import { Tour } from '@/type';
 
 const HotTours = () => {
   const dispatch = useAppDispatch();
@@ -18,13 +15,18 @@ const HotTours = () => {
 
   const t = useTranslations('main');
 
+  const [carouselTours, setCarouselTours] = useState<Tour[]>([]);
+
   useEffect(() => {
-    dispatch(fetchToursWithDiscountPrice());
-  }, []);
+    if (!carouselTours.length) {
+      setCarouselTours([...tours]);
+    }
+  }, [carouselTours]);
 
   const slide = useCallback(
-    (isNext: boolean) => {
+    (isNext?: boolean) => {
       if (!carouselRef.current || !tours.length) return;
+      if (isNext === undefined) isNext = true;
 
       const ms = 250;
 
@@ -43,19 +45,21 @@ const HotTours = () => {
             transform: translateX(0);
           `;
 
-        const newState = [...tours];
+        setCarouselTours((prevState) => {
+          const newState = [...prevState];
 
-        if (isNext) newState.push(newState.shift()!);
-        else newState.unshift(newState.pop()!);
+          if (isNext) newState.push(newState.shift()!);
+          else newState.unshift(newState.pop()!);
 
-        dispatch(setToursWithDiscountPrice(newState));
+          return newState;
+        });
       }, ms);
     },
-    [tours.length, tours],
+    [tours],
   );
 
   useEffect(() => {
-    const interval = setInterval(() => slide(true), 3000);
+    let interval = setInterval(slide, 3000);
 
     return () => {
       clearInterval(interval);
@@ -69,7 +73,7 @@ const HotTours = () => {
           <div className="hot-tours-carousel-inner-wrapper">
             <div className="hot-tours-carousel-inner">
               <div className="hot-tours-carousel-inner-items" ref={carouselRef}>
-                {tours.map((tour) => (
+                {carouselTours.map((tour) => (
                   <HotToursItem tour={tour} key={`hot-tour-${tour._id}`} />
                 ))}
               </div>

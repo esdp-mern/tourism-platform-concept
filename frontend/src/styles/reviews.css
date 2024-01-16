@@ -181,6 +181,7 @@
   border-radius: 10px;
   transition: 0.1s;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .reviews-main-page-img:hover {

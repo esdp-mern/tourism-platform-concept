@@ -79,9 +79,6 @@ export const toursSlice = createSlice({
     clearOrderError: (state) => {
       state.orderError = null;
     },
-    setToursWithDiscountPrice: (state, { payload }) => {
-      state.toursWithDiscountPrice = payload;
-    },
   },
   extraReducers: (builder) => {
     builder.addCase<typeof HYDRATE, PayloadAction<RootState, typeof HYDRATE>>(
@@ -262,12 +259,8 @@ export const toursSlice = createSlice({
   },
 });
 
-export const {
-  resetPostReviewError,
-  showModal,
-  clearOrderError,
-  setToursWithDiscountPrice,
-} = toursSlice.actions;
+export const { resetPostReviewError, showModal, clearOrderError } =
+  toursSlice.actions;
 export const toursReducer = toursSlice.reducer;
 export const selectAllTours = (state: RootState) => state.tours.tours;
 export const selectAllToursLength = (state: RootState) =>

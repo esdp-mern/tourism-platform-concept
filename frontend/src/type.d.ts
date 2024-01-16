@@ -125,7 +125,7 @@ export interface ITourMutation {
   galleryTour: File[] | null;
   mainImage: File | null;
   price: number;
-  discountPrice: number;
+  discountPrice?: number;
   routes: ITourRoute[][];
 }
 
