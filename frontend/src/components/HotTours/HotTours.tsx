@@ -18,10 +18,10 @@ const HotTours = () => {
   const [carouselTours, setCarouselTours] = useState<Tour[]>([]);
 
   useEffect(() => {
-    if (!carouselTours.length) {
+    if (tours.length && !carouselTours.length) {
       setCarouselTours([...tours]);
     }
-  }, [carouselTours]);
+  }, [tours, carouselTours]);
 
   const slide = useCallback(
     (isNext?: boolean) => {

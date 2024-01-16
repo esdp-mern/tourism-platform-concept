@@ -109,7 +109,7 @@ toursRouter.get('/filterByCategory', async (req, res) => {
   }
 });
 
-toursRouter.get('/filterByMinPrice', async (req, res) => {
+toursRouter.get('/filter', async (req, res) => {
   try {
     const queries = {
       skip: parseInt(String(req.query.skip || 0)),
