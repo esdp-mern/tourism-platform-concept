@@ -59,6 +59,8 @@ const AppToolBar = () => {
 
   useEffect(() => {
     setEventListener();
+    const { locale } = router;
+    dispatch(setLang(locale || 'en'));
     window.addEventListener('resize', setEventListener);
 
     document.addEventListener('click', () => {
@@ -71,7 +73,7 @@ const AppToolBar = () => {
       window.removeEventListener('resize', setEventListener);
       document.removeEventListener('scroll', setClassList);
     };
-  }, [isLightMode, setClassList, setEventListener]);
+  }, [dispatch, isLightMode, router, setClassList, setEventListener]);
 
   const onLangSwitch = (language: string) => {
     const href = {

@@ -66,24 +66,3 @@ export interface ILanguages {
   ru: string;
   kg: string;
 }
-
-export interface ITour {
-  _id: string;
-  guides: IGuide[];
-  category: [];
-  name: string;
-  description: string;
-  duration: number;
-  plan: [{ title: string; planDescription: string; _id: string }];
-  country: string;
-  destination: string;
-  arrival: string;
-  departure: string;
-  dressCode: string;
-  included: [];
-  galleryTour: [];
-  mainImage: string;
-  price: number;
-  isPublished: boolean;
-  routes: ITourRoute[][];
-}

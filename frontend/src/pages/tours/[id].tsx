@@ -154,7 +154,7 @@ const TourPage: NextPage<
           {currentTab === 'gallery' && <Gallery />}
           {currentTab === 'reviews' && <OneTourReview />}
         </>
-        <OneTourOrderForm />
+        <OneTourOrderForm date={tour.date} />
       </div>
     </div>
   );
