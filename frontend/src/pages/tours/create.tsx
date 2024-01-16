@@ -6,6 +6,7 @@ import { selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
 import Custom404 from '@/pages/404';
 import { setIsLightMode } from '@/containers/config/configSlice';
+import { GetServerSideProps } from 'next';
 
 const NewTour = () => {
   const dispatch = useAppDispatch();
@@ -27,3 +28,12 @@ const NewTour = () => {
   );
 };
 export default NewTour;
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

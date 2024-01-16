@@ -10,6 +10,7 @@ import { deletePartner } from '@/containers/partners/partnersThunk';
 import Custom404 from '@/pages/404';
 import { selectUser } from '@/containers/users/usersSlice';
 import Image from 'next/image';
+import { GetServerSideProps } from 'next';
 
 const Partners = () => {
   const dispatch = useAppDispatch();
@@ -112,3 +113,12 @@ const Partners = () => {
 };
 
 export default Partners;
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

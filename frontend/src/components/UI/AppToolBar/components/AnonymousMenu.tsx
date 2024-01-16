@@ -8,7 +8,7 @@ interface IProps {
 }
 
 const AnonymousMenu: React.FC<IProps> = ({ onClick, pathname }) => {
-  const t = useTranslations('inputs');
+  const t = useTranslations('navbar');
   return (
     <>
       <NavLink

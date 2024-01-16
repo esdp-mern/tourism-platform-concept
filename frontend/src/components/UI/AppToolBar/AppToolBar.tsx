@@ -9,9 +9,8 @@ import {
 } from '@/containers/users/usersSlice';
 import ToolBarMenu from '@/components/UI/AppToolBar/components/ToolBarMenu';
 import { usePathname } from 'next/navigation';
-import { fetchTour, fetchTours } from '@/containers/tours/toursThunk';
+import { fetchTours } from '@/containers/tours/toursThunk';
 import { apiUrl, languages } from '@/constants';
-import { selectOneTour } from '@/containers/tours/toursSlice';
 import Image from 'next/image';
 import chevronRight from '@/assets/images/chevron-right.svg';
 import chevronRightLight from '@/assets/images/chevron-right-light.svg';
@@ -19,7 +18,6 @@ import chevronRightLight from '@/assets/images/chevron-right-light.svg';
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);
   const lang = useAppSelector(selectLanguage);
-  const tour = useAppSelector(selectOneTour);
   const dispatch = useAppDispatch();
   const [navShow, setNavShow] = useState(false);
   const [menuShow, setMenuShow] = useState(false);
@@ -28,6 +26,8 @@ const AppToolBar = () => {
     'scroll-right',
   );
   const pathname = usePathname();
+  const router = useRouter();
+  const t = useTranslations('navbar');
 
   const { isLightMode } = useAppSelector((state) => state.config);
 
@@ -63,6 +63,8 @@ const AppToolBar = () => {
 
   useEffect(() => {
     setEventListener();
+    const { locale } = router;
+    dispatch(setLang(locale || 'en'));
     window.addEventListener('resize', setEventListener);
 
     document.addEventListener('click', () => {
@@ -75,12 +77,18 @@ const AppToolBar = () => {
       window.removeEventListener('resize', setEventListener);
       document.removeEventListener('scroll', setClassList);
     };
-  }, [isLightMode, setClassList, setEventListener]);
+  }, [dispatch, isLightMode, router, setClassList, setEventListener]);
 
   const onLangSwitch = (language: string) => {
+    const href = {
+      pathname: router.pathname,
+      query: router.query,
+    };
+    void router.push(href, undefined, { locale: language });
     dispatch(setLang(language));
-    dispatch(fetchTour(tour?._id || ''));
-    dispatch(fetchTours());
+    setTimeout(() => {
+      location.reload();
+    }, 200);
   };
 
   const scrollNavSide = () => {
@@ -202,7 +210,7 @@ const AppToolBar = () => {
                   href="/"
                   className={`nav-link ${pathname === '/' ? 'active' : ''}`}
                 onClick={() => {
-                  showMenu();
+                  void showMenu();
                   closeNavMenu();
                 }}
                 >
@@ -214,7 +222,7 @@ const AppToolBar = () => {
                     pathname && pathname.includes('/tours/all') ? 'active' : ''
                   }`}
                   onClick={() => {
-                    showMenu();
+                    void showMenu();
                     closeNavMenu();
                   }}
                 >
@@ -296,7 +304,7 @@ const AppToolBar = () => {
                 <span></span>
                 <span></span>
                 <span></span>
-                <span>menu</span>
+                <span>{t('menu')}</span>
               </button>
             </div>
           </div>

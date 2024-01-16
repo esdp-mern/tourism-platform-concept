@@ -6,7 +6,6 @@ import PhoneInputWithCountrySelect from 'react-phone-number-input';
 import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
 import 'react-phone-number-input/style.css';
 import 'react-day-picker/dist/style.css';
-import { T } from '@/store/translation';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 

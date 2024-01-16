@@ -10,6 +10,7 @@ import TourItem from '@/components/TourListItem/TourListItem';
 import PageLoader from '@/components/Loaders/PageLoader';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import TourFilter from '@/components/Filters/TourFilter';
+import { GetServerSideProps } from 'next';
 
 const AllToursPage = () => {
   const dispatch = useAppDispatch();
@@ -68,3 +69,12 @@ const AllToursPage = () => {
 };
 
 export default AllToursPage;
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
-import { wrapper } from '@/store/store';
-import { InferGetServerSidePropsType, NextPage } from 'next';
+import {
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage,
+} from 'next';
 import { useParams } from 'next/navigation';
 import { fetchTour } from '@/containers/tours/toursThunk';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -42,17 +45,13 @@ const EditTour: NextPage<
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    async ({ params }) => {
-      const editID = params?.editID;
-
-      if (!editID || Array.isArray(editID)) {
-        throw new Error('Param id must be a string');
-      }
-
-      await store.dispatch(fetchTour(editID));
-      return { props: {} };
-    },
-);
 export default EditTour;
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

@@ -14,6 +14,7 @@ import phoneIcon from '@/assets/images/phone-icon.svg';
 import { selectPostOrderLoading } from '@/containers/partners/partnersSlice';
 import { createPartnerOrder } from '@/containers/partners/partnersThunk';
 import FileInput from '@/components/UI/FileInput/FileInput';
+import { GetServerSideProps } from 'next';
 
 const BecomePartner = () => {
   const initialState = {
@@ -146,3 +147,12 @@ const BecomePartner = () => {
 };
 
 export default BecomePartner;
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

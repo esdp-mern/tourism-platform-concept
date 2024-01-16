@@ -9,6 +9,7 @@ import PageLoader from '@/components/Loaders/PageLoader';
 import Custom404 from '@/pages/404';
 import Pagination from '@/components/Pagination/Pagination';
 import Image from 'next/image';
+import { GetServerSideProps } from 'next';
 
 const PageNum = () => {
   const dispatch = useAppDispatch();
@@ -113,3 +114,12 @@ const PageNum = () => {
 };
 
 export default PageNum;
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

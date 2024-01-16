@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useAppDispatch } from '@/store/hooks';
-import {
-  fetchTours,
-  fetchToursByFilter,
-  fetchToursByPrice,
-} from '@/containers/tours/toursThunk';
+import { fetchToursByFilter } from '@/containers/tours/toursThunk';
 import magnifierIcon from '@/assets/images/magnifier.svg';
 import { useParams } from 'next/navigation';
+import TextField from '@/components/UI/TextField/TextField';
+import calendarOrderIcon from '../../assets/images/calendar-icon.svg';
+import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
 import Image from 'next/image';
+import { format } from 'date-fns';
 
 const categoriesData = [
   { id: 'checkbox-1', label: 'history' },
@@ -17,7 +17,7 @@ const categoriesData = [
   { id: 'checkbox-5', label: 'exotic' },
 ];
 
-type TCurrentTab = 'name' | 'categories' | 'min' | 'max';
+type TCurrentTab = 'location' | 'categories' | 'min' | 'max';
 
 const TourFilter = () => {
   const params = useParams() as { pageNum: string };
@@ -27,6 +27,7 @@ const TourFilter = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [date, setDate] = useState('');
   const [currentTab, setCurrentTab] = useState<TCurrentTab | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -40,35 +41,15 @@ const TourFilter = () => {
   const indexOfFirstRecord = indexOfLastRecord - limitTours;
 
   const fetchByType = async () => {
-    if ((currentTab === 'name' && searchTerm.length) || searchTerm.length) {
-      dispatch(
-        fetchToursByFilter({
-          type: currentTab ?? 'name',
-          value: searchTerm,
-          skip: indexOfFirstRecord,
-          limit: limitTours,
-        }),
-      );
-    } else if (currentTab === 'min' || currentTab === 'max') {
-      dispatch(
-        fetchToursByPrice({
-          type: currentTab,
-          skip: indexOfFirstRecord,
-          limit: limitTours,
-        }),
-      );
-    } else if (currentTab === 'categories' && selectedCategories.length) {
-      dispatch(
-        fetchToursByFilter({
-          type: currentTab,
-          value: selectedCategories.join(','),
-          skip: indexOfFirstRecord,
-          limit: limitTours,
-        }),
-      );
-    } else {
-      dispatch(fetchTours({ skip: indexOfFirstRecord, limit: limitTours }));
-    }
+    dispatch(
+      fetchToursByFilter({
+        date,
+        location: searchTerm,
+        categories: selectedCategories,
+        skip: indexOfFirstRecord,
+        limit: limitTours,
+      }),
+    );
   };
 
   const toggleCategory = async (label: string) => {
@@ -83,10 +64,14 @@ const TourFilter = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (currentTab === 'name' && inputRef.current) {
+    if (currentTab === 'location' && inputRef.current) {
       inputRef.current.focus();
     }
   }, [currentTab]);
+
+  const handleDateChange = (e: IChangeEvent) => {
+    setDate(format(new Date(e.target.value), 'dd/MM/yyyy'));
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -106,11 +91,6 @@ const TourFilter = () => {
     };
   }, []);
 
-  const clearCategory = () => {
-    setSelectedCategories([]);
-    setShowCategories(false);
-  };
-
   return (
     <section className="section-filter" ref={filterRef}>
       <ul className="filters-list">
@@ -118,25 +98,24 @@ const TourFilter = () => {
           className="tab-filter"
           onClick={(e) => {
             e.stopPropagation();
-            setCurrentTab('name');
-            clearCategory();
+            setCurrentTab('location');
           }}
         >
           <button
             className={`${
-              currentTab === 'name'
+              currentTab === 'location'
                 ? 'filter-input filter-active'
                 : 'filter-link'
             }`}
           >
             <span className="icon-filter"></span>
-            {currentTab === 'name' ? (
+            {currentTab === 'location' ? (
               <input
                 ref={inputRef}
                 type="text"
-                placeholder="name"
+                placeholder="Location"
                 className={`filter-link input-filter-name ${
-                  currentTab === 'name' ? 'filter-active' : ''
+                  currentTab === 'location' ? 'filter-active' : ''
                 }`}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -145,7 +124,7 @@ const TourFilter = () => {
               <span
                 style={{ textTransform: searchTerm ? 'initial' : 'uppercase' }}
               >
-                {searchTerm || 'name'}
+                {searchTerm || 'Location'}
               </span>
             )}
           </button>
@@ -153,34 +132,19 @@ const TourFilter = () => {
         <li
           className="tab-filter"
           onClick={() => {
-            setCurrentTab('min');
-            clearCategory();
+            if (date) {
+              setDate('');
+            }
           }}
         >
-          <button
-            className={`filter-link ${
-              currentTab === 'min' ? 'filter-active' : ''
-            }`}
-          >
-            <span className="icon-filter"></span>
-            <span>Price Low to High</span>
-          </button>
-        </li>
-        <li
-          className="tab-filter"
-          onClick={() => {
-            setCurrentTab('max');
-            clearCategory();
-          }}
-        >
-          <button
-            className={`filter-link ${
-              currentTab === 'max' ? 'filter-active' : ''
-            }`}
-          >
-            <span className="icon-filter"></span>
-            <span>Price High to Low</span>
-          </button>
+          <TextField
+            name="date"
+            label="By date"
+            type="date"
+            value={date}
+            onChange={handleDateChange}
+            icon={calendarOrderIcon}
+          />
         </li>
         <li className="tab-filter tab-category">
           <button

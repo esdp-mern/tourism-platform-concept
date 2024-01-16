@@ -23,7 +23,7 @@ const ToursPage = () => {
   useEffect(() => {
     dispatch(setIsLightMode(true));
     dispatch(fetchPlatformReviews());
-    dispatch(fetchTours());
+    dispatch(fetchTours({ skip: 0 }));
   }, [dispatch]);
 
   return (

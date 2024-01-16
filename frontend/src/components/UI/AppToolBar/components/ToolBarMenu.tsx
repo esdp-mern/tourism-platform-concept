@@ -36,9 +36,6 @@ const ToolBarMenu: React.FC<IProps> = ({ show, onClick }) => {
     }
   };
 
-  const editBtn = t('edit_profile_btn');
-  const logoutBtn = t('logout_btn');
-
   return (
     <>
       <EditorModal />
@@ -69,14 +66,18 @@ const ToolBarMenu: React.FC<IProps> = ({ show, onClick }) => {
                   onClick();
                 }}
               >
-                {logoutLoading ? <ButtonLoader size={16} /> : `${editBtn}`}
+                {logoutLoading ? (
+                  <ButtonLoader size={16} />
+                ) : (
+                  t('edit_profile_btn')
+                )}
               </button>
               <button
                 className="logout"
                 onClick={userLogout}
                 disabled={logoutLoading}
               >
-                {logoutLoading ? <ButtonLoader size={16} /> : `${logoutBtn}`}
+                {logoutLoading ? <ButtonLoader size={16} /> : t('logout_btn')}
               </button>
             </div>
           </div>

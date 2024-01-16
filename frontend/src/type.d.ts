@@ -94,6 +94,7 @@ export interface Tour {
   mainImage: string;
   price: number;
   isPublished: boolean;
+  date: string;
   routes: ITourRoute[][];
 }
 
