@@ -15,6 +15,8 @@ import { fetchToursGuide } from '@/containers/tours/toursThunk';
 import { fetchGuideRating } from '@/containers/ratings/ratingThunk';
 import Image from 'next/image';
 import bgImage from '@/assets/images/bg-image-1.jpg';
+import { useTranslations } from 'next-intl';
+import { GetServerSideProps } from 'next';
 
 interface IGuidePageTabs {
   name: string;
@@ -35,6 +37,7 @@ const OneGuidePage: NextPage<
     id: string;
   };
   const [currentTab, setCurrentTab] = useState<string>('information');
+  const t = useTranslations('guide');
 
   useEffect(() => {
     dispatch(setIsLightMode(false));
@@ -78,7 +81,7 @@ const OneGuidePage: NextPage<
             }
             key={name}
           >
-            <span>{title}</span>
+            <span>{t(`${name}`)}</span>
           </button>
         ))}
       </div>
@@ -89,19 +92,14 @@ const OneGuidePage: NextPage<
     </div>
   );
 };
-
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    async ({ params }) => {
-      const id = params?.id;
-
-      if (!id || Array.isArray(id)) {
-        throw new Error('Param id must be a string');
-      }
-
-      await store.dispatch(fetchGuide(id));
-      return { props: {} };
-    },
-);
-
 export default OneGuidePage;
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

@@ -54,17 +54,6 @@ const GuideSlider = () => {
               />
             </SwiperSlide>
           ))}
-          <SwiperSlide key={'jk22'}>
-            <GuideItem
-              id={'12jjke22'}
-              name={'John'}
-              role={'Guide'}
-              description={
-                'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, molestias.'
-              }
-              imageUrl={apiUrl + '/' + 'fixtures/kyrgyzstan.jpeg'}
-            />
-          </SwiperSlide>
         </div>
       </Swiper>
       <div className="swiper-pagination"></div>

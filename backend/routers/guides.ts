@@ -12,10 +12,28 @@ import GuideReview from '../models/GuideReview';
 const guidesRouter = express.Router();
 guidesRouter.get('/', async (req, res) => {
   try {
+    const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
     if (req.query.userID) {
       const queryUser = req.query.userID as string;
       const guide = await Guide.findOne({ user: queryUser });
-      return res.send(guide);
+
+      if (guide) {
+        const updatedGuide = {
+          ...guide.toObject(),
+          description:
+            guide.toObject().description?.[lang] ||
+            guide.toObject().description?.en,
+          languages:
+            guide.toObject().languages?.[lang] ||
+            guide.toObject().languages?.en,
+          country:
+            guide.toObject().country?.[lang] || guide.toObject().country?.en,
+        };
+
+        return res.send(updatedGuide);
+      } else {
+        return res.sendStatus(404);
+      }
     }
 
     const guides = await Guide.find({ isPublished: true }).populate({
@@ -23,25 +41,51 @@ guidesRouter.get('/', async (req, res) => {
       select: ['username', 'displayName', 'avatar'],
     });
 
-    return res.send(guides);
+    const updatedGuides = guides.map((guide) => {
+      return {
+        ...guide.toObject(),
+        description:
+          guide.toObject().description?.[lang] ||
+          guide.toObject().description?.en,
+        languages:
+          guide.toObject().languages?.[lang] || guide.toObject().languages?.en,
+        country:
+          guide.toObject().country?.[lang] || guide.toObject().country?.en,
+      };
+    });
+    return res.send(updatedGuides);
   } catch (e) {
     return res.status(500).send('Error');
   }
 });
-guidesRouter.get('/all', auth, permit('admin'), async (_, res) => {
+guidesRouter.get('/all', auth, permit('admin'), async (req, res) => {
   try {
+    const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
     const guides = await Guide.find().populate({
       path: 'user',
       select: ['username', 'displayName', 'avatar'],
     });
 
-    return res.send(guides);
+    const updatedGuides = guides.map((guide) => {
+      return {
+        ...guide.toObject(),
+        description:
+          guide.toObject().description?.[lang] ||
+          guide.toObject().description?.en,
+        languages:
+          guide.toObject().languages?.[lang] || guide.toObject().languages?.en,
+        country:
+          guide.toObject().country?.[lang] || guide.toObject().country?.en,
+      };
+    });
+    return res.send(updatedGuides);
   } catch (e) {
     return res.status(500).send('Error');
   }
 });
 guidesRouter.get('/filterByName', auth, permit('admin'), async (req, res) => {
   try {
+    const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
     if (req.query.name) {
       const guide = await Guide.aggregate([
         {
@@ -74,7 +118,21 @@ guidesRouter.get('/filterByName', auth, permit('admin'), async (req, res) => {
         },
       ]);
 
-      return res.send(guide);
+      const updatedGuides = guide.map((guide) => {
+        return {
+          ...guide.toObject(),
+          description:
+            guide.toObject().description?.[lang] ||
+            guide.toObject().description?.en,
+          languages:
+            guide.toObject().languages?.[lang] ||
+            guide.toObject().languages?.en,
+          country:
+            guide.toObject().country?.[lang] || guide.toObject().country?.en,
+        };
+      });
+
+      return res.send(updatedGuides);
     } else {
       return res.send([]);
     }
@@ -84,6 +142,7 @@ guidesRouter.get('/filterByName', auth, permit('admin'), async (req, res) => {
 });
 guidesRouter.get('/:id', async (req, res) => {
   try {
+    const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
     const id = req.params.id;
     const guide = await Guide.findById(id).populate({
       path: 'user',
@@ -94,7 +153,17 @@ guidesRouter.get('/:id', async (req, res) => {
       return res.status(404).send('Not found');
     }
 
-    return res.send(guide);
+    const updatedGuide = {
+      ...guide.toObject(),
+      description:
+        guide.toObject().description?.[lang] ||
+        guide.toObject().description?.en,
+      languages:
+        guide.toObject().languages?.[lang] || guide.toObject().languages?.en,
+      country: guide.toObject().country?.[lang] || guide.toObject().country?.en,
+    };
+
+    return res.send(updatedGuide);
   } catch (e) {
     return res.status(500).send('Error');
   }
@@ -107,11 +176,27 @@ guidesRouter.post(
   imagesUpload.single('image'),
   async (req, res, next) => {
     try {
+      const lang = req.get('lang') as 'en' | 'ru' | 'kg';
       const guide = new Guide({
         user: req.body.user,
-        languages: req.body.languages ? req.body.languages : [],
-        country: req.body.country,
-        description: req.body.description,
+        languages: {
+          en: [],
+          ru: [],
+          kg: [],
+          [lang]: req.body.languages,
+        },
+        country: {
+          en: '',
+          ru: '',
+          kg: '',
+          [lang]: req.body.country,
+        },
+        description: {
+          en: '',
+          ru: '',
+          kg: '',
+          [lang]: req.body.description,
+        },
         image: req.file ? req.file.filename : null,
       });
 
@@ -133,6 +218,7 @@ guidesRouter.put(
   imagesUpload.single('image'),
   async (req, res, next) => {
     try {
+      const lang = req.get('lang') as 'en' | 'ru' | 'kg';
       const guide = await Guide.findById(req.params.id);
 
       if (!guide) {
@@ -144,12 +230,16 @@ guidesRouter.put(
           ? 'images/' + req.files['image'][0].filename
           : guide.image;
 
-      guide.languages = req.body.languages
-        ? req.body.languages
-        : guide.languages;
-      guide.country = req.body.country || guide.country;
-      guide.description = req.body.description || guide.description;
+      guide.country =
+        { ...guide.country, [lang]: req.body.country } || guide.country;
+      guide.description =
+        { ...guide.description, [lang]: req.body.description } ||
+        guide.description;
       guide.image = image;
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      guide.languages =
+        { ...guide.languages, [lang]: req.body.languages } || guide.languages;
 
       await guide.save();
       return res.send(guide);

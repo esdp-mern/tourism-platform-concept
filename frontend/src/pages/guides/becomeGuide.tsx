@@ -14,6 +14,8 @@ import peopleIcon from '@/assets/images/people-icon.svg';
 import phoneIcon from '@/assets/images/phone-icon.svg';
 import { selectGuideRequestLoading } from '@/containers/guides/guidesSlice';
 import Custom404 from '@/pages/404';
+import { GetServerSideProps } from 'next';
+import { useTranslations } from 'next-intl';
 
 const BecomeGuide = () => {
   const user = useAppSelector(selectUser);
@@ -31,6 +33,7 @@ const BecomeGuide = () => {
   const router = useRouter();
   const [state, setSate] = useState<ISendGuideRequestMutation>(initialState);
   const [focused, setFocused] = useState(false);
+  const t = useTranslations('guide');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -75,7 +78,7 @@ const BecomeGuide = () => {
       <PageLoader />
       <div className="become-guide">
         <form onSubmit={onSubmit} className="become-guide-form">
-          <h2>Become a guide</h2>
+          <h2>{t('become_form_title')}</h2>
           <div style={{ display: 'none' }}>
             <TextField
               name="user"
@@ -93,7 +96,7 @@ const BecomeGuide = () => {
             value={state.name}
             onChange={onChange}
             icon={peopleIcon.src}
-            label="name*"
+            label={t('become_form_name')}
             required
           />
           <TextField
@@ -102,7 +105,7 @@ const BecomeGuide = () => {
             value={state.surname}
             onChange={onChange}
             icon={peopleIcon.src}
-            label="surname*"
+            label={t('become_form_surname')}
             required
           />
           <TextField
@@ -111,7 +114,7 @@ const BecomeGuide = () => {
             value={state.number}
             onChange={onChange}
             icon={phoneIcon.src}
-            label="phone number*"
+            label={t('become_form_phone')}
             required
           />
           <textarea
@@ -120,12 +123,16 @@ const BecomeGuide = () => {
             onChange={onChange}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
-            placeholder={focused ? '' : 'describe yourself*'}
+            placeholder={focused ? '' : t('become_form_message')}
             name="message"
             required
           />
           <button type="submit" className="form-tour-btn">
-            {guideRequestLoading ? <ButtonLoader size={18} /> : 'Send'}
+            {guideRequestLoading ? (
+              <ButtonLoader size={18} />
+            ) : (
+              t('become_form_send')
+            )}
           </button>
         </form>
       </div>
@@ -134,3 +141,13 @@ const BecomeGuide = () => {
 };
 
 export default BecomeGuide;
+
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};
