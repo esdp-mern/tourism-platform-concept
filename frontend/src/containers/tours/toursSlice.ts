@@ -7,7 +7,6 @@ import {
   fetchTour,
   fetchTours,
   fetchToursByFilter,
-  fetchToursByPrice,
   fetchToursGuide,
   fetchToursWithDiscountPrice,
   postTour,
@@ -134,20 +133,6 @@ export const toursSlice = createSlice({
       },
     );
     builder.addCase(fetchToursByFilter.rejected, (state) => {
-      state.fetchAllLoading = false;
-    });
-
-    builder.addCase(fetchToursByPrice.pending, (state) => {
-      state.fetchAllLoading = true;
-    });
-    builder.addCase(
-      fetchToursByPrice.fulfilled,
-      (state, { payload: tours }) => {
-        state.tours = tours;
-        state.fetchAllLoading = false;
-      },
-    );
-    builder.addCase(fetchToursByPrice.rejected, (state) => {
       state.fetchAllLoading = false;
     });
 

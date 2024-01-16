@@ -108,15 +108,21 @@ toursRouter.get('/filterByCategory', async (req, res) => {
     return res.status(500).send('Error');
   }
 });
+
 toursRouter.get('/filterByMinPrice', async (req, res) => {
   try {
     const queries = {
       skip: parseInt(String(req.query.skip || 0)),
       limit: parseInt(String(req.query.limit || 0)),
     };
+    const destination = req.query.location as string;
+    const categories = req.query.category as string;
+    const date = req.query.date as string;
+    const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
+    const categoriesSplit = categories.split(',');
 
     if (req.query.skip && req.query.limit) {
-      const tours = await Tour.find()
+      const tours = (await Tour.find()
         .skip(queries.skip)
         .limit(queries.limit)
         .populate({
@@ -125,36 +131,44 @@ toursRouter.get('/filterByMinPrice', async (req, res) => {
             path: 'user',
             select: 'username displayName role avatar email',
           },
-        })
-        .sort({ price: 1 });
-      return res.send(tours);
-    } else {
-      return res.status(400).send('query fields { skip | limit } are required');
-    }
-  } catch (e) {
-    return res.status(500).send('Error');
-  }
-});
-toursRouter.get('/filterByMaxPrice', async (req, res) => {
-  try {
-    const queries = {
-      skip: parseInt(String(req.query.skip || 0)),
-      limit: parseInt(String(req.query.limit || 0)),
-    };
+        })) as HydratedDocument<ITourMethods>[];
 
-    if (req.query.skip && req.query.limit) {
-      const tours = await Tour.find()
-        .skip(queries.skip)
-        .limit(queries.limit)
-        .sort({ price: -1 })
-        .populate({
-          path: 'guides',
-          populate: {
-            path: 'user',
-            select: 'username displayName role avatar email',
-          },
-        });
-      return res.send(tours);
+      const localizedTours = tours.map((tour) => {
+        return {
+          ...tour.toObject(),
+          name: tour.toObject().name?.[lang] || tour.toObject().name?.en,
+          destination:
+            tour.toObject().destination?.[lang] ||
+            tour.toObject().destination?.en,
+          country:
+            tour.toObject().country?.[lang] || tour.toObject().country?.en,
+        };
+      });
+
+      const filteredByDate = localizedTours.filter((tour) => {
+        if (tour.date && date.length) {
+          return tour.date === date;
+        }
+        return tour.date;
+      });
+
+      const filteredByDestination = filteredByDate.filter((tour) => {
+        if (tour.destination && destination.length) {
+          return tour.destination.includes(destination);
+        }
+        return tour.destination;
+      });
+
+      const filteredByCategories = filteredByDestination.filter((tour) => {
+        if (tour.category && categoriesSplit[0]) {
+          return categoriesSplit.some((category) =>
+            tour.category.includes(category),
+          );
+        }
+        return true;
+      });
+
+      return res.send(filteredByCategories);
     } else {
       return res.status(400).send('query fields { skip | limit } are required');
     }
@@ -162,6 +176,7 @@ toursRouter.get('/filterByMaxPrice', async (req, res) => {
     return res.status(500).send('Error');
   }
 });
+
 toursRouter.get('/', async (req, res) => {
   try {
     const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
@@ -197,7 +212,7 @@ toursRouter.get('/', async (req, res) => {
       return res.send(updatedTours);
     }
 
-    if (req.query.skip && req.query.limit) {
+    if (queries.skip >= 0 && queries.limit) {
       const tours = await Tour.find({ isPublished: true })
         .skip(queries.skip)
         .limit(queries.limit)
@@ -267,7 +282,7 @@ toursRouter.get('/all', async (req, res) => {
               tour.toObject().country?.[lang] || tour.toObject().country?.en,
           };
         });
-        return res.send({ updatedTours, allToursLength });
+        return res.send({ tours: updatedTours, allToursLength });
       }
 
       const tours = await Tour.find({ isPublished: false })
@@ -296,7 +311,7 @@ toursRouter.get('/all', async (req, res) => {
             tour.toObject().country?.[lang] || tour.toObject().country?.en,
         };
       });
-      return res.send({ updatedTours, allToursLength });
+      return res.send({ tours: updatedTours, allToursLength });
     } else {
       return res.status(400).send('query fields { skip | limit } are required');
     }
@@ -348,6 +363,7 @@ toursRouter.get('/:id', async (req, res) => {
       country: tour.country ? tour.country[lang] : tour.country,
       galleryTour: tour.galleryTour,
       isPublished: tour.isPublished,
+      date: tour.date,
       routes: tour.routes,
     };
     return res.send(tourReviews);
@@ -475,6 +491,7 @@ toursRouter.post(
           [lang]: req.body.country,
         },
         routes: JSON.parse(req.body.routes),
+        date: req.body.date,
       });
 
       await tour.save();

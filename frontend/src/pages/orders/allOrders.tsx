@@ -19,6 +19,7 @@ import { addAlert, selectUser } from '@/containers/users/usersSlice';
 import { boardNames, userRoles } from '@/constants';
 import { useRouter } from 'next/router';
 import { setIsLightMode } from '@/containers/config/configSlice';
+import { GetServerSideProps } from 'next';
 
 const AllOrders = () => {
   const dispatch = useAppDispatch();
@@ -215,3 +216,12 @@ const AllOrders = () => {
 };
 
 export default AllOrders;
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

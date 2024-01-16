@@ -95,6 +95,7 @@ export interface Tour {
   price: number;
   discountPrice: number;
   isPublished: boolean;
+  date: string;
   routes: ITourRoute[][];
 }
 

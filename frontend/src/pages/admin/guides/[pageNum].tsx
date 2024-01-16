@@ -10,6 +10,7 @@ import GuideItem from '@/components/GuideItem/GuideItem';
 import Custom404 from '@/pages/404';
 import GuideFilter from '@/components/Filters/GuideFilter';
 import { setIsLightMode } from '@/containers/config/configSlice';
+import { GetServerSideProps } from 'next';
 
 const AllGuidesPage = () => {
   const dispatch = useAppDispatch();
@@ -76,3 +77,12 @@ const AllGuidesPage = () => {
 };
 
 export default AllGuidesPage;
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

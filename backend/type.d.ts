@@ -30,7 +30,7 @@ export interface ITour {
   guides: IGuide[];
   mainImage: string;
   description: ILanguages;
-  category: [];
+  category: string[];
   price: number;
   discountPrice: number;
   duration: number;
@@ -51,6 +51,7 @@ export interface ITour {
   isPublished: boolean;
   rating: number;
   routes: [][];
+  date: string;
 }
 
 export interface ITourReview {

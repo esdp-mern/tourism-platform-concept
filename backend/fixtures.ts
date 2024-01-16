@@ -188,6 +188,7 @@ const run = async () => {
         galleryTour: ['fixtures/burana.jpeg', 'fixtures/burana2.jpeg'],
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
+        date: '26/01/2024',
         routes: [
           [
             {
@@ -443,6 +444,7 @@ const run = async () => {
         galleryTour: ['fixtures/canyon-skazka.jpeg'],
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
+        date: '26/01/2024',
       },
       {
         guides: [Artem._id, Askar._id],
@@ -519,6 +521,7 @@ const run = async () => {
         galleryTour: ['fixtures/issyk-kul.jpeg'],
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
+        date: '27/01/2024',
         routes: [
           [
             {
@@ -731,6 +734,7 @@ const run = async () => {
         galleryTour: ['fixtures/osh.jpeg'],
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
+        date: '25/01/2024',
       },
       {
         guides: [Andrey._id, Artem._id],
@@ -794,6 +798,7 @@ const run = async () => {
         galleryTour: ['fixtures/sary-chelek.jpeg', 'fixtures/naryn.jpeg'],
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
+        date: '28/01/2024',
       },
       {
         guides: [Andrey._id, Artem._id],
@@ -873,6 +878,7 @@ const run = async () => {
         galleryTour: ['fixtures/sary-chelek.jpeg'],
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
+        date: '26/01/2024',
       },
       {
         guides: [Andrey._id, Artem._id],
@@ -940,6 +946,7 @@ const run = async () => {
         galleryTour: ['fixtures/ala-kul.jpeg'],
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
+        date: '27/01/2024',
       },
     );
 

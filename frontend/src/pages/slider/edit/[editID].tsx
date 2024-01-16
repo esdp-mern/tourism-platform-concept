@@ -1,5 +1,9 @@
 import React, { useEffect } from 'react';
-import { InferGetServerSidePropsType, NextPage } from 'next';
+import {
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage,
+} from 'next';
 import { wrapper } from '@/store/store';
 import { fetchOneSlider } from '@/containers/slider/sliderThunk';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -62,17 +66,13 @@ const EditSlider: NextPage<
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    async ({ params }) => {
-      const editID = params?.editID;
-
-      if (!editID || Array.isArray(editID)) {
-        throw new Error('Param id must be a string');
-      }
-
-      await store.dispatch(fetchOneSlider(editID));
-      return { props: {} };
-    },
-);
 export default EditSlider;
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

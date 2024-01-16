@@ -6,6 +6,7 @@ import { selectUser } from '@/containers/users/usersSlice';
 import PageLoader from '@/components/Loaders/PageLoader';
 import EmployeeItem from '@/components/EmployeeItem/EmployeeItem';
 import { setIsLightMode } from '@/containers/config/configSlice';
+import { GetServerSideProps } from 'next';
 
 const All = () => {
   const user = useAppSelector(selectUser);
@@ -37,3 +38,12 @@ const All = () => {
 };
 
 export default All;
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

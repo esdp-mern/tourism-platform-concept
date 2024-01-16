@@ -106,6 +106,7 @@ const TourSchema = new mongoose.Schema({
     type: Number,
     default: 5,
   },
+  date: String,
   routes: [],
 });
 

@@ -9,26 +9,32 @@ import {
 } from '@/containers/users/usersSlice';
 import ToolBarMenu from '@/components/UI/AppToolBar/components/ToolBarMenu';
 import { usePathname } from 'next/navigation';
-import { fetchTour, fetchTours } from '@/containers/tours/toursThunk';
+import { fetchTours } from '@/containers/tours/toursThunk';
 import { apiUrl, languages } from '@/constants';
-import { selectOneTour } from '@/containers/tours/toursSlice';
 import Image from 'next/image';
+import chevronRight from '@/assets/images/chevron-right.svg';
+import chevronRightLight from '@/assets/images/chevron-right-light.svg';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);
   const lang = useAppSelector(selectLanguage);
-  const tour = useAppSelector(selectOneTour);
   const dispatch = useAppDispatch();
   const [navShow, setNavShow] = useState(false);
   const [menuShow, setMenuShow] = useState(false);
   const [langOptions, setLangOptions] = useState(false);
+  const [scrollSide, setScrollSide] = useState<'scroll-right' | 'scroll-left'>(
+    'scroll-right',
+  );
   const pathname = usePathname();
+  const router = useRouter();
+  const t = useTranslations('navbar');
 
   const { isLightMode } = useAppSelector((state) => state.config);
 
   const toolBarRef = useRef<HTMLDivElement | null>(null);
+  const navRef = useRef<HTMLElement | null>(null);
 
   const showMenu = async () => {
     setMenuShow(false);
@@ -59,6 +65,8 @@ const AppToolBar = () => {
 
   useEffect(() => {
     setEventListener();
+    const { locale } = router;
+    dispatch(setLang(locale || 'en'));
     window.addEventListener('resize', setEventListener);
 
     document.addEventListener('click', () => {
@@ -71,13 +79,59 @@ const AppToolBar = () => {
       window.removeEventListener('resize', setEventListener);
       document.removeEventListener('scroll', setClassList);
     };
-  }, [isLightMode, setClassList, setEventListener]);
+  }, [dispatch, isLightMode, router, setClassList, setEventListener]);
 
   const onLangSwitch = (language: string) => {
+    const href = {
+      pathname: router.pathname,
+      query: router.query,
+    };
+    void router.push(href, undefined, { locale: language });
     dispatch(setLang(language));
-    dispatch(fetchTour(tour?._id || ''));
-    dispatch(fetchTours({}));
+    setTimeout(() => {
+      location.reload();
+    }, 200);
   };
+
+  const scrollNavSide = () => {
+    if (!navRef.current) return;
+
+    if (scrollSide === 'scroll-right') {
+      navRef.current?.lastElementChild?.scrollIntoView({ behavior: 'smooth' });
+      setScrollSide('scroll-left');
+    } else {
+      navRef.current?.firstElementChild?.scrollIntoView({ behavior: 'smooth' });
+      setScrollSide('scroll-right');
+    }
+  };
+
+  const scrollSideRef = useRef<HTMLButtonElement | null>(null);
+
+  const setResizeEventListenerForScrollSide = () => {
+    if (!scrollSideRef.current) return;
+
+    if (window.screen.width <= 992) {
+      scrollSideRef.current.style.display = 'none';
+    } else {
+      scrollSideRef.current.style.display = 'block';
+    }
+  };
+
+  useEffect(() => {
+    if (!scrollSideRef.current) return;
+
+    window.addEventListener('resize', setResizeEventListenerForScrollSide);
+
+    if (navRef.current && navRef.current.scrollWidth <= 700) {
+      scrollSideRef.current.style.display = 'none';
+    } else {
+      scrollSideRef.current.style.display = 'block';
+    }
+
+    return () => {
+      window.removeEventListener('resize', setResizeEventListenerForScrollSide);
+    };
+  }, [navRef.current, scrollSideRef.current]);
 
   return (
     <>
@@ -147,79 +201,97 @@ const AppToolBar = () => {
                 Tourism Concept
               </NavLink>
             </div>
-            <nav
-              className={`nav ${navShow ? 'nav-active' : ''}`}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <NavLink
-                href="/"
-                className={`nav-link ${pathname === '/' ? 'active' : ''}`}
+            <div className="nav-wrapper">
+              <nav
+                className={`nav ${navShow ? 'nav-active' : ''}`}
+                onClick={(e) => e.stopPropagation()}
+                ref={navRef}
+              >
+                <NavLink
+                  id="nav-first-link"
+                  href="/"
+                  className={`nav-link ${pathname === '/' ? 'active' : ''}`}
                 onClick={() => {
-                  showMenu();
+                  void showMenu();
                   closeNavMenu();
                 }}
-              >
-                Home
-              </NavLink>
-              <NavLink
-                href="/tours/all/1"
-                className={`nav-link ${
-                  pathname && pathname.includes('/tours/all') ? 'active' : ''
-                }`}
-                onClick={() => {
-                  showMenu();
-                  closeNavMenu();
-                }}
-              >
-                Tours
-              </NavLink>
-              <NavLink
-                href="/about"
-                className={`nav-link ${pathname === '/about' ? 'active' : ''}`}
-                onClick={() => {
-                  showMenu();
-                  closeNavMenu();
-                }}
-              >
-                About Us
-              </NavLink>
-              {user ? (
-                <UserMenu
-                  user={user}
+                >
+                  Home
+                </NavLink>
+                <NavLink
+                  href="/tours/all/1"
+                  className={`nav-link ${
+                    pathname && pathname.includes('/tours/all') ? 'active' : ''
+                  }`}
+                  onClick={() => {
+                    void showMenu();
+                    closeNavMenu();
+                  }}
+                >
+                  Tours
+                </NavLink>
+                <NavLink
+                  href="/about"
+                  className={`nav-link ${
+                    pathname === '/about' ? 'active' : ''
+                  }`}
                   onClick={() => {
                     showMenu();
                     closeNavMenu();
                   }}
-                  pathname={pathname}
+                >
+                  About Us
+                </NavLink>
+                {user ? (
+                  <UserMenu
+                    user={user}
+                    onClick={() => {
+                      showMenu();
+                      closeNavMenu();
+                    }}
+                    pathname={pathname}
+                  />
+                ) : (
+                  <div></div>
+                )}
+                <NavLink
+                  href="/news/all/1"
+                  className={`nav-link ${
+                    pathname && pathname.includes('/news/all') ? 'active' : ''
+                  }`}
+                  onClick={() => {
+                    showMenu();
+                    closeNavMenu();
+                  }}
+                >
+                  News
+                </NavLink>
+                <NavLink
+                  id="nav-last-link"
+                  href="/contactUs"
+                  className={`nav-link ${
+                    pathname === '/contactUs' ? 'active' : ''
+                  }`}
+                  onClick={async () => {
+                    await showMenu();
+                    closeNavMenu();
+                  }}
+                >
+                  Contact Us
+                </NavLink>
+              </nav>
+              <button
+                ref={scrollSideRef}
+                className={scrollSide}
+                onClick={scrollNavSide}
+              >
+                <Image
+                  fill
+                  src={isLightMode ? chevronRight.src : chevronRightLight.src}
+                  alt="chevron"
                 />
-              ) : (
-                <div></div>
-              )}
-              <NavLink
-                href="/news/all/1"
-                className={`nav-link ${
-                  pathname && pathname.includes('/news/all') ? 'active' : ''
-                }`}
-                onClick={() => {
-                  showMenu();
-                  closeNavMenu();
-                }}
-              >
-                News
-              </NavLink>
-              <NavLink
-                href="/contactUs"
-                className={`nav-link ${
-                  pathname === '/contactUs' ? 'active' : ''
-                }`}
-                onClick={async () => {
-                  await showMenu();
-                  closeNavMenu();
-                }}
-              >
-                Contact Us
-              </NavLink>
-            </nav>
+              </button>
+            </div>
             <div className="user-menu">
               <button
                 className={`menu-btn ${!isLightMode ? 'menu-btn-dark' : ''} ${
@@ -234,7 +306,7 @@ const AppToolBar = () => {
                 <span></span>
                 <span></span>
                 <span></span>
-                <span>menu</span>
+                <span>{t('menu')}</span>
               </button>
             </div>
           </div>

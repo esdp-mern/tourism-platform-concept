@@ -91,6 +91,7 @@
     "tour_country": "Country",
     "tour_destination": "Destination",
     "tour_arrival": "Arrival",
+    "tour_date": "Date",
     "tour_departure": "Departure",
     "tour_included": "Included",
     "tour_dressCode": "Dress-code",
