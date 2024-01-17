@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { selectToursWithDiscountTours } from '@/containers/tours/toursSlice';
 import { apiUrl } from '@/constants';
 import Link from 'next/link';
 import Image from 'next/image';
+import { fetchToursWithDiscountPrice } from '@/containers/tours/toursThunk';
 
 const HotToursToolbar = () => {
   const dispatch = useAppDispatch();
   const tours = useAppSelector(selectToursWithDiscountTours);
 
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (!tours.length) {
+      dispatch(fetchToursWithDiscountPrice());
+    }
+  }, [dispatch, tours]);
 
   const goToSlide = (index: number, e: React.MouseEvent) => {
     e.stopPropagation();

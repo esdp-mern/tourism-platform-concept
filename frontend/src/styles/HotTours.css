@@ -377,6 +377,9 @@
   .hot-tours-info div {
     display: block;
   }
+  .hot-tour-toolbar-info {
+    height: 120px;
+  }
 }
 
 @media screen and (max-width: 768px) {
