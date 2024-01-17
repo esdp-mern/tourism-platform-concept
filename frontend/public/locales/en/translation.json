@@ -130,5 +130,28 @@
     "description": "Sorry, we couldn't find the page you're looking for. Let's get you back on track. You can go back to the ",
     "link": "homepage",
     "text": "Oops! That page can't be found"
+  },
+  "alert": {
+    "success": "Request is sent",
+    "error": "Something is wrong!",
+    "empty": "Please fill in all fields",
+    "invalid_field": "Invalid field",
+    "required_number": "Number is required",
+    "required_name": "NAME or IMAGE must be filled"
+  },
+  "partners": {
+    "edit_title": "Save Slider",
+    "edit_name": "Partner name",
+    "edit_link": "Partner link",
+    "edit_image": "Image",
+    "edit_save": "Save",
+    "become_title": "Become a partner",
+    "become_title2": "Create a partner",
+    "become_name": "name*",
+    "become_phone": "phone number*",
+    "become_link": "link*",
+    "become_message": "message*",
+    "become_image": "Image",
+    "become_send": "Send"
   }
 }
