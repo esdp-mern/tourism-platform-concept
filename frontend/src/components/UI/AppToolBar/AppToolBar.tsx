@@ -108,11 +108,13 @@ const AppToolBar = () => {
   const scrollSideRef = useRef<HTMLButtonElement | null>(null);
 
   const setResizeEventListenerForScrollSide = () => {
-    if (!scrollSideRef.current) return;
+    if (!scrollSideRef.current || !navRef.current) return;
 
-    if (window.screen.width <= 992) {
+    if (window.screen.width <= 992 && navRef.current.scrollWidth <= 700) {
       scrollSideRef.current.style.display = 'none';
-    } else {
+    }
+
+    if (window.screen.width > 992 && navRef.current.scrollWidth > 700) {
       scrollSideRef.current.style.display = 'block';
     }
   };
@@ -122,16 +124,15 @@ const AppToolBar = () => {
 
     window.addEventListener('resize', setResizeEventListenerForScrollSide);
 
-    if (navRef.current && navRef.current.scrollWidth <= 700) {
-      scrollSideRef.current.style.display = 'none';
-    } else {
-      scrollSideRef.current.style.display = 'block';
+    if (navRef.current) {
+      scrollSideRef.current.style.display =
+        navRef.current.scrollWidth <= 700 ? 'none' : 'block';
     }
 
     return () => {
       window.removeEventListener('resize', setResizeEventListenerForScrollSide);
     };
-  }, [navRef.current, scrollSideRef.current]);
+  }, [navRef.current, scrollSideRef.current, user]);
 
   return (
     <>
@@ -211,10 +212,10 @@ const AppToolBar = () => {
                   id="nav-first-link"
                   href="/"
                   className={`nav-link ${pathname === '/' ? 'active' : ''}`}
-                onClick={() => {
-                  void showMenu();
-                  closeNavMenu();
-                }}
+                  onClick={() => {
+                    void showMenu();
+                    closeNavMenu();
+                  }}
                 >
                   Home
                 </NavLink>
