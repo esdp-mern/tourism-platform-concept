@@ -78,9 +78,11 @@ const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
           <Link href={`/tours/${tour._id}`} className="tour-item-links">
             <h2 className="tour-item-title">{tour.name}</h2>
           </Link>
-          <div className="tour-item-country">{tour.country}</div>
-          <div className="tour-item-info">
-            <div className="tour-item-duration">{tour.duration} days</div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div className="tour-item-country">{tour.country}</div>
+            <div className="tour-item-info">
+              <div className="tour-item-duration">{tour.duration} days</div>
+            </div>
           </div>
           {isAdmin && user && user.role === userRoles.admin ? (
             <div className="buttons-tour">

@@ -6,7 +6,10 @@ import { apiUrl, userRoles } from '@/constants';
 import { IMainSlider } from '@/type';
 import { selectUser } from '@/containers/users/usersSlice';
 import { useRouter } from 'next/router';
-import { selectAllTours } from '@/containers/tours/toursSlice';
+import {
+  selectAllTours,
+  selectAllToursLength,
+} from '@/containers/tours/toursSlice';
 import Link from 'next/link';
 
 const MainSlider = () => {
@@ -15,6 +18,7 @@ const MainSlider = () => {
   const user = useAppSelector(selectUser);
   const sliders = useAppSelector(selectAllMainSliders);
   const tours = useAppSelector(selectAllTours);
+  const allToursLength = useAppSelector(selectAllToursLength);
   const mainSliderRef = useRef<HTMLDivElement | null>(null);
   const [currentSlide, setCurrentSlide] = useState<IMainSlider | null>(null);
   const [currentDot, setCurrentDot] = useState<IMainSlider | null>(null);
@@ -117,7 +121,7 @@ const MainSlider = () => {
               </div>
             ) : null}
           </div>
-          <span className="sliderCaption">{tours.length} tours</span>
+          <span className="sliderCaption">{allToursLength} tours</span>
           <span className="scrollDown" onClick={scrollToBottom} />
         </div>
       </div>

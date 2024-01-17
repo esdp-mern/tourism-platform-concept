@@ -115,7 +115,7 @@ export interface ITourMutation {
   category: string[];
   name: string;
   description: string;
-  duration: number;
+  duration: number | string;
   plan: IPlan[];
   country: string;
   destination: string;
@@ -125,7 +125,7 @@ export interface ITourMutation {
   included: string[];
   galleryTour: File[] | null;
   mainImage: File | null;
-  price: number;
+  price: number | string;
   discountPrice?: number;
   routes: ITourRoute[][];
 }
