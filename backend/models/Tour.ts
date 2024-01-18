@@ -107,7 +107,14 @@ const TourSchema = new mongoose.Schema({
     default: 5,
   },
   date: String,
-  routes: [],
+  map: {
+    type: String,
+    required: true,
+  },
+  mapLink: {
+    type: String,
+    required: true,
+  },
 });
 
 TourSchema.methods.checkDiscountPrice = function (discountPrice: number) {

@@ -11,11 +11,13 @@ import Custom404 from '@/pages/404';
 import { selectUser } from '@/containers/users/usersSlice';
 import Image from 'next/image';
 import { GetServerSideProps } from 'next';
+import { useTranslations } from 'next-intl';
 
 const Partners = () => {
   const dispatch = useAppDispatch();
   const partners = useAppSelector(selectAllPartners);
   const user = useAppSelector(selectUser);
+  const t = useTranslations('partnerOrders');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -30,7 +32,7 @@ const Partners = () => {
   }
 
   const onDelete = async (id: string) => {
-    if (window.confirm('Are you sure you want to delete this partner?')) {
+    if (window.confirm(t('deleteAlert'))) {
       await dispatch(deletePartner(id));
       dispatch(fetchPartners());
     }
@@ -63,13 +65,13 @@ const Partners = () => {
                         className="btn-delete-tour"
                         onClick={() => onDelete(partner._id)}
                       >
-                        Delete
+                        {t('delete')}
                       </button>
                       <Link
                         href={`/partners/edit/${partner._id}`}
                         className="btn-tour-edit"
                       >
-                        Edit
+                        {t('edit')}
                       </Link>
                     </div>
                   </div>
@@ -92,13 +94,13 @@ const Partners = () => {
                         className="btn-delete-tour"
                         onClick={() => onDelete(partner._id)}
                       >
-                        Delete
+                        {t('delete')}
                       </button>
                       <Link
                         href={`/partners/edit/${partner._id}`}
                         className="btn-tour-edit"
                       >
-                        Edit
+                        {t('edit')}
                       </Link>
                     </div>
                   </div>

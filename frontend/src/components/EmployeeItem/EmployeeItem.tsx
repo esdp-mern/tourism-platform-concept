@@ -5,7 +5,6 @@ import { apiUrl, userRoles } from '@/constants';
 import { deleteEmployees, fetchEmployees } from '@/containers/about/aboutThunk';
 import Link from 'next/link';
 import { selectUser } from '@/containers/users/usersSlice';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
@@ -14,13 +13,14 @@ const EmployeeItem = () => {
   const user = useAppSelector(selectUser);
   const employees = useAppSelector(selectAllEmployees);
   const t = useTranslations('about');
+  const tr = useTranslations('partnerOrders');
 
   useEffect(() => {
     dispatch(fetchEmployees());
   }, [dispatch]);
 
   const onDelete = async (id: string) => {
-    if (window.confirm('Are you sure you want to delete this member?')) {
+    if (window.confirm(tr('deleteAlert'))) {
       await dispatch(deleteEmployees(id));
       dispatch(fetchEmployees());
     }
@@ -49,13 +49,13 @@ const EmployeeItem = () => {
                 type="button"
                 onClick={() => onDelete(empl._id)}
               >
-                Delete
+                {tr('delete')}
               </button>
               <Link
                 href={`/employees/edit/${empl._id}`}
                 className="btn-tour-edit"
               >
-                Edit
+                {tr('edit')}
               </Link>
             </div>
           ) : null}

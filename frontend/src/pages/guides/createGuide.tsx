@@ -23,6 +23,7 @@ import { selectCreateGuideLoading } from '@/containers/guides/guidesSlice';
 import { userRoles } from '@/constants';
 import Custom404 from '@/pages/404';
 import { GetServerSideProps } from 'next';
+import { useTranslations } from 'next-intl';
 
 const CreateGuide = () => {
   const initialState = {
@@ -43,6 +44,7 @@ const CreateGuide = () => {
   const [userId, setUserId] = useState('');
   const [userFieldClassName, setUserFieldClassName] = useState('');
   const [currentLanguage, setCurrentLanguage] = useState('');
+  const t = useTranslations('guide');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -108,7 +110,7 @@ const CreateGuide = () => {
       <PageLoader />
       <div className="create-guide become-guide">
         <form onSubmit={onSubmit} className="become-guide-form">
-          <h2>Create a guide</h2>
+          <h2>{t('create_form_title')}</h2>
           <div
             className="user-id-input"
             onClick={(e) => {
@@ -158,7 +160,7 @@ const CreateGuide = () => {
                 value={currentLanguage}
                 onChange={(e) => setCurrentLanguage(e.target.value)}
                 icon={languageIcon.src}
-                label="language*"
+                label={t('create_form_language')}
                 required
               />
               <button
@@ -173,13 +175,15 @@ const CreateGuide = () => {
                   }));
                 }}
               >
-                Add
+                {t('create_form_add_language')}
               </button>
             </div>
             <div className="languages-bottom">
-              <span>Languages:</span>
+              <span>{t('create_form_languages')}:</span>
               <span>
-                {!state.languages.length ? ' none' : state.languages.join(', ')}
+                {!state.languages.length
+                  ? t('create_form_none')
+                  : state.languages.join(', ')}
               </span>
               {state.languages.length ? (
                 <button
@@ -189,7 +193,7 @@ const CreateGuide = () => {
                     setSate((prevState) => ({ ...prevState, languages: [] }))
                   }
                 >
-                  Reset
+                  {t('create_form_reset')}
                 </button>
               ) : (
                 ''
@@ -202,7 +206,7 @@ const CreateGuide = () => {
             value={state.country}
             onChange={onChange}
             icon={globeIcon.src}
-            label="country*"
+            label={t('create_form_country')}
             required
           />
           <textarea
@@ -211,13 +215,13 @@ const CreateGuide = () => {
             onChange={onChange}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
-            placeholder={focused ? '' : 'about guide*'}
+            placeholder={focused ? '' : t('create_form_about')}
             name="description"
             required
           />
           <div className="input-wrap" style={{ marginTop: '15px' }}>
             <label className="form-label-avatar avatar" htmlFor="image">
-              Image
+              {t('create_form_image')}
             </label>
             <FileInput
               onChange={onFileChange}
@@ -227,7 +231,7 @@ const CreateGuide = () => {
             />
           </div>
           <button type="submit" className="form-tour-btn">
-            {createLoading ? <ButtonLoader size={18} /> : 'Send'}
+            {createLoading ? <ButtonLoader size={18} /> : t('create_form_send')}
           </button>
         </form>
       </div>

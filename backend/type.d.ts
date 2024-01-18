@@ -50,8 +50,9 @@ export interface ITour {
   country: ILanguages;
   isPublished: boolean;
   rating: number;
-  routes: [][];
   date: string;
+  map: string;
+  mapLink: string;
 }
 
 export interface ITourReview {
@@ -92,13 +93,6 @@ export interface IAboutUsBlock {
   title: ILanguages;
   description?: ILanguages;
   image?: string;
-}
-
-export interface ITourPoint {
-  coordinates: string;
-  icon: string;
-  title: string;
-  strokeColor: string;
 }
 
 export interface ILanguages {

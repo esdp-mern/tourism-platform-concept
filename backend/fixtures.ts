@@ -53,7 +53,7 @@ const run = async () => {
       email: 'guide@gmail.com',
       displayName: 'Guide',
       password: 'qwerty1234',
-      role: 'guid',
+      role: 'guide',
       avatar: 'fixtures/mordecai.png',
       token: crypto.randomUUID(),
     },
@@ -62,7 +62,7 @@ const run = async () => {
       email: 'guide2@gmail.com',
       displayName: 'Guide2',
       password: 'qwerty1234',
-      role: 'guid',
+      role: 'guide',
       avatar: 'fixtures/gumball.jpg',
       token: crypto.randomUUID(),
     },
@@ -71,7 +71,7 @@ const run = async () => {
       email: 'guide3@gmail.com',
       displayName: 'Guide3',
       password: 'qwerty1234',
-      role: 'guid',
+      role: 'guide',
       avatar: 'fixtures/kuroro.jpeg',
       token: crypto.randomUUID(),
     },
@@ -107,26 +107,57 @@ const run = async () => {
   const [Artem, Andrey, Askar] = await Guide.create(
     {
       user: user._id,
-      description:
-        'My name is Artem.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
-      languages: ['kyrgyz', 'russian', 'english'],
-      country: 'Kyrgyzstan',
-      isPublished: true,
+      description: {
+        en: 'My name is Artem.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
+        ru: 'Меня зовут Артем.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
+        kg: 'Меним атым Артем.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
+      },
+      languages: {
+        en: ['Kyrgyz', 'Russian', 'English'],
+        ru: ['Кыргызский', 'Русский', 'Английский'],
+        kg: ['Кыргызча', 'Орусча', 'Англисче'],
+      },
+      country: {
+        en: 'Kyrgyzstan',
+        ru: 'Кыргызстан',
+        kg: 'Кыргызстан',
+      },
     },
     {
       user: user1._id,
-      description:
-        'My name is Andrey.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
-      languages: ['russian', 'english'],
-      country: 'Kyrgyzstan',
-      isPublished: true,
+      description: {
+        en: 'My name is Andrey.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
+        ru: 'Меня зовут Артем.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
+        kg: 'Меним атым Артем.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
+      },
+      languages: {
+        en: ['Kyrgyz', 'Russian', 'English'],
+        ru: ['Кыргызский', 'Русский', 'Английский'],
+        kg: ['Кыргызча', 'Орусча', 'Англисче'],
+      },
+      country: {
+        en: 'Kyrgyzstan',
+        ru: 'Кыргызстан',
+        kg: 'Кыргызстан',
+      },
     },
     {
       user: user2._id,
-      description:
-        'My name is Askar.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
-      languages: ['kyrgyz', 'english'],
-      country: 'Kyrgyzstan',
+      description: {
+        en: 'My name is Askar.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
+        ru: 'Меня зовут Аскар.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
+        kg: 'Меним атым Аскар.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
+      },
+      languages: {
+        en: ['Kyrgyz', 'English'],
+        ru: ['Кыргызский', 'Английский'],
+        kg: ['Кыргызча', 'Англисче'],
+      },
+      country: {
+        en: 'Kyrgyzstan',
+        ru: 'Кыргызстан',
+        kg: 'Кыргызстан',
+      },
       isPublished: false,
     },
   );
@@ -189,205 +220,9 @@ const run = async () => {
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
         date: '26/01/2024',
-        routes: [
-          [
-            {
-              id: 'sksggDv9AkoLUnqS5Ks64',
-              coordinates: '42.812536, 74.645357',
-              icon: {
-                src: 'mapMarkers/hiking-map-marker.svg',
-                type: 'hiking',
-              },
-              title: 'tour point',
-              strokeColor: '#9b33fc',
-            },
-            {
-              id: '6xztxMUPOZK2xprCm5y7f',
-              coordinates: '42.801027, 74.649165',
-              icon: { src: 'mapMarkers/bus-map-marker.svg', type: 'bus' },
-              title: 'tour point',
-              strokeColor: '#9b33fc',
-            },
-            {
-              id: '9bvCO8GoDJiA7sJxAP0pr',
-              coordinates: '42.800938, 74.651593',
-              icon: {
-                src: 'mapMarkers/camera-map-marker.svg',
-                type: 'camera',
-              },
-              title: 'tour point',
-              strokeColor: '#9b33fc',
-            },
-            {
-              id: 'ddp4WZy7mY3iLCQ7HOfCM',
-              coordinates: '42.801066, 74.653824',
-              icon: { src: 'mapMarkers/hotel-map-marker.svg', type: 'hotel' },
-              title: 'tour point',
-              strokeColor: '#9b33fc',
-            },
-            {
-              id: 'bsztOOJVkb3LXjgqPsTyU',
-              coordinates: '42.797932, 74.670694',
-              icon: { src: 'mapMarkers/park-map-marker.svg', type: 'park' },
-              title: 'tour point',
-              strokeColor: '#9b33fc',
-            },
-            {
-              id: 'pn5qHKrDUsadt6vnVl9FB',
-              coordinates: '42.795424, 74.67018',
-              icon: {
-                src: 'mapMarkers/default-map-marker.svg',
-                type: 'default',
-              },
-              title: 'tour point',
-              strokeColor: '#9b33fc',
-            },
-            {
-              id: 'B6ICF3gDKT92x5dU67FNz',
-              coordinates: '42.794184, 74.669594',
-              icon: { src: 'mapMarkers/bus-map-marker.svg', type: 'bus' },
-              title: 'tour point',
-              strokeColor: '#9b33fc',
-            },
-          ],
-          [
-            {
-              id: 'okEsJnCgJjXbgevJqb2GX',
-              coordinates: '42.639444, 74.628418',
-              icon: {
-                src: 'mapMarkers/hiking-map-marker.svg',
-                type: 'hiking',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'hMNHpRvkB7hsdVNthAKlO',
-              coordinates: '42.640625, 74.628556',
-              icon: { src: 'mapMarkers/hotel-map-marker.svg', type: 'hotel' },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'uXATrelXHl6ea4VPkR69e',
-              coordinates: '42.641644, 74.62802',
-              icon: { src: 'mapMarkers/park-map-marker.svg', type: 'park' },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'OkpbQV6XNY8ISMrmovEM9',
-              coordinates: '42.642644, 74.627746',
-              icon: {
-                src: 'mapMarkers/camera-map-marker.svg',
-                type: 'camera',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'f0pyUjT3D9tCM6ErpVsfk',
-              coordinates: '42.642896, 74.628185',
-              icon: {
-                src: 'mapMarkers/default-map-marker.svg',
-                type: 'default',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'LkjppM9Y5SQRJQhEuMHnh',
-              coordinates: '42.641846, 74.631753',
-              icon: {
-                src: 'mapMarkers/default-map-marker.svg',
-                type: 'default',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'LWSnnmcyJLgkwBfAcb8Yx',
-              coordinates: '42.642119, 74.632549',
-              icon: {
-                src: 'mapMarkers/hiking-map-marker.svg',
-                type: 'hiking',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'C3Gwaul73lYqzGyHA4AOW',
-              coordinates: '42.641109, 74.634854',
-              icon: {
-                src: 'mapMarkers/hiking-map-marker.svg',
-                type: 'hiking',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'e3F6K2wzAz36QjmwAxyia',
-              coordinates: '42.640322, 74.635403',
-              icon: { src: 'mapMarkers/bus-map-marker.svg', type: 'bus' },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'GLY9ZqCkKrjPo7vuCHEhV',
-              coordinates: '42.640554, 74.636638',
-              icon: { src: 'mapMarkers/bus-map-marker.svg', type: 'bus' },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'ry3YquYUan0VdC5TkOFey',
-              coordinates: '42.640504, 74.637008',
-              icon: { src: 'mapMarkers/hotel-map-marker.svg', type: 'hotel' },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'nfXJw1EBAV8RDpFGi1zHB',
-              coordinates: '42.639958, 74.637612',
-              icon: {
-                src: 'mapMarkers/camera-map-marker.svg',
-                type: 'camera',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'nfXJw1EBAV8RDpFGi1zHB',
-              coordinates: '42.64014, 74.64118',
-              icon: {
-                src: 'mapMarkers/default-map-marker.svg',
-                type: 'default',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'Zcsk1lhBQSh1xOlQksyH2',
-              coordinates: '42.641409, 74.642463',
-              icon: {
-                src: 'mapMarkers/default-map-marker.svg',
-                type: 'default',
-              },
-              title: '',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 't4gb9HDtocCc3gghEt8Eh',
-              coordinates: '42.642432, 74.643073',
-              icon: {
-                src: 'mapMarkers/hiking-map-marker.svg',
-                type: 'hiking',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-          ],
-        ],
+        map: `<iframe src='https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>`,
+        mapLink:
+          'https://www.google.com/maps/d/edit?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&usp=sharing',
       },
       {
         guides: [Askar._id, Andrey._id],
@@ -445,6 +280,9 @@ const run = async () => {
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
         date: '26/01/2024',
+        map: `<iframe src='https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>`,
+        mapLink:
+          'https://www.google.com/maps/d/edit?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&usp=sharing',
       },
       {
         guides: [Artem._id, Askar._id],
@@ -522,142 +360,9 @@ const run = async () => {
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
         date: '27/01/2024',
-        routes: [
-          [
-            {
-              id: '71LW8CV9p4bMpztYf8Hjq',
-              coordinates: '42.639444, 74.628418',
-              icon: {
-                src: 'mapMarkers/hiking-map-marker.svg',
-                type: 'hiking',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'LzVn9n8j7RtztdX069DW5',
-              coordinates: '42.640625, 74.628556',
-              icon: { src: 'mapMarkers/bus-map-marker.svg', type: 'bus' },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'jgRYhOSOXFaKGmlTBuhSE',
-              coordinates: '42.641644, 74.62802',
-              icon: { src: 'mapMarkers/park-map-marker.svg', type: 'park' },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'GSJnj7yMiBNH0ZuZo82vX',
-              coordinates: '42.642644, 74.627746',
-              icon: {
-                src: 'mapMarkers/hiking-map-marker.svg',
-                type: 'hiking',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'BW3mrdrCwrtTAkmbB0VUK',
-              coordinates: '42.642896, 74.628185',
-              icon: {
-                src: 'mapMarkers/default-map-marker.svg',
-                type: 'default',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'KIYFOGgz1bM5pIPS8AhSM',
-              coordinates: '42.641846, 74.631753',
-              icon: {
-                src: 'mapMarkers/default-map-marker.svg',
-                type: 'default',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'PQrzJMhKYkbtmYKTr1lCV',
-              coordinates: '42.642119, 74.632549',
-              icon: {
-                src: 'mapMarkers/hiking-map-marker.svg',
-                type: 'hiking',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'docyxE28lNCAaOH9ejncV',
-              coordinates: '42.641109, 74.634854',
-              icon: { src: 'mapMarkers/hotel-map-marker.svg', type: 'hotel' },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'xxDmYIbhPboi1IS3AYKJu',
-              coordinates: '42.640322, 74.635403',
-              icon: {
-                src: 'mapMarkers/camera-map-marker.svg',
-                type: 'camera',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'IZqWhERkhiLUVTqC9hfi9',
-              coordinates: '42.640554, 74.636638',
-              icon: {
-                src: 'mapMarkers/camera-map-marker.svg',
-                type: 'camera',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'UGdkYn6RS2vFZbATSNSaX',
-              coordinates: '42.640504, 74.637008',
-              icon: { src: 'mapMarkers/bus-map-marker.svg', type: 'bus' },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: '5VzX8UHUe8okczQk5wITz',
-              coordinates: '42.639958, 74.637612',
-              icon: { src: 'mapMarkers/hotel-map-marker.svg', type: 'hotel' },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'jM5sMXBKpe0rmTIMNGdXr',
-              coordinates: '42.64014, 74.64118',
-              icon: { src: 'mapMarkers/bus-map-marker.svg', type: 'bus' },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'sUGRWazTiarFyz3T8NKgC',
-              coordinates: '42.641409, 74.642463',
-              icon: {
-                src: 'mapMarkers/default-map-marker.svg',
-                type: 'default',
-              },
-              title: '',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'r1Rm4uegwFJiXtwI75dDF',
-              coordinates: '42.642432, 74.643073',
-              icon: {
-                src: 'mapMarkers/hiking-map-marker.svg',
-                type: 'hiking',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-          ],
-        ],
+        map: `<iframe src='https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>`,
+        mapLink:
+          'https://www.google.com/maps/d/edit?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&usp=sharing',
       },
       {
         guides: [Andrey._id, Askar._id],
@@ -735,6 +440,9 @@ const run = async () => {
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
         date: '25/01/2024',
+        map: `<iframe src='https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>`,
+        mapLink:
+          'https://www.google.com/maps/d/edit?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&usp=sharing',
       },
       {
         guides: [Andrey._id, Artem._id],
@@ -799,6 +507,9 @@ const run = async () => {
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
         date: '28/01/2024',
+        map: `<iframe src='https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>`,
+        mapLink:
+          'https://www.google.com/maps/d/edit?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&usp=sharing',
       },
       {
         guides: [Andrey._id, Artem._id],
@@ -879,6 +590,9 @@ const run = async () => {
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
         date: '26/01/2024',
+        map: `<iframe src='https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>`,
+        mapLink:
+          'https://www.google.com/maps/d/edit?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&usp=sharing',
       },
       {
         guides: [Andrey._id, Artem._id],
@@ -947,6 +661,9 @@ const run = async () => {
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
         date: '27/01/2024',
+        map: `<iframe src='https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>`,
+        mapLink:
+          'https://www.google.com/maps/d/edit?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&usp=sharing',
       },
     );
 

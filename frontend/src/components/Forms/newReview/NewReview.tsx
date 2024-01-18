@@ -8,6 +8,7 @@ import {
   createGuideReview,
   fetchGuideReviews,
 } from '@/containers/reviews/reviewThunk';
+import { useTranslations } from 'next-intl';
 
 interface IProps {
   guideReview: boolean;
@@ -28,6 +29,7 @@ const NewReview: React.FC<IProps> = ({ guideReview }) => {
   });
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
+  const t = useTranslations('guide');
 
   const onRatingClick = (number: number) => {
     setState((prevState) => ({
@@ -79,10 +81,10 @@ const NewReview: React.FC<IProps> = ({ guideReview }) => {
 
   return (
     <Fade>
-      <h3 className="review-form-title">Write a review</h3>
+      <h3 className="review-form-title">{t(`write_review`)}</h3>
       <form className="review-form" onSubmit={onSubmit}>
         <div className="tour-rating-range">
-          <span>Rating</span>
+          <span>{t(`rating`)}</span>
           <div className="tour-rating-stars">
             <span
               className={`star-icon ${state.rating >= 1 && 'rated-star'}`}
@@ -119,14 +121,14 @@ const NewReview: React.FC<IProps> = ({ guideReview }) => {
         <div className="review-form-textarea">
           <textarea
             className="review-form-input"
-            placeholder="comment"
+            placeholder={t(`comment`)}
             onChange={onChange}
             value={state.comment}
             name="comment"
             required
           />
         </div>
-        <button type="submit">send</button>
+        <button type="submit">{t(`send_review`)}</button>
       </form>
     </Fade>
   );
