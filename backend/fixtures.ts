@@ -107,26 +107,57 @@ const run = async () => {
   const [Artem, Andrey, Askar] = await Guide.create(
     {
       user: user._id,
-      description:
-        'My name is Artem.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
-      languages: ['kyrgyz', 'russian', 'english'],
-      country: 'Kyrgyzstan',
-      isPublished: true,
+      description: {
+        en: 'My name is Artem.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
+        ru: 'Меня зовут Артем.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
+        kg: 'Меним атым Артем.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
+      },
+      languages: {
+        en: ['Kyrgyz', 'Russian', 'English'],
+        ru: ['Кыргызский', 'Русский', 'Английский'],
+        kg: ['Кыргызча', 'Орусча', 'Англисче'],
+      },
+      country: {
+        en: 'Kyrgyzstan',
+        ru: 'Кыргызстан',
+        kg: 'Кыргызстан',
+      },
     },
     {
       user: user1._id,
-      description:
-        'My name is Andrey.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
-      languages: ['russian', 'english'],
-      country: 'Kyrgyzstan',
-      isPublished: true,
+      description: {
+        en: 'My name is Andrey.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
+        ru: 'Меня зовут Артем.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
+        kg: 'Меним атым Артем.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
+      },
+      languages: {
+        en: ['Kyrgyz', 'Russian', 'English'],
+        ru: ['Кыргызский', 'Русский', 'Английский'],
+        kg: ['Кыргызча', 'Орусча', 'Англисче'],
+      },
+      country: {
+        en: 'Kyrgyzstan',
+        ru: 'Кыргызстан',
+        kg: 'Кыргызстан',
+      },
     },
     {
       user: user2._id,
-      description:
-        'My name is Askar.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
-      languages: ['kyrgyz', 'english'],
-      country: 'Kyrgyzstan',
+      description: {
+        en: 'My name is Askar.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
+        ru: 'Меня зовут Аскар.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
+        kg: 'Меним атым Аскар.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
+      },
+      languages: {
+        en: ['Kyrgyz', 'English'],
+        ru: ['Кыргызский', 'Английский'],
+        kg: ['Кыргызча', 'Англисче'],
+      },
+      country: {
+        en: 'Kyrgyzstan',
+        ru: 'Кыргызстан',
+        kg: 'Кыргызстан',
+      },
       isPublished: false,
     },
   );

@@ -132,6 +132,33 @@
     "link": "главную страницу",
     "text": "Упс! Эту страницу невозможно найти"
   },
+  "guide": {
+    "information": "Информация",
+    "reviews": "Отзывы",
+    "country": "Страна",
+    "languages": "Языки",
+    "tours": "Туры",
+    "write_review": "Напишите отзыв",
+    "rating": "Рейтинг",
+    "comment": "комментарий",
+    "send_review": "Отправить",
+    "become_form_title": "Стать гидом",
+    "become_form_name": "имя",
+    "become_form_surname": "фамилия*",
+    "become_form_phone": "номер телефона*",
+    "become_form_message": " Опишите себя*",
+    "become_form_send": "Отправить",
+    "create_form_title": "Создать гида",
+    "create_form_language": "язык*",
+    "create_form_add_language": "Добавить",
+    "create_form_languages": "Языки",
+    "create_form_none": "нет",
+    "create_form_reset": "Сброс",
+    "create_form_country": "страна*",
+    "create_form_about": "о гиде*",
+    "create_form_image": "фото",
+    "create_form_send": "Отправить"
+  }
   "admin": {
     "tours": "Туры",
     "total tours": "Всего туров",

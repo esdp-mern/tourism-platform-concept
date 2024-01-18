@@ -13,16 +13,19 @@ const GuideSchema = new mongoose.Schema({
     },
   },
   description: {
-    type: String,
-    required: true,
+    kg: String,
+    ru: String,
+    en: String,
   },
   languages: {
-    type: Array,
-    required: true,
+    en: [String],
+    ru: [String],
+    kg: [String],
   },
   country: {
-    type: String,
-    required: true,
+    en: String,
+    ru: String,
+    kg: String,
   },
   image: {
     type: String,

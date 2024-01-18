@@ -132,6 +132,33 @@
     "link": "homepage",
     "text": "Oops! That page can't be found"
   },
+  "guide": {
+    "information": "Information",
+    "reviews": "Reviews",
+    "country": "Country",
+    "languages": "Languages",
+    "tours": "Tours",
+    "write_review": "Write a review",
+    "rating": "Rating",
+    "comment": "comment",
+    "send_review": "Send",
+    "become_form_title": "Become a guide",
+    "become_form_name": "name",
+    "become_form_surname": "surname*",
+    "become_form_phone": "phone number*",
+    "become_form_message": " describe yourself*",
+    "become_form_send": "Send",
+    "create_form_title": "Create a guide",
+    "create_form_language": "language*",
+    "create_form_add_language": "Add",
+    "create_form_languages": "Languages",
+    "create_form_none": "none",
+    "create_form_reset": "Reset",
+    "create_form_country": "country*",
+    "create_form_about": "about guide*",
+    "create_form_image": "Image",
+    "create_form_send": "Send"
+  }
   "admin": {
     "tours": "Tours",
     "total tours": "Total tours",

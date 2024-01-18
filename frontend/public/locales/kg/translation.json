@@ -132,6 +132,33 @@
     "link": "башкы бет",
     "text": "Ой! Бул баракты табуу мүмкүн эмес"
   },
+  "guide": {
+    "information": "Информация",
+    "reviews": "Баалоо",
+    "country": "Өлкө",
+    "languages": "Тилер",
+    "tours": "Турлар",
+    "write_review": "Комментарий калтырыңыз",
+    "rating": "Баа",
+    "comment": "комментарий",
+    "send_review": "Жөнөтүү",
+    "become_form_title": "Гид болуңуз",
+    "become_form_name": "ат*",
+    "become_form_surname": "фамилия*",
+    "become_form_phone": "телефон номери*",
+    "become_form_message": "өзүңүздү сүрөттөп бериңиз*",
+    "become_form_send": "Жөнөтүү",
+    "create_form_title": "Гид түзүңүз",
+    "create_form_language": "тил*",
+    "create_form_add_language": "Кошуу",
+    "create_form_languages": "Тилдер",
+    "create_form_none": "жок",
+    "create_form_reset": "Түшүрүү",
+    "create_form_country": "Өлкө*",
+    "create_form_about": "гид жөнүндө*",
+    "create_form_image": "сүрөт",
+    "create_form_send": "Жөнөтүү"
+  }
   "admin": {
     "tours": "Турлар",
     "total tours": "Жалпы турлар",
