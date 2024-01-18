@@ -165,12 +165,13 @@
   "partnerOrders": {
     "accept": "Accept",
     "delete": "Delete",
-    "deleteAlert": "Are you sure you want to reject this request?",
+    "deleteAlert": "Are you sure you want to delete?",
     "requestIsSent": "Request is sent",
     "noPartnersMessage": "Unfortunately, there are no partner orders.",
     "number": "Number",
     "message": "Message",
     "nameOrImageAlert": "Name or Image is required",
-    "wrongAlert": "Something is wrong"
+    "wrongAlert": "Something is wrong",
+    "edit": "Edit"
   }
 }
