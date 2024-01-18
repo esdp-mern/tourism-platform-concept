@@ -223,7 +223,7 @@
     "become_link": "link*",
     "become_message": "message*",
     "become_image": "Image",
-    "become_send": "Send"
+    "become_send": "Send",
     "required_name": "NAME or IMAGE must be filled",
     "sign_in": "You have signed in!"
   },

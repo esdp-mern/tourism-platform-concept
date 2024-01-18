@@ -223,7 +223,7 @@
     "become_link": "ссылка*",
     "become_message": "сообщение*",
     "become_image": "Изображение",
-    "become_send": "Отправить"
+    "become_send": "Отправить",
     "required_name": "ИМЯ или ИЗОБРАЖЕНИЕ должны быть заполнены",
     "sign_in": "Вы вошли в систему!"
   },
