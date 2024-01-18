@@ -173,5 +173,32 @@
     "nameOrImageAlert": "Name or Image is required",
     "wrongAlert": "Something is wrong",
     "edit": "Edit"
+  },
+  "alert": {
+    "success": "Request is sent",
+    "error": "Something is wrong!",
+    "empty": "Please fill in all fields",
+    "invalid_field": "Invalid field",
+    "required_number": "Number is required",
+    "required_name": "NAME or IMAGE must be filled",
+    "sign_in": "You have signed in!"
+  },
+  "sign_in": {
+    "title": "Login Form",
+    "username": "Username",
+    "password": "Password",
+    "create": "Create account",
+    "login": "Login"
+  },
+  "sign_up": {
+    "title": "Register Form",
+    "username": "Username",
+    "password": "Password",
+    "name": "Name",
+    "email": "Email",
+    "avatar": "Avatar",
+    "loading": "Loading...",
+    "sign_up": "Sign up",
+    "sign_in": "Sign in"
   }
 }

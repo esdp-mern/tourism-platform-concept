@@ -21,6 +21,7 @@ import peopleIcon from '@/assets/images/people-icon.svg';
 import keyIcon from '@/assets/images/key.png';
 import emailIcon from '@/assets/images/email-icon.svg';
 import penIcon from '@/assets/images/pen-icon.svg';
+import { useTranslations } from 'next-intl';
 
 const initialState: RegisterMutation = {
   username: '',
@@ -38,7 +39,8 @@ const SignUpForm = () => {
   const signUpLoading = useAppSelector(selectSignUpLoading);
   const user = useAppSelector(selectUser);
   const message = useAppSelector(selectRegisterMessage);
-
+  const at = useTranslations('alert');
+  const t = useTranslations('sign_up');
   useEffect(() => {
     if (user) {
       void router.push('/');
@@ -81,7 +83,7 @@ const SignUpForm = () => {
       await router.push('/');
       dispatch(addAlert({ message: message.message, type: 'info' }));
     } catch (e) {
-      dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+      dispatch(addAlert({ message: at('error'), type: 'error' }));
     }
   };
 
@@ -109,14 +111,13 @@ const SignUpForm = () => {
     <div className="form-block">
       <PageLoader />
       <form className="form" onSubmit={submitFormHandler}>
-        <h2 className="form-title">Register Form</h2>
-        {getTextField('username', 'Username', peopleIcon.src)}
-        {getTextField('password', 'Password', keyIcon.src, 'password')}
-        {getTextField('displayName', 'Name', penIcon.src)}
-        {getTextField('email', 'Email', emailIcon.src, 'email')}
-
+        <h2 className="form-title"> {t('title')}</h2>
+        {getTextField('username', t('username'), peopleIcon.src)}
+        {getTextField('password', t('password'), keyIcon.src, 'password')}
+        {getTextField('displayName', t('name'), penIcon.src)}
+        {getTextField('email', t('email'), emailIcon.src, 'email')}
         <div className="input-wrap input-wrap-avatar">
-          <label className="form-label-avatar avatar">Avatar</label>
+          <label className="form-label-avatar avatar">{t('avatar')}</label>
           <FileInput
             onChange={changeFileValue}
             name="avatar"
@@ -126,10 +127,10 @@ const SignUpForm = () => {
         </div>
         <div className="form-wrap-btn">
           <button type="submit" className="form-btn">
-            {signUpLoading ? 'Loading...' : 'Sign up'}
+            {signUpLoading ? t('loading') : t('sign_up')}
           </button>
           <Link className="link-btn" href="/login">
-            Sign in
+            {t('sign_in')}
           </Link>
         </div>
       </form>
