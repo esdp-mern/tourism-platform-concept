@@ -120,7 +120,8 @@
     "tour_tab_gallery": "галерея",
     "tour_tab_reviews": "баалоо",
     "tour_video_preview": "Видео",
-    "tour_view_photos": "Сүрөттөр"
+    "tour_view_photos": "Сүрөттөр",
+    "tour_edit_routes": "Маршруттарды өзгөртүү"
   },
   "inputs": {
     "file_input_btn": "Көрүү"

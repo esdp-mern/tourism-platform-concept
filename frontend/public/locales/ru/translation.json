@@ -120,7 +120,8 @@
     "tour_tab_gallery": "галерея",
     "tour_tab_reviews": "отзывы",
     "tour_video_preview": "Видео",
-    "tour_view_photos": "Фото"
+    "tour_view_photos": "Фото",
+    "tour_edit_routes": "Редактировать маршруты"
   },
   "inputs": {
     "file_input_btn": "Просмотреть"
