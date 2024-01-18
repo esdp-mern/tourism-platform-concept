@@ -18,6 +18,7 @@ import TextField from '@/components/UI/TextField/TextField';
 import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
 import peopleIcon from '@/assets/images/people-icon.svg';
 import keyIcon from '@/assets/images/key.png';
+import { useTranslations } from 'next-intl';
 
 const SignInForm = () => {
   const dispatch = useAppDispatch();
@@ -29,6 +30,8 @@ const SignInForm = () => {
   });
   const user = useAppSelector(selectUser);
   const signInLoading = useAppSelector(selectSignInLoading);
+  const at = useTranslations('alert');
+  const t = useTranslations('sign_in');
 
   useEffect(() => {
     if (user) {
@@ -48,10 +51,10 @@ const SignInForm = () => {
     try {
       await dispatch(googleLogin(credential)).unwrap();
       await router.push('/');
-      dispatch(addAlert({ message: 'You have signed in!', type: 'info' }));
+      dispatch(addAlert({ message: at('sign_in'), type: 'info' }));
     } catch (e) {
       if (e instanceof AxiosError) {
-        dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+        dispatch(addAlert({ message: at('error'), type: 'error' }));
       }
     }
   };
@@ -61,10 +64,10 @@ const SignInForm = () => {
     try {
       await dispatch(signIn(state)).unwrap();
       await router.push('/');
-      dispatch(addAlert({ message: 'You have signed in!', type: 'info' }));
+      dispatch(addAlert({ message: at('sign_in'), type: 'info' }));
     } catch (e) {
       if (e instanceof AxiosError) {
-        dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+        dispatch(addAlert({ message: at('error'), type: 'error' }));
       }
     }
   };
@@ -101,7 +104,7 @@ const SignInForm = () => {
     <div className="form-block">
       <PageLoader />
       <form className="form" onSubmit={submitFormHandler}>
-        <h2 className="form-title">Login Form</h2>
+        <h2 className="form-title">{t('title')}</h2>
         <div className="form-wrap-google">
           <GoogleLogin
             onSuccess={(credentialResponse) => {
@@ -115,15 +118,15 @@ const SignInForm = () => {
           />
         </div>
 
-        {getTextField('username', 'Username', peopleIcon.src)}
-        {getTextField('password', 'Password', keyIcon.src, 'password')}
+        {getTextField('username', t('username'), peopleIcon.src)}
+        {getTextField('password', t('password'), keyIcon.src, 'password')}
 
         <div className="form-wrap-btn">
           <button className="form-btn" type="submit" disabled={signInLoading}>
-            {signInLoading ? <ButtonLoader size={18} /> : 'Login'}
+            {signInLoading ? <ButtonLoader size={18} /> : t('login')}
           </button>
           <Link className="link-btn" href="/register">
-            Create account
+            {t('create')}
           </Link>
         </div>
       </form>
