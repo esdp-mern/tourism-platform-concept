@@ -120,7 +120,8 @@
     "tour_tab_gallery": "gallery",
     "tour_tab_reviews": "reviews",
     "tour_video_preview": "video preview",
-    "tour_view_photos": "view photos"
+    "tour_view_photos": "view photos",
+    "tour_edit_routes": "Edit routes"
   },
   "inputs": {
     "file_input_btn": "Browse"

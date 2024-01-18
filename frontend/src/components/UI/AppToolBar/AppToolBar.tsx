@@ -211,10 +211,10 @@ const AppToolBar = () => {
                   id="nav-first-link"
                   href="/"
                   className={`nav-link ${pathname === '/' ? 'active' : ''}`}
-                onClick={() => {
-                  void showMenu();
-                  closeNavMenu();
-                }}
+                  onClick={() => {
+                    void showMenu();
+                    closeNavMenu();
+                  }}
                 >
                   Home
                 </NavLink>

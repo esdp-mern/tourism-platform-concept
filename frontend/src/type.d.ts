@@ -95,7 +95,8 @@ export interface Tour {
   price: number;
   isPublished: boolean;
   date: string;
-  routes: ITourRoute[][];
+  map: string;
+  mapLink: string;
 }
 
 export interface TourFull extends Tour {
@@ -125,7 +126,8 @@ export interface ITourMutation {
   galleryTour: File[] | null;
   mainImage: File | null;
   price: number;
-  routes: ITourRoute[][];
+  map: string;
+  mapLink: string;
 }
 
 export interface ITourReview {

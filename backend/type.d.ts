@@ -54,13 +54,6 @@ export interface IAboutUsBlock {
   image?: string;
 }
 
-export interface ITourPoint {
-  coordinates: string;
-  icon: string;
-  title: string;
-  strokeColor: string;
-}
-
 export interface ILanguages {
   en: string;
   ru: string;
