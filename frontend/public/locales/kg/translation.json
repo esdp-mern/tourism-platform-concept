@@ -91,6 +91,7 @@
     "tour_country": "Өлкө",
     "tour_destination": "Жайгашкан жери",
     "tour_arrival": "Жетүү убагы",
+    "tour_date": "Дата",
     "tour_departure": "Жолго чыгуу",
     "tour_included": "Камтылган",
     "tour_dressCode": "Дресс-код",
@@ -119,7 +120,8 @@
     "tour_tab_gallery": "галерея",
     "tour_tab_reviews": "баалоо",
     "tour_video_preview": "Видео",
-    "tour_view_photos": "Сүрөттөр"
+    "tour_view_photos": "Сүрөттөр",
+    "tour_edit_routes": "Маршруттарды өзгөртүү"
   },
   "inputs": {
     "file_input_btn": "Көрүү"
@@ -156,5 +158,75 @@
     "create_form_about": "гид жөнүндө*",
     "create_form_image": "сүрөт",
     "create_form_send": "Жөнөтүү"
+  }
+  "admin": {
+    "tours": "Турлар",
+    "total tours": "Жалпы турлар",
+    "guides": "Гиддер",
+    "total guides": "Жалпы гиддер",
+    "news": "Жаңылыктар",
+    "total news": "Жалпы жаңылыктар",
+    "partners": "Партнерлор",
+    "total partners": "Жалпы партнерлор",
+    "orders": "Заказдар",
+    "total orders": "Жалпы заказдар",
+    "employees": "Кызматкерлер",
+    "total employees": "Жалпы кызматкерлер",
+    "users": "Колдонуучулар",
+    "total users": "Жалпы колдонуучулар",
+    "published": "Жарыяланган",
+    "unpublished": "Жарыяланган эмес",
+    "current": "Азыркы",
+    "booked": "Брондолгон",
+    "being considered": "Кароодо",
+    "approved orders": "Кабыл алынган",
+    "create tour": "Турду түзүү",
+    "active": "Активдүү",
+    "non active": "Активдүү эмес",
+    "active moderators": "Активдүү модераторлор",
+    "partner orders": "Партнерлордун заказдары",
+    "total": "Жалпы",
+    "guide orders": "Гиддердин заказдары",
+    "total guide orders": "Жалпы гиддердин заказдары",
+    "total partner orders": "Жалпы партнерлордун заказдары"
+  },
+  "partnerOrders": {
+    "accept": "Кабыл алуу",
+    "delete": "Жок кылуу",
+    "deleteAlert": "Сунушту алып салгыңыз келеби?",
+    "requestIsSent": "Жиберилди",
+    "noPartnersMessage": "Кечиресиз, мындан ары өнөктөштүк колдонмолор жок.",
+    "number": "Номер",
+    "message": "Кабар",
+    "nameOrImageAlert": "Аты же сүрөт талап кылынат",
+    "wrongAlert": "Бир нерсе туура эмес",
+    "edit": "Өзгөртүү"
+  },
+  "alert": {
+    "success": "Талап жөнөтүлдү",
+    "error": "Бирде-бир туура эмес!",
+    "empty": "Бардык талааларды толтуруңуз",
+    "invalid_field": "Туура эмес талаа",
+    "required_number": "Номер талап кылынат",
+    "required_name": "АТЫ же СҮРӨТ толтурулуучу",
+    "sign_in": "Системага кирдиңиз!"
+  },
+  "sign_in": {
+    "title": "Кирүү формасы",
+    "username": "Колдонуучунун аты",
+    "password": "Сырсөз",
+    "create": "Эсептама жаратуу",
+    "login": "Кирүү"
+  },
+  "sign_up": {
+    "title": "Каттоо формасы",
+    "username": "Колдонуучунун аты",
+    "password": "Сырсөз",
+    "name": "Аты",
+    "email": "Электрондук почта",
+    "avatar": "Аватар",
+    "loading": "Жүктөлүү...",
+    "sign_up": "Катталуу",
+    "sign_in": "Кирүү"
   }
 }

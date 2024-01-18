@@ -240,7 +240,6 @@ const CreateGuide = () => {
 };
 
 export default CreateGuide;
-
 export const getStaticProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: {

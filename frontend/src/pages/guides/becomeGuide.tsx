@@ -141,7 +141,6 @@ const BecomeGuide = () => {
 };
 
 export default BecomeGuide;
-
 export const getStaticProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: {

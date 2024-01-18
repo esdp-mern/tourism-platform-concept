@@ -16,6 +16,7 @@ import { selectCreatePartnerLoading } from '@/containers/partners/partnersSlice'
 import { createPartner } from '@/containers/partners/partnersThunk';
 import { userRoles } from '@/constants';
 import FileInput from '@/components/UI/FileInput/FileInput';
+import { GetServerSideProps } from 'next';
 
 const CreatePartner = () => {
   const initialState = {
@@ -119,3 +120,12 @@ const CreatePartner = () => {
 };
 
 export default CreatePartner;
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

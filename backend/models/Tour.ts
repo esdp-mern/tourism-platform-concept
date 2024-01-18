@@ -94,7 +94,15 @@ const TourSchema = new mongoose.Schema({
     type: Number,
     default: 5,
   },
-  routes: [],
+  date: String,
+  map: {
+    type: String,
+    required: true,
+  },
+  mapLink: {
+    type: String,
+    required: true,
+  },
 });
 
 const Tour = mongoose.model('Tour', TourSchema);

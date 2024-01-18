@@ -251,6 +251,7 @@ const About = () => {
                         </div>
                         <div className="about-page-clients-card-txt">
                           {review.comment}
+                          looeroeoreoroereroeoreroeorlooeroeoreoroereroeoreroeorlooeroeoreoroereroeoreroeorlooeroeoreoroereroeoreroeorlooeroeoreoroereroeoreroeorlooeroeoreoroereroeoreroeorlooeroeoreoroereroeoreroeor
                         </div>
                         <div className="about-page-clients-card-date">
                           {dayjs(review.date)

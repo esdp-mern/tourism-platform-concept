@@ -91,6 +91,7 @@
     "tour_country": "Country",
     "tour_destination": "Destination",
     "tour_arrival": "Arrival",
+    "tour_date": "Date",
     "tour_departure": "Departure",
     "tour_included": "Included",
     "tour_dressCode": "Dress-code",
@@ -119,7 +120,8 @@
     "tour_tab_gallery": "gallery",
     "tour_tab_reviews": "reviews",
     "tour_video_preview": "video preview",
-    "tour_view_photos": "view photos"
+    "tour_view_photos": "view photos",
+    "tour_edit_routes": "Edit routes"
   },
   "inputs": {
     "file_input_btn": "Browse"
@@ -156,5 +158,75 @@
     "create_form_about": "about guide*",
     "create_form_image": "Image",
     "create_form_send": "Send"
+  }
+  "admin": {
+    "tours": "Tours",
+    "total tours": "Total tours",
+    "guides": "Guides",
+    "total guides": "Total guides",
+    "news": "News",
+    "total news": "Total news",
+    "partners": "Partners",
+    "total partners": "Total partners",
+    "orders": "Orders",
+    "total orders": "Total orders",
+    "employees": "Employees",
+    "total employees": "Total employees",
+    "users": "Users",
+    "total users": "Total users",
+    "published": "Published",
+    "unpublished": "Unpublished",
+    "current": "Current",
+    "booked": "Booked",
+    "being considered": "Being considered",
+    "approved orders": "Approved orders",
+    "create tour": "Create tour",
+    "active": "Active",
+    "non active": "Non active",
+    "active moderators": "Active moderators",
+    "partner orders": "Partner orders",
+    "total": "Total",
+    "guide orders": "Guide orders",
+    "total guide orders": "Total guide orders",
+    "total partner orders": "Total partner orders"
+  },
+  "partnerOrders": {
+    "accept": "Accept",
+    "delete": "Delete",
+    "deleteAlert": "Are you sure you want to delete?",
+    "requestIsSent": "Request is sent",
+    "noPartnersMessage": "Unfortunately, there are no partner orders.",
+    "number": "Number",
+    "message": "Message",
+    "nameOrImageAlert": "Name or Image is required",
+    "wrongAlert": "Something is wrong",
+    "edit": "Edit"
+  },
+  "alert": {
+    "success": "Request is sent",
+    "error": "Something is wrong!",
+    "empty": "Please fill in all fields",
+    "invalid_field": "Invalid field",
+    "required_number": "Number is required",
+    "required_name": "NAME or IMAGE must be filled",
+    "sign_in": "You have signed in!"
+  },
+  "sign_in": {
+    "title": "Login Form",
+    "username": "Username",
+    "password": "Password",
+    "create": "Create account",
+    "login": "Login"
+  },
+  "sign_up": {
+    "title": "Register Form",
+    "username": "Username",
+    "password": "Password",
+    "name": "Name",
+    "email": "Email",
+    "avatar": "Avatar",
+    "loading": "Loading...",
+    "sign_up": "Sign up",
+    "sign_in": "Sign in"
   }
 }

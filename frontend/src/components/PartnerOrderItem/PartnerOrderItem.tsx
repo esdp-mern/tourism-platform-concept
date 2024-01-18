@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import { IPartnerAccept } from '@/type';
 import { AxiosError } from 'axios';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   id: string;
@@ -40,6 +41,7 @@ const PartnerOrderItem: React.FC<Props> = ({
   };
   const router = useRouter();
   const [state, setState] = useState<IPartnerAccept>(initialState);
+  const t = useTranslations('partnerOrders');
 
   useEffect(() => {
     dispatch(fetchPartnerOrders());
@@ -47,28 +49,26 @@ const PartnerOrderItem: React.FC<Props> = ({
 
   const onAccept = async (id: string) => {
     if (!(state.name || state.image)) {
-      dispatch(
-        addAlert({ message: 'Name or Image is required', type: 'error' }),
-      );
+      dispatch(addAlert({ message: t('nameOrImageAlert'), type: 'error' }));
       return;
     }
 
     try {
       await dispatch(acceptPartner(state));
-      dispatch(addAlert({ message: 'Request is sent', type: 'info' }));
+      dispatch(addAlert({ message: t('requestIsSent'), type: 'info' }));
       await dispatch(deletePartnerOrder(id));
       setState(initialState);
       await dispatch(fetchPartnerOrders());
       void router.push('/admin');
     } catch (e) {
       if (e instanceof AxiosError) {
-        dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+        dispatch(addAlert({ message: t('wrongAlert'), type: 'error' }));
       }
     }
   };
 
   const onDelete = async (id: string) => {
-    if (window.confirm('Are you sure you want to reject this request?')) {
+    if (window.confirm(t('deleteAlert'))) {
       await dispatch(deletePartnerOrder(id));
       await dispatch(fetchPartnerOrders());
     }
@@ -79,11 +79,11 @@ const PartnerOrderItem: React.FC<Props> = ({
       <div className="guide-card__content">
         <h2 className="guide-card__name">{name}</h2>
         <p>
-          <strong>Message: </strong>
+          <strong>{t('message')}: </strong>
           {message}
         </p>
         <p>
-          <strong>Number: </strong>
+          <strong>{t('number')}: </strong>
           {number}
         </p>
         {image && (
@@ -113,7 +113,7 @@ const PartnerOrderItem: React.FC<Props> = ({
                 style={{ background: 'green' }}
                 onClick={() => onAccept(id)}
               >
-                Accept
+                {t('accept')}
               </button>
             </div>
             <div className="guide-card__btn" style={{ margin: '5px' }}>
@@ -121,7 +121,7 @@ const PartnerOrderItem: React.FC<Props> = ({
                 onClick={() => onDelete(id)}
                 style={{ background: '#8c0404' }}
               >
-                Delete
+                {t('delete')}
               </button>
             </div>
           </div>

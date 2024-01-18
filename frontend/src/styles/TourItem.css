@@ -80,17 +80,24 @@
   flex-direction: column;
 }
 
+.tour-item-links {
+  height: 80px;
+}
+
 .tour-item-title {
   text-decoration: none;
   color: #000;
   font-size: 24px;
-  height: 80px;
+  max-height: 60px;
   line-height: 1.25;
   margin: 0;
   font-weight: 500;
   transition: 0.2s;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
 }
 

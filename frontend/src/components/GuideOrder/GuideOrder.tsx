@@ -6,6 +6,7 @@ import {
   fetchGuideOrders,
 } from '@/containers/guides/guidesThunk';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   _id: string;
@@ -24,8 +25,10 @@ const GuideOrder: React.FC<Props> = ({
 }) => {
   const dispatch = useAppDispatch();
   const deleteLoading = useAppSelector(selectDeleteGuideOrderLoading);
+  const t = useTranslations('partnerOrders');
+  const tr = useTranslations('news');
   const onDelete = async () => {
-    if (window.confirm('Are you sure you want to reject this guide request?')) {
+    if (window.confirm(t('deleteAlert'))) {
       await dispatch(deleteGuideOrder(_id));
       dispatch(fetchGuideOrders());
     }
@@ -41,10 +44,10 @@ const GuideOrder: React.FC<Props> = ({
         </div>
         <div>
           <p className="guide-card-orders__info">
-            <strong>Number:</strong> {number}
+            <strong>{t('number')}:</strong> {number}
           </p>
           <p className="guide-card-orders__info">
-            <strong>Message:</strong> {message}
+            <strong>{t('message')}:</strong> {message}
           </p>
         </div>
         <div className="guide-card-orders__buttons">
@@ -53,7 +56,7 @@ const GuideOrder: React.FC<Props> = ({
             className="btn-tour-edit"
             style={{ margin: '5px' }}
           >
-            Accept
+            {t('accept')}
           </Link>
           <button
             className="btn-delete-tour"
@@ -61,7 +64,9 @@ const GuideOrder: React.FC<Props> = ({
             style={{ margin: '5px' }}
             disabled={deleteLoading ? deleteLoading === _id : false}
           >
-            {deleteLoading && deleteLoading === _id ? 'deleting...' : 'Reject'}
+            {deleteLoading && deleteLoading === _id
+              ? tr('news_all_delete_loading')
+              : t('delete')}
           </button>
         </div>
       </div>

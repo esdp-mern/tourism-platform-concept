@@ -149,12 +149,17 @@ const TourPage: NextPage<
           {currentTab === 'information' && <OneTourInformation />}
           {currentTab === 'plan' && <OneTourPlan />}
           {currentTab === 'location' && (
-            <GoogleMap width="100%" height="500px" routes={tour.routes || []} />
+            <GoogleMap
+              width="100%"
+              height="500px"
+              map={tour.map}
+              mapLink={tour.mapLink}
+            />
           )}
           {currentTab === 'gallery' && <Gallery />}
           {currentTab === 'reviews' && <OneTourReview />}
         </>
-        <OneTourOrderForm />
+        <OneTourOrderForm date={tour.date} />
       </div>
     </div>
   );

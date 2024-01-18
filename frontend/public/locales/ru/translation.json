@@ -91,6 +91,7 @@
     "tour_country": "Страна",
     "tour_destination": "Локация",
     "tour_arrival": "Прибытие",
+    "tour_date": "Дата",
     "tour_departure": "Отправка",
     "tour_included": "Включено",
     "tour_dressCode": "Дресс-код",
@@ -119,7 +120,8 @@
     "tour_tab_gallery": "галерея",
     "tour_tab_reviews": "отзывы",
     "tour_video_preview": "Видео",
-    "tour_view_photos": "Фото"
+    "tour_view_photos": "Фото",
+    "tour_edit_routes": "Редактировать маршруты"
   },
   "inputs": {
     "file_input_btn": "Просмотреть"
@@ -156,5 +158,75 @@
     "create_form_about": "о гиде*",
     "create_form_image": "фото",
     "create_form_send": "Отправить"
+  }
+  "admin": {
+    "tours": "Туры",
+    "total tours": "Всего туров",
+    "guides": "Гиды",
+    "total guides": "Всего гидов",
+    "news": "Новости",
+    "total news": "Всего новостей",
+    "partners": "Партнеры",
+    "total partners": "Всего партнеров",
+    "orders": "Заказы",
+    "total orders": "Всего заказов",
+    "employees": "Сотрудники",
+    "total employees": "Всего сотрудников",
+    "users": "Пользователи",
+    "total users": "Всего пользователей",
+    "published": "Опубликованные",
+    "unpublished": "Неопубликованные",
+    "current": "Текущие",
+    "booked": "Забронировано",
+    "being considered": "На рассмотрении",
+    "approved orders": "Утвержденные заказы",
+    "create tour": "Создать тур",
+    "active": "Активные",
+    "non active": "Неактивные",
+    "active moderators": "Активные модераторы",
+    "partner orders": "Заявки партнеров",
+    "total": "Всего",
+    "guide orders": "Заявки гидов",
+    "total guide orders": "Всего заявок гидов",
+    "total partner orders": "Всего заявок партнеров"
+  },
+  "partnerOrders": {
+    "accept": "Принять",
+    "delete": "Удалить",
+    "deleteAlert": "Вы уверены что хотите удалить?",
+    "requestIsSent": "Запрос отправлен",
+    "noPartnersMessage": "К сожалению, больше нет заявок на партнерство.",
+    "number": "Номер",
+    "message": "Сообщение",
+    "nameOrImageAlert": "Имя или Изображение обязательны",
+    "wrongAlert": "Что-то не так",
+    "edit": "Изменить"
+  },
+  "alert": {
+    "success": "Запрос отправлен",
+    "error": "Что-то пошло не так!",
+    "empty": "Пожалуйста, заполните все поля",
+    "invalid_field": "Недопустимое поле",
+    "required_number": "Требуется номер",
+    "required_name": "ИМЯ или ИЗОБРАЖЕНИЕ должны быть заполнены",
+    "sign_in": "Вы вошли в систему!"
+  },
+  "sign_in": {
+    "title": "Форма входа",
+    "username": "Имя пользователя",
+    "password": "Пароль",
+    "create": "Создать аккаунт",
+    "login": "Войти"
+  },
+  "sign_up": {
+    "title": "Форма регистрации",
+    "username": "Имя пользователя",
+    "password": "Пароль",
+    "name": "Имя",
+    "email": "Электронная почта",
+    "avatar": "Аватар",
+    "loading": "Загрузка...",
+    "sign_up": "Зарегистрироваться",
+    "sign_in": "Войти"
   }
 }

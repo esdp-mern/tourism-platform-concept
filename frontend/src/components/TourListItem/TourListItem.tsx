@@ -14,7 +14,6 @@ import {
   selectDeleteTourLoading,
   selectTourPublishLoading,
 } from '@/containers/tours/toursSlice';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 interface Props {
