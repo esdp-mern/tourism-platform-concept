@@ -14,6 +14,8 @@ import { fetchToursGuide } from '@/containers/tours/toursThunk';
 import { fetchGuideRating } from '@/containers/ratings/ratingThunk';
 import Image from 'next/image';
 import bgImage from '@/assets/images/bg-image-1.jpg';
+import { useTranslations } from 'next-intl';
+import { GetServerSideProps } from 'next';
 
 interface IGuidePageTabs {
   name: string;
@@ -32,6 +34,7 @@ const OneGuidePage = () => {
     id: string;
   };
   const [currentTab, setCurrentTab] = useState<string>('information');
+  const t = useTranslations('guide');
 
   useEffect(() => {
     dispatch(setIsLightMode(false));
@@ -75,7 +78,7 @@ const OneGuidePage = () => {
             }
             key={name}
           >
-            <span>{title}</span>
+            <span>{t(`${name}`)}</span>
           </button>
         ))}
       </div>
@@ -86,7 +89,6 @@ const OneGuidePage = () => {
     </div>
   );
 };
-
 export default OneGuidePage;
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {

@@ -34,6 +34,8 @@ const BecomeGuide = () => {
   const [state, setSate] = useState<ISendGuideRequestMutation>(initialState);
   const [focused, setFocused] = useState(false);
   const at = useTranslations('alert');
+  const t = useTranslations('guide');
+
   useEffect(() => {
     dispatch(setIsLightMode(true));
   }, [dispatch]);
@@ -75,7 +77,7 @@ const BecomeGuide = () => {
       <PageLoader />
       <div className="become-guide">
         <form onSubmit={onSubmit} className="become-guide-form">
-          <h2>Become a guide</h2>
+          <h2>{t('become_form_title')}</h2>
           <div style={{ display: 'none' }}>
             <TextField
               name="user"
@@ -93,7 +95,7 @@ const BecomeGuide = () => {
             value={state.name}
             onChange={onChange}
             icon={peopleIcon.src}
-            label="name*"
+            label={t('become_form_name')}
             required
           />
           <TextField
@@ -102,7 +104,7 @@ const BecomeGuide = () => {
             value={state.surname}
             onChange={onChange}
             icon={peopleIcon.src}
-            label="surname*"
+            label={t('become_form_surname')}
             required
           />
           <TextField
@@ -111,7 +113,7 @@ const BecomeGuide = () => {
             value={state.number}
             onChange={onChange}
             icon={phoneIcon.src}
-            label="phone number*"
+            label={t('become_form_phone')}
             required
           />
           <textarea
@@ -120,12 +122,16 @@ const BecomeGuide = () => {
             onChange={onChange}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
-            placeholder={focused ? '' : 'describe yourself*'}
+            placeholder={focused ? '' : t('become_form_message')}
             name="message"
             required
           />
           <button type="submit" className="form-tour-btn">
-            {guideRequestLoading ? <ButtonLoader size={18} /> : 'Send'}
+            {guideRequestLoading ? (
+              <ButtonLoader size={18} />
+            ) : (
+              t('become_form_send')
+            )}
           </button>
         </form>
       </div>

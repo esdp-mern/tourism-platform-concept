@@ -11,12 +11,14 @@ import { fetchStatsAdmin } from '@/containers/statistics/statisticsThunk';
 import Link from 'next/link';
 import Image from 'next/image';
 import { GetServerSideProps } from 'next';
+import { useTranslations } from 'next-intl';
 
 const Admin = () => {
   const routers = useRouter();
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const state = useAppSelector(selectAdminStats);
+  const t = useTranslations('admin');
 
   useEffect(() => {
     if (!user || user.role !== userRoles.admin) {
@@ -40,12 +42,18 @@ const Admin = () => {
                     alt="circle"
                     className="card-img-absolute"
                   />
-                  <h4 className="stats-admin-title">Tours </h4>
+                  <h4 className="stats-admin-title">{t('tours')}</h4>
                   <h2 className="stats-admin-info">
-                    Total tours: {state?.toursAll}
+                    {t('total tours')}: {state?.toursAll}
                   </h2>
-                  <h6>Published tours: {state?.toursPublished}</h6>
-                  <h6>Unpublished tours: {state?.toursUnpublished}</h6>
+                  <h6>
+                    {t('published')} {t('tours').toLowerCase()}:{' '}
+                    {state?.toursPublished}
+                  </h6>
+                  <h6>
+                    {t('unpublished')} {t('tours').toLowerCase()}:{' '}
+                    {state?.toursUnpublished}
+                  </h6>
                 </div>
               </Link>
               <Link
@@ -53,7 +61,7 @@ const Admin = () => {
                 className="btn-create-tour"
                 style={{ zIndex: 1 }}
               >
-                Create Tour
+                {t('create tour')}
               </Link>
             </div>
           </div>
@@ -66,12 +74,19 @@ const Admin = () => {
                     alt="circle"
                     className="card-img-absolute"
                   />
-                  <h4 className="stats-admin-title">Guides</h4>
+                  <h4 className="stats-admin-title">{t('guides')}</h4>
                   <h2 className="stats-admin-info">
-                    Current guides: {state?.guidesAll}
+                    {t('current')} {t('guides').toLowerCase()}:{' '}
+                    {state?.guidesAll}
                   </h2>
-                  <h6>Active guides: {state?.guidesPublished}</h6>
-                  <h6>Non active guides: {state?.guidesUnpublished}</h6>
+                  <h6>
+                    {t('active')} {t('guides').toLowerCase()}:{' '}
+                    {state?.guidesPublished}
+                  </h6>
+                  <h6>
+                    {t('non active')} {t('guides').toLowerCase()}:{' '}
+                    {state?.guidesUnpublished}
+                  </h6>
                 </div>
               </Link>
             </div>
@@ -87,13 +102,19 @@ const Admin = () => {
                   />
                 </Link>
                 <Link href={`/admin/news/1`} className="stats-admin-link">
-                  <h4 className="stats-admin-title">News</h4>
+                  <h4 className="stats-admin-title">{t('news')}</h4>
                 </Link>
                 <h2 className="stats-admin-info">
-                  Total news: {state?.newsAll}
+                  {t('total news')}: {state?.newsAll}
                 </h2>
-                <h6>Published news: {state?.newsPublished}</h6>
-                <h6>Unpublished news: {state?.newsUnpublished}</h6>
+                <h6>
+                  {t('published')} {t('news').toLowerCase()}:{' '}
+                  {state?.newsPublished}
+                </h6>
+                <h6>
+                  {t('unpublished')} {t('news').toLowerCase()}:{' '}
+                  {state?.newsUnpublished}
+                </h6>
               </div>
             </div>
           </div>
@@ -108,12 +129,14 @@ const Admin = () => {
                   />
                 </Link>
                 <Link href={`/admin/allUsers/1`} className="stats-admin-link">
-                  <h4 className="stats-admin-title">Users</h4>
+                  <h4 className="stats-admin-title">{t('users')}</h4>
                 </Link>
                 <h2 className="stats-admin-info">
-                  Total users: {state?.users}
+                  {t('total users')}: {state?.users}
                 </h2>
-                <h6>Active moderators: {state?.usersModerators}</h6>
+                <h6>
+                  {t('active moderators')}: {state?.usersModerators}
+                </h6>
               </div>
             </div>
           </div>
@@ -128,10 +151,11 @@ const Admin = () => {
                   />
                 </Link>
                 <Link href={`/admin/partners/all`} className="stats-admin-link">
-                  <h4 className="stats-admin-title">Partners</h4>
+                  <h4 className="stats-admin-title">{t('partners')}</h4>
                 </Link>
                 <h2 className="stats-admin-info">
-                  Current partners: {state?.partnersAll}
+                  {t('current')} {t('partners').toLowerCase()}:{' '}
+                  {state?.partnersAll}
                 </h2>
               </div>
             </div>
@@ -153,10 +177,10 @@ const Admin = () => {
                   href={`/admin/partnerOrders/1`}
                   className="stats-admin-link"
                 >
-                  <h4 className="stats-admin-title">Partner orders</h4>
+                  <h4 className="stats-admin-title">{t('partner orders')}</h4>
                 </Link>
                 <h2 className="stats-admin-info">
-                  Total partner orders: {state?.partnerOrdersAll}
+                  {t('total partner orders')} : {state?.partnerOrdersAll}
                 </h2>
               </div>
             </div>
@@ -178,10 +202,10 @@ const Admin = () => {
                   href={`/admin/employees/all`}
                   className="stats-admin-link"
                 >
-                  <h4 className="stats-admin-title">Employees</h4>
+                  <h4 className="stats-admin-title">{t('employees')}</h4>
                 </Link>
                 <h2 className="stats-admin-info">
-                  Employees: {state?.employeeAll}
+                  {t('employees')}: {state?.employeeAll}
                 </h2>
               </div>
             </div>
@@ -194,13 +218,19 @@ const Admin = () => {
                   alt="circle"
                   className="card-img-absolute"
                 />
-                <h4 className="stats-admin-title">Orders</h4>
+                <h4 className="stats-admin-title">{t('orders')}</h4>
                 <h2 className="stats-admin-info">
-                  Total orders: {state?.ordersAll}
+                  {t('total orders')}: {state?.ordersAll}
                 </h2>
-                <h6>Booked: {state?.ordersBooked}</h6>
-                <h6>Being considers: {state?.ordersConsiders}</h6>
-                <h6>Approved orders: {state?.ordersApproved}</h6>
+                <h6>
+                  {t('booked')}: {state?.ordersBooked}
+                </h6>
+                <h6>
+                  {t('being considered')}: {state?.ordersConsiders}
+                </h6>
+                <h6>
+                  {t('approved orders')}: {state?.ordersApproved}
+                </h6>
               </div>
             </div>
           </div>
@@ -221,10 +251,10 @@ const Admin = () => {
                   href={`/admin/guideOrders/1`}
                   className="stats-admin-link"
                 >
-                  <h4 className="stats-admin-title">Guide Orders</h4>
+                  <h4 className="stats-admin-title">{t('guide orders')}</h4>
                 </Link>
                 <h2 className="stats-admin-info">
-                  Total orders: {state?.totalGuideOrders}
+                  {t('total guide orders')} : {state?.totalGuideOrders}
                 </h2>
               </div>
             </div>

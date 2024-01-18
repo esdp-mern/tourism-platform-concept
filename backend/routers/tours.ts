@@ -258,7 +258,8 @@ toursRouter.get('/:id', async (req, res) => {
       galleryTour: tour.galleryTour,
       isPublished: tour.isPublished,
       date: tour.date,
-      routes: tour.routes,
+      map: tour.map,
+      mapLink: tour.mapLink,
     };
     return res.send(tourReviews);
   } catch (e) {
@@ -384,7 +385,8 @@ toursRouter.post(
           kg: '',
           [lang]: req.body.country,
         },
-        routes: JSON.parse(req.body.routes),
+        map: req.body.map,
+        mapLink: req.body.mapLink,
         date: req.body.date,
       });
 
@@ -509,7 +511,8 @@ toursRouter.post(
         existingTour.country =
           { ...existingTour.country, [lang]: req.body.country } ||
           existingTour.country;
-        existingTour.routes = JSON.parse(req.body.routes);
+        existingTour.map = req.body.map;
+        existingTour.mapLink = req.body.mapLink;
         existingTour.date = req.body.date || existingTour.country;
 
         await existingTour.save();
