@@ -10,6 +10,7 @@ import { selectAllPartnerOrders } from '@/containers/partners/partnersSlice';
 import { fetchPartnerOrders } from '@/containers/partners/partnersThunk';
 import PartnerOrderItem from '@/components/PartnerOrderItem/PartnerOrderItem';
 import { GetServerSideProps } from 'next';
+import { useTranslations } from 'next-intl';
 
 const AllPartnerOrdersPage = () => {
   const dispatch = useAppDispatch();
@@ -17,6 +18,7 @@ const AllPartnerOrdersPage = () => {
   const user = useAppSelector(selectUser);
   const [ordersPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
+  const t = useTranslations('partnerOrders');
 
   const indexOfLastRecord = currentPage * ordersPerPage;
   const indexOfFirstRecord = indexOfLastRecord - ordersPerPage;
@@ -46,9 +48,7 @@ const AllPartnerOrdersPage = () => {
         <div className="container">
           <div className="buttons-admin-tour">
             {!partnerOrders || partnerOrders.length <= 0 ? (
-              <div className="title-none-tour">
-                Unfortunately, there are no partner orders.
-              </div>
+              <div className="title-none-tour">{t('noPartnersMessage')}</div>
             ) : (
               <div>
                 <div className="tours-admin-page">

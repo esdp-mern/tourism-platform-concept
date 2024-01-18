@@ -159,6 +159,18 @@
     "partner orders": "Заявки партнеров",
     "total": "Всего",
     "guide orders": "Заявки гидов",
-    "total guide orders": "Всего заявок гидов"
+    "total guide orders": "Всего заявок гидов",
+    "total partner orders": "Всего заявок партнеров"
+  },
+  "partnerOrders": {
+    "accept": "Принять",
+    "delete": "Удалить",
+    "deleteAlert": "Вы уверены что хотите отклонить эту заявку?",
+    "requestIsSent": "Запрос отправлен",
+    "noPartnersMessage": "К сожалению, больше нет заявок на партнерство.",
+    "number": "Номер",
+    "message": "Сообщение",
+    "nameOrImageAlert": "Имя или Изображение обязательны",
+    "wrongAlert": "Что-то не так"
   }
 }

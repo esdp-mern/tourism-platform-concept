@@ -180,8 +180,7 @@ const Admin = () => {
                   <h4 className="stats-admin-title">{t('partner orders')}</h4>
                 </Link>
                 <h2 className="stats-admin-info">
-                  {t('total')} {t('partner orders').toLowerCase()}:{' '}
-                  {state?.partnerOrdersAll}
+                  {t('total partner orders')} : {state?.partnerOrdersAll}
                 </h2>
               </div>
             </div>

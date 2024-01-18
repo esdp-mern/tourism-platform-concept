@@ -159,6 +159,18 @@
     "partner orders": "Партнерлордун заказдары",
     "total": "Жалпы",
     "guide orders": "Гиддердин заказдары",
-    "total guide orders": "Жалпы гиддердин заказдары"
+    "total guide orders": "Жалпы гиддердин заказдары",
+    "total partner orders": "Жалпы партнерлордун заказдары"
+  },
+  "partnerOrders": {
+    "accept": "Кабыл алуу",
+    "delete": "Жок кылуу",
+    "deleteAlert": "Сунушту алып салгыңыз келеби?",
+    "requestIsSent": "Жиберилди",
+    "noPartnersMessage": "Кечиресиз, мындан ары өнөктөштүк колдонмолор жок.",
+    "number": "Номер",
+    "message": "Кабар",
+    "nameOrImageAlert": "Аты же сүрөт талап кылынат",
+    "wrongAlert": "Бир нерсе туура эмес"
   }
 }

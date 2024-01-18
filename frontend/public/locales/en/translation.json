@@ -159,6 +159,18 @@
     "partner orders": "Partner orders",
     "total": "Total",
     "guide orders": "Guide orders",
-    "total guide orders": "Total guide orders"
+    "total guide orders": "Total guide orders",
+    "total partner orders": "Total partner orders"
+  },
+  "partnerOrders": {
+    "accept": "Accept",
+    "delete": "Delete",
+    "deleteAlert": "Are you sure you want to reject this request?",
+    "requestIsSent": "Request is sent",
+    "noPartnersMessage": "Unfortunately, there are no partner orders.",
+    "number": "Number",
+    "message": "Message",
+    "nameOrImageAlert": "Name or Image is required",
+    "wrongAlert": "Something is wrong"
   }
 }
