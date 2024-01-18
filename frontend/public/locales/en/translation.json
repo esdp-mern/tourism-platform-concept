@@ -158,7 +158,7 @@
     "create_form_about": "about guide*",
     "create_form_image": "Image",
     "create_form_send": "Send"
-  }
+  },
   "admin": {
     "tours": "Tours",
     "total tours": "Total tours",
@@ -208,6 +208,22 @@
     "empty": "Please fill in all fields",
     "invalid_field": "Invalid field",
     "required_number": "Number is required",
+    "required_name": "NAME or IMAGE must be filled"
+  },
+  "partners": {
+    "edit_title": "Save Slider",
+    "edit_name": "Partner name",
+    "edit_link": "Partner link",
+    "edit_image": "Image",
+    "edit_save": "Save",
+    "become_title": "Become a partner",
+    "become_title2": "Create a partner",
+    "become_name": "name*",
+    "become_phone": "phone number*",
+    "become_link": "link*",
+    "become_message": "message*",
+    "become_image": "Image",
+    "become_send": "Send"
     "required_name": "NAME or IMAGE must be filled",
     "sign_in": "You have signed in!"
   },

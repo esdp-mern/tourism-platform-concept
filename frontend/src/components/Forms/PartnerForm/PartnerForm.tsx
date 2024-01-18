@@ -6,6 +6,7 @@ import { selectPostTourError } from '@/containers/tours/toursSlice';
 import { useRouter } from 'next/router';
 import { editPartner } from '@/containers/partners/partnersThunk';
 import FileInput from '@/components/UI/FileInput/FileInput';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   idPartner: string;
@@ -17,7 +18,8 @@ const PartnerForm: React.FC<Props> = ({ idPartner, editingPartner }) => {
   const error = useSelector(selectPostTourError);
   const routers = useRouter();
   const [state, setState] = useState<IPartnerMutation>(editingPartner);
-
+  const t = useTranslations('partners');
+  const at = useTranslations('alert');
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setState((prevState) => {
@@ -37,7 +39,7 @@ const PartnerForm: React.FC<Props> = ({ idPartner, editingPartner }) => {
         routers.push('/admin/partners/all').then((r) => r);
       }
     } catch (e) {
-      alert('Invalid field');
+      alert(at('invalid_field'));
     }
   };
 
@@ -62,7 +64,7 @@ const PartnerForm: React.FC<Props> = ({ idPartner, editingPartner }) => {
 
   return (
     <form className="form-news" onSubmit={submitFormHandler}>
-      <h2 className="form-slider-title">Save Slider</h2>
+      <h2 className="form-slider-title">{t('edit_title')}</h2>
       <div className="input-wrap">
         <input
           type="text"
@@ -75,7 +77,7 @@ const PartnerForm: React.FC<Props> = ({ idPartner, editingPartner }) => {
           onChange={inputChangeHandler}
         />
         <label htmlFor="name" className="form-label">
-          Partner name:
+          {t('edit_name')}
         </label>
         {Boolean(getFieldError('name')) && (
           <span className="error">{getFieldError('name')}</span>
@@ -93,7 +95,7 @@ const PartnerForm: React.FC<Props> = ({ idPartner, editingPartner }) => {
           onChange={inputChangeHandler}
         />
         <label htmlFor="link" className="form-label">
-          Partner link:
+          {t('edit_link')}
         </label>
         {Boolean(getFieldError('link')) && (
           <span className="error">{getFieldError('link')}</span>
@@ -101,7 +103,7 @@ const PartnerForm: React.FC<Props> = ({ idPartner, editingPartner }) => {
       </div>
       <div className="input-wrap">
         <label className="form-label-avatar avatar" htmlFor="image">
-          Image
+          {t('edit_image')}
         </label>
         <FileInput
           onChange={changeFileValue}
@@ -112,7 +114,7 @@ const PartnerForm: React.FC<Props> = ({ idPartner, editingPartner }) => {
       </div>
       <div className="form-wrap-btn">
         <button type="submit" className="form-btn">
-          Save
+          {t('edit_save')}
         </button>
       </div>
     </form>

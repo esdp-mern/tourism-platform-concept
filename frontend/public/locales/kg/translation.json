@@ -158,7 +158,7 @@
     "create_form_about": "гид жөнүндө*",
     "create_form_image": "сүрөт",
     "create_form_send": "Жөнөтүү"
-  }
+  },
   "admin": {
     "tours": "Турлар",
     "total tours": "Жалпы турлар",
@@ -208,6 +208,22 @@
     "empty": "Бардык талааларды толтуруңуз",
     "invalid_field": "Туура эмес талаа",
     "required_number": "Номер талап кылынат",
+    "required_name": "АТЫ же СҮРӨТ толтурулуучу"
+  },
+  "partners": {
+    "edit_title": "Слайдерди сактоо",
+    "edit_name": "Өнөктөштүн аты",
+    "edit_link": "Өнөктөштүн шилтемеси",
+    "edit_image": "Сүрөт",
+    "edit_save": "Сактоо",
+    "become_title": "Өнөктөш болуу",
+    "become_title2": "Өнөктөштү жаратуу",
+    "become_name": "аты*",
+    "become_phone": "телефон номери*",
+    "become_link": "шилтеме*",
+    "become_message": "билдирүү*",
+    "become_image": "Сүрөт",
+    "become_send": "Жөнөтүү"
     "required_name": "АТЫ же СҮРӨТ толтурулуучу",
     "sign_in": "Системага кирдиңиз!"
   },

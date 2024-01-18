@@ -33,6 +33,7 @@ const BecomeGuide = () => {
   const router = useRouter();
   const [state, setSate] = useState<ISendGuideRequestMutation>(initialState);
   const [focused, setFocused] = useState(false);
+  const at = useTranslations('alert');
   const t = useTranslations('guide');
 
   useEffect(() => {
@@ -48,20 +49,18 @@ const BecomeGuide = () => {
     e.preventDefault();
 
     if (!state.name || !state.surname || !state.number || !state.message) {
-      dispatch(
-        addAlert({ message: 'Please fill in all fields', type: 'error' }),
-      );
+      dispatch(addAlert({ message: at('empty'), type: 'error' }));
       return;
     }
 
     try {
       await dispatch(becomeGuide(state));
-      dispatch(addAlert({ message: 'Request is sent', type: 'info' }));
+      dispatch(addAlert({ message: at('success'), type: 'info' }));
       setSate(initialState);
       void router.push('/');
     } catch (e) {
       if (e instanceof AxiosError) {
-        dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+        dispatch(addAlert({ message: at('error'), type: 'error' }));
         return;
       }
     }

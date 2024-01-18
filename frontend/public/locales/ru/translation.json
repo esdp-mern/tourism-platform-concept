@@ -158,7 +158,7 @@
     "create_form_about": "о гиде*",
     "create_form_image": "фото",
     "create_form_send": "Отправить"
-  }
+  },
   "admin": {
     "tours": "Туры",
     "total tours": "Всего туров",
@@ -208,6 +208,22 @@
     "empty": "Пожалуйста, заполните все поля",
     "invalid_field": "Недопустимое поле",
     "required_number": "Требуется номер",
+    "required_name": "ИМЯ или ИЗОБРАЖЕНИЕ должны быть заполнены"
+  },
+  "partners": {
+    "edit_title": "Сохранить слайдер",
+    "edit_name": "Имя партнера",
+    "edit_link": "Ссылка партнера",
+    "edit_image": "Изображение",
+    "edit_save": "Сохранить",
+    "become_title": "Стать партнером",
+    "become_title2": "Создать партнера",
+    "become_name": "имя*",
+    "become_phone": "номер телефона*",
+    "become_link": "ссылка*",
+    "become_message": "сообщение*",
+    "become_image": "Изображение",
+    "become_send": "Отправить"
     "required_name": "ИМЯ или ИЗОБРАЖЕНИЕ должны быть заполнены",
     "sign_in": "Вы вошли в систему!"
   },
