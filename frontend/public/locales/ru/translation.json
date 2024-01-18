@@ -131,6 +131,49 @@
     "link": "главную страницу",
     "text": "Упс! Эту страницу невозможно найти"
   },
+  "admin": {
+    "tours": "Туры",
+    "total tours": "Всего туров",
+    "guides": "Гиды",
+    "total guides": "Всего гидов",
+    "news": "Новости",
+    "total news": "Всего новостей",
+    "partners": "Партнеры",
+    "total partners": "Всего партнеров",
+    "orders": "Заказы",
+    "total orders": "Всего заказов",
+    "employees": "Сотрудники",
+    "total employees": "Всего сотрудников",
+    "users": "Пользователи",
+    "total users": "Всего пользователей",
+    "published": "Опубликованные",
+    "unpublished": "Неопубликованные",
+    "current": "Текущие",
+    "booked": "Забронировано",
+    "being considered": "На рассмотрении",
+    "approved orders": "Утвержденные заказы",
+    "create tour": "Создать тур",
+    "active": "Активные",
+    "non active": "Неактивные",
+    "active moderators": "Активные модераторы",
+    "partner orders": "Заявки партнеров",
+    "total": "Всего",
+    "guide orders": "Заявки гидов",
+    "total guide orders": "Всего заявок гидов",
+    "total partner orders": "Всего заявок партнеров"
+  },
+  "partnerOrders": {
+    "accept": "Принять",
+    "delete": "Удалить",
+    "deleteAlert": "Вы уверены что хотите удалить?",
+    "requestIsSent": "Запрос отправлен",
+    "noPartnersMessage": "К сожалению, больше нет заявок на партнерство.",
+    "number": "Номер",
+    "message": "Сообщение",
+    "nameOrImageAlert": "Имя или Изображение обязательны",
+    "wrongAlert": "Что-то не так",
+    "edit": "Изменить"
+  },
   "alert": {
     "success": "Запрос отправлен",
     "error": "Что-то пошло не так!",
@@ -158,5 +201,4 @@
     "sign_up": "Зарегистрироваться",
     "sign_in": "Войти"
   }
-
 }
