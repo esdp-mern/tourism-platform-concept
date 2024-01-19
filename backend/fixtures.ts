@@ -53,7 +53,7 @@ const run = async () => {
       email: 'guide@gmail.com',
       displayName: 'Guide',
       password: 'qwerty1234',
-      role: 'guid',
+      role: 'guide',
       avatar: 'fixtures/mordecai.png',
       token: crypto.randomUUID(),
     },
@@ -62,7 +62,7 @@ const run = async () => {
       email: 'guide2@gmail.com',
       displayName: 'Guide2',
       password: 'qwerty1234',
-      role: 'guid',
+      role: 'guide',
       avatar: 'fixtures/gumball.jpg',
       token: crypto.randomUUID(),
     },
@@ -71,7 +71,7 @@ const run = async () => {
       email: 'guide3@gmail.com',
       displayName: 'Guide3',
       password: 'qwerty1234',
-      role: 'guid',
+      role: 'guide',
       avatar: 'fixtures/kuroro.jpeg',
       token: crypto.randomUUID(),
     },
@@ -179,6 +179,7 @@ const run = async () => {
         },
         category: ['history', 'exotic'],
         price: 800,
+        discountPrice: 499,
         duration: 1,
         plan: [
           {
@@ -238,6 +239,7 @@ const run = async () => {
         },
         category: ['history', 'popular', 'exotic'],
         price: 2000,
+        discountPrice: 1500,
         duration: 1,
         plan: [
           {
@@ -297,6 +299,7 @@ const run = async () => {
         },
         category: ['history', 'on budget'],
         price: 6000,
+        discountPrice: 4999,
         duration: 3,
         plan: [
           {
@@ -376,6 +379,7 @@ const run = async () => {
         },
         category: ['vacation', 'popular'],
         price: 6900,
+        discountPrice: 6000,
         duration: 3,
         plan: [
           {

@@ -1,27 +1,32 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useAppSelector } from '@/store/hooks';
-import { selectAllTours } from '@/containers/tours/toursSlice';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { selectToursWithDiscountTours } from '@/containers/tours/toursSlice';
 import HotToursItem from '@/components/HotTours/components/HotToursItem/HotToursItem';
 import arrowRightIcon from '@/assets/images/arrow-right.svg';
-import { Tour } from '@/type';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { Tour } from '@/type';
 
 const HotTours = () => {
-  const tours = useAppSelector(selectAllTours);
+  const dispatch = useAppDispatch();
+  const tours = useAppSelector(selectToursWithDiscountTours);
+
   const carouselRef = useRef<HTMLDivElement | null>(null);
-  const [carouselTours, setCarouselTours] = useState<Tour[]>([]);
+
   const t = useTranslations('main');
 
+  const [carouselTours, setCarouselTours] = useState<Tour[]>([]);
+
   useEffect(() => {
-    if (tours.length) {
-      setCarouselTours(tours.slice(0, 4));
+    if (tours.length && !carouselTours.length) {
+      setCarouselTours([...tours]);
     }
-  }, [tours]);
+  }, [tours, carouselTours]);
 
   const slide = useCallback(
-    (isNext: boolean) => {
-      if (!carouselRef.current || !carouselTours.length) return;
+    (isNext?: boolean) => {
+      if (!carouselRef.current || !tours.length) return;
+      if (isNext === undefined) isNext = true;
 
       const ms = 250;
 
@@ -34,6 +39,7 @@ const HotTours = () => {
 
       setTimeout(() => {
         if (!carouselRef.current) return;
+
         carouselRef.current.style.cssText = `
             transition: none;
             transform: translateX(0);
@@ -42,40 +48,18 @@ const HotTours = () => {
         setCarouselTours((prevState) => {
           const newState = [...prevState];
 
-          const lastOrFirstCarouselTour =
-            newState[isNext ? newState.length - 1 : 0];
-
-          if (isNext) {
-            newState.shift();
-          } else {
-            newState.pop();
-          }
-
-          let lastOrFirstTour = tours.findIndex(
-            (tour) => tour._id === lastOrFirstCarouselTour._id,
-          );
-
-          if (isNext) {
-            if (lastOrFirstTour === tours.length - 1) {
-              lastOrFirstTour = -1;
-            }
-            newState.push(tours[lastOrFirstTour + 1]);
-          } else {
-            if (lastOrFirstTour === 0) {
-              lastOrFirstTour = tours.length - 1;
-            }
-            newState.unshift(tours[lastOrFirstTour - 1]);
-          }
+          if (isNext) newState.push(newState.shift()!);
+          else newState.unshift(newState.pop()!);
 
           return newState;
         });
       }, ms);
     },
-    [carouselTours.length, tours],
+    [tours],
   );
 
   useEffect(() => {
-    const interval = setInterval(() => slide(true), 3000);
+    let interval = setInterval(slide, 3000);
 
     return () => {
       clearInterval(interval);

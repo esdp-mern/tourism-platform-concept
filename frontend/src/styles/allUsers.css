@@ -88,6 +88,7 @@
   opacity: 0;
   transform: translateY(10px);
   transition: 0.2s;
+  z-index: 1;
 }
 
 .user-card-roles-open {

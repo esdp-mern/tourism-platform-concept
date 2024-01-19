@@ -197,7 +197,10 @@ const AllOrders = () => {
                     </div>
                     <div className="user-info-row">
                       <span className="order-date">
-                        {dayjs(order.date).format('DD.MM.YY') || '-'}
+                        {(() => {
+                          const date = dayjs(order.date).format('DD.MM.YY');
+                          return date === 'Invalid Date' ? order.date : date;
+                        })() || '-'}
                       </span>
                     </div>
                     <div className="user-info-row">

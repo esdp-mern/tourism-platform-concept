@@ -19,12 +19,12 @@ interface Props {
   idTour?: string;
 }
 
-const initialState = {
+const initialState: ITourMutation = {
   name: '',
   country: '',
   mainImage: null,
-  duration: 0,
-  price: 0,
+  duration: '',
+  price: '',
   description: '',
   destination: '',
   arrival: '',
@@ -37,7 +37,7 @@ const initialState = {
   guides: [],
   map: '',
   mapLink: '',
-} as ITourMutation;
+};
 
 const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
   const dispatch = useAppDispatch();
@@ -49,9 +49,8 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
     isEdit && tour
       ? {
           ...tour,
-          guides: tour.guides.map((guide) => {
-            return guide._id;
-          }),
+          guides: tour.guides.map(({ _id }) => _id),
+          discountPrice: 0,
           mainImage: null,
           galleryTour: [],
         }
@@ -87,6 +86,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
         mainImage: null,
         duration: tour.duration,
         price: tour.price,
+        discountPrice: tour.discountPrice,
         description: tour.description,
         destination: tour.destination,
         arrival: tour.arrival,
@@ -385,6 +385,31 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
             <span className="error-tour">{getFieldError('price')}</span>
           )}
         </div>
+        {isEdit && (
+          <div className="input-tour-wrap">
+            <input
+              type="number"
+              className={
+                getFieldError('discountPrice')
+                  ? 'form-tour-control-error'
+                  : 'form-tour-control'
+              }
+              name="discountPrice"
+              id="discountPrice"
+              value={state.discountPrice}
+              onChange={inputChangeHandler}
+              required
+            />
+            <label htmlFor="discountPrice" className="form-tour-label">
+              Discount price:
+            </label>
+            {Boolean(getFieldError('discountPrice')) && (
+              <span className="error-tour">
+                {getFieldError('discountPrice')}
+              </span>
+            )}
+          </div>
+        )}
         <div className="input-tour-wrap">
           <FileInput
             onChange={changeFileValue}

@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { selectHotTours } from '@/containers/tours/toursSlice';
+import { selectToursWithDiscountTours } from '@/containers/tours/toursSlice';
 import { apiUrl } from '@/constants';
-import { fetchTours } from '@/containers/tours/toursThunk';
 import Link from 'next/link';
 import Image from 'next/image';
+import { fetchToursWithDiscountPrice } from '@/containers/tours/toursThunk';
 
 const HotToursToolbar = () => {
-  const carouselTours = useAppSelector(selectHotTours);
   const dispatch = useAppDispatch();
+  const tours = useAppSelector(selectToursWithDiscountTours);
+
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    dispatch(fetchTours({}));
-  }, [dispatch]);
+    if (!tours.length) {
+      dispatch(fetchToursWithDiscountPrice());
+    }
+  }, [dispatch, tours]);
+
   const goToSlide = (index: number, e: React.MouseEvent) => {
     e.stopPropagation();
     setCurrentIndex(index);
@@ -23,10 +27,10 @@ const HotToursToolbar = () => {
     <div className="hot-tours-toolbar-wrap">
       <div className="hot-tours-toolbar">
         <div className="hot-tours-toolbar-inner">
-          {carouselTours.map((tour, id) => (
+          {tours.slice(0, 4).map((tour, index) => (
             <div
               className={`hot-tour-toolbar ${
-                id === currentIndex
+                index === currentIndex
                   ? `hot-tours-toolbar-0`
                   : `hot-tour-toolbar-1`
               }`}
@@ -39,7 +43,13 @@ const HotToursToolbar = () => {
                 className="hot-tour-toolbar-img"
                 onClick={(e) => e.stopPropagation()}
               />
-              <div className="hot-tour-toolbar-sale">- 30%</div>
+              <div className="hot-tour-toolbar-sale">
+                -
+                {Math.ceil(
+                  ((tour.price - tour.discountPrice) / tour.price) * 100,
+                )}
+                %
+              </div>
               <div className="hot-tour-toolbar-info">
                 <Link
                   href={`/tours/${tour._id}`}
@@ -48,8 +58,12 @@ const HotToursToolbar = () => {
                   <h4>{tour.name}</h4>
                 </Link>
                 <div onClick={(e) => e.stopPropagation()}>
-                  <span className="hot-tour-toolbar-old-price">$9999</span>
-                  <span className="hot-tour-toolbar-price">${tour.price}</span>
+                  <span className="hot-tour-toolbar-old-price">
+                    ${tour.price}
+                  </span>
+                  <span className="hot-tour-toolbar-price">
+                    ${tour.discountPrice}
+                  </span>
                 </div>
               </div>
             </div>
@@ -59,16 +73,16 @@ const HotToursToolbar = () => {
           className="hot-tours-toolbar-dots"
           onClick={(e) => e.stopPropagation()}
         >
-          {carouselTours.map((tour, id) => (
+          {tours.slice(0, 4).map((tour, index) => (
             <div
               className={
-                currentIndex === id
+                currentIndex === index
                   ? 'hot-tours-toolbar-dot-active'
                   : 'hot-tours-toolbar-dot-hide'
               }
               key={tour._id}
-              id={id.toString()}
-              onClick={(e) => goToSlide(id, e)}
+              id={index.toString()}
+              onClick={(e) => goToSlide(index, e)}
             ></div>
           ))}
         </div>

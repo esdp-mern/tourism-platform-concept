@@ -2,7 +2,10 @@ import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { selectAllTours } from '@/containers/tours/toursSlice';
 import TourListItem from '@/components/TourListItem/TourListItem';
-import { fetchTours } from '@/containers/tours/toursThunk';
+import {
+  fetchTours,
+  fetchToursWithDiscountPrice,
+} from '@/containers/tours/toursThunk';
 import MainSlider from '@/components/MainSlider/MainSlider';
 import Link from 'next/link';
 import PageLoader from '@/components/Loaders/PageLoader';
@@ -23,7 +26,8 @@ const ToursPage = () => {
   useEffect(() => {
     dispatch(setIsLightMode(true));
     dispatch(fetchPlatformReviews());
-    dispatch(fetchTours({ skip: 0 }));
+    dispatch(fetchTours());
+    dispatch(fetchToursWithDiscountPrice());
   }, [dispatch]);
 
   return (

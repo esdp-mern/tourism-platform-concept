@@ -8,6 +8,7 @@ import {
   fetchTours,
   fetchToursByFilter,
   fetchToursGuide,
+  fetchToursWithDiscountPrice,
   postTour,
   publishTour,
   tourReview,
@@ -19,6 +20,7 @@ import { Tour, TourFull, ValidationError } from '@/type';
 interface ToursState {
   tours: Tour[];
   allToursLength: number;
+  toursWithDiscountPrice: Tour[];
   tour: TourFull | null;
   fetchAllLoading: boolean;
   fetchAdminTourLoading: boolean;
@@ -42,6 +44,7 @@ interface ToursState {
 const initialState: ToursState = {
   tours: [],
   allToursLength: 0,
+  toursWithDiscountPrice: [],
   tour: null,
   fetchAllLoading: false,
   fetchAdminTourLoading: false,
@@ -111,6 +114,13 @@ export const toursSlice = createSlice({
     builder.addCase(fetchTours.rejected, (state) => {
       state.fetchAllLoading = false;
     });
+
+    builder.addCase(
+      fetchToursWithDiscountPrice.fulfilled,
+      (state, { payload }) => {
+        state.toursWithDiscountPrice = payload;
+      },
+    );
 
     builder.addCase(fetchToursByFilter.pending, (state) => {
       state.fetchAllLoading = true;
@@ -240,6 +250,8 @@ export const toursReducer = toursSlice.reducer;
 export const selectAllTours = (state: RootState) => state.tours.tours;
 export const selectAllToursLength = (state: RootState) =>
   state.tours.allToursLength;
+export const selectToursWithDiscountTours = (state: RootState) =>
+  state.tours.toursWithDiscountPrice;
 export const selectOneTour = (state: RootState) => state.tours.tour;
 export const selectFetchAllLoading = (state: RootState) =>
   state.tours.fetchAllLoading;
