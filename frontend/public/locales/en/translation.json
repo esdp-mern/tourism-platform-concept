@@ -244,5 +244,11 @@
     "loading": "Loading...",
     "sign_up": "Sign up",
     "sign_in": "Sign in"
+  },
+  "mainSlider": {
+    "tours": "tours",
+    "deleteBtn": "Delete",
+    "editBtn": "Edit",
+    "addBtn": "Add new slider"
   }
 }
