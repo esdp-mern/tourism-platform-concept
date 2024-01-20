@@ -41,12 +41,28 @@ const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
     }
   };
 
+  const discount = ((tour.price - tour.discountPrice) / tour.price) * 100;
+
   return (
     <Fade>
       <div className="tour-item" id={tour._id}>
         <Link href={`/tours/${tour._id}`} className="tour-item-top">
           <Image fill src={imgLink} alt={tour.name} className="tour-item-img" />
-          <div className="tour-item-price">{`${tour.price}`} KGS</div>
+          {tour.discountPrice && (
+            <div className="tour-item-discount">-{Math.ceil(discount)}%</div>
+          )}
+
+          <div
+            className={`tour-item-price ${
+              tour.discountPrice ? 'tour-item-discount-price' : ''
+            }`}
+          >
+            {tour.discountPrice && (
+              <span className="tour-item-old-price">{tour.price} KGS</span>
+            )}
+            {tour.discountPrice ?? tour.price} KGS
+          </div>
+
           {isAdmin && user && user.role === userRoles.admin ? (
             <div
               className={`${

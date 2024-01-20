@@ -34,10 +34,11 @@
 .one-tour-inner-discount-price {
   position: absolute;
   top: -35px;
-  left: 10px;
+  left: 20px;
   color: #a0a0a0;
-  text-decoration: line-through #a40000 2px;
+  text-decoration: line-through #a0a0a0 1.2px;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .one-tour-inner-price {

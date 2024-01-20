@@ -74,7 +74,7 @@ const OneTourInformation = () => {
             <div className="one-tour-inner-prices">
               {tour.discountPrice && (
                 <span className="one-tour-inner-discount-price">
-                  {tour.price}
+                  {tour.price} KGS
                 </span>
               )}
               <span className="one-tour-inner-price">
