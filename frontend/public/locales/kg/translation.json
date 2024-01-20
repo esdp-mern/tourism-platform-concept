@@ -250,5 +250,19 @@
     "deleteBtn": "Өчүрүү",
     "editBtn": "Өзгөртүү",
     "addBtn": "Слайдер кошуу"
+  },
+  "guideOrders": {
+    "createGuide": "Гидди түзүү",
+    "wrongAlert": "Бир нерсе туура эмес!",
+    "guideAddedAlert": "Гид кошулду",
+    "language": "тил*",
+    "addBtn": "Кошуу",
+    "languages": "Тилдер",
+    "reset": "Баштапкы абалга келтирүү",
+    "country": "өлкө*",
+    "description": "гид жөндө*",
+    "image": "Сүрөт",
+    "sendBtn": "Жөнөтүү",
+    "none": "жок"
   }
 }

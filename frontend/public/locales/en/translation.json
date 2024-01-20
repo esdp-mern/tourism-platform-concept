@@ -250,5 +250,19 @@
     "deleteBtn": "Delete",
     "editBtn": "Edit",
     "addBtn": "Add new slider"
+  },
+  "guideOrders": {
+    "createGuide": "Create a guide",
+    "wrongAlert": "Something is wrong!",
+    "guideAddedAlert": "Guide is added",
+    "language": "language*",
+    "addBtn": "Add",
+    "languages": "Languages",
+    "reset": "Reset",
+    "country": "country*",
+    "description": "about guide*",
+    "image": "Image",
+    "sendBtn": "Send",
+    "none": "none"
   }
 }
