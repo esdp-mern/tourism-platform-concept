@@ -9,9 +9,16 @@ const mainSliderRouter = express.Router();
 
 mainSliderRouter.get('/', async (req, res) => {
   try {
+    const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
     const sliders = await MainSlider.find();
+    const localizedSliders = sliders.map((sl) => {
+      return {
+        ...sl.toObject(),
+        country: sl.toObject().country?.[lang] || sl.toObject().country?.en,
+      };
+    });
 
-    return res.send(sliders);
+    return res.send(localizedSliders);
   } catch (e) {
     return res.status(500).send('Error');
   }
@@ -19,13 +26,20 @@ mainSliderRouter.get('/', async (req, res) => {
 
 mainSliderRouter.get('/:id', async (req, res) => {
   try {
+    const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
     const slider = await MainSlider.findById(req.params.id);
 
     if (!slider) {
       return res.status(404).send('Not found!');
     }
 
-    return res.send(slider);
+    const oneSlider = {
+      _id: slider._id,
+      country: slider.country ? slider.country[lang] : slider.country,
+      image: slider.image,
+    };
+
+    return res.send(oneSlider);
   } catch (e) {
     return res.status(500).send('Error');
   }
@@ -38,8 +52,14 @@ mainSliderRouter.post(
   imagesUpload.single('image'),
   async (req, res, next) => {
     try {
+      const lang = req.get('lang') as 'en' | 'ru' | 'kg';
       const slider = new MainSlider({
-        country: req.body.country,
+        country: {
+          en: '',
+          ru: '',
+          kg: '',
+          [lang]: req.body.country,
+        },
         image: req.file ? 'images/' + req.file.filename : null,
       });
 
@@ -61,13 +81,14 @@ mainSliderRouter.put(
   imagesUpload.single('image'),
   async (req, res, next) => {
     try {
+      const lang = req.get('lang') as 'en' | 'ru' | 'kg';
       const slider = await MainSlider.findById(req.params.id);
 
       if (!slider) {
         return res.status(404).send('Not found');
       }
 
-      slider.country = req.body.country || slider.country;
+      slider.country = { ...slider.country, [lang]: req.body.country };
       slider.image = req.file ? 'images/' + req.file.filename : slider.image;
 
       await slider.save();

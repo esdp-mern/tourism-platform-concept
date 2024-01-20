@@ -244,5 +244,11 @@
     "loading": "Жүктөлүү...",
     "sign_up": "Катталуу",
     "sign_in": "Кирүү"
+  },
+  "mainSlider": {
+    "tours": "турлар",
+    "deleteBtn": "Өчүрүү",
+    "editBtn": "Өзгөртүү",
+    "addBtn": "Слайдер кошуу"
   }
 }

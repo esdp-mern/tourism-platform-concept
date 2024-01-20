@@ -2,8 +2,9 @@ import mongoose from 'mongoose';
 
 const MainSliderSchema = new mongoose.Schema({
   country: {
-    type: String,
-    required: true,
+    en: String,
+    ru: String,
+    kg: String,
   },
   image: {
     type: String,

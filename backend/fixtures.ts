@@ -1009,15 +1009,27 @@ const run = async () => {
 
   await MainSlider.create(
     {
-      country: 'Kyrgyzstan',
+      country: {
+        en: 'Kyrgyzstan',
+        ru: 'Кыргызстан',
+        kg: 'Кыргызстан'
+      },
       image: 'fixtures/kyrgyzstan.jpeg',
     },
     {
-      country: 'Kazakhstan',
+      country: {
+        en: 'Kazakhstan',
+        ru: 'Казахстан',
+        kg: 'Казахстан',
+      },
       image: 'fixtures/kazakhstan.jpeg',
     },
     {
-      country: 'Uzbekistan',
+      country: {
+        en: 'Uzbekistan',
+        ru: 'Узбекистан',
+        kg: 'Узбекистан',
+      },
       image: 'fixtures/uzbekistan.jpeg',
     },
   );
