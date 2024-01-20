@@ -180,6 +180,7 @@
     "booked": "Брондолгон",
     "being considered": "Кароодо",
     "approved orders": "Кабыл алынган",
+    "approved": "Кабыл алынган",
     "create tour": "Турду түзүү",
     "active": "Активдүү",
     "non active": "Активдүү эмес",
@@ -250,5 +251,9 @@
     "deleteBtn": "Өчүрүү",
     "editBtn": "Өзгөртүү",
     "addBtn": "Слайдер кошуу"
+  },
+  "orders": {
+    "removeAlert": "Бул заказды жок кылгыңыз келеби?",
+    "message": "Заказ алынып салынды"
   }
 }
