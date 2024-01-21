@@ -13,6 +13,7 @@ import { IPartnerAccept } from '@/type';
 import { AxiosError } from 'axios';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import '@/styles/GuideItem.css';
 
 interface Props {
   id: string;

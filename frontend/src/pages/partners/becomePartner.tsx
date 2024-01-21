@@ -16,6 +16,7 @@ import { createPartnerOrder } from '@/containers/partners/partnersThunk';
 import FileInput from '@/components/UI/FileInput/FileInput';
 import { GetServerSideProps } from 'next';
 import { useTranslations } from 'next-intl';
+import '@/styles/becomeGuide.css';
 
 const BecomePartner = () => {
   const initialState = {

@@ -2,14 +2,14 @@
 import React, { useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { selectGuides } from '@/containers/guides/guidesSlice';
 import { fetchGuides } from '@/containers/guides/guidesThunk';
 import GuideItem from '@/components/GuideItem/GuideItem';
 import { apiUrl } from '@/constants';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 const GuideSlider = () => {
   const dispatch = useAppDispatch();

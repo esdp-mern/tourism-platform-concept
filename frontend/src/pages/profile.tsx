@@ -13,6 +13,7 @@ import GuideProfile from '@/components/GuideProfile/GuideProfile';
 import Image from 'next/image';
 import bgImage from '@/assets/images/bg-image-1.jpg';
 import { GetServerSideProps } from 'next';
+import '@/styles/profile.css';
 
 const Profile = () => {
   const dispatch = useAppDispatch();

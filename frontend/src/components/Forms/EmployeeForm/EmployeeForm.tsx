@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { editEmployees, postEmployees } from '@/containers/about/aboutThunk';
 import FileInput from '@/components/UI/FileInput/FileInput';
 import { addEmployee } from '@/containers/about/aboutSlice';
+import '@/styles/SignInForm.css';
 
 interface Props {
   existingEmployee?: IEmployeeMutation;

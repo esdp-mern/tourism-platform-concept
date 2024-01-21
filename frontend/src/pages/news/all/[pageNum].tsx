@@ -11,6 +11,8 @@ import { userRoles } from '@/constants';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { GetServerSideProps } from 'next';
+import '@/styles/NewsPage.css';
+import '@/styles/ToursPage.css';
 
 const AllNewsPage = () => {
   const dispatch = useAppDispatch();
