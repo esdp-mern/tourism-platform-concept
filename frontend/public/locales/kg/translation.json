@@ -157,7 +157,8 @@
     "create_form_country": "Өлкө*",
     "create_form_about": "гид жөнүндө*",
     "create_form_image": "сүрөт",
-    "create_form_send": "Жөнөтүү"
+    "create_form_send": "Жөнөтүү",
+    "editBtn": "Сүрөттөмөлөрдү түзөтүү"
   },
   "admin": {
     "tours": "Турлар",
@@ -250,5 +251,13 @@
     "deleteBtn": "Өчүрүү",
     "editBtn": "Өзгөртүү",
     "addBtn": "Слайдер кошуу"
+  },
+  "myProfile": {
+    "title": "Менин профилим",
+    "username": "Колдонуучу аты",
+    "email": "Электрондук почта",
+    "edit": "Профилди түзөтүү",
+    "orders": "Заказдарыңыз",
+    "name": "Аты"
   }
 }

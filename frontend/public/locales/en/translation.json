@@ -157,7 +157,8 @@
     "create_form_country": "country*",
     "create_form_about": "about guide*",
     "create_form_image": "Image",
-    "create_form_send": "Send"
+    "create_form_send": "Send",
+    "editBtn": "Edit description"
   },
   "admin": {
     "tours": "Tours",
@@ -250,5 +251,13 @@
     "deleteBtn": "Delete",
     "editBtn": "Edit",
     "addBtn": "Add new slider"
+  },
+  "myProfile": {
+    "title": "My profile",
+    "username": "Username",
+    "email": "Email",
+    "edit": "Edit profile",
+    "orders": "Orders",
+    "name": "Name"
   }
 }

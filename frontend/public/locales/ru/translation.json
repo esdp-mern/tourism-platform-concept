@@ -157,7 +157,8 @@
     "create_form_country": "страна*",
     "create_form_about": "о гиде*",
     "create_form_image": "фото",
-    "create_form_send": "Отправить"
+    "create_form_send": "Отправить",
+    "editBtn": "Изменить описание"
   },
   "admin": {
     "tours": "Туры",
@@ -250,5 +251,13 @@
     "deleteBtn": "Удалить",
     "editBtn": "Изменить",
     "addBtn": "Добавить слайдер"
+  },
+  "myProfile": {
+    "title": "Мой профиль",
+    "username": "Логин",
+    "email": "Эл. адрес",
+    "edit": "Редактировать профиль",
+    "orders": "Заказы",
+    "name": "Имя"
   }
 }
