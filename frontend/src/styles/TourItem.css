@@ -75,6 +75,7 @@
 }
 
 .tour-item-old-price {
+  max-width: 80%;
   height: 17px;
   position: absolute;
   top: -17px;
@@ -91,6 +92,8 @@
 }
 
 .tour-item-discount-price {
+  min-width: 85px;
+  text-align: center;
   background: #ffa133 !important;
 }
 
@@ -100,8 +103,6 @@
   left: 30px;
   bottom: 0;
   font-weight: 500;
-  display: inline-flex;
-  align-items: flex-end;
   padding: 5px 10px;
   background: #75c15b;
   color: #fff;
