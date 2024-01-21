@@ -264,23 +264,24 @@
     "contact_country_field": "Өлкө",
     "contact_address_field": "Адрес",
     "contact_phone_field": "Телефон",
-    "contact_delete": "Жок кылуу"
-  "guideOrders": {
-    "createGuide": "Гидди түзүү",
-    "wrongAlert": "Бир нерсе туура эмес!",
-    "guideAddedAlert": "Гид кошулду",
-    "language": "тил*",
-    "addBtn": "Кошуу",
-    "languages": "Тилдер",
-    "reset": "Баштапкы абалга келтирүү",
-    "country": "өлкө*",
-    "description": "гид жөндө*",
-    "image": "Сүрөт",
-    "sendBtn": "Жөнөтүү",
-    "none": "жок"
-  },
-  "orders": {
-    "removeAlert": "Бул заказды жок кылгыңыз келеби?",
-    "message": "Заказ алынып салынды"
+    "contact_delete": "Жок кылуу",
+    "guideOrders": {
+      "createGuide": "Гидди түзүү",
+      "wrongAlert": "Бир нерсе туура эмес!",
+      "guideAddedAlert": "Гид кошулду",
+      "language": "тил*",
+      "addBtn": "Кошуу",
+      "languages": "Тилдер",
+      "reset": "Баштапкы абалга келтирүү",
+      "country": "өлкө*",
+      "description": "гид жөндө*",
+      "image": "Сүрөт",
+      "sendBtn": "Жөнөтүү",
+      "none": "жок"
+    },
+    "orders": {
+      "removeAlert": "Бул заказды жок кылгыңыз келеби?",
+      "message": "Заказ алынып салынды"
+    }
   }
 }
