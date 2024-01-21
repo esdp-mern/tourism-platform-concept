@@ -334,7 +334,6 @@ export interface IContactInfo {
   _id?: string;
   country: string;
   address: string;
-  phone: string;
 }
 
 export interface IContacts {
@@ -342,14 +341,18 @@ export interface IContacts {
   image: File | null;
   title: string;
   description: string;
-  contact: IContactInfo[];
+  country: string;
+  address: string;
+  phone: string;
 }
 
 export interface IContactsMutation {
   title: string;
   description: string;
   image: File | null;
-  contact: IContactInfo[];
+  country: string;
+  address: string;
+  phone: string;
 }
 
 export interface IContactsImageMutation {

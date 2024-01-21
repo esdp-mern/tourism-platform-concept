@@ -2,19 +2,31 @@ import mongoose from 'mongoose';
 
 const ContactsSchema = new mongoose.Schema({
   title: {
-    type: String,
-    required: true,
+    en: String,
+    ru: String,
+    kg: String,
   },
   image: {
     type: String,
     required: true,
   },
   description: {
-    type: String,
-    required: true,
+    en: String,
+    ru: String,
+    kg: String,
   },
-  contact: {
-    type: [{ country: String, address: String, phone: String }],
+  country: {
+    en: String,
+    ru: String,
+    kg: String,
+  },
+  address: {
+    en: String,
+    ru: String,
+    kg: String,
+  },
+  phone: {
+    type: String,
     required: true,
   },
 });

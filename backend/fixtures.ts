@@ -36,7 +36,7 @@ const run = async () => {
     await db.dropCollection('tourreviews');
     await db.dropCollection('tourratings');
     await db.dropCollection('guideratings');
-    await db.dropCollection('partners');
+    await db.dropCollection('partner');
     await db.dropCollection('mainsliders');
     await db.dropCollection('aboutus');
     await db.dropCollection('contacts');
@@ -44,6 +44,7 @@ const run = async () => {
     await db.dropCollection('partnerorders');
     await db.dropCollection('statisticsinfo');
   } catch (e) {
+    console.log(e);
     console.log('Collections were not present, skipping drop...');
   }
 
@@ -220,7 +221,7 @@ const run = async () => {
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
         date: '26/01/2024',
-        map: `<iframe src='https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>`,
+        map: `<iframe src="https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1" width="640" height="480"></iframe>`,
         mapLink:
           'https://www.google.com/maps/d/edit?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&usp=sharing',
       },
@@ -280,7 +281,7 @@ const run = async () => {
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
         date: '26/01/2024',
-        map: `<iframe src='https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>`,
+        map: `<iframe src="https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1" width="640" height="480"></iframe>`,
         mapLink:
           'https://www.google.com/maps/d/edit?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&usp=sharing',
       },
@@ -360,7 +361,7 @@ const run = async () => {
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
         date: '27/01/2024',
-        map: `<iframe src='https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>`,
+        map: `<iframe src="https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1" width="640" height="480"></iframe>`,
         mapLink:
           'https://www.google.com/maps/d/edit?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&usp=sharing',
       },
@@ -440,7 +441,7 @@ const run = async () => {
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
         date: '25/01/2024',
-        map: `<iframe src='https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>`,
+        map: `<iframe src="https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1" width="640" height="480"></iframe>`,
         mapLink:
           'https://www.google.com/maps/d/edit?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&usp=sharing',
       },
@@ -507,7 +508,7 @@ const run = async () => {
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
         date: '28/01/2024',
-        map: `<iframe src='https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>`,
+        map: `<iframe src="https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1" width="640" height="480"></iframe>`,
         mapLink:
           'https://www.google.com/maps/d/edit?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&usp=sharing',
       },
@@ -590,7 +591,7 @@ const run = async () => {
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
         date: '26/01/2024',
-        map: `<iframe src='https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>`,
+        map: `<iframe src="https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1" width="640" height="480"></iframe>`,
         mapLink:
           'https://www.google.com/maps/d/edit?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&usp=sharing',
       },
@@ -661,7 +662,7 @@ const run = async () => {
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
         date: '27/01/2024',
-        map: `<iframe src='https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>`,
+        map: `<iframe src="https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1" width="640" height="480"></iframe>`,
         mapLink:
           'https://www.google.com/maps/d/edit?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&usp=sharing',
       },
@@ -1012,7 +1013,7 @@ const run = async () => {
       country: {
         en: 'Kyrgyzstan',
         ru: 'Кыргызстан',
-        kg: 'Кыргызстан'
+        kg: 'Кыргызстан',
       },
       image: 'fixtures/kyrgyzstan.jpeg',
     },
@@ -1036,26 +1037,27 @@ const run = async () => {
 
   await ContactUs.create({
     image: 'fixtures/contacts.jpeg',
-    title: 'Contact Us',
-    description:
-      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
-    contact: [
-      {
-        country: 'United States',
-        address: '9 Valley St. Brooklyn, NY 11203',
-        phone: '1-800-346-6277',
-      },
-      {
-        country: 'Canada',
-        address: '500 Kingston Rd Toronto ON M4L 1V3',
-        phone: '1-800-346-6277',
-      },
-      {
-        country: 'Australia',
-        address: '60 Marcus Clarke St, Canberra, ACT 2601',
-        phone: '1-800-346-6277',
-      },
-    ],
+    title: {
+      en: 'Contact us',
+      ru: 'Контакты',
+      kg: 'Бизге кайрылыңыз',
+    },
+    description: {
+      en: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
+      ru: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
+      kg: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
+    },
+    country: {
+      en: 'USA',
+      ru: 'США',
+      kg: 'АКШ',
+    },
+    address: {
+      en: 'Brooklyn, NY 11203',
+      ru: 'Бруклин, Нью-Йорк 11203',
+      kg: 'Бруклин, Нью-Йорк 11203',
+    },
+    phone: '1-800-346-6277',
   });
 
   await AboutUs.create({

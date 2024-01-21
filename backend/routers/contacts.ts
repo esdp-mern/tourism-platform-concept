@@ -9,8 +9,21 @@ const contactsRouter = express.Router();
 
 contactsRouter.get('/', async (req, res) => {
   try {
-    const contacts = await Contacts.findOne();
-    return res.send(contacts);
+    const contacts = await Contacts.find();
+    const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
+
+    const localizedContacts = contacts.map((con) => {
+      return {
+        ...con.toObject(),
+        title: con.toObject().title?.[lang] || con.toObject().title?.en,
+        description:
+          con.toObject().description?.[lang] || con.toObject().description?.en,
+        country: con.toObject().title?.[lang] || con.toObject().country?.en,
+        address: con.toObject().title?.[lang] || con.toObject().address?.en,
+      };
+    });
+
+    return res.send(localizedContacts);
   } catch (e) {
     return res.status(500).send('Error');
   }
@@ -18,15 +31,29 @@ contactsRouter.get('/', async (req, res) => {
 contactsRouter.put('/', auth, permit('admin'), async (req, res, next) => {
   try {
     const existingContact = await Contacts.findOne();
+    const lang = req.get('lang') as 'en' | 'ru' | 'kg';
 
     if (!existingContact) {
       return res.status(404).send('Contact not found');
     }
 
-    existingContact.title = req.body.title || existingContact.title;
-    existingContact.description =
-      req.body.description || existingContact.description;
-    existingContact.contact = req.body.contact || existingContact.contact;
+    existingContact.title = {
+      ...existingContact.title,
+      [lang]: req.body.title,
+    };
+    existingContact.country = {
+      ...existingContact.country,
+      [lang]: req.body.country,
+    };
+    existingContact.description = {
+      ...existingContact.description,
+      [lang]: req.body.description,
+    };
+    existingContact.address = {
+      ...existingContact.address,
+      [lang]: req.body.address,
+    };
+    existingContact.phone = req.body.phone || existingContact.phone;
 
     await existingContact.save();
     return res.json(existingContact);

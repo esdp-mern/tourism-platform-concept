@@ -11,7 +11,7 @@ import {
   selectContacts,
   selectEditContactsLoading,
 } from '@/containers/contacts/contactsSlice';
-import { IContactInfo, IContactsMutation } from '@/type';
+import { IContactsMutation } from '@/type';
 import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
 import { addAlert, selectUser } from '@/containers/users/usersSlice';
 import { AxiosError } from 'axios';
@@ -31,14 +31,14 @@ const ContactUs = () => {
   const editContactsLoading = useAppSelector(selectEditContactsLoading);
   const [editModalTitle, setEditModalTitle] = useState<boolean>(false);
   const [editModalInfo, setEditModalInfo] = useState<boolean>(false);
-  const [contactInfo, setContactInfo] = useState<IContactInfo[]>(
-    contacts?.contact || [{ country: '', address: '', phone: '' }],
-  );
+
   const [state, setState] = useState<IContactsMutation>({
     title: '',
     description: '',
     image: null,
-    contact: contactInfo,
+    country: '',
+    address: '',
+    phone: '',
   });
   const [selectedCountryIndex, setSelectedCountryIndex] = useState<
     number | null
@@ -60,11 +60,6 @@ const ContactUs = () => {
     }
   }, [contacts]);
 
-  useEffect(() => {
-    if (contacts?.contact) {
-      setContactInfo(contacts.contact);
-    }
-  }, [contacts]);
   const onChange = (e: IChangeEvent) => {
     const { name, value } = e.target;
     setState((prevState) => ({ ...prevState, [name]: value }));
@@ -73,7 +68,6 @@ const ContactUs = () => {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      state.contact = contactInfo;
       state.image
         ? await dispatch(editContactsImage({ image: state.image })).unwrap()
         : null;
@@ -91,12 +85,9 @@ const ContactUs = () => {
   const onSubmitInfo = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const updatedContactInfo = [...contactInfo];
-
       await dispatch(
         editContacts({
           ...state,
-          contact: updatedContactInfo,
         }),
       ).unwrap();
 
@@ -112,32 +103,6 @@ const ContactUs = () => {
 
   const onClickCountryInfo = (index: number) => {
     setSelectedCountryIndex(index);
-    setEditModalInfo(true);
-  };
-  const inputChangeHandlerMassive = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    index: number,
-  ) => {
-    const { name, value } = event.target;
-
-    setContactInfo((prevState) => {
-      const updatedInfo = [...prevState];
-      updatedInfo[index] = {
-        ...updatedInfo[index],
-        [name]: value,
-      };
-      return updatedInfo;
-    });
-  };
-
-  const addOneItem = () => {
-    const newContact = { country: '', address: '', phone: '' };
-    const updatedInfo = [...contactInfo, newContact];
-
-    console.log(contactInfo);
-
-    setContactInfo(updatedInfo);
-    setSelectedCountryIndex(updatedInfo.length - 1);
     setEditModalInfo(true);
   };
 
@@ -190,161 +155,7 @@ const ContactUs = () => {
       </div>
       <div className="contacts-page-location">
         <div className="container">
-          <div className="contacts-card-main">
-            {contacts &&
-              contacts.contact &&
-              contacts.contact.map((contact, index) => (
-                <div
-                  className="contacts-card"
-                  key={index}
-                  onClick={() => onClickCountryInfo(index)}
-                >
-                  {contact.country ? (
-                    <span className="contacts-country">{contact.country}</span>
-                  ) : null}
-                  {contact.address ? (
-                    <span className="contacts-location">{contact.address}</span>
-                  ) : null}
-                  {contact.phone ? (
-                    <span className="contacts-phone">{contact.phone}</span>
-                  ) : null}
-
-                  <div
-                    className={`editor-modal ${
-                      editModalInfo ? 'editor-modal-open' : ''
-                    }`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setEditModalInfo(false);
-                    }}
-                  >
-                    {selectedCountryIndex !== null && (
-                      <div
-                        className="editor-modal-inner"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <form onSubmit={onSubmitInfo}>
-                          <h2 style={{ margin: '10px 0' }}>
-                            Edit contact information
-                          </h2>
-                          <div className="input-tour-wrap">
-                            <input
-                              type="text"
-                              className="form-tour-control"
-                              name={`country`}
-                              id={`country`}
-                              value={contactInfo[selectedCountryIndex]?.country}
-                              onChange={(event) =>
-                                inputChangeHandlerMassive(
-                                  event,
-                                  selectedCountryIndex,
-                                )
-                              }
-                              required
-                            />
-                            <label
-                              htmlFor={`country`}
-                              className="form-tour-label"
-                            >
-                              Country:
-                            </label>
-                          </div>
-                          <div className="input-tour-wrap">
-                            <input
-                              type="text"
-                              className="form-tour-control"
-                              name={`address`}
-                              id={`address`}
-                              value={contactInfo[selectedCountryIndex]?.address}
-                              onChange={(event) =>
-                                inputChangeHandlerMassive(
-                                  event,
-                                  selectedCountryIndex,
-                                )
-                              }
-                              required
-                            />
-                            <label
-                              htmlFor={`address`}
-                              className="form-tour-label"
-                            >
-                              Address:
-                            </label>
-                          </div>
-                          <div className="input-tour-wrap">
-                            <input
-                              type="text"
-                              className="form-tour-control"
-                              name={`phone`}
-                              id={`phone`}
-                              value={contactInfo[selectedCountryIndex]?.phone}
-                              onChange={(event) =>
-                                inputChangeHandlerMassive(
-                                  event,
-                                  selectedCountryIndex,
-                                )
-                              }
-                              required
-                            />
-                            <label
-                              htmlFor={`phone`}
-                              className="form-tour-label"
-                            >
-                              Phone name:
-                            </label>
-                          </div>
-                          <button
-                            type="submit"
-                            className="form-btn-delete"
-                            onClick={() => {
-                              setContactInfo((prevState) => {
-                                const updatedInfo = [...prevState];
-                                updatedInfo.splice(selectedCountryIndex, 1);
-                                return updatedInfo;
-                              });
-                            }}
-                            name="delete-contact-info"
-                          >
-                            Delete
-                          </button>
-                          <button
-                            type="submit"
-                            className="form-tour-btn"
-                            style={{ margin: 0 }}
-                            name="contacts-title-edit-btn"
-                          >
-                            {editContactsLoading ? (
-                              <ButtonLoader size={18} />
-                            ) : (
-                              'Save'
-                            )}
-                          </button>
-                        </form>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-          </div>
-
-          {admin && (
-            <div
-              className="add-info"
-              onClick={() => {
-                if (!contactInfo || contactInfo.length <= 0) {
-                  setContactInfo((prevState) => [
-                    ...prevState,
-                    { country: '', address: '', phone: '' },
-                  ]);
-                } else {
-                  addOneItem();
-                }
-                setEditModalInfo(true);
-              }}
-            >
-              +
-            </div>
-          )}
+          {admin && <div className="add-info">+</div>}
         </div>
       </div>
 
