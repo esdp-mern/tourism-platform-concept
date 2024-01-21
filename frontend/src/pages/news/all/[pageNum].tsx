@@ -42,7 +42,6 @@ const AllNewsPage = () => {
       <div className="news-top">
         <div className="news-top-bg" />
         <div className="news-top-info">
-          <div className="news-top-line"></div>
           <h2 className="news-top-title">{t('news_all_news_title')}</h2>
           <p className="news-top-txt">{t('news_all_news_description')}</p>
         </div>

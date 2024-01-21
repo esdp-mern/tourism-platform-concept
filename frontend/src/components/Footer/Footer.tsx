@@ -45,7 +45,7 @@ const Footer = () => {
           <div className="footer-inner-top-2">
             <h6 className="footer-title">{t('touch')}</h6>
             <div className="footer-address">{t('address')}</div>
-            <div className="footer-phone">1-800-346-6277</div>
+            <div className="footer-phone">+996 553 355 777</div>
             <div className="footer-email">info@demolink.org</div>
           </div>
           <div className="footer-inner-top-3">
