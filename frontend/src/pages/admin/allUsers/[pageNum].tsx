@@ -10,6 +10,7 @@ import Custom404 from '@/pages/404';
 import Pagination from '@/components/Pagination/Pagination';
 import Image from 'next/image';
 import { GetServerSideProps } from 'next';
+import '@/styles/allUsers.css';
 
 const PageNum = () => {
   const dispatch = useAppDispatch();

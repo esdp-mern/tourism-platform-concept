@@ -15,7 +15,6 @@ import { fetchGuideRating } from '@/containers/ratings/ratingThunk';
 import Image from 'next/image';
 import bgImage from '@/assets/images/bg-image-1.jpg';
 import { useTranslations } from 'next-intl';
-import { GetServerSideProps } from 'next';
 
 interface IGuidePageTabs {
   name: string;

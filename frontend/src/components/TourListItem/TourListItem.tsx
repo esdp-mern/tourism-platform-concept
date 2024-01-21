@@ -15,6 +15,7 @@ import {
   selectTourPublishLoading,
 } from '@/containers/tours/toursSlice';
 import Image from 'next/image';
+import '@/styles/TourItem.css';
 
 interface Props {
   tour: Tour;

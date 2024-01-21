@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import GalleryItem from '@/components/OneTourPage/Gallery/GalleryItem';
 import GalleryModal from '@/components/OneTourPage/Gallery/GalleryModal';
 import { useTranslations } from 'next-intl';
+import '@/styles/OneTourInformation.css';
 
 const OneTourInformation = () => {
   const tour = useAppSelector(selectOneTour);

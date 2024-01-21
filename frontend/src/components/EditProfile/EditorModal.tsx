@@ -18,6 +18,7 @@ import { IEditProfile } from '@/type';
 import { editProfile } from '@/containers/users/usersThunk';
 import { AxiosError } from 'axios';
 import { useTranslations } from 'next-intl';
+import '@/styles/editorModal.css';
 
 const EditorModal = () => {
   const dispatch = useAppDispatch();

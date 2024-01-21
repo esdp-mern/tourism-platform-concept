@@ -10,6 +10,7 @@ import { fetchStatsAdmin } from '@/containers/statistics/statisticsThunk';
 import Link from 'next/link';
 import { GetServerSideProps } from 'next';
 import { useTranslations } from 'next-intl';
+import '@/styles/admin.css';
 
 const Admin = () => {
   const routers = useRouter();

@@ -16,6 +16,7 @@ import chevronRight from '@/assets/images/chevron-right.svg';
 import chevronRightLight from '@/assets/images/chevron-right-light.svg';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
+import '@/styles/AppToolBar.css';
 
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);
@@ -79,7 +80,7 @@ const AppToolBar = () => {
       window.removeEventListener('resize', setEventListener);
       document.removeEventListener('scroll', setClassList);
     };
-  }, [dispatch, isLightMode, router, setClassList, setEventListener]);
+  }, [dispatch, isLightMode, router, setEventListener]);
 
   const onLangSwitch = (language: string) => {
     const href = {

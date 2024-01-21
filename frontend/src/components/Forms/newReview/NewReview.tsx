@@ -9,6 +9,7 @@ import {
   fetchGuideReviews,
 } from '@/containers/reviews/reviewThunk';
 import { useTranslations } from 'next-intl';
+import '@/styles/newReviewForm.css';
 
 interface IProps {
   guideReview: boolean;

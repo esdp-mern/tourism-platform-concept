@@ -7,6 +7,7 @@ import NewReviewForm from '@/components/NewReviewForm/NewReviewForm';
 import { selectUser } from '@/containers/users/usersSlice';
 import { selectToursRating } from '@/containers/ratings/ratingSlice';
 import { useTranslations } from 'next-intl';
+import '@/styles/OneTourReview.css';
 
 const OneTourReview = () => {
   const toursReviews = useAppSelector(selectToursReviews);

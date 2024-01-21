@@ -19,6 +19,7 @@ import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
 import peopleIcon from '@/assets/images/people-icon.svg';
 import keyIcon from '@/assets/images/key.png';
 import { useTranslations } from 'next-intl';
+import '@/styles/SignInForm.css';
 
 const SignInForm = () => {
   const dispatch = useAppDispatch();

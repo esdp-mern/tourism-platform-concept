@@ -20,6 +20,7 @@ import dayjs from 'dayjs';
 import { selectLanguage } from '@/containers/users/usersSlice';
 import { GetServerSideProps } from 'next';
 import { useTranslations } from 'next-intl';
+import '@/styles/about.css';
 
 require(`dayjs/locale/ru`);
 require(`dayjs/locale/en`);
@@ -251,7 +252,6 @@ const About = () => {
                         </div>
                         <div className="about-page-clients-card-txt">
                           {review.comment}
-                          looeroeoreoroereroeoreroeorlooeroeoreoroereroeoreroeorlooeroeoreoroereroeoreroeorlooeroeoreoroereroeoreroeorlooeroeoreoroereroeoreroeorlooeroeoreoroereroeoreroeorlooeroeoreoroereroeoreroeor
                         </div>
                         <div className="about-page-clients-card-date">
                           {dayjs(review.date)

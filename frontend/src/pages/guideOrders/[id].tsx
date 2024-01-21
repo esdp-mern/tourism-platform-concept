@@ -31,6 +31,8 @@ import globeIcon from '@/assets/images/globe.svg';
 import FileInput from '@/components/UI/FileInput/FileInput';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import { changeUserRole } from '@/containers/users/usersThunk';
+import '@/styles/becomeGuide.css';
+import '@/styles/createGuide.css';
 import { useTranslations } from 'next-intl';
 
 const CreateGuide: NextPage<
