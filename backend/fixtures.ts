@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import crypto from 'crypto';
+import crypto, { randomUUID } from 'crypto';
 import config from './config';
 import User from './models/User';
 import Tour from './models/Tour';
@@ -1036,14 +1036,58 @@ const run = async () => {
 
   await ContactUs.create({
     image: 'fixtures/contacts.jpeg',
-    title: 'Contact Us',
-    description:
-      "We are always happy to help you. If you have questions or suggestions, don't hesitate to contact us.",
+    title: {
+      en: 'Contact Us!',
+      ru: 'Свяжитесь с нами!',
+      kg: 'Биз менен байланышыңыз!',
+    },
+    description: {
+      en: 'Our travel agency is a team of professionals who have a passion for travel and are ready to share this passion with you. We strive to create unforgettable experiences and make your holiday truly unique.',
+      ru: 'Наше туристическое агентство — это команда профессионалов, которые страстно любят путешествия и готовы поделиться этой страстью с вами. Мы стремимся создать незабываемые впечатления и сделать ваш отдых по-настоящему уникальным.',
+      kg: 'Биздин туристтик агенттик - бул саякатка ышкысы бар жана бул кумарды сиз менен бөлүшүүгө даяр адистердин командасы. Биз унутулгус окуяларды жаратууга жана сиздин майрамыңызды чындап уникалдуу кылууга аракет кылабыз.',
+    },
     contact: [
       {
-        country: 'Kyrgyzstan',
-        address: 'Bishkek',
-        phone: '+996 553 355 777',
+        country: {
+          en: 'United States',
+          ru: 'США',
+          kg: 'АКШ',
+        },
+        address: {
+          en: '9 Valley St. Brooklyn, NY 11203',
+          ru: '9 Valley St. Бруклин, Нью-Йорк 11203',
+          kg: '9 Valley St. Бруклин, Нью-Йорк 11203',
+        },
+        phone: '1-800-346-6277',
+        _id: randomUUID(),
+      },
+      {
+        country: {
+          en: 'Canada',
+          ru: 'Канада',
+          kg: 'Канада',
+        },
+        address: {
+          en: '500 Kingston Rd Toronto ON M4L 1V3',
+          ru: '500 Kingston Rd Торонто ON M4L 1V3',
+          kg: '500 Kingston Rd Торонто ON M4L 1V3',
+        },
+        phone: '1-800-346-6277',
+        _id: randomUUID(),
+      },
+      {
+        country: {
+          en: 'Australia',
+          ru: 'Австралия',
+          kg: 'Австралия',
+        },
+        address: {
+          en: '60 Marcus Clarke St, Canberra, ACT 2601',
+          ru: 'ул. Маркуса Кларка, 60, Канберра, ACT 2601',
+          kg: 'ул. Маркуса Кларка, 60, Канберра, ACT 2601',
+        },
+        phone: '1-800-346-6277',
+        _id: randomUUID(),
       },
     ],
   });

@@ -65,14 +65,14 @@
 .contacts-card-main {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
+  gap: 30px 50px;
 }
 
 .contacts-card {
-  max-width: 399px;
+  width: 30%;
   display: flex;
   flex-direction: column;
-  margin: 0 0 30px 10px;
 }
 
 .contacts-country {
@@ -90,7 +90,7 @@
 }
 
 .contacts-phone {
-  margin-top: 10px;
+  margin-top: auto;
   font-size: 30px;
   letter-spacing: 0.03em;
   font-weight: 600;
@@ -180,6 +180,7 @@ textarea::placeholder {
 }
 
 .form-btn-delete {
+  border: 0;
   padding: 7px 7px;
   color: #fff;
   background: #7e0000;
@@ -197,11 +198,14 @@ textarea::placeholder {
   cursor: pointer;
 }
 
-.icon-container-edit-contact:hover {
-  box-shadow: 0 0 10px 1px rgba(19, 86, 0, 30);
+.icon-container-edit-contacts:hover {
+  box-shadow:
+    0 0 10px 1px rgba(19, 86, 0, 30),
+    0 0 10px 1px rgba(19, 86, 0, 30) inset;
 }
 
 .icon-edit {
+  width: 50%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -217,12 +221,6 @@ textarea::placeholder {
 }
 
 @media (max-width: 1180px) {
-  .contacts-card {
-    max-width: 290px;
-    display: flex;
-    flex-direction: column;
-  }
-
   .contacts-country {
     font-size: 21px;
   }
@@ -230,9 +228,15 @@ textarea::placeholder {
 
 @media (max-width: 930px) {
   .contacts-card {
-    max-width: 399px;
-    display: flex;
-    flex-direction: column;
+    width: 40%;
+  }
+
+  .contacts-card-main {
+    gap: 30px 20px;
+  }
+
+  .icon-container-edit-contacts {
+    padding: 15px;
   }
 }
 
@@ -270,6 +274,10 @@ textarea::placeholder {
   .contacts-phone {
     font-size: 25px;
   }
+
+  .icon-container-edit-contacts {
+    padding: 13px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -283,6 +291,20 @@ textarea::placeholder {
 
   .contacts-phone {
     font-size: 22px;
+  }
+
+  .icon-container-edit-contacts {
+    padding: 10px;
+  }
+
+  .contacts-card {
+    width: 80%;
+  }
+
+  .contacts-card-main {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
   }
 }
 

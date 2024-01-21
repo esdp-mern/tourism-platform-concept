@@ -209,7 +209,8 @@
     "empty": "Please fill in all fields",
     "invalid_field": "Invalid field",
     "required_number": "Number is required",
-    "required_name": "NAME or IMAGE must be filled"
+    "required_name": "NAME or IMAGE must be filled",
+    "sign_in": "You have signed in!"
   },
   "partners": {
     "edit_title": "Save Slider",
@@ -252,6 +253,18 @@
     "editBtn": "Edit",
     "addBtn": "Add new slider"
   },
+  "contact_us": {
+    "banner_form_title": "Edit content",
+    "banner_title_field": "Title",
+    "banner_description_field": "Description",
+    "banner_image_field": "Image",
+    "save": "Save",
+    "create_info": "Create contact information",
+    "edit_info": "Edit contact information",
+    "contact_country_field": "Country",
+    "contact_address_field": "Address",
+    "contact_phone_field": "Phone",
+    "contact_delete": "delete"
   "guideOrders": {
     "createGuide": "Create a guide",
     "wrongAlert": "Something is wrong!",

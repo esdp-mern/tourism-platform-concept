@@ -253,6 +253,18 @@
     "editBtn": "Изменить",
     "addBtn": "Добавить слайдер"
   },
+  "contact_us": {
+    "banner_form_title": "Изменить контент",
+    "banner_title_field": "Название",
+    "banner_description_field": "Описание",
+    "banner_image_field": "Картинка",
+    "save": "Сохранить",
+    "create_info": "Создать контактную информацию",
+    "edit_info": "Изменить контактную информацию",
+    "contact_country_field": "Страна",
+    "contact_address_field": "Адрес",
+    "contact_phone_field": "Телефон",
+    "contact_delete": "Удалить"
   "guideOrders": {
     "createGuide": "Создать гида",
     "wrongAlert": "Что-то не так!",
