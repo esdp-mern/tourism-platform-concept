@@ -11,6 +11,8 @@ import { userRoles } from '@/constants';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { GetServerSideProps } from 'next';
+import '@/styles/NewsPage.css';
+import '@/styles/ToursPage.css';
 
 const AllNewsPage = () => {
   const dispatch = useAppDispatch();
@@ -40,7 +42,6 @@ const AllNewsPage = () => {
       <div className="news-top">
         <div className="news-top-bg" />
         <div className="news-top-info">
-          <div className="news-top-line"></div>
           <h2 className="news-top-title">{t('news_all_news_title')}</h2>
           <p className="news-top-txt">{t('news_all_news_description')}</p>
         </div>

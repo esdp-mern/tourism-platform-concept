@@ -27,6 +27,20 @@
   align-items: center;
 }
 
+.one-tour-inner-prices {
+  position: relative;
+}
+
+.one-tour-inner-discount-price {
+  position: absolute;
+  top: -35px;
+  left: 20px;
+  color: #a0a0a0;
+  text-decoration: line-through #a0a0a0 1.2px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
 .one-tour-inner-price {
   font-size: 24px;
   border-radius: 5px;
@@ -194,6 +208,10 @@
     font-size: 14px;
     align-items: flex-end;
     margin-top: 20px;
+  }
+
+  .one-tour-inner-discount-price {
+    top: -25px;
   }
 
   .one-tour-inner-price {

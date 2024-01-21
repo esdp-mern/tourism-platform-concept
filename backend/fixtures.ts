@@ -108,9 +108,9 @@ const run = async () => {
     {
       user: user._id,
       description: {
-        en: 'My name is Artem.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
-        ru: 'Меня зовут Артем.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
-        kg: 'Меним атым Артем.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
+        en: 'My name is Artem. I am a passionate guide with a deep love for the beauty and culture of Kyrgyzstan. I am fluent in Kyrgyz, Russian, and English.',
+        ru: 'Меня зовут Артем. Я увлеченный гид с глубокой любовью к красоте и культуре Кыргызстана. Я свободно говорю на кыргызском, русском и английском языках.',
+        kg: 'Меним атым Артем. Мен Кыргызстандын сүйүүсү мен маданиятына жакшы коргон, көп тилдүү гидим. Мен кыргызча, орусча жана англисче сөздөй айтам.',
       },
       languages: {
         en: ['Kyrgyz', 'Russian', 'English'],
@@ -126,9 +126,9 @@ const run = async () => {
     {
       user: user1._id,
       description: {
-        en: 'My name is Andrey.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
-        ru: 'Меня зовут Артем.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
-        kg: 'Меним атым Артем.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
+        en: 'My name is Andrey. As a native of Kyrgyzstan, I am eager to share the hidden gems of my country with you. I speak Kyrgyz, Russian, and English.',
+        ru: 'Меня зовут Андрей. Будучи коренным жителем Кыргызстана, я стремлюсь поделиться с вами скрытыми сокровищами моей страны. Я говорю на кыргызском, русском и английском языках.',
+        kg: 'Меним атым Андрей. Мен Кыргызстандык эмесмин, ал эми Кыргызстандын жашырын жемиштерин сиз менен бөлүшүүгө кызыктам. Мен кыргызча, орусча жана англисче сөздөй айтам.',
       },
       languages: {
         en: ['Kyrgyz', 'Russian', 'English'],
@@ -144,9 +144,9 @@ const run = async () => {
     {
       user: user2._id,
       description: {
-        en: 'My name is Askar.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
-        ru: 'Меня зовут Аскар.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
-        kg: 'Меним атым Аскар.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
+        en: 'My name is Askar. I am a knowledgeable guide who is excited to help you explore Kyrgyzstan. I am fluent in Kyrgyz and English.',
+        ru: 'Меня зовут Аскар. Я знающий гид, который с радостью поможет вам исследовать Кыргызстан. Я свободно говорю на кыргызском и английском языках.',
+        kg: 'Меним атым Аскар. Мен Кыргызстанды изилдөөгө жардам берүүгө кызыктуу, билимдүү гидим. Мен кыргызча жана англисче сөздөй айтам.',
       },
       languages: {
         en: ['Kyrgyz', 'English'],
@@ -919,12 +919,12 @@ const run = async () => {
   await PlatformReview.create(
     {
       user: user1._id,
-      comment: 'Good!',
+      comment: 'Comfortable site!',
       date: '2024-08-05T17:11:22.353Z',
     },
     {
       user: user2._id,
-      comment: 'Pretty nice!',
+      comment: 'Pretty nice tour for me!',
       date: '2023-11-01T17:11:22.353Z',
     },
     {
@@ -1100,22 +1100,22 @@ const run = async () => {
         kg: 'Биз жөнүндө',
       },
       description: {
-        en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
-        ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
-        kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+        en: 'We are a dedicated team committed to providing the best tour experiences in Kyrgyzstan.',
+        ru: 'Мы преданный коллектив, стремящийся предоставить лучшие туристические маршруты в Кыргызстане.',
+        kg: 'Биз Кыргызстандагы эң жакшы турдук маршруттарды үйрөтүүгө арзымалуу жаткан команда.',
       },
       image: 'fixtures/about-us-bg.jpg',
     },
     offer: {
       title: {
-        en: 'Fastest Way to Book over 450 Great Tours',
-        ru: 'Самый быстрый способ забронировать более 450 отличных туров',
-        kg: '450дөн ашык улуу турларды брондоонун эң тез жолу',
+        en: 'Discover the Beauty of Kyrgyzstan with Our Tours',
+        ru: 'Откройте для себя красоту Кыргызстана с нашими турами',
+        kg: 'Биздин турлар менен Кыргызстандын сүйүүсүн ашыңыз',
       },
       description: {
-        en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
-        ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
-        kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+        en: 'We offer a wide range of tours, each designed to provide you with a unique and memorable experience.',
+        ru: 'Мы предлагаем широкий выбор туров, каждый из которых разработан для предоставления вам уникального и незабываемого опыта.',
+        kg: 'Биз көп түрдөгү турларды үйрөтөбүз, ар бири сизге айрымалуу жана эстелүү тажрыйбаны берүү үчүн иштеп чыгарылган.',
       },
       image: 'fixtures/horses.png',
     },
@@ -1127,9 +1127,9 @@ const run = async () => {
           kg: 'Акчаны үнөмдөңүз',
         },
         description: {
-          en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
-          ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
-          kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+          en: 'Our tours are competitively priced to give you the best value for your money.',
+          ru: 'Наши туры имеют конкурентоспособные цены, чтобы предоставить вам лучшее соотношение цены и качества.',
+          kg: 'Биздин турлардын баасы сынайыштыруу үчүн, акчаңызды эң пайдалуу колдонуу үчүн.',
         },
         image: 'fixtures/money-icon.svg',
       },
@@ -1140,9 +1140,9 @@ const run = async () => {
           kg: 'Биздин жардам',
         },
         description: {
-          en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
-          ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
-          kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+          en: 'Our team is always ready to assist you throughout your journey.',
+          ru: 'Наша команда всегда готова помочь вам на протяжении всего вашего путешествия.',
+          kg: 'Биздин команда сиздин жолуңуздун бардык убактысында жардам берүүгө даяр.',
         },
         image: 'fixtures/support-icon.svg',
       },
@@ -1153,9 +1153,9 @@ const run = async () => {
           kg: 'Коопсуздук',
         },
         description: {
-          en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
-          ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
-          kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+          en: 'Your safety is our top priority. We ensure all our tours are safe and secure.',
+          ru: 'Ваша безопасность - наш главный приоритет. Мы гарантируем, что все наши туры безопасны и надежны.',
+          kg: 'Сиздин коопсуздугуңуз биздин башкыча максатыбыз. Биз бардык турларыбыздын коопсуз жана ишенчтүү экенин камтыйбыз.',
         },
         image: 'fixtures/safety-icon.svg',
       },
@@ -1166,9 +1166,9 @@ const run = async () => {
           kg: 'Оңой ээлөө',
         },
         description: {
-          en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
-          ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
-          kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+          en: 'Our booking process is simple and straightforward, making it easy for you to plan your next adventure.',
+          ru: 'Наш процесс бронирования прост и понятен, что облегчает вам планирование следующего приключения.',
+          kg: 'Биздин брондоо процессибиз жөнөкөй жана түшүнүктүү, бул сизге келерки адвентураңызды планировкалоого жардам берет.',
         },
         image: 'fixtures/sun-icon.svg',
       },
@@ -1180,9 +1180,9 @@ const run = async () => {
         kg: 'Кардарлар биз жөнүндө',
       },
       description: {
-        en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
-        ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
-        kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+        en: "We value our clients' feedback. Here's what they have to say about our services.",
+        ru: 'Мы ценим отзывы наших клиентов. Вот что они говорят о наших услугах.',
+        kg: 'Биз кардарларыбыздын пикирлерин баалайбыз. Мындай айтканында биздин кызматтарыбыз жөнүндө.',
       },
     },
   });

@@ -25,6 +25,7 @@ import { fetchTourRating } from '@/containers/ratings/ratingThunk';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import GoogleMap from '@/components/GoogleMap/GoogleMap';
 import { useTranslations } from 'next-intl';
+import '@/styles/OneTourPage.css';
 
 interface ITab {
   title: string;

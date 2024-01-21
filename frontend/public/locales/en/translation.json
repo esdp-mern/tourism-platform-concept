@@ -19,8 +19,8 @@
   "main": {
     "main_title": "Featured Tours",
     "seeAll_btn": "See all tours",
-    "statistics_title": "Fastest Way to Book over 50 Great Tours",
-    "statistics_text": "Our tour agency is the leading provider of cheap air tickets as well as amazing offers for tourists and people who like to explore the untraveled world paths. We can create the most unforgettable holiday for you, your family, and friends!",
+    "statistics_title": "Discover the beauty of Kyrgyzstan with our tours",
+    "statistics_text": "The platform offers a variety of amazing tours for travelers and clients around the world. We offer the best deals at affordable prices!",
     "statistics_one": "Tours around Central Asia",
     "statistics_two": "Booked tours",
     "statistics_three": "Site visitors",
@@ -40,7 +40,7 @@
     "tours": "Tours",
     "guide": "Become a guide",
     "touch": "Get in touch",
-    "address": "9 Valley St. Brooklyn, NY 11203",
+    "address": "Kyrgyzstan, Bishkek",
     "travellers": "For travelers",
     "privacy": "Privacy Policy",
     "privacy_text": "All rights reserved"
@@ -48,12 +48,12 @@
   "about": {
     "bookNow": "Book now",
     "meetOurTeam": "Meet our team",
-    "meetOurTeamDescription": "EN Duis aute irure dolor in reprehenderit in voluptate velit",
+    "meetOurTeamDescription": "Meet our team of professionals ready to make your journey in Kyrgyzstan unforgettable.",
     "addNewMember": "Add new member",
     "moderator": "moderator",
     "admin": "admin",
     "meetOurGuides": "Meet our guides",
-    "meetOurGuidesDescription": "EN Duis aute irure dolor in reprehenderit in voluptate velit",
+    "meetOurGuidesDescription": "Meet our guides who are experts in the culture and history of Kyrgyzstan. They are eager to share their knowledge and love for this amazing country.",
     "guideViewMore": "view more",
     "guideDelete": "delete",
     "meetOurPartners": "Meet out partners",
@@ -180,6 +180,7 @@
     "booked": "Booked",
     "being considered": "Being considered",
     "approved orders": "Approved orders",
+    "approved": "Approved",
     "create tour": "Create tour",
     "active": "Active",
     "non active": "Non active",
@@ -264,5 +265,22 @@
     "contact_address_field": "Address",
     "contact_phone_field": "Phone",
     "contact_delete": "delete"
+  "guideOrders": {
+    "createGuide": "Create a guide",
+    "wrongAlert": "Something is wrong!",
+    "guideAddedAlert": "Guide is added",
+    "language": "language*",
+    "addBtn": "Add",
+    "languages": "Languages",
+    "reset": "Reset",
+    "country": "country*",
+    "description": "about guide*",
+    "image": "Image",
+    "sendBtn": "Send",
+    "none": "none"
+  },
+  "orders": {
+    "removeAlert": "Do you want to delete this order?",
+    "message": "Order is removed"
   }
 }

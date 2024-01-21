@@ -6,6 +6,7 @@ import arrowRightIcon from '@/assets/images/arrow-right.svg';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Tour } from '@/type';
+import '@/styles/HotTours.css';
 
 const HotTours = () => {
   const dispatch = useAppDispatch();

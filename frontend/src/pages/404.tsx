@@ -7,6 +7,8 @@ import { useAppDispatch } from '@/store/hooks';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import { useTranslations } from 'next-intl';
 import { GetServerSideProps } from 'next';
+import '@/styles/error404.css';
+import '@/styles/about.css';
 
 export default function Custom404({
   errorType,

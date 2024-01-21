@@ -8,6 +8,7 @@ import 'react-phone-number-input/style.css';
 import 'react-day-picker/dist/style.css';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import '@/styles/TextField.css';
 
 interface Props {
   name: string;

@@ -13,6 +13,7 @@ import { editTour, postTour } from '@/containers/tours/toursThunk';
 import { useRouter } from 'next/router';
 import TextFieldGuide from '@/components/UI/TextField/components/TextFieldGuide';
 import FilesInput from '@/components/UI/FileInput/FilesInput';
+import '@/styles/TourForm.css';
 
 interface Props {
   isEdit?: boolean;

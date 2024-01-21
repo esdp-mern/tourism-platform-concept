@@ -11,6 +11,8 @@ import { fetchPartnerOrders } from '@/containers/partners/partnersThunk';
 import PartnerOrderItem from '@/components/PartnerOrderItem/PartnerOrderItem';
 import { GetServerSideProps } from 'next';
 import { useTranslations } from 'next-intl';
+import '@/styles/NewsPage.css';
+import '@/styles/adminTours.css';
 
 const AllPartnerOrdersPage = () => {
   const dispatch = useAppDispatch();

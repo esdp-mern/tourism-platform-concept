@@ -28,10 +28,10 @@ const HotToursItem: React.FC<Props> = ({ tour }) => {
         </p>
         <div className="hot-tours-item-pricing">
           <p className="hot-tours-item-price hot-tours-item-price-old">
-            ${tour.price}
+            {tour.price} KGS
           </p>
           <p className="hot-tours-item-price hot-tours-item-price-new">
-            ${tour.discountPrice}
+            {tour.discountPrice} KGS
           </p>
         </div>
       </div>

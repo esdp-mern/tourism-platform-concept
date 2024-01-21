@@ -11,6 +11,7 @@ import {
   selectAllToursLength,
 } from '@/containers/tours/toursSlice';
 import Link from 'next/link';
+import '@/styles/MainSlider.css';
 import { useTranslations } from 'next-intl';
 
 const MainSlider = () => {

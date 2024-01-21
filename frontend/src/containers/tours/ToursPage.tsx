@@ -16,6 +16,7 @@ import { selectPlatformReviews } from '@/containers/reviews/reviewSlice';
 import Statistics from '@/components/Statistics/Statistics';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import { useTranslations } from 'next-intl';
+import '@/styles/ToursPage.css';
 
 const ToursPage = () => {
   const tours = useAppSelector(selectAllTours);

@@ -25,6 +25,7 @@ import Image from 'next/image';
 import FileInput from '@/components/UI/FileInput/FileInput';
 import { GetServerSideProps } from 'next';
 import { useTranslations } from 'next-intl';
+import '@/styles/contactUs.css';
 
 const ContactUs = () => {
   const dispatch = useAppDispatch();
