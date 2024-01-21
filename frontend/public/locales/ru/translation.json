@@ -253,6 +253,20 @@
     "editBtn": "Изменить",
     "addBtn": "Добавить слайдер"
   },
+  "guideOrders": {
+    "createGuide": "Создать гида",
+    "wrongAlert": "Что-то не так!",
+    "guideAddedAlert": "Гид добавлен",
+    "language": "язык*",
+    "addBtn": "Добавить",
+    "languages": "Языки",
+    "reset": "Сброс",
+    "country": "страна*",
+    "description": "о гиде*",
+    "image": "Картинка",
+    "sendBtn": "Отправить",
+    "none": "нет"
+  },
   "orders": {
     "removeAlert": "Вы хотите удалить этот заказ?",
     "message": "Заказ удалён"

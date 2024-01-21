@@ -31,6 +31,7 @@ import globeIcon from '@/assets/images/globe.svg';
 import FileInput from '@/components/UI/FileInput/FileInput';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import { changeUserRole } from '@/containers/users/usersThunk';
+import { useTranslations } from 'next-intl';
 
 const CreateGuide: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -56,6 +57,7 @@ const CreateGuide: NextPage<
   const [focused, setFocused] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState('');
   const [state, setState] = useState<ICreateGuideMutation>(initialState);
+  const t = useTranslations('guideOrders');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -94,17 +96,19 @@ const CreateGuide: NextPage<
             user: userId,
           }),
         ).unwrap();
-        await dispatch(addAlert({ message: 'Guide is added', type: 'info' }));
+        await dispatch(
+          addAlert({ message: t('guideAddedAlert'), type: 'info' }),
+        );
         setState(initialState);
         await dispatch(deleteGuideOrder(id));
-        await dispatch(changeUserRole({ userId, newRole: userRoles.guid }));
+        await dispatch(changeUserRole({ userId, newRole: userRoles.guide }));
         void router.push('/admin/guideOrders/1');
       } else {
-        dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+        dispatch(addAlert({ message: t('wrongAlert'), type: 'error' }));
       }
     } catch (e) {
       if (e instanceof AxiosError) {
-        dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+        dispatch(addAlert({ message: t('wrongAlert'), type: 'error' }));
       }
     }
   };
@@ -118,7 +122,7 @@ const CreateGuide: NextPage<
       <PageLoader />
       <div className="create-guide become-guide">
         <form onSubmit={onSubmit} className="become-guide-form">
-          <h2>Create a guide</h2>
+          <h2>{t('createGuide')}</h2>
           <div className="user-id-input" style={{ display: 'none' }}>
             <TextField
               name="user"
@@ -138,7 +142,7 @@ const CreateGuide: NextPage<
                 value={currentLanguage}
                 onChange={(e) => setCurrentLanguage(e.target.value)}
                 icon={languageIcon.src}
-                label="language*"
+                label={t('language')}
                 required
               />
               <button
@@ -153,13 +157,15 @@ const CreateGuide: NextPage<
                   }));
                 }}
               >
-                Add
+                {t('addBtn')}
               </button>
             </div>
             <div className="languages-bottom">
-              <span>Languages:</span>
+              <span>{t('languages')}:</span>
               <span>
-                {!state.languages.length ? ' none' : state.languages.join(', ')}
+                {!state.languages.length
+                  ? t('none')
+                  : state.languages.join(', ')}
               </span>
               {state.languages.length ? (
                 <button
@@ -169,7 +175,7 @@ const CreateGuide: NextPage<
                     setState((prevState) => ({ ...prevState, languages: [] }))
                   }
                 >
-                  Reset
+                  {t('reset')}
                 </button>
               ) : (
                 ''
@@ -182,7 +188,7 @@ const CreateGuide: NextPage<
             value={state.country}
             onChange={onChange}
             icon={globeIcon.src}
-            label="country*"
+            label={t('country')}
             required
           />
           <textarea
@@ -191,13 +197,13 @@ const CreateGuide: NextPage<
             onChange={onChange}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
-            placeholder={focused ? '' : 'about guide*'}
+            placeholder={focused ? '' : t('description')}
             name="description"
             required
           />
           <div className="input-wrap" style={{ marginTop: '15px' }}>
             <label className="form-label-avatar avatar" htmlFor="image">
-              Image
+              {t('image')}
             </label>
             <FileInput
               onChange={onFileChange}
@@ -207,7 +213,7 @@ const CreateGuide: NextPage<
             />
           </div>
           <button type="submit" className="form-tour-btn">
-            {createLoading ? <ButtonLoader size={18} /> : 'Send'}
+            {createLoading ? <ButtonLoader size={18} /> : t('sendBtn')}
           </button>
         </form>
       </div>
