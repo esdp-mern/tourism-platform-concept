@@ -1,9 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  GetServerSideProps,
-  InferGetServerSidePropsType,
-  NextPage,
-} from 'next';
+import { GetServerSideProps } from 'next';
 import PageLoader from '@/components/Loaders/PageLoader';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useParams } from 'next/navigation';
@@ -12,12 +8,8 @@ import { setIsLightMode } from '@/containers/config/configSlice';
 import { userRoles } from '@/constants';
 import Custom404 from '@/pages/404';
 import NewsForm from '@/components/Forms/NewsForm/NewsForm';
-import { wrapper } from '@/store/store';
-import { fetchOneNews } from '@/containers/news/newsThunk';
 
-const EditNews: NextPage<
-  InferGetServerSidePropsType<typeof getServerSideProps>
-> = () => {
+const EditNews = () => {
   const dispatch = useAppDispatch();
   const { editID } = useParams() as {
     editID: string;
@@ -41,23 +33,9 @@ const EditNews: NextPage<
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    async ({ params }) => {
-      const editID = params?.editID;
-
-      if (!editID || Array.isArray(editID)) {
-        throw new Error('Param id must be a string');
-      }
-
-      await store.dispatch(fetchOneNews(editID));
-      return { props: {} };
-    },
-);
-
 export default EditNews;
 
-export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: {
       messages: (
