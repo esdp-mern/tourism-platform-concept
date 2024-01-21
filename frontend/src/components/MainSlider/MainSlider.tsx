@@ -12,6 +12,7 @@ import {
 } from '@/containers/tours/toursSlice';
 import Link from 'next/link';
 import '@/styles/MainSlider.css';
+import { useTranslations } from 'next-intl';
 
 const MainSlider = () => {
   const dispatch = useAppDispatch();
@@ -25,6 +26,7 @@ const MainSlider = () => {
   const [currentDot, setCurrentDot] = useState<IMainSlider | null>(null);
   const [sliderChanging, setSliderChanging] = useState(false);
   const [currentWidth, setCurrentWidth] = useState(0);
+  const t = useTranslations('mainSlider');
 
   const sliderPages = useMemo(() => sliders, [sliders]);
   useEffect(() => {
@@ -110,19 +112,21 @@ const MainSlider = () => {
                   className="country-slider-btns-delete"
                   onClick={() => onDelete(currentSlide?._id!)}
                 >
-                  Delete
+                  {t('deleteBtn')}
                 </button>
                 <Link
                   href={'slider/' + 'edit/' + currentSlide?._id!}
                   id="edit-slider"
                   className="country-slider-btns-edit"
                 >
-                  Edit
+                  {t('editBtn')}
                 </Link>
               </div>
             ) : null}
           </div>
-          <span className="sliderCaption">{allToursLength} tours</span>
+          <span className="sliderCaption">
+            {allToursLength} {t('tours')}
+          </span>
           <span className="scrollDown" onClick={scrollToBottom} />
         </div>
       </div>
@@ -153,7 +157,7 @@ const MainSlider = () => {
               router.push(`/slider/create`).then((r) => r);
             }}
           >
-            Add new slider
+            {t('addBtn')}
           </button>
         ) : null}
       </div>

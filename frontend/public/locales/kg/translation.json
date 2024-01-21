@@ -180,6 +180,7 @@
     "booked": "Брондолгон",
     "being considered": "Кароодо",
     "approved orders": "Кабыл алынган",
+    "approved": "Кабыл алынган",
     "create tour": "Турду түзүү",
     "active": "Активдүү",
     "non active": "Активдүү эмес",
@@ -208,7 +209,8 @@
     "empty": "Бардык талааларды толтуруңуз",
     "invalid_field": "Туура эмес талаа",
     "required_number": "Номер талап кылынат",
-    "required_name": "АТЫ же СҮРӨТ толтурулуучу"
+    "required_name": "АТЫ же СҮРӨТ толтурулуучу",
+    "sign_in": "Системага кирдиңиз!"
   },
   "partners": {
     "edit_title": "Слайдерди сактоо",
@@ -244,5 +246,29 @@
     "loading": "Жүктөлүү...",
     "sign_up": "Катталуу",
     "sign_in": "Кирүү"
+  },
+  "mainSlider": {
+    "tours": "турлар",
+    "deleteBtn": "Өчүрүү",
+    "editBtn": "Өзгөртүү",
+    "addBtn": "Слайдер кошуу"
+  },
+  "guideOrders": {
+    "createGuide": "Гидди түзүү",
+    "wrongAlert": "Бир нерсе туура эмес!",
+    "guideAddedAlert": "Гид кошулду",
+    "language": "тил*",
+    "addBtn": "Кошуу",
+    "languages": "Тилдер",
+    "reset": "Баштапкы абалга келтирүү",
+    "country": "өлкө*",
+    "description": "гид жөндө*",
+    "image": "Сүрөт",
+    "sendBtn": "Жөнөтүү",
+    "none": "жок"
+  },
+  "orders": {
+    "removeAlert": "Бул заказды жок кылгыңыз келеби?",
+    "message": "Заказ алынып салынды"
   }
 }
