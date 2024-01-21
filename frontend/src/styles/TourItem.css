@@ -60,13 +60,49 @@
   filter: brightness(80%);
 }
 
+.tour-item-discount {
+  position: absolute;
+  top: 5px;
+  left: -28px;
+  text-align: center;
+  transform: rotate(-40deg);
+  width: 100px;
+  padding: 3px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  background: #ffa133;
+}
+
+.tour-item-old-price {
+  max-width: 80%;
+  height: 17px;
+  position: absolute;
+  top: -17px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: line-through #fff 1.1px;
+  background: #75c15b;
+  padding: 0 5px;
+  border-radius: 5px 5px 0 0;
+  white-space: nowrap;
+}
+
+.tour-item-discount-price {
+  min-width: 85px;
+  text-align: center;
+  background: #ffa133 !important;
+}
+
 .tour-item-price {
   position: absolute;
   z-index: 2;
   left: 30px;
   bottom: 0;
-  display: inline-flex;
-  align-items: flex-end;
+  font-weight: 500;
   padding: 5px 10px;
   background: #75c15b;
   color: #fff;
