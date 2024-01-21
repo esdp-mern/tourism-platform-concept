@@ -208,7 +208,8 @@
     "empty": "Бардык талааларды толтуруңуз",
     "invalid_field": "Туура эмес талаа",
     "required_number": "Номер талап кылынат",
-    "required_name": "АТЫ же СҮРӨТ толтурулуучу"
+    "required_name": "АТЫ же СҮРӨТ толтурулуучу",
+    "sign_in": "Сиз системага кирдиңиз!"
   },
   "partners": {
     "edit_title": "Слайдерди сактоо",
@@ -250,5 +251,18 @@
     "deleteBtn": "Өчүрүү",
     "editBtn": "Өзгөртүү",
     "addBtn": "Слайдер кошуу"
+  },
+  "contact_us": {
+    "banner_form_title": "Контентти өзгөртүү",
+    "banner_title_field": "Аталышы",
+    "banner_description_field": "Cүрөттөмө",
+    "banner_image_field": "Cүрөт",
+    "save": "Тастыктоо",
+    "create_info": "Байланыш маалыматын түзүү",
+    "edit_info": "Байланыш маалыматын өзгөртүү",
+    "contact_country_field": "Өлкө",
+    "contact_address_field": "Адрес",
+    "contact_phone_field": "Телефон",
+    "contact_delete": "Жок кылуу"
   }
 }

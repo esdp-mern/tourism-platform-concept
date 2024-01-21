@@ -16,8 +16,10 @@ export const fetchContacts = createAsyncThunk('contacts/fetchAll', async () => {
 export const editContacts = createAsyncThunk<
   void,
   IContactsMutation,
-  { rejectValue: ValidationError }
->('tours/edit', async (contactsMutation, { rejectWithValue }) => {
+  {
+    rejectValue: ValidationError;
+  }
+>('contacts/edit', async (contactsMutation, { rejectWithValue }) => {
   try {
     await axiosApi.put(`/contacts/`, contactsMutation);
   } catch (e) {
@@ -32,8 +34,10 @@ export const editContacts = createAsyncThunk<
 export const editContactsImage = createAsyncThunk<
   void,
   IContactsImageMutation,
-  { rejectValue: ValidationError }
->('tours/editImage', async (contactsMutation, { rejectWithValue }) => {
+  {
+    rejectValue: ValidationError;
+  }
+>('contacts/editImage', async (contactsMutation, { rejectWithValue }) => {
   try {
     const formData = new FormData();
     const keys = Object.keys(
@@ -56,3 +60,15 @@ export const editContactsImage = createAsyncThunk<
     throw e;
   }
 });
+
+export const deleteContact = createAsyncThunk<void, string>(
+  'contacts/deleteOne',
+  async (id: string) => {
+    try {
+      if (!id) return;
+      await axiosApi.delete(`/contacts?id=${id}`);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+);

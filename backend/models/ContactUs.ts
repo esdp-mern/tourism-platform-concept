@@ -2,7 +2,11 @@ import mongoose from 'mongoose';
 
 const ContactsSchema = new mongoose.Schema({
   title: {
-    type: String,
+    type: {
+      en: String,
+      ru: String,
+      kg: String,
+    },
     required: true,
   },
   image: {
@@ -10,11 +14,30 @@ const ContactsSchema = new mongoose.Schema({
     required: true,
   },
   description: {
-    type: String,
+    type: {
+      en: String,
+      ru: String,
+      kg: String,
+    },
     required: true,
   },
   contact: {
-    type: [{ country: String, address: String, phone: String }],
+    type: [
+      {
+        country: {
+          en: String,
+          ru: String,
+          kg: String,
+        },
+        address: {
+          en: String,
+          ru: String,
+          kg: String,
+        },
+        phone: String,
+        _id: String,
+      },
+    ],
     required: true,
   },
 });
