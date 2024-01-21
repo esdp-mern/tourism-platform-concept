@@ -2,6 +2,7 @@ import React from 'react';
 import { useAppSelector } from '@/store/hooks';
 import { selectOrdersUser } from '@/containers/orders/ordersSlice';
 import dayjs from 'dayjs';
+import '@/styles/UserOrder.css';
 
 const UserOrders = () => {
   const orders = useAppSelector(selectOrdersUser);

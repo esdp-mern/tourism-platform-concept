@@ -23,6 +23,7 @@ import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import Image from 'next/image';
 import FileInput from '@/components/UI/FileInput/FileInput';
 import { GetServerSideProps } from 'next';
+import '@/styles/contactUs.css';
 
 const ContactUs = () => {
   const dispatch = useAppDispatch();

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useAppSelector } from '@/store/hooks';
 import { selectUser } from '@/containers/users/usersSlice';
 import { useTranslations } from 'next-intl';
+import '@/styles/Footer.css';
 
 const Footer = () => {
   const user = useAppSelector(selectUser);

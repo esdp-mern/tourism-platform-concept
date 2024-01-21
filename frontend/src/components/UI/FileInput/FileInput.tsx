@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import '@/styles/FileInput.css';
 
 interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

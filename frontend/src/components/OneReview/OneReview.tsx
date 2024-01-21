@@ -1,6 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import { ReviewOfGuides, ReviewOfTour } from '@/type';
+import '@/styles/OneReview.css';
 
 interface IProps {
   review: ReviewOfGuides | ReviewOfTour;

@@ -22,6 +22,7 @@ import keyIcon from '@/assets/images/key.png';
 import emailIcon from '@/assets/images/email-icon.svg';
 import penIcon from '@/assets/images/pen-icon.svg';
 import { useTranslations } from 'next-intl';
+import '@/styles/SignInForm.css';
 
 const initialState: RegisterMutation = {
   username: '',

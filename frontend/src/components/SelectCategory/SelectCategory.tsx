@@ -1,5 +1,6 @@
 import React from 'react';
 import { apiUrl } from '@/constants';
+import '@/styles/selectCategory.css';
 
 interface IProps {
   type: string;

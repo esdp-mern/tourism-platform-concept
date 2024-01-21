@@ -8,6 +8,7 @@ import {
   fetchStatsAdmin,
 } from '@/containers/statistics/statisticsThunk';
 import { useTranslations } from 'next-intl';
+import '@/styles/statisticks.css';
 
 const Statistics = () => {
   const targetElementRef = useRef<HTMLDivElement>(null);

@@ -24,6 +24,7 @@ import { userRoles } from '@/constants';
 import Custom404 from '@/pages/404';
 import { GetServerSideProps } from 'next';
 import { useTranslations } from 'next-intl';
+import '@/styles/createGuide.css';
 
 const CreateGuide = () => {
   const initialState = {

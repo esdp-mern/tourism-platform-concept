@@ -3,6 +3,7 @@ import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
 import { useAppSelector } from '@/store/hooks';
 import { selectOneTour } from '@/containers/tours/toursSlice';
 import Select from 'react-select';
+import '@/styles/TextFieldSelect.css';
 
 interface Props {
   name: string;

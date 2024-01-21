@@ -20,6 +20,7 @@ import { boardNames, userRoles } from '@/constants';
 import { useRouter } from 'next/router';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import { GetServerSideProps } from 'next';
+import '@/styles/allOrders.css';
 import { useTranslations } from 'next-intl';
 
 const AllOrders = () => {
