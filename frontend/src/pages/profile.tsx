@@ -38,7 +38,7 @@ const Profile = () => {
     image = img.src;
   }
 
-  if (user.role === 'guid') {
+  if (user.role === 'guide') {
     dispatch(fetchGuideUser(user._id));
   }
 
@@ -93,7 +93,7 @@ const Profile = () => {
               <UserOrders />
             </div>
           )}
-          {user.role === 'guid' && (
+          {user.role === 'guide' && (
             <div>
               <GuideProfile />
             </div>
