@@ -202,8 +202,7 @@
 }
 
 .hot-tours-info div {
-  display: flex;
-  align-items: start;
+  display: block;
   gap: 30px;
   margin-right: 400px;
 }
@@ -216,7 +215,7 @@
 
 .hot-tours-info div p {
   font-family: 'Balsamiq Sans', sans-serif;
-  font-size: 90px;
+  font-size: 70px;
   letter-spacing: -0.04em;
   margin: 0;
 }
@@ -477,6 +476,11 @@
   }
 }
 
+@media screen and (max-width: 400px) {
+  .hot-tours-info div p {
+    font-size: 45px;
+  }
+}
 @media screen and (max-width: 320px) {
   .hot-tours-info div {
     flex-wrap: wrap;

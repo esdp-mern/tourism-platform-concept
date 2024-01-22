@@ -15,6 +15,7 @@ import { fetchGuideRating } from '@/containers/ratings/ratingThunk';
 import Image from 'next/image';
 import bgImage from '@/assets/images/bg-image-1.jpg';
 import { useTranslations } from 'next-intl';
+import '@/styles/OneGuidePage.css';
 
 interface IGuidePageTabs {
   name: string;

@@ -76,7 +76,7 @@ usersRouter.post('/', imagesUpload.single('avatar'), async (req, res, next) => {
 
     const link = `http://localhost:8000/users/confirm/${token.token}`;
 
-    await transporter.sendMail(
+    transporter.sendMail(
       {
         from: process.env.TRANSPORT_AUTH_USER,
         to: user.email,
