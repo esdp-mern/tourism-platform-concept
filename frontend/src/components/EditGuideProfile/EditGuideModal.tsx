@@ -29,6 +29,7 @@ const EditGuideModal = () => {
   });
   const modal = useAppSelector(selectEditorGuideModal);
   const t = useTranslations('guide');
+  const a = useTranslations('alert');
 
   useEffect(() => {
     if (!guide) return;
@@ -59,11 +60,11 @@ const EditGuideModal = () => {
     try {
       await dispatch(editGuide(state)).unwrap();
       await dispatch(fetchGuideUser(user._id));
-      dispatch(addAlert({ message: 'Changes are saved', type: 'info' }));
+      dispatch(addAlert({ message: a('changes_saved'), type: 'info' }));
       dispatch(setGuideEditorModal());
     } catch (e) {
       if (e instanceof AxiosError) {
-        dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+        dispatch(addAlert({ message: a('error'), type: 'error' }));
       }
     }
   };

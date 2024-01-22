@@ -16,6 +16,7 @@ import {
 } from '@/containers/tours/toursSlice';
 import Image from 'next/image';
 import '@/styles/TourItem.css';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   tour: Tour;
@@ -28,15 +29,16 @@ const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
   const imgLink = apiUrl + '/' + tour.mainImage;
   const publishLoading = useAppSelector(selectTourPublishLoading);
   const deleteLoading = useAppSelector(selectDeleteTourLoading);
+  const a = useTranslations('alert');
   const onDelete = async () => {
-    if (window.confirm('Are you sure you want to delete this tour?')) {
+    if (window.confirm(a('delete_tour'))) {
       await dispatch(deleteTour(tour._id));
       dispatch(fetchTours());
     }
   };
 
   const onPublish = async () => {
-    if (window.confirm('Are you sure you want to publish this tour?')) {
+    if (window.confirm(a('publish_tour'))) {
       await dispatch(publishTour(tour._id));
       dispatch(fetchTours());
     }

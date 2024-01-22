@@ -218,7 +218,7 @@ const AppToolBar = () => {
                     closeNavMenu();
                   }}
                 >
-                  Home
+                  {t('home')}
                 </NavLink>
                 <NavLink
                   href="/tours/all/1"
@@ -230,7 +230,7 @@ const AppToolBar = () => {
                     closeNavMenu();
                   }}
                 >
-                  Tours
+                  {t('tours')}
                 </NavLink>
                 <NavLink
                   href="/about"
@@ -242,7 +242,7 @@ const AppToolBar = () => {
                     closeNavMenu();
                   }}
                 >
-                  About Us
+                  {t('about_us')}
                 </NavLink>
                 {user ? (
                   <UserMenu
@@ -266,7 +266,7 @@ const AppToolBar = () => {
                     closeNavMenu();
                   }}
                 >
-                  News
+                  {t('news')}
                 </NavLink>
                 <NavLink
                   id="nav-last-link"
@@ -279,7 +279,7 @@ const AppToolBar = () => {
                     closeNavMenu();
                   }}
                 >
-                  Contact Us
+                  {t('contact_us')}
                 </NavLink>
               </nav>
               <button

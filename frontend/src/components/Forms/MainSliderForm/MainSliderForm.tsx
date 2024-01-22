@@ -6,6 +6,7 @@ import { selectPostTourError } from '@/containers/tours/toursSlice';
 import { useRouter } from 'next/router';
 import { editSliders, postSliders } from '@/containers/slider/sliderThunk';
 import FileInput from '@/components/UI/FileInput/FileInput';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   existingSlider?: IMainSliderMutation;
@@ -27,7 +28,7 @@ const MainSliderForm: React.FC<Props> = ({
   const error = useSelector(selectPostTourError);
   const routers = useRouter();
   const [state, setState] = useState<IMainSliderMutation>(existingSlider);
-
+  const a = useTranslations('alert');
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setState((prevState) => {
@@ -50,7 +51,7 @@ const MainSliderForm: React.FC<Props> = ({
       }
       routers.push('/').then((r) => r);
     } catch (e) {
-      alert('Invalid field');
+      alert(a('invalid_field'));
     }
   };
 

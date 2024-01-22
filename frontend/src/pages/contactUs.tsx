@@ -54,6 +54,7 @@ const ContactUs = () => {
   >(null);
   const admin = user && user.role === userRoles.admin;
   const t = useTranslations('contact_us');
+  const a = useTranslations('about');
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -89,10 +90,10 @@ const ContactUs = () => {
       await dispatch(editContacts(state)).unwrap();
       await dispatch(fetchContacts());
       setEditModalTitle(false);
-      dispatch(addAlert({ message: 'Changes are saved', type: 'info' }));
+      dispatch(addAlert({ message: a('changes_saved'), type: 'info' }));
     } catch (e) {
       if (e instanceof AxiosError) {
-        dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+        dispatch(addAlert({ message: a('error'), type: 'error' }));
       }
     }
   };
@@ -109,10 +110,10 @@ const ContactUs = () => {
 
       await dispatch(fetchContacts());
       setEditModalInfo(false);
-      dispatch(addAlert({ message: 'Changes are saved', type: 'info' }));
+      dispatch(addAlert({ message: a('changes_saved'), type: 'info' }));
     } catch (e) {
       if (e instanceof AxiosError) {
-        dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+        dispatch(addAlert({ message: a('error'), type: 'error' }));
       }
     }
   };
