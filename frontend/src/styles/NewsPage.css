@@ -307,10 +307,6 @@
     justify-content: center;
   }
 
-  .card-news {
-    width: 250px;
-  }
-
   .card-news-img-wrap {
     width: 250px;
     height: 180px;
@@ -472,7 +468,7 @@
   }
 
   .card-news {
-    width: 250px;
+    width: 80vw;
   }
 
   .card-news-img-wrap {
@@ -507,7 +503,7 @@
   }
 
   .card-news {
-    width: 200px;
+    width: 80vw;
   }
 
   .card-news-img-wrap {
