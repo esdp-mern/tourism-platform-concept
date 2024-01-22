@@ -158,7 +158,9 @@
     "create_form_about": "о гиде*",
     "create_form_image": "фото",
     "create_form_send": "Отправить",
-    "editBtn": "Изменить описание"
+    "editBtn": "Изменить описание",
+    "description": "Описание",
+    "save": "Сохранить"
   },
   "admin": {
     "tours": "Туры",
@@ -258,6 +260,13 @@
     "email": "Эл. адрес",
     "edit": "Редактировать профиль",
     "orders": "Заказы",
-    "name": "Имя"
+    "name": "Имя",
+    "guide": "Гид",
+    "tour": "Тур",
+    "date": "Дата",
+    "date_tour": "Дата тура",
+    "price": "Цена",
+    "status": "Статус",
+    "no_orders": "Нет заказов"
   }
 }

@@ -158,7 +158,9 @@
     "create_form_about": "about guide*",
     "create_form_image": "Image",
     "create_form_send": "Send",
-    "editBtn": "Edit description"
+    "editBtn": "Edit description",
+    "description": "description",
+    "save": "Save"
   },
   "admin": {
     "tours": "Tours",
@@ -258,6 +260,13 @@
     "email": "Email",
     "edit": "Edit profile",
     "orders": "Orders",
-    "name": "Name"
+    "name": "Name",
+    "guide": "Guide",
+    "tour": "Tour",
+    "date": "Date",
+    "date_tour": "Date tour",
+    "price": "Price",
+    "status": "Status",
+    "no_orders": "No orders"
   }
 }
