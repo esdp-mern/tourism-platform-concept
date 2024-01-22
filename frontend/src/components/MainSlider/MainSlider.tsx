@@ -27,6 +27,7 @@ const MainSlider = () => {
   const [sliderChanging, setSliderChanging] = useState(false);
   const [currentWidth, setCurrentWidth] = useState(0);
   const t = useTranslations('mainSlider');
+  const a = useTranslations('alert');
 
   const sliderPages = useMemo(() => sliders, [sliders]);
   useEffect(() => {
@@ -77,7 +78,7 @@ const MainSlider = () => {
   };
 
   const onDelete = async (id: string) => {
-    if (window.confirm('Are you sure you want to delete this slider?')) {
+    if (window.confirm(a('delete_slider'))) {
       if (id) {
         await dispatch(deleteSliders(id));
         dispatch(fetchSliders());

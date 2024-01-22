@@ -26,9 +26,10 @@ const NewsItem: React.FC<Props> = ({ news }) => {
   const publishLoading = useAppSelector(selectNewsPublishLoading);
   const deleteLoading = useAppSelector(selectDeleteTourLoading);
   const t = useTranslations('news');
+  const a = useTranslations('alert');
 
   const onDelete = async () => {
-    if (window.confirm('Are you sure you want to delete this news?')) {
+    if (window.confirm(a('delete_news'))) {
       await dispatch(deleteNews(news._id));
       dispatch(fetchNews());
     }

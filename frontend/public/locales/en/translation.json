@@ -1,7 +1,7 @@
 {
   "navbar": {
     "menu": "menu",
-    "contact_us": "Contacts",
+    "contact_us": "Contact Us",
     "news": "News",
     "about_us": "About Us",
     "tours": "Tours",
@@ -213,7 +213,15 @@
     "invalid_field": "Invalid field",
     "required_number": "Number is required",
     "required_name": "NAME or IMAGE must be filled",
-    "sign_in": "You have signed in!"
+    "sign_in": "You have signed in!",
+    "logged": "You have logged out!",
+    "changes_saved": "Changes are saved",
+    "review_send": "Your review is sent!",
+    "delete_guide": "Are you sure you want to delete this guide?",
+    "delete_slider": "Are you sure you want to delete this slider?",
+    "delete_news": "Are you sure you want to delete this news?",
+    "delete_tour": "Are you sure you want to delete this tour?",
+    "publish_tour": "Are you sure you want to publish this tour?"
   },
   "partners": {
     "edit_title": "Save Slider",
@@ -284,22 +292,32 @@
     "contact_phone_field": "Phone",
     "contact_delete": "delete"
   },
-    "guideOrders": {
-      "createGuide": "Create a guide",
-      "wrongAlert": "Something is wrong!",
-      "guideAddedAlert": "Guide is added",
-      "language": "language*",
-      "addBtn": "Add",
-      "languages": "Languages",
-      "reset": "Reset",
-      "country": "country*",
-      "description": "about guide*",
-      "image": "Image",
-      "sendBtn": "Send",
-      "none": "none"
-    },
-    "orders": {
-      "removeAlert": "Do you want to delete this order?",
-      "message": "Order is removed"
-    }
+  "guideOrders": {
+    "createGuide": "Create a guide",
+    "wrongAlert": "Something is wrong!",
+    "guideAddedAlert": "Guide is added",
+    "language": "language*",
+    "addBtn": "Add",
+    "languages": "Languages",
+    "reset": "Reset",
+    "country": "country*",
+    "description": "about guide*",
+    "image": "Image",
+    "sendBtn": "Send",
+    "none": "none"
+  },
+  "orders": {
+    "removeAlert": "Do you want to delete this order?",
+    "message": "Order is removed"
+  },
+  "employees": {
+    "save_title": "Save Employee'",
+    "create_title": "Create Employee",
+    "name": "Employee name",
+    "number": "Employee number",
+    "role": "Employee role",
+    "image": "Image",
+    "save_btn": "Save employee",
+    "create_btn": "Create employee"
   }
+}

@@ -67,7 +67,7 @@ const BecomePartner = () => {
 
     try {
       await dispatch(createPartnerOrder(state));
-      dispatch(addAlert({ message: 'Request is sent', type: 'info' }));
+      dispatch(addAlert({ message: at('success'), type: 'info' }));
       setState(initialState);
       void router.push('/admin');
     } catch (e) {
