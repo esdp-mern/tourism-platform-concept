@@ -157,7 +157,10 @@
     "create_form_country": "страна*",
     "create_form_about": "о гиде*",
     "create_form_image": "фото",
-    "create_form_send": "Отправить"
+    "create_form_send": "Отправить",
+    "editBtn": "Изменить описание",
+    "description": "Описание",
+    "save": "Сохранить"
   },
   "admin": {
     "tours": "Туры",
@@ -253,6 +256,21 @@
     "editBtn": "Изменить",
     "addBtn": "Добавить слайдер"
   },
+  "myProfile": {
+    "title": "Мой профиль",
+    "username": "Логин",
+    "email": "Эл. адрес",
+    "edit": "Редактировать профиль",
+    "orders": "Заказы",
+    "name": "Имя",
+    "guide": "Гид",
+    "tour": "Тур",
+    "date": "Дата",
+    "date_tour": "Дата тура",
+    "price": "Цена",
+    "status": "Статус",
+    "no_orders": "Нет заказов"
+  },
   "contact_us": {
     "banner_form_title": "Изменить контент",
     "banner_title_field": "Название",
@@ -264,7 +282,8 @@
     "contact_country_field": "Страна",
     "contact_address_field": "Адрес",
     "contact_phone_field": "Телефон",
-    "contact_delete": "Удалить",
+    "contact_delete": "Удалить"
+  },
     "guideOrders": {
       "createGuide": "Создать гида",
       "wrongAlert": "Что-то не так!",
@@ -282,6 +301,5 @@
     "orders": {
       "removeAlert": "Вы хотите удалить этот заказ?",
       "message": "Заказ удалён"
-    }
   }
 }

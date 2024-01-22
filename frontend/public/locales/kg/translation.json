@@ -157,7 +157,10 @@
     "create_form_country": "Өлкө*",
     "create_form_about": "гид жөнүндө*",
     "create_form_image": "сүрөт",
-    "create_form_send": "Жөнөтүү"
+    "create_form_send": "Жөнөтүү",
+    "editBtn": "Сүрөттөмөлөрдү түзөтүү",
+    "description": "Сүрөттөмө",
+    "save": "Сактоо"
   },
   "admin": {
     "tours": "Турлар",
@@ -253,6 +256,21 @@
     "editBtn": "Өзгөртүү",
     "addBtn": "Слайдер кошуу"
   },
+  "myProfile": {
+    "title": "Менин профилим",
+    "username": "Колдонуучу аты",
+    "email": "Электрондук почта",
+    "edit": "Профилди түзөтүү",
+    "orders": "Заказдарыңыз",
+    "name": "Аты",
+    "guide": "Гид",
+    "tour": "Тур",
+    "date": "Күн",
+    "date_tour": "Турдун күнү",
+    "price": "Баасы",
+    "status": "Статус",
+    "no_orders": "Тапшыруу жок"
+  },
   "contact_us": {
     "banner_form_title": "Контентти өзгөртүү",
     "banner_title_field": "Аталышы",
@@ -264,7 +282,8 @@
     "contact_country_field": "Өлкө",
     "contact_address_field": "Адрес",
     "contact_phone_field": "Телефон",
-    "contact_delete": "Жок кылуу",
+    "contact_delete": "Жок кылуу"
+  },
     "guideOrders": {
       "createGuide": "Гидди түзүү",
       "wrongAlert": "Бир нерсе туура эмес!",
@@ -283,5 +302,4 @@
       "removeAlert": "Бул заказды жок кылгыңыз келеби?",
       "message": "Заказ алынып салынды"
     }
-  }
 }

@@ -21,7 +21,7 @@ const GuideProfile = () => {
           className="edit-profile page-profile_edit-btn"
           onClick={() => dispatch(setGuideEditorModal())}
         >
-          Edit description
+          {t(`editBtn`)}
         </button>
         <div>
           <p>{guide.description}</p>

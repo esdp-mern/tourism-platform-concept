@@ -15,7 +15,7 @@ ordersRouter.get('/', async (req, res) => {
     const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
     if (req.query.userID) {
       const queryUser = req.query.userID as string;
-      const guide = await Order.find({ user: queryUser })
+      const orders = await Order.find({ user: queryUser })
         .populate({
           path: 'guide',
           populate: {
@@ -24,10 +24,42 @@ ordersRouter.get('/', async (req, res) => {
             select: 'displayName email',
           },
         })
-        .populate({ path: 'tour', select: 'name' });
-      return res.send(guide);
-    }
+        .populate({ path: 'tour', select: 'name' })
+        .populate({ path: 'user', select: 'displayName email' });
+      if (req.query.datetime && req.query.datetime.length) {
+        const datetime = req.query.datetime as string;
+        const localizedTours = orders.map((order) => ({
+          ...order.toObject().tour,
+          name: (
+            order.toObject().tour as {
+              name: ILanguages;
+            }
+          ).name[lang],
+        }));
+        const localizedOrders = orders.map((order, index) => ({
+          ...order.toObject(),
+          tour: localizedTours[index],
+        }));
+        const filteredData = localizedOrders.filter(
+          (item) => item.datetime > datetime,
+        );
+        return res.send(filteredData);
+      }
 
+      const localizedTours = orders.map((order) => ({
+        ...order.toObject().tour,
+        name: (
+          order.toObject().tour as {
+            name: ILanguages;
+          }
+        ).name[lang],
+      }));
+      const localizedOrders = orders.map((order, index) => ({
+        ...order.toObject(),
+        tour: localizedTours[index],
+      }));
+      return res.send(localizedOrders);
+    }
     const orders = await Order.find()
       .populate({
         path: 'guide',
@@ -54,6 +86,7 @@ ordersRouter.get('/', async (req, res) => {
       );
       return res.send(filteredData);
     }
+
     const localizedTours = orders.map((order) => ({
       ...order.toObject().tour,
       name: (

@@ -2,32 +2,41 @@ import React from 'react';
 import { useAppSelector } from '@/store/hooks';
 import { selectOrdersUser } from '@/containers/orders/ordersSlice';
 import dayjs from 'dayjs';
+import { useTranslations } from 'next-intl';
 import '@/styles/UserOrder.css';
 
 const UserOrders = () => {
   const orders = useAppSelector(selectOrdersUser);
-
+  const t = useTranslations('myProfile');
   return (
     <div className="orders-list">
       {orders.length > 0 ? (
         orders.map((order) => (
           <div key={order._id} className="orders">
-            <h4 className="orders_tour">Tour: {order.tour.name}</h4>
+            <h4 className="orders_tour">
+              {t('tour')}: {order.tour.name}
+            </h4>
             <p className="orders_guide">
-              Guide: {order.guide.user.displayName}
+              {t('guide')}: {order.guide.user.displayName}
             </p>
             <p className="orders_datetime">
-              Date: {dayjs(order.datetime).format('DD.MM.YY HH:MM') || '-'}
+              {t('date')}:{' '}
+              {dayjs(order.datetime).format('DD.MM.YY HH:MM') || '-'}
             </p>
             <p className="orders_date">
-              Date tour: {dayjs(order.date).format('DD.MM.YY HH:MM') || '-'}
+              {t('date_tour')}:{' '}
+              {dayjs(order.date).format('DD.MM.YY HH:MM') || '-'}
             </p>
-            <p className="orders_price">Price: {order.price}KGS</p>
-            <div className="orders_status">Status: {order.status}</div>
+            <p className="orders_price">
+              {t('price')}: {order.price}KGS
+            </p>
+            <div className="orders_status">
+              {t('status')}: {order.status}
+            </div>
           </div>
         ))
       ) : (
-        <span>No orders</span>
+        <span>{t('no_orders')}</span>
       )}
     </div>
   );

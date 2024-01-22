@@ -157,7 +157,10 @@
     "create_form_country": "country*",
     "create_form_about": "about guide*",
     "create_form_image": "Image",
-    "create_form_send": "Send"
+    "create_form_send": "Send",
+    "editBtn": "Edit description",
+    "description": "description",
+    "save": "Save"
   },
   "admin": {
     "tours": "Tours",
@@ -253,6 +256,21 @@
     "editBtn": "Edit",
     "addBtn": "Add new slider"
   },
+  "myProfile": {
+    "title": "My profile",
+    "username": "Username",
+    "email": "Email",
+    "edit": "Edit profile",
+    "orders": "Orders",
+    "name": "Name",
+    "guide": "Guide",
+    "tour": "Tour",
+    "date": "Date",
+    "date_tour": "Date tour",
+    "price": "Price",
+    "status": "Status",
+    "no_orders": "No orders"
+    },
   "contact_us": {
     "banner_form_title": "Edit content",
     "banner_title_field": "Title",
@@ -264,7 +282,8 @@
     "contact_country_field": "Country",
     "contact_address_field": "Address",
     "contact_phone_field": "Phone",
-    "contact_delete": "delete",
+    "contact_delete": "delete"
+  },
     "guideOrders": {
       "createGuide": "Create a guide",
       "wrongAlert": "Something is wrong!",
@@ -284,4 +303,3 @@
       "message": "Order is removed"
     }
   }
-}

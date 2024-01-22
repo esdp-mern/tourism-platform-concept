@@ -14,6 +14,7 @@ import {
 } from '@/containers/guides/guidesSlice';
 import { editGuide, fetchGuideUser } from '@/containers/guides/guidesThunk';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
+import { useTranslations } from 'next-intl';
 
 const EditGuideModal = () => {
   const dispatch = useAppDispatch();
@@ -27,6 +28,7 @@ const EditGuideModal = () => {
     country: '',
   });
   const modal = useAppSelector(selectEditorGuideModal);
+  const t = useTranslations('guide');
 
   useEffect(() => {
     if (!guide) return;
@@ -76,10 +78,10 @@ const EditGuideModal = () => {
     >
       <div className="editor-modal-inner" onClick={(e) => e.stopPropagation()}>
         <form onSubmit={onSubmit}>
-          <h2>Edit description</h2>
+          <h2>{t('editBtn')}</h2>
           <textarea
             className="guide-input-description"
-            name="description"
+            name={t('description')}
             value={state.description}
             onChange={onChangeHandler}
             required
@@ -90,7 +92,7 @@ const EditGuideModal = () => {
             value={state.country}
             onChange={onChangeHandler}
             icon={penIcon.src}
-            label="country"
+            label={t('country')}
             required
           />
           <TextField
@@ -99,7 +101,7 @@ const EditGuideModal = () => {
             value={state.languages.toString()}
             onChange={onChangeHandler}
             icon={penIcon.src}
-            label="languages"
+            label={t('languages')}
             required
           />
           <div>
@@ -108,7 +110,7 @@ const EditGuideModal = () => {
               className="form-tour-btn"
               style={{ margin: 0 }}
             >
-              {editLoading ? <ButtonLoader size={18} /> : 'Save'}
+              {editLoading ? <ButtonLoader size={18} /> : t('save')}
             </button>
           </div>
         </form>

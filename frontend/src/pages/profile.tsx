@@ -13,12 +13,14 @@ import GuideProfile from '@/components/GuideProfile/GuideProfile';
 import Image from 'next/image';
 import bgImage from '@/assets/images/bg-image-1.jpg';
 import { GetServerSideProps } from 'next';
+import { useTranslations } from 'next-intl';
 import '@/styles/profile.css';
 
 const Profile = () => {
   const dispatch = useAppDispatch();
   const user: User = useAppSelector(selectUser);
   const router = useRouter();
+  const t = useTranslations('myProfile');
 
   useEffect(() => {
     dispatch(setIsLightMode(false));
@@ -37,7 +39,7 @@ const Profile = () => {
     image = img.src;
   }
 
-  if (user.role === 'guid') {
+  if (user.role === 'guide') {
     dispatch(fetchGuideUser(user._id));
   }
 
@@ -57,7 +59,7 @@ const Profile = () => {
         />
         <div className="profile-page_top-info">
           <div className="profile-page_top-line"></div>
-          <h2 className="profile-page_top-title">My profile</h2>
+          <h2 className="profile-page_top-title">{t('title')}</h2>
         </div>
       </div>
       <div className="page-profile container">
@@ -66,27 +68,33 @@ const Profile = () => {
             <Image fill className="profile-page_img" src={image} alt="img" />
           </div>
           <div>
-            <h4 className="profile-page_name">Name : {user.displayName}</h4>
-            <p>Username: {user.username}</p>
-            <p>Email: {user.email}</p>
+            <h4 className="profile-page_name">
+              {t('name')} : {user.displayName}
+            </h4>
+            <p>
+              {t('username')}: {user.username}
+            </p>
+            <p>
+              {t('email')}: {user.email}
+            </p>
             <button
               className="edit-profile page-profile_edit-btn"
               onClick={() => {
                 dispatch(setEditorModal());
               }}
             >
-              Edit profile
+              {t('edit')}
             </button>
           </div>
         </div>
         <div className="profile-page_info">
           {user.role === 'user' && (
             <div>
-              <h4>Your orders :</h4>
+              <h4>{t('orders')} :</h4>
               <UserOrders />
             </div>
           )}
-          {user.role === 'guid' && (
+          {user.role === 'guide' && (
             <div>
               <GuideProfile />
             </div>
