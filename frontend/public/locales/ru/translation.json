@@ -282,7 +282,8 @@
     "contact_country_field": "Страна",
     "contact_address_field": "Адрес",
     "contact_phone_field": "Телефон",
-    "contact_delete": "Удалить",
+    "contact_delete": "Удалить"
+  },
     "guideOrders": {
       "createGuide": "Создать гида",
       "wrongAlert": "Что-то не так!",
@@ -299,6 +300,6 @@
     },
     "orders": {
       "removeAlert": "Вы хотите удалить этот заказ?",
-      "message": "Заказ удалё
+      "message": "Заказ удалён"
   }
 }

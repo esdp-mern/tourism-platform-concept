@@ -282,7 +282,8 @@
     "contact_country_field": "Өлкө",
     "contact_address_field": "Адрес",
     "contact_phone_field": "Телефон",
-    "contact_delete": "Жок кылуу",
+    "contact_delete": "Жок кылуу"
+  },
     "guideOrders": {
       "createGuide": "Гидди түзүү",
       "wrongAlert": "Бир нерсе туура эмес!",
