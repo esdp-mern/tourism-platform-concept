@@ -1,4 +1,5 @@
 import React from 'react';
+import '@/styles/ButtonLoader.css';
 
 interface IProps {
   size: number;

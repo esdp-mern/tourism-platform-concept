@@ -1,4 +1,5 @@
 import React from 'react';
+import '@/styles/pageLoader.css';
 
 const PageLoader = () => {
   return (

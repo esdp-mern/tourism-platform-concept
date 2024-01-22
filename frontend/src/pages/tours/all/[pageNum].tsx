@@ -11,6 +11,7 @@ import PageLoader from '@/components/Loaders/PageLoader';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import TourFilter from '@/components/Filters/TourFilter';
 import { GetServerSideProps } from 'next';
+import '@/styles/ToursPage.css';
 
 const AllToursPage = () => {
   const dispatch = useAppDispatch();

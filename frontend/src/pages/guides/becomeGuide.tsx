@@ -16,6 +16,7 @@ import { selectGuideRequestLoading } from '@/containers/guides/guidesSlice';
 import Custom404 from '@/pages/404';
 import { GetServerSideProps } from 'next';
 import { useTranslations } from 'next-intl';
+import '@/styles/becomeGuide.css';
 
 const BecomeGuide = () => {
   const user = useAppSelector(selectUser);

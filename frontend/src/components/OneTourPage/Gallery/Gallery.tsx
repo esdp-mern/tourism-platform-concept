@@ -9,6 +9,7 @@ import { apiUrl } from '@/constants';
 import GalleryItem from '@/components/OneTourPage/Gallery/GalleryItem';
 import GalleryModal from '@/components/OneTourPage/Gallery/GalleryModal';
 import { useTranslations } from 'next-intl';
+import '@/styles/Gallery.css';
 
 const Gallery = () => {
   const tour = useAppSelector(selectOneTour);

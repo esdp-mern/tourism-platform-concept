@@ -6,6 +6,8 @@ import { userRoles } from '@/constants';
 import { deleteGuide, fetchAdminGuides } from '@/containers/guides/guidesThunk';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import '@/styles/GuideItem.css';
+import '@/styles/OneGuidePage.css';
 
 interface Props {
   id: string;

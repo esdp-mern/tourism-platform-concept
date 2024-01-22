@@ -20,12 +20,16 @@ import { boardNames, userRoles } from '@/constants';
 import { useRouter } from 'next/router';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import { GetServerSideProps } from 'next';
+import '@/styles/allOrders.css';
+import { useTranslations } from 'next-intl';
 
 const AllOrders = () => {
   const dispatch = useAppDispatch();
   const orders = useAppSelector(selectAllOrders);
   const user = useAppSelector(selectUser);
   const router = useRouter();
+  const t = useTranslations('admin');
+  const tr = useTranslations('orders');
   const bookedOrders = orders.filter((order) => order.status === 'booked');
   const underConsiderOrders = orders.filter(
     (order) => order.status === 'being considered',
@@ -65,9 +69,9 @@ const AllOrders = () => {
   }, [dispatch, user, router]);
 
   const onDelete = async (id: string) => {
-    if (window.confirm('Do you want to delete this order?')) {
+    if (window.confirm(tr('removeAlert'))) {
       await dispatch(deleteOrder(id));
-      dispatch(addAlert({ message: 'Order is removed', type: 'info' }));
+      dispatch(addAlert({ message: tr('message'), type: 'info' }));
       dispatch(fetchOrders());
     }
   };
@@ -104,11 +108,13 @@ const AllOrders = () => {
     }
   };
 
+  const orderTitle = [t('booked'), t('being considered'), t('approved')];
+
   return (
     <div className="container" onClick={() => dragStartHandler('', '')}>
       <PageLoader />
       <div className="orders-page">
-        <h2 className="orders-title">Orders</h2>
+        <h2 className="orders-title">{t('orders')}</h2>
         <div className="boards">
           {boardNames.map((boardName) => (
             <div
@@ -123,8 +129,8 @@ const AllOrders = () => {
               }}
             >
               <h4 className="board-title">
-                {boardName[0].toUpperCase() +
-                  boardName.slice(1, boardName.length)}
+                {orderTitle[boardNames.indexOf(boardName)] ||
+                  boardName[0].toUpperCase() + boardName.slice(1)}
               </h4>
               <div
                 className="order-items"

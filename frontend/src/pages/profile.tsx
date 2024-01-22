@@ -14,6 +14,7 @@ import Image from 'next/image';
 import bgImage from '@/assets/images/bg-image-1.jpg';
 import { GetServerSideProps } from 'next';
 import { useTranslations } from 'next-intl';
+import '@/styles/profile.css';
 
 const Profile = () => {
   const dispatch = useAppDispatch();

@@ -7,6 +7,7 @@ import { selectGuideTours } from '@/containers/tours/toursSlice';
 import TourListItem from '@/components/TourListItem/TourListItem';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import '@/styles/OneGuideInfo.css';
 
 const GuideInfo = () => {
   const guide = useAppSelector(selectOneGuide);

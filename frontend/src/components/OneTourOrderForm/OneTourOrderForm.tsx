@@ -14,6 +14,7 @@ import emailIcon from '@/assets/images/email-icon.svg';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
+import '@/styles/OneTourOrderForm.css';
 
 export interface IChangeEvent {
   target: { name: string; value: string };

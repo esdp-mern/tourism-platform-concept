@@ -5,6 +5,7 @@ import { apiUrl } from '@/constants';
 import Link from 'next/link';
 import Image from 'next/image';
 import { fetchToursWithDiscountPrice } from '@/containers/tours/toursThunk';
+import '@/styles/HotTours.css';
 
 const HotToursToolbar = () => {
   const dispatch = useAppDispatch();

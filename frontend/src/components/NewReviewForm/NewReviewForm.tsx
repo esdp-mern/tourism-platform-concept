@@ -6,6 +6,7 @@ import { addAlert, selectUser } from '@/containers/users/usersSlice';
 import { tourReview } from '@/containers/tours/toursThunk';
 import { fetchToursReviews } from '@/containers/reviews/reviewThunk';
 import { useTranslations } from 'next-intl';
+import '@/styles/newReviewForm.css';
 
 interface IPostReview {
   tour: string;

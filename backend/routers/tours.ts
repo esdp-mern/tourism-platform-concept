@@ -606,7 +606,9 @@ toursRouter.put(
       existingTour.category = JSON.parse(req.body.category);
       existingTour.price = req.body.price || existingTour.price;
       existingTour.discountPrice =
-        req.body.discountPrice || existingTour.discountPrice;
+        req.body.discountPrice < 1
+          ? null
+          : req.body.discountPrice || existingTour.discountPrice;
       existingTour.duration = req.body.duration || existingTour.duration;
       existingTour.plan = plan;
       existingTour.destination =
