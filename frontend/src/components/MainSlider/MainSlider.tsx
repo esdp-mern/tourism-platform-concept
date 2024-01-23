@@ -155,8 +155,9 @@ const MainSlider = () => {
         ))}
         {user && user.role === userRoles.admin ? (
           <button
-            className="admin-button admin-button-add"
+            className="admin-button admin-button-add main-slider-add-slider-btn"
             type="button"
+            style={{ position: 'absolute', right: 0, bottom: '-40px' }}
             onClick={() => {
               router.push(`/slider/create`).then((r) => r);
             }}

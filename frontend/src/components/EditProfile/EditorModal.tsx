@@ -19,6 +19,8 @@ import { editProfile } from '@/containers/users/usersThunk';
 import { AxiosError } from 'axios';
 import { useTranslations } from 'next-intl';
 import '@/styles/editorModal.css';
+import '@/styles/admin-buttons.css';
+import AdminIcon from '@/components/UI/AdminIcon/AdminIcon';
 
 const EditorModal = () => {
   const dispatch = useAppDispatch();
@@ -128,10 +130,11 @@ const EditorModal = () => {
           <div>
             <button
               type="submit"
-              className="form-tour-btn"
-              style={{ margin: 0 }}
+              className="admin-button admin-button-edit"
+              style={{ width: '100%' }}
             >
               {editLoading ? <ButtonLoader size={18} /> : `${saveBtn}`}
+              <AdminIcon type="save" />
             </button>
           </div>
         </form>

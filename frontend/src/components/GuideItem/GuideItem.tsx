@@ -45,7 +45,10 @@ const GuideItem: React.FC<Props> = ({
       <div className="guide-card__content">
         <h2 className="guide-card__name">{name}</h2>
         <p className="guide-card__description">{description}</p>
-        <div className="admin-buttons">
+        <div
+          className="admin-buttons"
+          style={{ flexWrap: 'wrap', justifyContent: 'center' }}
+        >
           <Link
             href={`/guides/${id}`}
             className="admin-button admin-button-edit"

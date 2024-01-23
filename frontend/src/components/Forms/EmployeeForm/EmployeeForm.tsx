@@ -8,6 +8,8 @@ import { editEmployees, postEmployees } from '@/containers/about/aboutThunk';
 import FileInput from '@/components/UI/FileInput/FileInput';
 import { addEmployee } from '@/containers/about/aboutSlice';
 import '@/styles/SignInForm.css';
+import '@/styles/admin-buttons.css';
+import AdminIcon from '@/components/UI/AdminIcon/AdminIcon';
 
 interface Props {
   existingEmployee?: IEmployeeMutation;
@@ -151,8 +153,13 @@ const EmployeeForm: React.FC<Props> = ({
         />
       </div>
       <div className="form-wrap-btn">
-        <button type="submit" className="form-btn">
+        <button
+          type="submit"
+          className="admin-button admin-button-edit"
+          style={{ width: '100%' }}
+        >
           {isEdit ? 'Save employee' : 'Create employee'}
+          <AdminIcon type="save" />
         </button>
       </div>
     </form>

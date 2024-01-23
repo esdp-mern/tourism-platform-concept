@@ -1,3 +1,9 @@
+:root {
+  --color-edit: #2e8b57;
+  --color-delete: #ff2400;
+  --color-add: #0047ab;
+}
+
 .admin-buttons {
   margin-top: 20px;
   display: flex;
@@ -43,6 +49,17 @@
   transition: fill 200ms linear;
 }
 
+.admin-button-mini {
+  padding: 4px 6px !important;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.admin-button-mini.admin-button-icon {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
 @media screen and (max-width: 992px) {
   .admin-button {
     font-size: 1rem;
@@ -63,76 +80,76 @@
   }
 }
 
-.admin-button-delete {
-  border: 3px solid #ff2400;
-  background-color: #ff2400;
-}
-.admin-button-delete:hover {
-  color: #ff2400;
-}
-.admin-button:hover.admin-button-delete svg path {
-  fill: #ff2400;
-}
-.admin-button-outline.admin-button-delete {
-  color: #ff2400;
-}
-.admin-button-outline:hover.admin-button-delete {
-  color: #fff;
-  background-color: #ff2400;
-}
-.admin-button-outline.admin-button-delete svg path {
-  fill: #ff2400;
-}
-.admin-button-outline:hover.admin-button-delete svg path {
-  fill: #fff;
-}
-
 .admin-button-edit {
-  border: 3px solid #2e8b57;
-  background-color: #2e8b57;
+  border: 3px solid var(--color-edit);
+  background-color: var(--color-edit);
 }
 .admin-button-edit:hover {
-  color: #2e8b57;
+  color: var(--color-edit);
 }
 .admin-button:hover.admin-button-edit svg path {
-  fill: #2e8b57;
+  fill: var(--color-edit);
 }
 .admin-button-outline.admin-button-edit {
-  color: #2e8b57;
+  color: var(--color-edit);
 }
 .admin-button-outline:hover.admin-button-edit {
   color: #fff;
-  background-color: #2e8b57;
+  background-color: var(--color-edit);
 }
 .admin-button-outline.admin-button-edit svg path {
-  fill: #2e8b57;
+  fill: var(--color-edit);
 }
 .admin-button-outline:hover.admin-button-edit svg path {
   fill: #fff;
 }
 
+.admin-button-delete {
+  border: 3px solid var(--color-delete);
+  background-color: var(--color-delete);
+}
+.admin-button-delete:hover {
+  color: var(--color-delete);
+}
+.admin-button:hover.admin-button-delete svg path {
+  fill: var(--color-delete);
+}
+.admin-button-outline.admin-button-delete {
+  color: var(--color-delete);
+}
+.admin-button-outline:hover.admin-button-delete {
+  color: #fff;
+  background-color: var(--color-delete);
+}
+.admin-button-outline.admin-button-delete svg path {
+  fill: var(--color-delete);
+}
+.admin-button-outline:hover.admin-button-delete svg path {
+  fill: #fff;
+}
+
 .admin-button-add {
-  border: 3px solid #0047ab;
-  background-color: #0047ab;
+  border: 3px solid var(--color-add);
+  background-color: var(--color-add);
 }
 .admin-button-add:hover {
-  color: #0047ab;
+  color: var(--color-add);
 }
 .admin-button:hover.admin-button-add svg path {
-  fill: #0047ab;
+  fill: var(--color-add);
 }
 .admin-button-outline.admin-button-add {
-  color: #0047ab;
+  color: var(--color-add);
 }
 .admin-button-outline:hover.admin-button-add {
   color: #fff;
-  background-color: #0047ab;
+  background-color: var(--color-add);
 }
 .admin-button-outline.admin-button-add svg path {
-  fill: #0047ab;
+  fill: var(--color-add);
 }
 .admin-button-outline:hover.admin-button-add svg path {
-  fill: #0047ab;
+  fill: var(--color-add);
 }
 
 .admin-button-light-text {

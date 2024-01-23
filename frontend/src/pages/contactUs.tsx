@@ -251,11 +251,12 @@ const ContactUs = () => {
               <div className="form-contact-buttons">
                 <button
                   type="submit"
-                  className="admin-button admin-button-outline admin-button-edit"
+                  className="admin-button admin-button-edit"
                   style={{ margin: 0 }}
                   name="contacts-title-edit-btn"
                 >
                   {editContactsLoading ? <ButtonLoader size={18} /> : t('save')}
+                  <AdminIcon type="save" />
                 </button>
 
                 {editContact._id && (
@@ -391,7 +392,10 @@ const ContactUs = () => {
               label={t('banner_title_field')}
               required
             />
-            <div className="input-wrap" style={{ padding: '20px 0' }}>
+            <div
+              className="input-wrap"
+              style={{ marginTop: 20, marginBottom: 0 }}
+            >
               <label className="form-label-avatar avatar" htmlFor="image">
                 {t('banner_image_field')}
               </label>
@@ -409,6 +413,7 @@ const ContactUs = () => {
               name="contacts-title-edit-btn"
             >
               {editContactsLoading ? <ButtonLoader size={18} /> : t('save')}
+              <AdminIcon type="save" />
             </button>
           </form>
         </div>

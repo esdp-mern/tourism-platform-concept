@@ -18,6 +18,7 @@
 
 .link-group,
 .country-dots {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 22px;
@@ -434,6 +435,10 @@
 
   .sliderCaption {
     font-size: 16px;
+  }
+
+  .main-slider-add-slider-btn {
+    position: static !important;
   }
 
   .scrollDown {

@@ -102,6 +102,7 @@
   width: 340px;
   height: 250px;
   overflow: hidden;
+  border-radius: 10px;
 }
 
 .card-news-img img {
@@ -116,8 +117,6 @@
 }
 
 .card-news-date {
-  height: 20px;
-  margin-top: 25px;
   font-weight: 600;
   color: #75c15b;
   font-size: 16px;

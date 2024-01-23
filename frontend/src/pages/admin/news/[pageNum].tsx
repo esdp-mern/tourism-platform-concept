@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PageLoader from '@/components/Loaders/PageLoader';
 import Pagination from '@/components/Pagination/Pagination';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -6,7 +6,7 @@ import { selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
 import { selectAllNews } from '@/containers/news/newsSlice';
 import NewsItem from '@/components/NewsItem/NewsItem';
-import { fetchAdminNews, fetchNews } from '@/containers/news/newsThunk';
+import { fetchAdminNews } from '@/containers/news/newsThunk';
 import Custom404 from '@/pages/404';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import { GetServerSideProps } from 'next';
@@ -20,9 +20,9 @@ const AllNewsPage = () => {
   const user = useAppSelector(selectUser);
   const [newsPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentNews, setCurrentNews] = useState<
-    'all' | 'published' | 'nonPublished'
-  >('all');
+  const [currentNews, setCurrentNews] = useState<'all' | 'public' | 'unpublic'>(
+    'all',
+  );
 
   const indexOfLastRecord = currentPage * newsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - newsPerPage;
@@ -30,25 +30,9 @@ const AllNewsPage = () => {
   const nPages = Math.ceil(news.length / newsPerPage);
 
   useEffect(() => {
+    dispatch(fetchAdminNews('all'));
     dispatch(setIsLightMode(true));
   }, [dispatch]);
-
-  useEffect(() => {
-    switch (currentNews) {
-      case 'all':
-        dispatch(fetchAdminNews(true));
-        break;
-      case 'nonPublished':
-        dispatch(fetchAdminNews());
-        break;
-      case 'published':
-        dispatch(fetchNews());
-        break;
-      default:
-        dispatch(fetchAdminNews(true));
-        break;
-    }
-  }, [currentNews, dispatch]);
 
   if (!user || user.role !== userRoles.admin) {
     return <Custom404 errorType="tour" />;
@@ -66,23 +50,38 @@ const AllNewsPage = () => {
           <div>
             <div className="buttons-admin-tour">
               <button
-                className="btn-admin-fetch-tour btn-admin-all"
+                className={`btn-admin-fetch-tour btn-admin-all ${
+                  currentNews === 'all' && 'focus'
+                }`}
                 type="button"
-                onClick={() => setCurrentNews('all')}
+                onClick={async () => {
+                  await dispatch(fetchAdminNews('all'));
+                  setCurrentNews('all');
+                }}
               >
                 all
               </button>
               <button
-                className="btn-admin-fetch-tour btn-admin-pub"
+                className={`btn-admin-fetch-tour btn-admin-pub ${
+                  currentNews === 'public' && 'focus'
+                }`}
                 type="button"
-                onClick={() => setCurrentNews('published')}
+                onClick={async () => {
+                  await dispatch(fetchAdminNews());
+                  setCurrentNews('public');
+                }}
               >
                 published
               </button>
               <button
-                className="btn-admin-fetch-tour btn-admin-non-pub"
+                className={`btn-admin-fetch-tour btn-admin-non-pub ${
+                  currentNews === 'unpublic' && 'focus'
+                }`}
                 type="button"
-                onClick={() => setCurrentNews('nonPublished')}
+                onClick={async () => {
+                  await dispatch(fetchAdminNews('private'));
+                  setCurrentNews('unpublic');
+                }}
               >
                 non published
               </button>
