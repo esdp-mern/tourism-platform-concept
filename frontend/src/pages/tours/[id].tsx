@@ -26,6 +26,7 @@ import { setIsLightMode } from '@/containers/config/configSlice';
 import GoogleMap from '@/components/GoogleMap/GoogleMap';
 import { useTranslations } from 'next-intl';
 import '@/styles/OneTourPage.css';
+import Head from 'next/head';
 
 interface ITab {
   title: string;
@@ -88,81 +89,87 @@ const TourPage: NextPage<
   };
 
   return (
-    <div className="one-tour" onClick={() => closeNav()}>
-      <PageLoader />
-      <div className="one-tour-top">
-        <div
-          className="one-tour-top-info"
-          style={{
-            backgroundImage: `url('${apiUrl + '/' + tour.mainImage}')`,
-          }}
-        >
-          <div className="one-tour-top-line"></div>
-          <h2 className="one-tour-top-title">{tour.name}</h2>
-          <div className="one-tour-btns">
-            <button className="one-tour-btn-one">
-              {t(`tour_video_preview`)}
-            </button>
-            <button className="one-tour-btn-two">
-              {t(`tour_view_photos`)}
-            </button>
+    <>
+      <Head>
+        <title>{tour.name} - Akim Tourism</title>
+        <meta name="description" content={tour.description} />
+      </Head>
+      <div className="one-tour" onClick={() => closeNav()}>
+        <PageLoader />
+        <div className="one-tour-top">
+          <div
+            className="one-tour-top-info"
+            style={{
+              backgroundImage: `url('${apiUrl + '/' + tour.mainImage}')`,
+            }}
+          >
+            <div className="one-tour-top-line"></div>
+            <h2 className="one-tour-top-title">{tour.name}</h2>
+            <div className="one-tour-btns">
+              <button className="one-tour-btn-one">
+                {t(`tour_video_preview`)}
+              </button>
+              <button className="one-tour-btn-two">
+                {t(`tour_view_photos`)}
+              </button>
+            </div>
           </div>
-        </div>
-        <div className="one-tour-slider-btns">
-          {TABS.map(({ name }) => (
-            <button
-              name={name}
-              onClick={toggleTab}
-              className={
-                currentTab === name
-                  ? `one-tour-slider-${name} btn-active`
-                  : `one-tour-slider-${name} one-tour-slider-btns-btn`
-              }
-              key={`${name}-tab`}
-            >
-              <span>{t(`tour_tab_${name}`)}</span>
-            </button>
-          ))}
-        </div>
-        <div
-          className="adaptive-one-tour-slider-btns"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <button className="show-tour-tab-btns" onClick={navBtnToggle}>
-            <span>Navigation</span>
-          </button>
-          <div className={`tour-tab-btns tour-tab-btns-${adaptiveTabBtns}`}>
+          <div className="one-tour-slider-btns">
             {TABS.map(({ name }) => (
               <button
                 name={name}
                 onClick={toggleTab}
-                className={`tour-tab-btn tour-tab-btn-${name}`}
+                className={
+                  currentTab === name
+                    ? `one-tour-slider-${name} btn-active`
+                    : `one-tour-slider-${name} one-tour-slider-btns-btn`
+                }
                 key={`${name}-tab`}
               >
                 <span>{t(`tour_tab_${name}`)}</span>
               </button>
             ))}
           </div>
+          <div
+            className="adaptive-one-tour-slider-btns"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className="show-tour-tab-btns" onClick={navBtnToggle}>
+              <span>Navigation</span>
+            </button>
+            <div className={`tour-tab-btns tour-tab-btns-${adaptiveTabBtns}`}>
+              {TABS.map(({ name }) => (
+                <button
+                  name={name}
+                  onClick={toggleTab}
+                  className={`tour-tab-btn tour-tab-btn-${name}`}
+                  key={`${name}-tab`}
+                >
+                  <span>{t(`tour_tab_${name}`)}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="container one-tour-tab">
+          <>
+            {currentTab === 'information' && <OneTourInformation />}
+            {currentTab === 'plan' && <OneTourPlan />}
+            {currentTab === 'location' && (
+              <GoogleMap
+                width="100%"
+                height="500px"
+                map={tour.map}
+                mapLink={tour.mapLink}
+              />
+            )}
+            {currentTab === 'gallery' && <Gallery />}
+            {currentTab === 'reviews' && <OneTourReview />}
+          </>
+          <OneTourOrderForm date={tour.date} />
         </div>
       </div>
-      <div className="container one-tour-tab">
-        <>
-          {currentTab === 'information' && <OneTourInformation />}
-          {currentTab === 'plan' && <OneTourPlan />}
-          {currentTab === 'location' && (
-            <GoogleMap
-              width="100%"
-              height="500px"
-              map={tour.map}
-              mapLink={tour.mapLink}
-            />
-          )}
-          {currentTab === 'gallery' && <Gallery />}
-          {currentTab === 'reviews' && <OneTourReview />}
-        </>
-        <OneTourOrderForm date={tour.date} />
-      </div>
-    </div>
+    </>
   );
 };
 

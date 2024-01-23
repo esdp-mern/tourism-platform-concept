@@ -11,6 +11,7 @@ import Pagination from '@/components/Pagination/Pagination';
 import Image from 'next/image';
 import { GetServerSideProps } from 'next';
 import '@/styles/allUsers.css';
+import Head from 'next/head';
 
 const PageNum = () => {
   const dispatch = useAppDispatch();
@@ -43,74 +44,80 @@ const PageNum = () => {
   };
 
   return (
-    <div className="container">
-      <PageLoader />
-      <div className="all-users">
-        {currentRecords.map((user: User) => (
-          <div className="user-card" key={user._id}>
-            <div className="user-card-top">
-              <Image
-                fill
-                src={
-                  (user.avatar?.slice(0, 5) === 'https' ? '' : `${apiUrl}/`) +
-                  user.avatar
-                }
-                alt={user.avatar || 'user'}
-              />
-            </div>
-            <div className="user-card-bottom">
-              <h3 className="user-card-displayName">{user.displayName}</h3>
-              <span>@{user.username}</span>
-              <span>{user.email}</span>
-              <span
-                className={`user-card-role ${
-                  selectedCardId === user._id ? 'user-card-role-selected' : ''
-                }`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (selectedCardId === user._id) {
-                    return setSelectedCardId('');
+    <>
+      <Head>
+        <title>Users - Page {currentPage} - Akim Tourism</title>
+        <meta name="description" content="Users page" />
+      </Head>
+      <div className="container">
+        <PageLoader />
+        <div className="all-users">
+          {currentRecords.map((user: User) => (
+            <div className="user-card" key={user._id}>
+              <div className="user-card-top">
+                <Image
+                  fill
+                  src={
+                    (user.avatar?.slice(0, 5) === 'https' ? '' : `${apiUrl}/`) +
+                    user.avatar
                   }
-                  setSelectedCardId(user._id);
-                }}
-              >
-                {user.role}
+                  alt={user.avatar || 'user'}
+                />
+              </div>
+              <div className="user-card-bottom">
+                <h3 className="user-card-displayName">{user.displayName}</h3>
+                <span>@{user.username}</span>
+                <span>{user.email}</span>
                 <span
-                  className={`user-card-roles ${
-                    selectedCardId === user._id ? 'user-card-roles-open' : ''
+                  className={`user-card-role ${
+                    selectedCardId === user._id ? 'user-card-role-selected' : ''
                   }`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (selectedCardId === user._id) {
+                      return setSelectedCardId('');
+                    }
+                    setSelectedCardId(user._id);
+                  }}
                 >
-                  {roles.map(
-                    (role) =>
-                      user.role !== role && (
-                        <span
-                          key={role}
-                          onClick={async () => {
-                            await dispatch(
-                              editUserRole({ id: user._id, role }),
-                            );
-                            dispatch(getUsers(''));
-                          }}
-                        >
-                          {role}
-                        </span>
-                      ),
-                  )}
+                  {user.role}
+                  <span
+                    className={`user-card-roles ${
+                      selectedCardId === user._id ? 'user-card-roles-open' : ''
+                    }`}
+                  >
+                    {roles.map(
+                      (role) =>
+                        user.role !== role && (
+                          <span
+                            key={role}
+                            onClick={async () => {
+                              await dispatch(
+                                editUserRole({ id: user._id, role }),
+                              );
+                              dispatch(getUsers(''));
+                            }}
+                          >
+                            {role}
+                          </span>
+                        ),
+                    )}
+                  </span>
                 </span>
-              </span>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        {users.length > 8 && (
+          <Pagination
+            pathname={'/admin/allUsers/'}
+            nPages={nPages}
+            currentPage={currentPage}
+            onSetCurrentPage={onSetCurrentPage}
+          />
+        )}
       </div>
-      {users.length > 8 && (
-        <Pagination
-          pathname={'/admin/allUsers/'}
-          nPages={nPages}
-          currentPage={currentPage}
-          onSetCurrentPage={onSetCurrentPage}
-        />
-      )}
-    </div>
+    </>
   );
 };
 

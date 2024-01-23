@@ -34,6 +34,7 @@ import { changeUserRole } from '@/containers/users/usersThunk';
 import '@/styles/becomeGuide.css';
 import '@/styles/createGuide.css';
 import { useTranslations } from 'next-intl';
+import Head from 'next/head';
 
 const CreateGuide: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -120,106 +121,112 @@ const CreateGuide: NextPage<
   }
 
   return (
-    <div className="container">
-      <PageLoader />
-      <div className="create-guide become-guide">
-        <form onSubmit={onSubmit} className="become-guide-form">
-          <h2>{t('createGuide')}</h2>
-          <div className="user-id-input" style={{ display: 'none' }}>
-            <TextField
-              name="user"
-              type="text"
-              value={userId}
-              onChange={onChange}
-              icon={peopleIcon.src}
-              label="user*"
-              required
-            />
-          </div>
-          <div className="languages-input">
-            <div className="languages-top">
+    <>
+      <Head>
+        <title>Guide order {'- ' + order?.name || ''} - Akim Tourism</title>
+        <meta name="description" content="New employee - Akim Tourism" />
+      </Head>
+      <div className="container">
+        <PageLoader />
+        <div className="create-guide become-guide">
+          <form onSubmit={onSubmit} className="become-guide-form">
+            <h2>{t('createGuide')}</h2>
+            <div className="user-id-input" style={{ display: 'none' }}>
               <TextField
-                name="languages"
+                name="user"
                 type="text"
-                value={currentLanguage}
-                onChange={(e) => setCurrentLanguage(e.target.value)}
-                icon={languageIcon.src}
-                label={t('language')}
+                value={userId}
+                onChange={onChange}
+                icon={peopleIcon.src}
+                label="user*"
                 required
               />
-              <button
-                className="form-tour-btn"
-                type="button"
-                onClick={() => {
-                  if (!currentLanguage.length) return;
-                  setCurrentLanguage('');
-                  setState((prevState) => ({
-                    ...prevState,
-                    languages: [...prevState.languages, currentLanguage],
-                  }));
-                }}
-              >
-                {t('addBtn')}
-              </button>
             </div>
-            <div className="languages-bottom">
-              <span>{t('languages')}:</span>
-              <span>
-                {!state.languages.length
-                  ? t('none')
-                  : state.languages.join(', ')}
-              </span>
-              {state.languages.length ? (
+            <div className="languages-input">
+              <div className="languages-top">
+                <TextField
+                  name="languages"
+                  type="text"
+                  value={currentLanguage}
+                  onChange={(e) => setCurrentLanguage(e.target.value)}
+                  icon={languageIcon.src}
+                  label={t('language')}
+                  required
+                />
                 <button
-                  className="reset-languages"
+                  className="form-tour-btn"
                   type="button"
-                  onClick={() =>
-                    setState((prevState) => ({ ...prevState, languages: [] }))
-                  }
+                  onClick={() => {
+                    if (!currentLanguage.length) return;
+                    setCurrentLanguage('');
+                    setState((prevState) => ({
+                      ...prevState,
+                      languages: [...prevState.languages, currentLanguage],
+                    }));
+                  }}
                 >
-                  {t('reset')}
+                  {t('addBtn')}
                 </button>
-              ) : (
-                ''
-              )}
+              </div>
+              <div className="languages-bottom">
+                <span>{t('languages')}:</span>
+                <span>
+                  {!state.languages.length
+                    ? t('none')
+                    : state.languages.join(', ')}
+                </span>
+                {state.languages.length ? (
+                  <button
+                    className="reset-languages"
+                    type="button"
+                    onClick={() =>
+                      setState((prevState) => ({ ...prevState, languages: [] }))
+                    }
+                  >
+                    {t('reset')}
+                  </button>
+                ) : (
+                  ''
+                )}
+              </div>
             </div>
-          </div>
-          <TextField
-            name="country"
-            type="text"
-            value={state.country}
-            onChange={onChange}
-            icon={globeIcon.src}
-            label={t('country')}
-            required
-          />
-          <textarea
-            className="guide-request-description"
-            value={state.description}
-            onChange={onChange}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            placeholder={focused ? '' : t('description')}
-            name="description"
-            required
-          />
-          <div className="input-wrap" style={{ marginTop: '15px' }}>
-            <label className="form-label-avatar avatar" htmlFor="image">
-              {t('image')}
-            </label>
-            <FileInput
-              onChange={onFileChange}
-              name="image"
-              image={state.image}
-              className="form-control"
+            <TextField
+              name="country"
+              type="text"
+              value={state.country}
+              onChange={onChange}
+              icon={globeIcon.src}
+              label={t('country')}
+              required
             />
-          </div>
-          <button type="submit" className="form-tour-btn">
-            {createLoading ? <ButtonLoader size={18} /> : t('sendBtn')}
-          </button>
-        </form>
+            <textarea
+              className="guide-request-description"
+              value={state.description}
+              onChange={onChange}
+              onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
+              placeholder={focused ? '' : t('description')}
+              name="description"
+              required
+            />
+            <div className="input-wrap" style={{ marginTop: '15px' }}>
+              <label className="form-label-avatar avatar" htmlFor="image">
+                {t('image')}
+              </label>
+              <FileInput
+                onChange={onFileChange}
+                name="image"
+                image={state.image}
+                className="form-control"
+              />
+            </div>
+            <button type="submit" className="form-tour-btn">
+              {createLoading ? <ButtonLoader size={18} /> : t('sendBtn')}
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

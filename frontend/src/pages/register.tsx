@@ -3,6 +3,7 @@ import SignUpForm from '@/components/Forms/SignUpForm/SignUpForm';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import { useAppDispatch } from '@/store/hooks';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 
 const Register = () => {
   const dispatch = useAppDispatch();
@@ -12,9 +13,15 @@ const Register = () => {
   }, [dispatch]);
 
   return (
-    <div>
-      <SignUpForm />
-    </div>
+    <>
+      <Head>
+        <title>Sign</title>
+        <meta name="description" content="Sign" />
+      </Head>
+      <div>
+        <SignUpForm />
+      </div>
+    </>
   );
 };
 

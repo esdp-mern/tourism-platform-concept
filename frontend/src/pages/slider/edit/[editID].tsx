@@ -18,6 +18,7 @@ import {
 } from '@/containers/slider/sliderSlice';
 import PageLoader from '@/components/Loaders/PageLoader';
 import MainSliderForm from '@/components/Forms/MainSliderForm/MainSliderForm';
+import Head from 'next/head';
 
 const EditSlider: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -51,18 +52,24 @@ const EditSlider: NextPage<
     };
   }
   return (
-    <div className="container">
-      <PageLoader />
-      <div className="form-block">
-        {editingSlider && (
-          <MainSliderForm
-            isEdit
-            existingSlider={editingSlider}
-            idSlider={slider?._id}
-          />
-        )}
+    <>
+      <Head>
+        <title>Edit {slider?.country || ''}</title>
+        <meta name="description" content="Edit countries slider" />
+      </Head>
+      <div className="container">
+        <PageLoader />
+        <div className="form-block">
+          {editingSlider && (
+            <MainSliderForm
+              isEdit
+              existingSlider={editingSlider}
+              idSlider={slider?._id}
+            />
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

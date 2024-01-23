@@ -7,6 +7,7 @@ import { selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
 import Custom404 from '@/pages/404';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 
 const NewSlider = () => {
   const dispatch = useAppDispatch();
@@ -21,12 +22,18 @@ const NewSlider = () => {
     return <Custom404 errorType="tour" />;
   }
   return (
-    <div className="container">
-      <PageLoader />
-      <div className="form-block">
-        <MainSliderForm />
+    <>
+      <Head>
+        <title>Create a new slider</title>
+        <meta name="description" content="Create a new slider" />
+      </Head>
+      <div className="container">
+        <PageLoader />
+        <div className="form-block">
+          <MainSliderForm />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

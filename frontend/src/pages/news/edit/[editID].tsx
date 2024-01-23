@@ -8,6 +8,7 @@ import { setIsLightMode } from '@/containers/config/configSlice';
 import { userRoles } from '@/constants';
 import Custom404 from '@/pages/404';
 import NewsForm from '@/components/Forms/NewsForm/NewsForm';
+import Head from 'next/head';
 
 const EditNews = () => {
   const dispatch = useAppDispatch();
@@ -26,10 +27,16 @@ const EditNews = () => {
   }
 
   return (
-    <div className="container sign-up-page">
-      <PageLoader />
-      <NewsForm isEdit idNews={editID} />
-    </div>
+    <>
+      <Head>
+        <title>Edit news</title>
+        <meta name="description" content="Edit news" />
+      </Head>
+      <div className="container sign-up-page">
+        <PageLoader />
+        <NewsForm isEdit idNews={editID} />
+      </div>
+    </>
   );
 };
 

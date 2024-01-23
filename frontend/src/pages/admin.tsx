@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { GetServerSideProps } from 'next';
 import { useTranslations } from 'next-intl';
 import '@/styles/admin.css';
+import Head from 'next/head';
 
 const Admin = () => {
   const routers = useRouter();
@@ -30,6 +31,10 @@ const Admin = () => {
   }, [dispatch, routers, user]);
   return (
     <>
+      <Head>
+        <title>Admin - Akim Tourism</title>
+        <meta name="description" content="Admin - Akim Tourism" />
+      </Head>
       <PageLoader />
       <div className="fixed-toolbar"></div>
       <div className="container">

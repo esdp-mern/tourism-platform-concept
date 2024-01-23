@@ -12,6 +12,7 @@ import Custom404 from '@/pages/404';
 import { GetServerSideProps } from 'next';
 import '@/styles/NewsPage.css';
 import '@/styles/adminTours.css';
+import Head from 'next/head';
 
 const AllGuideOrdersPage = () => {
   const dispatch = useAppDispatch();
@@ -41,43 +42,51 @@ const AllGuideOrdersPage = () => {
   }
 
   return (
-    <div className="all-guides">
-      <PageLoader />
-      <div>
-        <div className="container">
-          <div>
-            <div className="buttons-admin-tour"></div>
-            {!orders || orders.length <= 0 ? (
-              <div className="title-none-tour">There are no guide request.</div>
-            ) : (
-              <div>
-                <div className="tours-admin-page">
-                  {currentRecords.map((orders) => (
-                    <div className="card-news" key={orders._id}>
-                      <GuideOrder
-                        _id={orders._id}
-                        name={orders.name}
-                        surname={orders.surname}
-                        number={orders.number}
-                        message={orders.message}
-                      />
-                    </div>
-                  ))}
+    <>
+      <Head>
+        <title>Guide orders - Akim Tourism</title>
+        <meta name="description" content="Guide orders page" />
+      </Head>
+      <div className="all-guides">
+        <PageLoader />
+        <div>
+          <div className="container">
+            <div>
+              <div className="buttons-admin-tour"></div>
+              {!orders || orders.length <= 0 ? (
+                <div className="title-none-tour">
+                  There are no guide request.
                 </div>
-                <div className="tours-page-paginate">
-                  <Pagination
-                    pathname={'/admin/guideOrders/'}
-                    nPages={nPages}
-                    currentPage={currentPage}
-                    onSetCurrentPage={onSetCurrentPage}
-                  />
+              ) : (
+                <div>
+                  <div className="tours-admin-page">
+                    {currentRecords.map((orders) => (
+                      <div className="card-news" key={orders._id}>
+                        <GuideOrder
+                          _id={orders._id}
+                          name={orders.name}
+                          surname={orders.surname}
+                          number={orders.number}
+                          message={orders.message}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="tours-page-paginate">
+                    <Pagination
+                      pathname={'/admin/guideOrders/'}
+                      nPages={nPages}
+                      currentPage={currentPage}
+                      onSetCurrentPage={onSetCurrentPage}
+                    />
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

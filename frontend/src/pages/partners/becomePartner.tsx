@@ -17,6 +17,7 @@ import FileInput from '@/components/UI/FileInput/FileInput';
 import { GetServerSideProps } from 'next';
 import { useTranslations } from 'next-intl';
 import '@/styles/becomeGuide.css';
+import Head from 'next/head';
 
 const BecomePartner = () => {
   const initialState = {
@@ -89,67 +90,73 @@ const BecomePartner = () => {
   };
 
   return (
-    <div className="container">
-      <PageLoader />
-      <div className="become-guide">
-        <form onSubmit={onSubmit} className="become-guide-form">
-          <h2>{t('become_title')}</h2>
-          <TextField
-            name="name"
-            type="text"
-            value={state.name}
-            onChange={onChange}
-            icon={peopleIcon.src}
-            label={t('become_name')}
-            required
-          />
-          <TextField
-            name="number"
-            type="text"
-            value={state.number}
-            onChange={onChange}
-            icon={phoneIcon.src}
-            label={t('become_phone')}
-            required
-          />
-          <TextField
-            name="link"
-            type="text"
-            value={state.link}
-            onChange={onChange}
-            icon={phoneIcon.src}
-            label={t('become_link')}
-          />
-          <textarea
-            className="guide-request-description"
-            value={state.message}
-            onChange={onChange}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            placeholder={focused ? '' : t('become_message')}
-            name="message"
-          />
-          <div className="input-wrap" style={{ marginTop: '15px' }}>
-            <label className="form-label-avatar avatar" htmlFor="image">
-              {t('become_image')}
-            </label>
-            <FileInput
-              onChange={onFileChange}
-              name="image"
-              image={state.image}
-              className="form-control"
+    <>
+      <Head>
+        <title>Become a partner!</title>
+        <meta name="description" content="Become a partner" />
+      </Head>
+      <div className="container">
+        <PageLoader />
+        <div className="become-guide">
+          <form onSubmit={onSubmit} className="become-guide-form">
+            <h2>{t('become_title')}</h2>
+            <TextField
+              name="name"
+              type="text"
+              value={state.name}
+              onChange={onChange}
+              icon={peopleIcon.src}
+              label={t('become_name')}
+              required
             />
-          </div>
-          <button type="submit" className="form-tour-btn">
-            {partnerRequestLoading ? (
-              <ButtonLoader size={18} />
-            ) : (
-              t('become_send')
-            )}
-          </button>
-        </form>
+            <TextField
+              name="number"
+              type="text"
+              value={state.number}
+              onChange={onChange}
+              icon={phoneIcon.src}
+              label={t('become_phone')}
+              required
+            />
+            <TextField
+              name="link"
+              type="text"
+              value={state.link}
+              onChange={onChange}
+              icon={phoneIcon.src}
+              label={t('become_link')}
+            />
+            <textarea
+              className="guide-request-description"
+              value={state.message}
+              onChange={onChange}
+              onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
+              placeholder={focused ? '' : t('become_message')}
+              name="message"
+            />
+            <div className="input-wrap" style={{ marginTop: '15px' }}>
+              <label className="form-label-avatar avatar" htmlFor="image">
+                {t('become_image')}
+              </label>
+              <FileInput
+                onChange={onFileChange}
+                name="image"
+                image={state.image}
+                className="form-control"
+              />
+            </div>
+            <button type="submit" className="form-tour-btn">
+              {partnerRequestLoading ? (
+                <ButtonLoader size={18} />
+              ) : (
+                t('become_send')
+              )}
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

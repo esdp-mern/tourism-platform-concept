@@ -15,6 +15,7 @@ import { wrapper } from '@/store/store';
 import { fetchOnePartner } from '@/containers/partners/partnersThunk';
 import { selectOnePartner } from '@/containers/partners/partnersSlice';
 import PartnerForm from '@/components/Forms/PartnerForm/PartnerForm';
+import Head from 'next/head';
 
 const EditPartner: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -49,15 +50,21 @@ const EditPartner: NextPage<
   }
 
   return (
-    <div className="container sign-up-page">
-      <PageLoader />
-      {editingPartner && (
-        <PartnerForm
-          editingPartner={editingPartner}
-          idPartner={partner?._id!}
-        />
-      )}
-    </div>
+    <>
+      <Head>
+        <title>Edit {partner?.name || ''}</title>
+        <meta name="description" content="Edit partner" />
+      </Head>
+      <div className="container sign-up-page">
+        <PageLoader />
+        {editingPartner && (
+          <PartnerForm
+            editingPartner={editingPartner}
+            idPartner={partner?._id!}
+          />
+        )}
+      </div>
+    </>
   );
 };
 

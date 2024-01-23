@@ -7,6 +7,7 @@ import PageLoader from '@/components/Loaders/PageLoader';
 import EmployeeItem from '@/components/EmployeeItem/EmployeeItem';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 
 const All = () => {
   const user = useAppSelector(selectUser);
@@ -21,19 +22,25 @@ const All = () => {
   }
 
   return (
-    <div>
-      <PageLoader />
-      <div className="fixed-toolbar"></div>
+    <>
+      <Head>
+        <title>Employees - Akim Tourism</title>
+        <meta name="description" content="Employees page" />
+      </Head>
       <div>
-        <div className="container">
-          <div>
-            <div className="employees-admin-page">
-              <EmployeeItem />
+        <PageLoader />
+        <div className="fixed-toolbar"></div>
+        <div>
+          <div className="container">
+            <div>
+              <div className="employees-admin-page">
+                <EmployeeItem />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -13,6 +13,7 @@ import { GetServerSideProps } from 'next';
 import { useTranslations } from 'next-intl';
 import '@/styles/NewsPage.css';
 import '@/styles/adminTours.css';
+import Head from 'next/head';
 
 const AllPartnerOrdersPage = () => {
   const dispatch = useAppDispatch();
@@ -44,43 +45,49 @@ const AllPartnerOrdersPage = () => {
   };
 
   return (
-    <div className="all-tours">
-      <PageLoader />
-      <div>
-        <div className="container">
-          <div className="buttons-admin-tour">
-            {!partnerOrders || partnerOrders.length <= 0 ? (
-              <div className="title-none-tour">{t('noPartnersMessage')}</div>
-            ) : (
-              <div>
-                <div className="tours-admin-page">
-                  {currentRecords.map((orders) => (
-                    <div className="card-news" key={orders._id}>
-                      <PartnerOrderItem
-                        id={orders._id}
-                        name={orders.name}
-                        message={orders.message}
-                        number={orders.number}
-                        link={orders.link}
-                        image={orders.image}
-                      />
-                    </div>
-                  ))}
+    <>
+      <Head>
+        <title>Partner orders - Akim Tourism</title>
+        <meta name="description" content="Partner orders page" />
+      </Head>
+      <div className="all-tours">
+        <PageLoader />
+        <div>
+          <div className="container">
+            <div className="buttons-admin-tour">
+              {!partnerOrders || partnerOrders.length <= 0 ? (
+                <div className="title-none-tour">{t('noPartnersMessage')}</div>
+              ) : (
+                <div>
+                  <div className="tours-admin-page">
+                    {currentRecords.map((orders) => (
+                      <div className="card-news" key={orders._id}>
+                        <PartnerOrderItem
+                          id={orders._id}
+                          name={orders.name}
+                          message={orders.message}
+                          number={orders.number}
+                          link={orders.link}
+                          image={orders.image}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="tours-page-paginate">
+                    <Pagination
+                      pathname={'/admin/partnerOrders/'}
+                      nPages={nPages}
+                      currentPage={currentPage}
+                      onSetCurrentPage={onSetCurrentPage}
+                    />
+                  </div>
                 </div>
-                <div className="tours-page-paginate">
-                  <Pagination
-                    pathname={'/admin/partnerOrders/'}
-                    nPages={nPages}
-                    currentPage={currentPage}
-                    onSetCurrentPage={onSetCurrentPage}
-                  />
-                </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

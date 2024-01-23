@@ -14,6 +14,7 @@ import { selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
 import Custom404 from '@/pages/404';
 import { setIsLightMode } from '@/containers/config/configSlice';
+import Head from 'next/head';
 
 const EditTour: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -33,15 +34,21 @@ const EditTour: NextPage<
     }
   }, [editID, dispatch]);
 
-  if (!user || user.role !== userRoles.admin) {
+  if (!user || user.role !== userRoles.admin || !tour) {
     return <Custom404 errorType="tour" />;
   }
 
   return (
-    <div className="container sign-up-page">
-      <PageLoader />
-      <TourForm isEdit idTour={tour?._id} />
-    </div>
+    <>
+      <Head>
+        <title>Edit - {tour.name} - Akim Tourism</title>
+        <meta name="description" content={tour.description} />
+      </Head>
+      <div className="container sign-up-page">
+        <PageLoader />
+        <TourForm isEdit idTour={tour?._id} />
+      </div>
+    </>
   );
 };
 

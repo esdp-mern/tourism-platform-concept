@@ -4,7 +4,6 @@ import {
   InferGetServerSidePropsType,
   NextPage,
 } from 'next';
-import { wrapper } from '@/store/store';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useParams } from 'next/navigation';
 import { selectOneEmployee } from '@/containers/about/aboutSlice';
@@ -15,6 +14,7 @@ import Custom404 from '@/pages/404';
 import { fetchOneEmployee } from '@/containers/about/aboutThunk';
 import PageLoader from '@/components/Loaders/PageLoader';
 import EmployeeForm from '@/components/Forms/EmployeeForm/EmployeeForm';
+import Head from 'next/head';
 
 const EditTeam: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -50,18 +50,27 @@ const EditTeam: NextPage<
   }
 
   return (
-    <div className="container">
-      <PageLoader />
-      <div className="form-block">
-        {editingEmployee && (
-          <EmployeeForm
-            isEdit
-            existingEmployee={editingEmployee}
-            idEmployee={employee?._id}
-          />
-        )}
+    <>
+      <Head>
+        <title>{'Edit - ' + employee?.name + ' - ' || ''}Akim Tourism</title>
+        <meta
+          name="description"
+          content={'Edit - ' + employee?.name + ' - ' || '' + 'Akim Tourism'}
+        />
+      </Head>
+      <div className="container">
+        <PageLoader />
+        <div className="form-block">
+          {editingEmployee && (
+            <EmployeeForm
+              isEdit
+              existingEmployee={editingEmployee}
+              idEmployee={employee?._id}
+            />
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

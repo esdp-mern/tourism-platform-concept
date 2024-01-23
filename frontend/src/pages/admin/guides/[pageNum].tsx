@@ -13,6 +13,7 @@ import { setIsLightMode } from '@/containers/config/configSlice';
 import { GetServerSideProps } from 'next';
 import '@/styles/adminTours.css';
 import '@/styles/NewsPage.css';
+import Head from 'next/head';
 
 const AllGuidesPage = () => {
   const dispatch = useAppDispatch();
@@ -42,39 +43,45 @@ const AllGuidesPage = () => {
   };
 
   return (
-    <div className="all-tours">
-      <PageLoader />
-      <div className="fixed-toolbar"></div>
+    <>
+      <Head>
+        <title>Guides - Akim Tourism</title>
+        <meta name="description" content="Guides page" />
+      </Head>
+      <div className="all-tours">
+        <PageLoader />
+        <div className="fixed-toolbar"></div>
 
-      <GuideFilter />
-      <div>
-        <div className="container">
-          <div>
-            <div className="guides-admin-page">
-              {currentRecords.map((guide) => (
-                <div className="card-news" key={guide._id}>
-                  <GuideItem
-                    id={guide._id}
-                    name={guide.user.username}
-                    role={guide.user.role}
-                    description={guide.description}
-                    imageUrl={apiUrl + '/' + guide.user.avatar}
-                  />
-                </div>
-              ))}
-            </div>
-            <div className="tours-page-paginate">
-              <Pagination
-                pathname={'/admin/guides/'}
-                nPages={nPages}
-                currentPage={currentPage}
-                onSetCurrentPage={onSetCurrentPage}
-              />
+        <GuideFilter />
+        <div>
+          <div className="container">
+            <div>
+              <div className="guides-admin-page">
+                {currentRecords.map((guide) => (
+                  <div className="card-news" key={guide._id}>
+                    <GuideItem
+                      id={guide._id}
+                      name={guide.user.username}
+                      role={guide.user.role}
+                      description={guide.description}
+                      imageUrl={apiUrl + '/' + guide.user.avatar}
+                    />
+                  </div>
+                ))}
+              </div>
+              <div className="tours-page-paginate">
+                <Pagination
+                  pathname={'/admin/guides/'}
+                  nPages={nPages}
+                  currentPage={currentPage}
+                  onSetCurrentPage={onSetCurrentPage}
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

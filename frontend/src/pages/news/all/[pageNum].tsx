@@ -13,6 +13,7 @@ import { useTranslations } from 'next-intl';
 import { GetServerSideProps } from 'next';
 import '@/styles/NewsPage.css';
 import '@/styles/ToursPage.css';
+import Head from 'next/head';
 
 const AllNewsPage = () => {
   const dispatch = useAppDispatch();
@@ -37,40 +38,46 @@ const AllNewsPage = () => {
   };
 
   return (
-    <div className="news-page">
-      <PageLoader />
-      <div className="news-top">
-        <div className="news-top-bg" />
-        <div className="news-top-info">
-          <h2 className="news-top-title">{t('news_all_news_title')}</h2>
-          <p className="news-top-txt">{t('news_all_news_description')}</p>
-        </div>
-      </div>
-      <div className="container">
-        <div className="news-main">
-          {user && user.role === userRoles.admin ? (
-            <Link href="/news/create" className="news-admin-create">
-              {t('news_all_create_news')}
-            </Link>
-          ) : null}
-          <div className="news-main-inner">
-            {currentRecords.map((news) => (
-              <div className="card-news" key={news._id}>
-                <NewsItem news={news} key={news._id} />
-              </div>
-            ))}
+    <>
+      <Head>
+        <title>All news</title>
+        <meta name="description" content="All news" />
+      </Head>
+      <div className="news-page">
+        <PageLoader />
+        <div className="news-top">
+          <div className="news-top-bg" />
+          <div className="news-top-info">
+            <h2 className="news-top-title">{t('news_all_news_title')}</h2>
+            <p className="news-top-txt">{t('news_all_news_description')}</p>
           </div>
         </div>
-        <div className="news-pagination">
-          <Pagination
-            pathname={'/news/all/'}
-            nPages={nPages}
-            currentPage={currentPage}
-            onSetCurrentPage={onSetCurrentPage}
-          />
+        <div className="container">
+          <div className="news-main">
+            {user && user.role === userRoles.admin ? (
+              <Link href="/news/create" className="news-admin-create">
+                {t('news_all_create_news')}
+              </Link>
+            ) : null}
+            <div className="news-main-inner">
+              {currentRecords.map((news) => (
+                <div className="card-news" key={news._id}>
+                  <NewsItem news={news} key={news._id} />
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="news-pagination">
+            <Pagination
+              pathname={'/news/all/'}
+              nPages={nPages}
+              currentPage={currentPage}
+              onSetCurrentPage={onSetCurrentPage}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -12,6 +12,7 @@ import { setIsLightMode } from '@/containers/config/configSlice';
 import TourFilter from '@/components/Filters/TourFilter';
 import { GetServerSideProps } from 'next';
 import '@/styles/ToursPage.css';
+import Head from 'next/head';
 
 const AllToursPage = () => {
   const dispatch = useAppDispatch();
@@ -41,31 +42,37 @@ const AllToursPage = () => {
   };
 
   return (
-    <div className="all-tours">
-      <PageLoader />
-      <div className="fixed-toolbar"></div>
+    <>
+      <Head>
+        <title>Tours - Akim Tourism</title>
+        <meta name="description" content="All tours - Akim Tourism" />
+      </Head>
+      <div className="all-tours">
+        <PageLoader />
+        <div className="fixed-toolbar"></div>
 
-      <TourFilter />
-      <div className="container">
-        <div>
+        <TourFilter />
+        <div className="container">
           <div>
-            <div className="tours-page">
-              {tours.map((tour) => (
-                <TourItem tour={tour} key={tour._id} />
-              ))}
-            </div>
-            <div className="tours-page-paginate">
-              <Pagination
-                pathname={'/tours/all/'}
-                nPages={nPages}
-                currentPage={currentPage}
-                onSetCurrentPage={onSetCurrentPage}
-              />
+            <div>
+              <div className="tours-page">
+                {tours.map((tour) => (
+                  <TourItem tour={tour} key={tour._id} />
+                ))}
+              </div>
+              <div className="tours-page-paginate">
+                <Pagination
+                  pathname={'/tours/all/'}
+                  nPages={nPages}
+                  currentPage={currentPage}
+                  onSetCurrentPage={onSetCurrentPage}
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
