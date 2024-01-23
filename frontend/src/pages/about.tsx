@@ -23,6 +23,7 @@ import { useTranslations } from 'next-intl';
 import AdminIcon from '@/components/UI/AdminIcon/AdminIcon';
 import '@/styles/about.css';
 import '@/styles/admin-buttons.css';
+import Head from 'next/head';
 
 require(`dayjs/locale/ru`);
 require(`dayjs/locale/en`);
@@ -38,6 +39,7 @@ const About = () => {
   const [sectionName, setSectionName] = useState<string>('');
   const [editBlock, setEditBlock] = useState<IAboutUsBlock | null>(null);
   const t = useTranslations('about');
+  const metaT = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(fetchAboutUs());
@@ -138,182 +140,195 @@ const About = () => {
 
   return (
     about && (
-      <div className="about-page">
-        <PageLoader />
-        {editBlock && (
-          <div
-            className="about-page-edit-modal-backdrop"
-            onClick={() => setEditBlock(null)}
-          ></div>
-        )}
-        {modal}
-        <div className="about-page-top">
-          {about.main.image && (
-            <Image
-              fill
-              className="about-page-img"
-              src={about.main.image}
-              alt="mountains"
-            />
+      <>
+        <Head>
+          <title>{metaT('about')}</title>
+          <meta name="description" content="About us - Akim Tourism" />
+        </Head>
+        <div className="about-page">
+          <PageLoader />
+          {editBlock && (
+            <div
+              className="about-page-edit-modal-backdrop"
+              onClick={() => setEditBlock(null)}
+            ></div>
           )}
-          <div className="about-page-top-info">
-            <div className="about-page-top-line">
+          {modal}
+          <div className="about-page-top">
+            {about.main.image && (
               <Image
                 fill
-                src={'http://localhost:3000' + waveIcon.src}
-                alt="img"
+                className="about-page-img"
+                src={about.main.image}
+                alt="mountains"
               />
+            )}
+            <div className="about-page-top-info">
+              <div className="about-page-top-line">
+                <Image
+                  fill
+                  src={'http://localhost:3000' + waveIcon.src}
+                  alt="img"
+                />
+              </div>
+              <h2 className="about-page-top-title">
+                {about.main.title}
+                {getEditButton('main', about.main)}
+              </h2>
+              <div className="about-page-top-txt">{about.main.description}</div>
             </div>
-            <h2 className="about-page-top-title">
-              {about.main.title}
-              {getEditButton('main', about.main)}
-            </h2>
-            <div className="about-page-top-txt">{about.main.description}</div>
           </div>
-        </div>
-        <div className="about-page-tour">
-          <Fade>
-            <div className="about-page-tours container">
-              <div className="about-page-tours-left">
-                <h3 className="about-page-tours-title">
-                  {about.offer.title}
-                  {getEditButton('offer', about.offer)}
-                </h3>
-                <div className="about-page-tours-txt">
-                  {about.offer.description}
+          <div className="about-page-tour">
+            <Fade>
+              <div className="about-page-tours container">
+                <div className="about-page-tours-left">
+                  <h3 className="about-page-tours-title">
+                    {about.offer.title}
+                    {getEditButton('offer', about.offer)}
+                  </h3>
+                  <div className="about-page-tours-txt">
+                    {about.offer.description}
+                  </div>
+                  <button className="about-page-tours-btn">
+                    {t('bookNow')}
+                  </button>
                 </div>
-                <button className="about-page-tours-btn">{t('bookNow')}</button>
-              </div>
-              <div className="about-page-tours-img-wrap">
-                {about.offer.image && (
-                  <Image
-                    width={450}
-                    height={500}
-                    src={about.offer.image}
-                    alt="coconut"
-                    className="about-page-tours-img"
-                  />
-                )}
-              </div>
-            </div>
-          </Fade>
-        </div>
-        <div className="container">
-          <Fade>
-            <div className="about-page-advantages">
-              {about.posts.map((post, index) => (
-                <div key={post._id} className="about-page-advantages-card">
-                  <Image
-                    width={50}
-                    height={50}
-                    className="about-page-advantages-image"
-                    src={post.image!}
-                    alt="post-img"
-                  />
-                  <h4 className="about-page-advantages-title">
-                    <span>0{index + 1}.</span>
-                    {post.title}
-                  </h4>
-                  <p className="about-page-advantages-txt">
-                    {post.description}
-                  </p>
-                  {getEditButton('posts', post)}
+                <div className="about-page-tours-img-wrap">
+                  {about.offer.image && (
+                    <Image
+                      width={450}
+                      height={500}
+                      src={about.offer.image}
+                      alt="coconut"
+                      className="about-page-tours-img"
+                    />
+                  )}
                 </div>
-              ))}
-            </div>
-          </Fade>
-        </div>
-        <div className="about-page-clients">
+              </div>
+            </Fade>
+          </div>
           <div className="container">
             <Fade>
-              <div className="about-page-clients-main">
-                <h2 className="about-page-clients-title">
-                  {about.review.title}
-                  {getEditButton('review', about.review)}
-                </h2>
-                <div>{about.review.description}</div>
+              <div className="about-page-advantages">
+                {about.posts.map((post, index) => (
+                  <div key={post._id} className="about-page-advantages-card">
+                    <Image
+                      width={50}
+                      height={50}
+                      className="about-page-advantages-image"
+                      src={post.image!}
+                      alt="post-img"
+                    />
+                    <h4 className="about-page-advantages-title">
+                      <span>0{index + 1}.</span>
+                      {post.title}
+                    </h4>
+                    <p className="about-page-advantages-txt">
+                      {post.description}
+                    </p>
+                    {getEditButton('posts', post)}
+                  </div>
+                ))}
               </div>
-              <div className="about-page-clients-cards">
-                {reviews.map((review) => {
-                  if (review) {
-                    const avatar = apiUrl + '/' + review.user.avatar;
+            </Fade>
+          </div>
+          <div className="about-page-clients">
+            <div className="container">
+              <Fade>
+                <div className="about-page-clients-main">
+                  <h2 className="about-page-clients-title">
+                    {about.review.title}
+                    {getEditButton('review', about.review)}
+                  </h2>
+                  <div>{about.review.description}</div>
+                </div>
+                <div className="about-page-clients-cards">
+                  {reviews.map((review) => {
+                    if (review) {
+                      const avatar = apiUrl + '/' + review.user.avatar;
 
-                    return (
-                      <div className="about-page-clients-card" key={review._id}>
-                        <div className="about-page-clients-card-top">
-                          <Image
-                            className="about-page-clients-card-img"
-                            src={avatar}
-                            alt="review-photo"
-                            width={100}
-                            height={100}
-                          />
-                          <h5 className="about-page-clients-card-title">
-                            {review.user.displayName}
-                          </h5>
+                      return (
+                        <div
+                          className="about-page-clients-card"
+                          key={review._id}
+                        >
+                          <div className="about-page-clients-card-top">
+                            <Image
+                              className="about-page-clients-card-img"
+                              src={avatar}
+                              alt="review-photo"
+                              width={100}
+                              height={100}
+                            />
+                            <h5 className="about-page-clients-card-title">
+                              {review.user.displayName}
+                            </h5>
+                          </div>
+                          <div className="about-page-clients-card-txt">
+                            {review.comment}
+                          </div>
+                          <div className="about-page-clients-card-date">
+                            {dayjs(review.date)
+                              .locale(lang === 'kg' ? 'ru' : lang)
+                              .format('MMM DD, YYYY')}
+                          </div>
                         </div>
-                        <div className="about-page-clients-card-txt">
-                          {review.comment}
-                        </div>
-                        <div className="about-page-clients-card-date">
-                          {dayjs(review.date)
-                            .locale(lang === 'kg' ? 'ru' : lang)
-                            .format('MMM DD, YYYY')}
-                        </div>
-                      </div>
-                    );
-                  } else {
-                    return null;
-                  }
-                })}
-              </div>
-            </Fade>
-          </div>
-        </div>
-        <div className="container">
-          <Fade>
-            <div className="about-page-team">
-              <h3 className="about-page-team-title">{t('meetOurTeam')}</h3>
-              <p className="about-page-team-txt">
-                {t('meetOurTeamDescription')}
-              </p>
-              {user && user.role === userRoles.admin && (
-                <Link
-                  href="/employees/create"
-                  className="admin-button admin-button-add"
-                  style={{ width: 'min-content', margin: '0 auto' }}
-                >
-                  <AdminIcon type="add" />
-                  {t('addNewMember')}
-                </Link>
-              )}
-              <EmployeeItem />
+                      );
+                    } else {
+                      return null;
+                    }
+                  })}
+                </div>
+              </Fade>
             </div>
-          </Fade>
-        </div>
-        <div className="about-page-guide">
-          <div className="about-page-guide-wrap container">
-            <Fade>
-              <div className="about-page-guide-text-wrap">
-                <h3 className="about-page-team-title">{t('meetOurGuides')}</h3>
-                <p className="about-page-team-txt">
-                  {t('meetOurGuidesDescription')}
-                </p>
-              </div>
-              <div className="about-page-slider-wrap">
-                <GuideSlider />
-              </div>
-            </Fade>
           </div>
-        </div>
-        <div className="about-page-partners">
           <div className="container">
             <Fade>
-              <PartnerItem />
+              <div className="about-page-team">
+                <h3 className="about-page-team-title">{t('meetOurTeam')}</h3>
+                <p className="about-page-team-txt">
+                  {t('meetOurTeamDescription')}
+                </p>
+                {user && user.role === userRoles.admin && (
+                  <Link
+                    href="/employees/create"
+                    className="admin-button admin-button-add"
+                    style={{ width: 'min-content', margin: '0 auto' }}
+                  >
+                    <AdminIcon type="add" />
+                    {t('addNewMember')}
+                  </Link>
+                )}
+                <EmployeeItem />
+              </div>
             </Fade>
           </div>
+          <div className="about-page-guide">
+            <div className="about-page-guide-wrap container">
+              <Fade>
+                <div className="about-page-guide-text-wrap">
+                  <h3 className="about-page-team-title">
+                    {t('meetOurGuides')}
+                  </h3>
+                  <p className="about-page-team-txt">
+                    {t('meetOurGuidesDescription')}
+                  </p>
+                </div>
+                <div className="about-page-slider-wrap">
+                  <GuideSlider />
+                </div>
+              </Fade>
+            </div>
+          </div>
+          <div className="about-page-partners">
+            <div className="container">
+              <Fade>
+                <PartnerItem />
+              </Fade>
+            </div>
+          </div>
         </div>
-      </div>
+      </>
     )
   );
 };

@@ -13,6 +13,8 @@ import { GetServerSideProps } from 'next';
 import '@/styles/adminTours.css';
 import '@/styles/NewsPage.css';
 import '@/styles/ToursPage.css';
+import Head from 'next/head';
+import { useTranslations } from 'next-intl';
 
 const AllNewsPage = () => {
   const dispatch = useAppDispatch();
@@ -23,6 +25,8 @@ const AllNewsPage = () => {
   const [currentNews, setCurrentNews] = useState<'all' | 'public' | 'unpublic'>(
     'all',
   );
+
+  const t = useTranslations('metaTags');
 
   const indexOfLastRecord = currentPage * newsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - newsPerPage;
@@ -43,76 +47,83 @@ const AllNewsPage = () => {
   };
 
   return (
-    <div className="all-tours">
-      <PageLoader />
-      <div>
-        <div className="container">
-          <div>
-            <div className="buttons-admin-tour">
-              <button
-                className={`btn-admin-fetch-tour btn-admin-all ${
-                  currentNews === 'all' && 'focus'
-                }`}
-                type="button"
-                onClick={async () => {
-                  await dispatch(fetchAdminNews('all'));
-                  setCurrentNews('all');
-                }}
-              >
-                all
-              </button>
-              <button
-                className={`btn-admin-fetch-tour btn-admin-pub ${
-                  currentNews === 'public' && 'focus'
-                }`}
-                type="button"
-                onClick={async () => {
-                  await dispatch(fetchAdminNews());
-                  setCurrentNews('public');
-                }}
-              >
-                published
-              </button>
-              <button
-                className={`btn-admin-fetch-tour btn-admin-non-pub ${
-                  currentNews === 'unpublic' && 'focus'
-                }`}
-                type="button"
-                onClick={async () => {
-                  await dispatch(fetchAdminNews('private'));
-                  setCurrentNews('unpublic');
-                }}
-              >
-                non published
-              </button>
+    <>
+      <Head>
+        <title>{t('news_title')}</title>
+        <meta name="description" content={t('news_desc')} />
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+      <div className="all-tours">
+        <PageLoader />
+        <div>
+          <div className="container">
+            <div>
+              <div className="buttons-admin-tour">
+                <button
+                  className={`btn-admin-fetch-tour btn-admin-all ${
+                    currentNews === 'all' && 'focus'
+                  }`}
+                  type="button"
+                  onClick={async () => {
+                    await dispatch(fetchAdminNews('all'));
+                    setCurrentNews('all');
+                  }}
+                >
+                  all
+                </button>
+                <button
+                  className={`btn-admin-fetch-tour btn-admin-pub ${
+                    currentNews === 'public' && 'focus'
+                  }`}
+                  type="button"
+                  onClick={async () => {
+                    await dispatch(fetchAdminNews());
+                    setCurrentNews('public');
+                  }}
+                >
+                  published
+                </button>
+                <button
+                  className={`btn-admin-fetch-tour btn-admin-non-pub ${
+                    currentNews === 'unpublic' && 'focus'
+                  }`}
+                  type="button"
+                  onClick={async () => {
+                    await dispatch(fetchAdminNews('private'));
+                    setCurrentNews('unpublic');
+                  }}
+                >
+                  non published
+                </button>
+              </div>
+              {!news || news.length <= 0 ? (
+                <div className="title-none-tour">
+                  Unfortunately, there are no {currentNews} news.
+                </div>
+              ) : (
+                <div>
+                  <div className="tours-admin-page">
+                    {currentRecords.map((news) => (
+                      <div className="card-news" key={news._id}>
+                        <NewsItem news={news} key={news._id} />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="tours-page-paginate">
+                    <Pagination
+                      pathname={'/admin/news/'}
+                      nPages={nPages}
+                      currentPage={currentPage}
+                      onSetCurrentPage={onSetCurrentPage}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
-            {!news || news.length <= 0 ? (
-              <div className="title-none-tour">
-                Unfortunately, there are no {currentNews} news.
-              </div>
-            ) : (
-              <div>
-                <div className="tours-admin-page">
-                  {currentRecords.map((news) => (
-                    <div className="card-news" key={news._id}>
-                      <NewsItem news={news} key={news._id} />
-                    </div>
-                  ))}
-                </div>
-                <div className="tours-page-paginate">
-                  <Pagination
-                    pathname={'/admin/news/'}
-                    nPages={nPages}
-                    currentPage={currentPage}
-                    onSetCurrentPage={onSetCurrentPage}
-                  />
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

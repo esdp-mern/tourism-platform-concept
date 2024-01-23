@@ -5,7 +5,6 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
   addAlert,
   clearError,
-  selectRegisterMessage,
   selectSignUpError,
   selectSignUpLoading,
   selectUser,
@@ -33,15 +32,16 @@ const initialState: RegisterMutation = {
 };
 
 const SignUpForm = () => {
+  const error = useSelector(selectSignUpError);
   const router = useRouter();
   const [state, setState] = useState<RegisterMutation>(initialState);
   const dispatch = useAppDispatch();
-  const error = useSelector(selectSignUpError);
   const signUpLoading = useAppSelector(selectSignUpLoading);
   const user = useAppSelector(selectUser);
-  const message = useAppSelector(selectRegisterMessage);
+
   const at = useTranslations('alert');
   const t = useTranslations('sign_up');
+
   useEffect(() => {
     if (user) {
       void router.push('/');
@@ -82,8 +82,14 @@ const SignUpForm = () => {
     try {
       await dispatch(signUp(state)).unwrap();
       await router.push('/');
-      dispatch(addAlert({ message: message.message, type: 'info' }));
-    } catch (e) {
+      dispatch(
+        addAlert({
+          message:
+            'An email with a confirmation link has been sent. Please check your email.',
+          type: 'info',
+        }),
+      );
+    } catch {
       dispatch(addAlert({ message: at('error'), type: 'error' }));
     }
   };

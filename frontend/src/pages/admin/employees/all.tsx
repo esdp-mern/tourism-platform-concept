@@ -7,10 +7,13 @@ import PageLoader from '@/components/Loaders/PageLoader';
 import EmployeeItem from '@/components/EmployeeItem/EmployeeItem';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
+import { useTranslations } from 'next-intl';
 
 const All = () => {
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
+  const t = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -21,19 +24,26 @@ const All = () => {
   }
 
   return (
-    <div>
-      <PageLoader />
-      <div className="fixed-toolbar"></div>
+    <>
+      <Head>
+        <title>{t('employees_title')}</title>
+        <meta name="description" content={t('employees_desc')} />
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
       <div>
-        <div className="container">
-          <div>
-            <div className="employees-admin-page">
-              <EmployeeItem />
+        <PageLoader />
+        <div className="fixed-toolbar"></div>
+        <div>
+          <div className="container">
+            <div>
+              <div className="employees-admin-page">
+                <EmployeeItem />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

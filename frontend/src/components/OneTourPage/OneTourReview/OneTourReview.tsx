@@ -5,42 +5,34 @@ import { useAppSelector } from '@/store/hooks';
 import { selectToursReviews } from '@/containers/reviews/reviewSlice';
 import NewReviewForm from '@/components/NewReviewForm/NewReviewForm';
 import { selectUser } from '@/containers/users/usersSlice';
-import { selectToursRating } from '@/containers/ratings/ratingSlice';
 import { useTranslations } from 'next-intl';
+import { selectOneTour } from '@/containers/tours/toursSlice';
 import '@/styles/OneTourReview.css';
 
 const OneTourReview = () => {
   const toursReviews = useAppSelector(selectToursReviews);
   const user = useAppSelector(selectUser);
-  const toursRatings = useAppSelector(selectToursRating);
+  const tour = useAppSelector(selectOneTour);
   let reviewTotal = '';
   const t = useTranslations('oneTour');
 
-  const calculateAverageRating = () => {
-    if (toursReviews.length === 0) {
-      return 0;
-    }
+  if (!tour) {
+    return;
+  }
 
-    const sum = toursRatings.reduce(
-      (total, rating) => total + rating.rating,
-      0,
-    );
-
-    if (sum / toursRatings.length === 5) {
-      reviewTotal = t('tour_rating_super');
-    } else if (sum / toursRatings.length >= 4) {
-      reviewTotal = t('tour_rating_good');
-    } else if (sum / toursRatings.length >= 3) {
-      reviewTotal = t('tour_rating_normal');
-    } else if (sum / toursRatings.length >= 2) {
-      reviewTotal = t('tour_rating_bad');
-    } else if (sum / toursRatings.length >= 1) {
-      reviewTotal = t('tour_rating_very_bad');
-    } else {
-      reviewTotal = t('tour_not_rated');
-    }
-    return sum / toursRatings.length;
-  };
+  if (tour.rating === 5) {
+    reviewTotal = t('tour_rating_super');
+  } else if (tour.rating >= 4) {
+    reviewTotal = t('tour_rating_good');
+  } else if (tour.rating >= 3) {
+    reviewTotal = t('tour_rating_normal');
+  } else if (tour.rating >= 2) {
+    reviewTotal = t('tour_rating_bad');
+  } else if (tour.rating >= 1) {
+    reviewTotal = t('tour_rating_very_bad');
+  } else {
+    reviewTotal = t('tour_not_rated');
+  }
 
   const calculatePercentageOfMax = (value: number, max: number): number => {
     if (max === 0) {
@@ -51,8 +43,8 @@ const OneTourReview = () => {
     return parseFloat(percentage.toFixed(2));
   };
 
-  let percentage = calculatePercentageOfMax(calculateAverageRating(), 5);
-  if (toursRatings.length === 0) {
+  let percentage = calculatePercentageOfMax(tour.rating, 5);
+  if (tour.rating === 0) {
     percentage = 0;
   }
 
@@ -62,11 +54,7 @@ const OneTourReview = () => {
         <Fade>
           <div className="one-tour-average-wrap">
             <div className="one-tour-average-num">
-              <h5>
-                {toursRatings.length > 0
-                  ? calculateAverageRating().toFixed(1)
-                  : 0}
-              </h5>
+              <h5>{tour.rating}</h5>
               <p>{reviewTotal}</p>
             </div>
             <div className="one-tour-average-progress">

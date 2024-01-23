@@ -1,7 +1,7 @@
 {
   "navbar": {
     "menu": "menu",
-    "contact_us": "Contacts",
+    "contact_us": "Contact Us",
     "news": "News",
     "about_us": "About Us",
     "tours": "Tours",
@@ -133,6 +133,12 @@
     "text": "Oops! That page can't be found"
   },
   "guide": {
+    "rating_super": "Super",
+    "rating_good": "Good",
+    "rating_normal": "Normal",
+    "rating_bad": "Bad",
+    "rating_very_bad": "Very bad",
+    "not_rated": "Not rated",
     "information": "Information",
     "reviews": "Reviews",
     "country": "Country",
@@ -157,7 +163,10 @@
     "create_form_country": "country*",
     "create_form_about": "about guide*",
     "create_form_image": "Image",
-    "create_form_send": "Send"
+    "create_form_send": "Send",
+    "editBtn": "Edit description",
+    "description": "description",
+    "save": "Save"
   },
   "admin": {
     "tours": "Tours",
@@ -210,7 +219,15 @@
     "invalid_field": "Invalid field",
     "required_number": "Number is required",
     "required_name": "NAME or IMAGE must be filled",
-    "sign_in": "You have signed in!"
+    "sign_in": "You have signed in!",
+    "logged": "You have logged out!",
+    "changes_saved": "Changes are saved",
+    "review_send": "Your review is sent!",
+    "delete_guide": "Are you sure you want to delete this guide?",
+    "delete_slider": "Are you sure you want to delete this slider?",
+    "delete_news": "Are you sure you want to delete this news?",
+    "delete_tour": "Are you sure you want to delete this tour?",
+    "publish_tour": "Are you sure you want to publish this tour?"
   },
   "partners": {
     "edit_title": "Save Slider",
@@ -253,6 +270,21 @@
     "editBtn": "Edit",
     "addBtn": "Add new slider"
   },
+  "myProfile": {
+    "title": "My profile",
+    "username": "Username",
+    "email": "Email",
+    "edit": "Edit profile",
+    "orders": "Orders",
+    "name": "Name",
+    "guide": "Guide",
+    "tour": "Tour",
+    "date": "Date",
+    "date_tour": "Date tour",
+    "price": "Price",
+    "status": "Status",
+    "no_orders": "No orders"
+    },
   "contact_us": {
     "banner_form_title": "Edit content",
     "banner_title_field": "Title",
@@ -264,24 +296,91 @@
     "contact_country_field": "Country",
     "contact_address_field": "Address",
     "contact_phone_field": "Phone",
-    "contact_delete": "Delete",
-    "guideOrders": {
-      "createGuide": "Create a guide",
-      "wrongAlert": "Something is wrong!",
-      "guideAddedAlert": "Guide is added",
-      "language": "language*",
-      "addBtn": "Add",
-      "languages": "Languages",
-      "reset": "Reset",
-      "country": "country*",
-      "description": "about guide*",
-      "image": "Image",
-      "sendBtn": "Send",
-      "none": "none"
-    },
-    "orders": {
-      "removeAlert": "Do you want to delete this order?",
-      "message": "Order is removed"
-    }
+    "contact_delete": "delete"
+  },
+  "guideOrders": {
+    "createGuide": "Create a guide",
+    "wrongAlert": "Something is wrong!",
+    "guideAddedAlert": "Guide is added",
+    "language": "language*",
+    "addBtn": "Add",
+    "languages": "Languages",
+    "reset": "Reset",
+    "country": "country*",
+    "description": "about guide*",
+    "image": "Image",
+    "sendBtn": "Send",
+    "none": "none"
+  },
+  "orders": {
+    "removeAlert": "Do you want to delete this order?",
+    "message": "Order is removed"
+  },
+  "employees": {
+    "save_title": "Save Employee'",
+    "create_title": "Create Employee",
+    "name": "Employee name",
+    "number": "Employee number",
+    "role": "Employee role",
+    "image": "Image",
+    "save_btn": "Save employee",
+    "create_btn": "Create employee"
+  },
+  "metaTags": {
+    "all_users_title": "Users",
+    "all_users_desc": "Users page",
+    "employees_title": "Employees",
+    "employees_desc": "Employees page",
+    "guide_orders_title": "Guide orders",
+    "guide_orders_desc": "Guide orders page",
+    "guides_title": "Guides",
+    "guides_desc": "Guides page",
+    "news_title": "News",
+    "news_desc": "News page",
+    "partner_orders_title": "Partner orders",
+    "partner_orders_desc": "Partner orders page",
+    "partners_title": "Partners page",
+    "partners_desc": "Partners",
+    "tours_title": "Tours",
+    "tours_desc": "Tours page",
+    "edit_employee_title": "Edit",
+    "edit_employee_desc": "Edit employee",
+    "create_employee_title": "Create employee",
+    "create_employee_desc": "Create new employee",
+    "guide_order_title": "Guide order",
+    "guide_order_desc": "Guide order page",
+    "guide_title": "Guide",
+    "guide_desc": "Guide page",
+    "become_guide_title": "Become a guide!",
+    "become_guide_desc": "Become a guide form",
+    "create_guide_title": "Create a new guide",
+    "create_guide_desc": "New guide form",
+    "edit_news_title": "Edit news",
+    "edit_news_desc": "Edit news page",
+    "create_news_title": "Create news",
+    "create_news_desc": "Create news page",
+    "orders_title": "Orders",
+    "orders_desc": "Orders page",
+    "edit_partner_title": "Edit",
+    "edit_partner_desc": "Edit partner page",
+    "become_partner_title": "Become a partner!",
+    "become_partner_desc": "Become a partner page",
+    "create_partner_title": "Create a partner",
+    "create_partner_desc": "Create partner page",
+    "edit_slider_title": "Edit",
+    "edit_slider_desc": "Edit slider page",
+    "create_slider_title": "Create a slider",
+    "create_slider_desc": "Create a new slider page",
+    "edit_tour_title": "Edit",
+    "edit_tour_desc": "Edit tour page",
+    "create_tour_title": "Create new tour",
+    "create_tour_desc": "Create tour page",
+    "about": "About us",
+    "admin": "Admin page",
+    "contact_us": "Contact us!",
+    "home": "Home - Akim Tourism",
+    "login": "Login",
+    "profile": "My profile",
+    "register": "Registration"
   }
 }

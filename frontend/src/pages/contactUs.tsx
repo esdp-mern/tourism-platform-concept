@@ -25,8 +25,9 @@ import Image from 'next/image';
 import FileInput from '@/components/UI/FileInput/FileInput';
 import { GetServerSideProps } from 'next';
 import { useTranslations } from 'next-intl';
-import '@/styles/contactUs.css';
+import Head from 'next/head';
 import AdminIcon from '@/components/UI/AdminIcon/AdminIcon';
+import '@/styles/contactUs.css';
 
 const ContactUs = () => {
   const dispatch = useAppDispatch();
@@ -55,6 +56,8 @@ const ContactUs = () => {
   >(null);
   const admin = user && user.role === userRoles.admin;
   const t = useTranslations('contact_us');
+  const a = useTranslations('about');
+  const metaT = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -90,10 +93,10 @@ const ContactUs = () => {
       await dispatch(editContacts(state)).unwrap();
       await dispatch(fetchContacts());
       setEditModalTitle(false);
-      dispatch(addAlert({ message: 'Changes are saved', type: 'info' }));
+      dispatch(addAlert({ message: a('changes_saved'), type: 'info' }));
     } catch (e) {
       if (e instanceof AxiosError) {
-        dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+        dispatch(addAlert({ message: a('error'), type: 'error' }));
       }
     }
   };
@@ -110,10 +113,10 @@ const ContactUs = () => {
 
       await dispatch(fetchContacts());
       setEditModalInfo(false);
-      dispatch(addAlert({ message: 'Changes are saved', type: 'info' }));
+      dispatch(addAlert({ message: a('changes_saved'), type: 'info' }));
     } catch (e) {
       if (e instanceof AxiosError) {
-        dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+        dispatch(addAlert({ message: a('error'), type: 'error' }));
       }
     }
   };
@@ -176,249 +179,264 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="contacts-page">
-      <PageLoader />
-      <div
-        className={`editor-modal ${editModalInfo ? 'editor-modal-open' : ''}`}
-        onClick={(e) => {
-          e.stopPropagation();
-          setEditModalInfo(false);
-          setEditContact({
-            _id: '',
-            country: '',
-            address: '',
-            phone: '',
-          });
-        }}
-      >
-        {selectedCountryIndex !== null && (
+    <>
+      <Head>
+        <title>{metaT('contact_us')}</title>
+        <meta name="description" content="Contact us page" />
+      </Head>
+      <div className="contacts-page">
+        <PageLoader />
+        <div
+          className={`editor-modal ${editModalInfo ? 'editor-modal-open' : ''}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            setEditModalInfo(false);
+            setEditContact({
+              _id: '',
+              country: '',
+              address: '',
+              phone: '',
+            });
+          }}
+        >
+          {selectedCountryIndex !== null && (
+            <div
+              className="editor-modal-inner"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <form onSubmit={onSubmitInfo}>
+                <h2 style={{ margin: '10px 0' }}>
+                  {editContact.country ? t('edit_info') : t('create_info')}
+                </h2>
+                <div className="input-tour-wrap">
+                  <input
+                    type="text"
+                    className="form-tour-control"
+                    style={{ margin: 0 }}
+                    name={`country`}
+                    id={`country`}
+                    value={editContact?.country}
+                    onChange={(event) =>
+                      inputChangeHandlerMassive(event, selectedCountryIndex)
+                    }
+                    required
+                  />
+                  <label htmlFor={`country`} className="form-tour-label">
+                    {t('contact_country_field')}
+                  </label>
+                </div>
+                <div className="input-tour-wrap">
+                  <input
+                    type="text"
+                    className="form-tour-control"
+                    style={{ margin: 0 }}
+                    name={`address`}
+                    id={`address`}
+                    value={editContact?.address}
+                    onChange={(event) =>
+                      inputChangeHandlerMassive(event, selectedCountryIndex)
+                    }
+                    required
+                  />
+                  <label htmlFor={`address`} className="form-tour-label">
+                    {t('contact_address_field')}
+                  </label>
+                </div>
+                <div className="input-tour-wrap">
+                  <input
+                    type="text"
+                    className="form-tour-control"
+                    style={{ margin: 0 }}
+                    name={`phone`}
+                    id={`phone`}
+                    value={editContact?.phone}
+                    onChange={(event) =>
+                      inputChangeHandlerMassive(event, selectedCountryIndex)
+                    }
+                    required
+                  />
+                  <label htmlFor={`phone`} className="form-tour-label">
+                    {t('contact_phone_field')}
+                  </label>
+                </div>
+                <div className="form-contact-buttons">
+                  <button
+                    type="submit"
+                    className="admin-button admin-button-edit"
+                    style={{ margin: 0 }}
+                    name="contacts-title-edit-btn"
+                  >
+                    {editContactsLoading ? (
+                      <ButtonLoader size={18} />
+                    ) : (
+                      t('save')
+                    )}
+                    <AdminIcon type="save" />
+                  </button>
+
+                  {editContact._id && (
+                    <button
+                      type="button"
+                      className="admin-button admin-button-outline admin-button-delete"
+                      onClick={() => {
+                        if (!editContact?._id) return;
+                        void contactDeleteHandler(editContact._id);
+                      }}
+                      name="delete-contact-info"
+                    >
+                      <AdminIcon type="delete" />
+                    </button>
+                  )}
+                </div>
+              </form>
+            </div>
+          )}
+        </div>
+        <div className="contacts-top">
+          <Image
+            fill
+            src={apiUrl + '/' + contacts?.image}
+            alt="nature"
+            className="contacts-main-img"
+          />
+          <div className="contacts-top-info">
+            <div className="contacts-top-line"></div>
+            <p className="contacts-top-title">
+              {contacts && contacts.title ? contacts.title : 'Contact Us'}
+              {admin && (
+                <button
+                  className="icon-container-edit-contacts"
+                  onClick={() => setEditModalTitle(true)}
+                  style={{ background: 'none' }}
+                  name="main"
+                >
+                  <Image
+                    src={penIcon}
+                    alt="Pen Icon"
+                    width={20}
+                    height={20}
+                    className="icon-edit"
+                  />
+                </button>
+              )}
+            </p>
+            {contacts && contacts.description ? (
+              <p className="contacts-top-txt">{contacts.description}</p>
+            ) : null}
+          </div>
+        </div>
+        <div className="contacts-page-location">
+          <div className="container">
+            <div className="contacts-card-main">
+              {contacts &&
+                contacts.contact &&
+                contacts.contact.map((contact, index) => (
+                  <div
+                    className="contacts-card"
+                    key={index}
+                    onClick={() => onClickCountryInfo(contact, index)}
+                  >
+                    {contact.country ? (
+                      <span className="contacts-country">
+                        {contact.country || '-'}
+                      </span>
+                    ) : null}
+                    {contact.address ? (
+                      <span className="contacts-location">
+                        {contact.address || '-'}
+                      </span>
+                    ) : null}
+                    {contact.phone ? (
+                      <span className="contacts-phone">
+                        {contact.phone || '-'}
+                      </span>
+                    ) : null}
+                  </div>
+                ))}
+            </div>
+
+            {admin && (
+              <div
+                className="add-info"
+                onClick={() => {
+                  if (!contactInfo || contactInfo.length <= 0) {
+                    setContactInfo((prevState) => [
+                      ...prevState,
+                      { country: '', address: '', phone: '' },
+                    ]);
+                  } else {
+                    addOneItem();
+                  }
+                  setEditModalInfo(true);
+                }}
+              >
+                +
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div
+          className={`editor-modal ${
+            editModalTitle ? 'editor-modal-open' : ''
+          }`}
+          onClick={(e) => {
+            e.stopPropagation();
+            setEditModalTitle(false);
+          }}
+        >
           <div
             className="editor-modal-inner"
             onClick={(e) => e.stopPropagation()}
           >
-            <form onSubmit={onSubmitInfo}>
-              <h2 style={{ margin: '10px 0' }}>
-                {editContact.country ? t('edit_info') : t('create_info')}
-              </h2>
-              <div className="input-tour-wrap">
-                <input
-                  type="text"
-                  className="form-tour-control"
-                  name={`country`}
-                  id={`country`}
-                  value={editContact?.country}
-                  onChange={(event) =>
-                    inputChangeHandlerMassive(event, selectedCountryIndex)
-                  }
-                  required
-                />
-                <label htmlFor={`country`} className="form-tour-label">
-                  {t('contact_country_field')}
+            <form onSubmit={onSubmit}>
+              <h2>{t('banner_form_title')}</h2>
+              <TextField
+                name="title"
+                type="text"
+                value={state.title}
+                onChange={onChange}
+                icon={peopleIcon.src}
+                label={t('banner_title_field')}
+                required
+              />
+              <TextField
+                name="description"
+                type="text"
+                value={state.description}
+                onChange={onChange}
+                icon={penIcon.src}
+                label={t('banner_title_field')}
+                required
+              />
+              <div
+                className="input-wrap"
+                style={{ marginTop: 20, marginBottom: 0 }}
+              >
+                <label className="form-label-avatar avatar" htmlFor="image">
+                  {t('banner_image_field')}
                 </label>
-              </div>
-              <div className="input-tour-wrap">
-                <input
-                  type="text"
-                  className="form-tour-control"
-                  name={`address`}
-                  id={`address`}
-                  value={editContact?.address}
-                  onChange={(event) =>
-                    inputChangeHandlerMassive(event, selectedCountryIndex)
-                  }
-                  required
+                <FileInput
+                  onChange={changeFileValue}
+                  name="image"
+                  image={state.image}
+                  className="form-control"
                 />
-                <label htmlFor={`address`} className="form-tour-label">
-                  {t('contact_address_field')}
-                </label>
               </div>
-              <div className="input-tour-wrap">
-                <input
-                  type="text"
-                  className="form-tour-control"
-                  name={`phone`}
-                  id={`phone`}
-                  value={editContact?.phone}
-                  onChange={(event) =>
-                    inputChangeHandlerMassive(event, selectedCountryIndex)
-                  }
-                  required
-                />
-                <label htmlFor={`phone`} className="form-tour-label">
-                  {t('contact_phone_field')}
-                </label>
-              </div>
-              <div className="form-contact-buttons">
-                <button
-                  type="submit"
-                  className="admin-button admin-button-edit"
-                  style={{ margin: 0 }}
-                  name="contacts-title-edit-btn"
-                >
-                  {editContactsLoading ? <ButtonLoader size={18} /> : t('save')}
-                  <AdminIcon type="save" />
-                </button>
-
-                {editContact._id && (
-                  <button
-                    type="button"
-                    className="admin-button admin-button-outline admin-button-delete"
-                    onClick={() => {
-                      if (!editContact?._id) return;
-                      void contactDeleteHandler(editContact._id);
-                    }}
-                    name="delete-contact-info"
-                  >
-                    <AdminIcon type="delete" />
-                  </button>
-                )}
-              </div>
+              <button
+                type="submit"
+                className="admin-button admin-button-edit"
+                style={{ width: '100%' }}
+                name="contacts-title-edit-btn"
+              >
+                {editContactsLoading ? <ButtonLoader size={18} /> : t('save')}
+                <AdminIcon type="save" />
+              </button>
             </form>
           </div>
-        )}
-      </div>
-      <div className="contacts-top">
-        <Image
-          fill
-          src={apiUrl + '/' + contacts?.image}
-          alt="nature"
-          className="contacts-main-img"
-        />
-        <div className="contacts-top-info">
-          <div className="contacts-top-line"></div>
-          <p className="contacts-top-title">
-            {contacts && contacts.title ? contacts.title : 'Contact Us'}
-            {admin && (
-              <button
-                className="icon-container-edit-contacts"
-                onClick={() => setEditModalTitle(true)}
-                style={{ background: 'none' }}
-                name="main"
-              >
-                <Image
-                  src={penIcon}
-                  alt="Pen Icon"
-                  width={20}
-                  height={20}
-                  className="icon-edit"
-                />
-              </button>
-            )}
-          </p>
-          {contacts && contacts.description ? (
-            <p className="contacts-top-txt">{contacts.description}</p>
-          ) : null}
         </div>
       </div>
-      <div className="contacts-page-location">
-        <div className="container">
-          <div className="contacts-card-main">
-            {contacts &&
-              contacts.contact &&
-              contacts.contact.map((contact, index) => (
-                <div
-                  className="contacts-card"
-                  key={index}
-                  onClick={() => onClickCountryInfo(contact, index)}
-                >
-                  {contact.country ? (
-                    <span className="contacts-country">
-                      {contact.country || '-'}
-                    </span>
-                  ) : null}
-                  {contact.address ? (
-                    <span className="contacts-location">
-                      {contact.address || '-'}
-                    </span>
-                  ) : null}
-                  {contact.phone ? (
-                    <span className="contacts-phone">
-                      {contact.phone || '-'}
-                    </span>
-                  ) : null}
-                </div>
-              ))}
-          </div>
-
-          {admin && (
-            <div
-              className="add-info"
-              onClick={() => {
-                if (!contactInfo || contactInfo.length <= 0) {
-                  setContactInfo((prevState) => [
-                    ...prevState,
-                    { country: '', address: '', phone: '' },
-                  ]);
-                } else {
-                  addOneItem();
-                }
-                setEditModalInfo(true);
-              }}
-            >
-              +
-            </div>
-          )}
-        </div>
-      </div>
-
-      <div
-        className={`editor-modal ${editModalTitle ? 'editor-modal-open' : ''}`}
-        onClick={(e) => {
-          e.stopPropagation();
-          setEditModalTitle(false);
-        }}
-      >
-        <div
-          className="editor-modal-inner"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <form onSubmit={onSubmit}>
-            <h2>{t('banner_form_title')}</h2>
-            <TextField
-              name="title"
-              type="text"
-              value={state.title}
-              onChange={onChange}
-              icon={peopleIcon.src}
-              label={t('banner_title_field')}
-              required
-            />
-            <TextField
-              name="description"
-              type="text"
-              value={state.description}
-              onChange={onChange}
-              icon={penIcon.src}
-              label={t('banner_title_field')}
-              required
-            />
-            <div
-              className="input-wrap"
-              style={{ marginTop: 20, marginBottom: 0 }}
-            >
-              <label className="form-label-avatar avatar" htmlFor="image">
-                {t('banner_image_field')}
-              </label>
-              <FileInput
-                onChange={changeFileValue}
-                name="image"
-                image={state.image}
-                className="form-control"
-              />
-            </div>
-            <button
-              type="submit"
-              className="admin-button admin-button-edit"
-              style={{ width: '100%' }}
-              name="contacts-title-edit-btn"
-            >
-              {editContactsLoading ? <ButtonLoader size={18} /> : t('save')}
-              <AdminIcon type="save" />
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 

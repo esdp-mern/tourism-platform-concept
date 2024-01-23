@@ -31,6 +31,7 @@ const NewReview: React.FC<IProps> = ({ guideReview }) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const t = useTranslations('guide');
+  const a = useTranslations('alert');
 
   const onRatingClick = (number: number) => {
     setState((prevState) => ({
@@ -70,7 +71,7 @@ const NewReview: React.FC<IProps> = ({ guideReview }) => {
         dispatch(fetchGuideReviews(id));
       }
 
-      dispatch(addAlert({ message: 'Your review is sent!', type: 'info' }));
+      dispatch(addAlert({ message: a('review_send'), type: 'info' }));
       setState({
         comment: '',
         rating: 5,

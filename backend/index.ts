@@ -1,7 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import cookieParser from 'cookie-parser';
 import config from './config';
 import usersRouter from './routers/users';
 import toursRouter from './routers/tours';
@@ -22,6 +21,7 @@ import guideOrderRouter from './routers/guideOrder';
 import partnerOrderRouter from './routers/partnerOrder';
 import statisticsRouter from './routers/statistics';
 import statisticsInfoRouter from './routers/statisticsInfo';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 const port = 8000;

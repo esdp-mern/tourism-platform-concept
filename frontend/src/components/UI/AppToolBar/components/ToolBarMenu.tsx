@@ -27,13 +27,14 @@ const ToolBarMenu: React.FC<IProps> = ({ show, onClick }) => {
   const logoutLoading = useAppSelector(selectLogoutLoading);
   const pathname = usePathname();
   const t = useTranslations('navbar');
+  const a = useTranslations('alert');
 
   const userLogout = async () => {
     try {
       await dispatch(logout());
-      dispatch(addAlert({ message: 'You have logged out!', type: 'info' }));
+      dispatch(addAlert({ message: a('logged'), type: 'info' }));
     } catch (e) {
-      dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+      dispatch(addAlert({ message: a('error'), type: 'error' }));
     }
   };
 
@@ -75,7 +76,7 @@ const ToolBarMenu: React.FC<IProps> = ({ show, onClick }) => {
                 )}
               </button>
               <button
-                className="admin-button admin-button-outline admin-button-mini admin-button-delete"
+                className="admin-button admin-button-mini admin-button-delete"
                 onClick={userLogout}
                 disabled={logoutLoading}
               >

@@ -35,7 +35,7 @@ const EditorModal = () => {
     avatar: null,
   });
   const t = useTranslations('navbar');
-
+  const a = useTranslations('alert');
   useEffect(() => {
     if (!user) return;
     setSate((prevState) => ({
@@ -67,11 +67,11 @@ const EditorModal = () => {
     e.preventDefault();
     try {
       await dispatch(editProfile(state)).unwrap();
-      dispatch(addAlert({ message: 'Changes are saved', type: 'info' }));
+      dispatch(addAlert({ message: a('changes_saved'), type: 'info' }));
       dispatch(setEditorModal());
     } catch (e) {
       if (e instanceof AxiosError) {
-        dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+        dispatch(addAlert({ message: a('error'), type: 'error' }));
       }
     }
   };

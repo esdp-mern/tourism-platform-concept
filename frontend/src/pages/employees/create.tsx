@@ -7,9 +7,12 @@ import { selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
 import Custom404 from '@/pages/404';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
+import { useTranslations } from 'next-intl';
 
 const NewEmployee = () => {
   const dispatch = useAppDispatch();
+  const t = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -22,12 +25,19 @@ const NewEmployee = () => {
   }
 
   return (
-    <div className="container">
-      <PageLoader />
-      <div className="form-block">
-        <EmployeeForm />
+    <>
+      <Head>
+        <title>{t('create_employee_title')}</title>
+        <meta name="description" content={t('create_employee_desc')} />
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+      <div className="container">
+        <PageLoader />
+        <div className="form-block">
+          <EmployeeForm />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

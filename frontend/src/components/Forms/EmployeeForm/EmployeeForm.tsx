@@ -10,6 +10,7 @@ import { addEmployee } from '@/containers/about/aboutSlice';
 import '@/styles/SignInForm.css';
 import '@/styles/admin-buttons.css';
 import AdminIcon from '@/components/UI/AdminIcon/AdminIcon';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   existingEmployee?: IEmployeeMutation;
@@ -32,7 +33,8 @@ const EmployeeForm: React.FC<Props> = ({
   const error = useSelector(selectPostTourError);
   const routers = useRouter();
   const [state, setState] = useState<IEmployeeMutation>(existingEmployee);
-
+  const a = useTranslations('alert');
+  const t = useTranslations('employees');
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setState((prevState) => {
@@ -56,7 +58,7 @@ const EmployeeForm: React.FC<Props> = ({
       }
       routers.push('/admin/employees/all').then((r) => r);
     } catch (e) {
-      alert('Invalid field');
+      alert(a('invalid_field'));
     }
   };
 
@@ -82,7 +84,7 @@ const EmployeeForm: React.FC<Props> = ({
   return (
     <form className="form-employees" onSubmit={submitFormHandler}>
       <h2 className="form-employees-title">
-        {isEdit ? 'Save Employee' : 'Create Employee'}
+        {isEdit ? t('save_title') : t('create_title')}
       </h2>
       <div className="input-wrap">
         <input
@@ -97,7 +99,7 @@ const EmployeeForm: React.FC<Props> = ({
           required
         />
         <label htmlFor="name" className="form-label">
-          Employee name:
+          {t('name')}:
         </label>
         {Boolean(getFieldError('name')) && (
           <span className="error">{getFieldError('name')}</span>
@@ -116,7 +118,7 @@ const EmployeeForm: React.FC<Props> = ({
           required
         />
         <label htmlFor="number" className="form-label">
-          Employee number:
+          {t('number')}:
         </label>
         {Boolean(getFieldError('number')) && (
           <span className="error">{getFieldError('number')}</span>
@@ -135,7 +137,7 @@ const EmployeeForm: React.FC<Props> = ({
           required
         />
         <label htmlFor="role" className="form-label">
-          Employee role:
+          {t('role')}:
         </label>
         {Boolean(getFieldError('role')) && (
           <span className="error">{getFieldError('role')}</span>
@@ -143,7 +145,7 @@ const EmployeeForm: React.FC<Props> = ({
       </div>
       <div className="input-wrap">
         <label className="form-label-avatar avatar" htmlFor="image">
-          Image
+          {t('image')}
         </label>
         <FileInput
           onChange={changeFileValue}
@@ -158,7 +160,7 @@ const EmployeeForm: React.FC<Props> = ({
           className="admin-button admin-button-edit"
           style={{ width: '100%' }}
         >
-          {isEdit ? 'Save employee' : 'Create employee'}
+          {isEdit ? t('save_btn') : t('create_btn')}
           <AdminIcon type="save" />
         </button>
       </div>

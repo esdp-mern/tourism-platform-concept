@@ -91,6 +91,9 @@
   .guide-card-orders__info {
     font-size: 14px;
   }
+  .guide-card {
+    width: 65%;
+  }
 }
 
 @media (max-width: 400px) {

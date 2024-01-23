@@ -16,6 +16,7 @@ import FilesInput from '@/components/UI/FileInput/FilesInput';
 import '@/styles/TourForm.css';
 import '@/styles/admin-buttons.css';
 import AdminIcon from '@/components/UI/AdminIcon/AdminIcon';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   isEdit?: boolean;
@@ -76,6 +77,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
   const [galleryTour, setGalleryTour] = useState<File[]>(
     (tour && tour.galleryTour) || [],
   );
+  const a = useTranslations('alert');
 
   useEffect(() => {
     if (tour) {
@@ -134,7 +136,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
       }
       routers.push('/').then((r) => r);
     } catch (e) {
-      alert('Invalid field');
+      alert(a('invalid_field'));
     }
   };
 

@@ -18,6 +18,7 @@ import { userRoles } from '@/constants';
 import FileInput from '@/components/UI/FileInput/FileInput';
 import { GetServerSideProps } from 'next';
 import { useTranslations } from 'next-intl';
+import Head from 'next/head';
 
 const CreatePartner = () => {
   const initialState = {
@@ -32,6 +33,7 @@ const CreatePartner = () => {
   const [state, setState] = useState<IPartnerMutation>(initialState);
   const t = useTranslations('partners');
   const at = useTranslations('alert');
+  const metaT = useTranslations('metaTags');
   useEffect(() => {
     dispatch(setIsLightMode(true));
   }, [dispatch]);
@@ -77,45 +79,52 @@ const CreatePartner = () => {
   };
 
   return (
-    <div className="container">
-      <PageLoader />
-      <div className="become-guide">
-        <form onSubmit={onSubmit} className="become-guide-form">
-          <h2>{t('become_title2')}</h2>
-          <TextField
-            name="name"
-            type="text"
-            value={state.name!}
-            onChange={onChange}
-            icon={peopleIcon.src}
-            label={t('become_name')}
-            required
-          />
-          <TextField
-            name="link"
-            type="text"
-            value={state.link!}
-            onChange={onChange}
-            icon={phoneIcon.src}
-            label={t('become_link')}
-          />
-          <div className="input-wrap" style={{ marginTop: '15px' }}>
-            <label className="form-label-avatar avatar" htmlFor="image">
-              {t('become_image')}
-            </label>
-            <FileInput
-              onChange={onFileChange}
-              name="image"
-              image={state.image}
-              className="form-control"
+    <>
+      <Head>
+        <title>{metaT('create_partner_title')}</title>
+        <meta name="description" content={metaT('create_partner_desc')} />
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+      <div className="container">
+        <PageLoader />
+        <div className="become-guide">
+          <form onSubmit={onSubmit} className="become-guide-form">
+            <h2>{t('become_title2')}</h2>
+            <TextField
+              name="name"
+              type="text"
+              value={state.name!}
+              onChange={onChange}
+              icon={peopleIcon.src}
+              label={t('become_name')}
+              required
             />
-          </div>
-          <button type="submit" className="form-tour-btn">
-            {postLoading ? <ButtonLoader size={18} /> : t('become_send')}
-          </button>
-        </form>
+            <TextField
+              name="link"
+              type="text"
+              value={state.link!}
+              onChange={onChange}
+              icon={phoneIcon.src}
+              label={t('become_link')}
+            />
+            <div className="input-wrap" style={{ marginTop: '15px' }}>
+              <label className="form-label-avatar avatar" htmlFor="image">
+                {t('become_image')}
+              </label>
+              <FileInput
+                onChange={onFileChange}
+                name="image"
+                image={state.image}
+                className="form-control"
+              />
+            </div>
+            <button type="submit" className="form-tour-btn">
+              {postLoading ? <ButtonLoader size={18} /> : t('become_send')}
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
