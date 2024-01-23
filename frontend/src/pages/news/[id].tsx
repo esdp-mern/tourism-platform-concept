@@ -72,8 +72,8 @@ const OneNews: NextPage<
   return (
     <>
       <Head>
-        <title>{news.title}</title>
-        <meta name="description" content={news.description} />
+        <title>{oneNews.title}</title>
+        <meta name="description" content={oneNews.description} />
       </Head>
       <div className="one-news-page">
         <PageLoader />

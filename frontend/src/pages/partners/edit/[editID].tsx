@@ -11,11 +11,11 @@ import { setIsLightMode } from '@/containers/config/configSlice';
 import { userRoles } from '@/constants';
 import Custom404 from '@/pages/404';
 import PageLoader from '@/components/Loaders/PageLoader';
-import { wrapper } from '@/store/store';
 import { fetchOnePartner } from '@/containers/partners/partnersThunk';
 import { selectOnePartner } from '@/containers/partners/partnersSlice';
 import PartnerForm from '@/components/Forms/PartnerForm/PartnerForm';
 import Head from 'next/head';
+import { useTranslations } from 'next-intl';
 
 const EditPartner: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -25,6 +25,7 @@ const EditPartner: NextPage<
   const { editID } = useParams() as {
     editID: string;
   };
+  const metaT = useTranslations('metaTags');
 
   const user = useAppSelector(selectUser);
 
@@ -52,8 +53,11 @@ const EditPartner: NextPage<
   return (
     <>
       <Head>
-        <title>Edit {partner?.name || ''}</title>
-        <meta name="description" content="Edit partner" />
+        <title>
+          {metaT('edit_partner_title')} {partner?.name}
+        </title>
+        <meta name="description" content={metaT('edit_partner_desc')} />
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className="container sign-up-page">
         <PageLoader />

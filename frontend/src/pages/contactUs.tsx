@@ -56,6 +56,7 @@ const ContactUs = () => {
   const admin = user && user.role === userRoles.admin;
   const t = useTranslations('contact_us');
   const a = useTranslations('about');
+  const metaT = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -179,7 +180,7 @@ const ContactUs = () => {
   return (
     <>
       <Head>
-        <title>Contact us</title>
+        <title>{metaT('contact_us')}</title>
         <meta name="description" content="Contact us page" />
       </Head>
       <div className="contacts-page">

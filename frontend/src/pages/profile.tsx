@@ -22,6 +22,7 @@ const Profile = () => {
   const user: User = useAppSelector(selectUser);
   const router = useRouter();
   const t = useTranslations('myProfile');
+  const metaT = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(setIsLightMode(false));
@@ -51,8 +52,9 @@ const Profile = () => {
   return (
     <>
       <Head>
-        <title>My profile - Akim Tourism</title>
+        <title>{metaT('profile')}</title>
         <meta name="description" content="Your personal data here!" />
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div>
         <PageLoader />

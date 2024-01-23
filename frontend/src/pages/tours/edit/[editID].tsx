@@ -15,6 +15,7 @@ import { userRoles } from '@/constants';
 import Custom404 from '@/pages/404';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import Head from 'next/head';
+import { useTranslations } from 'next-intl';
 
 const EditTour: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -24,8 +25,8 @@ const EditTour: NextPage<
   const { editID } = useParams() as {
     editID: string;
   };
-
   const user = useAppSelector(selectUser);
+  const metaT = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -41,8 +42,11 @@ const EditTour: NextPage<
   return (
     <>
       <Head>
-        <title>Edit - {tour.name} - Akim Tourism</title>
+        <title>
+          {metaT('edit_tour_title')} - {tour.name}
+        </title>
         <meta name="description" content={tour.description} />
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className="container sign-up-page">
         <PageLoader />

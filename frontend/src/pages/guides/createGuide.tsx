@@ -47,6 +47,7 @@ const CreateGuide = () => {
   const [userFieldClassName, setUserFieldClassName] = useState('');
   const [currentLanguage, setCurrentLanguage] = useState('');
   const t = useTranslations('guide');
+  const metaT = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -110,8 +111,9 @@ const CreateGuide = () => {
   return (
     <>
       <Head>
-        <title>Create a new guide</title>
-        <meta name="description" content="Create a new guide" />
+        <title>{metaT('create_guide_title')}</title>
+        <meta name="description" content={metaT('create_guide_desc')} />
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className="container">
         <PageLoader />

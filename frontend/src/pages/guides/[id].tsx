@@ -36,6 +36,7 @@ const OneGuidePage = () => {
   };
   const [currentTab, setCurrentTab] = useState<string>('information');
   const t = useTranslations('guide');
+  const metaT = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(setIsLightMode(false));
@@ -56,9 +57,9 @@ const OneGuidePage = () => {
     <>
       <Head>
         <title>
-          Guide {'- ' + guide.user.displayName || ''} - Akim Tourism
+          {metaT('guide_title')} - {guide.user.displayName}
         </title>
-        <meta name="description" content="Partners page" />
+        <meta name="description" content={metaT('guide_desc')} />
       </Head>
       <div>
         <PageLoader />

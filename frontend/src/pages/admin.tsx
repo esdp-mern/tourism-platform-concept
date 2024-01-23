@@ -18,7 +18,9 @@ const Admin = () => {
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const state = useAppSelector(selectAdminStats);
+  const router = useRouter();
   const t = useTranslations('admin');
+  const metaT = useTranslations('metaTags');
 
   useEffect(() => {
     document.addEventListener('DOMContentLoaded', () => {
@@ -29,11 +31,17 @@ const Admin = () => {
     dispatch(setIsLightMode(true));
     dispatch(fetchStatsAdmin());
   }, [dispatch, routers, user]);
+
+  if (router.isFallback) {
+    return <></>;
+  }
+
   return (
     <>
       <Head>
-        <title>Admin - Akim Tourism</title>
+        <title>{metaT('admin')}</title>
         <meta name="description" content="Admin - Akim Tourism" />
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <PageLoader />
       <div className="fixed-toolbar"></div>

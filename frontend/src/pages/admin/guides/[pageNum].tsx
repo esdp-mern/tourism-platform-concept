@@ -14,6 +14,7 @@ import { GetServerSideProps } from 'next';
 import '@/styles/adminTours.css';
 import '@/styles/NewsPage.css';
 import Head from 'next/head';
+import { useTranslations } from 'next-intl';
 
 const AllGuidesPage = () => {
   const dispatch = useAppDispatch();
@@ -21,11 +22,11 @@ const AllGuidesPage = () => {
   const user = useAppSelector(selectUser);
   const [guidesPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
-
   const indexOfLastRecord = currentPage * guidesPerPage;
   const indexOfFirstRecord = indexOfLastRecord - guidesPerPage;
   const currentRecords = guides.slice(indexOfFirstRecord, indexOfLastRecord);
   const nPages = Math.ceil(guides.length / guidesPerPage);
+  const t = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -45,8 +46,9 @@ const AllGuidesPage = () => {
   return (
     <>
       <Head>
-        <title>Guides - Akim Tourism</title>
-        <meta name="description" content="Guides page" />
+        <title>{t('guides_title')}</title>
+        <meta name="description" content={t('guides_desc')} />
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className="all-tours">
         <PageLoader />

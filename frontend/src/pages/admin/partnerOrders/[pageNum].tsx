@@ -22,6 +22,7 @@ const AllPartnerOrdersPage = () => {
   const [ordersPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
   const t = useTranslations('partnerOrders');
+  const metaT = useTranslations('metaTags');
 
   const indexOfLastRecord = currentPage * ordersPerPage;
   const indexOfFirstRecord = indexOfLastRecord - ordersPerPage;
@@ -47,8 +48,8 @@ const AllPartnerOrdersPage = () => {
   return (
     <>
       <Head>
-        <title>Partner orders - Akim Tourism</title>
-        <meta name="description" content="Partner orders page" />
+        <title>{metaT('partner_orders_title')}</title>
+        <meta name="description" content={metaT('partner_orders_desc')} />
       </Head>
       <div className="all-tours">
         <PageLoader />

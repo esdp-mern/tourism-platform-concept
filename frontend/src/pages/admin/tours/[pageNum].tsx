@@ -16,6 +16,7 @@ import { GetServerSideProps } from 'next';
 import '@/styles/adminTours.css';
 import '@/styles/ToursPage.css';
 import Head from 'next/head';
+import { useTranslations } from 'next-intl';
 
 const AllToursPage = () => {
   const dispatch = useAppDispatch();
@@ -27,6 +28,7 @@ const AllToursPage = () => {
   const [currentTours, setCurrentTours] = useState<
     'all' | 'published' | 'nonPublished'
   >('all');
+  const t = useTranslations('metaTags');
 
   const indexOfLastRecord = currentPage * toursPerPage;
   const indexOfFirstRecord = indexOfLastRecord - toursPerPage;
@@ -78,8 +80,11 @@ const AllToursPage = () => {
   return (
     <>
       <Head>
-        <title>Tours - Page {currentPage} - Akim Tourism</title>
-        <meta name="description" content="Admin tours page" />
+        <title>
+          {t('tours_title')} {currentPage}
+        </title>
+        <meta name="description" content={t('tours_desc')} />
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className="all-tours">
         <PageLoader />

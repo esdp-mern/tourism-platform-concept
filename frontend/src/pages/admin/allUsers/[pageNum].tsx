@@ -12,6 +12,7 @@ import Image from 'next/image';
 import { GetServerSideProps } from 'next';
 import '@/styles/allUsers.css';
 import Head from 'next/head';
+import { useTranslations } from 'next-intl';
 
 const PageNum = () => {
   const dispatch = useAppDispatch();
@@ -25,6 +26,7 @@ const PageNum = () => {
   const indexOfFirstRecord = indexOfLastRecord - usersPerPage;
   const currentRecords = users.slice(indexOfFirstRecord, indexOfLastRecord);
   const nPages = Math.ceil(users.length / usersPerPage);
+  const t = useTranslations('metaTags');
 
   useEffect(() => {
     document.addEventListener('click', () => setSelectedCardId(''));
@@ -46,8 +48,11 @@ const PageNum = () => {
   return (
     <>
       <Head>
-        <title>Users - Page {currentPage} - Akim Tourism</title>
-        <meta name="description" content="Users page" />
+        <title>
+          {t('all_users_title')} {currentPage}
+        </title>
+        <meta name="description" content={t('all_users_title')} />
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className="container">
         <PageLoader />

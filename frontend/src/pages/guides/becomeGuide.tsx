@@ -37,6 +37,7 @@ const BecomeGuide = () => {
   const [focused, setFocused] = useState(false);
   const at = useTranslations('alert');
   const t = useTranslations('guide');
+  const metaT = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -77,8 +78,8 @@ const BecomeGuide = () => {
   return (
     <>
       <Head>
-        <title>Become a guide!</title>
-        <meta name="description" content="Become a guide!" />
+        <title>{metaT('become_guide_title')}</title>
+        <meta name="description" content={metaT('become_guide_desc')} />
       </Head>
       <div className="container">
         <PageLoader />

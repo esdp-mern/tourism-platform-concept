@@ -15,6 +15,7 @@ import { fetchOneEmployee } from '@/containers/about/aboutThunk';
 import PageLoader from '@/components/Loaders/PageLoader';
 import EmployeeForm from '@/components/Forms/EmployeeForm/EmployeeForm';
 import Head from 'next/head';
+import { useTranslations } from 'next-intl';
 
 const EditTeam: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -24,8 +25,8 @@ const EditTeam: NextPage<
   const { editID } = useParams() as {
     editID: string;
   };
-
   const user = useAppSelector(selectUser);
+  const t = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -52,11 +53,11 @@ const EditTeam: NextPage<
   return (
     <>
       <Head>
-        <title>{'Edit - ' + employee?.name + ' - ' || ''}Akim Tourism</title>
-        <meta
-          name="description"
-          content={'Edit - ' + employee?.name + ' - ' || '' + 'Akim Tourism'}
-        />
+        <title>
+          {t('edit_employee_title')} - {employee?.name}
+        </title>
+        <meta name="description" content={t('edit_employee_desc')} />
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className="container">
         <PageLoader />

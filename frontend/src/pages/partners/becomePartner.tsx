@@ -34,6 +34,7 @@ const BecomePartner = () => {
   const [focused, setFocused] = useState(false);
   const t = useTranslations('partners');
   const at = useTranslations('alert');
+  const metaT = useTranslations('metaTags');
   useEffect(() => {
     dispatch(setIsLightMode(true));
   }, [dispatch]);
@@ -92,8 +93,8 @@ const BecomePartner = () => {
   return (
     <>
       <Head>
-        <title>Become a partner!</title>
-        <meta name="description" content="Become a partner" />
+        <title>{metaT('become_partner_title')}</title>
+        <meta name="description" content={metaT('become_partner_desc')} />
       </Head>
       <div className="container">
         <PageLoader />

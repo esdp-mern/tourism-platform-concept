@@ -33,6 +33,7 @@ const CreatePartner = () => {
   const [state, setState] = useState<IPartnerMutation>(initialState);
   const t = useTranslations('partners');
   const at = useTranslations('alert');
+  const metaT = useTranslations('metaTags');
   useEffect(() => {
     dispatch(setIsLightMode(true));
   }, [dispatch]);
@@ -80,8 +81,9 @@ const CreatePartner = () => {
   return (
     <>
       <Head>
-        <title>Create a new partner</title>
-        <meta name="description" content="Create a new partner" />
+        <title>{metaT('create_partner_title')}</title>
+        <meta name="description" content={metaT('create_partner_desc')} />
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className="container">
         <PageLoader />

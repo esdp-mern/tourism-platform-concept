@@ -22,6 +22,7 @@ const AllNewsPage = () => {
   const [newsPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
   const t = useTranslations('news');
+  const metaT = useTranslations('metaTags');
 
   const indexOfLastRecord = currentPage * newsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - newsPerPage;
@@ -40,8 +41,10 @@ const AllNewsPage = () => {
   return (
     <>
       <Head>
-        <title>All news</title>
-        <meta name="description" content="All news" />
+        <title>
+          {metaT('news_title')} - {currentPage}
+        </title>
+        <meta name="description" content={metaT('news_title')} />
       </Head>
       <div className="news-page">
         <PageLoader />

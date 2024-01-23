@@ -37,6 +37,7 @@ const About = () => {
   const [sectionName, setSectionName] = useState<string>('');
   const [editBlock, setEditBlock] = useState<IAboutUsBlock | null>(null);
   const t = useTranslations('about');
+  const metaT = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(fetchAboutUs());
@@ -139,7 +140,7 @@ const About = () => {
     about && (
       <>
         <Head>
-          <title>About us - Akim Tourism</title>
+          <title>{metaT('about')}</title>
           <meta name="description" content="About us - Akim Tourism" />
         </Head>
         <div className="about-page">

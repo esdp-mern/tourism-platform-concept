@@ -4,7 +4,6 @@ import {
   InferGetServerSidePropsType,
   NextPage,
 } from 'next';
-import { wrapper } from '@/store/store';
 import { fetchOneSlider } from '@/containers/slider/sliderThunk';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useParams } from 'next/navigation';
@@ -19,6 +18,7 @@ import {
 import PageLoader from '@/components/Loaders/PageLoader';
 import MainSliderForm from '@/components/Forms/MainSliderForm/MainSliderForm';
 import Head from 'next/head';
+import { useTranslations } from 'next-intl';
 
 const EditSlider: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -28,8 +28,8 @@ const EditSlider: NextPage<
   const { editID } = useParams() as {
     editID: string;
   };
-
   const user = useAppSelector(selectUser);
+  const metaT = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -54,8 +54,11 @@ const EditSlider: NextPage<
   return (
     <>
       <Head>
-        <title>Edit {slider?.country || ''}</title>
-        <meta name="description" content="Edit countries slider" />
+        <title>
+          {metaT('edit_slider_title')} - {slider?.country}
+        </title>
+        <meta name="description" content={metaT('edit_slider_desc')} />
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className="container">
         <PageLoader />

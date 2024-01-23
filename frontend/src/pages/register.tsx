@@ -4,9 +4,11 @@ import { setIsLightMode } from '@/containers/config/configSlice';
 import { useAppDispatch } from '@/store/hooks';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
+import { useTranslations } from 'next-intl';
 
 const Register = () => {
   const dispatch = useAppDispatch();
+  const metaT = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -15,7 +17,7 @@ const Register = () => {
   return (
     <>
       <Head>
-        <title>Sign</title>
+        <title>{metaT('register')}</title>
         <meta name="description" content="Sign" />
       </Head>
       <div>

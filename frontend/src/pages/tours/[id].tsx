@@ -91,7 +91,7 @@ const TourPage: NextPage<
   return (
     <>
       <Head>
-        <title>{tour.name} - Akim Tourism</title>
+        <title>{tour.name}</title>
         <meta name="description" content={tour.description} />
       </Head>
       <div className="one-tour" onClick={() => closeNav()}>

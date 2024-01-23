@@ -14,6 +14,7 @@ import '@/styles/adminTours.css';
 import '@/styles/NewsPage.css';
 import '@/styles/ToursPage.css';
 import Head from 'next/head';
+import { useTranslations } from 'next-intl';
 
 const AllNewsPage = () => {
   const dispatch = useAppDispatch();
@@ -24,6 +25,7 @@ const AllNewsPage = () => {
   const [currentNews, setCurrentNews] = useState<
     'all' | 'published' | 'nonPublished'
   >('all');
+  const t = useTranslations('metaTags');
 
   const indexOfLastRecord = currentPage * newsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - newsPerPage;
@@ -62,8 +64,9 @@ const AllNewsPage = () => {
   return (
     <>
       <Head>
-        <title>News - Akim Tourism</title>
-        <meta name="description" content="News page" />
+        <title>{t('news_title')}</title>
+        <meta name="description" content={t('news_desc')} />
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className="all-tours">
         <PageLoader />

@@ -13,19 +13,18 @@ import TourFilter from '@/components/Filters/TourFilter';
 import { GetServerSideProps } from 'next';
 import '@/styles/ToursPage.css';
 import Head from 'next/head';
+import { useTranslations } from 'next-intl';
 
 const AllToursPage = () => {
   const dispatch = useAppDispatch();
   const tours = useAppSelector(selectAllTours);
   const allToursLength = useAppSelector(selectAllToursLength);
-
   const [currentPage, setCurrentPage] = useState(1);
-
   const toursPerPage = 6;
-
   const indexOfLastRecord = currentPage * toursPerPage;
   const indexOfFirstRecord = indexOfLastRecord - toursPerPage;
   const nPages = Math.ceil(allToursLength / toursPerPage);
+  const metaT = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -44,8 +43,8 @@ const AllToursPage = () => {
   return (
     <>
       <Head>
-        <title>Tours - Akim Tourism</title>
-        <meta name="description" content="All tours - Akim Tourism" />
+        <title>{metaT('tours_title')}</title>
+        <meta name="description" content={metaT('tours_desc')} />
       </Head>
       <div className="all-tours">
         <PageLoader />

@@ -31,6 +31,7 @@ const AllOrders = () => {
   const router = useRouter();
   const t = useTranslations('admin');
   const tr = useTranslations('orders');
+  const metaT = useTranslations('metaTags');
   const bookedOrders = orders.filter((order) => order.status === 'booked');
   const underConsiderOrders = orders.filter(
     (order) => order.status === 'being considered',
@@ -66,7 +67,7 @@ const AllOrders = () => {
     return () => {
       clearInterval(interval);
     };
-    // Do NOT add "orders" as dependency, otherwise code recursion starts!
+    // Do NOT add "orders" as dependency, otherwise recursion starts!
   }, [dispatch, user, router]);
 
   const onDelete = async (id: string) => {
@@ -114,8 +115,9 @@ const AllOrders = () => {
   return (
     <>
       <Head>
-        <title>Tour orders</title>
-        <meta name="description" content="Tour orders" />
+        <title>{metaT('orders_title')}</title>
+        <meta name="description" content={metaT('orders_title')} />
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className="container" onClick={() => dragStartHandler('', '')}>
         <PageLoader />

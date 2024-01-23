@@ -42,9 +42,7 @@ const CreateGuide: NextPage<
   const { id } = useParams() as {
     id: string;
   };
-
   const order = useAppSelector(selectOneGuideOrder);
-
   const userId = order?.user?._id || '';
   const initialState = {
     user: userId,
@@ -61,6 +59,7 @@ const CreateGuide: NextPage<
   const [currentLanguage, setCurrentLanguage] = useState('');
   const [state, setState] = useState<ICreateGuideMutation>(initialState);
   const t = useTranslations('guideOrders');
+  const metaT = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -123,8 +122,11 @@ const CreateGuide: NextPage<
   return (
     <>
       <Head>
-        <title>Guide order {'- ' + order?.name || ''} - Akim Tourism</title>
-        <meta name="description" content="New employee - Akim Tourism" />
+        <title>
+          {metaT('guide_order_title')} - {order?.name}
+        </title>
+        <meta name="description" content={metaT('guide_order_desc')} />
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className="container">
         <PageLoader />

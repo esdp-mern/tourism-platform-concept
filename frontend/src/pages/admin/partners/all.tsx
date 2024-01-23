@@ -19,6 +19,7 @@ const Partners = () => {
   const partners = useAppSelector(selectAllPartners);
   const user = useAppSelector(selectUser);
   const t = useTranslations('partnerOrders');
+  const metaT = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -42,8 +43,9 @@ const Partners = () => {
   return (
     <>
       <Head>
-        <title>Partners - Akim Tourism</title>
-        <meta name="description" content="Partners page" />
+        <title>{metaT('partners_title')}</title>
+        <meta name="description" content={metaT('partners_desc')} />
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className="all-tours">
         <PageLoader />

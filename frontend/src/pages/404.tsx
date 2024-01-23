@@ -26,7 +26,7 @@ export default function Custom404({
   return (
     <>
       <Head>
-        <title>Not found</title>
+        <title>{t('title')}</title>
         <meta name="description" content="Page is not found" />
       </Head>
       <div className="page-error">
