@@ -21,7 +21,6 @@ import OneTourOrderForm from '@/components/OneTourOrderForm/OneTourOrderForm';
 import PageLoader from '@/components/Loaders/PageLoader';
 import { fetchToursReviews } from '@/containers/reviews/reviewThunk';
 import Custom404 from '@/pages/404';
-import { fetchTourRating } from '@/containers/ratings/ratingThunk';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import GoogleMap from '@/components/GoogleMap/GoogleMap';
 import { useTranslations } from 'next-intl';
@@ -59,7 +58,6 @@ const TourPage: NextPage<
     dispatch(setIsLightMode(false));
     dispatch(fetchTour(id));
     dispatch(fetchToursReviews(id));
-    dispatch(fetchTourRating(id));
   }, [dispatch, postReviewError, id]);
 
   if (!tour) return <Custom404 errorType="tour" />;
