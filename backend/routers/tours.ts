@@ -312,6 +312,7 @@ toursRouter.get('/:id', async (req, res) => {
       galleryTour: tour.galleryTour,
       isPublished: tour.isPublished,
       routes: tour.routes,
+      rating: tour.rating,
     };
     return res.send(tourReviews);
   } catch (e) {

@@ -23,7 +23,7 @@ const UserSchema = new mongoose.Schema({
         this: HydratedDocument<IUser>,
         username: string,
       ): Promise<boolean> {
-        if (!this.isModified('username')) return true;
+        if (!this.isModified('email')) return true;
         const user: HydratedDocument<IUser> | null = await User.findOne({
           username,
         });
@@ -44,6 +44,19 @@ const UserSchema = new mongoose.Schema({
     type: String,
     unique: true,
     required: true,
+    validate: {
+      validator: async function (
+        this: HydratedDocument<IUser>,
+        email: string,
+      ): Promise<boolean> {
+        if (!this.isModified('email')) return true;
+        const user: HydratedDocument<IUser> | null = await User.findOne({
+          email,
+        });
+        return !user;
+      },
+      message: 'User with this email already exists',
+    },
   },
   role: {
     type: String,

@@ -92,6 +92,7 @@ export const usersSlice = createSlice({
     builder.addCase(signUp.pending, (state) => {
       state.registerLoading = true;
       state.signUpError = null;
+      state.registerMessage = null;
     });
     builder.addCase(signUp.fulfilled, (state, { payload: message }) => {
       state.registerLoading = false;

@@ -56,6 +56,7 @@ const run = async () => {
       role: 'guid',
       avatar: 'fixtures/mordecai.png',
       token: crypto.randomUUID(),
+      verified: true,
     },
     {
       username: 'guide2',
@@ -65,6 +66,7 @@ const run = async () => {
       role: 'guid',
       avatar: 'fixtures/gumball.jpg',
       token: crypto.randomUUID(),
+      verified: true,
     },
     {
       username: 'guide3',
@@ -74,6 +76,7 @@ const run = async () => {
       role: 'guid',
       avatar: 'fixtures/kuroro.jpeg',
       token: crypto.randomUUID(),
+      verified: true,
     },
     {
       username: 'user',
@@ -83,6 +86,7 @@ const run = async () => {
       role: 'user',
       avatar: 'fixtures/midjourney.webp',
       token: crypto.randomUUID(),
+      verified: true,
     },
     {
       username: 'admin',
@@ -92,6 +96,7 @@ const run = async () => {
       role: 'admin',
       avatar: 'fixtures/admin.png',
       token: crypto.randomUUID(),
+      verified: true,
     },
     {
       username: 'moderator',
@@ -101,6 +106,7 @@ const run = async () => {
       role: 'moderator',
       avatar: 'fixtures/moderator.jpg',
       token: crypto.randomUUID(),
+      verified: true,
     },
   );
 

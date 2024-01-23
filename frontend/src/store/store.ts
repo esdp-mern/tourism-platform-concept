@@ -26,11 +26,11 @@ import { statsAdminSlice } from '@/containers/statistics/statisticsSlice';
 import { partnersSlice } from '@/containers/partners/partnersSlice';
 // @ts-expect-error
 import { CookieStorage } from 'redux-persist-cookie-storage';
-import Cookies from 'js-cookie';
+import Cookies from 'cookies-js';
 
 const usersPersistConfig = {
   key: 'tourism-platform-concept',
-  storage: new CookieStorage(Cookies),
+  storage: new CookieStorage(Cookies, { keyPrefix: '' }),
   whitelist: ['user', 'lang'],
 };
 
