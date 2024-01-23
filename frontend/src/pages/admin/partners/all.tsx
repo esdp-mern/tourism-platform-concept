@@ -12,12 +12,14 @@ import { selectUser } from '@/containers/users/usersSlice';
 import Image from 'next/image';
 import { GetServerSideProps } from 'next';
 import { useTranslations } from 'next-intl';
+import Head from 'next/head';
 
 const Partners = () => {
   const dispatch = useAppDispatch();
   const partners = useAppSelector(selectAllPartners);
   const user = useAppSelector(selectUser);
   const t = useTranslations('partnerOrders');
+  const metaT = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -39,78 +41,88 @@ const Partners = () => {
   };
 
   return (
-    <div className="all-tours">
-      <PageLoader />
-      <div>
-        <div className="container">
-          <div style={{ margin: '100px auto' }}>
-            <div className="about-page-partners-cards">
-              {partners.map((partner) =>
-                partner.link ? (
-                  <div key={partner._id} className="partners-admin-card">
-                    <div className="about-page-partners-card">
-                      {partner.image || (partner.image && partner.name) ? (
-                        <Image
-                          width={200}
-                          height={200}
-                          src={apiUrl + '/' + partner.image}
-                          alt={partner._id}
-                        />
-                      ) : (
-                        partner.name
-                      )}
+    <>
+      <Head>
+        <title>{metaT('partners_title')}</title>
+        <meta name="description" content={metaT('partners_desc')} />
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+      <div className="all-tours">
+        <PageLoader />
+        <div>
+          <div className="container">
+            <div style={{ margin: '100px auto' }}>
+              <div className="about-page-partners-cards">
+                {partners.map((partner) =>
+                  partner.link ? (
+                    <div key={partner._id} className="partners-admin-card">
+                      <div className="about-page-partners-card">
+                        {partner.image || (partner.image && partner.name) ? (
+                          <Image
+                            width={200}
+                            height={200}
+                            src={apiUrl + '/' + partner.image}
+                            alt={partner._id}
+                          />
+                        ) : (
+                          partner.name
+                        )}
+                      </div>
+                      <div className="buttons-admin-partners">
+                        <button
+                          className="btn-delete-tour"
+                          onClick={() => onDelete(partner._id)}
+                        >
+                          {t('delete')}
+                        </button>
+                        <Link
+                          href={`/partners/edit/${partner._id}`}
+                          className="btn-tour-edit"
+                        >
+                          {t('edit')}
+                        </Link>
+                      </div>
                     </div>
-                    <div className="buttons-admin-partners">
-                      <button
-                        className="btn-delete-tour"
-                        onClick={() => onDelete(partner._id)}
+                  ) : (
+                    <div key={partner._id} className="partners-admin-card">
+                      <div
+                        className="about-page-partners-card"
+                        key={partner._id}
                       >
-                        {t('delete')}
-                      </button>
-                      <Link
-                        href={`/partners/edit/${partner._id}`}
-                        className="btn-tour-edit"
-                      >
-                        {t('edit')}
-                      </Link>
+                        {partner.image || (partner.image && partner.name) ? (
+                          <Image
+                            width={200}
+                            height={200}
+                            src={apiUrl + '/' + partner.image}
+                            alt={partner._id}
+                          />
+                        ) : (
+                          partner.name
+                        )}
+                      </div>
+                      <div className="buttons-admin-partners">
+                        <button
+                          className="btn-delete-tour"
+                          onClick={() => onDelete(partner._id)}
+                        >
+                          {t('delete')}
+                        </button>
+                        <Link
+                          href={`/partners/edit/${partner._id}`}
+                          className="btn-tour-edit"
+                        >
+                          {t('edit')}
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  <div key={partner._id} className="partners-admin-card">
-                    <div className="about-page-partners-card" key={partner._id}>
-                      {partner.image || (partner.image && partner.name) ? (
-                        <Image
-                          width={200}
-                          height={200}
-                          src={apiUrl + '/' + partner.image}
-                          alt={partner._id}
-                        />
-                      ) : (
-                        partner.name
-                      )}
-                    </div>
-                    <div className="buttons-admin-partners">
-                      <button
-                        className="btn-delete-tour"
-                        onClick={() => onDelete(partner._id)}
-                      >
-                        {t('delete')}
-                      </button>
-                      <Link
-                        href={`/partners/edit/${partner._id}`}
-                        className="btn-tour-edit"
-                      >
-                        {t('edit')}
-                      </Link>
-                    </div>
-                  </div>
-                ),
-              )}
+                  ),
+                )}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

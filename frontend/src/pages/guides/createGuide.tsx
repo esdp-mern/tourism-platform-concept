@@ -25,6 +25,7 @@ import Custom404 from '@/pages/404';
 import { GetServerSideProps } from 'next';
 import { useTranslations } from 'next-intl';
 import '@/styles/createGuide.css';
+import Head from 'next/head';
 
 const CreateGuide = () => {
   const initialState = {
@@ -46,6 +47,7 @@ const CreateGuide = () => {
   const [userFieldClassName, setUserFieldClassName] = useState('');
   const [currentLanguage, setCurrentLanguage] = useState('');
   const t = useTranslations('guide');
+  const metaT = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -107,136 +109,147 @@ const CreateGuide = () => {
   }
 
   return (
-    <div className="container">
-      <PageLoader />
-      <div className="create-guide become-guide">
-        <form onSubmit={onSubmit} className="become-guide-form">
-          <h2>{t('create_form_title')}</h2>
-          <div
-            className="user-id-input"
-            onClick={(e) => {
-              e.stopPropagation();
-              setUserInputFocused(true);
-            }}
-          >
-            <TextField
-              className={userFieldClassName}
-              name="user"
-              type="text"
-              value={state.user!}
-              onChange={onChange}
-              icon={peopleIcon.src}
-              label="user*"
-              required
-            />
-            {userInputFocused && (
-              <div className="matched-users">
-                <div className="matched-users-inner">
-                  {users.map((user: User) => (
-                    <div
-                      className="matched-user"
-                      key={user._id}
-                      onClick={() => {
-                        setUserId(user._id);
-                        setSate((prevState) => ({
-                          ...prevState,
-                          user: user.username,
-                        }));
-                        setCurrentLanguage('');
-                      }}
-                    >
-                      <h4>{user.username}</h4>
-                      <span>{user.email}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-          <div className="languages-input">
-            <div className="languages-top">
+    <>
+      <Head>
+        <title>{metaT('create_guide_title')}</title>
+        <meta name="description" content={metaT('create_guide_desc')} />
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+      <div className="container">
+        <PageLoader />
+        <div className="create-guide become-guide">
+          <form onSubmit={onSubmit} className="become-guide-form">
+            <h2>{t('create_form_title')}</h2>
+            <div
+              className="user-id-input"
+              onClick={(e) => {
+                e.stopPropagation();
+                setUserInputFocused(true);
+              }}
+            >
               <TextField
-                name="languages"
+                className={userFieldClassName}
+                name="user"
                 type="text"
-                value={currentLanguage}
-                onChange={(e) => setCurrentLanguage(e.target.value)}
-                icon={languageIcon.src}
-                label={t('create_form_language')}
+                value={state.user!}
+                onChange={onChange}
+                icon={peopleIcon.src}
+                label="user*"
                 required
               />
-              <button
-                className="form-tour-btn"
-                type="button"
-                onClick={() => {
-                  if (!currentLanguage.length) return;
-                  setCurrentLanguage('');
-                  setSate((prevState) => ({
-                    ...prevState,
-                    languages: [...prevState.languages, currentLanguage],
-                  }));
-                }}
-              >
-                {t('create_form_add_language')}
-              </button>
-            </div>
-            <div className="languages-bottom">
-              <span>{t('create_form_languages')}:</span>
-              <span>
-                {!state.languages.length
-                  ? t('create_form_none')
-                  : state.languages.join(', ')}
-              </span>
-              {state.languages.length ? (
-                <button
-                  className="reset-languages"
-                  type="button"
-                  onClick={() =>
-                    setSate((prevState) => ({ ...prevState, languages: [] }))
-                  }
-                >
-                  {t('create_form_reset')}
-                </button>
-              ) : (
-                ''
+              {userInputFocused && (
+                <div className="matched-users">
+                  <div className="matched-users-inner">
+                    {users.map((user: User) => (
+                      <div
+                        className="matched-user"
+                        key={user._id}
+                        onClick={() => {
+                          setUserId(user._id);
+                          setSate((prevState) => ({
+                            ...prevState,
+                            user: user.username,
+                          }));
+                          setCurrentLanguage('');
+                        }}
+                      >
+                        <h4>{user.username}</h4>
+                        <span>{user.email}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               )}
             </div>
-          </div>
-          <TextField
-            name="country"
-            type="text"
-            value={state.country}
-            onChange={onChange}
-            icon={globeIcon.src}
-            label={t('create_form_country')}
-            required
-          />
-          <textarea
-            className="guide-request-description"
-            value={state.description}
-            onChange={onChange}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            placeholder={focused ? '' : t('create_form_about')}
-            name="description"
-            required
-          />
-          <div className="input-wrap" style={{ marginTop: '15px' }}>
-            <label className="form-label-avatar avatar" htmlFor="image">
-              {t('create_form_image')}
-            </label>
-            <FileInput
-              onChange={onFileChange}
-              name="image"
-              image={state.image}
-              className="form-control"
+            <div className="languages-input">
+              <div className="languages-top">
+                <TextField
+                  name="languages"
+                  type="text"
+                  value={currentLanguage}
+                  onChange={(e) => setCurrentLanguage(e.target.value)}
+                  icon={languageIcon.src}
+                  label={t('create_form_language')}
+                  required
+                />
+                <button
+                  className="form-tour-btn"
+                  type="button"
+                  onClick={() => {
+                    if (!currentLanguage.length) return;
+                    setCurrentLanguage('');
+                    setSate((prevState) => ({
+                      ...prevState,
+                      languages: [...prevState.languages, currentLanguage],
+                    }));
+                  }}
+                >
+                  {t('create_form_add_language')}
+                </button>
+              </div>
+              <div className="languages-bottom">
+                <span>{t('create_form_languages')}:</span>
+                <span>
+                  {!state.languages.length
+                    ? t('create_form_none')
+                    : state.languages.join(', ')}
+                </span>
+                {state.languages.length ? (
+                  <button
+                    className="reset-languages"
+                    type="button"
+                    onClick={() =>
+                      setSate((prevState) => ({ ...prevState, languages: [] }))
+                    }
+                  >
+                    {t('create_form_reset')}
+                  </button>
+                ) : (
+                  ''
+                )}
+              </div>
+            </div>
+            <TextField
+              name="country"
+              type="text"
+              value={state.country}
+              onChange={onChange}
+              icon={globeIcon.src}
+              label={t('create_form_country')}
+              required
             />
-          </div>
-          <button type="submit" className="form-tour-btn">
-            {createLoading ? <ButtonLoader size={18} /> : t('create_form_send')}
-          </button>
-        </form>
+            <textarea
+              className="guide-request-description"
+              value={state.description}
+              onChange={onChange}
+              onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
+              placeholder={focused ? '' : t('create_form_about')}
+              name="description"
+              required
+            />
+            <div className="input-wrap" style={{ marginTop: '15px' }}>
+              <label className="form-label-avatar avatar" htmlFor="image">
+                {t('create_form_image')}
+              </label>
+              <FileInput
+                onChange={onFileChange}
+                name="image"
+                image={state.image}
+                className="form-control"
+              />
+            </div>
+            <button type="submit" className="form-tour-btn">
+              {createLoading ? (
+                <ButtonLoader size={18} />
+              ) : (
+                t('create_form_send')
+              )}
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

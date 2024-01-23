@@ -4,7 +4,6 @@ import {
   InferGetServerSidePropsType,
   NextPage,
 } from 'next';
-import { wrapper } from '@/store/store';
 import { fetchOneSlider } from '@/containers/slider/sliderThunk';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useParams } from 'next/navigation';
@@ -18,6 +17,8 @@ import {
 } from '@/containers/slider/sliderSlice';
 import PageLoader from '@/components/Loaders/PageLoader';
 import MainSliderForm from '@/components/Forms/MainSliderForm/MainSliderForm';
+import Head from 'next/head';
+import { useTranslations } from 'next-intl';
 
 const EditSlider: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -27,8 +28,8 @@ const EditSlider: NextPage<
   const { editID } = useParams() as {
     editID: string;
   };
-
   const user = useAppSelector(selectUser);
+  const metaT = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -51,18 +52,27 @@ const EditSlider: NextPage<
     };
   }
   return (
-    <div className="container">
-      <PageLoader />
-      <div className="form-block">
-        {editingSlider && (
-          <MainSliderForm
-            isEdit
-            existingSlider={editingSlider}
-            idSlider={slider?._id}
-          />
-        )}
+    <>
+      <Head>
+        <title>
+          {metaT('edit_slider_title')} - {slider?.country}
+        </title>
+        <meta name="description" content={metaT('edit_slider_desc')} />
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+      <div className="container">
+        <PageLoader />
+        <div className="form-block">
+          {editingSlider && (
+            <MainSliderForm
+              isEdit
+              existingSlider={editingSlider}
+              idSlider={slider?._id}
+            />
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

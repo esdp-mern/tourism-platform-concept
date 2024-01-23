@@ -7,9 +7,12 @@ import { userRoles } from '@/constants';
 import Custom404 from '@/pages/404';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
+import { useTranslations } from 'next-intl';
 
 const NewTour = () => {
   const dispatch = useAppDispatch();
+  const metaT = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -21,10 +24,17 @@ const NewTour = () => {
     return <Custom404 errorType="tour" />;
   }
   return (
-    <div className="container sign-up-page">
-      <PageLoader />
-      <TourForm />
-    </div>
+    <>
+      <Head>
+        <title>{metaT('create_new_tour_title')}</title>
+        <meta name="description" content={metaT('create_new_tour_desc')} />
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+      <div className="container sign-up-page">
+        <PageLoader />
+        <TourForm />
+      </div>
+    </>
   );
 };
 export default NewTour;

@@ -15,6 +15,8 @@ import { setIsLightMode } from '@/containers/config/configSlice';
 import { GetServerSideProps } from 'next';
 import '@/styles/adminTours.css';
 import '@/styles/ToursPage.css';
+import Head from 'next/head';
+import { useTranslations } from 'next-intl';
 
 const AllToursPage = () => {
   const dispatch = useAppDispatch();
@@ -26,6 +28,7 @@ const AllToursPage = () => {
   const [currentTours, setCurrentTours] = useState<
     'all' | 'published' | 'nonPublished'
   >('all');
+  const t = useTranslations('metaTags');
 
   const indexOfLastRecord = currentPage * toursPerPage;
   const indexOfFirstRecord = indexOfLastRecord - toursPerPage;
@@ -64,7 +67,7 @@ const AllToursPage = () => {
         );
         break;
     }
-  }, [currentTours, dispatch, currentPage]);
+  }, [currentTours, dispatch, currentPage, indexOfFirstRecord]);
 
   if (!user || user.role !== userRoles.admin) {
     return <Custom404 errorType="tour" />;
@@ -75,59 +78,68 @@ const AllToursPage = () => {
   };
 
   return (
-    <div className="all-tours">
-      <PageLoader />
-      <div>
-        <div className="container">
-          <div style={{ margin: '100px auto 0 0' }}>
-            <div className="buttons-admin-tour">
-              <button
-                className="btn-admin-fetch-tour btn-admin-all"
-                type="button"
-                onClick={() => setCurrentTours('all')}
-              >
-                all
-              </button>
-              <button
-                className="btn-admin-fetch-tour btn-admin-pub"
-                type="button"
-                onClick={() => setCurrentTours('published')}
-              >
-                published
-              </button>
-              <button
-                className="btn-admin-fetch-tour btn-admin-non-pub"
-                type="button"
-                onClick={() => setCurrentTours('nonPublished')}
-              >
-                non published
-              </button>
+    <>
+      <Head>
+        <title>
+          {t('tours_title')} {currentPage}
+        </title>
+        <meta name="description" content={t('tours_desc')} />
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+      <div className="all-tours">
+        <PageLoader />
+        <div>
+          <div className="container">
+            <div style={{ margin: '100px auto 0 0' }}>
+              <div className="buttons-admin-tour">
+                <button
+                  className="btn-admin-fetch-tour btn-admin-all"
+                  type="button"
+                  onClick={() => setCurrentTours('all')}
+                >
+                  all
+                </button>
+                <button
+                  className="btn-admin-fetch-tour btn-admin-pub"
+                  type="button"
+                  onClick={() => setCurrentTours('published')}
+                >
+                  published
+                </button>
+                <button
+                  className="btn-admin-fetch-tour btn-admin-non-pub"
+                  type="button"
+                  onClick={() => setCurrentTours('nonPublished')}
+                >
+                  non published
+                </button>
+              </div>
+              {!tours || tours.length <= 0 ? (
+                <div className="title-none-tour">
+                  Unfortunately, there are no {currentTours} tours.
+                </div>
+              ) : (
+                <div>
+                  <div className="tours-admin-page">
+                    {tours.map((tour) => (
+                      <TourItem tour={tour} key={tour._id} isAdmin />
+                    ))}
+                  </div>
+                  <div className="tours-page-paginate">
+                    <Pagination
+                      pathname={'/admin/tours/'}
+                      nPages={nPages}
+                      currentPage={currentPage}
+                      onSetCurrentPage={onSetCurrentPage}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
-            {!tours || tours.length <= 0 ? (
-              <div className="title-none-tour">
-                Unfortunately, there are no {currentTours} tours.
-              </div>
-            ) : (
-              <div>
-                <div className="tours-admin-page">
-                  {tours.map((tour) => (
-                    <TourItem tour={tour} key={tour._id} isAdmin />
-                  ))}
-                </div>
-                <div className="tours-page-paginate">
-                  <Pagination
-                    pathname={'/admin/tours/'}
-                    nPages={nPages}
-                    currentPage={currentPage}
-                    onSetCurrentPage={onSetCurrentPage}
-                  />
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

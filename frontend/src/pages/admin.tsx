@@ -11,13 +11,16 @@ import Link from 'next/link';
 import { GetServerSideProps } from 'next';
 import { useTranslations } from 'next-intl';
 import '@/styles/admin.css';
+import Head from 'next/head';
 
 const Admin = () => {
   const routers = useRouter();
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const state = useAppSelector(selectAdminStats);
+  const router = useRouter();
   const t = useTranslations('admin');
+  const metaT = useTranslations('metaTags');
 
   useEffect(() => {
     document.addEventListener('DOMContentLoaded', () => {
@@ -28,8 +31,18 @@ const Admin = () => {
     dispatch(setIsLightMode(true));
     dispatch(fetchStatsAdmin());
   }, [dispatch, routers, user]);
+
+  if (router.isFallback) {
+    return <></>;
+  }
+
   return (
     <>
+      <Head>
+        <title>{metaT('admin')}</title>
+        <meta name="description" content="Admin - Akim Tourism" />
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
       <PageLoader />
       <div className="fixed-toolbar"></div>
       <div className="container">
