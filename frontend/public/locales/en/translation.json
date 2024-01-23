@@ -327,7 +327,7 @@
     "create_btn": "Create employee"
   },
   "metaTags": {
-    "all_users_title": "Users - Page",
+    "all_users_title": "Users",
     "all_users_desc": "Users page",
     "employees_title": "Employees",
     "employees_desc": "Employees page",
@@ -337,9 +337,9 @@
     "guides_desc": "Guides page",
     "news_title": "News",
     "news_desc": "News page",
-    "partner_orders_title": "Guide orders",
-    "partner_orders_desc": "Guide orders page",
-    "partners_title": "Guides page",
+    "partner_orders_title": "Partner orders",
+    "partner_orders_desc": "Partner orders page",
+    "partners_title": "Partners page",
     "partners_desc": "Partners",
     "tours_title": "Tours",
     "tours_desc": "Tours page",

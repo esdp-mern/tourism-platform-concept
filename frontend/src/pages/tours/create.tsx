@@ -26,8 +26,8 @@ const NewTour = () => {
   return (
     <>
       <Head>
-        <title>{metaT('create_new_tour_title')}</title>
-        <meta name="description" content={metaT('create_new_tour_desc')} />
+        <title>{metaT('create_tour_title')}</title>
+        <meta name="description" content={metaT('create_tour_desc')} />
         <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className="container sign-up-page">
