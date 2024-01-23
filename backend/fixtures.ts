@@ -122,6 +122,7 @@ const run = async () => {
         ru: 'Кыргызстан',
         kg: 'Кыргызстан',
       },
+      isPublished: true,
     },
     {
       user: user1._id,
@@ -140,6 +141,7 @@ const run = async () => {
         ru: 'Кыргызстан',
         kg: 'Кыргызстан',
       },
+      isPublished: true,
     },
     {
       user: user2._id,
@@ -158,7 +160,7 @@ const run = async () => {
         ru: 'Кыргызстан',
         kg: 'Кыргызстан',
       },
-      isPublished: false,
+      isPublished: true,
     },
   );
 

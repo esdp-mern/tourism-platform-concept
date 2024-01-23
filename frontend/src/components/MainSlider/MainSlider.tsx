@@ -11,8 +11,10 @@ import {
   selectAllToursLength,
 } from '@/containers/tours/toursSlice';
 import Link from 'next/link';
-import '@/styles/MainSlider.css';
 import { useTranslations } from 'next-intl';
+import AdminIcon from '@/components/UI/AdminIcon/AdminIcon';
+import '@/styles/MainSlider.css';
+import '@/styles/admin-buttons.css';
 
 const MainSlider = () => {
   const dispatch = useAppDispatch();
@@ -107,20 +109,22 @@ const MainSlider = () => {
             </a>
             {user && user.role === userRoles.admin ? (
               <div className="country-slider-btns">
-                <button
-                  type="button"
-                  className="country-slider-btns-delete"
-                  onClick={() => onDelete(currentSlide?._id!)}
-                >
-                  {t('deleteBtn')}
-                </button>
                 <Link
                   href={'slider/' + 'edit/' + currentSlide?._id!}
                   id="edit-slider"
-                  className="country-slider-btns-edit"
+                  className="admin-button admin-button-edit  admin-button-light-text"
                 >
+                  <AdminIcon type="edit" />
                   {t('editBtn')}
                 </Link>
+                <button
+                  type="button"
+                  className="admin-button admin-button-delete admin-button-light-text"
+                  onClick={() => onDelete(currentSlide?._id!)}
+                >
+                  <AdminIcon type="delete" />
+                  {t('deleteBtn')}
+                </button>
               </div>
             ) : null}
           </div>
@@ -151,12 +155,13 @@ const MainSlider = () => {
         ))}
         {user && user.role === userRoles.admin ? (
           <button
-            className="country-slider-btns-add"
+            className="admin-button admin-button-add"
             type="button"
             onClick={() => {
               router.push(`/slider/create`).then((r) => r);
             }}
           >
+            <AdminIcon type="add" />
             {t('addBtn')}
           </button>
         ) : null}

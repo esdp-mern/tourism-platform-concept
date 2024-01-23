@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Tour } from '@/type';
 import Link from 'next/link';
 import { Fade } from 'react-awesome-reveal';
@@ -15,7 +15,9 @@ import {
   selectTourPublishLoading,
 } from '@/containers/tours/toursSlice';
 import Image from 'next/image';
+import AdminIcon from '@/components/UI/AdminIcon/AdminIcon';
 import '@/styles/TourItem.css';
+import '@/styles/admin-buttons.css';
 
 interface Props {
   tour: Tour;
@@ -63,16 +65,6 @@ const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
             )}
             {tour.discountPrice ?? tour.price} KGS
           </div>
-
-          {isAdmin && user && user.role === userRoles.admin ? (
-            <div
-              className={`${
-                tour.isPublished ? 'published-tour' : 'unpublished-tour'
-              } tour-info-publish`}
-            >
-              {tour.isPublished ? 'published' : 'unpublished'}
-            </div>
-          ) : null}
         </Link>
         {tour.guides && tour.guides.length > 0 ? (
           <Link
@@ -102,19 +94,9 @@ const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
             </div>
           </div>
           {isAdmin && user && user.role === userRoles.admin ? (
-            <div className="buttons-tour">
+            <div className="admin-buttons">
               <button
-                className="btn-delete-tour"
-                type="button"
-                onClick={onDelete}
-                disabled={deleteLoading ? deleteLoading === tour._id : false}
-              >
-                {deleteLoading && deleteLoading === tour._id
-                  ? 'deleting...'
-                  : 'Delete'}
-              </button>
-              <button
-                className="btn-publish-tour"
+                className="admin-button admin-button-add"
                 type="button"
                 onClick={onPublish}
                 disabled={publishLoading ? publishLoading === tour._id : false}
@@ -127,9 +109,23 @@ const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
                     ? 'Unpublish'
                     : 'Publish'}
               </button>
-              <Link href={`/tours/edit/${tour._id}`} className="btn-tour-edit">
-                Edit
+              <Link
+                href={`/tours/edit/${tour._id}`}
+                className="admin-button admin-button-outline admin-button-edit"
+              >
+                <AdminIcon type="edit" />
               </Link>
+              <button
+                className="admin-button admin-button-outline admin-button-delete"
+                type="button"
+                onClick={onDelete}
+                disabled={deleteLoading ? deleteLoading === tour._id : false}
+              >
+                <AdminIcon type="delete" />
+                {deleteLoading && deleteLoading === tour._id
+                  ? 'deleting...'
+                  : null}
+              </button>
             </div>
           ) : null}
         </div>

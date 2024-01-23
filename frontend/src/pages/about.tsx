@@ -20,7 +20,9 @@ import dayjs from 'dayjs';
 import { selectLanguage } from '@/containers/users/usersSlice';
 import { GetServerSideProps } from 'next';
 import { useTranslations } from 'next-intl';
+import AdminIcon from '@/components/UI/AdminIcon/AdminIcon';
 import '@/styles/about.css';
+import '@/styles/admin-buttons.css';
 
 require(`dayjs/locale/ru`);
 require(`dayjs/locale/en`);
@@ -276,7 +278,12 @@ const About = () => {
                 {t('meetOurTeamDescription')}
               </p>
               {user && user.role === userRoles.admin && (
-                <Link href="/employees/create" className="about-page-team-link">
+                <Link
+                  href="/employees/create"
+                  className="admin-button admin-button-add"
+                  style={{ width: 'min-content', margin: '0 auto' }}
+                >
+                  <AdminIcon type="add" />
                   {t('addNewMember')}
                 </Link>
               )}

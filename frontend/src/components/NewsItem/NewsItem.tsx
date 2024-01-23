@@ -15,6 +15,8 @@ import { selectDeleteTourLoading } from '@/containers/tours/toursSlice';
 import { selectNewsPublishLoading } from '@/containers/news/newsSlice';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import AdminIcon from '@/components/UI/AdminIcon/AdminIcon';
+import '@/styles/admin-buttons.css';
 
 interface Props {
   news: INews;
@@ -70,19 +72,9 @@ const NewsItem: React.FC<Props> = ({ news }) => {
           {dayjs(news.date).format('DD.MM.YYYY')}
         </div>
         {user && user.role === userRoles.admin ? (
-          <div className="buttons-news">
+          <div className="admin-buttons">
             <button
-              className="btn-delete-tour"
-              type="button"
-              onClick={onDelete}
-              disabled={deleteLoading ? deleteLoading === news._id : false}
-            >
-              {deleteLoading && deleteLoading === news._id
-                ? t('news_all_delete_loading')
-                : t('news_all_delete')}
-            </button>
-            <button
-              className="btn-publish-tour"
+              className="admin-button admin-button-add"
               type="button"
               onClick={onPublish}
               disabled={publishLoading ? publishLoading === news._id : false}
@@ -95,9 +87,23 @@ const NewsItem: React.FC<Props> = ({ news }) => {
                   ? t('news_all_publish')
                   : t('news_all_unpublish')}
             </button>
-            <Link href={`/news/edit/${news._id}`} className="btn-tour-edit">
-              {t('news_all_edit')}
+            <Link
+              href={`/news/edit/${news._id}`}
+              className="admin-button admin-button-outline admin-button-edit"
+            >
+              <AdminIcon type="edit" />
             </Link>
+            <button
+              className="admin-button admin-button-outline admin-button-delete"
+              type="button"
+              onClick={onDelete}
+              disabled={deleteLoading ? deleteLoading === news._id : false}
+            >
+              <AdminIcon type="delete" />
+              {deleteLoading && deleteLoading === news._id
+                ? t('news_all_delete_loading')
+                : null}
+            </button>
           </div>
         ) : null}
         <hr className="card-news-line" />

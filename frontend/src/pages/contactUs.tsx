@@ -19,13 +19,14 @@ import { AxiosError } from 'axios';
 import { apiUrl, userRoles } from '@/constants';
 import TextField from '@/components/UI/TextField/TextField';
 import peopleIcon from '@/assets/images/people-icon.svg';
-import penIcon from '@/assets/images/pen-icon-green.svg';
+import penIcon from '@/assets/images/pen-icon.svg';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import Image from 'next/image';
 import FileInput from '@/components/UI/FileInput/FileInput';
 import { GetServerSideProps } from 'next';
 import { useTranslations } from 'next-intl';
 import '@/styles/contactUs.css';
+import AdminIcon from '@/components/UI/AdminIcon/AdminIcon';
 
 const ContactUs = () => {
   const dispatch = useAppDispatch();
@@ -247,25 +248,30 @@ const ContactUs = () => {
                   {t('contact_phone_field')}
                 </label>
               </div>
-              <button
-                type="button"
-                className="form-btn-delete"
-                onClick={() => {
-                  if (!editContact?._id) return;
-                  void contactDeleteHandler(editContact._id);
-                }}
-                name="delete-contact-info"
-              >
-                {t('contact_delete')}
-              </button>
-              <button
-                type="submit"
-                className="form-tour-btn"
-                style={{ margin: 0 }}
-                name="contacts-title-edit-btn"
-              >
-                {editContactsLoading ? <ButtonLoader size={18} /> : t('save')}
-              </button>
+              <div className="form-contact-buttons">
+                <button
+                  type="submit"
+                  className="admin-button admin-button-outline admin-button-edit"
+                  style={{ margin: 0 }}
+                  name="contacts-title-edit-btn"
+                >
+                  {editContactsLoading ? <ButtonLoader size={18} /> : t('save')}
+                </button>
+
+                {editContact._id && (
+                  <button
+                    type="button"
+                    className="admin-button admin-button-outline admin-button-delete"
+                    onClick={() => {
+                      if (!editContact?._id) return;
+                      void contactDeleteHandler(editContact._id);
+                    }}
+                    name="delete-contact-info"
+                  >
+                    <AdminIcon type="delete" />
+                  </button>
+                )}
+              </div>
             </form>
           </div>
         )}
@@ -398,8 +404,8 @@ const ContactUs = () => {
             </div>
             <button
               type="submit"
-              className="form-tour-btn"
-              style={{ margin: 0 }}
+              className="admin-button admin-button-edit"
+              style={{ width: '100%' }}
               name="contacts-title-edit-btn"
             >
               {editContactsLoading ? <ButtonLoader size={18} /> : t('save')}

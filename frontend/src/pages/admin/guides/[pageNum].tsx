@@ -11,8 +11,8 @@ import Custom404 from '@/pages/404';
 import GuideFilter from '@/components/Filters/GuideFilter';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import { GetServerSideProps } from 'next';
-import '@/styles/adminTours.css';
 import '@/styles/NewsPage.css';
+import '@/styles/adminTours.css';
 
 const AllGuidesPage = () => {
   const dispatch = useAppDispatch();

@@ -516,9 +516,9 @@
 
 .about-page-team-cards {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 80px;
   margin-top: 40px;
 }
 
@@ -578,9 +578,11 @@
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  gap: 20px;
 }
 
 .about-page-partners-card {
+  margin: 0 auto;
   font-size: 22px;
   transform: translate3d(0, 0, 0);
   opacity: 0.5;

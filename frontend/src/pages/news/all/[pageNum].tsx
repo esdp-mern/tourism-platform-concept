@@ -5,6 +5,7 @@ import { fetchNews } from '@/containers/news/newsThunk';
 import PageLoader from '@/components/Loaders/PageLoader';
 import Pagination from '@/components/Pagination/Pagination';
 import NewsItem from '@/components/NewsItem/NewsItem';
+import AdminIcon from '@/components/UI/AdminIcon/AdminIcon';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import { selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
@@ -13,6 +14,7 @@ import { useTranslations } from 'next-intl';
 import { GetServerSideProps } from 'next';
 import '@/styles/NewsPage.css';
 import '@/styles/ToursPage.css';
+import '@/styles/admin-buttons.css';
 
 const AllNewsPage = () => {
   const dispatch = useAppDispatch();
@@ -49,7 +51,12 @@ const AllNewsPage = () => {
       <div className="container">
         <div className="news-main">
           {user && user.role === userRoles.admin ? (
-            <Link href="/news/create" className="news-admin-create">
+            <Link
+              href="/news/create"
+              className="admin-button admin-button-add"
+              style={{ width: '20%', margin: '0 auto 60px auto' }}
+            >
+              <AdminIcon type="add" />
               {t('news_all_create_news')}
             </Link>
           ) : null}

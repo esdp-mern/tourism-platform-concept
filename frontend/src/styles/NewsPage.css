@@ -116,7 +116,7 @@
 }
 
 .card-news-date {
-  height: 50px;
+  height: 20px;
   margin-top: 25px;
   font-weight: 600;
   color: #75c15b;
@@ -284,14 +284,6 @@
   margin: 0;
   font-weight: 500;
   transition: 0.2s;
-}
-
-.buttons-news {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
 }
 
 .news-item-title:hover {
