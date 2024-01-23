@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Fade } from 'react-awesome-reveal';
 import { useAppSelector } from '@/store/hooks';
+import '@/styles/OneTourPlan.css';
 
 const OneTourPlan = () => {
   const tourPlan = useAppSelector((state) => state.tours.tour?.plan);

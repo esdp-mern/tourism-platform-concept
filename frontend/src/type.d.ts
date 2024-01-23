@@ -94,9 +94,12 @@ export interface Tour {
   galleryTour: [];
   mainImage: string;
   price: number;
+  discountPrice: number;
   isPublished: boolean;
-  routes: ITourRoute[][];
   rating: number;
+  date: string;
+  map: string;
+  mapLink: string;
 }
 
 export interface TourFull extends Tour {
@@ -113,7 +116,7 @@ export interface ITourMutation {
   category: string[];
   name: string;
   description: string;
-  duration: number;
+  duration: number | string;
   plan: IPlan[];
   country: string;
   destination: string;
@@ -123,8 +126,10 @@ export interface ITourMutation {
   included: string[];
   galleryTour: File[] | null;
   mainImage: File | null;
-  price: number;
-  routes: ITourRoute[][];
+  price: number | string;
+  discountPrice?: number;
+  map: string;
+  mapLink: string;
 }
 
 export interface ITourReview {

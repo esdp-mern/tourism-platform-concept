@@ -1,4 +1,11 @@
-import mongoose from 'mongoose';
+import mongoose, { Model } from 'mongoose';
+import { ITour } from '../type';
+
+export interface ITourMethods extends ITour {
+  checkDiscountPrice(discountPrice: number): boolean;
+}
+
+type TourModel = Model<ITour, NonNullable<unknown>, ITourMethods>;
 
 const TourSchema = new mongoose.Schema({
   guides: [
@@ -29,6 +36,11 @@ const TourSchema = new mongoose.Schema({
   price: {
     type: Number,
     required: true,
+  },
+  discountPrice: {
+    type: Number,
+    min: [1, 'Min discountPrice is 1'],
+    default: null,
   },
   duration: {
     type: Number,
@@ -94,8 +106,20 @@ const TourSchema = new mongoose.Schema({
     type: Number,
     default: 5,
   },
-  routes: [],
+  date: String,
+  map: {
+    type: String,
+    required: true,
+  },
+  mapLink: {
+    type: String,
+    required: true,
+  },
 });
 
-const Tour = mongoose.model('Tour', TourSchema);
+TourSchema.methods.checkDiscountPrice = function (discountPrice: number) {
+  return discountPrice >= this.price;
+};
+
+const Tour = mongoose.model<ITour, TourModel>('Tour', TourSchema);
 export default Tour;

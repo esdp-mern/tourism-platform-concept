@@ -1,67 +1,39 @@
 import React from 'react';
-import GoogleMapReact from 'google-map-react';
-import { apiUrl } from '@/constants';
-import { ITourRoute } from '@/type';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { userRoles } from '@/constants';
+import { useAppSelector } from '@/store/hooks';
+import { selectUser } from '@/containers/users/usersSlice';
 
 interface IProps {
   width: string;
   height: string;
-  routes: ITourRoute[][];
+  map: string;
+  mapLink: string;
 }
 
-const GoogleMap: React.FC<IProps> = ({ width, height, routes }) => {
-  const handleApiLoaded = (map: any, maps: any) => {
-    routes.forEach((route) => {
-      const routeCoordinates = route.map((point) => {
-        const coordinates = point.coordinates.split(',') as string[];
-        return {
-          lat: parseFloat(coordinates[0]),
-          lng: parseFloat(coordinates[1]),
-        };
-      });
+const GoogleMap: React.FC<IProps> = ({ map, mapLink }) => {
+  const user = useAppSelector(selectUser);
 
-      route.forEach((point) => {
-        new maps.Marker({
-          position: {
-            lat: parseFloat(point.coordinates.split(',')[0]),
-            lng: parseFloat(point.coordinates.split(',')[1]),
-          },
-          map,
-          title: point.title,
-          icon: {
-            url:
-              apiUrl +
-              '/' +
-              (point.icon.src || 'fixtures/default-map-marker.svg'),
-            scaledSize: new maps.Size(25, 25),
-          },
-        });
-      });
-
-      const roadPath = new maps.Polyline({
-        path: routeCoordinates,
-        geodesic: true,
-        strokeColor: route[0].strokeColor || '#FF0000',
-        strokeOpacity: 1.0,
-        strokeWeight: 5,
-      });
-
-      roadPath.setMap(map);
-    });
-  };
-
+  const t = useTranslations('oneTour');
   return (
-    <div style={{ height: height, width: width, marginTop: '100px' }}>
-      <GoogleMapReact
-        bootstrapURLKeys={{ key: 'AIzaSyDFl0Ww1q9QHPiGn_RiQ6ps8Lr5Yb4TtT8' }}
-        defaultCenter={{
-          lat: 41.357104,
-          lng: 74.386171,
-        }}
-        defaultZoom={7}
-        yesIWantToUseGoogleMapApiInternals
-        onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
-      />
+    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', marginBottom: 50 }}>
+      <div className="google-map" dangerouslySetInnerHTML={{ __html: map }} />
+      {user && user.role === userRoles.admin && (
+        <Link
+          className="one-tour-order-form-btn"
+          href={mapLink}
+          style={{
+            width: 'unset',
+            margin: '40px auto 0',
+            textAlign: 'center',
+            textDecoration: 'none',
+          }}
+          target="_blank"
+        >
+          {t('tour_edit_routes')}
+        </Link>
+      )}
     </div>
   );
 };

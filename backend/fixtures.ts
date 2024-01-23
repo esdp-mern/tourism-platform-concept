@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import crypto from 'crypto';
+import crypto, { randomUUID } from 'crypto';
 import config from './config';
 import User from './models/User';
 import Tour from './models/Tour';
@@ -53,7 +53,7 @@ const run = async () => {
       email: 'guide@gmail.com',
       displayName: 'Guide',
       password: 'qwerty1234',
-      role: 'guid',
+      role: 'guide',
       avatar: 'fixtures/mordecai.png',
       token: crypto.randomUUID(),
       verified: true,
@@ -63,7 +63,7 @@ const run = async () => {
       email: 'guide2@gmail.com',
       displayName: 'Guide2',
       password: 'qwerty1234',
-      role: 'guid',
+      role: 'guide',
       avatar: 'fixtures/gumball.jpg',
       token: crypto.randomUUID(),
       verified: true,
@@ -73,7 +73,7 @@ const run = async () => {
       email: 'guide3@gmail.com',
       displayName: 'Guide3',
       password: 'qwerty1234',
-      role: 'guid',
+      role: 'guide',
       avatar: 'fixtures/kuroro.jpeg',
       token: crypto.randomUUID(),
       verified: true,
@@ -113,26 +113,57 @@ const run = async () => {
   const [Artem, Andrey, Askar] = await Guide.create(
     {
       user: user._id,
-      description:
-        'My name is Artem.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
-      languages: ['kyrgyz', 'russian', 'english'],
-      country: 'Kyrgyzstan',
-      isPublished: true,
+      description: {
+        en: 'My name is Artem. I am a passionate guide with a deep love for the beauty and culture of Kyrgyzstan. I am fluent in Kyrgyz, Russian, and English.',
+        ru: 'Меня зовут Артем. Я увлеченный гид с глубокой любовью к красоте и культуре Кыргызстана. Я свободно говорю на кыргызском, русском и английском языках.',
+        kg: 'Меним атым Артем. Мен Кыргызстандын сүйүүсү мен маданиятына жакшы коргон, көп тилдүү гидим. Мен кыргызча, орусча жана англисче сөздөй айтам.',
+      },
+      languages: {
+        en: ['Kyrgyz', 'Russian', 'English'],
+        ru: ['Кыргызский', 'Русский', 'Английский'],
+        kg: ['Кыргызча', 'Орусча', 'Англисче'],
+      },
+      country: {
+        en: 'Kyrgyzstan',
+        ru: 'Кыргызстан',
+        kg: 'Кыргызстан',
+      },
     },
     {
       user: user1._id,
-      description:
-        'My name is Andrey.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
-      languages: ['russian', 'english'],
-      country: 'Kyrgyzstan',
-      isPublished: true,
+      description: {
+        en: 'My name is Andrey. As a native of Kyrgyzstan, I am eager to share the hidden gems of my country with you. I speak Kyrgyz, Russian, and English.',
+        ru: 'Меня зовут Андрей. Будучи коренным жителем Кыргызстана, я стремлюсь поделиться с вами скрытыми сокровищами моей страны. Я говорю на кыргызском, русском и английском языках.',
+        kg: 'Меним атым Андрей. Мен Кыргызстандык эмесмин, ал эми Кыргызстандын жашырын жемиштерин сиз менен бөлүшүүгө кызыктам. Мен кыргызча, орусча жана англисче сөздөй айтам.',
+      },
+      languages: {
+        en: ['Kyrgyz', 'Russian', 'English'],
+        ru: ['Кыргызский', 'Русский', 'Английский'],
+        kg: ['Кыргызча', 'Орусча', 'Англисче'],
+      },
+      country: {
+        en: 'Kyrgyzstan',
+        ru: 'Кыргызстан',
+        kg: 'Кыргызстан',
+      },
     },
     {
       user: user2._id,
-      description:
-        'My name is Askar.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut facilis ipsa iure nesciunt officia quasi quibusdam quo, vel voluptatibus.',
-      languages: ['kyrgyz', 'english'],
-      country: 'Kyrgyzstan',
+      description: {
+        en: 'My name is Askar. I am a knowledgeable guide who is excited to help you explore Kyrgyzstan. I am fluent in Kyrgyz and English.',
+        ru: 'Меня зовут Аскар. Я знающий гид, который с радостью поможет вам исследовать Кыргызстан. Я свободно говорю на кыргызском и английском языках.',
+        kg: 'Меним атым Аскар. Мен Кыргызстанды изилдөөгө жардам берүүгө кызыктуу, билимдүү гидим. Мен кыргызча жана англисче сөздөй айтам.',
+      },
+      languages: {
+        en: ['Kyrgyz', 'English'],
+        ru: ['Кыргызский', 'Английский'],
+        kg: ['Кыргызча', 'Англисче'],
+      },
+      country: {
+        en: 'Kyrgyzstan',
+        ru: 'Кыргызстан',
+        kg: 'Кыргызстан',
+      },
       isPublished: false,
     },
   );
@@ -154,6 +185,7 @@ const run = async () => {
         },
         category: ['history', 'exotic'],
         price: 800,
+        discountPrice: 499,
         duration: 1,
         plan: [
           {
@@ -193,205 +225,10 @@ const run = async () => {
         galleryTour: ['fixtures/burana.jpeg', 'fixtures/burana2.jpeg'],
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
-        routes: [
-          [
-            {
-              id: 'sksggDv9AkoLUnqS5Ks64',
-              coordinates: '42.812536, 74.645357',
-              icon: {
-                src: 'mapMarkers/hiking-map-marker.svg',
-                type: 'hiking',
-              },
-              title: 'tour point',
-              strokeColor: '#9b33fc',
-            },
-            {
-              id: '6xztxMUPOZK2xprCm5y7f',
-              coordinates: '42.801027, 74.649165',
-              icon: { src: 'mapMarkers/bus-map-marker.svg', type: 'bus' },
-              title: 'tour point',
-              strokeColor: '#9b33fc',
-            },
-            {
-              id: '9bvCO8GoDJiA7sJxAP0pr',
-              coordinates: '42.800938, 74.651593',
-              icon: {
-                src: 'mapMarkers/camera-map-marker.svg',
-                type: 'camera',
-              },
-              title: 'tour point',
-              strokeColor: '#9b33fc',
-            },
-            {
-              id: 'ddp4WZy7mY3iLCQ7HOfCM',
-              coordinates: '42.801066, 74.653824',
-              icon: { src: 'mapMarkers/hotel-map-marker.svg', type: 'hotel' },
-              title: 'tour point',
-              strokeColor: '#9b33fc',
-            },
-            {
-              id: 'bsztOOJVkb3LXjgqPsTyU',
-              coordinates: '42.797932, 74.670694',
-              icon: { src: 'mapMarkers/park-map-marker.svg', type: 'park' },
-              title: 'tour point',
-              strokeColor: '#9b33fc',
-            },
-            {
-              id: 'pn5qHKrDUsadt6vnVl9FB',
-              coordinates: '42.795424, 74.67018',
-              icon: {
-                src: 'mapMarkers/default-map-marker.svg',
-                type: 'default',
-              },
-              title: 'tour point',
-              strokeColor: '#9b33fc',
-            },
-            {
-              id: 'B6ICF3gDKT92x5dU67FNz',
-              coordinates: '42.794184, 74.669594',
-              icon: { src: 'mapMarkers/bus-map-marker.svg', type: 'bus' },
-              title: 'tour point',
-              strokeColor: '#9b33fc',
-            },
-          ],
-          [
-            {
-              id: 'okEsJnCgJjXbgevJqb2GX',
-              coordinates: '42.639444, 74.628418',
-              icon: {
-                src: 'mapMarkers/hiking-map-marker.svg',
-                type: 'hiking',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'hMNHpRvkB7hsdVNthAKlO',
-              coordinates: '42.640625, 74.628556',
-              icon: { src: 'mapMarkers/hotel-map-marker.svg', type: 'hotel' },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'uXATrelXHl6ea4VPkR69e',
-              coordinates: '42.641644, 74.62802',
-              icon: { src: 'mapMarkers/park-map-marker.svg', type: 'park' },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'OkpbQV6XNY8ISMrmovEM9',
-              coordinates: '42.642644, 74.627746',
-              icon: {
-                src: 'mapMarkers/camera-map-marker.svg',
-                type: 'camera',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'f0pyUjT3D9tCM6ErpVsfk',
-              coordinates: '42.642896, 74.628185',
-              icon: {
-                src: 'mapMarkers/default-map-marker.svg',
-                type: 'default',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'LkjppM9Y5SQRJQhEuMHnh',
-              coordinates: '42.641846, 74.631753',
-              icon: {
-                src: 'mapMarkers/default-map-marker.svg',
-                type: 'default',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'LWSnnmcyJLgkwBfAcb8Yx',
-              coordinates: '42.642119, 74.632549',
-              icon: {
-                src: 'mapMarkers/hiking-map-marker.svg',
-                type: 'hiking',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'C3Gwaul73lYqzGyHA4AOW',
-              coordinates: '42.641109, 74.634854',
-              icon: {
-                src: 'mapMarkers/hiking-map-marker.svg',
-                type: 'hiking',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'e3F6K2wzAz36QjmwAxyia',
-              coordinates: '42.640322, 74.635403',
-              icon: { src: 'mapMarkers/bus-map-marker.svg', type: 'bus' },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'GLY9ZqCkKrjPo7vuCHEhV',
-              coordinates: '42.640554, 74.636638',
-              icon: { src: 'mapMarkers/bus-map-marker.svg', type: 'bus' },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'ry3YquYUan0VdC5TkOFey',
-              coordinates: '42.640504, 74.637008',
-              icon: { src: 'mapMarkers/hotel-map-marker.svg', type: 'hotel' },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'nfXJw1EBAV8RDpFGi1zHB',
-              coordinates: '42.639958, 74.637612',
-              icon: {
-                src: 'mapMarkers/camera-map-marker.svg',
-                type: 'camera',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'nfXJw1EBAV8RDpFGi1zHB',
-              coordinates: '42.64014, 74.64118',
-              icon: {
-                src: 'mapMarkers/default-map-marker.svg',
-                type: 'default',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'Zcsk1lhBQSh1xOlQksyH2',
-              coordinates: '42.641409, 74.642463',
-              icon: {
-                src: 'mapMarkers/default-map-marker.svg',
-                type: 'default',
-              },
-              title: '',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 't4gb9HDtocCc3gghEt8Eh',
-              coordinates: '42.642432, 74.643073',
-              icon: {
-                src: 'mapMarkers/hiking-map-marker.svg',
-                type: 'hiking',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-          ],
-        ],
+        date: '26/01/2024',
+        map: `<iframe src='https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>`,
+        mapLink:
+          'https://www.google.com/maps/d/edit?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&usp=sharing',
       },
       {
         guides: [Askar._id, Andrey._id],
@@ -408,6 +245,7 @@ const run = async () => {
         },
         category: ['history', 'popular', 'exotic'],
         price: 2000,
+        discountPrice: 1500,
         duration: 1,
         plan: [
           {
@@ -447,6 +285,10 @@ const run = async () => {
         galleryTour: ['fixtures/canyon-skazka.jpeg'],
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
+        date: '26/01/2024',
+        map: `<iframe src='https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>`,
+        mapLink:
+          'https://www.google.com/maps/d/edit?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&usp=sharing',
       },
       {
         guides: [Artem._id, Askar._id],
@@ -463,6 +305,7 @@ const run = async () => {
         },
         category: ['history', 'on budget'],
         price: 6000,
+        discountPrice: 4999,
         duration: 3,
         plan: [
           {
@@ -522,142 +365,10 @@ const run = async () => {
         galleryTour: ['fixtures/issyk-kul.jpeg'],
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
-        routes: [
-          [
-            {
-              id: '71LW8CV9p4bMpztYf8Hjq',
-              coordinates: '42.639444, 74.628418',
-              icon: {
-                src: 'mapMarkers/hiking-map-marker.svg',
-                type: 'hiking',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'LzVn9n8j7RtztdX069DW5',
-              coordinates: '42.640625, 74.628556',
-              icon: { src: 'mapMarkers/bus-map-marker.svg', type: 'bus' },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'jgRYhOSOXFaKGmlTBuhSE',
-              coordinates: '42.641644, 74.62802',
-              icon: { src: 'mapMarkers/park-map-marker.svg', type: 'park' },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'GSJnj7yMiBNH0ZuZo82vX',
-              coordinates: '42.642644, 74.627746',
-              icon: {
-                src: 'mapMarkers/hiking-map-marker.svg',
-                type: 'hiking',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'BW3mrdrCwrtTAkmbB0VUK',
-              coordinates: '42.642896, 74.628185',
-              icon: {
-                src: 'mapMarkers/default-map-marker.svg',
-                type: 'default',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'KIYFOGgz1bM5pIPS8AhSM',
-              coordinates: '42.641846, 74.631753',
-              icon: {
-                src: 'mapMarkers/default-map-marker.svg',
-                type: 'default',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'PQrzJMhKYkbtmYKTr1lCV',
-              coordinates: '42.642119, 74.632549',
-              icon: {
-                src: 'mapMarkers/hiking-map-marker.svg',
-                type: 'hiking',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'docyxE28lNCAaOH9ejncV',
-              coordinates: '42.641109, 74.634854',
-              icon: { src: 'mapMarkers/hotel-map-marker.svg', type: 'hotel' },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'xxDmYIbhPboi1IS3AYKJu',
-              coordinates: '42.640322, 74.635403',
-              icon: {
-                src: 'mapMarkers/camera-map-marker.svg',
-                type: 'camera',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'IZqWhERkhiLUVTqC9hfi9',
-              coordinates: '42.640554, 74.636638',
-              icon: {
-                src: 'mapMarkers/camera-map-marker.svg',
-                type: 'camera',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'UGdkYn6RS2vFZbATSNSaX',
-              coordinates: '42.640504, 74.637008',
-              icon: { src: 'mapMarkers/bus-map-marker.svg', type: 'bus' },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: '5VzX8UHUe8okczQk5wITz',
-              coordinates: '42.639958, 74.637612',
-              icon: { src: 'mapMarkers/hotel-map-marker.svg', type: 'hotel' },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'jM5sMXBKpe0rmTIMNGdXr',
-              coordinates: '42.64014, 74.64118',
-              icon: { src: 'mapMarkers/bus-map-marker.svg', type: 'bus' },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'sUGRWazTiarFyz3T8NKgC',
-              coordinates: '42.641409, 74.642463',
-              icon: {
-                src: 'mapMarkers/default-map-marker.svg',
-                type: 'default',
-              },
-              title: '',
-              strokeColor: '#3391fc',
-            },
-            {
-              id: 'r1Rm4uegwFJiXtwI75dDF',
-              coordinates: '42.642432, 74.643073',
-              icon: {
-                src: 'mapMarkers/hiking-map-marker.svg',
-                type: 'hiking',
-              },
-              title: 'tour point',
-              strokeColor: '#3391fc',
-            },
-          ],
-        ],
+        date: '27/01/2024',
+        map: `<iframe src='https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>`,
+        mapLink:
+          'https://www.google.com/maps/d/edit?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&usp=sharing',
       },
       {
         guides: [Andrey._id, Askar._id],
@@ -674,6 +385,7 @@ const run = async () => {
         },
         category: ['vacation', 'popular'],
         price: 6900,
+        discountPrice: 6000,
         duration: 3,
         plan: [
           {
@@ -733,6 +445,10 @@ const run = async () => {
         galleryTour: ['fixtures/osh.jpeg'],
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
+        date: '25/01/2024',
+        map: `<iframe src='https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>`,
+        mapLink:
+          'https://www.google.com/maps/d/edit?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&usp=sharing',
       },
       {
         guides: [Andrey._id, Artem._id],
@@ -796,6 +512,10 @@ const run = async () => {
         galleryTour: ['fixtures/sary-chelek.jpeg', 'fixtures/naryn.jpeg'],
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
+        date: '28/01/2024',
+        map: `<iframe src='https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>`,
+        mapLink:
+          'https://www.google.com/maps/d/edit?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&usp=sharing',
       },
       {
         guides: [Andrey._id, Artem._id],
@@ -875,6 +595,10 @@ const run = async () => {
         galleryTour: ['fixtures/sary-chelek.jpeg'],
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
+        date: '26/01/2024',
+        map: `<iframe src='https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>`,
+        mapLink:
+          'https://www.google.com/maps/d/edit?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&usp=sharing',
       },
       {
         guides: [Andrey._id, Artem._id],
@@ -942,6 +666,10 @@ const run = async () => {
         galleryTour: ['fixtures/ala-kul.jpeg'],
         country: { en: 'Kyrgyzstan', ru: 'Кыргызстан', kg: 'Кыргызстан' },
         isPublished: true,
+        date: '27/01/2024',
+        map: `<iframe src='https://www.google.com/maps/d/embed?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>`,
+        mapLink:
+          'https://www.google.com/maps/d/edit?mid=1BeIDSQaVcIhrNblCMEUy6RI4sPFEjtQ&usp=sharing',
       },
     );
 
@@ -1197,12 +925,12 @@ const run = async () => {
   await PlatformReview.create(
     {
       user: user1._id,
-      comment: 'Good!',
+      comment: 'Comfortable site!',
       date: '2024-08-05T17:11:22.353Z',
     },
     {
       user: user2._id,
-      comment: 'Pretty nice!',
+      comment: 'Pretty nice tour for me!',
       date: '2023-11-01T17:11:22.353Z',
     },
     {
@@ -1287,39 +1015,85 @@ const run = async () => {
 
   await MainSlider.create(
     {
-      country: 'Kyrgyzstan',
+      country: {
+        en: 'Kyrgyzstan',
+        ru: 'Кыргызстан',
+        kg: 'Кыргызстан',
+      },
       image: 'fixtures/kyrgyzstan.jpeg',
     },
     {
-      country: 'Kazakhstan',
+      country: {
+        en: 'Kazakhstan',
+        ru: 'Казахстан',
+        kg: 'Казахстан',
+      },
       image: 'fixtures/kazakhstan.jpeg',
     },
     {
-      country: 'Uzbekistan',
+      country: {
+        en: 'Uzbekistan',
+        ru: 'Узбекистан',
+        kg: 'Узбекистан',
+      },
       image: 'fixtures/uzbekistan.jpeg',
     },
   );
 
   await ContactUs.create({
     image: 'fixtures/contacts.jpeg',
-    title: 'Contact Us',
-    description:
-      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
+    title: {
+      en: 'Contact Us!',
+      ru: 'Свяжитесь с нами!',
+      kg: 'Биз менен байланышыңыз!',
+    },
+    description: {
+      en: 'Our travel agency is a team of professionals who have a passion for travel and are ready to share this passion with you. We strive to create unforgettable experiences and make your holiday truly unique.',
+      ru: 'Наше туристическое агентство — это команда профессионалов, которые страстно любят путешествия и готовы поделиться этой страстью с вами. Мы стремимся создать незабываемые впечатления и сделать ваш отдых по-настоящему уникальным.',
+      kg: 'Биздин туристтик агенттик - бул саякатка ышкысы бар жана бул кумарды сиз менен бөлүшүүгө даяр адистердин командасы. Биз унутулгус окуяларды жаратууга жана сиздин майрамыңызды чындап уникалдуу кылууга аракет кылабыз.',
+    },
     contact: [
       {
-        country: 'United States',
-        address: '9 Valley St. Brooklyn, NY 11203',
+        country: {
+          en: 'United States',
+          ru: 'США',
+          kg: 'АКШ',
+        },
+        address: {
+          en: '9 Valley St. Brooklyn, NY 11203',
+          ru: '9 Valley St. Бруклин, Нью-Йорк 11203',
+          kg: '9 Valley St. Бруклин, Нью-Йорк 11203',
+        },
         phone: '1-800-346-6277',
+        _id: randomUUID(),
       },
       {
-        country: 'Canada',
-        address: '500 Kingston Rd Toronto ON M4L 1V3',
+        country: {
+          en: 'Canada',
+          ru: 'Канада',
+          kg: 'Канада',
+        },
+        address: {
+          en: '500 Kingston Rd Toronto ON M4L 1V3',
+          ru: '500 Kingston Rd Торонто ON M4L 1V3',
+          kg: '500 Kingston Rd Торонто ON M4L 1V3',
+        },
         phone: '1-800-346-6277',
+        _id: randomUUID(),
       },
       {
-        country: 'Australia',
-        address: '60 Marcus Clarke St, Canberra, ACT 2601',
+        country: {
+          en: 'Australia',
+          ru: 'Австралия',
+          kg: 'Австралия',
+        },
+        address: {
+          en: '60 Marcus Clarke St, Canberra, ACT 2601',
+          ru: 'ул. Маркуса Кларка, 60, Канберра, ACT 2601',
+          kg: 'ул. Маркуса Кларка, 60, Канберра, ACT 2601',
+        },
         phone: '1-800-346-6277',
+        _id: randomUUID(),
       },
     ],
   });
@@ -1332,22 +1106,22 @@ const run = async () => {
         kg: 'Биз жөнүндө',
       },
       description: {
-        en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
-        ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
-        kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+        en: 'We are a dedicated team committed to providing the best tour experiences in Kyrgyzstan.',
+        ru: 'Мы преданный коллектив, стремящийся предоставить лучшие туристические маршруты в Кыргызстане.',
+        kg: 'Биз Кыргызстандагы эң жакшы турдук маршруттарды үйрөтүүгө арзымалуу жаткан команда.',
       },
       image: 'fixtures/about-us-bg.jpg',
     },
     offer: {
       title: {
-        en: 'Fastest Way to Book over 450 Great Tours',
-        ru: 'Самый быстрый способ забронировать более 450 отличных туров',
-        kg: '450дөн ашык улуу турларды брондоонун эң тез жолу',
+        en: 'Discover the Beauty of Kyrgyzstan with Our Tours',
+        ru: 'Откройте для себя красоту Кыргызстана с нашими турами',
+        kg: 'Биздин турлар менен Кыргызстандын сүйүүсүн ашыңыз',
       },
       description: {
-        en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
-        ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
-        kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+        en: 'We offer a wide range of tours, each designed to provide you with a unique and memorable experience.',
+        ru: 'Мы предлагаем широкий выбор туров, каждый из которых разработан для предоставления вам уникального и незабываемого опыта.',
+        kg: 'Биз көп түрдөгү турларды үйрөтөбүз, ар бири сизге айрымалуу жана эстелүү тажрыйбаны берүү үчүн иштеп чыгарылган.',
       },
       image: 'fixtures/horses.png',
     },
@@ -1359,9 +1133,9 @@ const run = async () => {
           kg: 'Акчаны үнөмдөңүз',
         },
         description: {
-          en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
-          ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
-          kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+          en: 'Our tours are competitively priced to give you the best value for your money.',
+          ru: 'Наши туры имеют конкурентоспособные цены, чтобы предоставить вам лучшее соотношение цены и качества.',
+          kg: 'Биздин турлардын баасы сынайыштыруу үчүн, акчаңызды эң пайдалуу колдонуу үчүн.',
         },
         image: 'fixtures/money-icon.svg',
       },
@@ -1372,9 +1146,9 @@ const run = async () => {
           kg: 'Биздин жардам',
         },
         description: {
-          en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
-          ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
-          kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+          en: 'Our team is always ready to assist you throughout your journey.',
+          ru: 'Наша команда всегда готова помочь вам на протяжении всего вашего путешествия.',
+          kg: 'Биздин команда сиздин жолуңуздун бардык убактысында жардам берүүгө даяр.',
         },
         image: 'fixtures/support-icon.svg',
       },
@@ -1385,9 +1159,9 @@ const run = async () => {
           kg: 'Коопсуздук',
         },
         description: {
-          en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
-          ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
-          kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+          en: 'Your safety is our top priority. We ensure all our tours are safe and secure.',
+          ru: 'Ваша безопасность - наш главный приоритет. Мы гарантируем, что все наши туры безопасны и надежны.',
+          kg: 'Сиздин коопсуздугуңуз биздин башкыча максатыбыз. Биз бардык турларыбыздын коопсуз жана ишенчтүү экенин камтыйбыз.',
         },
         image: 'fixtures/safety-icon.svg',
       },
@@ -1398,9 +1172,9 @@ const run = async () => {
           kg: 'Оңой ээлөө',
         },
         description: {
-          en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
-          ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
-          kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+          en: 'Our booking process is simple and straightforward, making it easy for you to plan your next adventure.',
+          ru: 'Наш процесс бронирования прост и понятен, что облегчает вам планирование следующего приключения.',
+          kg: 'Биздин брондоо процессибиз жөнөкөй жана түшүнүктүү, бул сизге келерки адвентураңызды планировкалоого жардам берет.',
         },
         image: 'fixtures/sun-icon.svg',
       },
@@ -1412,9 +1186,9 @@ const run = async () => {
         kg: 'Кардарлар биз жөнүндө',
       },
       description: {
-        en: 'EN Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Duis aute irure dolor in reprehenderit.',
-        ru: 'RU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quam.',
-        kg: 'KG Velit esse cillum dolore eu fugiat nulla pariatur.',
+        en: "We value our clients' feedback. Here's what they have to say about our services.",
+        ru: 'Мы ценим отзывы наших клиентов. Вот что они говорят о наших услугах.',
+        kg: 'Биз кардарларыбыздын пикирлерин баалайбыз. Мындай айтканында биздин кызматтарыбыз жөнүндө.',
       },
     },
   });

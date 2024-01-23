@@ -9,6 +9,10 @@ import NewsItem from '@/components/NewsItem/NewsItem';
 import { fetchAdminNews, fetchNews } from '@/containers/news/newsThunk';
 import Custom404 from '@/pages/404';
 import { setIsLightMode } from '@/containers/config/configSlice';
+import { GetServerSideProps } from 'next';
+import '@/styles/adminTours.css';
+import '@/styles/NewsPage.css';
+import '@/styles/ToursPage.css';
 
 const AllNewsPage = () => {
   const dispatch = useAppDispatch();
@@ -114,3 +118,12 @@ const AllNewsPage = () => {
 };
 
 export default AllNewsPage;
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

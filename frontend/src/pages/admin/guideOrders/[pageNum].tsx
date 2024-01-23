@@ -9,6 +9,9 @@ import { selectGuideOrders } from '@/containers/guides/guidesSlice';
 import { fetchGuideOrders } from '@/containers/guides/guidesThunk';
 import GuideOrder from '@/components/GuideOrder/GuideOrder';
 import Custom404 from '@/pages/404';
+import { GetServerSideProps } from 'next';
+import '@/styles/NewsPage.css';
+import '@/styles/adminTours.css';
 
 const AllGuideOrdersPage = () => {
   const dispatch = useAppDispatch();
@@ -79,3 +82,12 @@ const AllGuideOrdersPage = () => {
 };
 
 export default AllGuideOrdersPage;
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

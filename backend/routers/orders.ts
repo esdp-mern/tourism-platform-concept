@@ -6,14 +6,16 @@ import permit from '../middleware/permit';
 import nodemailer from 'nodemailer';
 import Tour from '../models/Tour';
 import config from '../config';
+import { ILanguages } from '../type';
 
 const ordersRouter = express.Router();
 
 ordersRouter.get('/', async (req, res) => {
   try {
+    const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
     if (req.query.userID) {
       const queryUser = req.query.userID as string;
-      const guide = await Order.find({ user: queryUser })
+      const orders = await Order.find({ user: queryUser })
         .populate({
           path: 'guide',
           populate: {
@@ -22,10 +24,42 @@ ordersRouter.get('/', async (req, res) => {
             select: 'displayName email',
           },
         })
-        .populate({ path: 'tour', select: 'name' });
-      return res.send(guide);
-    }
+        .populate({ path: 'tour', select: 'name' })
+        .populate({ path: 'user', select: 'displayName email' });
+      if (req.query.datetime && req.query.datetime.length) {
+        const datetime = req.query.datetime as string;
+        const localizedTours = orders.map((order) => ({
+          ...order.toObject().tour,
+          name: (
+            order.toObject().tour as {
+              name: ILanguages;
+            }
+          ).name[lang],
+        }));
+        const localizedOrders = orders.map((order, index) => ({
+          ...order.toObject(),
+          tour: localizedTours[index],
+        }));
+        const filteredData = localizedOrders.filter(
+          (item) => item.datetime > datetime,
+        );
+        return res.send(filteredData);
+      }
 
+      const localizedTours = orders.map((order) => ({
+        ...order.toObject().tour,
+        name: (
+          order.toObject().tour as {
+            name: ILanguages;
+          }
+        ).name[lang],
+      }));
+      const localizedOrders = orders.map((order, index) => ({
+        ...order.toObject(),
+        tour: localizedTours[index],
+      }));
+      return res.send(localizedOrders);
+    }
     const orders = await Order.find()
       .populate({
         path: 'guide',
@@ -35,11 +69,37 @@ ordersRouter.get('/', async (req, res) => {
       .populate({ path: 'user', select: 'displayName email' });
     if (req.query.datetime && req.query.datetime.length) {
       const datetime = req.query.datetime as string;
-
-      const filteredData = orders.filter((item) => item.datetime > datetime);
+      const localizedTours = orders.map((order) => ({
+        ...order.toObject().tour,
+        name: (
+          order.toObject().tour as {
+            name: ILanguages;
+          }
+        ).name[lang],
+      }));
+      const localizedOrders = orders.map((order, index) => ({
+        ...order.toObject(),
+        tour: localizedTours[index],
+      }));
+      const filteredData = localizedOrders.filter(
+        (item) => item.datetime > datetime,
+      );
       return res.send(filteredData);
     }
-    return res.send(orders);
+
+    const localizedTours = orders.map((order) => ({
+      ...order.toObject().tour,
+      name: (
+        order.toObject().tour as {
+          name: ILanguages;
+        }
+      ).name[lang],
+    }));
+    const localizedOrders = orders.map((order, index) => ({
+      ...order.toObject(),
+      tour: localizedTours[index],
+    }));
+    return res.send(localizedOrders);
   } catch (e) {
     return res.status(500).send('Error');
   }
@@ -157,9 +217,9 @@ ordersRouter.post('/sendEmail/:id', async (req, res, next) => {
           subject: tour && tour.name ? tour.name[lang] : 'TPC',
           html: `
               <div>
-                <h2 style="${blockStyle}">Ваше заявление на бронирование тура было успешно одобрено!</h2>
-                <hr style="${hrStyle}">
-                <h2 style="${blockStyle}margin-left: 5%;">${order.price} сом</h2>
+                <h2 style='${blockStyle}'>Ваше заявление на бронирование тура было успешно одобрено!</h2>
+                <hr style='${hrStyle}'>
+                <h2 style='${blockStyle}margin-left: 5%;'>${order.price} сом</h2>
               </div>
             `,
         },

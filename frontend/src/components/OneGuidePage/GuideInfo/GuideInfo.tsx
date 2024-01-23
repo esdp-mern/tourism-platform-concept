@@ -6,11 +6,13 @@ import { apiUrl } from '@/constants';
 import { selectGuideTours } from '@/containers/tours/toursSlice';
 import TourListItem from '@/components/TourListItem/TourListItem';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import '@/styles/OneGuideInfo.css';
 
 const GuideInfo = () => {
   const guide = useAppSelector(selectOneGuide);
   const tours = useAppSelector(selectGuideTours);
-
+  const t = useTranslations('guide');
   if (!guide || !tours.length) return null;
 
   return (
@@ -37,11 +39,11 @@ const GuideInfo = () => {
           <table className="guide-page_table">
             <tbody>
               <tr>
-                <td>Country :</td>
+                <td>{t(`country`)} :</td>
                 <td>{guide.country}</td>
               </tr>
               <tr>
-                <td>Languages :</td>
+                <td>{t(`languages`)} :</td>
                 <td>
                   {guide.languages.map((lang) => (
                     <span key={lang}>{lang} </span>
@@ -52,7 +54,7 @@ const GuideInfo = () => {
           </table>
         </div>
         <div className="guide-page_tours">
-          <h4 className="guide-page_tours-title">Tours :</h4>
+          <h4 className="guide-page_tours-title">{t(`tours`)} :</h4>
           <div className="guide-page_tours-wrap">
             {tours.map((tour) => (
               <TourListItem tour={tour} key={tour._id} />

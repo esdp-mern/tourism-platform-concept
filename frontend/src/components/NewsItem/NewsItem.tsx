@@ -26,9 +26,10 @@ const NewsItem: React.FC<Props> = ({ news }) => {
   const publishLoading = useAppSelector(selectNewsPublishLoading);
   const deleteLoading = useAppSelector(selectDeleteTourLoading);
   const t = useTranslations('news');
+  const a = useTranslations('alert');
 
   const onDelete = async () => {
-    if (window.confirm('Are you sure you want to delete this news?')) {
+    if (window.confirm(a('delete_news'))) {
       await dispatch(deleteNews(news._id));
       dispatch(fetchNews());
     }
@@ -88,12 +89,12 @@ const NewsItem: React.FC<Props> = ({ news }) => {
               disabled={publishLoading ? publishLoading === news._id : false}
             >
               {publishLoading && publishLoading === news._id
-                ? news.isPublished
+                ? !news.isPublished
                   ? t('news_all_unpublish_loading')
                   : t('news_all_publish_loading')
                 : news.isPublished
-                  ? t('news_all_delete')
-                  : t('news_all_publish_loading')}
+                  ? t('news_all_publish')
+                  : t('news_all_unpublish')}
             </button>
             <Link href={`/news/edit/${news._id}`} className="btn-tour-edit">
               {t('news_all_edit')}

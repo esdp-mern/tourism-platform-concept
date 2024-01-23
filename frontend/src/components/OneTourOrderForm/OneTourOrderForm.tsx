@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IOrder, IOrderForm } from '@/type';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
@@ -10,11 +10,11 @@ import { selectUser } from '@/containers/users/usersSlice';
 import { createOrder } from '@/containers/tours/toursThunk';
 import TextField from '@/components/UI/TextField/TextField';
 import guideIcon from '@/assets/images/guide-icon.svg';
-import calendarIcon from '@/assets/images/calendar-order-icon.svg';
 import emailIcon from '@/assets/images/email-icon.svg';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
+import '@/styles/OneTourOrderForm.css';
 
 export interface IChangeEvent {
   target: { name: string; value: string };
@@ -30,7 +30,7 @@ const unAuthorizedUserFields = {
   phone: '',
 };
 
-const OneTourOrderForm = () => {
+const OneTourOrderForm: React.FC<{ date: string }> = ({ date }) => {
   const dispatch = useAppDispatch();
   const error = useAppSelector(selectOrderError);
   const router = useRouter();
@@ -42,6 +42,13 @@ const OneTourOrderForm = () => {
   const [state, setState] = useState<IOrderForm>(
     user ? authorizedUserFields : unAuthorizedUserFields,
   );
+
+  useEffect(() => {
+    setState((prevState) => ({
+      ...prevState,
+      date,
+    }));
+  }, [date]);
 
   const changeValue = (e: IChangeEvent) => {
     const { name, value } = e.target;
@@ -110,7 +117,6 @@ const OneTourOrderForm = () => {
       </h4>
       <div className="one-tour-order-form-inputs">
         {getTextField('guide', 'Select guide', guideIcon.src, 'select')}
-        {getTextField('date', 'Pick Up Date', calendarIcon.src, 'date')}
         {isNotUser && (
           <>
             {getTextField('email', 'E-mail', emailIcon.src, 'email')}

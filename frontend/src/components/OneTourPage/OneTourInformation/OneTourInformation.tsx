@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import GalleryItem from '@/components/OneTourPage/Gallery/GalleryItem';
 import GalleryModal from '@/components/OneTourPage/Gallery/GalleryModal';
 import { useTranslations } from 'next-intl';
+import '@/styles/OneTourInformation.css';
 
 const OneTourInformation = () => {
   const tour = useAppSelector(selectOneTour);
@@ -71,7 +72,16 @@ const OneTourInformation = () => {
         <div className="one-tour-inner">
           <h3 className="one-tour-inner-title">{tour.name}</h3>
           <div className="one-tour-inner-price-wrap">
-            <span className="one-tour-inner-price">{tour.price} KGS</span>
+            <div className="one-tour-inner-prices">
+              {tour.discountPrice && (
+                <span className="one-tour-inner-discount-price">
+                  {tour.price} KGS
+                </span>
+              )}
+              <span className="one-tour-inner-price">
+                {tour.discountPrice ?? tour.price} KGS
+              </span>
+            </div>
             {t('per_person')}
           </div>
           <div className="one-tour-inner-info">
@@ -95,6 +105,10 @@ const OneTourInformation = () => {
                 <tr>
                   <td>{t('tour_arrival')}</td>
                   <td>{tour.arrival}</td>
+                </tr>
+                <tr>
+                  <td>{t('tour_date')}</td>
+                  <td>{tour.date}</td>
                 </tr>
                 <tr>
                   <td>{t('tour_departure')}</td>

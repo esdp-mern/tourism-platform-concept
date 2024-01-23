@@ -16,6 +16,8 @@ import { selectCreatePartnerLoading } from '@/containers/partners/partnersSlice'
 import { createPartner } from '@/containers/partners/partnersThunk';
 import { userRoles } from '@/constants';
 import FileInput from '@/components/UI/FileInput/FileInput';
+import { GetServerSideProps } from 'next';
+import { useTranslations } from 'next-intl';
 
 const CreatePartner = () => {
   const initialState = {
@@ -28,7 +30,8 @@ const CreatePartner = () => {
   const user = useAppSelector(selectUser);
   const router = useRouter();
   const [state, setState] = useState<IPartnerMutation>(initialState);
-
+  const t = useTranslations('partners');
+  const at = useTranslations('alert');
   useEffect(() => {
     dispatch(setIsLightMode(true));
   }, [dispatch]);
@@ -42,20 +45,18 @@ const CreatePartner = () => {
     e.preventDefault();
 
     if (!(state.name || state.image)) {
-      dispatch(
-        addAlert({ message: 'Name or Image is required', type: 'error' }),
-      );
+      dispatch(addAlert({ message: at('required_name'), type: 'error' }));
       return;
     }
 
     try {
       await dispatch(createPartner(state));
-      dispatch(addAlert({ message: 'Request is sent', type: 'info' }));
+      dispatch(addAlert({ message: at('success'), type: 'info' }));
       setState(initialState);
       void router.push('/admin');
     } catch (e) {
       if (e instanceof AxiosError) {
-        dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+        dispatch(addAlert({ message: at('error'), type: 'error' }));
       }
     }
   };
@@ -80,14 +81,14 @@ const CreatePartner = () => {
       <PageLoader />
       <div className="become-guide">
         <form onSubmit={onSubmit} className="become-guide-form">
-          <h2>Create a partner</h2>
+          <h2>{t('become_title2')}</h2>
           <TextField
             name="name"
             type="text"
             value={state.name!}
             onChange={onChange}
             icon={peopleIcon.src}
-            label="name*"
+            label={t('become_name')}
             required
           />
           <TextField
@@ -96,11 +97,11 @@ const CreatePartner = () => {
             value={state.link!}
             onChange={onChange}
             icon={phoneIcon.src}
-            label="link"
+            label={t('become_link')}
           />
           <div className="input-wrap" style={{ marginTop: '15px' }}>
             <label className="form-label-avatar avatar" htmlFor="image">
-              Image
+              {t('become_image')}
             </label>
             <FileInput
               onChange={onFileChange}
@@ -110,7 +111,7 @@ const CreatePartner = () => {
             />
           </div>
           <button type="submit" className="form-tour-btn">
-            {postLoading ? <ButtonLoader size={18} /> : 'Send'}
+            {postLoading ? <ButtonLoader size={18} /> : t('become_send')}
           </button>
         </form>
       </div>
@@ -119,3 +120,12 @@ const CreatePartner = () => {
 };
 
 export default CreatePartner;
+export const getStaticProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

@@ -5,6 +5,7 @@ import {
 } from 'igniteui-react-maps';
 import { IgrGeographicMap } from 'igniteui-react-maps';
 import { IgrDataChartInteractivityModule } from 'igniteui-react-charts';
+import '@/styles/Map.css';
 
 IgrGeographicSymbolSeriesModule.register();
 IgrGeographicMapModule.register();

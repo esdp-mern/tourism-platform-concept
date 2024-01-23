@@ -12,6 +12,9 @@ import { selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
 import Custom404 from '@/pages/404';
 import { setIsLightMode } from '@/containers/config/configSlice';
+import { GetServerSideProps } from 'next';
+import '@/styles/adminTours.css';
+import '@/styles/ToursPage.css';
 
 const AllToursPage = () => {
   const dispatch = useAppDispatch();
@@ -129,3 +132,12 @@ const AllToursPage = () => {
 };
 
 export default AllToursPage;
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (
+        await import(`../../../../public/locales/${locale}/translation.json`)
+      ).default,
+    },
+  };
+};

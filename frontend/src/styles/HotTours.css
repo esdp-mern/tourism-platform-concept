@@ -34,8 +34,8 @@
   align-items: center;
   gap: 50px;
   position: relative;
-  left: 42.5%;
-  transform: translateX(-50%);
+  left: 42.5vw;
+  transform: translateX(-50vw);
   margin: 0;
   padding: 0;
   z-index: 2;
@@ -202,8 +202,7 @@
 }
 
 .hot-tours-info div {
-  display: flex;
-  align-items: start;
+  display: block;
   gap: 30px;
   margin-right: 400px;
 }
@@ -215,8 +214,8 @@
 }
 
 .hot-tours-info div p {
-  font-family: 'Baloo Bold', serif;
-  font-size: 90px;
+  font-family: 'Balsamiq Sans', sans-serif;
+  font-size: 70px;
   letter-spacing: -0.04em;
   margin: 0;
 }
@@ -257,15 +256,16 @@
   border-radius: 10px;
 }
 .hot-tour-toolbar-sale {
-  position: relative;
+  position: absolute;
   top: 10px;
-  border-radius: 10px;
-  width: 50px;
-  right: -3px;
+  left: 10px;
+  padding: 4px 10px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 7px;
   color: #fff;
-  font-size: 16px;
-  background: #de9337;
-  padding: 10px;
+  background: #ffa133;
 }
 .hot-tour-toolbar-info {
   height: 0;
@@ -372,6 +372,13 @@
     max-width: 660px;
     margin: 0 auto;
   }
+
+  .hot-tours-info div {
+    display: block;
+  }
+  .hot-tour-toolbar-info {
+    height: 120px;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -469,6 +476,11 @@
   }
 }
 
+@media screen and (max-width: 400px) {
+  .hot-tours-info div p {
+    font-size: 45px;
+  }
+}
 @media screen and (max-width: 320px) {
   .hot-tours-info div {
     flex-wrap: wrap;

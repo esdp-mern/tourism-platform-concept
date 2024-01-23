@@ -9,11 +9,13 @@ interface Props {
 }
 
 const HotToursItem: React.FC<Props> = ({ tour }) => {
+  const discount = ((tour.price - tour.discountPrice) / tour.price) * 100;
+
   return (
     <div className="hot-tours-item">
       <NavLink href={`/tours/${tour._id}`} className="hot-tours-item-preview">
         <Image fill sizes="" src={apiUrl + '/' + tour.mainImage} alt="..." />
-        <div className="hot-tours-item-badge">-30%</div>
+        <div className="hot-tours-item-badge">-{Math.ceil(discount)}%</div>
       </NavLink>
       <div className="hot-tours-item-info">
         <p className="hot-tours-item-title">
@@ -25,9 +27,11 @@ const HotToursItem: React.FC<Props> = ({ tour }) => {
           </NavLink>
         </p>
         <div className="hot-tours-item-pricing">
-          <p className="hot-tours-item-price hot-tours-item-price-old">$9999</p>
+          <p className="hot-tours-item-price hot-tours-item-price-old">
+            {tour.price} KGS
+          </p>
           <p className="hot-tours-item-price hot-tours-item-price-new">
-            ${tour.price}
+            {tour.discountPrice} KGS
           </p>
         </div>
       </div>

@@ -6,8 +6,13 @@ import { apiUrl, userRoles } from '@/constants';
 import { IMainSlider } from '@/type';
 import { selectUser } from '@/containers/users/usersSlice';
 import { useRouter } from 'next/router';
-import { selectAllTours } from '@/containers/tours/toursSlice';
+import {
+  selectAllTours,
+  selectAllToursLength,
+} from '@/containers/tours/toursSlice';
 import Link from 'next/link';
+import '@/styles/MainSlider.css';
+import { useTranslations } from 'next-intl';
 
 const MainSlider = () => {
   const dispatch = useAppDispatch();
@@ -15,11 +20,14 @@ const MainSlider = () => {
   const user = useAppSelector(selectUser);
   const sliders = useAppSelector(selectAllMainSliders);
   const tours = useAppSelector(selectAllTours);
+  const allToursLength = useAppSelector(selectAllToursLength);
   const mainSliderRef = useRef<HTMLDivElement | null>(null);
   const [currentSlide, setCurrentSlide] = useState<IMainSlider | null>(null);
   const [currentDot, setCurrentDot] = useState<IMainSlider | null>(null);
   const [sliderChanging, setSliderChanging] = useState(false);
   const [currentWidth, setCurrentWidth] = useState(0);
+  const t = useTranslations('mainSlider');
+  const a = useTranslations('alert');
 
   const sliderPages = useMemo(() => sliders, [sliders]);
   useEffect(() => {
@@ -70,7 +78,7 @@ const MainSlider = () => {
   };
 
   const onDelete = async (id: string) => {
-    if (window.confirm('Are you sure you want to delete this slider?')) {
+    if (window.confirm(a('delete_slider'))) {
       if (id) {
         await dispatch(deleteSliders(id));
         dispatch(fetchSliders());
@@ -105,19 +113,21 @@ const MainSlider = () => {
                   className="country-slider-btns-delete"
                   onClick={() => onDelete(currentSlide?._id!)}
                 >
-                  Delete
+                  {t('deleteBtn')}
                 </button>
                 <Link
                   href={'slider/' + 'edit/' + currentSlide?._id!}
                   id="edit-slider"
                   className="country-slider-btns-edit"
                 >
-                  Edit
+                  {t('editBtn')}
                 </Link>
               </div>
             ) : null}
           </div>
-          <span className="sliderCaption">{tours.length} tours</span>
+          <span className="sliderCaption">
+            {allToursLength} {t('tours')}
+          </span>
           <span className="scrollDown" onClick={scrollToBottom} />
         </div>
       </div>
@@ -148,7 +158,7 @@ const MainSlider = () => {
               router.push(`/slider/create`).then((r) => r);
             }}
           >
-            Add new slider
+            {t('addBtn')}
           </button>
         ) : null}
       </div>

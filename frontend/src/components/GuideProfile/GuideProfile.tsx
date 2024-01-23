@@ -5,11 +5,12 @@ import {
   setGuideEditorModal,
 } from '@/containers/guides/guidesSlice';
 import EditGuideModal from '@/components/EditGuideProfile/EditGuideModal';
+import { useTranslations } from 'next-intl';
 
 const GuideProfile = () => {
   const guide = useAppSelector(selectGuideUser);
   const dispatch = useAppDispatch();
-
+  const t = useTranslations('guide');
   if (!guide) return null;
 
   return (
@@ -20,7 +21,7 @@ const GuideProfile = () => {
           className="edit-profile page-profile_edit-btn"
           onClick={() => dispatch(setGuideEditorModal())}
         >
-          Edit description
+          {t(`editBtn`)}
         </button>
         <div>
           <p>{guide.description}</p>
@@ -29,11 +30,11 @@ const GuideProfile = () => {
           <table className="profile-page_table">
             <tbody>
               <tr>
-                <td>Country :</td>
+                <td>{t(`country`)} :</td>
                 <td>{guide.country}</td>
               </tr>
               <tr>
-                <td>Languages :</td>
+                <td>{t(`languages`)} :</td>
                 <td>
                   {guide.languages.map((lang) => (
                     <span key={lang} className="language">

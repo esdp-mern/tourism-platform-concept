@@ -12,6 +12,7 @@ import FilesInput from '@/components/UI/FileInput/FilesInput';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import { useTranslations } from 'next-intl';
+import '@/styles/newReviewForm.css';
 
 interface Props {
   isEdit?: boolean;
@@ -34,6 +35,7 @@ const NewsForm: React.FC<Props> = ({ isEdit, idNews }) => {
   const [images, setImages] = useState<File[]>(state.images || []);
   const [category, setCategory] = useState<string[]>(state.category || []);
   const t = useTranslations('news');
+  const a = useTranslations('alert');
 
   useEffect(() => {
     if (idNews) {
@@ -72,7 +74,7 @@ const NewsForm: React.FC<Props> = ({ isEdit, idNews }) => {
       }
       routers.push('/').then((r) => r);
     } catch (e) {
-      alert('Invalid field');
+      alert(a('invalid_field'));
     }
   };
 

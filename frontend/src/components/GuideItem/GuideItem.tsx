@@ -6,6 +6,8 @@ import { userRoles } from '@/constants';
 import { deleteGuide, fetchAdminGuides } from '@/containers/guides/guidesThunk';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import '@/styles/GuideItem.css';
+import '@/styles/OneGuidePage.css';
 
 interface Props {
   id: string;
@@ -25,9 +27,10 @@ const GuideItem: React.FC<Props> = ({
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const t = useTranslations('about');
+  const a = useTranslations('alert');
 
   const onDelete = async (id: string) => {
-    if (window.confirm('Are you sure you want to delete this guide?')) {
+    if (window.confirm(a('delete_guide'))) {
       await dispatch(deleteGuide(id));
       dispatch(fetchAdminGuides());
     }

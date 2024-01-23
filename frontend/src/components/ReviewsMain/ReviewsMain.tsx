@@ -3,6 +3,7 @@ import { ReviewOfPlatform } from '@/type';
 import Image from 'next/image';
 import { apiUrl } from '@/constants';
 import { useTranslations } from 'next-intl';
+import '@/styles/reviews.css';
 
 interface Props {
   reviews: ReviewOfPlatform[];

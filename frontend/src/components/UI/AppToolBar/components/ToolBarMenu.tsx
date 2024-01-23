@@ -26,18 +26,16 @@ const ToolBarMenu: React.FC<IProps> = ({ show, onClick }) => {
   const logoutLoading = useAppSelector(selectLogoutLoading);
   const pathname = usePathname();
   const t = useTranslations('navbar');
+  const a = useTranslations('alert');
 
   const userLogout = async () => {
     try {
       await dispatch(logout());
-      dispatch(addAlert({ message: 'You have logged out!', type: 'info' }));
+      dispatch(addAlert({ message: a('logged'), type: 'info' }));
     } catch (e) {
-      dispatch(addAlert({ message: 'Something is wrong!', type: 'error' }));
+      dispatch(addAlert({ message: a('error'), type: 'error' }));
     }
   };
-
-  const editBtn = t('edit_profile_btn');
-  const logoutBtn = t('logout_btn');
 
   return (
     <>
@@ -69,14 +67,18 @@ const ToolBarMenu: React.FC<IProps> = ({ show, onClick }) => {
                   onClick();
                 }}
               >
-                {logoutLoading ? <ButtonLoader size={16} /> : `${editBtn}`}
+                {logoutLoading ? (
+                  <ButtonLoader size={16} />
+                ) : (
+                  t('edit_profile_btn')
+                )}
               </button>
               <button
                 className="logout"
                 onClick={userLogout}
                 disabled={logoutLoading}
               >
-                {logoutLoading ? <ButtonLoader size={16} /> : `${logoutBtn}`}
+                {logoutLoading ? <ButtonLoader size={16} /> : t('logout_btn')}
               </button>
             </div>
           </div>

@@ -38,7 +38,7 @@ const OrderSchema = new mongoose.Schema({
     required: true,
   },
   date: {
-    type: Date,
+    type: String,
     required: true,
   },
   email: {
@@ -48,7 +48,7 @@ const OrderSchema = new mongoose.Schema({
   phone: String,
   datetime: {
     type: String,
-    default: () => new Date().toISOString(),
+    default: new Date().toISOString(),
   },
   status: {
     type: String,

@@ -32,6 +32,7 @@
     "react-select": "^5.8.0",
     "redux-persist": "^6.0.0",
     "redux-persist-cookie-storage": "^1.0.0",
+    "sharp": "^0.33.2",
     "swiper": "^10.3.1"
   },
   "devDependencies": {

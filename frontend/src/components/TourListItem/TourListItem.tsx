@@ -14,8 +14,9 @@ import {
   selectDeleteTourLoading,
   selectTourPublishLoading,
 } from '@/containers/tours/toursSlice';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
+import '@/styles/TourItem.css';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   tour: Tour;
@@ -28,26 +29,43 @@ const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
   const imgLink = apiUrl + '/' + tour.mainImage;
   const publishLoading = useAppSelector(selectTourPublishLoading);
   const deleteLoading = useAppSelector(selectDeleteTourLoading);
+  const a = useTranslations('alert');
   const onDelete = async () => {
-    if (window.confirm('Are you sure you want to delete this tour?')) {
+    if (window.confirm(a('delete_tour'))) {
       await dispatch(deleteTour(tour._id));
       dispatch(fetchTours());
     }
   };
 
   const onPublish = async () => {
-    if (window.confirm('Are you sure you want to publish this tour?')) {
+    if (window.confirm(a('publish_tour'))) {
       await dispatch(publishTour(tour._id));
       dispatch(fetchTours());
     }
   };
+
+  const discount = ((tour.price - tour.discountPrice) / tour.price) * 100;
 
   return (
     <Fade>
       <div className="tour-item" id={tour._id}>
         <Link href={`/tours/${tour._id}`} className="tour-item-top">
           <Image fill src={imgLink} alt={tour.name} className="tour-item-img" />
-          <div className="tour-item-price">{`${tour.price}`} KGS</div>
+          {tour.discountPrice && (
+            <div className="tour-item-discount">-{Math.ceil(discount)}%</div>
+          )}
+
+          <div
+            className={`tour-item-price ${
+              tour.discountPrice ? 'tour-item-discount-price' : ''
+            }`}
+          >
+            {tour.discountPrice && (
+              <span className="tour-item-old-price">{tour.price} KGS</span>
+            )}
+            {tour.discountPrice ?? tour.price} KGS
+          </div>
+
           {isAdmin && user && user.role === userRoles.admin ? (
             <div
               className={`${
@@ -79,9 +97,11 @@ const TourItem: React.FC<Props> = ({ tour, isAdmin }) => {
           <Link href={`/tours/${tour._id}`} className="tour-item-links">
             <h2 className="tour-item-title">{tour.name}</h2>
           </Link>
-          <div className="tour-item-country">{tour.country}</div>
-          <div className="tour-item-info">
-            <div className="tour-item-duration">{tour.duration} days</div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div className="tour-item-country">{tour.country}</div>
+            <div className="tour-item-info">
+              <div className="tour-item-duration">{tour.duration} days</div>
+            </div>
           </div>
           {isAdmin && user && user.role === userRoles.admin ? (
             <div className="buttons-tour">

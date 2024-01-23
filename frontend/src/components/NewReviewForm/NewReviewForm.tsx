@@ -6,6 +6,7 @@ import { addAlert, selectUser } from '@/containers/users/usersSlice';
 import { tourReview } from '@/containers/tours/toursThunk';
 import { fetchToursReviews } from '@/containers/reviews/reviewThunk';
 import { useTranslations } from 'next-intl';
+import '@/styles/newReviewForm.css';
 
 interface IPostReview {
   tour: string;
@@ -25,6 +26,7 @@ const NewReviewForm = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const t = useTranslations('oneTour');
+  const a = useTranslations('alert');
 
   const onRatingClick = (number: number) => {
     setState((prevState) => ({
@@ -52,7 +54,7 @@ const NewReviewForm = () => {
           tour: id,
         }),
       ).unwrap();
-      dispatch(addAlert({ message: 'Your review is sent!', type: 'info' }));
+      dispatch(addAlert({ message: a('review_send'), type: 'info' }));
       setState({
         tour: '',
         comment: '',

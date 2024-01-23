@@ -62,7 +62,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     default: 'user',
-    enum: ['user', 'admin', 'moderator', 'guid'],
+    enum: ['user', 'admin', 'moderator', 'guide'],
   },
   displayName: {
     type: String,
