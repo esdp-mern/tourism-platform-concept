@@ -363,6 +363,7 @@ toursRouter.get('/:id', async (req, res) => {
       country: tour.country ? tour.country[lang] : tour.country,
       galleryTour: tour.galleryTour,
       isPublished: tour.isPublished,
+      rating: tour.rating,
       date: tour.date,
       map: tour.map,
       mapLink: tour.mapLink,

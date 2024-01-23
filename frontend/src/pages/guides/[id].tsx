@@ -11,7 +11,6 @@ import GuideInfo from '@/components/OneGuidePage/GuideInfo/GuideInfo';
 import GuideReviews from '@/components/OneGuidePage/GuideReviews/GuideReviews';
 import { fetchGuideReviews } from '@/containers/reviews/reviewThunk';
 import { fetchToursGuide } from '@/containers/tours/toursThunk';
-import { fetchGuideRating } from '@/containers/ratings/ratingThunk';
 import Image from 'next/image';
 import bgImage from '@/assets/images/bg-image-1.jpg';
 import { useTranslations } from 'next-intl';
@@ -41,7 +40,6 @@ const OneGuidePage = () => {
     dispatch(fetchGuide(id));
     dispatch(fetchToursGuide(id));
     dispatch(fetchGuideReviews(id));
-    dispatch(fetchGuideRating(id));
   }, [dispatch, id]);
 
   if (!guide) return <Custom404 errorType="guide" />;

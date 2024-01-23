@@ -62,6 +62,7 @@ export interface IGuide {
   country: string;
   image: string;
   isPublished: boolean;
+  rating: number;
 }
 
 export interface IGuideFull extends IGuide {
@@ -95,6 +96,7 @@ export interface Tour {
   price: number;
   discountPrice: number;
   isPublished: boolean;
+  rating: number;
   date: string;
   map: string;
   mapLink: string;
@@ -102,8 +104,6 @@ export interface Tour {
 
 export interface TourFull extends Tour {
   guides: IGuideFull[];
-  ratingTour: number;
-  commentTour: IReview[];
 }
 
 export interface IPlan {

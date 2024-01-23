@@ -45,12 +45,12 @@ export const signUp = createAsyncThunk<
       });
 
       const { data } = await axiosApi.post<RegisterMessage>('/users', formData);
+
       return data;
     } catch (e) {
       if (isAxiosError(e) && e.response && e.response.status === 400) {
         return rejectWithValue(e.response.data);
       }
-
       throw e;
     }
   },

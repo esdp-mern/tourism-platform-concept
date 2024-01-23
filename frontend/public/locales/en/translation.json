@@ -133,6 +133,12 @@
     "text": "Oops! That page can't be found"
   },
   "guide": {
+    "rating_super": "Super",
+    "rating_good": "Good",
+    "rating_normal": "Normal",
+    "rating_bad": "Bad",
+    "rating_very_bad": "Very bad",
+    "not_rated": "Not rated",
     "information": "Information",
     "reviews": "Reviews",
     "country": "Country",

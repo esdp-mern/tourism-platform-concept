@@ -37,18 +37,12 @@ usersRouter.get('/', async (req, res, next) => {
 
 usersRouter.post('/', imagesUpload.single('avatar'), async (req, res, next) => {
   try {
-    const email = await User.findOne({ email: req.body.email });
-
-    if (email) {
-      return res.status(400).send('User with this email already exists');
-    }
-
     const user = new User({
       username: req.body.username,
       password: req.body.password,
       email: req.body.email,
       displayName: req.body.displayName,
-      avatar: req.file ? req.file.filename : null,
+      avatar: req.file && req.file.filename,
     });
 
     user.generateToken();
@@ -90,15 +84,17 @@ usersRouter.post('/', imagesUpload.single('avatar'), async (req, res, next) => {
       (error) => {
         if (error) {
           return res.status(500).send({
+            error,
             message: 'Error when sending an email with a confirmation link',
           });
         }
-        res.status(200).send({
-          message:
-            'An email with a confirmation link has been sent. Please check your email.',
-        });
       },
     );
+
+    return res.send({
+      message:
+        'An email with a confirmation link has been sent. Please check your email.',
+    });
   } catch (e) {
     if (e instanceof mongoose.Error.ValidationError) {
       return res.status(400).send(e);
@@ -115,7 +111,7 @@ usersRouter.get('/confirm/:token', async (req, res, next) => {
       return res.status(400).send('Wrong token!');
     }
 
-    const decoded = jwt.verify(token as string, secret) as IDecodedToken;
+    const decoded = jwt.verify(token, secret) as IDecodedToken;
 
     const user = await User.findOne({ email: decoded.email });
 
@@ -134,10 +130,7 @@ usersRouter.get('/confirm/:token', async (req, res, next) => {
     user.verified = true;
     await user.save();
 
-    res.cookie('persist%3Atourism-platform-concept%3Ausers', user, {
-      httpOnly: true,
-    });
-    res.redirect(`${process.env.CLIENT_URL}`);
+    res.redirect(`${process.env.CLIENT_URL + '/login'}`);
   } catch (e) {
     if (e instanceof mongoose.Error.ValidationError) {
       return res.status(400).send(e);
@@ -152,6 +145,10 @@ usersRouter.post('/sessions', async (req, res, next) => {
 
     if (!user) {
       return res.status(400).send({ error: 'Wrong password or username!' });
+    }
+
+    if (!user.verified) {
+      return res.status(400).send({ error: 'Your email is not confirmed!' });
     }
 
     const isMatch = await user.checkPassword(req.body.password);

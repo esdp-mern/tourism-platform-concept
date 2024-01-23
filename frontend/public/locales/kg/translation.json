@@ -133,6 +133,12 @@
     "text": "Ой! Бул баракты табуу мүмкүн эмес"
   },
   "guide": {
+    "rating_super": "Абдан жакшы",
+    "rating_good": "Жакшы",
+    "rating_normal": "Орто",
+    "rating_bad": "Жаман",
+    "rating_very_bad": "Өтө жаман",
+    "not_rated": "Баа жок",
     "information": "Информация",
     "reviews": "Баалоо",
     "country": "Өлкө",

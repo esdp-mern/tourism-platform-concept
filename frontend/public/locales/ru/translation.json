@@ -133,6 +133,12 @@
     "text": "Упс! Эту страницу невозможно найти"
   },
   "guide": {
+    "rating_super": "Отлично",
+    "rating_good": "Хорошо",
+    "rating_normal": "Нормально",
+    "rating_bad": "Плохо",
+    "rating_very_bad": "Очень плохо",
+    "not_rated": "Оценок нет",
     "information": "Информация",
     "reviews": "Отзывы",
     "country": "Страна",
