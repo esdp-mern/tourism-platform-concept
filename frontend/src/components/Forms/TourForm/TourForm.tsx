@@ -14,6 +14,8 @@ import { useRouter } from 'next/router';
 import TextFieldGuide from '@/components/UI/TextField/components/TextFieldGuide';
 import FilesInput from '@/components/UI/FileInput/FilesInput';
 import '@/styles/TourForm.css';
+import '@/styles/admin-buttons.css';
+import AdminIcon from '@/components/UI/AdminIcon/AdminIcon';
 import { useTranslations } from 'next-intl';
 
 interface Props {
@@ -545,9 +547,11 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
           <h5 className="form-tour-title">{t('what_included')}</h5>
           <button
             type="button"
-            className="form-tour-btn-add"
+            className="admin-button admin-button-add"
+            style={{ width: '100%' }}
             onClick={() => addOneItem('included')}
           >
+            <AdminIcon type="add" />
             {t('add_tag')}
           </button>
           {included.map((including, index) => (
@@ -579,9 +583,11 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
           <h5 className="form-tour-title">{t('categories')}:</h5>
           <button
             type="button"
-            className="form-tour-btn-add"
+            className="admin-button admin-button-add"
+            style={{ width: '100%' }}
             onClick={() => addOneItem('category')}
           >
+            <AdminIcon type="add" />
             {t('add_category')}
           </button>
           {category.map((category, index) => (
@@ -613,9 +619,11 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
           <h5 className="form-tour-title">{t('tour_plan')}:</h5>
           <button
             type="button"
-            className="form-tour-btn-add"
+            className="admin-button admin-button-add"
+            style={{ width: '100%' }}
             onClick={() => addOneItem('plan')}
           >
+            <AdminIcon type="add" />
             {t('add_day')}
           </button>
           {plan.map((_, index) => (
@@ -709,7 +717,11 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
             <span className="error-tour">{getFieldError('mapLink')}</span>
           )}
         </div>
-        <button type="submit" className="form-tour-btn">
+        <button
+          type="submit"
+          className="admin-button admin-button-edit"
+          style={{ width: '100%' }}
+        >
           {loading ? (
             <ButtonLoader size={18} />
           ) : isEdit ? (
@@ -717,6 +729,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
           ) : (
             t('create_tour')
           )}
+          <AdminIcon type="save" />
         </button>
       </form>
     </div>

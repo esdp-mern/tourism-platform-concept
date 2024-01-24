@@ -13,6 +13,7 @@ import { GetServerSideProps } from 'next';
 import { useTranslations } from 'next-intl';
 import '@/styles/NewsPage.css';
 import '@/styles/adminTours.css';
+import Head from 'next/head';
 
 const AllPartnerOrdersPage = () => {
   const dispatch = useAppDispatch();
@@ -21,6 +22,7 @@ const AllPartnerOrdersPage = () => {
   const [ordersPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
   const t = useTranslations('partnerOrders');
+  const metaT = useTranslations('metaTags');
 
   const indexOfLastRecord = currentPage * ordersPerPage;
   const indexOfFirstRecord = indexOfLastRecord - ordersPerPage;
@@ -44,43 +46,49 @@ const AllPartnerOrdersPage = () => {
   };
 
   return (
-    <div className="all-tours">
-      <PageLoader />
-      <div>
-        <div className="container">
-          <div className="buttons-admin-tour">
-            {!partnerOrders || partnerOrders.length <= 0 ? (
-              <div className="title-none-tour">{t('noPartnersMessage')}</div>
-            ) : (
-              <div>
-                <div className="tours-admin-page">
-                  {currentRecords.map((orders) => (
-                    <div className="card-news" key={orders._id}>
-                      <PartnerOrderItem
-                        id={orders._id}
-                        name={orders.name}
-                        message={orders.message}
-                        number={orders.number}
-                        link={orders.link}
-                        image={orders.image}
-                      />
-                    </div>
-                  ))}
+    <>
+      <Head>
+        <title>{metaT('partner_orders_title')}</title>
+        <meta name="description" content={metaT('partner_orders_desc')} />
+      </Head>
+      <div className="all-tours">
+        <PageLoader />
+        <div>
+          <div className="container">
+            <div className="buttons-admin-tour">
+              {!partnerOrders || partnerOrders.length <= 0 ? (
+                <div className="title-none-tour">{t('noPartnersMessage')}</div>
+              ) : (
+                <div>
+                  <div className="tours-admin-page">
+                    {currentRecords.map((orders) => (
+                      <div className="card-news" key={orders._id}>
+                        <PartnerOrderItem
+                          id={orders._id}
+                          name={orders.name}
+                          message={orders.message}
+                          number={orders.number}
+                          link={orders.link}
+                          image={orders.image}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="tours-page-paginate">
+                    <Pagination
+                      pathname={'/admin/partnerOrders/'}
+                      nPages={nPages}
+                      currentPage={currentPage}
+                      onSetCurrentPage={onSetCurrentPage}
+                    />
+                  </div>
                 </div>
-                <div className="tours-page-paginate">
-                  <Pagination
-                    pathname={'/admin/partnerOrders/'}
-                    nPages={nPages}
-                    currentPage={currentPage}
-                    onSetCurrentPage={onSetCurrentPage}
-                  />
-                </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

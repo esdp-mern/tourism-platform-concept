@@ -496,9 +496,9 @@
 
 .about-page-team-cards {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 80px;
   margin-top: 40px;
 }
 
@@ -558,9 +558,11 @@
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  gap: 20px;
 }
 
 .about-page-partners-card {
+  margin: 0 auto;
   font-size: 22px;
   transform: translate3d(0, 0, 0);
   opacity: 0.5;
@@ -647,8 +649,8 @@
     overflow-x: hidden;
     padding-top: 5px;
   }
-  .about-page-tours-img{
-     height: 400px;
+  .about-page-tours-img {
+    height: 400px;
   }
 
   .about-page-advantages-card:hover .about-page-advantages-image {
@@ -691,14 +693,14 @@
   .about-page-partners-card {
     margin-bottom: 20px;
   }
-  .about-page-clients-main div{
+  .about-page-clients-main div {
     text-align: center;
   }
-  .about-page-clients-main{
+  .about-page-clients-main {
     margin-bottom: 50px;
   }
   .about-page-team,
-  .about-page-guide{
+  .about-page-guide {
     margin-top: 50px;
   }
   .about-page-top-title {
@@ -713,30 +715,30 @@
   .about-page-clients-card {
     width: 82%;
   }
-  .about-page-advantages-title{
+  .about-page-advantages-title {
     font-size: 20px;
   }
-  .about-page-advantages-image{
+  .about-page-advantages-image {
     width: 30px;
     height: 30px;
   }
-  .about-page-advantages-txt{
+  .about-page-advantages-txt {
     font-size: 14px;
   }
-  .about-page-clients-main{
+  .about-page-clients-main {
     margin-bottom: 30px;
   }
-  .about-page-tours-btn{
+  .about-page-tours-btn {
     font-size: 12px;
     padding: 15px 20px;
   }
-  .about-page-team-card-title{
+  .about-page-team-card-title {
     font-size: 20px;
   }
-  .about-page-team-card-position{
+  .about-page-team-card-position {
     font-size: 16px;
   }
-  .about-page-team-card-phone{
+  .about-page-team-card-phone {
     font-size: 14px;
     background-size: 13px;
   }
@@ -752,12 +754,12 @@
   }
   .about-page-top-txt,
   .about-page-tours-txt,
-  .about-page-team-txt{
+  .about-page-team-txt {
     font-size: 16px;
   }
   .about-page-tours-title,
   .about-page-clients-title,
-  .about-page-team-title{
+  .about-page-team-title {
     font-size: 28px;
   }
 }

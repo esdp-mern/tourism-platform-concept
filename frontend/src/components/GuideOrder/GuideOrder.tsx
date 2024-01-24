@@ -7,6 +7,9 @@ import {
 } from '@/containers/guides/guidesThunk';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import AdminIcon from '@/components/UI/AdminIcon/AdminIcon';
+import '@/styles/admin-buttons.css';
+import '@/styles/GuideItem.css';
 
 interface Props {
   _id: string;
@@ -50,23 +53,24 @@ const GuideOrder: React.FC<Props> = ({
             <strong>{t('message')}:</strong> {message}
           </p>
         </div>
-        <div className="guide-card-orders__buttons">
+        <div className="admin-buttons" style={{ justifyContent: 'center' }}>
           <Link
             href={`/guideOrders/${_id}`}
-            className="btn-tour-edit"
-            style={{ margin: '5px' }}
+            className="admin-button admin-button-outline admin-button-edit"
           >
             {t('accept')}
+            <AdminIcon type="save" />
           </Link>
           <button
-            className="btn-delete-tour"
-            onClick={onDelete}
-            style={{ margin: '5px' }}
+            className="admin-button admin-button-outline admin-button-delete"
+            style={{ position: 'absolute', top: 10, right: 10 }}
             disabled={deleteLoading ? deleteLoading === _id : false}
+            onClick={onDelete}
           >
+            <AdminIcon type="delete" />
             {deleteLoading && deleteLoading === _id
               ? tr('news_all_delete_loading')
-              : t('delete')}
+              : null}
           </button>
         </div>
       </div>

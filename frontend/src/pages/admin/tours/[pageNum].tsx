@@ -15,6 +15,8 @@ import { setIsLightMode } from '@/containers/config/configSlice';
 import { GetServerSideProps } from 'next';
 import '@/styles/adminTours.css';
 import '@/styles/ToursPage.css';
+import Head from 'next/head';
+import { useTranslations } from 'next-intl';
 
 const AllToursPage = () => {
   const dispatch = useAppDispatch();
@@ -24,47 +26,24 @@ const AllToursPage = () => {
   const toursPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
   const [currentTours, setCurrentTours] = useState<
-    'all' | 'published' | 'nonPublished'
+    'all' | 'public' | 'unpublic'
   >('all');
+  const t = useTranslations('metaTags');
 
   const indexOfLastRecord = currentPage * toursPerPage;
   const indexOfFirstRecord = indexOfLastRecord - toursPerPage;
   const nPages = Math.ceil(allToursLength / toursPerPage);
 
   useEffect(() => {
+    dispatch(
+      fetchAdminTours({
+        all: true,
+        skip: indexOfFirstRecord,
+        limit: toursPerPage,
+      }),
+    );
     dispatch(setIsLightMode(true));
   }, [dispatch]);
-
-  useEffect(() => {
-    switch (currentTours) {
-      case 'all':
-        dispatch(
-          fetchAdminTours({
-            all: true,
-            skip: indexOfFirstRecord,
-            limit: toursPerPage,
-          }),
-        );
-        break;
-      case 'published':
-        dispatch(fetchTours({ skip: indexOfFirstRecord, limit: toursPerPage }));
-        break;
-      case 'nonPublished':
-        dispatch(
-          fetchAdminTours({ skip: indexOfFirstRecord, limit: toursPerPage }),
-        );
-        break;
-      default:
-        dispatch(
-          fetchAdminTours({
-            all: true,
-            skip: indexOfFirstRecord,
-            limit: toursPerPage,
-          }),
-        );
-        break;
-    }
-  }, [currentTours, dispatch, currentPage]);
 
   if (!user || user.role !== userRoles.admin) {
     return <Custom404 errorType="tour" />;
@@ -75,59 +54,99 @@ const AllToursPage = () => {
   };
 
   return (
-    <div className="all-tours">
-      <PageLoader />
-      <div>
-        <div className="container">
-          <div style={{ margin: '100px auto 0 0' }}>
-            <div className="buttons-admin-tour">
-              <button
-                className="btn-admin-fetch-tour btn-admin-all"
-                type="button"
-                onClick={() => setCurrentTours('all')}
-              >
-                all
-              </button>
-              <button
-                className="btn-admin-fetch-tour btn-admin-pub"
-                type="button"
-                onClick={() => setCurrentTours('published')}
-              >
-                published
-              </button>
-              <button
-                className="btn-admin-fetch-tour btn-admin-non-pub"
-                type="button"
-                onClick={() => setCurrentTours('nonPublished')}
-              >
-                non published
-              </button>
+    <>
+      <Head>
+        <title>
+          {t('tours_title')} {currentPage}
+        </title>
+        <meta name="description" content={t('tours_desc')} />
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+      <div className="all-tours">
+        <PageLoader />
+        <div>
+          <div className="container">
+            <div style={{ margin: '100px auto 0 0' }}>
+              <div className="buttons-admin-tour">
+                <button
+                  className={`btn-admin-fetch-tour btn-admin-all ${
+                    currentTours === 'all' && 'focus'
+                  }`}
+                  type="button"
+                  onClick={async () => {
+                    await dispatch(
+                      fetchAdminTours({
+                        all: true,
+                        skip: indexOfFirstRecord,
+                        limit: toursPerPage,
+                      }),
+                    );
+                    setCurrentTours('all');
+                  }}
+                >
+                  all
+                </button>
+                <button
+                  className={`btn-admin-fetch-tour btn-admin-pub ${
+                    currentTours === 'public' && 'focus'
+                  }`}
+                  type="button"
+                  onClick={async () => {
+                    await dispatch(
+                      fetchTours({
+                        skip: indexOfFirstRecord,
+                        limit: toursPerPage,
+                      }),
+                    );
+                    setCurrentTours('public');
+                  }}
+                >
+                  published
+                </button>
+                <button
+                  className={`btn-admin-fetch-tour btn-admin-non-pub ${
+                    currentTours === 'unpublic' && 'focus'
+                  }`}
+                  type="button"
+                  onClick={async () => {
+                    await dispatch(
+                      fetchAdminTours({
+                        skip: indexOfFirstRecord,
+                        limit: toursPerPage,
+                      }),
+                    );
+                    setCurrentTours('unpublic');
+                  }}
+                >
+                  non published
+                </button>
+              </div>
+              {!tours || tours.length <= 0 ? (
+                <div className="title-none-tour">
+                  Unfortunately, there are no {currentTours} tours.
+                </div>
+              ) : (
+                <div>
+                  <div className="tours-admin-page">
+                    {tours.map((tour) => (
+                      <TourItem tour={tour} key={tour._id} isAdmin />
+                    ))}
+                  </div>
+                  <div className="tours-page-paginate">
+                    <Pagination
+                      pathname={'/admin/tours/'}
+                      nPages={nPages}
+                      currentPage={currentPage}
+                      onSetCurrentPage={onSetCurrentPage}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
-            {!tours || tours.length <= 0 ? (
-              <div className="title-none-tour">
-                Unfortunately, there are no {currentTours} tours.
-              </div>
-            ) : (
-              <div>
-                <div className="tours-admin-page">
-                  {tours.map((tour) => (
-                    <TourItem tour={tour} key={tour._id} isAdmin />
-                  ))}
-                </div>
-                <div className="tours-page-paginate">
-                  <Pagination
-                    pathname={'/admin/tours/'}
-                    nPages={nPages}
-                    currentPage={currentPage}
-                    onSetCurrentPage={onSetCurrentPage}
-                  />
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

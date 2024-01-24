@@ -7,6 +7,9 @@ import Link from 'next/link';
 import { selectUser } from '@/containers/users/usersSlice';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import penIcon from '@/assets/images/pen-to-square.svg';
+import trashIcon from '@/assets/images/trash.svg';
+import AdminIcon from '@/components/UI/AdminIcon/AdminIcon';
 
 const EmployeeItem = () => {
   const dispatch = useAppDispatch();
@@ -44,19 +47,21 @@ const EmployeeItem = () => {
           <div className="about-page-team-card-phone">{empl.number}</div>
           {user && user.role === userRoles.admin ? (
             <div className="about-page-team-btns">
+              <Link
+                href={`/employees/edit/${empl._id}`}
+                className="admin-button admin-button-edit"
+              >
+                <AdminIcon type="edit" />
+                {tr('edit')}
+              </Link>
               <button
-                className="btn-delete-tour"
+                className="admin-button admin-button-delete"
                 type="button"
                 onClick={() => onDelete(empl._id)}
               >
+                <AdminIcon type="delete" />
                 {tr('delete')}
               </button>
-              <Link
-                href={`/employees/edit/${empl._id}`}
-                className="btn-tour-edit"
-              >
-                {tr('edit')}
-              </Link>
             </div>
           ) : null}
         </div>

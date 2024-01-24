@@ -17,7 +17,14 @@ const GoogleMap: React.FC<IProps> = ({ map, mapLink }) => {
 
   const t = useTranslations('oneTour');
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', marginBottom: 50 }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        marginBottom: 50,
+      }}
+    >
       <div className="google-map" dangerouslySetInnerHTML={{ __html: map }} />
       {user && user.role === userRoles.admin && (
         <Link

@@ -313,12 +313,16 @@
 
 .profile-preview-btns {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .logout,
 .edit-profile {
   display: flex;
+  align-items: center;
+  gap: 5px;
   font-size: 13px;
   line-height: 1.3;
   background-color: #de9337;

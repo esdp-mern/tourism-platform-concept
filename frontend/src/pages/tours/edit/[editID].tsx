@@ -14,6 +14,8 @@ import { selectUser } from '@/containers/users/usersSlice';
 import { userRoles } from '@/constants';
 import Custom404 from '@/pages/404';
 import { setIsLightMode } from '@/containers/config/configSlice';
+import Head from 'next/head';
+import { useTranslations } from 'next-intl';
 
 const EditTour: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -23,8 +25,8 @@ const EditTour: NextPage<
   const { editID } = useParams() as {
     editID: string;
   };
-
   const user = useAppSelector(selectUser);
+  const metaT = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -33,15 +35,24 @@ const EditTour: NextPage<
     }
   }, [editID, dispatch]);
 
-  if (!user || user.role !== userRoles.admin) {
+  if (!user || user.role !== userRoles.admin || !tour) {
     return <Custom404 errorType="tour" />;
   }
 
   return (
-    <div className="container sign-up-page">
-      <PageLoader />
-      <TourForm isEdit idTour={tour?._id} />
-    </div>
+    <>
+      <Head>
+        <title>
+          {metaT('edit_tour_title')} - {tour.name}
+        </title>
+        <meta name="description" content={tour.description} />
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+      <div className="container sign-up-page">
+        <PageLoader />
+        <TourForm isEdit idTour={tour?._id} />
+      </div>
+    </>
   );
 };
 
