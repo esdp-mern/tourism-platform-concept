@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:test": "NODE_ENV=test ts-node index.ts",
+    "seed:test": "NODE_ENV=test ts-node fixtures.ts",
     "seed": "ts-node fixtures.ts",
     "rating": "ts-node rating.ts",
     "cleanUsers": "ts-node cleaningUsers.ts",
