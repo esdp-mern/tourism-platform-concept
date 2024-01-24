@@ -17,6 +17,8 @@ import chevronRightLight from '@/assets/images/chevron-right-light.svg';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import '@/styles/AppToolBar.css';
+import logoLight from '../../../assets/images/main-logo-light.png';
+import logoDark from '../../../assets/images/main-logo.png';
 
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);
@@ -200,7 +202,12 @@ const AppToolBar = () => {
                 <span></span>
               </button>
               <NavLink href="/" className="logo" onClick={showMenu}>
-                Tourism Concept
+                <Image
+                  width={80}
+                  height={50}
+                  src={isLightMode ? logoDark.src : logoLight.src}
+                  alt="chevron"
+                />
               </NavLink>
             </div>
             <div className="nav-wrapper">
