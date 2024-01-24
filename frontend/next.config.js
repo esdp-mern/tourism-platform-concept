@@ -5,7 +5,7 @@ module.exports = {
     defaultLocale: 'en',
   },
   reactStrictMode: true,
-  images: { remotePatterns: [{ hostname: 'localhost' }] },
+  images: { remotePatterns: [{ hostname: '178.62.226.128' }] },
   webpack: (config, { _ }) => {
     config.module.rules.push({
       test: /\.css$/,
