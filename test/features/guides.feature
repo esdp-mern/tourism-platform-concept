@@ -1,13 +1,13 @@
-@guides
+ @guides
 
 Feature: Guides CRUD
-
   Scenario: User sends a new guide request
     Given I am on sign in page
     When I enter form fields:
       | username | user |
       | password | qwerty1234 |
     And I click "Login" button
+    Then I wait 4 sec
     Then I go to the guide request page
     When I enter request form fields:
       | name | Alex |

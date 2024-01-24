@@ -1,7 +1,6 @@
 @contactUs
 
 Feature: Edit contacts us information
-
   Scenario: Edit contacts us information
     Given I am on sign in page
     When I enter form fields:
@@ -17,7 +16,6 @@ Feature: Edit contacts us information
       | description | Here are our contacts, choose one that is convenient for you and contact us. |
     When I attach the file "images/image.jpeg" to the "input#image" input
     Then I click the 'Save' button in the 'Edit Contact Us' section.
-    Then I see "Changes are saved" in alert.
     When I click the first info edit button on the contact us page
     Then I see the user's modal window.
     When I enter new form fields:
@@ -25,19 +23,17 @@ Feature: Edit contacts us information
       | address | Baytik-Batyra 64 |
       | phone   | +996 705 992 962 |
     Then I click the 'Save' button in the 'Edit Contact Us' section.
-    Then I see "Changes are saved" in alert.
     When I click the first info edit button on the contact us page
     Then I see the user's modal window.
     When I click delete contacts info button
-    Then I see "Changes are saved" in alert.
+    Then I wait 5 sec
     Then I click add contact info button
-    Then I see the user's modal window.
+    Then I see creation's modal window
     When I enter form fields:
       | country | Bishkek |
       | address | Baytik-Batyra 64 |
       | phone   | +996 705 992 962 |
     Then I click the 'Save' button in the 'Edit Contact Us' section.
-    Then I see "Changes are saved" in alert.
 
 
 

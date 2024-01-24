@@ -8,12 +8,15 @@ import { setIsLightMode } from '@/containers/config/configSlice';
 import { userRoles } from '@/constants';
 import Custom404 from '@/pages/404';
 import NewsForm from '@/components/Forms/NewsForm/NewsForm';
+import Head from 'next/head';
+import { useTranslations } from 'next-intl';
 
 const EditNews = () => {
   const dispatch = useAppDispatch();
   const { editID } = useParams() as {
     editID: string;
   };
+  const metaT = useTranslations('metaTags');
 
   const user = useAppSelector(selectUser);
 
@@ -26,10 +29,17 @@ const EditNews = () => {
   }
 
   return (
-    <div className="container sign-up-page">
-      <PageLoader />
-      <NewsForm isEdit idNews={editID} />
-    </div>
+    <>
+      <Head>
+        <title>{metaT('edit_news_title')}</title>
+        <meta name="description" content={metaT('edit_news_desc')} />
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+      <div className="container sign-up-page">
+        <PageLoader />
+        <NewsForm isEdit idNews={editID} />
+      </div>
+    </>
   );
 };
 

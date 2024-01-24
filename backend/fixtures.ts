@@ -128,6 +128,7 @@ const run = async () => {
         ru: 'Кыргызстан',
         kg: 'Кыргызстан',
       },
+      isPublished: true,
     },
     {
       user: user1._id,
@@ -146,6 +147,7 @@ const run = async () => {
         ru: 'Кыргызстан',
         kg: 'Кыргызстан',
       },
+      isPublished: true,
     },
     {
       user: user2._id,
@@ -164,7 +166,7 @@ const run = async () => {
         ru: 'Кыргызстан',
         kg: 'Кыргызстан',
       },
-      isPublished: false,
+      isPublished: true,
     },
   );
 
@@ -876,7 +878,7 @@ const run = async () => {
       date: '2023-11-08T11:22:03.760Z',
       category: ['places'],
       images: ['fixtures/reasons.jpeg'],
-      isPublished: true,
+      isPublished: false,
     },
   );
 

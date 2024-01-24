@@ -19,7 +19,7 @@ When("I click {string} button", (text: string) => {
 });
 
 Then("I go to the home page", () => {
-  I.amOnPage("/");
+  I.amOnPage("/en");
   I.wait(2);
 });
 
@@ -48,7 +48,7 @@ Then("I click {string} button", (text: string) => {
   I.click(`//button[contains(text(), '${text}')]`);
 });
 Then("I go to the home page", () => {
-  I.amOnPage("/");
+  I.amOnPage("/en");
   I.wait(3);
 });
 Given("I am on sign in page", () => {
@@ -68,7 +68,7 @@ When("I click the {string} button", (text: string) => {
 });
 
 Then("I navigate to the home page", () => {
-  I.amOnPage("/");
+  I.amOnPage("/en");
   I.wait(2);
 });
 
@@ -99,7 +99,7 @@ Then("I click {string} button", (text: string) => {
 });
 Then("I go to the home page", () => {
   I.wait(1);
-  I.amOnPage("/");
+  I.amOnPage("/en");
 });
 Given("I am on sign in page", () => {
   I.amOnPage("/login");
@@ -118,7 +118,7 @@ When("I click the {string} button", (text: string) => {
 });
 
 Then("I navigate to the home page", () => {
-  I.amOnPage("/");
+  I.amOnPage("/en");
   I.wait(2);
 });
 

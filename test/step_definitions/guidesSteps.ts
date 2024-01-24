@@ -3,7 +3,7 @@ import assert from "assert";
 const { I } = inject();
 
 Given("I am on sign in page", () => {
-  I.amOnPage("/login");
+  I.amOnPage("/en/login");
   I.wait(1);
 });
 
@@ -128,7 +128,7 @@ Then("I go to the guides page", () => {
 });
 
 When('I click the first "Delete" button', async () => {
-  I.click('//button[contains(text(), "Delete")][1]');
+  I.click('//button[contains(text(), "delete")][1]');
   I.wait(2);
 });
 

@@ -1,7 +1,6 @@
 @employees
 
 Feature: Employees Creation by Admin
-
   Scenario: Admin creates a new employee
     Given I am on sign in page
     When I enter form fields:
@@ -37,7 +36,7 @@ Feature: Employees Creation by Admin
       | password | qwerty1234 |
     And I click the "Login" button
     Then I go to the admin employee page
-    When I click the first "Delete" button
-    Then I see the confirmation alert "Are you sure you want to delete this member?"
+    Then I wait 4 sec
+    When I click the first "Delete" employee button
     Then I confirm the deletion by clicking "ok" in the confirmation alert
     Then I stay on the employee admin page

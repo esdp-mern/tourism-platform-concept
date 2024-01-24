@@ -46,7 +46,6 @@
 .guide-card__link {
   display: inline-block;
   width: 40%;
-  margin-top: 20px;
   text-decoration: none;
   color: #fff;
   background-color: #75c15b;
@@ -83,11 +82,6 @@
   text-decoration: underline;
 }
 @media (max-width: 640px) {
-  .guide-card {
-    width: 70%;
-    margin: 0 auto;
-  }
-
   .guide-card__link {
     font-size: 14px;
   }

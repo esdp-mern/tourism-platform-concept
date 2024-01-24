@@ -8,10 +8,13 @@ import {
 } from '@/containers/users/usersSlice';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import { GetServerSideProps } from 'next';
+import { useTranslations } from 'next-intl';
+import Head from 'next/head';
 
 const Login = () => {
   const dispatch = useAppDispatch();
   const error = useAppSelector(selectSignInError);
+  const metaT = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -22,9 +25,15 @@ const Login = () => {
   }, [error, dispatch]);
 
   return (
-    <div>
-      <SignInForm />
-    </div>
+    <>
+      <Head>
+        <title>{metaT('login')}</title>
+        <meta name="description" content="Login - Akim Tourism" />
+      </Head>
+      <div>
+        <SignInForm />
+      </div>
+    </>
   );
 };
 

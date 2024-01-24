@@ -3,7 +3,7 @@ import assert from "assert";
 const { I } = inject();
 
 Given("I am on home page", () => {
-  I.amOnPage("/");
+  I.amOnPage("/en");
   I.wait(2);
 });
 
@@ -32,7 +32,7 @@ Then("I go to the contact us page", () => {
 });
 
 Given("I am on sign in page", () => {
-  I.amOnPage("/login");
+  I.amOnPage("/en/login");
   I.wait(1);
 });
 
@@ -48,7 +48,7 @@ When("I click the {string} button", (text: string) => {
 });
 
 Then("I go to the home page", () => {
-  I.amOnPage("/");
+  I.amOnPage("/en");
   I.wait(3);
 });
 

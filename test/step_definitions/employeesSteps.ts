@@ -46,7 +46,7 @@ Then("I go to the admin employee page", () => {
 });
 
 Given("I am on sign in page", () => {
-  I.amOnPage("/login");
+  I.amOnPage("/en/login");
   I.wait(1);
 });
 
@@ -76,7 +76,7 @@ When("I navigate to the employee edit page", async () => {
 
   const parts = currentUrl.split("/");
   const id = parts[parts.length - 1];
-  I.amOnPage(`/employees/edit/${id}`);
+  I.amOnPage(`/en/employees/edit/${id}`);
   I.wait(1);
 });
 
@@ -97,7 +97,7 @@ Then("I go to the admin employee page", () => {
 });
 
 Given("I am on sign in page", () => {
-  I.amOnPage("/login");
+  I.amOnPage("/en/login");
   I.wait(1);
 });
 
@@ -117,8 +117,8 @@ Then("I go to the admin employee page", () => {
   I.wait(2);
 });
 
-When('I click the first "Delete" button', async () => {
-  I.click('//button[contains(text(), "Delete")][1]');
+When('I click the first "Delete" employee button', async () => {
+  I.click('(//button[contains(text(), "Delete")])[1]');
   I.wait(2);
 });
 

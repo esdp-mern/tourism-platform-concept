@@ -27,7 +27,7 @@ newsRouter.get('/', async (req, res) => {
 newsRouter.get('/all', async (req, res) => {
   try {
     const lang = (req.get('lang') as 'en') || 'ru' || 'kg';
-    if (req.query.true) {
+    if (req.query.true === 'all') {
       const news = await News.find();
       const localizedNews = news.map((item) => {
         return {
@@ -37,7 +37,10 @@ newsRouter.get('/all', async (req, res) => {
       });
       return res.send(localizedNews);
     }
-    const news = await News.find({ isPublished: false });
+
+    const news = await News.find({
+      isPublished: !(req.query.true === 'private'),
+    });
     const localizedNews = news.map((item) => {
       return {
         ...item.toObject(),

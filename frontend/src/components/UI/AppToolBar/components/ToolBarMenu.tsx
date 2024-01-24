@@ -14,6 +14,7 @@ import HotToursToolbar from '@/components/HotTours/HotToursToolbar';
 import EditorModal from '@/components/EditProfile/EditorModal';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import AdminIcon from '@/components/UI/AdminIcon/AdminIcon';
 
 interface IProps {
   show: boolean;
@@ -61,12 +62,13 @@ const ToolBarMenu: React.FC<IProps> = ({ show, onClick }) => {
             </div>
             <div className="profile-preview-btns">
               <button
-                className="edit-profile"
+                className="admin-button admin-button-mini admin-button-edit"
                 onClick={() => {
                   dispatch(setEditorModal());
                   onClick();
                 }}
               >
+                <AdminIcon type="edit" />
                 {logoutLoading ? (
                   <ButtonLoader size={16} />
                 ) : (
@@ -74,10 +76,11 @@ const ToolBarMenu: React.FC<IProps> = ({ show, onClick }) => {
                 )}
               </button>
               <button
-                className="logout"
+                className="admin-button admin-button-mini admin-button-delete"
                 onClick={userLogout}
                 disabled={logoutLoading}
               >
+                <AdminIcon type="logout" />
                 {logoutLoading ? <ButtonLoader size={16} /> : t('logout_btn')}
               </button>
             </div>

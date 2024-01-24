@@ -14,6 +14,8 @@ import { useRouter } from 'next/router';
 import TextFieldGuide from '@/components/UI/TextField/components/TextFieldGuide';
 import FilesInput from '@/components/UI/FileInput/FilesInput';
 import '@/styles/TourForm.css';
+import '@/styles/admin-buttons.css';
+import AdminIcon from '@/components/UI/AdminIcon/AdminIcon';
 import { useTranslations } from 'next-intl';
 
 interface Props {
@@ -47,6 +49,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
   const loading = useAppSelector(selectPostTourLoading);
   const tour = useAppSelector(selectOneTour);
   const routers = useRouter();
+  const t = useTranslations('tour_form');
   const [state, setState] = useState<ITourMutation>(
     isEdit && tour
       ? {
@@ -290,7 +293,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
     <div>
       <form className="form-tour" onSubmit={submitFormHandler}>
         <h2 className="form-tour-title">
-          {isEdit ? 'Edit Tour' : 'Create Tour'}
+          {isEdit ? t('tour_title_edit') : t('tour_title_create')}
         </h2>
         <div className="input-tour-wrap">
           <input
@@ -307,7 +310,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
             required
           />
           <label htmlFor="name" className="form-tour-label">
-            Tour name:
+            {t('name')}:
           </label>
           {Boolean(getFieldError('name')) && (
             <span className="error-tour">{getFieldError('name')}</span>
@@ -315,7 +318,8 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
         </div>
         <div className="input-tour-wrap" style={{ margin: '20px auto' }}>
           <h5 className="form-tour-title">
-            Guides for {state.name ? state.name : 'this'} tour:
+            {t('guides_for')} {state.name ? state.name : t('for_this')}{' '}
+            {t('for_tour')}:
           </h5>
           <TextFieldGuide
             name="guide"
@@ -340,7 +344,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
             required
           />
           <label htmlFor="country" className="form-tour-label">
-            Country:
+            {t('country')}:
           </label>
           {Boolean(getFieldError('country')) && (
             <span className="error-tour">{getFieldError('country')}</span>
@@ -361,7 +365,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
             required
           />
           <label htmlFor="duration" className="form-tour-label">
-            Duration:
+            {t('duration')}:
           </label>
           {Boolean(getFieldError('duration')) && (
             <span className="error-tour">{getFieldError('duration')}</span>
@@ -382,7 +386,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
             required
           />
           <label htmlFor="price" className="form-tour-label">
-            Price:
+            {t('price')}:
           </label>
           {Boolean(getFieldError('price')) && (
             <span className="error-tour">{getFieldError('price')}</span>
@@ -404,7 +408,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
               required
             />
             <label htmlFor="discountPrice" className="form-tour-label">
-              Discount price:
+              {t('discount')}:
             </label>
             {Boolean(getFieldError('discountPrice')) && (
               <span className="error-tour">
@@ -424,7 +428,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
             htmlFor="destination"
             className="form-tour-label form-tour-label-image"
           >
-            Main image:
+            {t('main_image')}:
           </label>
         </div>
         <div className="input-tour-wrap">
@@ -439,7 +443,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
             required
           />
           <label htmlFor="description" className="form-tour-label-two">
-            Description:
+            {t('description')}:
           </label>
           {Boolean(getFieldError('description')) && (
             <span className="error-tour">{getFieldError('description')}</span>
@@ -460,7 +464,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
             required
           />
           <label htmlFor="destination" className="form-tour-label">
-            Destination:
+            {t('destination')}:
           </label>
           {Boolean(getFieldError('destination')) && (
             <span className="error-tour">{getFieldError('destination')}</span>
@@ -480,7 +484,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
             required
           />
           <label htmlFor="arrival" className="form-tour-label-two">
-            Arrival:
+            {t('arrival')}:
           </label>
           {Boolean(getFieldError('arrival')) && (
             <span className="error-tour">{getFieldError('arrival')}</span>
@@ -500,7 +504,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
             required
           />
           <label htmlFor="departure" className="form-tour-label-two">
-            Departure:
+            {t('departure')}:
           </label>
           {Boolean(getFieldError('departure')) && (
             <span className="error-tour">{getFieldError('departure')}</span>
@@ -520,7 +524,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
             required
           />
           <label htmlFor="dressCode" className="form-tour-label-two">
-            Dress Code:
+            {t('dress_code')}:
           </label>
           {Boolean(getFieldError('dressCode')) && (
             <span className="error-tour">{getFieldError('dressCode')}</span>
@@ -536,17 +540,19 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
             htmlFor="destination"
             className="form-tour-label form-tour-label-image"
           >
-            Gallery image:
+            {t('gallery_image')}:
           </label>
         </div>
         <div className="form-tour-included">
-          <h5 className="form-tour-title">What is Included?</h5>
+          <h5 className="form-tour-title">{t('what_included')}</h5>
           <button
             type="button"
-            className="form-tour-btn-add"
+            className="admin-button admin-button-add"
+            style={{ width: '100%' }}
             onClick={() => addOneItem('included')}
           >
-            Add tag
+            <AdminIcon type="add" />
+            {t('add_tag')}
           </button>
           {included.map((including, index) => (
             <div key={index} style={{ display: 'flex', marginBottom: '10px' }}>
@@ -574,13 +580,15 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
           ))}
         </div>
         <div className="form-tour-included">
-          <h5 className="form-tour-title">Categories:</h5>
+          <h5 className="form-tour-title">{t('categories')}:</h5>
           <button
             type="button"
-            className="form-tour-btn-add"
+            className="admin-button admin-button-add"
+            style={{ width: '100%' }}
             onClick={() => addOneItem('category')}
           >
-            Add Category
+            <AdminIcon type="add" />
+            {t('add_category')}
           </button>
           {category.map((category, index) => (
             <div key={index} style={{ display: 'flex', marginBottom: '10px' }}>
@@ -608,17 +616,21 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
           ))}
         </div>
         <div className="form-tour-included">
-          <h5 className="form-tour-title">Tour plan:</h5>
+          <h5 className="form-tour-title">{t('tour_plan')}:</h5>
           <button
             type="button"
-            className="form-tour-btn-add"
+            className="admin-button admin-button-add"
+            style={{ width: '100%' }}
             onClick={() => addOneItem('plan')}
           >
-            Add day
+            <AdminIcon type="add" />
+            {t('add_day')}
           </button>
           {plan.map((_, index) => (
             <div key={index}>
-              <h6>{1 + index} day of the tour:</h6>
+              <h6>
+                {1 + index} {t('day_tour')}:
+              </h6>
               <div className="form-tour-plan">
                 <div>
                   <div className="input-tour-wrap">
@@ -634,7 +646,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
                       required
                     />
                     <label htmlFor={`title`} className="form-tour-label">
-                      Plan name:
+                      {t('plan_name')}:
                     </label>
                   </div>
                   <div className="input-tour-wrap">
@@ -652,7 +664,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
                       htmlFor={`planDescription${index}`}
                       className="form-tour-label-two"
                     >
-                      Plan description:
+                      {t('plan_description')}:
                     </label>
                   </div>
                 </div>
@@ -679,7 +691,7 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
             required
           />
           <label htmlFor="map" className="form-tour-label-two">
-            Google Maps link
+            {t('google_maps_link')}
           </label>
           {Boolean(getFieldError('map')) && (
             <span className="error-tour">{getFieldError('map')}</span>
@@ -699,20 +711,25 @@ const TourForm: React.FC<Props> = ({ isEdit, idTour }) => {
             required
           />
           <label htmlFor="mapLink" className="form-tour-label-two">
-            Link to Google Map editor
+            {t('google_maps_editor')}
           </label>
           {Boolean(getFieldError('mapLink')) && (
             <span className="error-tour">{getFieldError('mapLink')}</span>
           )}
         </div>
-        <button type="submit" className="form-tour-btn">
+        <button
+          type="submit"
+          className="admin-button admin-button-edit"
+          style={{ width: '100%' }}
+        >
           {loading ? (
             <ButtonLoader size={18} />
           ) : isEdit ? (
-            'Save Tour'
+            t('save_tour')
           ) : (
-            'Create Tour'
+            t('create_tour')
           )}
+          <AdminIcon type="save" />
         </button>
       </form>
     </div>

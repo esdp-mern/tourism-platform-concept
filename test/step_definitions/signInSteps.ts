@@ -1,7 +1,7 @@
 const { I } = inject();
 
 Given("I am on sign in page", () => {
-  I.amOnPage("/login");
+  I.amOnPage("/en/login");
   I.wait(1);
 });
 
@@ -22,7 +22,7 @@ Then("I see {string} in alert.", (text: string) => {
 });
 
 Given("I am on sign in page", () => {
-  I.amOnPage("/login");
+  I.amOnPage("/en/login");
   I.wait(1);
 });
 

@@ -17,7 +17,8 @@ const UserOrders = () => {
               {t('tour')}: {order.tour.name}
             </h4>
             <p className="orders_guide">
-              {t('guide')}: {order.guide.user.displayName}
+              {t('guide')}:{' '}
+              {order.guide ? order.guide.user.displayName : 'Unknown'}
             </p>
             <p className="orders_datetime">
               {t('date')}:{' '}

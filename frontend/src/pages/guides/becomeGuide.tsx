@@ -17,6 +17,7 @@ import Custom404 from '@/pages/404';
 import { GetServerSideProps } from 'next';
 import { useTranslations } from 'next-intl';
 import '@/styles/becomeGuide.css';
+import Head from 'next/head';
 
 const BecomeGuide = () => {
   const user = useAppSelector(selectUser);
@@ -36,6 +37,7 @@ const BecomeGuide = () => {
   const [focused, setFocused] = useState(false);
   const at = useTranslations('alert');
   const t = useTranslations('guide');
+  const metaT = useTranslations('metaTags');
 
   useEffect(() => {
     dispatch(setIsLightMode(true));
@@ -74,69 +76,75 @@ const BecomeGuide = () => {
   console.log(user);
 
   return (
-    <div className="container">
-      <PageLoader />
-      <div className="become-guide">
-        <form onSubmit={onSubmit} className="become-guide-form">
-          <h2>{t('become_form_title')}</h2>
-          <div style={{ display: 'none' }}>
+    <>
+      <Head>
+        <title>{metaT('become_guide_title')}</title>
+        <meta name="description" content={metaT('become_guide_desc')} />
+      </Head>
+      <div className="container">
+        <PageLoader />
+        <div className="become-guide">
+          <form onSubmit={onSubmit} className="become-guide-form">
+            <h2>{t('become_form_title')}</h2>
+            <div style={{ display: 'none' }}>
+              <TextField
+                name="user"
+                type="text"
+                value={userId}
+                onChange={onChange}
+                icon={peopleIcon.src}
+                label="user*"
+                required
+              />
+            </div>
             <TextField
-              name="user"
+              name="name"
               type="text"
-              value={userId}
+              value={state.name}
               onChange={onChange}
               icon={peopleIcon.src}
-              label="user*"
+              label={t('become_form_name')}
               required
             />
-          </div>
-          <TextField
-            name="name"
-            type="text"
-            value={state.name}
-            onChange={onChange}
-            icon={peopleIcon.src}
-            label={t('become_form_name')}
-            required
-          />
-          <TextField
-            name="surname"
-            type="text"
-            value={state.surname}
-            onChange={onChange}
-            icon={peopleIcon.src}
-            label={t('become_form_surname')}
-            required
-          />
-          <TextField
-            name="number"
-            type="text"
-            value={state.number}
-            onChange={onChange}
-            icon={phoneIcon.src}
-            label={t('become_form_phone')}
-            required
-          />
-          <textarea
-            className="guide-request-description"
-            value={state.message}
-            onChange={onChange}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            placeholder={focused ? '' : t('become_form_message')}
-            name="message"
-            required
-          />
-          <button type="submit" className="form-tour-btn">
-            {guideRequestLoading ? (
-              <ButtonLoader size={18} />
-            ) : (
-              t('become_form_send')
-            )}
-          </button>
-        </form>
+            <TextField
+              name="surname"
+              type="text"
+              value={state.surname}
+              onChange={onChange}
+              icon={peopleIcon.src}
+              label={t('become_form_surname')}
+              required
+            />
+            <TextField
+              name="number"
+              type="text"
+              value={state.number}
+              onChange={onChange}
+              icon={phoneIcon.src}
+              label={t('become_form_phone')}
+              required
+            />
+            <textarea
+              className="guide-request-description"
+              value={state.message}
+              onChange={onChange}
+              onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
+              placeholder={focused ? '' : t('become_form_message')}
+              name="message"
+              required
+            />
+            <button type="submit" className="form-tour-btn">
+              {guideRequestLoading ? (
+                <ButtonLoader size={18} />
+              ) : (
+                t('become_form_send')
+              )}
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -15,6 +15,8 @@ import { selectDeleteTourLoading } from '@/containers/tours/toursSlice';
 import { selectNewsPublishLoading } from '@/containers/news/newsSlice';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import AdminIcon from '@/components/UI/AdminIcon/AdminIcon';
+import '@/styles/admin-buttons.css';
 
 interface Props {
   news: INews;
@@ -54,36 +56,12 @@ const NewsItem: React.FC<Props> = ({ news }) => {
         <Link href={`/news/${news._id}`}>
           <div className="card-news-img-wrap">
             <Image fill src={apiUrl + '/' + news.images[0]} alt={news.title} />
-            {user && user.role === userRoles.admin ? (
-              <div
-                className={`${
-                  news.isPublished ? 'published-tour' : 'unpublished-tour'
-                } tour-info-publish`}
-              >
-                {news.isPublished
-                  ? t('news_all_published')
-                  : t('news_all_unpublished')}
-              </div>
-            ) : null}
           </div>
         </Link>
-        <div className="card-news-date">
-          {dayjs(news.date).format('DD.MM.YYYY')}
-        </div>
         {user && user.role === userRoles.admin ? (
-          <div className="buttons-news">
+          <div className="admin-buttons" style={{ margin: 10 }}>
             <button
-              className="btn-delete-tour"
-              type="button"
-              onClick={onDelete}
-              disabled={deleteLoading ? deleteLoading === news._id : false}
-            >
-              {deleteLoading && deleteLoading === news._id
-                ? t('news_all_delete_loading')
-                : t('news_all_delete')}
-            </button>
-            <button
-              className="btn-publish-tour"
+              className="admin-button admin-button-add"
               type="button"
               onClick={onPublish}
               disabled={publishLoading ? publishLoading === news._id : false}
@@ -92,15 +70,32 @@ const NewsItem: React.FC<Props> = ({ news }) => {
                 ? !news.isPublished
                   ? t('news_all_unpublish_loading')
                   : t('news_all_publish_loading')
-                : news.isPublished
+                : !news.isPublished
                   ? t('news_all_publish')
                   : t('news_all_unpublish')}
             </button>
-            <Link href={`/news/edit/${news._id}`} className="btn-tour-edit">
-              {t('news_all_edit')}
+            <Link
+              href={`/news/edit/${news._id}`}
+              className="admin-button admin-button-outline admin-button-edit"
+            >
+              <AdminIcon type="edit" />
             </Link>
+            <button
+              className="admin-button admin-button-outline admin-button-delete"
+              type="button"
+              onClick={onDelete}
+              disabled={deleteLoading ? deleteLoading === news._id : false}
+            >
+              <AdminIcon type="delete" />
+              {deleteLoading && deleteLoading === news._id
+                ? t('news_all_delete_loading')
+                : null}
+            </button>
           </div>
         ) : null}
+        <div className="card-news-date">
+          {dayjs(news.date).format('DD.MM.YYYY')}
+        </div>
         <hr className="card-news-line" />
         <Link href={`/news/${news._id}`} className="news-item-link">
           <div className="one-news-title">{news.title || '-'}</div>
