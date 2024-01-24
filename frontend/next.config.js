@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const { apiUrl } = require('./src/constants');
+
 module.exports = {
   i18n: {
     locales: ['en', 'ru', 'kg'],
