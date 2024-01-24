@@ -12,6 +12,7 @@ dotenv.config({ path: pathEnvFile });
 
 const config = {
   rootPath,
+  port: parseInt(process.env.PORT || '8000'),
   publicPath: path.join(rootPath, 'public'),
   db: 'mongodb://127.0.0.1:27017/tourism-platform-concept',
   google: {
