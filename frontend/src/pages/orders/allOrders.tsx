@@ -210,8 +210,10 @@ const AllOrders = () => {
                       </span>
                     </div>
                     <div className="user-info-row">
-                      <span>{order.guide.user.displayName || '-'}</span>
-                      <span>{order.guide.user.email || '-'}</span>
+                      <span>
+                        {order.guide ? order.guide.user.displayName : '-'}
+                      </span>
+                      <span>{order.guide ? order.guide.user.email : '-'}</span>
                     </div>
                   </div>
                 ))}

@@ -8,6 +8,7 @@ import calendarOrderIcon from '../../assets/images/calendar-icon.svg';
 import { IChangeEvent } from '@/components/OneTourOrderForm/OneTourOrderForm';
 import Image from 'next/image';
 import { format } from 'date-fns';
+import { useTranslations } from 'next-intl';
 
 const categoriesData = [
   { id: 'checkbox-1', label: 'history' },
@@ -22,7 +23,7 @@ type TCurrentTab = 'location' | 'categories' | 'min' | 'max';
 const TourFilter = () => {
   const params = useParams() as { pageNum: string };
   const limitTours = 6;
-
+  const t = useTranslations('filter');
   const dispatch = useAppDispatch();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [showCategories, setShowCategories] = useState<boolean>(false);
@@ -113,7 +114,7 @@ const TourFilter = () => {
               <input
                 ref={inputRef}
                 type="text"
-                placeholder="Location"
+                placeholder={t('location')}
                 className={`filter-link input-filter-name ${
                   currentTab === 'location' ? 'filter-active' : ''
                 }`}
@@ -124,7 +125,7 @@ const TourFilter = () => {
               <span
                 style={{ textTransform: searchTerm ? 'initial' : 'uppercase' }}
               >
-                {searchTerm || 'Location'}
+                {searchTerm || t('location')}
               </span>
             )}
           </button>
@@ -139,7 +140,7 @@ const TourFilter = () => {
         >
           <TextField
             name="date"
-            label="By date"
+            label={t('date')}
             type="date"
             value={date}
             onChange={handleDateChange}
@@ -157,7 +158,7 @@ const TourFilter = () => {
             }}
           >
             <span className="icon-filter"></span>
-            <span>Categories</span>
+            <span>{t('categories')}</span>
           </button>
 
           {showCategories ? (
@@ -179,7 +180,7 @@ const TourFilter = () => {
                             onChange={() => toggleCategory(category.label)}
                           />
                           <span className="checkbox-custom-dummy"></span>
-                          {category.label}
+                          {t(category.label)}
                         </label>
                       </li>
                     ))}
@@ -196,7 +197,7 @@ const TourFilter = () => {
             src={magnifierIcon.src}
             alt="magnifier-icon"
           />
-          Search
+          {t('search')}
         </button>
       </ul>
     </section>

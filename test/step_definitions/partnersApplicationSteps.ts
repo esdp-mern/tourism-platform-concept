@@ -2,10 +2,6 @@ import assert from "assert";
 
 const { I } = inject();
 
-Then("I click {string} admin link", (text: string) => {
-    I.click(`//h4[contains(text(), '${text}')]`);
-});
-
 When("I'm looking for the right application and accept application", async () => {
     let partnerCards = await I.grabNumberOfVisibleElements("//div[@class='guide-card']");
 

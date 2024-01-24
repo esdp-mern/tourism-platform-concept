@@ -90,6 +90,7 @@ const ContactUs = () => {
       await dispatch(editContacts(state)).unwrap();
       await dispatch(fetchContacts());
       setEditModalTitle(false);
+      setEditModalInfo(false);
       dispatch(addAlert({ message: a('changes_saved'), type: 'info' }));
     } catch (e) {
       if (e instanceof AxiosError) {
@@ -109,6 +110,7 @@ const ContactUs = () => {
       ).unwrap();
 
       await dispatch(fetchContacts());
+      setEditModalTitle(false);
       setEditModalInfo(false);
       dispatch(addAlert({ message: a('changes_saved'), type: 'info' }));
     } catch (e) {
@@ -173,6 +175,8 @@ const ContactUs = () => {
   const contactDeleteHandler = async (id: string) => {
     await dispatch(deleteContact(id));
     void dispatch(fetchContacts());
+    setEditModalTitle(false);
+    setEditModalInfo(false);
   };
 
   return (

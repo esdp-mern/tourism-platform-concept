@@ -3,7 +3,7 @@ import assert from "assert";
 const { I } = inject();
 
 Given("I am on sign in page", () => {
-  I.amOnPage("/login");
+  I.amOnPage("/en/login");
   I.wait(1);
 });
 
@@ -53,12 +53,12 @@ Then("I click {string} button", (text: string) => {
 });
 
 Then("I go to the home page", () => {
-  I.amOnPage("/");
+  I.amOnPage("/en");
   I.wait(3);
 });
 
 Given("I am on sign in page", () => {
-  I.amOnPage("/login");
+  I.amOnPage("/en/login");
   I.wait(1);
 });
 
@@ -83,8 +83,8 @@ When('I click the {string} button', (text: string) => {
   I.wait(2);
 });
 
-When('I click the first "Edit" link', async () => {
-  I.click('//a[contains(text(), "Edit")][1]');
+When('I click the first "Edit" news link', async () => {
+  I.click('(//a[contains(text(), "edit")])[1]');
   I.wait(2);
 });
 
@@ -109,11 +109,11 @@ Then("I click {string} button", (text: string) => {
 });
 
 Then("I go to the home page", () => {
-  I.amOnPage("/");
+  I.amOnPage("/en");
   I.wait(3);
 });
 Given("I am on sign in page", () => {
-  I.amOnPage("/login");
+  I.amOnPage("/en/login");
   I.wait(1);
 });
 
@@ -137,7 +137,7 @@ When('I click the {string} button', (text: string) => {
   I.wait(2);
 });
 When('I click the first "Delete" button', async () => {
-  I.click('//button[contains(text(), "Delete")][1]');
+  I.click('(//button[contains(text(), "delete")])[1]');
   I.wait(2);
 });
 Then(

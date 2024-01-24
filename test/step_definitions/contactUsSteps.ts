@@ -22,8 +22,13 @@ When('I click add contact info button', async () => {
     I.wait(2);
 });
 
+Then("I see creation's modal window", () => {
+    I.wait(3);
+    I.seeElement("//div[contains(@class, 'editor-modal-open')]");
+});
+
 
 When("I click delete contacts info button", () => {
-    I.click(`//button[@name="delete-contact-info" and contains(text(), "Delete")]`);
+    I.click(`//button[@name="delete-contact-info" and contains(text(), "delete")]`);
     I.wait(2);
 });

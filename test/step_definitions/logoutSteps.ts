@@ -10,6 +10,11 @@ When("I click menu button", () => {
 When("I click edit profile button", () => {
     I.click(`//button[contains(@class, 'edit-profile page-profile_edit-btn')]`);
 });
+Then("I go to profile page", () => {
+    I.amOnPage("/news/create");
+    I.wait(2);
+});
+
 Then("the user menu should be visible", () => {
     I.wait(3);
     I.seeElement("//div[contains(@class, 'menu-active')]");

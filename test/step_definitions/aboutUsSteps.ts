@@ -11,6 +11,13 @@ When("I click {string} edit button", (text: string) => {
     I.click(`//button[@class="about-page-edit-btn" and @name='${text}']`);
     I.wait(2);
 });
+//*[@id="__next"]/header/div[1]/div[1]/span/img
+When("I change language to EN", (text: string) => {
+    I.click(`//*[@id="__next"]/header/div[1]/div[1]/span/img`);
+    I.wait(2);
+    I.click(`//img[@src="/_next/image?url=http%3A%2F%2Flocalhost%3A8000%2Ffixtures%2Fen.jpg&w=96&q=75"]`);
+    I.wait(4);
+});
 
 When("I enter new form fields:", (userData) => {
     userData.rows.forEach((row) => {
