@@ -1,9 +1,14 @@
 import path from 'path';
 import { config as configDotenv } from 'dotenv';
+import * as dotenv from 'dotenv';
 
 configDotenv();
 
+const pathEnvFile = process.env.NODE_ENV
+  ? `.env.${process.env.NODE_ENV}`
+  : '.env';
 const rootPath = __dirname;
+dotenv.config({ path: pathEnvFile });
 
 const config = {
   rootPath,
