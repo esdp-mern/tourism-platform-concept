@@ -56,7 +56,7 @@ const run = async () => {
   mongoose.set('strictQuery', false);
   await mongoose.connect(config.db);
 
-  app.listen(port, () => console.log(`Server started on ${port} port...`));
+  app.listen(config.port, () => console.log(`Server started on ${config.port} port...`));
 
   process.on('exit', () => {
     mongoose.disconnect();
