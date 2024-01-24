@@ -2,14 +2,14 @@ import assert from "assert";
 
 const { I } = inject();
 Given('I am on home page', async () => {
-  I.amOnPage("/");
+  I.amOnPage("/en");
   I.wait(2);
 });
 
 Given("I click the {string} tour", async (number: string) => {
   const idAttribute = await I.grabAttributeFrom(`(//div[@class="tour-item"])[${number}]`, 'id');
   I.wait(3);
-  I.amOnPage(`/tours/${idAttribute}`);
+  I.amOnPage(`/en/tours/${idAttribute}`);
   I.wait(5);
 });
 
@@ -18,7 +18,7 @@ When("I navigate to the one tour page", async () => {
 
   const parts = currentUrl.split("/");
   const id = parts[parts.length - 1];
-  I.amOnPage(`/tours/${id}`);
+  I.amOnPage(`/en/tours/${id}`);
   I.wait(1);
 });
 
@@ -57,12 +57,12 @@ When("I click book button", () => {
 });
 
 Then("I go back to the home page", () => {
-  I.amOnPage("/");
+  I.amOnPage("/en");
   I.wait(2);
 });
 
 Given("I am on sign in page", () => {
-  I.amOnPage("/login");
+  I.amOnPage("/en/login");
   I.wait(1);
 });
 

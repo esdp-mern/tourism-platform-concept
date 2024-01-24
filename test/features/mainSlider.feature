@@ -8,7 +8,7 @@ Feature: MainSlider Creation by Admin
       | username | admin      |
       | password | qwerty1234 |
     And I click "Login" button
-    Then I go to the home page
+    Then I wait 5 sec
     Then I click "Add new slider" button
     Then I go to the slider creation page
     When I enter form fields:
@@ -43,3 +43,4 @@ Feature: MainSlider Creation by Admin
     Then I see the confirmation alert "Are you sure you want to delete this slider?"
     Then I confirm the deletion by clicking "ok" in the confirmation alert
     Then I stay on the home page
+

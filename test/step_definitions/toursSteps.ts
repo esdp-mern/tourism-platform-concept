@@ -3,7 +3,7 @@ import assert from "assert";
 const { I } = inject();
 
 Given("I am on sign in page", () => {
-  I.amOnPage("/login");
+  I.amOnPage("/en/login");
   I.wait(1);
 });
 
@@ -48,7 +48,7 @@ Then("I go to the home page", () => {
 });
 
 Given("I am on sign in page", () => {
-  I.amOnPage("/login");
+  I.amOnPage("/en/login");
   I.wait(1);
 });
 
@@ -113,7 +113,7 @@ Then("I go to the admin tours page", () => {
 });
 
 Given("I am on sign in page", () => {
-  I.amOnPage("/login");
+  I.amOnPage("/en/login");
   I.wait(1);
 });
 

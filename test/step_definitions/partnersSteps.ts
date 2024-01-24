@@ -3,7 +3,7 @@ import assert from "assert";
 const { I } = inject();
 
 Given("I am on sign in page", () => {
-  I.amOnPage("/login");
+  I.amOnPage("/en/login");
   I.wait(1);
 });
 
@@ -30,7 +30,7 @@ When("I click {string} link", (text: string) => {
 });
 
 Then("I go to the partner accepting page", () => {
-  I.amOnPage("/admin/partnerOrders/1");
+  I.amOnPage("/en/admin/partnerOrders/1");
   I.wait(5);
 });
 
@@ -54,7 +54,7 @@ When("I navigate to the partner edit page", async () => {
 
   const parts = currentUrl.split("/");
   const id = parts[parts.length - 1];
-  I.amOnPage(`/partners/edit/${id}`);
+  I.amOnPage(`/en/partners/edit/${id}`);
   I.wait(3);
 });
 When("I enter new partner form fields:", (userData) => {

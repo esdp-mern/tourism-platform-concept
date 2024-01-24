@@ -878,7 +878,7 @@ const run = async () => {
       date: '2023-11-08T11:22:03.760Z',
       category: ['places'],
       images: ['fixtures/reasons.jpeg'],
-      isPublished: true,
+      isPublished: false,
     },
   );
 

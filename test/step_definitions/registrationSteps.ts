@@ -3,7 +3,7 @@ import assert from "assert";
 const { I } = inject();
 
 Given("I am on the registration page", () => {
-  I.amOnPage("/register");
+  I.amOnPage("/en/register");
   I.wait(1);
 });
 
@@ -24,7 +24,7 @@ Then("I see {string} in alert.", (text: string) => {
 });
 
 Given("I am on the registration page", () => {
-  I.amOnPage("/register");
+  I.amOnPage("/en/register");
   I.wait(1);
 });
 
@@ -45,7 +45,7 @@ Then("I see {string} in alert.", (text: string) => {
 });
 
 Given("I am on the registration page", () => {
-  I.amOnPage("/register");
+  I.amOnPage("/en/register");
   I.wait(1);
 });
 
@@ -61,7 +61,7 @@ When("I click {string} button", (text: string) => {
 });
 
 Then("I should stay on the registration page", () => {
-  I.seeInCurrentUrl("/register");
+  I.seeInCurrentUrl("/en/register");
 });
 
 Then("the registration form should still be visible", () => {
