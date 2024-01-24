@@ -12,6 +12,8 @@ import { selectUser } from '@/containers/users/usersSlice';
 import Image from 'next/image';
 import { GetServerSideProps } from 'next';
 import { useTranslations } from 'next-intl';
+import '@/styles/admin-buttons.css';
+import AdminIcon from '@/components/UI/AdminIcon/AdminIcon';
 import Head from 'next/head';
 
 const Partners = () => {
@@ -68,19 +70,21 @@ const Partners = () => {
                           partner.name
                         )}
                       </div>
-                      <div className="buttons-admin-partners">
-                        <button
-                          className="btn-delete-tour"
-                          onClick={() => onDelete(partner._id)}
-                        >
-                          {t('delete')}
-                        </button>
+                      <div className="admin-buttons">
                         <Link
                           href={`/partners/edit/${partner._id}`}
-                          className="btn-tour-edit"
+                          className="admin-button admin-button-edit"
                         >
+                          <AdminIcon type="edit" />
                           {t('edit')}
                         </Link>
+                        <button
+                          className="admin-button admin-button-delete"
+                          onClick={() => onDelete(partner._id)}
+                        >
+                          <AdminIcon type="delete" />
+                          {t('delete')}
+                        </button>
                       </div>
                     </div>
                   ) : (
@@ -100,19 +104,21 @@ const Partners = () => {
                           partner.name
                         )}
                       </div>
-                      <div className="buttons-admin-partners">
-                        <button
-                          className="btn-delete-tour"
-                          onClick={() => onDelete(partner._id)}
-                        >
-                          {t('delete')}
-                        </button>
+                      <div className="admin-buttons">
                         <Link
                           href={`/partners/edit/${partner._id}`}
-                          className="btn-tour-edit"
+                          className="admin-button admin-button-edit"
                         >
+                          <AdminIcon type="edit" />
                           {t('edit')}
                         </Link>
+                        <button
+                          className="admin-button admin-button-delete"
+                          onClick={() => onDelete(partner._id)}
+                        >
+                          <AdminIcon type="delete" />
+                          {t('delete')}
+                        </button>
                       </div>
                     </div>
                   ),

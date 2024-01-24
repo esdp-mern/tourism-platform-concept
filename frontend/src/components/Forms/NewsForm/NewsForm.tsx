@@ -13,6 +13,8 @@ import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import { setIsLightMode } from '@/containers/config/configSlice';
 import { useTranslations } from 'next-intl';
 import '@/styles/newReviewForm.css';
+import '@/styles/admin-buttons.css';
+import AdminIcon from '@/components/UI/AdminIcon/AdminIcon';
 
 interface Props {
   isEdit?: boolean;
@@ -186,9 +188,11 @@ const NewsForm: React.FC<Props> = ({ isEdit, idNews }) => {
         <h5 className="form-news-title">{t('news_categories')}:</h5>
         <button
           type="button"
-          className="form-news-btn-add"
+          className="admin-button admin-button-add"
+          style={{ width: '100%' }}
           onClick={() => addOneItem()}
         >
+          <AdminIcon type="add" />
           {t(`news_create_add_category`)}
         </button>
         {category.map((category, index) => (
@@ -213,7 +217,11 @@ const NewsForm: React.FC<Props> = ({ isEdit, idNews }) => {
           </div>
         ))}
       </div>
-      <button type="submit" className="form-news-btn">
+      <button
+        type="submit"
+        className="admin-button admin-button-edit"
+        style={{ width: '100%', marginTop: 30 }}
+      >
         {loading ? (
           <ButtonLoader size={18} />
         ) : isEdit ? (
@@ -221,6 +229,7 @@ const NewsForm: React.FC<Props> = ({ isEdit, idNews }) => {
         ) : (
           t(`news_create_form_create_news`)
         )}
+        <AdminIcon type="save" />
       </button>
     </form>
   );

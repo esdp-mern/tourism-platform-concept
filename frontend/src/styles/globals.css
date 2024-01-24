@@ -26,12 +26,6 @@ body {
   border: 0;
 }
 
-.buttons-tour {
-  margin: 20px 0 0 auto;
-  display: flex;
-  align-items: end;
-}
-
 .btn-tour-edit {
   background: #297a0d;
   border: 1px solid transparent;

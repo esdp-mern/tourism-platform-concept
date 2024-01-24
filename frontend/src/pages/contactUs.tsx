@@ -19,14 +19,15 @@ import { AxiosError } from 'axios';
 import { apiUrl, userRoles } from '@/constants';
 import TextField from '@/components/UI/TextField/TextField';
 import peopleIcon from '@/assets/images/people-icon.svg';
-import penIcon from '@/assets/images/pen-icon-green.svg';
+import penIcon from '@/assets/images/pen-icon.svg';
 import ButtonLoader from '@/components/Loaders/ButtonLoader';
 import Image from 'next/image';
 import FileInput from '@/components/UI/FileInput/FileInput';
 import { GetServerSideProps } from 'next';
 import { useTranslations } from 'next-intl';
-import '@/styles/contactUs.css';
 import Head from 'next/head';
+import AdminIcon from '@/components/UI/AdminIcon/AdminIcon';
+import '@/styles/contactUs.css';
 
 const ContactUs = () => {
   const dispatch = useAppDispatch();
@@ -211,6 +212,7 @@ const ContactUs = () => {
                   <input
                     type="text"
                     className="form-tour-control"
+                    style={{ margin: 0 }}
                     name={`country`}
                     id={`country`}
                     value={editContact?.country}
@@ -227,6 +229,7 @@ const ContactUs = () => {
                   <input
                     type="text"
                     className="form-tour-control"
+                    style={{ margin: 0 }}
                     name={`address`}
                     id={`address`}
                     value={editContact?.address}
@@ -243,6 +246,7 @@ const ContactUs = () => {
                   <input
                     type="text"
                     className="form-tour-control"
+                    style={{ margin: 0 }}
                     name={`phone`}
                     id={`phone`}
                     value={editContact?.phone}
@@ -255,25 +259,35 @@ const ContactUs = () => {
                     {t('contact_phone_field')}
                   </label>
                 </div>
-                <button
-                  type="button"
-                  className="form-btn-delete"
-                  onClick={() => {
-                    if (!editContact?._id) return;
-                    void contactDeleteHandler(editContact._id);
-                  }}
-                  name="delete-contact-info"
-                >
-                  {t('contact_delete')}
-                </button>
-                <button
-                  type="submit"
-                  className="form-tour-btn"
-                  style={{ margin: 0 }}
-                  name="contacts-title-edit-btn"
-                >
-                  {editContactsLoading ? <ButtonLoader size={18} /> : t('save')}
-                </button>
+                <div className="form-contact-buttons">
+                  <button
+                    type="submit"
+                    className="admin-button admin-button-edit"
+                    style={{ margin: 0 }}
+                    name="contacts-title-edit-btn"
+                  >
+                    {editContactsLoading ? (
+                      <ButtonLoader size={18} />
+                    ) : (
+                      t('save')
+                    )}
+                    <AdminIcon type="save" />
+                  </button>
+
+                  {editContact._id && (
+                    <button
+                      type="button"
+                      className="admin-button admin-button-outline admin-button-delete"
+                      onClick={() => {
+                        if (!editContact?._id) return;
+                        void contactDeleteHandler(editContact._id);
+                      }}
+                      name="delete-contact-info"
+                    >
+                      <AdminIcon type="delete" />
+                    </button>
+                  )}
+                </div>
               </form>
             </div>
           )}
@@ -395,7 +409,10 @@ const ContactUs = () => {
                 label={t('banner_title_field')}
                 required
               />
-              <div className="input-wrap" style={{ padding: '20px 0' }}>
+              <div
+                className="input-wrap"
+                style={{ marginTop: 20, marginBottom: 0 }}
+              >
                 <label className="form-label-avatar avatar" htmlFor="image">
                   {t('banner_image_field')}
                 </label>
@@ -408,11 +425,12 @@ const ContactUs = () => {
               </div>
               <button
                 type="submit"
-                className="form-tour-btn"
-                style={{ margin: 0 }}
+                className="admin-button admin-button-edit"
+                style={{ width: '100%' }}
                 name="contacts-title-edit-btn"
               >
                 {editContactsLoading ? <ButtonLoader size={18} /> : t('save')}
+                <AdminIcon type="save" />
               </button>
             </form>
           </div>

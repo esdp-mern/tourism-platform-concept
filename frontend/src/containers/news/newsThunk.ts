@@ -10,14 +10,10 @@ export const fetchNews = createAsyncThunk<INews[]>(
     return response.data;
   },
 );
-export const fetchAdminNews = createAsyncThunk<INews[], void | boolean>(
+export const fetchAdminNews = createAsyncThunk<INews[], void | string>(
   'news/fetchAdminAll',
   async (all) => {
-    if (all) {
-      const response = await axiosApi.get<INews[]>('/news/all?true=all');
-      return response.data;
-    }
-    const response = await axiosApi.get<INews[]>('/news/all');
+    const response = await axiosApi.get<INews[]>(`/news/all?true=${all}`);
     return response.data;
   },
 );

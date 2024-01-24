@@ -26,7 +26,7 @@ const AllToursPage = () => {
   const toursPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
   const [currentTours, setCurrentTours] = useState<
-    'all' | 'published' | 'nonPublished'
+    'all' | 'public' | 'unpublic'
   >('all');
   const t = useTranslations('metaTags');
 
@@ -35,39 +35,15 @@ const AllToursPage = () => {
   const nPages = Math.ceil(allToursLength / toursPerPage);
 
   useEffect(() => {
+    dispatch(
+      fetchAdminTours({
+        all: true,
+        skip: indexOfFirstRecord,
+        limit: toursPerPage,
+      }),
+    );
     dispatch(setIsLightMode(true));
   }, [dispatch]);
-
-  useEffect(() => {
-    switch (currentTours) {
-      case 'all':
-        dispatch(
-          fetchAdminTours({
-            all: true,
-            skip: indexOfFirstRecord,
-            limit: toursPerPage,
-          }),
-        );
-        break;
-      case 'published':
-        dispatch(fetchTours({ skip: indexOfFirstRecord, limit: toursPerPage }));
-        break;
-      case 'nonPublished':
-        dispatch(
-          fetchAdminTours({ skip: indexOfFirstRecord, limit: toursPerPage }),
-        );
-        break;
-      default:
-        dispatch(
-          fetchAdminTours({
-            all: true,
-            skip: indexOfFirstRecord,
-            limit: toursPerPage,
-          }),
-        );
-        break;
-    }
-  }, [currentTours, dispatch, currentPage, indexOfFirstRecord]);
 
   if (!user || user.role !== userRoles.admin) {
     return <Custom404 errorType="tour" />;
@@ -93,23 +69,54 @@ const AllToursPage = () => {
             <div style={{ margin: '100px auto 0 0' }}>
               <div className="buttons-admin-tour">
                 <button
-                  className="btn-admin-fetch-tour btn-admin-all"
+                  className={`btn-admin-fetch-tour btn-admin-all ${
+                    currentTours === 'all' && 'focus'
+                  }`}
                   type="button"
-                  onClick={() => setCurrentTours('all')}
+                  onClick={async () => {
+                    await dispatch(
+                      fetchAdminTours({
+                        all: true,
+                        skip: indexOfFirstRecord,
+                        limit: toursPerPage,
+                      }),
+                    );
+                    setCurrentTours('all');
+                  }}
                 >
                   all
                 </button>
                 <button
-                  className="btn-admin-fetch-tour btn-admin-pub"
+                  className={`btn-admin-fetch-tour btn-admin-pub ${
+                    currentTours === 'public' && 'focus'
+                  }`}
                   type="button"
-                  onClick={() => setCurrentTours('published')}
+                  onClick={async () => {
+                    await dispatch(
+                      fetchTours({
+                        skip: indexOfFirstRecord,
+                        limit: toursPerPage,
+                      }),
+                    );
+                    setCurrentTours('public');
+                  }}
                 >
                   published
                 </button>
                 <button
-                  className="btn-admin-fetch-tour btn-admin-non-pub"
+                  className={`btn-admin-fetch-tour btn-admin-non-pub ${
+                    currentTours === 'unpublic' && 'focus'
+                  }`}
                   type="button"
-                  onClick={() => setCurrentTours('nonPublished')}
+                  onClick={async () => {
+                    await dispatch(
+                      fetchAdminTours({
+                        skip: indexOfFirstRecord,
+                        limit: toursPerPage,
+                      }),
+                    );
+                    setCurrentTours('unpublic');
+                  }}
                 >
                   non published
                 </button>

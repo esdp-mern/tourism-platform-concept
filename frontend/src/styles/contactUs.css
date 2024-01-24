@@ -179,14 +179,15 @@ textarea::placeholder {
   background: #ffa133;
 }
 
-.form-btn-delete {
-  border: 0;
-  padding: 7px 7px;
-  color: #fff;
-  background: #7e0000;
-  margin: 10px;
-  border-radius: 5px;
-  cursor: pointer;
+.form-contact-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.form-contact-buttons button:nth-child(1) {
+  width: 100%;
 }
 
 .icon-container-edit-contacts {

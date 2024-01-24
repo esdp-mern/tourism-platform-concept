@@ -14,6 +14,8 @@ import { AxiosError } from 'axios';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import '@/styles/GuideItem.css';
+import '@/styles/admin-buttons.css';
+import AdminIcon from '@/components/UI/AdminIcon/AdminIcon';
 
 interface Props {
   id: string;
@@ -102,29 +104,21 @@ const PartnerOrderItem: React.FC<Props> = ({
           </p>
         )}
         {user && user.role === userRoles.admin ? (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              marginTop: '5px',
-            }}
-          >
-            <div className="guide-card__btn" style={{ margin: '5px' }}>
-              <button
-                style={{ background: 'green' }}
-                onClick={() => onAccept(id)}
-              >
-                {t('accept')}
-              </button>
-            </div>
-            <div className="guide-card__btn" style={{ margin: '5px' }}>
-              <button
-                onClick={() => onDelete(id)}
-                style={{ background: '#8c0404' }}
-              >
-                {t('delete')}
-              </button>
-            </div>
+          <div className="admin-buttons" style={{ justifyContent: 'center' }}>
+            <button
+              className="admin-button admin-button-edit"
+              onClick={() => onAccept(id)}
+            >
+              {t('accept')}
+              <AdminIcon type="save" />
+            </button>
+            <button
+              className="admin-button admin-button-outline admin-button-delete"
+              style={{ position: 'absolute', top: 10, right: 10 }}
+              onClick={() => onDelete(id)}
+            >
+              <AdminIcon type="delete" />
+            </button>
           </div>
         ) : null}
       </div>

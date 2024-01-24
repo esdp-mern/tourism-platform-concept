@@ -8,6 +8,8 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import '@/styles/GuideItem.css';
 import '@/styles/OneGuidePage.css';
+import '@/styles/admin-buttons.css';
+import AdminIcon from '@/components/UI/AdminIcon/AdminIcon';
 
 interface Props {
   id: string;
@@ -44,14 +46,27 @@ const GuideItem: React.FC<Props> = ({
       <div className="guide-card__content">
         <h2 className="guide-card__name">{name}</h2>
         <p className="guide-card__description">{description}</p>
-        <Link href={`/guides/${id}`} className="guide-card__link">
-          {t(`guideViewMore`)}
-        </Link>
-        {user && user.role === userRoles.admin ? (
-          <div className="guide-card__btn">
-            <button onClick={() => onDelete(id)}>{t(`guideDelete`)}</button>
-          </div>
-        ) : null}
+        <div
+          className="admin-buttons"
+          style={{ flexWrap: 'wrap', justifyContent: 'center' }}
+        >
+          <Link
+            href={`/guides/${id}`}
+            className="admin-button admin-button-edit"
+            style={{ width: '100%' }}
+          >
+            {t(`guideViewMore`)}
+          </Link>
+          {user && user.role === userRoles.admin ? (
+            <button
+              className="admin-button admin-button-delete"
+              onClick={() => onDelete(id)}
+            >
+              <AdminIcon type="delete" />
+              {t(`guideDelete`)}
+            </button>
+          ) : null}
+        </div>
       </div>
     </div>
   );

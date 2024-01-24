@@ -62,7 +62,7 @@
   box-shadow: 0 0 30px 5px rgba(0, 0, 0, 0.5);
 }
 
-.btn-admin-fetch-tour:focus {
+.btn-admin-fetch-tour.focus {
   color: #000000;
   background: none;
   border: 1px solid #000000;
