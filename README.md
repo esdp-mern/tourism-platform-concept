@@ -11,17 +11,14 @@ To start the project, you need to do the following:
    
    `git clone -b local_version git@github.com:esdp-mern/tourism-platform-concept.git`
 
-2) Go to teminal, open backend and run following commands:
+2) Go to teminal, open backend and run following command:
 
-   `npm install`
-   `npm run seed`
-   `npm run dev`
+   `npm i && npm run seed && npm run dev`
 
-4) Open frontend and run following commands:
+3) Open frontend and run following commands:
 
-   `npm install`
-   `npm run dev`
+   `npm i && npm run dev`
 
-3) Open browser and enjoy the project
+4) Open browser and enjoy the project
 
    `http://localhost:3000`
