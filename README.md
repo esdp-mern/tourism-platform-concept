@@ -3,7 +3,7 @@ This SPA project was implemented for a travel company. The project consists of a
 
 Used stack of technologies: 
 
-`Node.js` `MongoDB` `Express` `Next.js` `Redux Toolkit` `Tests Jenkins` `GIT` `JIRA`
+`Node.js` `MongoDB` `Express` `Next.js` `Redux Toolkit` `Tests Gherkin` `GIT` `JIRA` `Deploy Jenkins`
 
 To start the project, you need to do the following:
 
